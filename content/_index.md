@@ -1,17 +1,13 @@
 ---
-title: My Site
+title: Keras Deep Learning
 toc: false
 ---
 
-This is the landing page.
+이 사이트에서는 Keras로 딥러닝을 살펴봅니다.
 
-## Explore
+## 탐색하기
 
 {{< cards >}}
   {{< card link="docs" title="Docs" icon="book-open" >}}
   {{< card link="about" title="About" icon="user" >}}
 {{< /cards >}}
-
-## Documentation
-
-For more information, visit [Hextra](https://imfing.github.io/hextra).

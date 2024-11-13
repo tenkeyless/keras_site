@@ -1,18 +1,5 @@
 ---
-title: Documentation
-next: first-page
+title: 딥러닝
 ---
 
-This is a demo of the theme's documentation layout.
-
-## Hello, World!
-
-```go {filename="main.go"}
-package main
-
-import "fmt"
-
-func main() {
-    fmt.Println("Hello, World!")
-}
-```
+Keras로 딥러닝을 살펴봅시다!
