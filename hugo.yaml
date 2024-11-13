@@ -1,5 +1,5 @@
 # Hugo configuration file
-title: My Site
+title: Keras Deep Learning
 
 # import hextra as module
 module:
@@ -18,7 +18,7 @@ markup:
 
 menu:
   main:
-    - name: Docs
+    - name: 문서
       pageRef: /docs
       weight: 1
     - name: About
@@ -36,11 +36,6 @@ menu:
       url: "https://github.com/imfing/hextra-starter-template"
       params:
         icon: github
-    - name: Twitter
-      weight: 6
-      url: "https://twitter.com/"
-      params:
-        icon: x-twitter
 
 params:
   navbar:
@@ -54,3 +49,12 @@ params:
   editURL:
     enable: true
     base: "https://github.com/imfing/hextra-starter-template/edit/main/content"
+
+defaultContentLanguage: ko
+languages:
+  ko:
+    languageName: 한국어
+    weight: 1
+  en:
+    languageName: English
+    weight: 2
