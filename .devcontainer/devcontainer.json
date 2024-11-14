@@ -18,5 +18,5 @@
     }
   },
   "forwardPorts": [1313],
-  "postCreateCommand": "hugo server --buildDrafts --disableFastRender --bind=0.0.0.0"
+  "postStartCommand": "hugo server --buildDrafts --disableFastRender --bind=0.0.0.0"
 }
