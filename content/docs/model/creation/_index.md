@@ -1,5 +1,6 @@
 ---
 title: 딥러닝 모델 생성
+linkTitle: 모델 생성
 type: docs
 next: docs/model/creation/sequential-api
 sidebar:
