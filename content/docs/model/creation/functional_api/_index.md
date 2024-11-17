@@ -41,7 +41,7 @@ model = keras.Model(inputs=inputs, outputs=outputs)
 
 이를 통해 모델의 하위 구성요소를 빠르게 추출할 수 있습니다.
 
-### 예제1. 중간 텐서를 사용한 새로운 모델
+### 예제 1. 중간 텐서를 사용한 새로운 모델
 
 ```python
 inputs = keras.Input(shape=(None, None, 3))

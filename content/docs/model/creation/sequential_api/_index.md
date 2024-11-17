@@ -22,9 +22,9 @@ keras.Sequential(layers=None, trainable=True, name=None)
 
 `Sequential`은 선형 레이어 스택을 `Model`로 그룹화합니다.
 
-## 예시
+## 예제
 
-### 예시 1. Sequential 모델
+### 예제 1. Sequential 모델
 
 ```python
 import keras
@@ -61,7 +61,7 @@ Model: "sequential"
 
 {{% /details %}}
 
-### 예시 2. 지연된 빌드 패턴
+### 예제 2. 지연된 빌드 패턴
 
 ```python
 import keras
@@ -101,7 +101,7 @@ Model: "sequential_1"
 
 {{% /details %}}
 
-### 예시 3. 입력에 대한 모델 빌드
+### 예제 3. 입력에 대한 모델 빌드
 
 ```python
 import keras
@@ -151,7 +151,7 @@ model.weights
 
 {{% /details %}}
 
-### 예시 4. 지연된 빌드 패턴 1
+### 예제 4. 지연된 빌드 패턴 1
 
 ```python
 import keras
@@ -263,7 +263,7 @@ ValueError: Sequential model 'sequential_4' has already been configured to use i
 
 {{% /details %}}
 
-### 예시 5. 지연된 빌드 패턴 2
+### 예제 5. 지연된 빌드 패턴 2
 
 ```python
 import keras
@@ -288,11 +288,11 @@ model.fit(x, y, batch_size=32, epochs=10)
 
 다만, 위의 경우에 비추어 볼 때, 입력 모양인 `x`와 출력 모양인 `y`에 대해 모델이 맞추어 만들어지게 되고, 빌드가 됨을 알 수 있습니다.
 
-그리고, 위의 예시 4를 토대로, 한 번 fit을 통해 모양이 고정되면, 변경하지 못함도 알 수 있습니다.
+그리고, 위의 예제 4를 토대로, 한 번 fit을 통해 모양이 고정되면, 변경하지 못함도 알 수 있습니다.
 
 {{% /details %}}
 
-### 예시 6. 이미지 모델
+### 예제 6. 이미지 모델
 
 ```python
 import keras
