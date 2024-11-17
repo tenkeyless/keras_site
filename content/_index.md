@@ -1,13 +1,13 @@
 ---
-title: Keras Deep Learning
+title: Keras
 toc: false
 ---
 
-이 사이트에서는 Keras로 딥러닝을 살펴봅니다.
-
-## 탐색하기
+단순함. 유연함. 강력함.
 
 {{< cards >}}
-  {{< card link="docs" title="Docs" icon="book-open" >}}
-  {{< card link="about" title="About" icon="user" >}}
+  {{< card link="/docs/getting_started" title="시작하기" icon="bookmark-alt" >}}
+  {{< card link="/docs/api" title="API 문서" icon="book-open" >}}
+  {{< card link="/docs/guides" title="가이드" icon="academic-cap" >}}
+  {{< card link="/docs/examples" title="예제" icon="color-swatch" >}}
 {{< /cards >}}
