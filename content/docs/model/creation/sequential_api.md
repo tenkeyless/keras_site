@@ -5,7 +5,7 @@ toc: true
 weight: 1
 type: docs
 prev: docs/model/creation
-next: docs/model/creation/functional-api
+next: docs/model/creation/functional_api
 ---
 
 ## Sequential 모델
