@@ -1,6 +1,7 @@
 ---
 title: 팁
 type: docs
+weight: 2
 sidebar:
   open: false
 ---

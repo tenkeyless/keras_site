@@ -1,7 +1,7 @@
 ---
-title: (번역) Sequential 모델
+title: Sequential 모델
 toc: true
-weight: 1
+weight: 2
 type: docs
 ---
 

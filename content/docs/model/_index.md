@@ -1,6 +1,7 @@
 ---
 title: 딥러닝 모델
 type: docs
+weight: 1
 next: docs/model/abstract
 sidebar:
   open: true
