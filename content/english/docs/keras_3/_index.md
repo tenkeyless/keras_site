@@ -83,7 +83,7 @@ The new distribution API is intended to be multi-backend, but is only available 
 
 There's a wide range of pretrained models that you can start using today with Keras 3.
 
-All 40 Keras Applications models (the `keras.applications` namespace) are available in all backends. The vast array of pretrained models in [KerasCV](https://keras.io/api/keras_cv/) and [KerasHub](https://keras.io/api/keras_hub/) also work with all backends. This includes:
+All 40 Keras Applications models (the `keras.applications` namespace) are available in all backends. The vast array of pretrained models in [KerasCV]({{< relref "/docs/api/keras_cv" >}}) and [KerasHub]({{< relref "/docs/api/keras_hub" >}}) also work with all backends. This includes:
 
 - BERT
 - OPT
@@ -115,7 +115,7 @@ Here's how it works in PyTorch and TensorFlow:
 
 ![](/images/keras_3/customizing_fit.jpg)
 
-And [here's the link](http://keras.io/guides/custom_train_step_in_jax/) to the JAX version.
+And [here's the link]({{< relref "/docs/guides/custom_train_step_in_jax" >}}) to the JAX version.
 
 ## A new stateless API for layers, models, metrics, and optimizers.
 
@@ -143,7 +143,7 @@ You never have to implement these methods yourself — they're automatically ava
 
 Keras 3 is highly backwards compatible with Keras 2: it implements the full public API surface of Keras 2, with a limited number of exceptions, listed [here](https://github.com/keras-team/keras/issues/18467). Most users will not have to make any code change to start running their Keras scripts on Keras 3.
 
-Larger codebases are likely to require some code changes, since they are more likely to run into one of the exceptions listed above, and are more likely to have been using private APIs or deprecated APIs (`tf.compat.v1.keras` namespace, `experimental` namespace, `keras.src` private namespace). To help you move to Keras 3, we are releasing a complete [migration guide](/guides/migrating_to_keras_3/) with quick fixes for all issues you might encounter.
+Larger codebases are likely to require some code changes, since they are more likely to run into one of the exceptions listed above, and are more likely to have been using private APIs or deprecated APIs (`tf.compat.v1.keras` namespace, `experimental` namespace, `keras.src` private namespace). To help you move to Keras 3, we are releasing a complete [migration guide]({{< relref "/docs/guides/migrating_to_keras_3" >}}) with quick fixes for all issues you might encounter.
 
 You also have the option to ignore the changes in Keras 3 and just keep using Keras 2 with TensorFlow — this can be a good option for projects that are not actively developed but need to keep running with updated dependencies. You have two possibilities:
 
@@ -158,7 +158,7 @@ We're excited for you to try out the new Keras and improve your workflows by lev
 
 #### Q: Is Keras 3 compatible with legacy Keras 2?
 
-Code developed with `tf.keras` can generally be run as-is with Keras 3 (with the TensorFlow backend). There's a limited number of incompatibilities you should be mindful of, all addressed in [this migration guide](/guides/migrating_to_keras_3/).
+Code developed with `tf.keras` can generally be run as-is with Keras 3 (with the TensorFlow backend). There's a limited number of incompatibilities you should be mindful of, all addressed in [this migration guide]({{< relref "/docs/guides/migrating_to_keras_3" >}}).
 
 When it comes to using APIs from `tf.keras` and Keras 3 side by side, that is **not** possible — they're different packages, running on entirely separate engines.
 
@@ -196,11 +196,11 @@ Data-parallel distribution is supported out of the box in JAX, TensorFlow, and P
 
 **With TensorFlow:**
 
-Keras 3 is compatible with `tf.distribute` — just open a Distribution Strategy scope and create / train your model within it. [Here's an example](http://keras.io/guides/distributed_training_with_tensorflow/).
+Keras 3 is compatible with `tf.distribute` — just open a Distribution Strategy scope and create / train your model within it. [Here's an example]({{< relref "/docs/guides/distributed_training_with_tensorflow" >}}).
 
 **With PyTorch:**
 
-Keras 3 is compatible with PyTorch's `DistributedDataParallel` utility. [Here's an example](http://keras.io/guides/distributed_training_with_torch/).
+Keras 3 is compatible with PyTorch's `DistributedDataParallel` utility. [Here's an example]({{< relref "/docs/guides/distributed_training_with_torch" >}}).
 
 **With JAX:**
 
@@ -211,9 +211,9 @@ distribution = keras.distribution.DataParallel(devices=keras.distribution.list_d
 keras.distribution.set_distribution(distribution)
 ```
 
-For model parallel distribution, see [the following guide](/guides/distribution/).
+For model parallel distribution, see [the following guide]({{< relref "/docs/guides/distribution" >}}).
 
-You can also distribute training yourself via JAX APIs such as `jax.sharding`. [Here's an example](http://keras.io/guides/distributed_training_with_jax/).
+You can also distribute training yourself via JAX APIs such as `jax.sharding`. [Here's an example]({{< relref "/docs/guides/distributed_training_with_jax" >}}).
 
 ### Q: Can my custom Keras layers be used in native PyTorch `Modules` or with Flax `Modules`?
 
