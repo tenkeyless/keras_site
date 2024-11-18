@@ -18,7 +18,8 @@ markup:
 
 menu:
   main:
-    - name: 문서
+    - identifier: documentation
+      name: Doc
       pageRef: /docs
       weight: 1
     - name: About
@@ -60,8 +61,10 @@ languages:
   en:
     languageName: English
     contentDir: content/english
+    title: Keras Official Documentation
     weight: 10
   ko:
     languageName: 한국어
     contentDir: content/korean
+    title: Keras 공식 문서
     weight: 20
