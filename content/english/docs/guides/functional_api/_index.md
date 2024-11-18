@@ -1,11 +1,24 @@
 ---
-title: Functional API
+title: The Functional API
 toc: true
 weight: 1
 type: docs
 ---
 
-## 셋업
+> - Original Link : [https://keras.io/guides/functional_api/](https://keras.io/guides/functional_api/)
+> - Last Checked at : 2024-11-18
+
+**Author:** [fchollet](https://twitter.com/fchollet)  
+**Date created:** 2019/03/01  
+**Last modified:** 2023/06/25  
+**Description:** Complete guide to the functional API.
+
+{{< cards cols="2" >}}
+{{< card link="https://colab.research.google.com/github/keras-team/keras-io/blob/master/guides/ipynb/functional_api.ipynb" title="Colab" tag="Colab" tagType="warning">}}
+{{< card link="https://github.com/keras-team/keras-io/blob/master/guides/functional_api.py" title="GitHub source" tag="GitHub">}}
+{{< /cards >}}
+
+## Setup
 
 ```python
 import numpy as np
@@ -14,56 +27,57 @@ from keras import layers
 from keras import ops
 ```
 
-## 개요
+## Introduction
 
-Keras Functional API는 [`keras.Sequential`](/docs/model/creation/sequential_api/) API보다 더 유연한 모델을 생성하는 방법입니다. Functional API는 비선형 토폴로지, 공유 레이어, 심지어 다중 입력 또는 출력이 포함된 모델을 처리할 수 있습니다.
+The Keras functional API is a way to create models that are more flexible than the [`keras.Sequential`]({{< relref "/docs/api/models/sequential#sequential-class" >}}) API. The functional API can handle models with non-linear topology, shared layers, and even multiple inputs or outputs.
 
-주요 아이디어는 딥러닝 모델이 일반적으로 레이어의 방향성 비순환 그래프(DAG)라는 것입니다. 따라서, Functional API는 레이어 그래프를 작성하는 방법입니다.
+The main idea is that a deep learning model is usually a directed acyclic graph (DAG) of layers. So the functional API is a way to build graphs of layers.
 
-### Functional API 모델
+Consider the following model:
 
-다음 모델을 고려해봅시다.
+### Functional API Model
+
+Consider the following model:
 
 ```mermaid
 flowchart TD
-    N1["입력
-    784차원 벡터"] --> N2["Dense
-    (64 유닛, relu 활성화)"]
+    N1["input
+    784-dimensional vectors"] --> N2["Dense
+    (64 units, relu activation)"]
     N2 --> N3["Dense
-    (64 유닛, relu 활성화)"]
+    (64 units, relu activation)"]
     N3 --> N4["Dense
-    (10 유닛, softmax 활성화)"]
-    N4 --> N5["출력
-    10개 클래스에 걸친
-    확률 분포의 로짓"]
+    (10 units, softmax activation)"]
+    N4 --> N5["output
+    logits of a probability distribution over 10 classes"]
 
     style N2 fill:#FFD600
     style N3 fill:#FFD600
     style N4 fill:#FFD600
 ```
 
-3개의 레이어(노란색 `Dense` 레이어)로 구성된 기본 그래프입니다. Functional API를 사용하여 이 모델을 빌드하려면, 입력 노드를 생성하는 것으로 시작하십시오.
+This is a basic graph with three layers. (Yellow `Dense` layers) To build this model using the functional API, start by creating an input node:
 
 ```python
 inputs = keras.Input(shape=(784,))
 ```
 
-데이터의 모양은 784차원 벡터로 설정됩니다. 각 샘플의 모양만 지정되므로, 배치 크기는 항상 생략됩니다.
+The shape of the data is set as a 784-dimensional vector. The batch size is always omitted since only the shape of each sample is specified.
 
-예를 들어, `(32, 32, 3)` 모양의 이미지 입력이 있는 경우, 다음을 사용합니다.
+If, for example, you have an image input with a shape of `(32, 32, 3)`, you would use:
 
 ```
-# 시연 목적으로만 사용됩니다.
+# Just for demonstration purposes.
 img_inputs = keras.Input(shape=(32, 32, 3))
 ```
 
-반환되는 `inputs`에는 모델에 제공하는 입력 데이터의 모양 및 `dtype`에 대한 정보가 포함되어 있습니다. 모양은 다음과 같습니다.
+The `inputs` that is returned contains information about the shape and `dtype` of the input data that you feed to your model. Here's the shape:
 
 ```python
 inputs.shape
 ```
 
-{{% details title="결과" closed="true" %}}
+{{% details title="Result" closed="true" %}}
 
 ```plain
 (None, 784)
@@ -71,13 +85,13 @@ inputs.shape
 
 {{% /details %}}
 
-`dtype`은 다음과 같습니다.
+Here's the dtype:
 
 ```python
 inputs.dtype
 ```
 
-{{% details title="결과" closed="true" %}}
+{{% details title="Result" closed="true" %}}
 
 ```plain
 'float32'
@@ -85,31 +99,31 @@ inputs.dtype
 
 {{% /details %}}
 
-이 `inputs` 객체에 대해 레이어를 호출하여, 레이어 그래프에 새 노드를 만듭니다.
+You create a new node in the graph of layers by calling a layer on this `inputs` object:
 
 ```python
 dense = layers.Dense(64, activation="relu")
 x = dense(inputs)
 ```
 
-"레이어 호출" 작업은 "inputs"에서 시작하여, 생성한 이 레이어로 화살표를 그리는 것과 같습니다. 입력을 `dense` 레이어에 "전달"하고, `x`를 출력으로 얻습니다.
+The "layer call" action is like drawing an arrow from "inputs" to this layer you created. You're "passing" the inputs to the `dense` layer, and you get `x` as the output.
 
-레이어 그래프에 레이어를 몇 개 더 추가해 보겠습니다.
+Let's add a few more layers to the graph of layers:
 
 ```python
 x = layers.Dense(64, activation="relu")(x)
 outputs = layers.Dense(10)(x)
 ```
 
-이 시점에서, 레이어 그래프에 입력과 출력을 지정하여 `Model`을 생성할 수 있습니다.
+At this point, you can create a `Model` by specifying its inputs and outputs in the graph of layers:
 
 ```python
 model = keras.Model(inputs=inputs, outputs=outputs, name="mnist_model")
 ```
 
-### 모델 요약 및 플롯
+### Model summary & plot
 
-모델 요약이 어떻게 보이는지 확인해 보겠습니다.
+Let's check out what the model summary looks like:
 
 ```python
 import keras
@@ -128,7 +142,7 @@ model = keras.Model(inputs=inputs, outputs=outputs, name="mnist_model")
 model.summary()
 ```
 
-{{% details title="결과" closed="true" %}}
+{{% details title="Result" closed="true" %}}
 
 ```plain
 Model: "mnist_model"
@@ -150,25 +164,25 @@ Model: "mnist_model"
 
 {{% /details %}}
 
-또한, 모델을 플롯할 수 있습니다.
+You can also plot the model as a graph:
 
 ```python
 keras.utils.plot_model(model, "my_first_model.png")
 ```
 
-![](./model_plot.png)
+![](/images/guides/functional_api/model_plot.png)
 
-입츨력 모양도 추가하여 플롯 가능합니다.
+And, optionally, display the input and output shapes of each layer in the plotted graph:
 
 ```python
 keras.utils.plot_model(model, "my_first_model_with_shape_info.png", show_shapes=True)
 ```
 
-![](./model_plot-2.png)
+![](/images/guides/functional_api/model_plot-2.png)
 
-이 그림과 코드는 거의 동일합니다. 코드 버전에서는 연결 화살표가 호출 작업으로 대체됩니다.
+This figure and the code are almost identical. In the code version, the connection arrows are replaced by the call operation.
 
-"레이어 그래프"는 딥러닝 모델에 대한 직관적인 정신적 이미지이며, Functional API는 이를 밀접하게 반영하는 모델을 만드는 방법입니다.
+A "graph of layers" is an intuitive mental image for a deep learning model, and the functional API is a way to create models that closely mirrors this.
 
 ## Training, evaluation, and inference
 
@@ -176,9 +190,9 @@ Training, evaluation, and inference work exactly in the same way for models buil
 
 The `Model` class offers a built-in training loop (the `fit()` method) and a built-in evaluation loop (the `evaluate()` method). Note that you can easily customize these loops to implement your own training routines. See also the guides on customizing what happens in `fit()`:
 
-- [Writing a custom train step with TensorFlow](/guides/custom_train_step_in_tensorflow/)
-- [Writing a custom train step with JAX](/guides/custom_train_step_in_jax/)
-- [Writing a custom train step with PyTorch](/guides/custom_train_step_in_torch/)
+- [Writing a custom train step with TensorFlow]({{< relref "/docs/guides/custom_train_step_in_tensorflow" >}})
+- [Writing a custom train step with JAX]({{< relref "/docs/guides/custom_train_step_in_jax" >}})
+- [Writing a custom train step with PyTorch]({{< relref "/docs/guides/custom_train_step_in_torch" >}})
 
 Here, load the MNIST image data, reshape it into vectors, fit the model on the data (while monitoring performance on a validation split), then evaluate the model on the test data:
 
@@ -201,7 +215,7 @@ print("Test loss:", test_scores[0])
 print("Test accuracy:", test_scores[1])
 ```
 
-{{% details title="결과" closed="true" %}}
+{{% details title="Result" closed="true" %}}
 
 ```plain
 Epoch 1/2
@@ -215,7 +229,7 @@ Test accuracy: 0.9613000154495239
 
 {{% /details %}}
 
-For further reading, see the [training and evaluation](/guides/training_with_built_in_methods/) guide.
+For further reading, see the [training and evaluation]({{< relref "/docs/guides/training_with_built_in_methods" >}}) guide.
 
 ## Save and serialize
 
@@ -230,7 +244,7 @@ del model
 model = keras.models.load_model("my_model.keras")
 ```
 
-For details, read the model [serialization & saving](/guides/serialization_and_saving/) guide.
+For details, read the model [serialization & saving]({{< relref "/docs/guides/serialization_and_saving" >}}) guide.
 
 ## Use the same graph of layers to define multiple models
 
@@ -261,7 +275,7 @@ autoencoder = keras.Model(encoder_input, decoder_output, name="autoencoder")
 autoencoder.summary()
 ```
 
-{{% details title="결과" closed="true" %}}
+{{% details title="Result" closed="true" %}}
 
 ```plain
 Model: "encoder"
@@ -368,7 +382,7 @@ autoencoder = keras.Model(autoencoder_input, decoded_img, name="autoencoder")
 autoencoder.summary()
 ```
 
-{{% details title="결과" closed="true" %}}
+{{% details title="Result" closed="true" %}}
 
 ```plain
 Model: "encoder"
@@ -520,7 +534,7 @@ Now plot the model:
 keras.utils.plot_model(model, "multi_input_and_output_model.png", show_shapes=True)
 ```
 
-![png](./functional_api_40_0.png)
+![png](/images/guides/functional_api/functional_api_40_0.png)
 
 When compiling this model, you can assign different losses to each output. You can even assign different weights to each loss – to modulate their contribution to the total training loss.
 
@@ -568,7 +582,7 @@ model.fit(
 )
 ```
 
-{{% details title="결과" closed="true" %}}
+{{% details title="Result" closed="true" %}}
 
 ```plain
 Epoch 1/2
@@ -583,7 +597,7 @@ Epoch 2/2
 
 When calling fit with a `Dataset` object, it should yield either a tuple of lists like `([title_data, body_data, tags_data], [priority_targets, dept_targets])` or a tuple of dictionaries like `({'title': title_data, 'body': body_data, 'tags': tags_data}, {'priority': priority_targets, 'department': dept_targets})`.
 
-For more detailed explanation, refer to the [training and evaluation](/guides/training_with_built_in_methods/) guide.
+For more detailed explanation, refer to the [training and evaluation]({{< relref "/docs/guides/training_with_built_in_methods" >}}) guide.
 
 ### A toy ResNet model
 
@@ -615,7 +629,7 @@ model = keras.Model(inputs, outputs, name="toy_resnet")
 model.summary()
 ```
 
-{{% details title="결과" closed="true" %}}
+{{% details title="Result" closed="true" %}}
 
 ```plain
 Model: "toy_resnet"
@@ -671,7 +685,7 @@ Plot the model:
 keras.utils.plot_model(model, "mini_resnet.png", show_shapes=True)
 ```
 
-![png](./functional_api_51_0.png)
+![png](/images/guides/functional_api/functional_api_51_0.png)
 
 Now train the model:
 
@@ -699,7 +713,7 @@ model.fit(
 )
 ```
 
-{{% details title="결과" closed="true" %}}
+{{% details title="Result" closed="true" %}}
 
 ```plain
  13/13 ━━━━━━━━━━━━━━━━━━━━ 1s 60ms/step - acc: 0.1096 - loss: 2.3053 - val_acc: 0.1150 - val_loss: 2.2973
@@ -759,7 +773,7 @@ img = np.random.random((1, 224, 224, 3)).astype("float32")
 extracted_features = feat_extraction_model(img)
 ```
 
-This comes in handy for tasks like [neural style transfer](https://keras.io/examples/generative/neural_style_transfer/), among other things.
+This comes in handy for tasks like [neural style transfer]({{< relref "/docs/examples/generative/neural_style_transfer" >}}), among other things.
 
 ## Extend the API using custom layers
 
@@ -775,9 +789,9 @@ But if you don't find what you need, it's easy to extend the API by creating you
 - `call` method, that specifies the computation done by the layer.
 - `build` method, that creates the weights of the layer (this is just a style convention since you can create weights in `__init__`, as well).
 
-To learn more about creating layers from scratch, read [custom layers and models](/guides/making_new_layers_and_models_via_subclassing) guide.
+To learn more about creating layers from scratch, read [custom layers and models]({{< relref "/docs/guides/making_new_layers_and_models_via_subclassing" >}}) guide.
 
-The following is a basic implementation of [`keras.layers.Dense`](/api/layers/core_layers/dense#dense-class):
+The following is a basic implementation of [`keras.layers.Dense`]({{< relref "/docs/api/layers/core_layers/dense#dense-class" >}}):
 
 ```python
 class CustomDense(layers.Layer):
@@ -909,7 +923,7 @@ feat_extraction_model = keras.Model(inputs=vgg19.input, outputs=features_list)
 
 #### A functional model can be serialized or cloned
 
-Because a functional model is a data structure rather than a piece of code, it is safely serializable and can be saved as a single file that allows you to recreate the exact same model without having access to any of the original code. See the [serialization & saving guide](/guides/serialization_and_saving/).
+Because a functional model is a data structure rather than a piece of code, it is safely serializable and can be saved as a single file that allows you to recreate the exact same model without having access to any of the original code. See the [serialization & saving guide]({{< relref "/docs/guides/serialization_and_saving" >}}).
 
 To serialize a subclassed model, it is necessary for the implementer to specify a `get_config()` and `from_config()` method at the model level.
 
@@ -964,7 +978,7 @@ rnn_model = CustomRNN()
 _ = rnn_model(ops.zeros((1, timesteps, input_dim)))
 ```
 
-{{% details title="결과" closed="true" %}}
+{{% details title="Result" closed="true" %}}
 
 ```plain
 (1, 10, 32)
@@ -1024,5 +1038,3 @@ model = keras.Model(inputs, outputs)
 rnn_model = CustomRNN()
 _ = rnn_model(ops.zeros((1, 10, 5)))
 ```
-
-[^1]: Functional API에 대한 공식 문서 https://keras.io/guides/functional_api/
