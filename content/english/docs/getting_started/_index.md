@@ -3,7 +3,7 @@ slug: getting_started
 title: Keras로 시작하기
 linkTitle: 시작하기
 toc: true
-weight: 1
+weight: 3
 type: docs
 ---
 
