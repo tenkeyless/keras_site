@@ -1,4 +1,5 @@
 ---
+slug: getting_started
 title: Keras로 시작하기
 linkTitle: 시작하기
 toc: true
@@ -11,7 +12,7 @@ type: docs
 
 ## 학습 리소스 {#learning-resources}
 
-Keras 소개 한 페이지짜리 가이드를 찾고 계신 머신러닝 엔지니어이신가요? [엔지니어를 위한 Keras 소개](getting_started/intro_to_keras_for_engineers) 가이드를 읽어보세요.
+Keras 소개 한 페이지짜리 가이드를 찾고 계신 머신러닝 엔지니어이신가요? [엔지니어를 위한 Keras 소개]({{< relref "/docs/getting_started/intro_to_keras_for_engineers.md" >}}) 가이드를 읽어보세요.
 
 Keras 3와 그 기능에 대해 더 자세히 알고 싶으신가요? [Keras 3 출시 발표]({% link index.md %})를 참조하세요.
 
