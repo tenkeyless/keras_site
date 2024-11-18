@@ -1,13 +1,24 @@
 ---
-title: Sequential 모델
+title: The Sequential model
 toc: true
 weight: 2
 type: docs
 ---
 
-이 문서는 공식 문서의 번역본[^1]입니다.
+> - Original Link : [https://keras.io/guides/sequential_model/](https://keras.io/guides/sequential_model/)
+> - Last Checked at : 2024-11-18
 
-## 셋업
+**Author:** [fchollet](https://twitter.com/fchollet)  
+**Date created:** 2020/04/12  
+**Last modified:** 2023/06/25  
+**Description:** Complete guide to the Sequential model.
+
+{{< cards cols="2" >}}
+{{< card link="https://colab.research.google.com/github/keras-team/keras-io/blob/master/guides/ipynb/sequential_model.ipynb" title="Colab" tag="Colab" tagType="warning">}}
+{{< card link="https://github.com/keras-team/keras-io/blob/master/guides/sequential_model.py" title="GitHub source" tag="GitHub">}}
+{{< /cards >}}
+
+## Setup
 
 ```python
 import keras
@@ -15,14 +26,14 @@ from keras import layers
 from keras import ops
 ```
 
-## 순차 모델을 사용해야 하는 경우
+## When to use a Sequential model
 
-`Sequential` 모델은 각 레이어에 *정확히 하나의 입력 텐서와 하나의 출력 텐서*가 있는 *레이어의 일반적인 스택*에 적합합니다.
+A `Sequential` model is appropriate for **a plain stack of layers** where each layer has **exactly one input tensor and one output tensor**.
 
-개략적으로, 다음과 같은 `Sequential` 모델은
+Schematically, the following `Sequential` model:
 
 ```python
-# 3개 레이어로 Sequential 모델 정의
+# Define Sequential model with 3 layers
 model = keras.Sequential(
     [
         layers.Dense(2, activation="relu", name="layer1"),
@@ -30,30 +41,30 @@ model = keras.Sequential(
         layers.Dense(4, name="layer3"),
     ]
 )
-# 테스트 입력에 대한 모델 호출
+# Call model on a test input
 x = ops.ones((3, 3))
 y = model(x)
 ```
 
-다음의 함수형과 동일합니다.
+is equivalent to this function:
 
 ```python
-# 레이어 3개 생성
+# Create 3 layers
 layer1 = layers.Dense(2, activation="relu", name="layer1")
 layer2 = layers.Dense(3, activation="relu", name="layer2")
 layer3 = layers.Dense(4, name="layer3")
 
-# 테스트 입력에 대한 레이어 호출
+# Call layers on a test input
 x = ops.ones((3, 3))
 y = layer3(layer2(layer1(x)))
 ```
 
-다음과 같은 경우에는 Sequential 모델이 _적합하지 않습니다._
+A Sequential model is **not appropriate** when:
 
-- 모델에 여러 입력 또는 여러 출력이 있습니다.
-- 어떤 레이어에 여러 입력 또는 여러 출력이 있습니다.
-- 레이어 공유를 해야할 필요가 있습니다.
-- 비선형 토폴로지를 원합니다. (예: residual 연결, 다중 분기 모델)
+- Your model has multiple inputs or multiple outputs
+- Any of your layers has multiple inputs or multiple outputs
+- You need to do layer sharing
+- You want non-linear topology (e.g. a residual connection, a multi-branch model)
 
 ## Creating a Sequential model
 
@@ -75,7 +86,7 @@ Its layers are accessible via the `layers` attribute:
 model.layers
 ```
 
-{{% details title="결과" closed="true" %}}
+{{% details title="Result" closed="true" %}}
 
 ```plain
 [<Dense name=dense, built=False>,
@@ -101,7 +112,7 @@ model.pop()
 print(len(model.layers))  # 2
 ```
 
-{{% details title="결과" closed="true" %}}
+{{% details title="Result" closed="true" %}}
 
 ```plain
 2
@@ -127,7 +138,7 @@ layer = layers.Dense(3)
 layer.weights  # Empty
 ```
 
-{{% details title="결과" closed="true" %}}
+{{% details title="Result" closed="true" %}}
 
 ```plain
 []
@@ -144,7 +155,7 @@ y = layer(x)
 layer.weights  # Now it has weights, of shape (4, 3) and (3,)
 ```
 
-{{% details title="결과" closed="true" %}}
+{{% details title="Result" closed="true" %}}
 
 ```plain
 [<KerasVariable shape=(4, 3), dtype=float32, path=dense_6/kernel>,
@@ -176,7 +187,7 @@ y = model(x)
 print("Number of weights after calling the model:", len(model.weights))  # 6
 ```
 
-{{% details title="결과" closed="true" %}}
+{{% details title="Result" closed="true" %}}
 
 ```plain
 Number of weights after calling the model: 6
@@ -190,7 +201,7 @@ Once a model is "built", you can call its `summary()` method to display its cont
 model.summary()
 ```
 
-{{% details title="결과" closed="true" %}}
+{{% details title="Result" closed="true" %}}
 
 ```plain
 Model: "sequential_3"
@@ -220,7 +231,7 @@ model.add(layers.Dense(2, activation="relu"))
 model.summary()
 ```
 
-{{% details title="결과" closed="true" %}}
+{{% details title="Result" closed="true" %}}
 
 ```plain
 Model: "sequential_4"
@@ -242,7 +253,7 @@ Note that the `Input` object is not displayed as part of `model.layers`, since i
 model.layers
 ```
 
-{{% details title="결과" closed="true" %}}
+{{% details title="Result" closed="true" %}}
 
 ```plain
 [<Dense name=dense_10, built=True>]
@@ -288,7 +299,7 @@ model.add(layers.GlobalMaxPooling2D())
 model.add(layers.Dense(10))
 ```
 
-{{% details title="결과" closed="true" %}}
+{{% details title="Result" closed="true" %}}
 
 ```plain
 Model: "sequential_5"
@@ -339,14 +350,12 @@ Very practical, right?
 
 Once your model architecture is ready, you will want to:
 
-- Train your model, evaluate it, and run inference. See our [guide to training & evaluation with the built-in loops](/guides/training_with_built_in_methods/)
-- Save your model to disk and restore it. See our [guide to serialization & saving](/guides/serialization_and_saving/).
-
----
+- Train your model, evaluate it, and run inference. See our [guide to training & evaluation with the built-in loops]({{< relref "/docs/guides/training_with_built_in_methods" >}}).
+- Save your model to disk and restore it. See our [guide to serialization & saving]({{< relref "/docs/guides/serialization_and_saving" >}}).
 
 ## Feature extraction with a Sequential model
 
-Once a Sequential model has been built, it behaves like a [Functional API model](/guides/functional_api/). This means that every layer has an `input` and `output` attribute. These attributes can be used to do neat things, like quickly creating a model that extracts the outputs of all intermediate layers in a Sequential model:
+Once a Sequential model has been built, it behaves like a [Functional API model]({{< relref "/docs/guides/functional_api" >}}). This means that every layer has an `input` and `output` attribute. These attributes can be used to do neat things, like quickly creating a model that extracts the outputs of all intermediate layers in a Sequential model:
 
 ```python
 initial_model = keras.Sequential(
@@ -391,7 +400,7 @@ features = feature_extractor(x)
 
 ## Transfer learning with a Sequential model
 
-Transfer learning consists of freezing the bottom layers in a model and only training the top layers. If you aren't familiar with it, make sure to read our [guide to transfer learning](/guides/transfer_learning/).
+Transfer learning consists of freezing the bottom layers in a model and only training the top layers. If you aren't familiar with it, make sure to read our [guide to transfer learning]({{< relref "/docs/guides/transfer_learning" >}}).
 
 Here are two common transfer learning blueprint involving Sequential models.
 
@@ -447,7 +456,5 @@ That's about all you need to know about Sequential models!
 
 To find out more about building models in Keras, see:
 
-- [Guide to the Functional API](/guides/functional_api/)
-- [Guide to making new Layers & Models via subclassing](/guides/making_new_layers_and_models_via_subclassing/)
-
-[^1]: Sequential 모델에 대한 공식 문서 https://keras.io/guides/sequential_model/
+- [Guide to the Functional API]({{< relref "/docs/guides/functional_api" >}})
+- [Guide to making new Layers & Models via subclassing]({{< relref "/docs/guides/making_new_layers_and_models_via_subclassing" >}})
