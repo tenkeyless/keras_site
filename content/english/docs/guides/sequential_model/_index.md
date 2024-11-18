@@ -396,8 +396,6 @@ x = ops.ones((1, 250, 250, 3))
 features = feature_extractor(x)
 ```
 
----
-
 ## Transfer learning with a Sequential model
 
 Transfer learning consists of freezing the bottom layers in a model and only training the top layers. If you aren't familiar with it, make sure to read our [guide to transfer learning]({{< relref "/docs/guides/transfer_learning" >}}).
