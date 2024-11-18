@@ -1,4 +1,7 @@
 ---
-title: classification_with_keras_cv
-toc: false
+title: Classification with KerasCV
+linkTitle: Use KerasCV to train powerful image classifiers.
+toc: true
+weight: 2
+type: docs
 ---

@@ -1,4 +1,7 @@
 ---
-title: segment_anything_in_keras_cv
-toc: false
+title: Segment Anything in KerasCV!
+linkTitle: Segment Anything in KerasCV
+toc: true
+weight: 7
+type: docs
 ---

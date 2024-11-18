@@ -1,4 +1,7 @@
 ---
-title: Custom Train Step in Torch
-toc: false
+title: Customizing what happens in `fit()` with PyTorch
+linkTitle: Customizing fit() with PyTorch
+toc: true
+weight: 6
+type: docs
 ---

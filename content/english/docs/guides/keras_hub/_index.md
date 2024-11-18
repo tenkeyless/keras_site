@@ -1,4 +1,7 @@
 ---
-title: semantic_segmentation_deeplab_v3
-toc: false
+title: KerasHub
+linkTitle: KerasHub
+toc: true
+weight: 23
+type: docs
 ---

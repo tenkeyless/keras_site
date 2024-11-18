@@ -1,4 +1,7 @@
 ---
-title: segment_anything_in_keras_hub
-toc: false
+title: Segment Anything in KerasHub
+linkTitle: Segment Anything in KerasHub
+toc: true
+weight: 6
+type: docs
 ---

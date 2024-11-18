@@ -1,4 +1,7 @@
 ---
-title: Custom Train Step in Jax
-toc: false
+title: Customizing what happens in `fit()` with JAX
+linkTitle: Customizing fit() with Jax
+toc: true
+weight: 5
+type: docs
 ---

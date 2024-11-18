@@ -1,4 +1,7 @@
 ---
-title: Distributed Training with Tensorflow
-toc: false
+title: Multi-GPU distributed training with TensorFlow
+linkTitle: Distributed training with TensorFlow
+toc: true
+weight: 16
+type: docs
 ---

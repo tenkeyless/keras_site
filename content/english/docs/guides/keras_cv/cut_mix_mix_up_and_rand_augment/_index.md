@@ -1,4 +1,7 @@
 ---
-title: cut_mix_mix_up_and_rand_augment
-toc: false
+title: CutMix, MixUp, and RandAugment image augmentation with KerasCV
+linkTitle: CutMix, MixUp, and RandAugment image augmentation with KerasCV
+toc: true
+weight: 3
+type: docs
 ---

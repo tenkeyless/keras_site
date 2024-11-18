@@ -1,4 +1,7 @@
 ---
-title: keras_cv
-toc: false
+title: KerasCV
+linkTitle: KerasCV
+toc: true
+weight: 21
+type: docs
 ---
