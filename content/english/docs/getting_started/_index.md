@@ -12,7 +12,7 @@ type: docs
 
 ## Learning resources
 
-Are you a machine learning engineer looking for a Keras introduction one-pager? Read our guide [Introduction to Keras for engineers]({{< ref "/docs/getting_started/intro_to_keras_for_engineers" >}}).
+Are you a machine learning engineer looking for a Keras introduction one-pager? Read our guide [Introduction to Keras for engineers]({{< relref "/docs/getting_started/intro_to_keras_for_engineers" >}}).
 
 Want to learn more about Keras 3 and its capabilities? See the [Keras 3 launch announcement]({{< relref "/docs/keras_3" >}}).
 
