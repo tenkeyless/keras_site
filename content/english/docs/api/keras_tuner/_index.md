@@ -1,6 +1,7 @@
 ---
-title: keras_tuner
+title: KerasTuner
 toc: true
 weight: 7
 type: docs
 ---
+
