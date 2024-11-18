@@ -8,8 +8,8 @@ cascade:
   type: docs
 ---
 
-> - 원본 링크 : [https://keras.io/about/](https://keras.io/about/)
-> - 최종 확인 : 2024-11-18
+> - Original Link : [https://keras.io/about/](https://keras.io/about/)
+> - Last Checked at : 2024-11-18
 
 Keras is a deep learning API written in Python and capable of running on top of either [JAX](https://jax.readthedocs.io/), [TensorFlow](https://github.com/tensorflow/tensorflow), or [PyTorch](https://pytorch.org/).
 

@@ -7,8 +7,8 @@ weight: 1
 type: docs
 ---
 
-> - 원본 링크 : [https://keras.io/keras_3/](https://keras.io/keras_3/)
-> - 최종 확인 : 2024-11-18
+> - Original Link : [https://keras.io/keras_3/](https://keras.io/keras_3/)
+> - Last Checked at : 2024-11-18
 
 {{< cards >}}
 {{< card link="/docs/getting_started" title="Get started" icon="bookmark-alt" >}}

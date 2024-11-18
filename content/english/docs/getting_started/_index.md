@@ -7,8 +7,8 @@ weight: 3
 type: docs
 ---
 
-> - 원본 링크 : [https://keras.io/getting_started/](https://keras.io/getting_started/)
-> - 최종 확인 : 2024-11-18
+> - Original Link : [https://keras.io/getting_started/](https://keras.io/getting_started/)
+> - Last Checked at : 2024-11-18
 
 ## Learning resources
 
