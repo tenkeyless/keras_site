@@ -1,36 +1,39 @@
 ---
 slug: getting_started
-title: Keras로 시작하기
-linkTitle: 시작하기
+title: Getting started with Keras
+linkTitle: Getting started
 toc: true
 weight: 3
 type: docs
 ---
 
 > - 원본 링크 : [https://keras.io/getting_started/](https://keras.io/getting_started/)
-> - 최종 확인 : 2024-03-28
+> - 최종 확인 : 2024-11-18
 
 ## Learning resources
 
-Are you a machine learning engineer looking for a Keras introduction one-pager? Read our guide [Introduction to Keras for engineers]({{< ref "/docs/getting_started/intro_to_keras_for_engineers.md" >}}).
+Are you a machine learning engineer looking for a Keras introduction one-pager? Read our guide [Introduction to Keras for engineers]({{< ref "/docs/getting_started/intro_to_keras_for_engineers" >}}).
 
-Want to learn more about Keras 3 and its capabilities? See the [Keras 3 launch announcement](/keras_3/).
+Want to learn more about Keras 3 and its capabilities? See the [Keras 3 launch announcement]({{< relref "/docs/keras_3" >}}).
 
-Are you looking for detailed guides covering in-depth usage of different parts of the Keras API? Read our [Keras developer guides](/guides/).
+Are you looking for detailed guides covering in-depth usage of different parts of the Keras API? Read our [Keras developer guides]({{< relref "/docs/guides" >}}).
 
-Are you looking for tutorials showing Keras in action across a wide range of use cases? See the [Keras code examples](/examples/): over 150 well-explained notebooks demonstrating Keras best practices in computer vision, natural language processing, and generative AI.
-
----
+Are you looking for tutorials showing Keras in action across a wide range of use cases? See the [Keras code examples]({{< relref "/docs/examples" >}}): over 150 well-explained notebooks demonstrating Keras best practices in computer vision, natural language processing, and generative AI.
 
 ## Installing Keras 3
 
 You can install Keras from PyPI via:
 
-`pip install --upgrade keras`
+```shell
+pip install --upgrade keras
+```
 
 You can check your local Keras version number via:
 
-`import keras print(keras.__version__)`
+```python
+import keras
+print(keras.__version__)
+```
 
 To use Keras 3, you will also need to install a backend framework – either JAX, TensorFlow, or PyTorch:
 
@@ -44,19 +47,27 @@ If you install TensorFlow 2.15, you should reinstall Keras 3 afterwards. The cau
 
 KerasCV and KerasHub can be installed via pip:
 
-`pip install --upgrade keras-cv pip install --upgrade keras-hub pip install --upgrade keras`
-
----
+```shell
+$ pip install --upgrade keras-cv
+$ pip install --upgrade keras-hub
+$ pip install --upgrade keras
+```
 
 ## Configuring your backend
 
 You can export the environment variable `KERAS_BACKEND` or you can edit your local config file at `~/.keras/keras.json` to configure your backend. Available backend options are: `"jax"`, `"tensorflow"`, `"torch"`. Example:
 
-`export KERAS_BACKEND="jax"`
+```shell
+$ export KERAS_BACKEND="jax"
+```
 
 In Colab, you can do:
 
-`import os os.environ["KERAS_BACKEND"] = "jax" import keras`
+```python
+import os
+os.environ["KERAS_BACKEND"] = "jax"
+import keras
+```
 
 **Note:** The backend must be configured before importing Keras, and the backend cannot be changed after the package has been imported.
 
@@ -80,9 +91,12 @@ This setup is recommended if you are a Keras contributor and are running Keras t
 
 These install all CUDA-enabled dependencies via pip. They expect a NVIDIA driver to be preinstalled. We recommend a clean python environment for each backend to avoid CUDA version mismatches. As an example, here is how to create a JAX GPU environment with [Conda](https://docs.conda.io/en/latest/):
 
-`conda create -y -n keras-jax python=3.10 conda activate keras-jax pip install -r requirements-jax-cuda.txt pip install --upgrade keras`
-
----
+```shell
+$ conda create -y -n keras-jax python=3.10
+$ conda activate keras-jax
+$ pip install -r requirements-jax-cuda.txt
+$ pip install --upgrade keras
+```
 
 ## TensorFlow + Keras 2 backwards compatibility
 
@@ -103,11 +117,12 @@ There are several ways to export the environment variable:
 2.  You can add `export TF_USE_LEGACY_KERAS=1` to your `.bashrc` file. That way the variable will still be exported when you restart your shell.
 3.  You can start your Python script with:
 
-`import os os.environ["TF_USE_LEGACY_KERAS"] = "1"`
+```python
+import os
+os.environ["TF_USE_LEGACY_KERAS"] = "1"
+```
 
 These lines would need to be before any `import tensorflow` statement.
-
----
 
 ## Compatibility matrix
 
