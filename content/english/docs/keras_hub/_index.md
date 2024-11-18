@@ -1,7 +1,7 @@
 ---
 title: KerasHub
 toc: true
-weight: 4
+weight: 8
 type: docs
 ---
 

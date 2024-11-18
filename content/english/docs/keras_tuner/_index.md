@@ -1,7 +1,7 @@
 ---
 title: KerasTuner
 toc: true
-weight: 4
+weight: 7
 type: docs
 ---
 
