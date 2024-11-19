@@ -1,5 +1,6 @@
 ---
-title: super_resolution_sub_pixel
-toc: false
-weight: 6
+title: Image Super-Resolution using an Efficient Sub-Pixel CNN
+toc: true
+weight: 36
+type: docs
 ---
