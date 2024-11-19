@@ -1,5 +1,5 @@
 ---
-title: vision
+title: Computer Vision
 toc: false
-weight: 6
+weight: 1
 ---

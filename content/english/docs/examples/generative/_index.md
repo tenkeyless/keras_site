@@ -1,5 +1,5 @@
 ---
-title: generative
+title: Generative Deep Learning
 toc: false
-weight: 6
+weight: 5
 ---

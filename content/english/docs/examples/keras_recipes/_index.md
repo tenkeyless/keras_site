@@ -1,4 +1,5 @@
 ---
-title: keras_recipes
+title: Quick Keras Recipes
 toc: false
+weight: 9
 ---
