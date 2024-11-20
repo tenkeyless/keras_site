@@ -87,7 +87,7 @@ $$ x = PX $$
 
 Where **x** is the 2-D image point, **X** is the 3-D world point and **P** is the camera-matrix. **P** is a 3 x 4 matrix that plays the crucial role of mapping the real world object onto an image plane.
 
-![](/images/examples/vision/nerf/chvJct5.png)
+![png](/images/examples/vision/nerf/chvJct5.png)
 
 ```latex
 $$ \begin{bmatrix} X \\ Y \\ Z \end{bmatrix} = \begin{bmatrix} p_1 & p_2 & p_3 & p_4 \\ p_5 & p_6 & p_7 & p_8 \\ p_9 & p_{10} & p_{11} & p_{12} \end{bmatrix} \begin{bmatrix} X\\ Y\\ Z\\ 1 \end{bmatrix} $$

@@ -446,7 +446,7 @@ Validation Dataset: <_BatchDataset element_spec=(TensorSpec(shape=(None, 1024, 3
 
 The figure below depicts the internals of the PointNet model family:
 
-![](/images/examples/vision/pointnet_segmentation/qFLNw5L.png)
+![png](/images/examples/vision/pointnet_segmentation/qFLNw5L.png)
 
 Given that PointNet is meant to consume an **_unordered set_** of coordinates as its input data, its architecture needs to match the following characteristic properties of point cloud data:
 
@@ -454,7 +454,7 @@ Given that PointNet is meant to consume an **_unordered set_** of coordinates as
 
 Given the unstructured nature of point cloud data, a scan made up of `n` points has `n!` permutations. The subsequent data processing must be invariant to the different representations. In order to make PointNet invariant to input permutations, we use a symmetric function (such as max-pooling) once the `n` input points are mapped to higher-dimensional space. The result is a **global feature vector** that aims to capture an aggregate signature of the `n` input points. The global feature vector is used alongside local point features for segmentation.
 
-![](/images/examples/vision/pointnet_segmentation/0mrvvjb.png)
+![png](/images/examples/vision/pointnet_segmentation/0mrvvjb.png)
 
 ### Transformation invariance
 
@@ -462,7 +462,7 @@ Segmentation outputs should be unchanged if the object undergoes certain transfo
 
 The operations comprising the T-Net are motivated by the higher-level architecture of PointNet. MLPs (or fully-connected layers) are used to map the input points independently and identically to a higher-dimensional space; max-pooling is used to encode a global feature vector whose dimensionality is then reduced with fully-connected layers. The input-dependent features at the final fully-connected layer are then combined with globally trainable weights and biases, resulting in a 3-by-3 transformation matrix.
 
-![](/images/examples/vision/pointnet_segmentation/aEj3GYi.png)
+![png](/images/examples/vision/pointnet_segmentation/aEj3GYi.png)
 
 ### Point interactions
 

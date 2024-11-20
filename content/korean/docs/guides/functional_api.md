@@ -158,7 +158,7 @@ Model: "mnist_model"
 keras.utils.plot_model(model, "my_first_model.png")
 ```
 
-![](./model_plot.png)
+![png](./model_plot.png)
 
 입츨력 모양도 추가하여 플롯 가능합니다.
 
@@ -166,7 +166,7 @@ keras.utils.plot_model(model, "my_first_model.png")
 keras.utils.plot_model(model, "my_first_model_with_shape_info.png", show_shapes=True)
 ```
 
-![](./model_plot-2.png)
+![png](./model_plot-2.png)
 
 이 그림과 코드는 거의 동일합니다. 코드 버전에서는 연결 화살표가 호출 작업으로 대체됩니다.
 

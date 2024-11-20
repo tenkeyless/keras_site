@@ -138,7 +138,7 @@ Val Dataset: <_BatchDataset element_spec=(TensorSpec(shape=(4, 512, 512, 3), dty
 
 DeepLabv3+ extends DeepLabv3 by adding an encoder-decoder structure. The encoder module processes multiscale contextual information by applying dilated convolution at multiple scales, while the decoder module refines the segmentation results along object boundaries.
 
-![](/images/examples/vision/deeplabv3_plus/deeplabv3_plus_diagram.png)
+![png](/images/examples/vision/deeplabv3_plus/deeplabv3_plus_diagram.png)
 
 **Dilated convolution:** With dilated convolution, as we go deeper in the network, we can keep the stride constant but with larger field-of-view without increasing the number of parameters or the amount of computation. Besides, it enables larger output feature maps, which is useful for semantic segmentation.
 

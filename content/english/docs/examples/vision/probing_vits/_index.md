@@ -237,7 +237,7 @@ Mean attention distance is defined as the distance between query tokens and the 
 
 Attention scores are calculated here after forward passing the image in inference mode through the network. The following figure may help you understand the process a little bit better.
 
-![](/images/examples/vision/probing_vits/pZCgPwl.gif)
+![gif](/images/examples/vision/probing_vits/pZCgPwl.gif)
 
 This animation is created by [Ritwik Raha](https://twitter.com/ritwik_raha).
 

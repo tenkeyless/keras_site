@@ -198,7 +198,7 @@ for a in range(5):
 plt.show()
 ```
 
-![](/images/examples/vision/reptile/reptile_8_0.png)
+![png](/images/examples/vision/reptile/reptile_8_0.png)
 
 ## Build the model
 

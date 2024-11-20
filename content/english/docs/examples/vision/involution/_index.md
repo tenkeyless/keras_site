@@ -49,7 +49,7 @@ tf.random.set_seed(42)
 
 Convolution remains the mainstay of deep neural networks for computer vision. To understand Involution, it is necessary to talk about the convolution operation.
 
-![](/images/examples/vision/involution/MSKLsm5.png)
+![png](/images/examples/vision/involution/MSKLsm5.png)
 
 Consider an input tensor **X** with dimensions **H**, **W** and **C_in**. We take a collection of **C_out** convolution kernels each of shape **K**, **K**, **C_in**. With the multiply-add operation between the input tensor and the kernels we obtain an output tensor **Y** with dimensions **H**, **W**, **C_out**.
 
@@ -61,7 +61,7 @@ The idea is to have an operation that is both **location-specific** and **channe
 
 To solve this problem, the authors have considered _generating_ each kernel conditioned on specific spatial positions. With this method, we should be able to process variable-resolution input tensors with ease. The diagram below provides an intuition on this kernel generation method.
 
-![](/images/examples/vision/involution/jtrGGQg.png)
+![png](/images/examples/vision/involution/jtrGGQg.png)
 
 ```python
 class Involution(keras.layers.Layer):
@@ -272,7 +272,7 @@ for i in range(25):
 plt.show()
 ```
 
-![](/images/examples/vision/involution/involution_13_0.png)
+![png](/images/examples/vision/involution/involution_13_0.png)
 
 ## Convolutional Neural Network
 
@@ -572,9 +572,9 @@ plt.legend()
 plt.show()
 ```
 
-![](/images/examples/vision/involution/involution_22_0.png)
+![png](/images/examples/vision/involution/involution_22_0.png)
 
-![](/images/examples/vision/involution/involution_22_1.png)
+![png](/images/examples/vision/involution/involution_22_1.png)
 
 ## Visualizing Involution Kernels
 
@@ -629,7 +629,7 @@ for ax, test_image in zip(axes, test_images[:10]):
 
 {{% /details %}}
 
-![](/images/examples/vision/involution/involution_24_1.png)
+![png](/images/examples/vision/involution/involution_24_1.png)
 
 ## Conclusions
 

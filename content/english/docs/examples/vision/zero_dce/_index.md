@@ -147,13 +147,13 @@ A ligh-enhancement curve is a kind of curve that can map a low-light image to it
 
 The light-enhancement curve is separately applied to three RGB channels instead of solely on the illumination channel. The three-channel adjustment can better preserve the inherent color and reduce the risk of over-saturation.
 
-![](/images/examples/vision/zero_dce/framework.png)
+![png](/images/examples/vision/zero_dce/framework.png)
 
 ### DCE-Net
 
 The DCE-Net is a lightweight deep neural network that learns the mapping between an input image and its best-fitting curve parameter maps. The input to the DCE-Net is a low-light image while the outputs are a set of pixel-wise curve parameter maps for corresponding higher-order curves. It is a plain CNN of seven convolutional layers with symmetrical concatenation. Each layer consists of 32 convolutional kernels of size 3×3 and stride 1 followed by the ReLU activation function. The last convolutional layer is followed by the Tanh activation function, which produces 24 parameter maps for 8 iterations, where each iteration requires three curve parameter maps for the three channels.
 
-![](/images/examples/vision/zero_dce/HtIg34W.png)
+![png](/images/examples/vision/zero_dce/HtIg34W.png)
 
 ```python
 def build_dce_net():

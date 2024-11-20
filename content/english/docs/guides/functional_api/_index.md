@@ -170,7 +170,7 @@ You can also plot the model as a graph:
 keras.utils.plot_model(model, "my_first_model.png")
 ```
 
-![](/images/guides/functional_api/model_plot.png)
+![png](/images/guides/functional_api/model_plot.png)
 
 And, optionally, display the input and output shapes of each layer in the plotted graph:
 
@@ -178,7 +178,7 @@ And, optionally, display the input and output shapes of each layer in the plotte
 keras.utils.plot_model(model, "my_first_model_with_shape_info.png", show_shapes=True)
 ```
 
-![](/images/guides/functional_api/model_plot-2.png)
+![png](/images/guides/functional_api/model_plot-2.png)
 
 This figure and the code are almost identical. In the code version, the connection arrows are replaced by the call operation.
 

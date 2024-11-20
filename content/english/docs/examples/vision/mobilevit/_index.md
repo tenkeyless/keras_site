@@ -65,7 +65,7 @@ The MobileViT architecture is comprised of the following blocks:
 - [MobileNetV2](https://arxiv.org/abs/1801.04381)\-style inverted residual blocks for downsampling the resolution of the intermediate feature maps.
 - MobileViT blocks that combine the benefits of Transformers and convolutions. It is presented in the figure below (taken from the [original paper](https://arxiv.org/abs/2110.02178)):
 
-![](/images/examples/vision/mobilevit/mANnhI7.png)
+![png](/images/examples/vision/mobilevit/mANnhI7.png)
 
 ```python
 def conv_block(x, filters=16, kernel_size=3, strides=2):
@@ -203,7 +203,7 @@ Vectors A and B are then passed through two more convolutional layers to fuse th
 
 Next, we combine these blocks together and implement the MobileViT architecture (XXS variant). The following figure (taken from the original paper) presents a schematic representation of the architecture:
 
-![](/images/examples/vision/mobilevit/image.png)
+![png](/images/examples/vision/mobilevit/image.png)
 
 ```python
 def create_mobilevit(num_classes=5):

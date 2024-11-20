@@ -55,14 +55,14 @@ In this notebook, we will utilize multi-backend Keras 3.0 to implement the [**GC
 - Following this trend, **Vision Transformer (ViT)** proposed to utilize image patches as tokens in a gigantic architecture similar to encoder of the original Transformer.
 - Despite the historic dominance of **Convolutional Neural Network (CNN)** in computer vision, **ViT-based** models have shown **SOTA or competitive performance** in various computer vision tasks.
 
-![](/images/examples/vision/image_classification_using_global_context_vision_transformer/vit_gif.gif)
+![gif](/images/examples/vision/image_classification_using_global_context_vision_transformer/vit_gif.gif)
 
 - However, **quadratic \[`O(n^2)`\] computational complexity** of self-attention and **lack of multi-scale information** makes it difficult for **ViT** to be considered as general-purpose architecture for Compute Vision tasks like **segmentation and object detection** where it requires **dense prediction at the pixel level**.
 - Swin Transformer has attempted to address the issues of **ViT** by proposing **multi-resolution/hierarchical** architectures in which the self-attention is computed in **local windows** and cross-window connections such as **window shifting** are used for modeling the interactions across different regions. But the **limited receptive field of local windows** can not capture long-range information, and cross-window-connection schemes such as **window-shifting only cover a small neighborhood** in the vicinity of each window. Also, it lacks **inductive-bias** that encourages certain translation invariance is still preferable for general-purpose visual modeling, particularly for the dense prediction tasks of object detection and semantic segmentation.
 
-![](/images/examples/vision/image_classification_using_global_context_vision_transformer/swin_vs_vit.jpeg)
-![](/images/examples/vision/image_classification_using_global_context_vision_transformer/shifted_window.jpeg)
-![](/images/examples/vision/image_classification_using_global_context_vision_transformer/swin_arch.jpeg)
+![jpeg](/images/examples/vision/image_classification_using_global_context_vision_transformer/swin_vs_vit.jpeg)
+![jpeg](/images/examples/vision/image_classification_using_global_context_vision_transformer/shifted_window.jpeg)
+![jpeg](/images/examples/vision/image_classification_using_global_context_vision_transformer/swin_arch.jpeg)
 
 - To address above limitations, **Global Context (GC) ViT** network is proposed.
 
@@ -84,7 +84,7 @@ Let's have a quick **overview** of our key components,
 
 I've annotated the architecture figure to make it easier to digest,
 
-![](/images/examples/vision/image_classification_using_global_context_vision_transformer/arch_annot.png)
+![png](/images/examples/vision/image_classification_using_global_context_vision_transformer/arch_annot.png)
 
 ### Unit Blocks
 
@@ -92,15 +92,15 @@ I've annotated the architecture figure to make it easier to digest,
 
 1.  `SqueezeAndExcitation`: **Squeeze-Excitation (SE)** aka **Bottleneck** module acts sd kind of **channel attention**. It consits of **AvgPooling**, **Dense/FullyConnected (FC)/Linear** , **GELU** and **Sigmoid** module.
 
-    ![](/images/examples/vision/image_classification_using_global_context_vision_transformer/se_annot.png)
+    ![png](/images/examples/vision/image_classification_using_global_context_vision_transformer/se_annot.png)
 
 2.  `Fused-MBConv:` This is similar to the one used in **EfficientNetV2**. It uses **Depthwise-Conv**, **GELU**, **SqueezeAndExcitation**, **Conv**, to extract feature with a resiudal connection. Note that, no new module is declared for this one, we simply applied corresponding modules directly.
 
-    ![](/images/examples/vision/image_classification_using_global_context_vision_transformer/fmb_annot.png)
+    ![png](/images/examples/vision/image_classification_using_global_context_vision_transformer/fmb_annot.png)
 
 3.  `ReduceSize`: It is a **CNN** based **downsample** module which abvobe mentioned `Fused-MBConv` module to extract feature, **Strided Conv** to simultaneously reduce spatial dimension and increse channelwise dimention of the features and finally **LayerNormalization** module to normalize features. In the paper/figure this module is referred as **downsample** module. I think it is mention worthy that **SwniTransformer** used `PatchMerging` module instead of `ReduceSize` to reduce the spatial dimention and increase channelwise dimension which uses **fully-connected/dense/linear** module. According to the **GCViT** paper, one of the purposes of using `ReduceSize` is to add inductive bias through **CNN** module.
 
-    ![](/images/examples/vision/image_classification_using_global_context_vision_transformer/down_annot.png)
+    ![png](/images/examples/vision/image_classification_using_global_context_vision_transformer/down_annot.png)
 
 4.  `MLP:` This is our very own **Multi Layer Perceptron** module. This a feed-forward/fully-connected/linear module which simply projects input to an arbitary dimension.
 
@@ -287,7 +287,7 @@ As we can see from above cell, in the `level` we have first used `to_q_global/Gl
 
 > Summary: This module is used to `resize` the image to fit window.
 
-![](/images/examples/vision/image_classification_using_global_context_vision_transformer/global_token_annot.png)
+![png](/images/examples/vision/image_classification_using_global_context_vision_transformer/global_token_annot.png)
 
 ```python
 class FeatureExtraction(layers.Layer):
@@ -364,11 +364,11 @@ As we can see from the `call` method, 1. `WindowAttention` module applies both *
 1. Before sending query, key and value for attention, **global token** goes through an important process. Same global tokens or one global window gets copied for all the local windows to increase efficiency. `q_global = tf.repeat(q_global, repeats=B_//B, axis=0)`, here `B_//B` means `num_windows` in a image.
 1. Then simply applies `local-window-self-attention` or `global-window-attention` depending on `global_query` parameter. One thing to notice from the code is that we are adding **relative-positional-embedding** with the **attention mask** instead of the **patch embedding**. `attn = attn + relative_position_bias[tf.newaxis,]`
 
-   ![](/images/examples/vision/image_classification_using_global_context_vision_transformer/lvg_msa.png)
+   ![png](/images/examples/vision/image_classification_using_global_context_vision_transformer/lvg_msa.png)
 
 1. Now, let's think for a bit and try to understand what is happening here. Let's focus on the figure below. We can see from the left, that in the **local-attention** the **query is local** and it's **limited to the local window** (red square border) hence we don't have access to long-range information. But on the right that due to **global query** we're now **not limited to local-windows** (blue square border) and we have access to long-range information.
 
-   ![](/images/examples/vision/image_classification_using_global_context_vision_transformer/lvg_arch.png)
+   ![png](/images/examples/vision/image_classification_using_global_context_vision_transformer/lvg_arch.png)
 
 1. In **ViT** we compare (attention) image-tokens with image-tokens, in **SwinTransformer** we compare window-tokens with window-tokens but in **GCViT** we compare image-tokens with window-tokens. But now you may ask, how can compare(attention) image-tokens with window-tokens even after image-tokens have larger dimensions than window-tokens? (from above figure image-tokens have shape `(1, 8, 8, 3)` and window-tokens have shape `(1, 4, 4, 3)`). Yes, you are right we can't directly compare them hence we resize image-tokens to fit window-tokens with `Global Token Gen./FeatureExtraction` **CNN** module. The following table should give you a clear comparison,
 
@@ -518,7 +518,7 @@ In the `level` second module that we have used is `block`. Let's try to understa
 4. After attention has been applied we revert **batch windows** to **batch feature maps**.
 5. Before sending the attention to applied features for output, this module applies **Stochastic Depth** regularization in the residual connection. Also, before applying **Stochastic Depth** it rescales the input with trainable parameters. Note that, this **Stochastic Depth** block hasn't been shown in the figure of the paper.
 
-![](/images/examples/vision/image_classification_using_global_context_vision_transformer/block2.jpeg)
+![jpeg](/images/examples/vision/image_classification_using_global_context_vision_transformer/block2.jpeg)
 
 ### Window
 
@@ -695,7 +695,7 @@ In the model, the second module that we have used is `level`. Let's try to under
 
 > Summary: feature_map → global_token → local/global window attention → dowsample
 
-![](/images/examples/vision/image_classification_using_global_context_vision_transformer/level.png)
+![png](/images/examples/vision/image_classification_using_global_context_vision_transformer/level.png)
 
 ```python
 class Level(layers.Layer):

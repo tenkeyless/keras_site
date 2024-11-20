@@ -88,7 +88,7 @@ x_test shape: (10000, 32, 32, 3) - y_test shape: (10000, 10)
 
 The first recipe introduced by the CCT authors is the tokenizer for processing the images. In a standard ViT, images are organized into uniform _non-overlapping_ patches. This eliminates the boundary-level information present in between different patches. This is important for a neural network to effectively exploit the locality information. The figure below presents an illustration of how images are organized into patches.
 
-![](/images/examples/vision/cct/IkBK9oY.png)
+![png](/images/examples/vision/cct/IkBK9oY.png)
 
 We already know that convolutions are quite good at exploiting locality information. So, based on this, the authors introduce an all-convolution mini-network to produce image patches.
 

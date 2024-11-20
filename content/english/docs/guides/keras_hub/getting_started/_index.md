@@ -25,7 +25,7 @@ KerasHub is an extension of the core Keras API; KerasHub components are provided
 
 This guide is meant to be an accessible introduction to the entire library. We will start by using high-level APIs to classify images and generate text, then progressively show deeper customization of models and training. Throughout the guide, we use Professor Keras, the official Keras mascot, as a visual reference for the complexity of the material:
 
-![](/images/keras-hub/getting_started_guide/prof_keras_evolution.png)
+![png](/images/keras-hub/getting_started_guide/prof_keras_evolution.png)
 
 As always, we'll keep our Keras guides focused on real-world code examples. You can play with the code here at any time by clicking the Colab link at the top of the guide.
 
@@ -93,7 +93,7 @@ The figure below shows how all these core classes interact. Arrow indicate compo
 
 ## Classify an image
 
-![](/images/keras-hub/getting_started_guide/prof_keras_beginner.png)
+![png](/images/keras-hub/getting_started_guide/prof_keras_beginner.png)
 
 Enough setup! Let's have some fun with pre-trained models. Let's load a test image of a California Quail and classify it.
 
@@ -231,7 +231,7 @@ Model: "res_net_image_classifier"
 
 ## Generate text with an LLM
 
-![](/images/keras-hub/getting_started_guide/prof_keras_intermediate.png)
+![png](/images/keras-hub/getting_started_guide/prof_keras_intermediate.png)
 
 Next up, let's try working with and generating text. The task we can use when generating text is [`keras_hub.models.CausalLM`]({{< relref "/docs/api/keras_hub/base_classes/causal_lm#causallm-class" >}}) (where LM is short for **L**anguage **M**odel). Let's download the 2 billion parameter Gemma 2 model and try it out.
 
@@ -469,7 +469,7 @@ del causal_lm
 
 ## Fine-tune and publish an image classifier
 
-![](/images/keras-hub/getting_started_guide/prof_keras_advanced.png)
+![png](/images/keras-hub/getting_started_guide/prof_keras_advanced.png)
 
 Now that we've tried running inference for both images and text, let's try running training. We will take our ResNet image classifier from earlier and fine-tune it on simple cats vs dogs dataset. We can start by downloading and extracting the data.
 
@@ -674,7 +674,7 @@ del image_classifier
 
 ## Building a custom text classifier
 
-![](/images/keras-hub/getting_started_guide/prof_keras_expert.png)
+![png](/images/keras-hub/getting_started_guide/prof_keras_expert.png)
 
 As a final example for this getting started guide, let's take a look at how we can build custom models from lower-level Keras and KerasHub components. We will build a text classifier to classify movie reviews in the IMDb dataset as either positive or negative.
 

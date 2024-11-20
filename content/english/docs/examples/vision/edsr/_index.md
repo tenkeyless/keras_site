@@ -36,7 +36,7 @@ Paper: [A comprehensive review of deep learning based single image super-resolut
 
 Comparison Graph:
 
-![](/static/images/examples/vision/edsr/fig-11-2x.jpg)
+![jpg](/images/examples/vision/edsr/fig-11-2x.jpg)
 
 ## Imports
 
@@ -218,7 +218,7 @@ In the paper, the authors train three models: EDSR, MDSR, and a baseline model. 
 
 The residual block design of EDSR differs from that of ResNet. Batch normalization layers have been removed (together with the final ReLU activation): since batch normalization layers normalize the features, they hurt output value range flexibility. It is thus better to remove them. Further, it also helps reduce the amount of GPU RAM required by the model, since the batch normalization layers consume the same amount of memory as the preceding convolutional layers.
 
-![](/images/examples/vision/edsr/1*EPviXGqlGWotVtV2gqVvNg.png)
+![png](/images/examples/vision/edsr/1*EPviXGqlGWotVtV2gqVvNg.png)
 
 ```python
 class EDSRModel(keras.Model):

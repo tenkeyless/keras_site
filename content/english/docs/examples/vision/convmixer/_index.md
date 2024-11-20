@@ -118,7 +118,7 @@ test_dataset = make_datasets(x_test, y_test)
 
 The following figure (taken from the original paper) depicts the ConvMixer model:
 
-![](/images/examples/vision/convmixer/yF8actg.png)
+![png](/images/examples/vision/convmixer/yF8actg.png)
 
 ConvMixer is very similar to the MLP-Mixer, model with the following key differences:
 

@@ -14,7 +14,7 @@ KerasCV can be understood as a horizontal extension of the Keras API: the compon
 
 Our APIs assist in common computer vision tasks such as data augmentation, classification, object detection, segmentation, image generation, and more. Applied computer vision engineers can leverage KerasCV to quickly assemble production-grade, state-of-the-art training and inference pipelines for all of these common tasks.
 
-![](/images/keras-cv-augmentations.gif)
+![gif](/images/keras-cv-augmentations.gif)
 
 ## Quick Links
 

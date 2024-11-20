@@ -292,7 +292,7 @@ def distortion_free_resize(image, img_size):
 
 If we just go with the plain resizing then the images would look like so:
 
-![](/images/examples/vision/handwriting_recognition/eqq3s4N.png)
+![png](/images/examples/vision/handwriting_recognition/eqq3s4N.png)
 
 Notice how this resizing would have introduced unnecessary stretching.
 

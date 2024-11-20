@@ -19,13 +19,13 @@ type: docs
 {{< card link="https://github.com/keras-team/keras-io/blob/master/guides/keras_hub/semantic_segmentation_deeplab_v3.py" title="GitHub source" tag="GitHub">}}
 {{< /cards >}}
 
-![](/images/keras-hub/getting_started_guide/prof_keras_intermediate.png)
+![png](/images/keras-hub/getting_started_guide/prof_keras_intermediate.png)
 
 ## Background
 
 Semantic segmentation is a type of computer vision task that involves assigning a class label such as "person", "bike", or "background" to each individual pixel of an image, effectively dividing the image into regions that correspond to different object classes or categories.
 
-![](/images/guides/keras_hub/semantic_segmentation_deeplab_v3/1*z6ch-2BliDGLIHpOPFY_Sw.png)
+![png](/images/guides/keras_hub/semantic_segmentation_deeplab_v3/1*z6ch-2BliDGLIHpOPFY_Sw.png)
 
 KerasHub offers the DeepLabv3, DeepLabv3+, SegFormer, etc., models for semantic segmentation.
 

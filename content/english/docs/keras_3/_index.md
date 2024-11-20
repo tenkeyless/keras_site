@@ -35,7 +35,7 @@ Keras 3 implements the full Keras API and makes it available with TensorFlow, JA
 
 Any Keras model that only uses built-in layers will immediately work with all supported backends. In fact, your existing `tf.keras` models that only use built-in layers can start running in JAX and PyTorch _right away_! That's right, your codebase just gained a whole new set of capabilities.
 
-![](/images/keras_3/cross_framework_keras_3.jpg)
+![jpg](/images/keras_3/cross_framework_keras_3.jpg)
 
 ## Author multi-framework layers, models, metrics...
 
@@ -46,7 +46,7 @@ Keras 3 enables you to create components (like arbitrary custom layers or pretra
 
 As long as you only use ops from `keras.ops`, your custom layers, custom losses, custom metrics, and custom optimizers **will work with JAX, PyTorch, and TensorFlow — with the same code**. That means that you can maintain only one component implementation (e.g. a single `model.py` together with a single checkpoint file), and you can use it in all frameworks, with the exact same numerics.
 
-![](/images/keras_3/custom_component_authoring_keras_3.jpg)
+![jpg](/images/keras_3/custom_component_authoring_keras_3.jpg)
 
 ## ...that works seamlessly with any JAX, TensorFlow, and PyTorch workflow.
 
@@ -61,7 +61,7 @@ You can:
 - Use any PyTorch `Module` in a Keras model as if it were a Keras layer.
 - etc.
 
-![](/images/keras_3/custom_training_loops.jpg)
+![jpg](/images/keras_3/custom_training_loops.jpg)
 
 ## A new distribution API for large-scale data parallelism and model parallelism.
 
@@ -69,13 +69,13 @@ The models we've been working with have been getting larger and larger, so we wa
 
 Data parallelism (replicating a small model identically on multiple devices) can be handled in just two lines:
 
-![](/images/keras_3/keras_3_data_parallel.jpg)
+![jpg](/images/keras_3/keras_3_data_parallel.jpg)
 
 Model parallelism lets you specify sharding layouts for model variables and intermediate output tensors, along multiple named dimensions. In the typical case, you would organize available devices as a 2D grid (called a _device mesh_), where the first dimension is used for data parallelism and the second dimension is used for model parallelism. You would then configure your model to be sharded along the model dimension and replicated along the data dimension.
 
 The API lets you configure the layout of every variable and every output tensor via regular expressions. This makes it easy to quickly specify the same layout for entire categories of variables.
 
-![](/images/keras_3/keras_3_model_parallel.jpg)
+![jpg](/images/keras_3/keras_3_model_parallel.jpg)
 
 The new distribution API is intended to be multi-backend, but is only available for the JAX backend for the time being. TensorFlow and PyTorch support is coming soon. Get started with [this guide]({{< relref "/docs/guides/distribution" >}})!
 
@@ -113,7 +113,7 @@ We've brought this principle to all of our backends. For instance, you can custo
 
 Here's how it works in PyTorch and TensorFlow:
 
-![](/images/keras_3/customizing_fit.jpg)
+![jpg](/images/keras_3/customizing_fit.jpg)
 
 And [here's the link]({{< relref "/docs/guides/custom_train_step_in_jax" >}}) to the JAX version.
 
