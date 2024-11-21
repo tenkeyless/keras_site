@@ -66,26 +66,25 @@ When increasing the depth of the ViT models, they meet with optimization instabi
 
 The following equations denote where residual connections are added within a Transformer block:
 
-$$x_l^{\prime} = x_l + \text{SA}(\mu(x_l))$$
-$$x_{l+1} = x_l^{\prime} + \text{FFN}(\mu(x^{\prime}_l))$$
+$$
+x_l^{\prime} = x_l + \text{SA}(\mu(x_l))
+$$
 
-```latex
-x_l^{\prime} = x_l + \text{SA}(\mu(x_l)) \\
+$$
 x_{l+1} = x_l^{\prime} + \text{FFN}(\mu(x^{\prime}_l))
-```
+$$
 
 where, **SA** stands for self-attention, **FFN** stands for feed-forward network, and **eta** denotes the LayerNorm operator ([Ba et al.](https://arxiv.org/abs/1607.06450)).
 
 LayerScale is formally implemented like so:
 
-$$x_l^{\prime} = x_l + \text{diag}(\lambda_{l,1},...\lambda_{l,d}) \times \text{SA}(\mu(x_l))$$
+$$
+x_l^{\prime} = x_l + \text{diag}(\lambda_{l,1},...\lambda_{l,d}) \times \text{SA}(\mu(x_l))
+$$
 
-$$x_{l+1} = x_l^{\prime} + \text{diag}(\lambda_{l,1}^{\prime},...\lambda_{l,d}^{\prime}) \times \text{FFN}(\mu(x^{\prime}_l))$$
-
-```latex
-x_l^{\prime} = x_l + \text{diag}(\lambda_{l,1},...\lambda_{l,d}) \times \text{SA}(\mu(x_l)) \\
+$$
 x_{l+1} = x_l^{\prime} + \text{diag}(\lambda_{l,1}^{\prime},...\lambda_{l,d}^{\prime}) \times \text{FFN}(\mu(x^{\prime}_l))
-```
+$$
 
 where, the lambdas are learnable parameters and are initialized with a very small value ({0.1, 1e-5, 1e-6}). **diag** represents a diagonal matrix.
 
