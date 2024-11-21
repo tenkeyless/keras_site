@@ -50,7 +50,7 @@ Object detection is the process of identifying, classifying, and localizing obje
 
 **For example:**
 
-![](/images/guides/keras_cv/object_detection_keras_cv/8xSEbQD.png)
+![png](/images/guides/keras_cv/object_detection_keras_cv/8xSEbQD.png)
 
 The data for the above image may look something like this:
 
@@ -72,13 +72,13 @@ More specifically, this is done by generating many anchor boxes of varying shape
 
 **Visualization of some sample anchor boxes**:
 
-![](/images/guides/keras_cv/object_detection_keras_cv/cJIuiK9.jpg)
+![jpg](/images/guides/keras_cv/object_detection_keras_cv/cJIuiK9.jpg)
 
 Objection detection is a technically complex problem but luckily we offer a bulletproof approach to getting great results. Let's do this!
 
 ## Perform detections with a pretrained model
 
-![](/images/keras-hub/getting_started_guide/prof_keras_beginner.png)
+![png](/images/keras-hub/getting_started_guide/prof_keras_beginner.png)
 
 The highest level API in the KerasCV Object Detection API is the `keras_cv.models` API. This API includes fully pretrained object detection models, such as [`keras_cv.models.YOLOV8Detector`]({{< relref "/docs/api/keras_cv/models/tasks/yolo_v8_detector#yolov8detector-class" >}}).
 
@@ -314,7 +314,7 @@ That looks a lot better!
 
 ## Train a custom object detection model
 
-![](/images/keras-hub/getting_started_guide/prof_keras_advanced.png)
+![png](/images/keras-hub/getting_started_guide/prof_keras_advanced.png)
 
 Whether you're an object detection amateur or a well seasoned veteran, assembling an object detection pipeline from scratch is a massive undertaking. Luckily, all KerasCV object detection APIs are built as modular components. Whether you need a complete pipeline, just an object detection model, or even just a conversion utility to transform your boxes from `xywh` format to `xyxy`, KerasCV has you covered.
 

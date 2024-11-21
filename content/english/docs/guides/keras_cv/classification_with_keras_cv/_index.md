@@ -31,7 +31,7 @@ KerasCV uses Keras 3 to work with any of TensorFlow, PyTorch or Jax. In the guid
 
 We use Professor Keras, the official Keras mascot, as a visual reference for the complexity of the material:
 
-![](/images/keras-hub/getting_started_guide/prof_keras_evolution.png)
+![png](/images/keras-hub/getting_started_guide/prof_keras_evolution.png)
 
 ```python
 !pip install -q --upgrade keras-cv
@@ -63,7 +63,7 @@ import tensorflow_datasets as tfds
 
 ## Inference with a pretrained classifier
 
-![](/images/keras-hub/getting_started_guide/prof_keras_beginner.png)
+![png](/images/keras-hub/getting_started_guide/prof_keras_beginner.png)
 
 Let's get started with the simplest KerasCV API: a pretrained classifier. In this example, we will construct a classifier that was pretrained on the ImageNet dataset. We'll use this model to solve the age old "Cat or Dog" problem.
 
@@ -152,7 +152,7 @@ Ideally, we'd have a classifier that only performs computation to determine if a
 
 ## Fine tuning a pretrained classifier
 
-![](/images/keras-hub/getting_started_guide/prof_keras_intermediate.png)
+![png](/images/keras-hub/getting_started_guide/prof_keras_intermediate.png)
 
 When labeled images specific to our task are available, fine-tuning a custom classifier can improve performance. If we want to train a Cats vs Dogs Classifier, using explicitly labeled Cat vs Dog data should perform better than the generic classifier! For many tasks, no relevant pretrained model will be available (e.g., categorizing images specific to your application).
 
@@ -310,7 +310,7 @@ Awesome - looks like the model correctly classified the image.
 
 ## Train a Classifier from Scratch
 
-![](/images/keras-hub/getting_started_guide/prof_keras_advanced.png)
+![png](/images/keras-hub/getting_started_guide/prof_keras_advanced.png)
 
 Now that we've gotten our hands dirty with classification, let's take on one last task: training a classification model from scratch! A standard benchmark for image classification is the ImageNet dataset, however due to licensing constraints we will use the CalTech 101 image classification dataset in this tutorial. While we use the simpler CalTech 101 dataset in this guide, the same training template may be used on ImageNet to achieve near state-of-the-art scores.
 
