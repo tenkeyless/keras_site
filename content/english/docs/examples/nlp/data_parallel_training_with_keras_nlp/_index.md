@@ -1,4 +1,6 @@
 ---
-title: data_parallel_training_with_keras_nlp
-toc: false
+title: Data Parallel Training with KerasNLP and tf.distribute
+toc: true
+weight: 10
+type: docs
 ---

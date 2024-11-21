@@ -1,4 +1,6 @@
 ---
-title: semantic_similarity_with_keras_nlp
-toc: false
+title: Semantic Similarity with KerasNLP
+toc: true
+weight: 18
+type: docs
 ---

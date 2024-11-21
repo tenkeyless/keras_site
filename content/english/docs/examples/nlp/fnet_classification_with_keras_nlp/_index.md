@@ -1,4 +1,6 @@
 ---
-title: fnet_classification_with_keras_nlp
-toc: false
+title: Text Classification using FNet
+toc: true
+weight: 3
+type: docs
 ---

@@ -1,4 +1,6 @@
 ---
-title: sentence_embeddings_with_sbert
-toc: false
+title: Sentence embeddings using Siamese RoBERTa-networks
+toc: true
+weight: 20
+type: docs
 ---

@@ -1,4 +1,6 @@
 ---
-title: neural_machine_translation_with_keras_nlp
-toc: false
+title: English-to-Spanish translation with KerasNLP
+toc: true
+weight: 11
+type: docs
 ---
