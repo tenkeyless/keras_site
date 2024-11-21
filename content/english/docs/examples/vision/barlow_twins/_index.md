@@ -9,8 +9,8 @@ type: docs
 > - Last Checked at : 2024-11-21
 
 **Author:** [Abhiraam Eranti](https://github.com/dewball345)  
-**Date created:** 11/4/21  
-**Last modified:** 12/20/21  
+**Date created:** 2021/11/04  
+**Last modified:** 2021/12/20  
 **Description:** A keras implementation of Barlow Twins (constrastive SSL with redundancy reduction).
 
 {{< hextra/hero-button

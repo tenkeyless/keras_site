@@ -9,8 +9,8 @@ type: docs
 > - Last Checked at : 2024-11-21
 
 **Author:** [Sayak Paul](https://twitter.com/RisingSayak)  
-**Date created:** 2021/06/08  
-**Last modified:** 2023/22/07  
+**Date created:** 2021/08/06  
+**Last modified:** 2023/07/22  
 **Description:** Training a video classifier with hybrid transformers.
 
 {{< hextra/hero-button

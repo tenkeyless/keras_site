@@ -9,8 +9,8 @@ type: docs
 > - Last Checked at : 2024-11-21
 
 **Author:** [Rishit Dagli](https://github.com/Rishit-dagli)  
-**Date created:** 06/18/21  
-**Last modified:** 07/25/23  
+**Date created:** 2021/06/18  
+**Last modified:** 2023/07/25  
 **Description:** Implement Gradient Centralization to improve training performance of DNNs.
 
 {{< hextra/hero-button
