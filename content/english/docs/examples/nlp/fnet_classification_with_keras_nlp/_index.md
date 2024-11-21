@@ -11,7 +11,7 @@ type: docs
 **Author:** [Abheesht Sharma](https://github.com/abheesht17/)  
 **Date created:** 2022/06/01  
 **Last modified:** 2022/12/21  
-**Description:** Text Classification on the IMDb Dataset using [`keras_hub.layers.FNetEncoder`]({{< relref "/docs/api/keras_nlp/modeling_layers/fnet_encoder#fnetencoder-class" >}}) layer.
+**Description:** Text Classification on the IMDb Dataset using [`keras_nlp.layers.FNetEncoder`]({{< relref "/docs/api/keras_nlp/modeling_layers/fnet_encoder#fnetencoder-class" >}}) layer.
 
 {{< hextra/hero-button
     text="ⓘ This example uses Keras 3"
