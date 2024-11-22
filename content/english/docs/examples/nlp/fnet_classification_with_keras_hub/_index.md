@@ -1,32 +1,32 @@
 ---
-title: Text Classification using FNet (KerasNLP)
+title: Text Classification using FNet (KerasHub)
 toc: true
 weight: 3
 type: docs
 ---
 
-> - Original Link : [https://keras.io/examples/nlp/fnet_classification_with_keras_nlp/](https://keras.io/examples/nlp/fnet_classification_with_keras_nlp/)
+> - Original Link : [https://keras.io/examples/nlp/fnet_classification_with_keras_hub/](https://keras.io/examples/nlp/fnet_classification_with_keras_hub/)
 > - Last Checked at : 2024-11-21
 
 **Author:** [Abheesht Sharma](https://github.com/abheesht17/)  
 **Date created:** 2022/06/01  
 **Last modified:** 2022/12/21  
-**Description:** Text Classification on the IMDb Dataset using [`keras_nlp.layers.FNetEncoder`]({{< relref "/docs/api/keras_nlp/modeling_layers/fnet_encoder#fnetencoder-class" >}}) layer.
+**Description:** Text Classification on the IMDb Dataset using [`keras_hub.layers.FNetEncoder`]({{< relref "/docs/api/keras_hub/modeling_layers/fnet_encoder#fnetencoder-class" >}}) layer.
 
 {{< hextra/hero-button
     text="ⓘ This example uses Keras 3"
     style="background: rgb(23, 132, 133); margin: 1em 0 0.5em 0; pointer-events: none;" >}}
 
 {{< cards cols="2" >}}
-{{< card link="https://colab.research.google.com/github/keras-team/keras-io/blob/master/examples/nlp/ipynb/fnet_classification_with_keras_nlp.ipynb" title="Colab" tag="Colab" tagType="warning">}}
-{{< card link="https://github.com/keras-team/keras-io/blob/master/examples/nlp/fnet_classification_with_keras_nlp.py" title="GitHub source" tag="GitHub">}}
+{{< card link="https://colab.research.google.com/github/keras-team/keras-io/blob/master/examples/nlp/ipynb/fnet_classification_with_keras_hub.ipynb" title="Colab" tag="Colab" tagType="warning">}}
+{{< card link="https://github.com/keras-team/keras-io/blob/master/examples/nlp/fnet_classification_with_keras_hub.py" title="GitHub source" tag="GitHub">}}
 {{< /cards >}}
 
 ## Introduction
 
 In this example, we will demonstrate the ability of FNet to achieve comparable results with a vanilla Transformer model on the text classification task. We will be using the IMDb dataset, which is a collection of movie reviews labelled either positive or negative (sentiment analysis).
 
-To build the tokenizer, model, etc., we will use components from [KerasNLP](https://github.com/keras-team/keras-nlp). KerasNLP makes life easier for people who want to build NLP pipelines! :)
+To build the tokenizer, model, etc., we will use components from [KerasHub](https://github.com/keras-team/keras-hub). KerasHub makes life easier for people who want to build NLP pipelines! :)
 
 ### Model
 
@@ -42,12 +42,12 @@ In 2020, a paper titled [FNet: Mixing Tokens with Fourier Transforms](https://ar
 Before we start with the implementation, let's import all the necessary packages.
 
 ```python
-!pip install -q --upgrade keras-nlp
+!pip install -q --upgrade keras-hub
 !pip install -q --upgrade keras  # Upgrade to Keras 3.
 ```
 
 ```python
-import keras_nlp
+import keras_hub
 import keras
 import tensorflow as tf
 import os
@@ -185,16 +185,16 @@ b'"hollywood hotel" has relationships to many films like "ella cinders" and "mer
 
 ### Tokenizing the data
 
-We'll be using the [`keras_nlp.tokenizers.WordPieceTokenizer`]({{< relref "/docs/api/keras_nlp/tokenizers/word_piece_tokenizer#wordpiecetokenizer-class" >}}) layer to tokenize the text. [`keras_nlp.tokenizers.WordPieceTokenizer`]({{< relref "/docs/api/keras_nlp/tokenizers/word_piece_tokenizer#wordpiecetokenizer-class" >}}) takes a WordPiece vocabulary and has functions for tokenizing the text, and detokenizing sequences of tokens.
+We'll be using the [`keras_hub.tokenizers.WordPieceTokenizer`]({{< relref "/docs/api/keras_hub/tokenizers/word_piece_tokenizer#wordpiecetokenizer-class" >}}) layer to tokenize the text. [`keras_hub.tokenizers.WordPieceTokenizer`]({{< relref "/docs/api/keras_hub/tokenizers/word_piece_tokenizer#wordpiecetokenizer-class" >}}) takes a WordPiece vocabulary and has functions for tokenizing the text, and detokenizing sequences of tokens.
 
-Before we define the tokenizer, we first need to train it on the dataset we have. The WordPiece tokenization algorithm is a subword tokenization algorithm; training it on a corpus gives us a vocabulary of subwords. A subword tokenizer is a compromise between word tokenizers (word tokenizers need very large vocabularies for good coverage of input words), and character tokenizers (characters don't really encode meaning like words do). Luckily, KerasNLP makes it very simple to train WordPiece on a corpus with the [`keras_nlp.tokenizers.compute_word_piece_vocabulary`]({{< relref "/docs/api/keras_nlp/tokenizers/compute_word_piece_vocabulary#compute_word_piece_vocabulary-function" >}}) utility.
+Before we define the tokenizer, we first need to train it on the dataset we have. The WordPiece tokenization algorithm is a subword tokenization algorithm; training it on a corpus gives us a vocabulary of subwords. A subword tokenizer is a compromise between word tokenizers (word tokenizers need very large vocabularies for good coverage of input words), and character tokenizers (characters don't really encode meaning like words do). Luckily, KerasHub makes it very simple to train WordPiece on a corpus with the [`keras_hub.tokenizers.compute_word_piece_vocabulary`]({{< relref "/docs/api/keras_hub/tokenizers/compute_word_piece_vocabulary#compute_word_piece_vocabulary-function" >}}) utility.
 
 Note: The official implementation of FNet uses the SentencePiece Tokenizer.
 
 ```python
 def train_word_piece(ds, vocab_size, reserved_tokens):
     word_piece_ds = ds.unbatch().map(lambda x, y: x)
-    vocab = keras_nlp.tokenizers.compute_word_piece_vocabulary(
+    vocab = keras_hub.tokenizers.compute_word_piece_vocabulary(
         word_piece_ds.batch(1000).prefetch(2),
         vocabulary_size=vocab_size,
         reserved_tokens=reserved_tokens,
@@ -230,7 +230,7 @@ Tokens:  ['à', 'á', 'â', 'ã', 'ä', 'å', 'æ', 'ç', 'è', 'é']
 Now, let's define the tokenizer. We will configure the tokenizer with the the vocabularies trained above. We will define a maximum sequence length so that all sequences are padded to the same length, if the length of the sequence is less than the specified sequence length. Otherwise, the sequence is truncated.
 
 ```python
-tokenizer = keras_nlp.tokenizers.WordPieceTokenizer(
+tokenizer = keras_hub.tokenizers.WordPieceTokenizer(
     vocabulary=vocab,
     lowercase=False,
     sequence_length=MAX_SEQUENCE_LENGTH,
@@ -322,25 +322,25 @@ test_ds = make_dataset(test_ds)
 
 ## Building the model
 
-Now, let's move on to the exciting part - defining our model! We first need an embedding layer, i.e., a layer that maps every token in the input sequence to a vector. This embedding layer can be initialised randomly. We also need a positional embedding layer which encodes the word order in the sequence. The convention is to add, i.e., sum, these two embeddings. KerasNLP has a `keras_nlp.layers.TokenAndPositionEmbedding` layer which does all of the above steps for us.
+Now, let's move on to the exciting part - defining our model! We first need an embedding layer, i.e., a layer that maps every token in the input sequence to a vector. This embedding layer can be initialised randomly. We also need a positional embedding layer which encodes the word order in the sequence. The convention is to add, i.e., sum, these two embeddings. KerasHub has a `keras_hub.layers.TokenAndPositionEmbedding` layer which does all of the above steps for us.
 
-Our FNet classification model consists of three [`keras_nlp.layers.FNetEncoder`]({{< relref "/docs/api/keras_nlp/modeling_layers/fnet_encoder#fnetencoder-class" >}}) layers with a [`keras.layers.Dense`]({{< relref "/docs/api/layers/core_layers/dense#dense-class" >}}) layer on top.
+Our FNet classification model consists of three [`keras_hub.layers.FNetEncoder`]({{< relref "/docs/api/keras_hub/modeling_layers/fnet_encoder#fnetencoder-class" >}}) layers with a [`keras.layers.Dense`]({{< relref "/docs/api/layers/core_layers/dense#dense-class" >}}) layer on top.
 
 Note: For FNet, masking the padding tokens has a minimal effect on results. In the official implementation, the padding tokens are not masked.
 
 ```python
 input_ids = keras.Input(shape=(None,), dtype="int64", name="input_ids")
 
-x = keras_nlp.layers.TokenAndPositionEmbedding(
+x = keras_hub.layers.TokenAndPositionEmbedding(
     vocabulary_size=VOCAB_SIZE,
     sequence_length=MAX_SEQUENCE_LENGTH,
     embedding_dim=EMBED_DIM,
     mask_zero=True,
 )(input_ids)
 
-x = keras_nlp.layers.FNetEncoder(intermediate_dim=INTERMEDIATE_DIM)(inputs=x)
-x = keras_nlp.layers.FNetEncoder(intermediate_dim=INTERMEDIATE_DIM)(inputs=x)
-x = keras_nlp.layers.FNetEncoder(intermediate_dim=INTERMEDIATE_DIM)(inputs=x)
+x = keras_hub.layers.FNetEncoder(intermediate_dim=INTERMEDIATE_DIM)(inputs=x)
+x = keras_hub.layers.FNetEncoder(intermediate_dim=INTERMEDIATE_DIM)(inputs=x)
+x = keras_hub.layers.FNetEncoder(intermediate_dim=INTERMEDIATE_DIM)(inputs=x)
 
 
 x = keras.layers.GlobalAveragePooling1D()(x)
@@ -449,20 +449,20 @@ NUM_HEADS = 2
 input_ids = keras.Input(shape=(None,), dtype="int64", name="input_ids")
 
 
-x = keras_nlp.layers.TokenAndPositionEmbedding(
+x = keras_hub.layers.TokenAndPositionEmbedding(
     vocabulary_size=VOCAB_SIZE,
     sequence_length=MAX_SEQUENCE_LENGTH,
     embedding_dim=EMBED_DIM,
     mask_zero=True,
 )(input_ids)
 
-x = keras_nlp.layers.TransformerEncoder(
+x = keras_hub.layers.TransformerEncoder(
     intermediate_dim=INTERMEDIATE_DIM, num_heads=NUM_HEADS
 )(inputs=x)
-x = keras_nlp.layers.TransformerEncoder(
+x = keras_hub.layers.TransformerEncoder(
     intermediate_dim=INTERMEDIATE_DIM, num_heads=NUM_HEADS
 )(inputs=x)
-x = keras_nlp.layers.TransformerEncoder(
+x = keras_hub.layers.TransformerEncoder(
     intermediate_dim=INTERMEDIATE_DIM, num_heads=NUM_HEADS
 )(inputs=x)
 

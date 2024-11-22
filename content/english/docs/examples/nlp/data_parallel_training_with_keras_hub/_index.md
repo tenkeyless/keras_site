@@ -1,32 +1,32 @@
 ---
-title: Data Parallel Training with KerasNLP and tf.distribute
+title: Data Parallel Training with KerasHub and tf.distribute
 toc: true
 weight: 10
 type: docs
 ---
 
-> - Original Link : [https://keras.io/examples/nlp/data_parallel_training_with_keras_nlp/](https://keras.io/examples/nlp/data_parallel_training_with_keras_nlp/)
+> - Original Link : [https://keras.io/examples/nlp/data_parallel_training_with_keras_hub/](https://keras.io/examples/nlp/data_parallel_training_with_keras_hub/)
 > - Last Checked at : 2024-11-21
 
 **Author:** Anshuman Mishra  
 **Date created:** 2023/07/07  
 **Last modified:** 2023/07/07  
-**Description:** Data Parallel training with KerasNLP and tf.distribute.
+**Description:** Data Parallel training with KerasHub and tf.distribute.
 
 {{< hextra/hero-button
     text="ⓘ This example uses Keras 3"
     style="background: rgb(23, 132, 133); margin: 1em 0 0.5em 0; pointer-events: none;" >}}
 
 {{< cards cols="2" >}}
-{{< card link="https://colab.research.google.com/github/keras-team/keras-io/blob/master/examples/nlp/ipynb/data_parallel_training_with_keras_nlp.ipynb" title="Colab" tag="Colab" tagType="warning">}}
-{{< card link="https://github.com/keras-team/keras-io/blob/master/examples/nlp/data_parallel_training_with_keras_nlp.py" title="GitHub source" tag="GitHub">}}
+{{< card link="https://colab.research.google.com/github/keras-team/keras-io/blob/master/examples/nlp/ipynb/data_parallel_training_with_keras_hub.ipynb" title="Colab" tag="Colab" tagType="warning">}}
+{{< card link="https://github.com/keras-team/keras-io/blob/master/examples/nlp/data_parallel_training_with_keras_hub.py" title="GitHub source" tag="GitHub">}}
 {{< /cards >}}
 
 ## Introduction
 
-Distributed training is a technique used to train deep learning models on multiple devices or machines simultaneously. It helps to reduce training time and allows for training larger models with more data. KerasNLP is a library that provides tools and utilities for natural language processing tasks, including distributed training.
+Distributed training is a technique used to train deep learning models on multiple devices or machines simultaneously. It helps to reduce training time and allows for training larger models with more data. KerasHub is a library that provides tools and utilities for natural language processing tasks, including distributed training.
 
-In this tutorial, we will use KerasNLP to train a BERT-based masked language model (MLM) on the wikitext-2 dataset (a 2 million word dataset of wikipedia articles). The MLM task involves predicting the masked words in a sentence, which helps the model learn contextual representations of words.
+In this tutorial, we will use KerasHub to train a BERT-based masked language model (MLM) on the wikitext-2 dataset (a 2 million word dataset of wikipedia articles). The MLM task involves predicting the masked words in a sentence, which helps the model learn contextual representations of words.
 
 This guide focuses on data parallelism, in particular synchronous data parallelism, where each accelerator (a GPU or TPU) holds a complete replica of the model, and sees a different partial batch of the input data. Partial gradients are computed on each device, aggregated, and used to compute a global gradient update.
 
@@ -36,7 +36,7 @@ Specifically, this guide teaches you how to use the [`tf.distribute`](https://ww
 - On a cluster of many machines, each hosting one or multiple GPUs (multi-worker distributed training). This is a good setup for large-scale industry workflows, e.g. training high-resolution text summarization models on billion word datasets on 20-100 GPUs.
 
 ```python
-!pip install -q --upgrade keras-nlp
+!pip install -q --upgrade keras-hub
 !pip install -q --upgrade keras  # Upgrade to Keras 3.
 ```
 
@@ -49,7 +49,7 @@ os.environ["KERAS_BACKEND"] = "tensorflow"
 
 import tensorflow as tf
 import keras
-import keras_nlp
+import keras_hub
 ```
 
 Before we start any training, let's configure our single GPU to show up as two logical devices.
@@ -202,7 +202,7 @@ With the datasets prepared, we now initialize and compile our model and optimize
 with strategy.scope():
     # Everything that creates variables should be under the strategy scope.
     # In general this is only model construction & `compile()`.
-    model_dist = keras_nlp.models.BertMaskedLM.from_preset("bert_tiny_en_uncased")
+    model_dist = keras_hub.models.BertMaskedLM.from_preset("bert_tiny_en_uncased")
 
     # This line just sets pooled_dense layer as non-trainiable, we do this to avoid
     # warnings of this layer being unused
