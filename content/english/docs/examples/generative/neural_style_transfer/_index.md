@@ -1,5 +1,6 @@
 ---
-title: neural_style_transfer
-toc: false
-weight: 6
+title: Neural style transfer
+toc: true
+weight: 18
+type: docs
 ---

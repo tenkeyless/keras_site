@@ -1,4 +1,6 @@
 ---
-title: gpt2_text_generation_with_kerasnlp
-toc: false
+title: GPT2 Text Generation with KerasNLP
+toc: true
+weight: 20
+type: docs
 ---
