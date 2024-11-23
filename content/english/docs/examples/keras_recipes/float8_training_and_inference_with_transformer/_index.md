@@ -1,4 +1,6 @@
 ---
-title: float8_training_and_inference_with_transformer
-toc: false
+title: Float8 training and inference with a simple Transformer model
+toc: true
+weight: 2
+type: docs
 ---
