@@ -293,11 +293,11 @@ The Encoder takes as input a molecule's graph adjacency matrix and feature matri
 
 **Graph Convolution layer**: The relational graph convolution layer implements non-linearly transformed neighbourhood aggregations. We can define these layers as follows:
 
-```latex
-H_hat**(l+1) = σ(D_hat**(-1) * A_hat * H_hat**(l+1) * W**(l))
-```
+$$
+H^{l+1} = σ(D^{-1} @ A @ H^{l+1} @ W^{l})
+$$
 
-Where `σ` denotes the non-linear transformation (commonly a ReLU activation), `A` the adjacency tensor, `H_hat**(l)` the feature tensor at the `l-th` layer, `D_hat**(-1)` the inverse diagonal degree tensor of `A_hat`, and `W_hat**(l)` the trainable weight tensor at the `l-th` layer. Specifically, for each bond type (relation), the degree tensor expresses, in the diagonal, the number of bonds attached to each atom.
+Where $\sigma$ denotes the non-linear transformation (commonly a ReLU activation), $A$ the adjacency tensor, $H^{l}$ the feature tensor at the `l-th` layer, $D^{-1}$ the inverse diagonal degree tensor of $A^$, and $W^{l}$ the trainable weight tensor at the `l-th` layer. Specifically, for each bond type (relation), the degree tensor expresses, in the diagonal, the number of bonds attached to each atom.
 
 Source: [WGAN-GP with R-GCN for the generation of small molecular graphs]({{< relref "/docs/examples/generative/wgan-graphs" >}})
 
