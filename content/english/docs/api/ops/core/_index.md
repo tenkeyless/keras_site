@@ -1,6 +1,8 @@
 ---
-title: core
-toc: false
+title: Core ops
+toc: true
+weight: 4
+type: docs
 ---
 
 [\[source\]](https://github.com/keras-team/keras/tree/v3.6.0/keras/src/ops/core.py#L221)
