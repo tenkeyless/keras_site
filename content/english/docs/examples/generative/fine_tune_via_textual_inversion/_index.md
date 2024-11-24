@@ -16,7 +16,7 @@ type: docs
 
 {{< cards cols="2" >}}
 {{< card link="https://colab.research.google.com/github/keras-team/keras-io/blob/master/examples/generative/ipynb/fine_tune_via_textual_inversion.ipynb" title="Colab" tag="Colab" tagType="warning">}}
-{{< card link="https://github.com/keras-team/keras-io/blob/master/examples/generative/fine_tune_via_textual_inversion.py" title="GitHub source" tag="GitHub">}}
+{{< card link="https://github.com/keras-team/keras-io/blob/master/examples/generative/fine_tune_via_textual_inversion.py" title="GitHub" tag="GitHub">}}
 {{< /cards >}}
 
 ## Textual Inversion

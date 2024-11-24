@@ -17,7 +17,7 @@ math: true
 
 {{< cards cols="2" >}}
 {{< card link="https://colab.research.google.com/github/keras-team/keras-io/blob/master/examples/vision/ipynb/focal_modulation_network.ipynb" title="Colab" tag="Colab" tagType="warning">}}
-{{< card link="https://github.com/keras-team/keras-io/blob/master/examples/vision/focal_modulation_network.py" title="GitHub source" tag="GitHub">}}
+{{< card link="https://github.com/keras-team/keras-io/blob/master/examples/vision/focal_modulation_network.py" title="GitHub" tag="GitHub">}}
 {{< /cards >}}
 
 ## Introduction

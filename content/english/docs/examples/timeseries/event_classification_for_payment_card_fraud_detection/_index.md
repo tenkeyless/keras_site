@@ -16,7 +16,7 @@ type: docs
 
 {{< cards cols="2" >}}
 {{< card link="https://colab.research.google.com/github/keras-team/keras-io/blob/master/examples/timeseries/ipynb/event_classification_for_payment_card_fraud_detection.ipynb" title="Colab" tag="Colab" tagType="warning">}}
-{{< card link="https://github.com/keras-team/keras-io/blob/master/examples/timeseries/event_classification_for_payment_card_fraud_detection.py" title="GitHub source" tag="GitHub">}}
+{{< card link="https://github.com/keras-team/keras-io/blob/master/examples/timeseries/event_classification_for_payment_card_fraud_detection.py" title="GitHub" tag="GitHub">}}
 {{< /cards >}}
 
 This notebook depends on Keras 3, Temporian, and a few other libraries. You can install them as follow:

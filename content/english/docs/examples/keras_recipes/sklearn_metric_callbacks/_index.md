@@ -16,7 +16,7 @@ type: docs
 
 {{< cards cols="2" >}}
 {{< card link="https://colab.research.google.com/github/keras-team/keras-io/blob/master/examples/keras_recipes/ipynb/sklearn_metric_callbacks.ipynb" title="Colab" tag="Colab" tagType="warning">}}
-{{< card link="https://github.com/keras-team/keras-io/blob/master/examples/keras_recipes/sklearn_metric_callbacks.py" title="GitHub source" tag="GitHub">}}
+{{< card link="https://github.com/keras-team/keras-io/blob/master/examples/keras_recipes/sklearn_metric_callbacks.py" title="GitHub" tag="GitHub">}}
 {{< /cards >}}
 
 ## Introduction

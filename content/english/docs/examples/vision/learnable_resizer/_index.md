@@ -16,7 +16,7 @@ type: docs
 
 {{< cards cols="2" >}}
 {{< card link="https://colab.research.google.com/github/keras-team/keras-io/blob/master/examples/vision/ipynb/learnable_resizer.ipynb" title="Colab" tag="Colab" tagType="warning">}}
-{{< card link="https://github.com/keras-team/keras-io/blob/master/examples/vision/learnable_resizer.py" title="GitHub source" tag="GitHub">}}
+{{< card link="https://github.com/keras-team/keras-io/blob/master/examples/vision/learnable_resizer.py" title="GitHub" tag="GitHub">}}
 {{< /cards >}}
 
 It is a common belief that if we constrain vision models to perceive things as humans do, their performance can be improved. For example, in [this work](https://arxiv.org/abs/1811.12231), Geirhos et al. showed that the vision models pre-trained on the ImageNet-1k dataset are biased towards texture, whereas human beings mostly use the shape descriptor to develop a common perception. But does this belief always apply, especially when it comes to improving the performance of vision models?

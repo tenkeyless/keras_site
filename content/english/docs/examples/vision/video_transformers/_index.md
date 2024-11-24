@@ -16,7 +16,7 @@ type: docs
 
 {{< cards cols="2" >}}
 {{< card link="https://colab.research.google.com/github/keras-team/keras-io/blob/master/examples/vision/ipynb/video_transformers.ipynb" title="Colab" tag="Colab" tagType="warning">}}
-{{< card link="https://github.com/keras-team/keras-io/blob/master/examples/vision/video_transformers.py" title="GitHub source" tag="GitHub">}}
+{{< card link="https://github.com/keras-team/keras-io/blob/master/examples/vision/video_transformers.py" title="GitHub" tag="GitHub">}}
 {{< /cards >}}
 
 This example is a follow-up to the [Video Classification with a CNN-RNN Architecture](https://keras.io/examples/vision/video_classification/) example. This time, we will be using a Transformer-based model ([Vaswani et al.](https://arxiv.org/abs/1706.03762)) to classify videos. You can follow [this book chapter](https://livebook.manning.com/book/deep-learning-with-python-second-edition/chapter-11) in case you need an introduction to Transformers (with code). After reading this example, you will know how to develop hybrid Transformer-based models for video classification that operate on CNN feature maps.

@@ -15,7 +15,7 @@ type: docs
 
 {{< cards cols="2" >}}
 {{< card link="https://colab.research.google.com/github/keras-team/keras-io/blob/master/guides/ipynb/migrating_to_keras_3.ipynb" title="Colab" tag="Colab" tagType="warning">}}
-{{< card link="https://github.com/keras-team/keras-io/blob/master/guides/migrating_to_keras_3.py" title="GitHub source" tag="GitHub">}}
+{{< card link="https://github.com/keras-team/keras-io/blob/master/guides/migrating_to_keras_3.py" title="GitHub" tag="GitHub">}}
 {{< /cards >}}
 
 This guide will help you migrate TensorFlow-only Keras 2 code to multi-backend Keras 3 code. The overhead for the migration is minimal. Once you have migrated, you can run Keras workflows on top of either JAX, TensorFlow, or PyTorch.

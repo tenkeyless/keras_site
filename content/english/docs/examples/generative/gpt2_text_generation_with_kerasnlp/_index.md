@@ -16,7 +16,7 @@ type: docs
 
 {{< cards cols="2" >}}
 {{< card link="https://colab.research.google.com/github/keras-team/keras-io/blob/master/examples/generative/ipynb/gpt2_text_generation_with_kerashub.ipynb" title="Colab" tag="Colab" tagType="warning">}}
-{{< card link="https://github.com/keras-team/keras-io/blob/master/examples/generative/gpt2_text_generation_with_kerashub.py" title="GitHub source" tag="GitHub">}}
+{{< card link="https://github.com/keras-team/keras-io/blob/master/examples/generative/gpt2_text_generation_with_kerashub.py" title="GitHub" tag="GitHub">}}
 {{< /cards >}}
 
 In this tutorial, you will learn to use [KerasNLP]({{< relref "/docs/keras_nlp" >}}) to load a pre-trained Large Language Model (LLM) - [GPT-2 model](https://openai.com/research/better-language-models) (originally invented by OpenAI), finetune it to a specific text style, and generate text based on users' input (also known as prompt). You will also learn how GPT2 adapts quickly to non-English languages, such as Chinese.

@@ -15,7 +15,7 @@ type: docs
 
 {{< cards cols="2" >}}
 {{< card link="https://colab.research.google.com/github/keras-team/keras-io/blob/master/guides/ipynb/keras_hub/getting_started.ipynb" title="Colab" tag="Colab" tagType="warning">}}
-{{< card link="https://github.com/keras-team/keras-io/blob/master/guides/keras_hub/getting_started.py" title="GitHub source" tag="GitHub">}}
+{{< card link="https://github.com/keras-team/keras-io/blob/master/guides/keras_hub/getting_started.py" title="GitHub" tag="GitHub">}}
 {{< /cards >}}
 
 **KerasHub** is a pretrained modeling library that aims to be simple, flexible, and fast. The library provides [Keras 3]({{< relref "/docs/keras_3" >}}) implementations of popular model architectures, paired with a collection of pretrained checkpoints available on [Kaggle](https://www.kaggle.com/organizations/keras/models). Models can be used for both training and inference on any of the TensorFlow, Jax, and Torch backends.

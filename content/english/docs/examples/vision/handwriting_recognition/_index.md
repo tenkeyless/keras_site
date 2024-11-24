@@ -16,7 +16,7 @@ type: docs
 
 {{< cards cols="2" >}}
 {{< card link="https://colab.research.google.com/github/keras-team/keras-io/blob/master/examples/vision/ipynb/handwriting_recognition.ipynb" title="Colab" tag="Colab" tagType="warning">}}
-{{< card link="https://github.com/favicon.ico) [**GitHub source**](https://github.com/keras-team/keras-io/blob/master/examples/vision/handwriting_recognition.py" title="GitHub source" tag="GitHub">}}
+{{< card link="https://github.com/favicon.ico) [**GitHub source**](https://github.com/keras-team/keras-io/blob/master/examples/vision/handwriting_recognition.py" title="GitHub" tag="GitHub">}}
 {{< /cards >}}
 
 ## Introduction
