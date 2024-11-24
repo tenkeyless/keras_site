@@ -7,7 +7,7 @@ type: docs
 
 {{< keras/original checkedAt="2024-11-25" >}}
 
-[\[source\]](https://github.com/keras-team/keras/tree/v3.6.0/keras/src/layers/rnn/conv_lstm3d.py#L5)
+{{< keras/source link="https://github.com/keras-team/keras/tree/v3.6.0/keras/src/layers/rnn/conv_lstm3d.py#L5" >}}
 
 ### `ConvLSTM3D` class
 

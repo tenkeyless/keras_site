@@ -7,7 +7,7 @@ type: docs
 
 {{< keras/original checkedAt="2024-11-25" >}}
 
-[\[source\]](https://github.com/keras-team/keras/tree/v3.6.0/keras/src/layers/rnn/rnn.py#L12)
+{{< keras/source link="https://github.com/keras-team/keras/tree/v3.6.0/keras/src/layers/rnn/rnn.py#L12" >}}
 
 ### `RNN` class
 
@@ -58,7 +58,7 @@ Base class for recurrent layers.
 
 Masking:
 
-This layer supports masking for input data with a variable number of timesteps. To introduce masks to your data, use a [`keras.layers.Embedding`](/api/layers/core_layers/embedding#embedding-class) layer with the `mask_zero` parameter set to `True`.
+This layer supports masking for input data with a variable number of timesteps. To introduce masks to your data, use a [`keras.layers.Embedding`]({{< relref "/docs/api/layers/core_layers/embedding#embedding-class" >}}) layer with the `mask_zero` parameter set to `True`.
 
 Note on using statefulness in RNNs:
 

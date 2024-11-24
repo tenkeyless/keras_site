@@ -7,7 +7,7 @@ type: docs
 
 {{< keras/original checkedAt="2024-11-25" >}}
 
-[\[source\]](https://github.com/keras-team/keras/tree/v3.6.0/keras/src/layers/rnn/time_distributed.py#L10)
+{{< keras/source link="https://github.com/keras-team/keras/tree/v3.6.0/keras/src/layers/rnn/time_distributed.py#L10" >}}
 
 ### `TimeDistributed` class
 
@@ -35,7 +35,7 @@ Because `TimeDistributed` applies the same instance of `Conv2D` to each of the t
 
 **Arguments**
 
-- **layer**: a [`keras.layers.Layer`](/api/layers/base_layer#layer-class) instance.
+- **layer**: a [`keras.layers.Layer`]({{< relref "/docs/api/layers/base_layer#layer-class" >}}) instance.
 
 **Call arguments**
 

@@ -7,7 +7,7 @@ type: docs
 
 {{< keras/original checkedAt="2024-11-25" >}}
 
-[\[source\]](https://github.com/keras-team/keras/tree/v3.6.0/keras/src/layers/rnn/bidirectional.py#L10)
+{{< keras/source link="https://github.com/keras-team/keras/tree/v3.6.0/keras/src/layers/rnn/bidirectional.py#L10" >}}
 
 ### `Bidirectional` class
 
@@ -21,13 +21,13 @@ Bidirectional wrapper for RNNs.
 
 **Arguments**
 
-- **layer**: [`keras.layers.RNN`](/api/layers/recurrent_layers/rnn#rnn-class) instance, such as [`keras.layers.LSTM`](/api/layers/recurrent_layers/lstm#lstm-class) or [`keras.layers.GRU`](/api/layers/recurrent_layers/gru#gru-class). It could also be a [`keras.layers.Layer`](/api/layers/base_layer#layer-class) instance that meets the following criteria:
+- **layer**: [`keras.layers.RNN`]({{< relref "/docs/api/layers/recurrent_layers/rnn#rnn-class" >}}) instance, such as [`keras.layers.LSTM`]({{< relref "/docs/api/layers/recurrent_layers/lstm#lstm-class" >}}) or [`keras.layers.GRU`]({{< relref "/docs/api/layers/recurrent_layers/gru#gru-class" >}}). It could also be a [`keras.layers.Layer`]({{< relref "/docs/api/layers/base_layer#layer-class" >}}) instance that meets the following criteria:
   1.  Be a sequence-processing layer (accepts 3D+ inputs).
   2.  Have a `go_backwards`, `return_sequences` and `return_state` attribute (with the same semantics as for the `RNN` class).
   3.  Have an `input_spec` attribute.
-  4.  Implement serialization via `get_config()` and `from_config()`. Note that the recommended way to create new RNN layers is to write a custom RNN cell and use it with [`keras.layers.RNN`](/api/layers/recurrent_layers/rnn#rnn-class), instead of subclassing [`keras.layers.Layer`](/api/layers/base_layer#layer-class) directly. When `return_sequences` is `True`, the output of the masked timestep will be zero regardless of the layer's original `zero_output_for_mask` value.
+  4.  Implement serialization via `get_config()` and `from_config()`. Note that the recommended way to create new RNN layers is to write a custom RNN cell and use it with [`keras.layers.RNN`]({{< relref "/docs/api/layers/recurrent_layers/rnn#rnn-class" >}}), instead of subclassing [`keras.layers.Layer`]({{< relref "/docs/api/layers/base_layer#layer-class" >}}) directly. When `return_sequences` is `True`, the output of the masked timestep will be zero regardless of the layer's original `zero_output_for_mask` value.
 - **merge_mode**: Mode by which outputs of the forward and backward RNNs will be combined. One of `{"sum", "mul", "concat", "ave", None}`. If `None`, the outputs will not be combined, they will be returned as a list. Defaults to `"concat"`.
-- **backward_layer**: Optional [`keras.layers.RNN`](/api/layers/recurrent_layers/rnn#rnn-class), or [`keras.layers.Layer`](/api/layers/base_layer#layer-class) instance to be used to handle backwards input processing. If `backward_layer` is not provided, the layer instance passed as the `layer` argument will be used to generate the backward layer automatically. Note that the provided `backward_layer` layer should have properties matching those of the `layer` argument, in particular it should have the same values for `stateful`, `return_states`, `return_sequences`, etc. In addition, `backward_layer` and `layer` should have different `go_backwards` argument values. A `ValueError` will be raised if these requirements are not met.
+- **backward_layer**: Optional [`keras.layers.RNN`]({{< relref "/docs/api/layers/recurrent_layers/rnn#rnn-class" >}}), or [`keras.layers.Layer`]({{< relref "/docs/api/layers/base_layer#layer-class" >}}) instance to be used to handle backwards input processing. If `backward_layer` is not provided, the layer instance passed as the `layer` argument will be used to generate the backward layer automatically. Note that the provided `backward_layer` layer should have properties matching those of the `layer` argument, in particular it should have the same values for `stateful`, `return_states`, `return_sequences`, etc. In addition, `backward_layer` and `layer` should have different `go_backwards` argument values. A `ValueError` will be raised if these requirements are not met.
 
 **Call arguments**
 

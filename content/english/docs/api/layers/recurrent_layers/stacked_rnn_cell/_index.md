@@ -7,7 +7,7 @@ type: docs
 
 {{< keras/original checkedAt="2024-11-25" >}}
 
-[\[source\]](https://github.com/keras-team/keras/tree/v3.6.0/keras/src/layers/rnn/stacked_rnn_cells.py#L8)
+{{< keras/source link="https://github.com/keras-team/keras/tree/v3.6.0/keras/src/layers/rnn/stacked_rnn_cells.py#L8" >}}
 
 ### `StackedRNNCells` class
 
