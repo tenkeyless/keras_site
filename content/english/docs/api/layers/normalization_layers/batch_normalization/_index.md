@@ -1,13 +1,35 @@
 ---
-title: batch_normalization
-toc: false
+title: BatchNormalization layer
+toc: true
+weight: 1
+type: docs
 ---
+
+{{< keras/original checkedAt="2024-11-25" >}}
 
 {{< keras/source link="https://github.com/keras-team/keras/tree/v3.6.0/keras/src/layers/normalization/batch_normalization.py#L11" >}}
 
 ### `BatchNormalization` class
 
-`keras.layers.BatchNormalization(     axis=-1,     momentum=0.99,     epsilon=0.001,     center=True,     scale=True,     beta_initializer="zeros",     gamma_initializer="ones",     moving_mean_initializer="zeros",     moving_variance_initializer="ones",     beta_regularizer=None,     gamma_regularizer=None,     beta_constraint=None,     gamma_constraint=None,     synchronized=False,     **kwargs )`
+```python
+keras.layers.BatchNormalization(
+    axis=-1,
+    momentum=0.99,
+    epsilon=0.001,
+    center=True,
+    scale=True,
+    beta_initializer="zeros",
+    gamma_initializer="ones",
+    moving_mean_initializer="zeros",
+    moving_variance_initializer="ones",
+    beta_regularizer=None,
+    gamma_regularizer=None,
+    beta_constraint=None,
+    gamma_constraint=None,
+    synchronized=False,
+    **kwargs
+)
+```
 
 Layer that normalizes its inputs.
 
@@ -72,5 +94,3 @@ Note that:
 
 - Setting `trainable` on an model containing other layers will recursively set the `trainable` value of all inner layers.
 - If the value of the `trainable` attribute is changed after calling `compile()` on a model, the new value doesn't take effect for this model until `compile()` is called again.
-
----
