@@ -9,8 +9,8 @@ type: docs
 > - Last Checked at : 2024-11-24
 
 **Author:** Martin Görner  
-**Date created:** 2023-12-13  
-**Last modified:** 2023-12-13  
+**Date created:** 2023/12/13  
+**Last modified:** 2023/12/13  
 **Description:** When sharing your deep learning models, package them using the Functional Subclassing pattern.
 
 {{< hextra/hero-button

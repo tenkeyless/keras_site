@@ -9,8 +9,8 @@ type: docs
 > - Last Checked at : 2024-11-24
 
 **Author:** [lukewood](https://lukewood.xyz)  
-**Date created:** 10/07/2021  
-**Last modified:** 11/17/2023  
+**Date created:** 2021/10/07  
+**Last modified:** 2023/11/17  
 **Description:** This example shows how to use Keras callbacks to evaluate and export non-TensorFlow based metrics.
 
 {{< hextra/hero-button

@@ -9,8 +9,8 @@ type: docs
 > - Last Checked at : 2024-11-24
 
 **Author:** [lukewood](https://lukewood.xyz)  
-**Date created:** 11/03/2021  
-**Last modified:** 11/03/2021  
+**Date created:** 2021/03/11  
+**Last modified:** 2021/03/11  
 **Description:** This example shows how to implement custom convolution layers using the `Conv.convolution_op()` API.
 
 {{< hextra/hero-button
