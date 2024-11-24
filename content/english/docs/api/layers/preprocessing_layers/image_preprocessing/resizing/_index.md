@@ -5,11 +5,25 @@ weight: 1
 type: docs
 ---
 
+{{< keras/original checkedAt="2024-11-25" >}}
+
 {{< keras/source link="https://github.com/keras-team/keras/tree/v3.6.0/keras/src/layers/preprocessing/image_preprocessing/resizing.py#L9" >}}
 
 ### `Resizing` class
 
-`keras.layers.Resizing(     height,     width,     interpolation="bilinear",     crop_to_aspect_ratio=False,     pad_to_aspect_ratio=False,     fill_mode="constant",     fill_value=0.0,     data_format=None,     **kwargs )`
+```python
+keras.layers.Resizing(
+    height,
+    width,
+    interpolation="bilinear",
+    crop_to_aspect_ratio=False,
+    pad_to_aspect_ratio=False,
+    fill_mode="constant",
+    fill_value=0.0,
+    data_format=None,
+    **kwargs
+)
+```
 
 A preprocessing layer which resizes images.
 
@@ -36,5 +50,3 @@ This layer resizes an image input to a target height and width. The input should
 - **fill_value**: Float. Padding value to use when `pad_to_aspect_ratio=True`.
 - **data_format**: string, either `"channels_last"` or `"channels_first"`. The ordering of the dimensions in the inputs. `"channels_last"` corresponds to inputs with shape `(batch, height, width, channels)` while `"channels_first"` corresponds to inputs with shape `(batch, channels, height, width)`. It defaults to the `image_data_format` value found in your Keras config file at `~/.keras/keras.json`. If you never set it, then it will be `"channels_last"`.
 - **\*\*kwargs**: Base layer keyword arguments, such as `name` and `dtype`.
-
----

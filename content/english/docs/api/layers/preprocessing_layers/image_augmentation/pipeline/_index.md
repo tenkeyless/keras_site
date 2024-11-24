@@ -5,11 +5,15 @@ weight: 9
 type: docs
 ---
 
+{{< keras/original checkedAt="2024-11-25" >}}
+
 {{< keras/source link="https://github.com/keras-team/keras/tree/v3.6.0/keras/src/layers/preprocessing/pipeline.py#L7" >}}
 
 ### `Pipeline` class
 
-`keras.layers.Pipeline(layers, name=None)`
+```python
+keras.layers.Pipeline(layers, name=None)
+```
 
 Applies a series of layers to an input.
 
@@ -20,6 +24,17 @@ This class is useful to build a preprocessing pipeline, in particular an image d
 
 **Example**
 
-`` from keras import layers preprocessing_pipeline = layers.Pipeline([     layers.AutoContrast(),     layers.RandomZoom(0.2),     layers.RandomRotation(0.2), ])  # `ds` is a tf.data.Dataset preprocessed_ds = ds.map(     preprocessing_pipeline,     num_parallel_calls=4, ) ``
+```python
+from keras import layers
+preprocessing_pipeline = layers.Pipeline([
+    layers.AutoContrast(),
+    layers.RandomZoom(0.2),
+    layers.RandomRotation(0.2),
+])
 
----
+# `ds` is a tf.data.Dataset
+preprocessed_ds = ds.map(
+    preprocessing_pipeline,
+    num_parallel_calls=4,
+)
+```
