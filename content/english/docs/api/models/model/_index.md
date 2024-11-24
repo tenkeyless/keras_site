@@ -5,6 +5,8 @@ weight: 1
 type: docs
 ---
 
+{{< keras/original checkedAt="2024-11-24" >}}
+
 {{< keras/source link="https://github.com/keras-team/keras/tree/v3.6.0/keras/src/models/model.py#L32" >}}
 
 ### `Model` class
