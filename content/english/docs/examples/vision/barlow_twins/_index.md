@@ -5,20 +5,18 @@ weight: 68
 type: docs
 ---
 
-{{< original checkedAt="2024-11-21" >}}
+{{< keras/original checkedAt="2024-11-21" >}}
 
 **Author:** [Abhiraam Eranti](https://github.com/dewball345)  
 **Date created:** 2021/11/04  
 **Last modified:** 2021/12/20  
 **Description:** A keras implementation of Barlow Twins (constrastive SSL with redundancy reduction).
 
-{{< hextra/hero-button
-    text="ⓘ This example uses Keras 2"
-    style="background: rgb(255 237 183); color: black; margin: 1em 0 0.5em 0; pointer-events: none;" >}}
+{{< keras/version v=2 >}}
 
 {{< cards cols="2" >}}
 {{< card link="https://colab.research.google.com/github/keras-team/keras-io/blob/master/examples/vision/ipynb/barlow_twins.ipynb" title="Colab" tag="Colab" tagType="warning">}}
-{{< card link="https://github.com/keras-team/keras-io/blob/master/examples/vision/barlow_twins.py" title="GitHub source" tag="GitHub">}}
+{{< card link="https://github.com/keras-team/keras-io/blob/master/examples/vision/barlow_twins.py" title="GitHub" tag="GitHub">}}
 {{< /cards >}}
 
 ## Introduction

@@ -4,7 +4,7 @@ toc: true
 weight: 1
 ---
 
-{{< original checkedAt="2024-11-21" >}}
+{{< keras/original checkedAt="2024-11-21" >}}
 
 ### Image classification
 

@@ -5,20 +5,18 @@ weight: 15
 type: docs
 ---
 
-{{< original checkedAt="2024-11-24" >}}
+{{< keras/original checkedAt="2024-11-24" >}}
 
 **Author:** [lukewood](https://twitter.com/luke_wood_ml)  
 **Date created:** 2023/07/15  
 **Last modified:** 2023/07/15  
 **Description:** Approximate non one to one mapping using mixture density networks.
 
-{{< hextra/hero-button
-    text="ⓘ This example uses Keras 2"
-    style="background: rgb(255 237 183); color: black; margin: 1em 0 0.5em 0; pointer-events: none;" >}}
+{{< keras/version v=2 >}}
 
 {{< cards cols="2" >}}
 {{< card link="https://colab.research.google.com/github/keras-team/keras-io/blob/master/examples/keras_recipes/ipynb/approximating_non_function_mappings.ipynb" title="Colab" tag="Colab" tagType="warning">}}
-{{< card link="https://github.com/keras-team/keras-io/blob/master/examples/keras_recipes/approximating_non_function_mappings.py" title="GitHub source" tag="GitHub">}}
+{{< card link="https://github.com/keras-team/keras-io/blob/master/examples/keras_recipes/approximating_non_function_mappings.py" title="GitHub" tag="GitHub">}}
 {{< /cards >}}
 
 ## Approximating NonFunctions

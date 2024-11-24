@@ -5,20 +5,18 @@ weight: 14
 type: docs
 ---
 
-{{< original checkedAt="2024-11-23" >}}
+{{< keras/original checkedAt="2024-11-23" >}}
 
 **Author:** [Soumik Rakshit](https://github.com/soumik12345), [Sayak Paul](https://twitter.com/RisingSayak)  
 **Date created:** 2021/12/26  
 **Last modified:** 2022/01/03  
 **Description:** Implementing a GauGAN for conditional image generation.
 
-{{< hextra/hero-button
-    text="ⓘ This example uses Keras 3"
-    style="background: rgb(23, 132, 133); margin: 1em 0 0.5em 0; pointer-events: none;" >}}
+{{< keras/version v=3 >}}
 
 {{< cards cols="2" >}}
 {{< card link="https://colab.research.google.com/github/keras-team/keras-io/blob/master/examples/generative/ipynb/gaugan.ipynb" title="Colab" tag="Colab" tagType="warning">}}
-{{< card link="https://github.com/keras-team/keras-io/blob/master/examples/generative/gaugan.py" title="GitHub source" tag="GitHub">}}
+{{< card link="https://github.com/keras-team/keras-io/blob/master/examples/generative/gaugan.py" title="GitHub" tag="GitHub">}}
 {{< /cards >}}
 
 ## Introduction

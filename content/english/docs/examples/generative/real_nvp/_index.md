@@ -5,20 +5,18 @@ weight: 28
 type: docs
 ---
 
-{{< original checkedAt="2024-11-23" >}}
+{{< keras/original checkedAt="2024-11-23" >}}
 
 **Authors:** [Mandolini Giorgio Maria](https://www.linkedin.com/in/giorgio-maria-mandolini-a2a1b71b4/), [Sanna Daniele](https://www.linkedin.com/in/daniele-sanna-338629bb/), [Zannini Quirini Giorgio](https://www.linkedin.com/in/giorgio-zannini-quirini-16ab181a0/)  
 **Date created:** 2020/08/10  
 **Last modified:** 2020/08/10  
 **Description:** Estimating the density distribution of the "double moon" dataset.
 
-{{< hextra/hero-button
-    text="ⓘ This example uses Keras 2"
-    style="background: rgb(255 237 183); color: black; margin: 1em 0 0.5em 0; pointer-events: none;" >}}
+{{< keras/version v=2 >}}
 
 {{< cards cols="2" >}}
 {{< card link="https://colab.research.google.com/github/keras-team/keras-io/blob/master/examples/generative/ipynb/real_nvp.ipynb" title="Colab" tag="Colab" tagType="warning">}}
-{{< card link="https://github.com/keras-team/keras-io/blob/master/examples/generative/real_nvp.py" title="GitHub source" tag="GitHub">}}
+{{< card link="https://github.com/keras-team/keras-io/blob/master/examples/generative/real_nvp.py" title="GitHub" tag="GitHub">}}
 {{< /cards >}}
 
 ## Introduction

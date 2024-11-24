@@ -6,7 +6,7 @@ weight: 3
 type: docs
 ---
 
-{{< original checkedAt="2024-11-19" >}}
+{{< keras/original checkedAt="2024-11-19" >}}
 
 **Author:** [lukewood](https://twitter.com/luke_wood_ml)  
 **Date created:** 2022/04/08  
@@ -15,7 +15,7 @@ type: docs
 
 {{< cards cols="2" >}}
 {{< card link="https://colab.research.google.com/github/keras-team/keras-io/blob/master/guides/ipynb/keras_cv/cut_mix_mix_up_and_rand_augment.ipynb" title="Colab" tag="Colab" tagType="warning">}}
-{{< card link="https://github.com/keras-team/keras-io/blob/master/guides/keras_cv/cut_mix_mix_up_and_rand_augment.py" title="GitHub source" tag="GitHub">}}
+{{< card link="https://github.com/keras-team/keras-io/blob/master/guides/keras_cv/cut_mix_mix_up_and_rand_augment.py" title="GitHub" tag="GitHub">}}
 {{< /cards >}}
 
 ## Overview

@@ -7,7 +7,7 @@ weight: 3
 type: docs
 ---
 
-{{< original checkedAt="2024-11-18" >}}
+{{< keras/original checkedAt="2024-11-18" >}}
 
 ## Learning resources
 

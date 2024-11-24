@@ -6,7 +6,7 @@ weight: 22
 type: docs
 ---
 
-{{< original checkedAt="2024-11-19" >}}
+{{< keras/original checkedAt="2024-11-19" >}}
 
 These guides cover the [KerasNLP]({{< relref "/docs/keras_nlp" >}}) library.
 

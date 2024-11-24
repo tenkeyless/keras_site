@@ -6,7 +6,7 @@ weight: 23
 type: docs
 ---
 
-{{< original checkedAt="2024-11-19" >}}
+{{< keras/original checkedAt="2024-11-19" >}}
 
 These guides cover the [KerasHub]({{< relref "/docs/keras_hub" >}}) library.
 

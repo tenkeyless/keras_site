@@ -5,20 +5,18 @@ weight: 8
 type: docs
 ---
 
-{{< original checkedAt="2024-11-21" >}}
+{{< keras/original checkedAt="2024-11-21" >}}
 
 **Author:** [fchollet](https://twitter.com/fchollet)  
 **Date created:** 2020/05/05  
 **Last modified:** 2020/05/05  
 **Description:** Text classification on the Newsgroup20 dataset using pre-trained GloVe word embeddings.
 
-{{< hextra/hero-button
-    text="ⓘ This example uses Keras 3"
-    style="background: rgb(23, 132, 133); margin: 1em 0 0.5em 0; pointer-events: none;" >}}
+{{< keras/version v=3 >}}
 
 {{< cards cols="2" >}}
 {{< card link="https://colab.research.google.com/github/keras-team/keras-io/blob/master/examples/nlp/ipynb/pretrained_word_embeddings.ipynb" title="Colab" tag="Colab" tagType="warning">}}
-{{< card link="https://github.com/keras-team/keras-io/blob/master/examples/nlp/pretrained_word_embeddings.py" title="GitHub source" tag="GitHub">}}
+{{< card link="https://github.com/keras-team/keras-io/blob/master/examples/nlp/pretrained_word_embeddings.py" title="GitHub" tag="GitHub">}}
 {{< /cards >}}
 
 ## Setup

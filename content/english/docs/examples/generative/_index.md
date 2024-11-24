@@ -4,7 +4,7 @@ toc: false
 weight: 5
 ---
 
-{{< original checkedAt="2024-11-23" >}}
+{{< keras/original checkedAt="2024-11-23" >}}
 
 ### Image generation
 

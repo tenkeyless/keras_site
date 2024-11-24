@@ -6,7 +6,7 @@ weight: 2
 type: docs
 ---
 
-{{< original checkedAt="2024-11-18" >}}
+{{< keras/original checkedAt="2024-11-18" >}}
 
 **Authors:** Tom O'Malley, Haifeng Jin  
 **Date created:** 2019/10/24  
@@ -15,7 +15,7 @@ type: docs
 
 {{< cards cols="2" >}}
 {{< card link="https://colab.research.google.com/github/keras-team/keras-io/blob/master/guides/ipynb/keras_tuner/distributed_tuning.ipynb" title="Colab" tag="Colab" tagType="warning">}}
-{{< card link="https://github.com/keras-team/keras-io/blob/master/guides/keras_tuner/distributed_tuning.py" title="GitHub source" tag="GitHub">}}
+{{< card link="https://github.com/keras-team/keras-io/blob/master/guides/keras_tuner/distributed_tuning.py" title="GitHub" tag="GitHub">}}
 {{< /cards >}}
 
 ```python

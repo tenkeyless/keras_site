@@ -5,20 +5,18 @@ weight: 19
 type: docs
 ---
 
-{{< original checkedAt="2024-11-21" >}}
+{{< keras/original checkedAt="2024-11-21" >}}
 
 **Author:** [Mohamad Merchant](https://twitter.com/mohmadmerchant1)  
 **Date created:** 2020/08/15  
 **Last modified:** 2020/08/29  
 **Description:** Natural Language Inference by fine-tuning BERT model on SNLI Corpus.
 
-{{< hextra/hero-button
-    text="ⓘ This example uses Keras 3"
-    style="background: rgb(23, 132, 133); margin: 1em 0 0.5em 0; pointer-events: none;" >}}
+{{< keras/version v=3 >}}
 
 {{< cards cols="2" >}}
 {{< card link="https://colab.research.google.com/github/keras-team/keras-io/blob/master/examples/nlp/ipynb/semantic_similarity_with_bert.ipynb" title="Colab" tag="Colab" tagType="warning">}}
-{{< card link="https://github.com/keras-team/keras-io/blob/master/examples/nlp/semantic_similarity_with_bert.py" title="GitHub source" tag="GitHub">}}
+{{< card link="https://github.com/keras-team/keras-io/blob/master/examples/nlp/semantic_similarity_with_bert.py" title="GitHub" tag="GitHub">}}
 {{< /cards >}}
 
 ## Introduction

@@ -5,20 +5,18 @@ weight: 54
 type: docs
 ---
 
-{{< original checkedAt="2024-11-21" >}}
+{{< keras/original checkedAt="2024-11-21" >}}
 
 **Author:** [Rishit Dagli](https://twitter.com/rishit_dagli)  
 **Date created:** 2021/09/13  
 **Last modified:** 2024/01/22  
 **Description:** Implementation of NNCLR, a self-supervised learning method for computer vision.
 
-{{< hextra/hero-button
-    text="ⓘ This example uses Keras 3"
-    style="background: rgb(23, 132, 133); margin: 1em 0 0.5em 0; pointer-events: none;" >}}
+{{< keras/version v=3 >}}
 
 {{< cards cols="2" >}}
 {{< card link="https://colab.research.google.com/github/keras-team/keras-io/blob/master/examples/vision/ipynb/nnclr.ipynb" title="Colab" tag="Colab" tagType="warning">}}
-{{< card link="https://github.com/keras-team/keras-io/blob/master/examples/vision/nnclr.py" title="GitHub source" tag="GitHub">}}
+{{< card link="https://github.com/keras-team/keras-io/blob/master/examples/vision/nnclr.py" title="GitHub" tag="GitHub">}}
 {{< /cards >}}
 
 ## Introduction

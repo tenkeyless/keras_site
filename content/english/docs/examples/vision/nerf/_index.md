@@ -6,20 +6,18 @@ type: docs
 math: true
 ---
 
-{{< original checkedAt="2024-11-20" >}}
+{{< keras/original checkedAt="2024-11-20" >}}
 
 **Authors:** [Aritra Roy Gosthipaty](https://twitter.com/arig23498), [Ritwik Raha](https://twitter.com/ritwik_raha)  
 **Date created:** 2021/08/09  
 **Last modified:** 2023/11/13  
 **Description:** Minimal implementation of volumetric rendering as shown in NeRF.
 
-{{< hextra/hero-button
-    text="ⓘ This example uses Keras 3"
-    style="background: rgb(23, 132, 133); margin: 1em 0 0.5em 0; pointer-events: none;" >}}
+{{< keras/version v=3 >}}
 
 {{< cards cols="2" >}}
 {{< card link="https://colab.research.google.com/github/keras-team/keras-io/blob/master/examples/vision/ipynb/nerf.ipynb" title="Colab" tag="Colab" tagType="warning">}}
-{{< card link="https://github.com/keras-team/keras-io/blob/master/examples/vision/nerf.py" title="GitHub source" tag="GitHub">}}
+{{< card link="https://github.com/keras-team/keras-io/blob/master/examples/vision/nerf.py" title="GitHub" tag="GitHub">}}
 {{< /cards >}}
 
 ## Introduction

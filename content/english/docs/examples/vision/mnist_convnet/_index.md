@@ -5,20 +5,18 @@ weight: 2
 type: docs
 ---
 
-{{< original checkedAt="2024-11-19" >}}
+{{< keras/original checkedAt="2024-11-19" >}}
 
 **Author:** [fchollet](https://twitter.com/fchollet)  
 **Date created:** 2015/06/19  
 **Last modified:** 2020/04/21  
 **Description:** A simple convnet that achieves ~99% test accuracy on MNIST.
 
-{{< hextra/hero-button
-    text="ⓘ This example uses Keras 3"
-    style="background: rgb(23, 132, 133); margin: 1em 0 0.5em 0; pointer-events: none;" >}}
+{{< keras/version v=3 >}}
 
 {{< cards cols="2" >}}
 {{< card link="https://colab.research.google.com/github/keras-team/keras-io/blob/master/examples/vision/ipynb/mnist_convnet.ipynb" title="Colab" tag="Colab" tagType="warning">}}
-{{< card link="https://github.com/keras-team/keras-io/blob/master/examples/vision/mnist_convnet.py" title="GitHub source" tag="GitHub">}}
+{{< card link="https://github.com/keras-team/keras-io/blob/master/examples/vision/mnist_convnet.py" title="GitHub" tag="GitHub">}}
 {{< /cards >}}
 
 ## Setup

@@ -5,20 +5,18 @@ weight: 53
 type: docs
 ---
 
-{{< original checkedAt="2024-11-21" >}}
+{{< keras/original checkedAt="2024-11-21" >}}
 
 **Author:** [Owen Vallis](https://twitter.com/owenvallis)  
 **Date created:** 2021/09/30  
 **Last modified:** 2022/02/29  
 **Description:** Example of using similarity metric learning on CIFAR-10 images.
 
-{{< hextra/hero-button
-    text="ⓘ This example uses Keras 2"
-    style="background: rgb(255 237 183); color: black; margin: 1em 0 0.5em 0; pointer-events: none;" >}}
+{{< keras/version v=2 >}}
 
 {{< cards cols="2" >}}
 {{< card link="https://colab.research.google.com/github/keras-team/keras-io/blob/master/examples/vision/ipynb/metric_learning_tf_similarity.ipynb" title="Colab" tag="Colab" tagType="warning">}}
-{{< card link="https://github.com/keras-team/keras-io/blob/master/examples/vision/metric_learning_tf_similarity.py" title="GitHub source" tag="GitHub">}}
+{{< card link="https://github.com/keras-team/keras-io/blob/master/examples/vision/metric_learning_tf_similarity.py" title="GitHub" tag="GitHub">}}
 {{< /cards >}}
 
 ## Overview

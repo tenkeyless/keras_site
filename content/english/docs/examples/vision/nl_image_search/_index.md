@@ -5,20 +5,18 @@ weight: 43
 type: docs
 ---
 
-{{< original checkedAt="2024-11-20" >}}
+{{< keras/original checkedAt="2024-11-20" >}}
 
 **Author:** [Khalid Salama](https://www.linkedin.com/in/khalid-salama-24403144/)  
 **Date created:** 2021/01/30  
 **Last modified:** 2021/01/30  
 **Description:** Implementation of a dual encoder model for retrieving images that match natural language queries.
 
-{{< hextra/hero-button
-    text="ⓘ This example uses Keras 2"
-    style="background: rgb(255 237 183); color: black; margin: 1em 0 0.5em 0; pointer-events: none;" >}}
+{{< keras/version v=2 >}}
 
 {{< cards cols="2" >}}
 {{< card link="https://colab.research.google.com/github/keras-team/keras-io/blob/master/examples/vision/ipynb/nl_image_search.ipynb" title="Colab" tag="Colab" tagType="warning">}}
-{{< card link="https://github.com/keras-team/keras-io/blob/master/examples/vision/nl_image_search.py" title="GitHub source" tag="GitHub">}}
+{{< card link="https://github.com/keras-team/keras-io/blob/master/examples/vision/nl_image_search.py" title="GitHub" tag="GitHub">}}
 {{< /cards >}}
 
 ## Introduction

@@ -5,20 +5,18 @@ weight: 5
 type: docs
 ---
 
-{{< original checkedAt="2024-11-22" >}}
+{{< keras/original checkedAt="2024-11-22" >}}
 
 **Author:** [Khalid Salama](https://www.linkedin.com/in/khalid-salama-24403144/)  
 **Date created:** 2020/12/31  
 **Last modified:** 2021/05/05  
 **Description:** Using Wide & Deep and Deep & Cross networks for structured data classification.
 
-{{< hextra/hero-button
-    text="ⓘ This example uses Keras 3"
-    style="background: rgb(23, 132, 133); margin: 1em 0 0.5em 0; pointer-events: none;" >}}
+{{< keras/version v=3 >}}
 
 {{< cards cols="2" >}}
 {{< card link="https://colab.research.google.com/github/keras-team/keras-io/blob/master/examples/structured_data/ipynb/wide_deep_cross_networks.ipynb" title="Colab" tag="Colab" tagType="warning">}}
-{{< card link="https://github.com/keras-team/keras-io/blob/master/examples/structured_data/wide_deep_cross_networks.py" title="GitHub source" tag="GitHub">}}
+{{< card link="https://github.com/keras-team/keras-io/blob/master/examples/structured_data/wide_deep_cross_networks.py" title="GitHub" tag="GitHub">}}
 {{< /cards >}}
 
 ## Introduction

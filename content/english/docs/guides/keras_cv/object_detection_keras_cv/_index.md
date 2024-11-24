@@ -6,7 +6,7 @@ weight: 1
 type: docs
 ---
 
-{{< original checkedAt="2024-11-19" >}}
+{{< keras/original checkedAt="2024-11-19" >}}
 
 **Author:** [lukewood](https://twitter.com/luke_wood_ml), Ian Stenbit, Tirth Patel  
 **Date created:** 2023/04/08  
@@ -15,7 +15,7 @@ type: docs
 
 {{< cards cols="2" >}}
 {{< card link="https://colab.research.google.com/github/keras-team/keras-io/blob/master/guides/ipynb/keras_cv/object_detection_keras_cv.ipynb" title="Colab" tag="Colab" tagType="warning">}}
-{{< card link="https://github.com/keras-team/keras-io/blob/master/guides/keras_cv/object_detection_keras_cv.py" title="GitHub source" tag="GitHub">}}
+{{< card link="https://github.com/keras-team/keras-io/blob/master/guides/keras_cv/object_detection_keras_cv.py" title="GitHub" tag="GitHub">}}
 {{< /cards >}}
 
 KerasCV offers a complete set of production grade APIs to solve object detection problems. These APIs include object-detection-specific data augmentation techniques, Keras native COCO metrics, bounding box format conversion utilities, visualization tools, pretrained object detection models, and everything you need to train your own state of the art object detection models!

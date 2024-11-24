@@ -5,20 +5,18 @@ weight: 55
 type: docs
 ---
 
-{{< original checkedAt="2024-11-21" >}}
+{{< keras/original checkedAt="2024-11-21" >}}
 
 **Author:** [Sayak Paul](https://twitter.com/RisingSayak)  
 **Date created:** 2021/05/28  
 **Last modified:** 2023/12/08  
 **Description:** Training a video classifier with transfer learning and a recurrent model on the UCF101 dataset.
 
-{{< hextra/hero-button
-    text="ⓘ This example uses Keras 3"
-    style="background: rgb(23, 132, 133); margin: 1em 0 0.5em 0; pointer-events: none;" >}}
+{{< keras/version v=3 >}}
 
 {{< cards cols="2" >}}
 {{< card link="https://colab.research.google.com/github/keras-team/keras-io/blob/master/examples/vision/ipynb/video_classification.ipynb" title="Colab" tag="Colab" tagType="warning">}}
-{{< card link="https://github.com/keras-team/keras-io/blob/master/examples/vision/video_classification.py" title="GitHub source" tag="GitHub">}}
+{{< card link="https://github.com/keras-team/keras-io/blob/master/examples/vision/video_classification.py" title="GitHub" tag="GitHub">}}
 {{< /cards >}}
 
 This example demonstrates video classification, an important use-case with applications in recommendations, security, and so on. We will be using the [UCF101 dataset](https://www.crcv.ucf.edu/data/UCF101.php) to build our video classifier. The dataset consists of videos categorized into different actions, like cricket shot, punching, biking, etc. This dataset is commonly used to build action recognizers, which are an application of video classification.

@@ -5,20 +5,18 @@ weight: 17
 type: docs
 ---
 
-{{< original checkedAt="2024-11-23" >}}
+{{< keras/original checkedAt="2024-11-23" >}}
 
 **Author:** [Sayak Paul](https://twitter.com/RisingSayak)  
 **Date created:** 2021/07/21  
 **Last modified:** 2021/06/27  
 **Description:** Training a VQ-VAE for image reconstruction and codebook sampling for generation.
 
-{{< hextra/hero-button
-    text="ⓘ This example uses Keras 2"
-    style="background: rgb(255 237 183); color: black; margin: 1em 0 0.5em 0; pointer-events: none;" >}}
+{{< keras/version v=2 >}}
 
 {{< cards cols="2" >}}
 {{< card link="https://colab.research.google.com/github/keras-team/keras-io/blob/master/examples/generative/ipynb/vq_vae.ipynb" title="Colab" tag="Colab" tagType="warning">}}
-{{< card link="https://github.com/keras-team/keras-io/blob/master/examples/generative/vq_vae.py" title="GitHub source" tag="GitHub">}}
+{{< card link="https://github.com/keras-team/keras-io/blob/master/examples/generative/vq_vae.py" title="GitHub" tag="GitHub">}}
 {{< /cards >}}
 
 In this example, we develop a Vector Quantized Variational Autoencoder (VQ-VAE). VQ-VAE was proposed in [Neural Discrete Representation Learning](https://arxiv.org/abs/1711.00937) by van der Oord et al. In standard VAEs, the latent space is continuous and is sampled from a Gaussian distribution. It is generally harder to learn such a continuous distribution via gradient descent. VQ-VAEs, on the other hand, operate on a discrete latent space, making the optimization problem simpler. It does so by maintaining a discrete _codebook_. The codebook is developed by discretizing the distance between continuous embeddings and the encoded outputs. These discrete code words are then fed to the decoder, which is trained to generate reconstructed samples.

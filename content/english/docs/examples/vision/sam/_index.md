@@ -5,20 +5,18 @@ weight: 74
 type: docs
 ---
 
-{{< original checkedAt="2024-11-21" >}}
+{{< keras/original checkedAt="2024-11-21" >}}
 
 **Authors:** [Merve Noyan](https://twitter.com/mervenoyann) & [Sayak Paul](https://twitter.com/RisingSayak)  
 **Date created:** 2023/07/11  
 **Last modified:** 2023/07/11  
 **Description:** Fine-tuning Segment Anything Model using Keras and 🤗 Transformers.
 
-{{< hextra/hero-button
-    text="ⓘ This example uses Keras 2"
-    style="background: rgb(255 237 183); color: black; margin: 1em 0 0.5em 0; pointer-events: none;" >}}
+{{< keras/version v=2 >}}
 
 {{< cards cols="2" >}}
 {{< card link="https://colab.research.google.com/github/keras-team/keras-io/blob/master/examples/vision/ipynb/sam.ipynb" title="Colab" tag="Colab" tagType="warning">}}
-{{< card link="https://github.com/keras-team/keras-io/blob/master/examples/vision/sam.py" title="GitHub source" tag="GitHub">}}
+{{< card link="https://github.com/keras-team/keras-io/blob/master/examples/vision/sam.py" title="GitHub" tag="GitHub">}}
 {{< /cards >}}
 
 ## Introduction

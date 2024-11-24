@@ -6,7 +6,7 @@ weight: 2
 type: docs
 ---
 
-{{< original checkedAt="2024-11-19" >}}
+{{< keras/original checkedAt="2024-11-19" >}}
 
 **Author:** [Matthew Watson](https://github.com/mattdangerw/)  
 **Date created:** 2022/04/18  
@@ -15,7 +15,7 @@ type: docs
 
 {{< cards cols="2" >}}
 {{< card link="https://colab.research.google.com/github/keras-team/keras-io/blob/master/guides/ipynb/keras_nlp/transformer_pretraining.ipynb" title="Colab" tag="Colab" tagType="warning">}}
-{{< card link="https://github.com/keras-team/keras-io/blob/master/guides/keras_nlp/transformer_pretraining.py" title="GitHub source" tag="GitHub">}}
+{{< card link="https://github.com/keras-team/keras-io/blob/master/guides/keras_nlp/transformer_pretraining.py" title="GitHub" tag="GitHub">}}
 {{< /cards >}}
 
 KerasNLP aims to make it easy to build state-of-the-art text processing models. In this guide, we will show how library components simplify pretraining and fine-tuning a Transformer model from scratch.

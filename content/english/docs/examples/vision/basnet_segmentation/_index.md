@@ -5,20 +5,18 @@ weight: 22
 type: docs
 ---
 
-{{< original checkedAt="2024-11-20" >}}
+{{< keras/original checkedAt="2024-11-20" >}}
 
 **Author:** [Hamid Ali](https://github.com/hamidriasat)  
 **Date created:** 2023/05/30  
 **Last modified:** 2023/07/13  
 **Description:** Boundaries aware segmentation model trained on the DUTS dataset.
 
-{{< hextra/hero-button
-    text="ⓘ This example uses Keras 2"
-    style="background: rgb(255 237 183); color: black; margin: 1em 0 0.5em 0; pointer-events: none;" >}}
+{{< keras/version v=2 >}}
 
 {{< cards cols="2" >}}
 {{< card link="https://colab.research.google.com/github/keras-team/keras-io/blob/master/examples/vision/ipynb/basnet_segmentation.ipynb" title="Colab" tag="Colab" tagType="warning">}}
-{{< card link="https://github.com/keras-team/keras-io/blob/master/examples/vision/basnet_segmentation.py" title="GitHub source" tag="GitHub">}}
+{{< card link="https://github.com/keras-team/keras-io/blob/master/examples/vision/basnet_segmentation.py" title="GitHub" tag="GitHub">}}
 {{< /cards >}}
 
 ## Introduction

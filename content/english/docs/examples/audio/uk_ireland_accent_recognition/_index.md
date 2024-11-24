@@ -5,20 +5,18 @@ weight: 6
 type: docs
 ---
 
-{{< original checkedAt="2024-11-23" >}}
+{{< keras/original checkedAt="2024-11-23" >}}
 
 **Author:** [Fadi Badine](https://twitter.com/fadibadine)  
 **Date created:** 2022/04/16  
 **Last modified:** 2022/04/16  
 **Description:** Training a model to classify UK & Ireland accents using feature extraction from Yamnet.
 
-{{< hextra/hero-button
-    text="ⓘ This example uses Keras 2"
-    style="background: rgb(255 237 183); color: black; margin: 1em 0 0.5em 0; pointer-events: none;" >}}
+{{< keras/version v=2 >}}
 
 {{< cards cols="2" >}}
 {{< card link="https://colab.research.google.com/github/keras-team/keras-io/blob/master/examples/audio/ipynb/uk_ireland_accent_recognition.ipynb" title="Colab" tag="Colab" tagType="warning">}}
-{{< card link="https://github.com/keras-team/keras-io/blob/master/examples/audio/uk_ireland_accent_recognition.py" title="GitHub source" tag="GitHub">}}
+{{< card link="https://github.com/keras-team/keras-io/blob/master/examples/audio/uk_ireland_accent_recognition.py" title="GitHub" tag="GitHub">}}
 {{< /cards >}}
 
 ## Introduction

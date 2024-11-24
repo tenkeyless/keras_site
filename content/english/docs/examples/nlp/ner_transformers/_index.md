@@ -5,20 +5,18 @@ weight: 15
 type: docs
 ---
 
-{{< original checkedAt="2024-11-21" >}}
+{{< keras/original checkedAt="2024-11-21" >}}
 
 **Author:** [Varun Singh](https://www.linkedin.com/in/varunsingh2/)  
 **Date created:** 2021/06/23  
 **Last modified:** 2024/04/05  
 **Description:** NER using the Transformers and data from CoNLL 2003 shared task.
 
-{{< hextra/hero-button
-    text="ⓘ This example uses Keras 3"
-    style="background: rgb(23, 132, 133); margin: 1em 0 0.5em 0; pointer-events: none;" >}}
+{{< keras/version v=3 >}}
 
 {{< cards cols="2" >}}
 {{< card link="https://colab.research.google.com/github/keras-team/keras-io/blob/master/examples/nlp/ipynb/ner_transformers.ipynb" title="Colab" tag="Colab" tagType="warning">}}
-{{< card link="https://github.com/keras-team/keras-io/blob/master/examples/nlp/ner_transformers.py" title="GitHub source" tag="GitHub">}}
+{{< card link="https://github.com/keras-team/keras-io/blob/master/examples/nlp/ner_transformers.py" title="GitHub" tag="GitHub">}}
 {{< /cards >}}
 
 ## Introduction

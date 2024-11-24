@@ -5,20 +5,18 @@ weight: 76
 type: docs
 ---
 
-{{< original checkedAt="2024-11-21" >}}
+{{< keras/original checkedAt="2024-11-21" >}}
 
 **Author:** [Sayak Paul](https://twitter.com/RisingSayak)  
 **Date created:** 2021/03/19  
 **Last modified:** 2023/12/29  
 **Description:** Implementation of a self-supervised learning method for computer vision.
 
-{{< hextra/hero-button
-    text="ⓘ This example uses Keras 2"
-    style="background: rgb(255 237 183); color: black; margin: 1em 0 0.5em 0; pointer-events: none;" >}}
+{{< keras/version v=2 >}}
 
 {{< cards cols="2" >}}
 {{< card link="https://colab.research.google.com/github/keras-team/keras-io/blob/master/examples/vision/ipynb/simsiam.ipynb" title="Colab" tag="Colab" tagType="warning">}}
-{{< card link="https://github.com/keras-team/keras-io/blob/master/examples/vision/simsiam.py" title="GitHub source" tag="GitHub">}}
+{{< card link="https://github.com/keras-team/keras-io/blob/master/examples/vision/simsiam.py" title="GitHub" tag="GitHub">}}
 {{< /cards >}}
 
 Self-supervised learning (SSL) is an interesting branch of study in the field of representation learning. SSL systems try to formulate a supervised signal from a corpus of unlabeled data points. An example is we train a deep neural network to predict the next word from a given set of words. In literature, these tasks are known as _pretext tasks_ or _auxiliary tasks_. If we [train such a network](https://arxiv.org/abs/1801.06146) on a huge dataset (such as the [Wikipedia text corpus](https://www.corpusdata.org/wikipedia.asp)) it learns very effective representations that transfer well to downstream tasks. Language models like [BERT](https://arxiv.org/abs/1810.04805), [GPT-3](https://arxiv.org/abs/2005.14165), [ELMo](https://allennlp.org/elmo) all benefit from this.

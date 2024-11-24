@@ -6,7 +6,7 @@ weight: 5
 type: docs
 ---
 
-{{< original checkedAt="2024-11-19" >}}
+{{< keras/original checkedAt="2024-11-19" >}}
 
 **Authors:** Haifeng Jin  
 **Date created:** 2023/02/28  
@@ -15,7 +15,7 @@ type: docs
 
 {{< cards cols="2" >}}
 {{< card link="https://colab.research.google.com/github/keras-team/keras-io/blob/master/guides/ipynb/keras_tuner/failed_trials.ipynb" title="Colab" tag="Colab" tagType="warning">}}
-{{< card link="https://github.com/keras-team/keras-io/blob/master/guides/keras_tuner/failed_trials.py" title="GitHub source" tag="GitHub">}}
+{{< card link="https://github.com/keras-team/keras-io/blob/master/guides/keras_tuner/failed_trials.py" title="GitHub" tag="GitHub">}}
 {{< /cards >}}
 
 ## Introduction

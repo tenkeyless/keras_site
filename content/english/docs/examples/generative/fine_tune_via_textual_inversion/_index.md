@@ -5,20 +5,18 @@ weight: 5
 type: docs
 ---
 
-{{< original checkedAt="2024-11-22" >}}
+{{< keras/original checkedAt="2024-11-22" >}}
 
 **Authors:** Ian Stenbit, [lukewood](https://lukewood.xyz)  
 **Date created:** 2022/12/09  
 **Last modified:** 2022/12/09  
 **Description:** Learning new visual concepts with KerasCV's StableDiffusion implementation.
 
-{{< hextra/hero-button
-    text="ⓘ This example uses Keras 2"
-    style="background: rgb(255 237 183); color: black; margin: 1em 0 0.5em 0; pointer-events: none;" >}}
+{{< keras/version v=2 >}}
 
 {{< cards cols="2" >}}
 {{< card link="https://colab.research.google.com/github/keras-team/keras-io/blob/master/examples/generative/ipynb/fine_tune_via_textual_inversion.ipynb" title="Colab" tag="Colab" tagType="warning">}}
-{{< card link="https://github.com/keras-team/keras-io/blob/master/examples/generative/fine_tune_via_textual_inversion.py" title="GitHub source" tag="GitHub">}}
+{{< card link="https://github.com/keras-team/keras-io/blob/master/examples/generative/fine_tune_via_textual_inversion.py" title="GitHub" tag="GitHub">}}
 {{< /cards >}}
 
 ## Textual Inversion

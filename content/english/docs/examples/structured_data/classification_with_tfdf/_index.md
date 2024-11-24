@@ -5,20 +5,18 @@ weight: 7
 type: docs
 ---
 
-{{< original checkedAt="2024-11-22" >}}
+{{< keras/original checkedAt="2024-11-22" >}}
 
 **Author:** [Khalid Salama](https://www.linkedin.com/in/khalid-salama-24403144/)  
 **Date created:** 2022/01/25  
 **Last modified:** 2022/01/25  
 **Description:** Using TensorFlow Decision Forests for structured data classification.
 
-{{< hextra/hero-button
-    text="ⓘ This example uses Keras 2"
-    style="background: rgb(255 237 183); color: black; margin: 1em 0 0.5em 0; pointer-events: none;" >}}
+{{< keras/version v=2 >}}
 
 {{< cards cols="2" >}}
 {{< card link="https://colab.research.google.com/github/keras-team/keras-io/blob/master/examples/structured_data/ipynb/classification_with_tfdf.ipynb" title="Colab" tag="Colab" tagType="warning">}}
-{{< card link="https://github.com/keras-team/keras-io/blob/master/examples/structured_data/classification_with_tfdf.py" title="GitHub source" tag="GitHub">}}
+{{< card link="https://github.com/keras-team/keras-io/blob/master/examples/structured_data/classification_with_tfdf.py" title="GitHub" tag="GitHub">}}
 {{< /cards >}}
 
 ## Introduction

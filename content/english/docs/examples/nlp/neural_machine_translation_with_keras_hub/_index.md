@@ -5,20 +5,18 @@ weight: 11
 type: docs
 ---
 
-{{< original checkedAt="2024-11-21" >}}
+{{< keras/original checkedAt="2024-11-21" >}}
 
 **Author:** [Abheesht Sharma](https://github.com/abheesht17/)  
 **Date created:** 2022/05/26  
 **Last modified:** 2024/04/30  
 **Description:** Use KerasHub to train a sequence-to-sequence Transformer model on the machine translation task.
 
-{{< hextra/hero-button
-    text="ⓘ This example uses Keras 3"
-    style="background: rgb(23, 132, 133); margin: 1em 0 0.5em 0; pointer-events: none;" >}}
+{{< keras/version v=3 >}}
 
 {{< cards cols="2" >}}
 {{< card link="https://colab.research.google.com/github/keras-team/keras-io/blob/master/examples/nlp/ipynb/neural_machine_translation_with_keras_hub.ipynb" title="Colab" tag="Colab" tagType="warning">}}
-{{< card link="https://github.com/keras-team/keras-io/blob/master/examples/nlp/neural_machine_translation_with_keras_hub.py" title="GitHub source" tag="GitHub">}}
+{{< card link="https://github.com/keras-team/keras-io/blob/master/examples/nlp/neural_machine_translation_with_keras_hub.py" title="GitHub" tag="GitHub">}}
 {{< /cards >}}
 
 ## Introduction

@@ -5,20 +5,18 @@ weight: 67
 type: docs
 ---
 
-{{< original checkedAt="2024-11-21" >}}
+{{< keras/original checkedAt="2024-11-21" >}}
 
 **Author:** [Sayak Paul](https://twitter.com/RisingSayak)  
 **Date created:** 2021/06/19  
 **Last modified:** 2021/06/19  
 **Description:** Unifying semi-supervised learning and unsupervised domain adaptation with AdaMatch.
 
-{{< hextra/hero-button
-    text="ⓘ This example uses Keras 2"
-    style="background: rgb(255 237 183); color: black; margin: 1em 0 0.5em 0; pointer-events: none;" >}}
+{{< keras/version v=2 >}}
 
 {{< cards cols="2" >}}
 {{< card link="https://colab.research.google.com/github/keras-team/keras-io/blob/master/examples/vision/ipynb/adamatch.ipynb" title="Colab" tag="Colab" tagType="warning">}}
-{{< card link="https://github.com/keras-team/keras-io/blob/master/examples/vision/adamatch.py" title="GitHub source" tag="GitHub">}}
+{{< card link="https://github.com/keras-team/keras-io/blob/master/examples/vision/adamatch.py" title="GitHub" tag="GitHub">}}
 {{< /cards >}}
 
 ## Introduction

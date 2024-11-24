@@ -5,20 +5,18 @@ weight: 41
 type: docs
 ---
 
-{{< original checkedAt="2024-11-20" >}}
+{{< keras/original checkedAt="2024-11-20" >}}
 
 **Authors:** [Sayak Paul](https://twitter.com/RisingSayak)[Sachin Prasad](https://github.com/sachinprasadhs)  
 **Date created:** 2021/03/13  
 **Last modified:** 2023/12/12  
 **Description:** RandAugment for training an image classification model with improved robustness.
 
-{{< hextra/hero-button
-    text="ⓘ This example uses Keras 3"
-    style="background: rgb(23, 132, 133); margin: 1em 0 0.5em 0; pointer-events: none;" >}}
+{{< keras/version v=3 >}}
 
 {{< cards cols="2" >}}
 {{< card link="https://colab.research.google.com/github/keras-team/keras-io/blob/master/examples/vision/ipynb/randaugment.ipynb" title="Colab" tag="Colab" tagType="warning">}}
-{{< card link="https://github.com/keras-team/keras-io/blob/master/examples/vision/randaugment.py" title="GitHub source" tag="GitHub">}}
+{{< card link="https://github.com/keras-team/keras-io/blob/master/examples/vision/randaugment.py" title="GitHub" tag="GitHub">}}
 {{< /cards >}}
 
 Data augmentation is a very useful technique that can help to improve the translational invariance of convolutional neural networks (CNN). RandAugment is a stochastic data augmentation routine for vision data and was proposed in [RandAugment: Practical automated data augmentation with a reduced search space](https://arxiv.org/abs/1909.13719). It is composed of strong augmentation transforms like color jitters, Gaussian blurs, saturations, etc. along with more traditional augmentation transforms such as random crops.

@@ -5,20 +5,18 @@ weight: 1
 type: docs
 ---
 
-{{< original checkedAt="2024-11-22" >}}
+{{< keras/original checkedAt="2024-11-22" >}}
 
 **Author:** [András Béres](https://www.linkedin.com/in/andras-beres-789190210)  
 **Date created:** 2022/06/24  
 **Last modified:** 2022/06/24  
 **Description:** Generating images of flowers with denoising diffusion implicit models.
 
-{{< hextra/hero-button
-    text="ⓘ This example uses Keras 3"
-    style="background: rgb(23, 132, 133); margin: 1em 0 0.5em 0; pointer-events: none;" >}}
+{{< keras/version v=3 >}}
 
 {{< cards cols="2" >}}
 {{< card link="https://colab.research.google.com/github/keras-team/keras-io/blob/master/examples/generative/ipynb/ddim.ipynb" title="Colab" tag="Colab" tagType="warning">}}
-{{< card link="https://github.com/keras-team/keras-io/blob/master/examples/generative/ddim.py" title="GitHub source" tag="GitHub">}}
+{{< card link="https://github.com/keras-team/keras-io/blob/master/examples/generative/ddim.py" title="GitHub" tag="GitHub">}}
 {{< /cards >}}
 
 ## Introduction

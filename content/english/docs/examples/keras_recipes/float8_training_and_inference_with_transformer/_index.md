@@ -5,20 +5,18 @@ weight: 2
 type: docs
 ---
 
-{{< original checkedAt="2024-11-24" >}}
+{{< keras/original checkedAt="2024-11-24" >}}
 
 **Author:** [Hongyu Chiu](https://github.com/james77777778)  
 **Date created:** 2024/05/14  
 **Last modified:** 2024/05/14  
 **Description:** Train a simple Transformer model with the float8 quantization.
 
-{{< hextra/hero-button
-    text="ⓘ This example uses Keras 3"
-    style="background: rgb(23, 132, 133); margin: 1em 0 0.5em 0; pointer-events: none;" >}}
+{{< keras/version v=3 >}}
 
 {{< cards cols="2" >}}
 {{< card link="https://colab.research.google.com/github/keras-team/keras-io/blob/master/examples/keras_recipes/ipynb/float8_training_and_inference_with_transformer.ipynb" title="Colab" tag="Colab" tagType="warning">}}
-{{< card link="https://github.com/keras-team/keras-io/blob/master/examples/keras_recipes/float8_training_and_inference_with_transformer.py" title="GitHub source" tag="GitHub">}}
+{{< card link="https://github.com/keras-team/keras-io/blob/master/examples/keras_recipes/float8_training_and_inference_with_transformer.py" title="GitHub" tag="GitHub">}}
 {{< /cards >}}
 
 ## Introduction

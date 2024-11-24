@@ -5,20 +5,18 @@ weight: 1
 type: docs
 ---
 
-{{< original checkedAt="2024-11-23" >}}
+{{< keras/original checkedAt="2024-11-23" >}}
 
 **Author:** [Apoorv Nandan](https://twitter.com/NandanApoorv)  
 **Date created:** 2021/01/13  
 **Last modified:** 2021/01/13  
 **Description:** Training a sequence-to-sequence Transformer for automatic speech recognition.
 
-{{< hextra/hero-button
-    text="ⓘ This example uses Keras 3"
-    style="background: rgb(23, 132, 133); margin: 1em 0 0.5em 0; pointer-events: none;" >}}
+{{< keras/version v=3 >}}
 
 {{< cards cols="2" >}}
 {{< card link="https://colab.research.google.com/github/keras-team/keras-io/blob/master/examples/audio/ipynb/transformer_asr.ipynb" title="Colab" tag="Colab" tagType="warning">}}
-{{< card link="https://github.com/keras-team/keras-io/blob/master/examples/audio/transformer_asr.py" title="GitHub source" tag="GitHub">}}
+{{< card link="https://github.com/keras-team/keras-io/blob/master/examples/audio/transformer_asr.py" title="GitHub" tag="GitHub">}}
 {{< /cards >}}
 
 ## Introduction

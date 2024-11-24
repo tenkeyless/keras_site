@@ -6,7 +6,7 @@ weight: 16
 type: docs
 ---
 
-{{< original checkedAt="2024-11-18" >}}
+{{< keras/original checkedAt="2024-11-18" >}}
 
 **Author:** [fchollet](https://twitter.com/fchollet)  
 **Date created:** 2020/04/28  
@@ -15,7 +15,7 @@ type: docs
 
 {{< cards cols="2" >}}
 {{< card link="https://colab.research.google.com/github/keras-team/keras-io/blob/master/guides/ipynb/distributed_training_with_tensorflow.ipynb" title="Colab" tag="Colab" tagType="warning">}}
-{{< card link="https://github.com/keras-team/keras-io/blob/master/guides/distributed_training_with_tensorflow.py" title="GitHub source" tag="GitHub">}}
+{{< card link="https://github.com/keras-team/keras-io/blob/master/guides/distributed_training_with_tensorflow.py" title="GitHub" tag="GitHub">}}
 {{< /cards >}}
 
 ## Introduction

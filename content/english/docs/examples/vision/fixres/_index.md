@@ -5,20 +5,18 @@ weight: 63
 type: docs
 ---
 
-{{< original checkedAt="2024-11-21" >}}
+{{< keras/original checkedAt="2024-11-21" >}}
 
 **Author:** [Sayak Paul](https://twitter.com/RisingSayak)  
 **Date created:** 2021/10/08  
 **Last modified:** 2021/10/10  
 **Description:** Mitigating resolution discrepancy between training and test sets.
 
-{{< hextra/hero-button
-    text="ⓘ This example uses Keras 3"
-    style="background: rgb(23, 132, 133); margin: 1em 0 0.5em 0; pointer-events: none;" >}}
+{{< keras/version v=3 >}}
 
 {{< cards cols="2" >}}
 {{< card link="https://colab.research.google.com/github/keras-team/keras-io/blob/master/examples/vision/ipynb/fixres.ipynb" title="Colab" tag="Colab" tagType="warning">}}
-{{< card link="https://github.com/keras-team/keras-io/blob/master/examples/vision/fixres.py" title="GitHub source" tag="GitHub">}}
+{{< card link="https://github.com/keras-team/keras-io/blob/master/examples/vision/fixres.py" title="GitHub" tag="GitHub">}}
 {{< /cards >}}
 
 ## Introduction

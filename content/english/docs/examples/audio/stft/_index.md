@@ -5,20 +5,18 @@ weight: 5
 type: docs
 ---
 
-{{< original checkedAt="2024-11-23" >}}
+{{< keras/original checkedAt="2024-11-23" >}}
 
 **Author:** [Mostafa M. Amin](https://mostafa-amin.com)  
 **Date created:** 2024/10/04  
 **Last modified:** 2024/10/04  
 **Description:** Introducing the `STFTSpectrogram` layer to extract spectrograms for audio classification.
 
-{{< hextra/hero-button
-    text="ⓘ This example uses Keras 2"
-    style="background: rgb(255 237 183); color: black; margin: 1em 0 0.5em 0; pointer-events: none;" >}}
+{{< keras/version v=2 >}}
 
 {{< cards cols="2" >}}
 {{< card link="https://colab.research.google.com/github/keras-team/keras-io/blob/master/examples/audio/ipynb/stft.ipynb" title="Colab" tag="Colab" tagType="warning">}}
-{{< card link="https://github.com/keras-team/keras-io/blob/master/examples/audio/stft.py" title="GitHub source" tag="GitHub">}}
+{{< card link="https://github.com/keras-team/keras-io/blob/master/examples/audio/stft.py" title="GitHub" tag="GitHub">}}
 {{< /cards >}}
 
 ## Introduction

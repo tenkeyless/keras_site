@@ -5,20 +5,18 @@ weight: 18
 type: docs
 ---
 
-{{< original checkedAt="2024-11-21" >}}
+{{< keras/original checkedAt="2024-11-21" >}}
 
 **Author:** [Anshuman Mishra](https://github.com/shivance/)  
 **Date created:** 2023/02/25  
 **Last modified:** 2023/02/25  
 **Description:** Use pretrained models from KerasNLP for the Semantic Similarity Task.
 
-{{< hextra/hero-button
-    text="ⓘ This example uses Keras 3"
-    style="background: rgb(23, 132, 133); margin: 1em 0 0.5em 0; pointer-events: none;" >}}
+{{< keras/version v=3 >}}
 
 {{< cards cols="2" >}}
 {{< card link="https://colab.research.google.com/github/keras-team/keras-io/blob/master/examples/nlp/ipynb/semantic_similarity_with_keras_nlp.ipynb" title="Colab" tag="Colab" tagType="warning">}}
-{{< card link="https://github.com/keras-team/keras-io/blob/master/examples/nlp/semantic_similarity_with_keras_nlp.py" title="GitHub source" tag="GitHub">}}
+{{< card link="https://github.com/keras-team/keras-io/blob/master/examples/nlp/semantic_similarity_with_keras_nlp.py" title="GitHub" tag="GitHub">}}
 {{< /cards >}}
 
 ## Introduction

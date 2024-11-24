@@ -6,7 +6,7 @@ weight: 11
 type: docs
 ---
 
-{{< original checkedAt="2024-11-18" >}}
+{{< keras/original checkedAt="2024-11-18" >}}
 
 **Authors:** Neel Kovelamudi, Francois Chollet  
 **Date created:** 2023/06/14  
@@ -15,7 +15,7 @@ type: docs
 
 {{< cards cols="2" >}}
 {{< card link="https://colab.research.google.com/github/keras-team/keras-io/blob/master/guides/ipynb/serialization_and_saving.ipynb" title="Colab" tag="Colab" tagType="warning">}}
-{{< card link="https://github.com/keras-team/keras-io/blob/master/guides/serialization_and_saving.py" title="GitHub source" tag="GitHub">}}
+{{< card link="https://github.com/keras-team/keras-io/blob/master/guides/serialization_and_saving.py" title="GitHub" tag="GitHub">}}
 {{< /cards >}}
 
 ## Introduction

@@ -5,20 +5,18 @@ weight: 69
 type: docs
 ---
 
-{{< original checkedAt="2024-11-21" >}}
+{{< keras/original checkedAt="2024-11-21" >}}
 
 **Author:** [Sayak Paul](https://twitter.com/RisingSayak)  
 **Date created:** 2021/04/13  
 **Last modified:** 2021/04/19  
 **Description:** Training with consistency regularization for robustness against data distribution shifts.
 
-{{< hextra/hero-button
-    text="ⓘ This example uses Keras 2"
-    style="background: rgb(255 237 183); color: black; margin: 1em 0 0.5em 0; pointer-events: none;" >}}
+{{< keras/version v=2 >}}
 
 {{< cards cols="2" >}}
 {{< card link="https://colab.research.google.com/github/keras-team/keras-io/blob/master/examples/vision/ipynb/consistency_training.ipynb" title="Colab" tag="Colab" tagType="warning">}}
-{{< card link="https://github.com/keras-team/keras-io/blob/master/examples/vision/consistency_training.py" title="GitHub source" tag="GitHub">}}
+{{< card link="https://github.com/keras-team/keras-io/blob/master/examples/vision/consistency_training.py" title="GitHub" tag="GitHub">}}
 {{< /cards >}}
 
 Deep learning models excel in many image recognition tasks when the data is independent and identically distributed (i.i.d.). However, they can suffer from performance degradation caused by subtle distribution shifts in the input data (such as random noise, contrast change, and blurring). So, naturally, there arises a question of why. As discussed in [A Fourier Perspective on Model Robustness in Computer Vision](https://arxiv.org/pdf/1906.08988.pdf)), there's no reason for deep learning models to be robust against such shifts. Standard model training procedures (such as standard image classification training workflows) _don't_ enable a model to learn beyond what's fed to it in the form of training data.

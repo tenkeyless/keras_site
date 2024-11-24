@@ -5,20 +5,18 @@ weight: 1
 type: docs
 ---
 
-{{< original checkedAt="2024-11-24" >}}
+{{< keras/original checkedAt="2024-11-24" >}}
 
 **Authors:** [Hongyu Chiu](https://github.com/james77777778), [Abheesht Sharma](https://github.com/abheesht17/), [Matthew Watson](https://github.com/mattdangerw/)  
 **Date created:** 2024/08/06  
 **Last modified:** 2024/08/06  
 **Description:** Use KerasHub to fine-tune a Gemma LLM with LoRA and QLoRA.
 
-{{< hextra/hero-button
-    text="ⓘ This example uses Keras 3"
-    style="background: rgb(23, 132, 133); margin: 1em 0 0.5em 0; pointer-events: none;" >}}
+{{< keras/version v=3 >}}
 
 {{< cards cols="2" >}}
 {{< card link="https://colab.research.google.com/github/keras-team/keras-io/blob/master/examples/keras_recipes/ipynb/parameter_efficient_finetuning_of_gemma_with_lora_and_qlora.ipynb" title="Colab" tag="Colab" tagType="warning">}}
-{{< card link="https://github.com/keras-team/keras-io/blob/master/examples/keras_recipes/parameter_efficient_finetuning_of_gemma_with_lora_and_qlora.py" title="GitHub source" tag="GitHub">}}
+{{< card link="https://github.com/keras-team/keras-io/blob/master/examples/keras_recipes/parameter_efficient_finetuning_of_gemma_with_lora_and_qlora.py" title="GitHub" tag="GitHub">}}
 {{< /cards >}}
 
 ## Introduction

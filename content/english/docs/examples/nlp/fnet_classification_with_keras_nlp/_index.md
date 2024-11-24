@@ -5,20 +5,18 @@ weight: 3
 type: docs
 ---
 
-{{< original checkedAt="2024-11-21" >}}
+{{< keras/original checkedAt="2024-11-21" >}}
 
 **Author:** [Abheesht Sharma](https://github.com/abheesht17/)  
 **Date created:** 2022/06/01  
 **Last modified:** 2022/12/21  
 **Description:** Text Classification on the IMDb Dataset using [`keras_nlp.layers.FNetEncoder`]({{< relref "/docs/api/keras_nlp/modeling_layers/fnet_encoder#fnetencoder-class" >}}) layer.
 
-{{< hextra/hero-button
-    text="ⓘ This example uses Keras 3"
-    style="background: rgb(23, 132, 133); margin: 1em 0 0.5em 0; pointer-events: none;" >}}
+{{< keras/version v=3 >}}
 
 {{< cards cols="2" >}}
 {{< card link="https://colab.research.google.com/github/keras-team/keras-io/blob/master/examples/nlp/ipynb/fnet_classification_with_keras_nlp.ipynb" title="Colab" tag="Colab" tagType="warning">}}
-{{< card link="https://github.com/keras-team/keras-io/blob/master/examples/nlp/fnet_classification_with_keras_nlp.py" title="GitHub source" tag="GitHub">}}
+{{< card link="https://github.com/keras-team/keras-io/blob/master/examples/nlp/fnet_classification_with_keras_nlp.py" title="GitHub" tag="GitHub">}}
 {{< /cards >}}
 
 ## Introduction

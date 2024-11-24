@@ -7,7 +7,7 @@ weight: 1
 type: docs
 ---
 
-{{< original checkedAt="2024-11-18" >}}
+{{< keras/original checkedAt="2024-11-18" >}}
 
 {{< cards >}}
 {{< card link="/docs/getting_started" title="Get started" icon="bookmark-alt" >}}

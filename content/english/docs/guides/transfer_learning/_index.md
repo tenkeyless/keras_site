@@ -6,7 +6,7 @@ weight: 14
 type: docs
 ---
 
-{{< original checkedAt="2024-11-18" >}}
+{{< keras/original checkedAt="2024-11-18" >}}
 
 **Author:** [fchollet](https://twitter.com/fchollet)  
 **Date created:** 2020/04/15  
@@ -15,7 +15,7 @@ type: docs
 
 {{< cards cols="2" >}}
 {{< card link="https://colab.research.google.com/github/keras-team/keras-io/blob/master/guides/ipynb/transfer_learning.ipynb" title="Colab" tag="Colab" tagType="warning">}}
-{{< card link="https://github.com/keras-team/keras-io/blob/master/guides/transfer_learning.py" title="GitHub source" tag="GitHub">}}
+{{< card link="https://github.com/keras-team/keras-io/blob/master/guides/transfer_learning.py" title="GitHub" tag="GitHub">}}
 {{< /cards >}}
 
 ## Setup

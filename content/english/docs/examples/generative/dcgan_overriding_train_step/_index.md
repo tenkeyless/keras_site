@@ -5,20 +5,18 @@ weight: 8
 type: docs
 ---
 
-{{< original checkedAt="2024-11-23" >}}
+{{< keras/original checkedAt="2024-11-23" >}}
 
 **Author:** [fchollet](https://twitter.com/fchollet)  
 **Date created:** 2019/04/29  
 **Last modified:** 2023/12/21  
 **Description:** A simple DCGAN trained using `fit()` by overriding `train_step` on CelebA images.
 
-{{< hextra/hero-button
-    text="ⓘ This example uses Keras 3"
-    style="background: rgb(23, 132, 133); margin: 1em 0 0.5em 0; pointer-events: none;" >}}
+{{< keras/version v=3 >}}
 
 {{< cards cols="2" >}}
 {{< card link="https://colab.research.google.com/github/keras-team/keras-io/blob/master/examples/generative/ipynb/dcgan_overriding_train_step.ipynb" title="Colab" tag="Colab" tagType="warning">}}
-{{< card link="https://github.com/keras-team/keras-io/blob/master/examples/generative/dcgan_overriding_train_step.py" title="GitHub source" tag="GitHub">}}
+{{< card link="https://github.com/keras-team/keras-io/blob/master/examples/generative/dcgan_overriding_train_step.py" title="GitHub" tag="GitHub">}}
 {{< /cards >}}
 
 ## Setup

@@ -5,20 +5,18 @@ weight: 10
 type: docs
 ---
 
-{{< original checkedAt="2024-11-22" >}}
+{{< keras/original checkedAt="2024-11-22" >}}
 
 **Author:** [Siddhartha Banerjee](https://twitter.com/sidd2006)  
 **Date created:** 2020/05/24  
 **Last modified:** 2020/05/24  
 **Description:** Recommending movies using a model trained on Movielens dataset.
 
-{{< hextra/hero-button
-    text="ⓘ This example uses Keras 3"
-    style="background: rgb(23, 132, 133); margin: 1em 0 0.5em 0; pointer-events: none;" >}}
+{{< keras/version v=3 >}}
 
 {{< cards cols="2" >}}
 {{< card link="https://colab.research.google.com/github/keras-team/keras-io/blob/master/examples/structured_data/ipynb/collaborative_filtering_movielens.ipynb" title="Colab" tag="Colab" tagType="warning">}}
-{{< card link="https://github.com/keras-team/keras-io/blob/master/examples/structured_data/collaborative_filtering_movielens.py" title="GitHub source" tag="GitHub">}}
+{{< card link="https://github.com/keras-team/keras-io/blob/master/examples/structured_data/collaborative_filtering_movielens.py" title="GitHub" tag="GitHub">}}
 {{< /cards >}}
 
 ## Introduction

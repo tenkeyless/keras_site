@@ -5,20 +5,18 @@ weight: 21
 type: docs
 ---
 
-{{< original checkedAt="2024-11-20" >}}
+{{< keras/original checkedAt="2024-11-20" >}}
 
 **Author:** [Soumik Rakshit](http://github.com/soumik12345)  
 **Date created:** 2021/08/31  
 **Last modified:** 2024/01/05  
 **Description:** Implement DeepLabV3+ architecture for Multi-class Semantic Segmentation.
 
-{{< hextra/hero-button
-    text="ⓘ This example uses Keras 3"
-    style="background: rgb(23, 132, 133); margin: 1em 0 0.5em 0; pointer-events: none;" >}}
+{{< keras/version v=3 >}}
 
 {{< cards cols="2" >}}
 {{< card link="https://colab.research.google.com/github/keras-team/keras-io/blob/master/examples/vision/ipynb/deeplabv3_plus.ipynb" title="Colab" tag="Colab" tagType="warning">}}
-{{< card link="https://github.com/keras-team/keras-io/blob/master/examples/vision/deeplabv3_plus.py" title="GitHub source" tag="GitHub">}}
+{{< card link="https://github.com/keras-team/keras-io/blob/master/examples/vision/deeplabv3_plus.py" title="GitHub" tag="GitHub">}}
 {{< /cards >}}
 
 ## Introduction

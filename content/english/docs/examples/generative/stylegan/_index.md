@@ -5,20 +5,18 @@ weight: 16
 type: docs
 ---
 
-{{< original checkedAt="2024-11-23" >}}
+{{< keras/original checkedAt="2024-11-23" >}}
 
 **Author:** [Soon-Yau Cheong](https://www.linkedin.com/in/soonyau/)  
 **Date created:** 2021/07/01  
 **Last modified:** 2021/12/20  
 **Description:** Implementation of StyleGAN for image generation.
 
-{{< hextra/hero-button
-    text="ⓘ This example uses Keras 2"
-    style="background: rgb(255 237 183); color: black; margin: 1em 0 0.5em 0; pointer-events: none;" >}}
+{{< keras/version v=2 >}}
 
 {{< cards cols="2" >}}
 {{< card link="https://colab.research.google.com/github/keras-team/keras-io/blob/master/examples/generative/ipynb/stylegan.ipynb" title="Colab" tag="Colab" tagType="warning">}}
-{{< card link="https://github.com/keras-team/keras-io/blob/master/examples/generative/stylegan.py" title="GitHub source" tag="GitHub">}}
+{{< card link="https://github.com/keras-team/keras-io/blob/master/examples/generative/stylegan.py" title="GitHub" tag="GitHub">}}
 {{< /cards >}}
 
 ## Introduction

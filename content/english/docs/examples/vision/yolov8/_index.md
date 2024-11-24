@@ -5,20 +5,18 @@ weight: 79
 type: docs
 ---
 
-{{< original checkedAt="2024-11-21" >}}
+{{< keras/original checkedAt="2024-11-21" >}}
 
 **Author:** [Gitesh Chawda](https://twitter.com/gitesh12_)  
 **Date created:** 2023/06/26  
 **Last modified:** 2023/06/26  
 **Description:** Train custom YOLOV8 object detection model with KerasCV.
 
-{{< hextra/hero-button
-    text="ⓘ This example uses Keras 2"
-    style="background: rgb(255 237 183); color: black; margin: 1em 0 0.5em 0; pointer-events: none;" >}}
+{{< keras/version v=2 >}}
 
 {{< cards cols="2" >}}
 {{< card link="https://colab.research.google.com/github/keras-team/keras-io/blob/master/examples/vision/ipynb/yolov8.ipynb" title="Colab" tag="Colab" tagType="warning">}}
-{{< card link="https://github.com/keras-team/keras-io/blob/master/examples/vision/yolov8.py" title="GitHub source" tag="GitHub">}}
+{{< card link="https://github.com/keras-team/keras-io/blob/master/examples/vision/yolov8.py" title="GitHub" tag="GitHub">}}
 {{< /cards >}}
 
 ## Introduction

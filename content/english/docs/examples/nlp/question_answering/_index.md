@@ -5,20 +5,18 @@ weight: 27
 type: docs
 ---
 
-{{< original checkedAt="2024-11-22" >}}
+{{< keras/original checkedAt="2024-11-22" >}}
 
 **Author:** Matthew Carrigan and Merve Noyan  
 **Date created:** 2022/01/13  
 **Last modified:** 2022/01/13  
 **Description:** Question answering implementation using Keras and Hugging Face Transformers.
 
-{{< hextra/hero-button
-    text="ⓘ This example uses Keras 2"
-    style="background: rgb(255 237 183); color: black; margin: 1em 0 0.5em 0; pointer-events: none;" >}}
+{{< keras/version v=2 >}}
 
 {{< cards cols="2" >}}
 {{< card link="https://colab.research.google.com/github/keras-team/keras-io/blob/master/examples/nlp/ipynb/question_answering.ipynb" title="Colab" tag="Colab" tagType="warning">}}
-{{< card link="https://github.com/keras-team/keras-io/blob/master/examples/nlp/question_answering.py" title="GitHub source" tag="GitHub">}}
+{{< card link="https://github.com/keras-team/keras-io/blob/master/examples/nlp/question_answering.py" title="GitHub" tag="GitHub">}}
 {{< /cards >}}
 
 ## Introduction to Question Answering

@@ -5,20 +5,18 @@ weight: 4
 type: docs
 ---
 
-{{< original checkedAt="2024-11-22" >}}
+{{< keras/original checkedAt="2024-11-22" >}}
 
 **Author:** [A_K_Nain](https://twitter.com/A_K_Nain)  
 **Date created:** 2022/11/30  
 **Last modified:** 2022/12/07  
 **Description:** Generating images of flowers with denoising diffusion probabilistic models.
 
-{{< hextra/hero-button
-    text="ⓘ This example uses Keras 2"
-    style="background: rgb(255 237 183); color: black; margin: 1em 0 0.5em 0; pointer-events: none;" >}}
+{{< keras/version v=2 >}}
 
 {{< cards cols="2" >}}
 {{< card link="https://colab.research.google.com/github/keras-team/keras-io/blob/master/examples/generative/ipynb/ddpm.ipynb" title="Colab" tag="Colab" tagType="warning">}}
-{{< card link="https://github.com/keras-team/keras-io/blob/master/examples/generative/ddpm.py" title="GitHub source" tag="GitHub">}}
+{{< card link="https://github.com/keras-team/keras-io/blob/master/examples/generative/ddpm.py" title="GitHub" tag="GitHub">}}
 {{< /cards >}}
 
 ## Introduction

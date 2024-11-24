@@ -5,20 +5,18 @@ weight: 23
 type: docs
 ---
 
-{{< original checkedAt="2024-11-20" >}}
+{{< keras/original checkedAt="2024-11-20" >}}
 
 **Author:** [Suvaditya Mukherjee](https://twitter.com/halcyonrayes)  
 **Date created:** 2023/06/16  
 **Last modified:** 2023/12/25  
 **Description:** Using the Fully-Convolutional Network for Image Segmentation.
 
-{{< hextra/hero-button
-    text="ⓘ This example uses Keras 3"
-    style="background: rgb(23, 132, 133); margin: 1em 0 0.5em 0; pointer-events: none;" >}}
+{{< keras/version v=3 >}}
 
 {{< cards cols="2" >}}
 {{< card link="https://colab.research.google.com/github/keras-team/keras-io/blob/master/examples/vision/ipynb/fully_convolutional_network.ipynb" title="Colab" tag="Colab" tagType="warning">}}
-{{< card link="https://github.com/keras-team/keras-io/blob/master/examples/vision/fully_convolutional_network.py" title="GitHub source" tag="GitHub">}}
+{{< card link="https://github.com/keras-team/keras-io/blob/master/examples/vision/fully_convolutional_network.py" title="GitHub" tag="GitHub">}}
 {{< /cards >}}
 
 ## Introduction

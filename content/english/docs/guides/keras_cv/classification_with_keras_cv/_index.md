@@ -6,7 +6,7 @@ weight: 2
 type: docs
 ---
 
-{{< original checkedAt="2024-11-19" >}}
+{{< keras/original checkedAt="2024-11-19" >}}
 
 **Author:** [lukewood](https://lukewood.xyz)  
 **Date created:** 03/28/2023  
@@ -15,7 +15,7 @@ type: docs
 
 {{< cards cols="2" >}}
 {{< card link="https://colab.research.google.com/github/keras-team/keras-io/blob/master/guides/ipynb/keras_cv/classification_with_keras_cv.ipynb" title="Colab" tag="Colab" tagType="warning">}}
-{{< card link="https://github.com/keras-team/keras-io/blob/master/guides/keras_cv/classification_with_keras_cv.py" title="GitHub source" tag="GitHub">}}
+{{< card link="https://github.com/keras-team/keras-io/blob/master/guides/keras_cv/classification_with_keras_cv.py" title="GitHub" tag="GitHub">}}
 {{< /cards >}}
 
 Classification is the process of predicting a categorical label for a given input image. While classification is a relatively straightforward computer vision task, modern approaches still are built of several complex components. Luckily, KerasCV provides APIs to construct commonly used components.

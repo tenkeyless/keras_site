@@ -5,20 +5,18 @@ weight: 4
 type: docs
 ---
 
-{{< original checkedAt="2024-11-19" >}}
+{{< keras/original checkedAt="2024-11-19" >}}
 
 **Author:** [Khalid Salama](https://www.linkedin.com/in/khalid-salama-24403144/)  
 **Date created:** 2021/01/18  
 **Last modified:** 2021/01/18  
 **Description:** Implementing the Vision Transformer (ViT) model for image classification.
 
-{{< hextra/hero-button
-    text="ⓘ This example uses Keras 3"
-    style="background: rgb(23, 132, 133); margin: 1em 0 0.5em 0; pointer-events: none;" >}}
+{{< keras/version v=3 >}}
 
 {{< cards cols="2" >}}
 {{< card link="https://colab.research.google.com/github/keras-team/keras-io/blob/master/examples/vision/ipynb/image_classification_with_vision_transformer.ipynb" title="Colab" tag="Colab" tagType="warning">}}
-{{< card link="https://github.com/keras-team/keras-io/blob/master/examples/vision/image_classification_with_vision_transformer.py" title="GitHub source" tag="GitHub">}}
+{{< card link="https://github.com/keras-team/keras-io/blob/master/examples/vision/image_classification_with_vision_transformer.py" title="GitHub" tag="GitHub">}}
 {{< /cards >}}
 
 ## Introduction

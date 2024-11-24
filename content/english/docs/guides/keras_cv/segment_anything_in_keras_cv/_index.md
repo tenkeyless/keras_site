@@ -6,7 +6,7 @@ weight: 7
 type: docs
 ---
 
-{{< original checkedAt="2024-11-19" >}}
+{{< keras/original checkedAt="2024-11-19" >}}
 
 **Author:** Tirth Patel, Ian Stenbit  
 **Date created:** 2023/12/04  
@@ -15,7 +15,7 @@ type: docs
 
 {{< cards cols="2" >}}
 {{< card link="https://colab.research.google.com/github/keras-team/keras-io/blob/master/guides/ipynb/keras_cv/segment_anything_in_keras_cv.ipynb" title="Colab" tag="Colab" tagType="warning">}}
-{{< card link="https://github.com/keras-team/keras-io/blob/master/guides/keras_cv/segment_anything_in_keras_cv.py" title="GitHub source" tag="GitHub">}}
+{{< card link="https://github.com/keras-team/keras-io/blob/master/guides/keras_cv/segment_anything_in_keras_cv.py" title="GitHub" tag="GitHub">}}
 {{< /cards >}}
 
 ## Overview

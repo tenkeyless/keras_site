@@ -5,20 +5,18 @@ weight: 21
 type: docs
 ---
 
-{{< original checkedAt="2024-11-23" >}}
+{{< keras/original checkedAt="2024-11-23" >}}
 
 **Author:** [Jesse Chan](https://github.com/jessechancy)  
 **Date created:** 2022/07/25  
 **Last modified:** 2022/07/25  
 **Description:** Using KerasHub to train a mini-GPT model for text generation.
 
-{{< hextra/hero-button
-    text="ⓘ This example uses Keras 3"
-    style="background: rgb(23, 132, 133); margin: 1em 0 0.5em 0; pointer-events: none;" >}}
+{{< keras/version v=3 >}}
 
 {{< cards cols="2" >}}
 {{< card link="https://colab.research.google.com/github/keras-team/keras-io/blob/master/examples/generative/ipynb/text_generation_gpt.ipynb" title="Colab" tag="Colab" tagType="warning">}}
-{{< card link="https://github.com/keras-team/keras-io/blob/master/examples/generative/text_generation_gpt.py" title="GitHub source" tag="GitHub">}}
+{{< card link="https://github.com/keras-team/keras-io/blob/master/examples/generative/text_generation_gpt.py" title="GitHub" tag="GitHub">}}
 {{< /cards >}}
 
 ## Introduction

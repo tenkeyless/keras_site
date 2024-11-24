@@ -5,20 +5,18 @@ weight: 57
 type: docs
 ---
 
-{{< original checkedAt="2024-11-21" >}}
+{{< keras/original checkedAt="2024-11-21" >}}
 
 **Author:** [Sayak Paul](https://twitter.com/RisingSayak)  
 **Date created:** 2021/08/06  
 **Last modified:** 2023/07/22  
 **Description:** Training a video classifier with hybrid transformers.
 
-{{< hextra/hero-button
-    text="ⓘ This example uses Keras 3"
-    style="background: rgb(23, 132, 133); margin: 1em 0 0.5em 0; pointer-events: none;" >}}
+{{< keras/version v=3 >}}
 
 {{< cards cols="2" >}}
 {{< card link="https://colab.research.google.com/github/keras-team/keras-io/blob/master/examples/vision/ipynb/video_transformers.ipynb" title="Colab" tag="Colab" tagType="warning">}}
-{{< card link="https://github.com/keras-team/keras-io/blob/master/examples/vision/video_transformers.py" title="GitHub source" tag="GitHub">}}
+{{< card link="https://github.com/keras-team/keras-io/blob/master/examples/vision/video_transformers.py" title="GitHub" tag="GitHub">}}
 {{< /cards >}}
 
 This example is a follow-up to the [Video Classification with a CNN-RNN Architecture](https://keras.io/examples/vision/video_classification/) example. This time, we will be using a Transformer-based model ([Vaswani et al.](https://arxiv.org/abs/1706.03762)) to classify videos. You can follow [this book chapter](https://livebook.manning.com/book/deep-learning-with-python-second-edition/chapter-11) in case you need an introduction to Transformers (with code). After reading this example, you will know how to develop hybrid Transformer-based models for video classification that operate on CNN feature maps.

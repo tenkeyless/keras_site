@@ -5,20 +5,18 @@ weight: 20
 type: docs
 ---
 
-{{< original checkedAt="2024-11-23" >}}
+{{< keras/original checkedAt="2024-11-23" >}}
 
 **Author:** Chen Qian  
 **Date created:** 2023/04/17  
 **Last modified:** 2024/04/12  
 **Description:** Use KerasHub GPT2 model and `samplers` to do text generation.
 
-{{< hextra/hero-button
-    text="ⓘ This example uses Keras 3"
-    style="background: rgb(23, 132, 133); margin: 1em 0 0.5em 0; pointer-events: none;" >}}
+{{< keras/version v=3 >}}
 
 {{< cards cols="2" >}}
 {{< card link="https://colab.research.google.com/github/keras-team/keras-io/blob/master/examples/generative/ipynb/gpt2_text_generation_with_kerashub.ipynb" title="Colab" tag="Colab" tagType="warning">}}
-{{< card link="https://github.com/keras-team/keras-io/blob/master/examples/generative/gpt2_text_generation_with_kerashub.py" title="GitHub source" tag="GitHub">}}
+{{< card link="https://github.com/keras-team/keras-io/blob/master/examples/generative/gpt2_text_generation_with_kerashub.py" title="GitHub" tag="GitHub">}}
 {{< /cards >}}
 
 In this tutorial, you will learn to use [KerasHub]({{< relref "/docs/keras_hub" >}}) to load a pre-trained Large Language Model (LLM) - [GPT-2 model](https://openai.com/research/better-language-models) (originally invented by OpenAI), finetune it to a specific text style, and generate text based on users' input (also known as prompt). You will also learn how GPT2 adapts quickly to non-English languages, such as Chinese.

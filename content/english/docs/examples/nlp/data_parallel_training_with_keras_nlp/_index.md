@@ -5,20 +5,18 @@ weight: 10
 type: docs
 ---
 
-{{< original checkedAt="2024-11-21" >}}
+{{< keras/original checkedAt="2024-11-21" >}}
 
 **Author:** Anshuman Mishra  
 **Date created:** 2023/07/07  
 **Last modified:** 2023/07/07  
 **Description:** Data Parallel training with KerasNLP and tf.distribute.
 
-{{< hextra/hero-button
-    text="ⓘ This example uses Keras 3"
-    style="background: rgb(23, 132, 133); margin: 1em 0 0.5em 0; pointer-events: none;" >}}
+{{< keras/version v=3 >}}
 
 {{< cards cols="2" >}}
 {{< card link="https://colab.research.google.com/github/keras-team/keras-io/blob/master/examples/nlp/ipynb/data_parallel_training_with_keras_nlp.ipynb" title="Colab" tag="Colab" tagType="warning">}}
-{{< card link="https://github.com/keras-team/keras-io/blob/master/examples/nlp/data_parallel_training_with_keras_nlp.py" title="GitHub source" tag="GitHub">}}
+{{< card link="https://github.com/keras-team/keras-io/blob/master/examples/nlp/data_parallel_training_with_keras_nlp.py" title="GitHub" tag="GitHub">}}
 {{< /cards >}}
 
 ## Introduction

@@ -5,20 +5,18 @@ weight: 33
 type: docs
 ---
 
-{{< original checkedAt="2024-11-20" >}}
+{{< keras/original checkedAt="2024-11-20" >}}
 
 **Authors:** [A_K_Nain](https://twitter.com/A_K_Nain), [Sayak Paul](https://twitter.com/RisingSayak)  
 **Date created:** 2021/08/16  
 **Last modified:** 2024/09/01  
 **Description:** Training a handwriting recognition model with variable-length sequences.
 
-{{< hextra/hero-button
-    text="ⓘ This example uses Keras 3"
-    style="background: rgb(23, 132, 133); margin: 1em 0 0.5em 0; pointer-events: none;" >}}
+{{< keras/version v=3 >}}
 
 {{< cards cols="2" >}}
 {{< card link="https://colab.research.google.com/github/keras-team/keras-io/blob/master/examples/vision/ipynb/handwriting_recognition.ipynb" title="Colab" tag="Colab" tagType="warning">}}
-{{< card link="https://github.com/favicon.ico) [**GitHub source**](https://github.com/keras-team/keras-io/blob/master/examples/vision/handwriting_recognition.py" title="GitHub source" tag="GitHub">}}
+{{< card link="https://github.com/favicon.ico) [**GitHub source**](https://github.com/keras-team/keras-io/blob/master/examples/vision/handwriting_recognition.py" title="GitHub" tag="GitHub">}}
 {{< /cards >}}
 
 ## Introduction

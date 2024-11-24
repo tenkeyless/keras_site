@@ -5,20 +5,18 @@ weight: 9
 type: docs
 ---
 
-{{< original checkedAt="2024-11-24" >}}
+{{< keras/original checkedAt="2024-11-24" >}}
 
 **Author:** [lukewood](https://lukewood.xyz)  
 **Date created:** 2021/08/28  
 **Last modified:** 2021/08/28  
 **Description:** Overview of how to use the TensorFlow NumPy API to write Keras models.
 
-{{< hextra/hero-button
-    text="ⓘ This example uses Keras 3"
-    style="background: rgb(23, 132, 133); margin: 1em 0 0.5em 0; pointer-events: none;" >}}
+{{< keras/version v=3 >}}
 
 {{< cards cols="2" >}}
 {{< card link="https://colab.research.google.com/github/keras-team/keras-io/blob/master/examples/keras_recipes/ipynb/tensorflow_numpy_models.ipynb" title="Colab" tag="Colab" tagType="warning">}}
-{{< card link="https://github.com/keras-team/keras-io/blob/master/examples/keras_recipes/tensorflow_numpy_models.py" title="GitHub source" tag="GitHub">}}
+{{< card link="https://github.com/keras-team/keras-io/blob/master/examples/keras_recipes/tensorflow_numpy_models.py" title="GitHub" tag="GitHub">}}
 {{< /cards >}}
 
 ## Introduction

@@ -5,20 +5,18 @@ weight: 24
 type: docs
 ---
 
-{{< original checkedAt="2024-11-23" >}}
+{{< keras/original checkedAt="2024-11-23" >}}
 
 **Author:** [Darshan Deshpande](https://twitter.com/getdarshan)  
 **Date created:** 2021/10/05  
 **Last modified:** 2021/10/05  
 **Description:** FNet transformer for text generation in Keras.
 
-{{< hextra/hero-button
-    text="ⓘ This example uses Keras 2"
-    style="background: rgb(255 237 183); color: black; margin: 1em 0 0.5em 0; pointer-events: none;" >}}
+{{< keras/version v=2 >}}
 
 {{< cards cols="2" >}}
 {{< card link="https://colab.research.google.com/github/keras-team/keras-io/blob/master/examples/generative/ipynb/text_generation_fnet.ipynb" title="Colab" tag="Colab" tagType="warning">}}
-{{< card link="https://github.com/keras-team/keras-io/blob/master/examples/generative/text_generation_fnet.py" title="GitHub source" tag="GitHub">}}
+{{< card link="https://github.com/keras-team/keras-io/blob/master/examples/generative/text_generation_fnet.py" title="GitHub" tag="GitHub">}}
 {{< /cards >}}
 
 ## Introduction

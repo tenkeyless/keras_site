@@ -5,20 +5,18 @@ weight: 7
 type: docs
 ---
 
-{{< original checkedAt="2024-11-21" >}}
+{{< keras/original checkedAt="2024-11-21" >}}
 
 **Author:** Gitesh Chawda  
 **Date created:** 2022/09/05  
 **Last modified:** 2022/09/05  
 **Description:** Using Tensorflow Decision Forests for text classification.
 
-{{< hextra/hero-button
-    text="ⓘ This example uses Keras 2"
-    style="background: rgb(255 237 183); color: black; margin: 1em 0 0.5em 0; pointer-events: none;" >}}
+{{< keras/version v=2 >}}
 
 {{< cards cols="2" >}}
 {{< card link="https://colab.research.google.com/github/keras-team/keras-io/blob/master/examples/nlp/ipynb/tweet-classification-using-tfdf.ipynb" title="Colab" tag="Colab" tagType="warning">}}
-{{< card link="https://github.com/keras-team/keras-io/blob/master/examples/nlp/tweet-classification-using-tfdf.py" title="GitHub source" tag="GitHub">}}
+{{< card link="https://github.com/keras-team/keras-io/blob/master/examples/nlp/tweet-classification-using-tfdf.py" title="GitHub" tag="GitHub">}}
 {{< /cards >}}
 
 ## Introduction

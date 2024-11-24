@@ -5,20 +5,18 @@ weight: 5
 type: docs
 ---
 
-{{< original checkedAt="2024-11-22" >}}
+{{< keras/original checkedAt="2024-11-22" >}}
 
 **Author:** [pavithrasv](https://github.com/pavithrasv)  
 **Date created:** 2020/05/31  
 **Last modified:** 2020/05/31  
 **Description:** Detect anomalies in a timeseries using an Autoencoder.
 
-{{< hextra/hero-button
-    text="ⓘ This example uses Keras 3"
-    style="background: rgb(23, 132, 133); margin: 1em 0 0.5em 0; pointer-events: none;" >}}
+{{< keras/version v=3 >}}
 
 {{< cards cols="2" >}}
 {{< card link="https://colab.research.google.com/github/keras-team/keras-io/blob/master/examples/timeseries/ipynb/timeseries_anomaly_detection.ipynb" title="Colab" tag="Colab" tagType="warning">}}
-{{< card link="https://github.com/keras-team/keras-io/blob/master/examples/timeseries/timeseries_anomaly_detection.py" title="GitHub source" tag="GitHub">}}
+{{< card link="https://github.com/keras-team/keras-io/blob/master/examples/timeseries/timeseries_anomaly_detection.py" title="GitHub" tag="GitHub">}}
 {{< /cards >}}
 
 ## Introduction
