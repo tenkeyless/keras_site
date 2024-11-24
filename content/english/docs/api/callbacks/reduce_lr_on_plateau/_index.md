@@ -1,6 +1,8 @@
 ---
-title: reduce_lr_on_plateau
-toc: false
+title: ReduceLROnPlateau
+toc: true
+weight: 7
+type: docs
 ---
 
 [\[source\]](https://github.com/keras-team/keras/tree/v3.6.0/keras/src/callbacks/reduce_lr_on_plateau.py#L11)
