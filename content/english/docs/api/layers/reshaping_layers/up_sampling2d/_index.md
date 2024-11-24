@@ -3,7 +3,7 @@ title: UpSampling2D layer
 toc: false
 ---
 
-[\[source\]](https://github.com/keras-team/keras/tree/v3.6.0/keras/src/layers/reshaping/up_sampling2d.py#L9)
+{{< keras/source link="https://github.com/keras-team/keras/tree/v3.6.0/keras/src/layers/reshaping/up_sampling2d.py#L9" >}}
 
 ### `UpSampling2D` class
 

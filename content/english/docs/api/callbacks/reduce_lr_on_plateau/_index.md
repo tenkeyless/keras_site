@@ -5,7 +5,7 @@ weight: 7
 type: docs
 ---
 
-[\[source\]](https://github.com/keras-team/keras/tree/v3.6.0/keras/src/callbacks/reduce_lr_on_plateau.py#L11)
+{{< keras/source link="https://github.com/keras-team/keras/tree/v3.6.0/keras/src/callbacks/reduce_lr_on_plateau.py#L11" >}}
 
 ### `ReduceLROnPlateau` class
 

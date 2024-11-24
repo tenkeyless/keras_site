@@ -3,7 +3,7 @@ title: word_piece_tokenizer
 toc: false
 ---
 
-[\[source\]](https://github.com/keras-team/keras-hub/tree/v0.17.0/keras_hub/src/tokenizers/word_piece_tokenizer.py#L190)
+{{< keras/source link="https://github.com/keras-team/keras-hub/tree/v0.17.0/keras_hub/src/tokenizers/word_piece_tokenizer.py#L190" >}}
 
 ### `WordPieceTokenizer` class
 
@@ -66,7 +66,7 @@ Custom splitting.
 
 ---
 
-[\[source\]](https://github.com/keras-team/keras-hub/tree/v0.17.0/keras_hub/src/tokenizers/word_piece_tokenizer.py#L459)
+{{< keras/source link="https://github.com/keras-team/keras-hub/tree/v0.17.0/keras_hub/src/tokenizers/word_piece_tokenizer.py#L459" >}}
 
 ### `tokenize` method
 
@@ -82,7 +82,7 @@ Transform input tensors of strings into output tokens.
 
 ---
 
-[\[source\]](https://github.com/keras-team/keras-hub/tree/v0.17.0/keras_hub/src/tokenizers/word_piece_tokenizer.py#L505)
+{{< keras/source link="https://github.com/keras-team/keras-hub/tree/v0.17.0/keras_hub/src/tokenizers/word_piece_tokenizer.py#L505" >}}
 
 ### `detokenize` method
 
@@ -98,7 +98,7 @@ Transform tokens back into strings.
 
 ---
 
-[\[source\]](https://github.com/keras-team/keras-hub/tree/v0.17.0/keras_hub/src/tokenizers/word_piece_tokenizer.py#L407)
+{{< keras/source link="https://github.com/keras-team/keras-hub/tree/v0.17.0/keras_hub/src/tokenizers/word_piece_tokenizer.py#L407" >}}
 
 ### `get_vocabulary` method
 
@@ -108,7 +108,7 @@ Get the tokenizer vocabulary as a list of strings tokens.
 
 ---
 
-[\[source\]](https://github.com/keras-team/keras-hub/tree/v0.17.0/keras_hub/src/tokenizers/word_piece_tokenizer.py#L412)
+{{< keras/source link="https://github.com/keras-team/keras-hub/tree/v0.17.0/keras_hub/src/tokenizers/word_piece_tokenizer.py#L412" >}}
 
 ### `vocabulary_size` method
 
@@ -118,7 +118,7 @@ Get the integer size of the tokenizer vocabulary.
 
 ---
 
-[\[source\]](https://github.com/keras-team/keras-hub/tree/v0.17.0/keras_hub/src/tokenizers/word_piece_tokenizer.py#L427)
+{{< keras/source link="https://github.com/keras-team/keras-hub/tree/v0.17.0/keras_hub/src/tokenizers/word_piece_tokenizer.py#L427" >}}
 
 ### `token_to_id` method
 
@@ -128,7 +128,7 @@ Convert a string token to an integer id.
 
 ---
 
-[\[source\]](https://github.com/keras-team/keras-hub/tree/v0.17.0/keras_hub/src/tokenizers/word_piece_tokenizer.py#L417)
+{{< keras/source link="https://github.com/keras-team/keras-hub/tree/v0.17.0/keras_hub/src/tokenizers/word_piece_tokenizer.py#L417" >}}
 
 ### `id_to_token` method
 

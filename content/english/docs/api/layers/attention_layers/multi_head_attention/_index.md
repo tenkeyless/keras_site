@@ -3,7 +3,7 @@ title: MultiHeadAttention layer
 toc: false
 ---
 
-[\[source\]](https://github.com/keras-team/keras/tree/v3.6.0/keras/src/layers/attention/multi_head_attention.py#L19)
+{{< keras/source link="https://github.com/keras-team/keras/tree/v3.6.0/keras/src/layers/attention/multi_head_attention.py#L19" >}}
 
 ### `MultiHeadAttention` class
 

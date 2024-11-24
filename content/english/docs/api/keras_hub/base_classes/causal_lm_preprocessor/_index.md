@@ -3,7 +3,7 @@ title: causal_lm_preprocessor
 toc: false
 ---
 
-[\[source\]](https://github.com/keras-team/keras-hub/tree/v0.17.0/keras_hub/src/models/causal_lm_preprocessor.py#L10)
+{{< keras/source link="https://github.com/keras-team/keras-hub/tree/v0.17.0/keras_hub/src/models/causal_lm_preprocessor.py#L10" >}}
 
 ### `CausalLMPreprocessor` class
 
@@ -27,7 +27,7 @@ Examples.
 
 ---
 
-[\[source\]](https://github.com/keras-team/keras-hub/tree/v0.17.0/keras_hub/src/models/preprocessor.py#L132)
+{{< keras/source link="https://github.com/keras-team/keras-hub/tree/v0.17.0/keras_hub/src/models/preprocessor.py#L132" >}}
 
 ### `from_preset` method
 
@@ -404,7 +404,7 @@ gpt2_base_en_cnn_dailymail
 
 ---
 
-[\[source\]](https://github.com/keras-team/keras-hub/tree/v0.17.0/keras_hub/src/models/preprocessor.py#L222)
+{{< keras/source link="https://github.com/keras-team/keras-hub/tree/v0.17.0/keras_hub/src/models/preprocessor.py#L222" >}}
 
 ### `save_to_preset` method
 

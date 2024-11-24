@@ -3,7 +3,7 @@ title: image_classifier
 toc: false
 ---
 
-[\[source\]](https://github.com/keras-team/keras-cv/tree/v0.9.0/keras_cv/src/models/classification/image_classifier.py#L31)
+{{< keras/source link="https://github.com/keras-team/keras-cv/tree/v0.9.0/keras_cv/src/models/classification/image_classifier.py#L31" >}}
 
 ### `ImageClassifier` class
 
@@ -24,7 +24,7 @@ Image classifier with pooling and dense layer prediction head.
 
 ---
 
-[\[source\]](https://github.com/keras-team/keras-cv/tree/v0.9.0/keras_cv/src/models/task.py#L183)
+{{< keras/source link="https://github.com/keras-team/keras-cv/tree/v0.9.0/keras_cv/src/models/task.py#L183" >}}
 
 ### `from_preset` method
 

@@ -3,7 +3,7 @@ title: compute_word_piece_vocabulary function
 toc: false
 ---
 
-[\[source\]](https://github.com/keras-team/keras-hub/tree/v0.17.0/keras_hub/src/tokenizers/word_piece_tokenizer_trainer.py#L14)
+{{< keras/source link="https://github.com/keras-team/keras-hub/tree/v0.17.0/keras_hub/src/tokenizers/word_piece_tokenizer_trainer.py#L14" >}}
 
 ### `compute_word_piece_vocabulary` function
 

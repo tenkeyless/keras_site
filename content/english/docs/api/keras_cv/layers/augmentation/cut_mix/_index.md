@@ -3,7 +3,7 @@ title: cut_mix
 toc: false
 ---
 
-[\[source\]](https://github.com/keras-team/keras-cv/tree/v0.9.0/keras_cv/src/layers/preprocessing/cut_mix.py#L24)
+{{< keras/source link="https://github.com/keras-team/keras-cv/tree/v0.9.0/keras_cv/src/layers/preprocessing/cut_mix.py#L24" >}}
 
 ### `CutMix` class
 

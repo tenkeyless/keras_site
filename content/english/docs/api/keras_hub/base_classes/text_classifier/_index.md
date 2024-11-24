@@ -3,7 +3,7 @@ title: text_classifier
 toc: false
 ---
 
-[\[source\]](https://github.com/keras-team/keras-hub/tree/v0.17.0/keras_hub/src/models/text_classifier.py#L7)
+{{< keras/source link="https://github.com/keras-team/keras-hub/tree/v0.17.0/keras_hub/src/models/text_classifier.py#L7" >}}
 
 ### `TextClassifier` class
 
@@ -25,7 +25,7 @@ Some, but not all, classification presets include classification head weights in
 
 ---
 
-[\[source\]](https://github.com/keras-team/keras-hub/tree/v0.17.0/keras_hub/src/models/task.py#L129)
+{{< keras/source link="https://github.com/keras-team/keras-hub/tree/v0.17.0/keras_hub/src/models/task.py#L129" >}}
 
 ### `from_preset` method
 
@@ -55,7 +55,7 @@ This constructor can be called in one of two ways. Either from a task specific b
 
 ---
 
-[\[source\]](https://github.com/keras-team/keras-hub/tree/v0.17.0/keras_hub/src/models/text_classifier.py#L53)
+{{< keras/source link="https://github.com/keras-team/keras-hub/tree/v0.17.0/keras_hub/src/models/text_classifier.py#L53" >}}
 
 ### `compile` method
 
@@ -74,7 +74,7 @@ The `TextClassifier` task extends the default compilation signature of [`keras.M
 
 ---
 
-[\[source\]](https://github.com/keras-team/keras-hub/tree/v0.17.0/keras_hub/src/models/task.py#L238)
+{{< keras/source link="https://github.com/keras-team/keras-hub/tree/v0.17.0/keras_hub/src/models/task.py#L238" >}}
 
 ### `save_to_preset` method
 

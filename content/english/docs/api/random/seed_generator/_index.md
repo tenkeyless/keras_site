@@ -5,7 +5,7 @@ weight: 1
 type: docs
 ---
 
-[\[source\]](https://github.com/keras-team/keras/tree/v3.6.0/keras/src/random/seed_generator.py#L12)
+{{< keras/source link="https://github.com/keras-team/keras/tree/v3.6.0/keras/src/random/seed_generator.py#L12" >}}
 
 ### `SeedGenerator` class
 

@@ -7,7 +7,7 @@ type: docs
 
 {{< keras/original checkedAt="2024-11-24" >}}
 
-[\[source\]](https://github.com/keras-team/keras/tree/v3.6.0/keras/src/layers/core/identity.py#L7)
+{{< keras/source link="https://github.com/keras-team/keras/tree/v3.6.0/keras/src/layers/core/identity.py#L7" >}}
 
 ### `Identity` class
 

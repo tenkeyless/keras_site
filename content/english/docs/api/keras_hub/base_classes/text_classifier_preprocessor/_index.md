@@ -3,7 +3,7 @@ title: text_classifier_preprocessor
 toc: false
 ---
 
-[\[source\]](https://github.com/keras-team/keras-hub/tree/v0.17.0/keras_hub/src/models/text_classifier_preprocessor.py#L11)
+{{< keras/source link="https://github.com/keras-team/keras-hub/tree/v0.17.0/keras_hub/src/models/text_classifier_preprocessor.py#L11" >}}
 
 ### `TextClassifierPreprocessor` class
 
@@ -25,7 +25,7 @@ Examples.
 
 ---
 
-[\[source\]](https://github.com/keras-team/keras-hub/tree/v0.17.0/keras_hub/src/models/preprocessor.py#L132)
+{{< keras/source link="https://github.com/keras-team/keras-hub/tree/v0.17.0/keras_hub/src/models/preprocessor.py#L132" >}}
 
 ### `from_preset` method
 
@@ -228,7 +228,7 @@ f_net_large_en
 
 ---
 
-[\[source\]](https://github.com/keras-team/keras-hub/tree/v0.17.0/keras_hub/src/models/preprocessor.py#L222)
+{{< keras/source link="https://github.com/keras-team/keras-hub/tree/v0.17.0/keras_hub/src/models/preprocessor.py#L222" >}}
 
 ### `save_to_preset` method
 

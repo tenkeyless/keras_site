@@ -5,7 +5,7 @@ weight: 4
 type: docs
 ---
 
-[\[source\]](https://github.com/keras-team/keras/tree/v3.6.0/keras/src/ops/core.py#L221)
+{{< keras/source link="https://github.com/keras-team/keras/tree/v3.6.0/keras/src/ops/core.py#L221" >}}
 
 ### `associative_scan` function
 
@@ -36,7 +36,7 @@ A (possibly nested Python tree structure of) array(s) of the same shape and stru
 
 ---
 
-[\[source\]](https://github.com/keras-team/keras/tree/v3.6.0/keras/src/ops/core.py#L782)
+{{< keras/source link="https://github.com/keras-team/keras/tree/v3.6.0/keras/src/ops/core.py#L782" >}}
 
 ### `cast` function
 
@@ -59,7 +59,7 @@ A tensor of the specified `dtype`.
 
 ---
 
-[\[source\]](https://github.com/keras-team/keras/tree/v3.6.0/keras/src/ops/core.py#L986)
+{{< keras/source link="https://github.com/keras-team/keras/tree/v3.6.0/keras/src/ops/core.py#L986" >}}
 
 ### `cond` function
 
@@ -79,7 +79,7 @@ The output of either `true_fn` or `false_fn` depending on pred.
 
 ---
 
-[\[source\]](https://github.com/keras-team/keras/tree/v3.6.0/keras/src/ops/core.py#L920)
+{{< keras/source link="https://github.com/keras-team/keras/tree/v3.6.0/keras/src/ops/core.py#L920" >}}
 
 ### `convert_to_numpy` function
 
@@ -97,7 +97,7 @@ A NumPy array.
 
 ---
 
-[\[source\]](https://github.com/keras-team/keras/tree/v3.6.0/keras/src/ops/core.py#L898)
+{{< keras/source link="https://github.com/keras-team/keras/tree/v3.6.0/keras/src/ops/core.py#L898" >}}
 
 ### `convert_to_tensor` function
 
@@ -121,7 +121,7 @@ A tensor of the specified `dtype`.
 
 ---
 
-[\[source\]](https://github.com/keras-team/keras/tree/v3.6.0/keras/src/ops/core.py#L1051)
+{{< keras/source link="https://github.com/keras-team/keras/tree/v3.6.0/keras/src/ops/core.py#L1051" >}}
 
 ### `custom_gradient` function
 
@@ -162,7 +162,7 @@ When working with TensorFlow/JAX backend, `grad(upstream)` is sufficient. With P
 
 ---
 
-[\[source\]](https://github.com/keras-team/keras/tree/v3.6.0/keras/src/ops/core.py#L746)
+{{< keras/source link="https://github.com/keras-team/keras/tree/v3.6.0/keras/src/ops/core.py#L746" >}}
 
 ### `dtype` function
 
@@ -186,7 +186,7 @@ A string indicating the dtype of the input tensor, e.g. `"float32"`.
 
 ---
 
-[\[source\]](https://github.com/keras-team/keras/tree/v3.6.0/keras/src/ops/math.py#L898)
+{{< keras/source link="https://github.com/keras-team/keras/tree/v3.6.0/keras/src/ops/math.py#L898" >}}
 
 ### `erf` function
 
@@ -208,7 +208,7 @@ A tensor with the same dtype as `x`.
 
 ---
 
-[\[source\]](https://github.com/keras-team/keras/tree/v3.6.0/keras/src/ops/math.py#L928)
+{{< keras/source link="https://github.com/keras-team/keras/tree/v3.6.0/keras/src/ops/math.py#L928" >}}
 
 ### `erfinv` function
 
@@ -230,7 +230,7 @@ A tensor with the same dtype as `x`.
 
 ---
 
-[\[source\]](https://github.com/keras-team/keras/tree/v3.6.0/keras/src/ops/math.py#L297)
+{{< keras/source link="https://github.com/keras-team/keras/tree/v3.6.0/keras/src/ops/math.py#L297" >}}
 
 ### `extract_sequences` function
 
@@ -260,7 +260,7 @@ A tensor of sequences with shape \[..., num_sequences, sequence_length\].
 
 ---
 
-[\[source\]](https://github.com/keras-team/keras/tree/v3.6.0/keras/src/ops/core.py#L636)
+{{< keras/source link="https://github.com/keras-team/keras/tree/v3.6.0/keras/src/ops/core.py#L636" >}}
 
 ### `fori_loop` function
 
@@ -285,7 +285,7 @@ The final state after the loop.
 
 ---
 
-[\[source\]](https://github.com/keras-team/keras/tree/v3.6.0/keras/src/ops/math.py#L199)
+{{< keras/source link="https://github.com/keras-team/keras/tree/v3.6.0/keras/src/ops/math.py#L199" >}}
 
 ### `in_top_k` function
 
@@ -309,7 +309,7 @@ A boolean tensor of the same shape as `targets`, where each element indicates wh
 
 ---
 
-[\[source\]](https://github.com/keras-team/keras/tree/v3.6.0/keras/src/ops/core.py#L1035)
+{{< keras/source link="https://github.com/keras-team/keras/tree/v3.6.0/keras/src/ops/core.py#L1035" >}}
 
 ### `is_tensor` function
 
@@ -329,7 +329,7 @@ Note: This checks for backend specific tensors so passing a TensorFlow tensor wo
 
 ---
 
-[\[source\]](https://github.com/keras-team/keras/tree/v3.6.0/keras/src/ops/math.py#L241)
+{{< keras/source link="https://github.com/keras-team/keras/tree/v3.6.0/keras/src/ops/math.py#L241" >}}
 
 ### `logsumexp` function
 
@@ -353,7 +353,7 @@ A tensor containing the logarithm of the sum of exponentials of elements in `x`.
 
 ---
 
-[\[source\]](https://github.com/keras-team/keras/tree/v3.6.0/keras/src/ops/core.py#L34)
+{{< keras/source link="https://github.com/keras-team/keras/tree/v3.6.0/keras/src/ops/core.py#L34" >}}
 
 ### `map` function
 
@@ -384,7 +384,7 @@ Mapped values.
 
 ---
 
-[\[source\]](https://github.com/keras-team/keras/tree/v3.6.0/keras/src/ops/math.py#L868)
+{{< keras/source link="https://github.com/keras-team/keras/tree/v3.6.0/keras/src/ops/math.py#L868" >}}
 
 ### `rsqrt` function
 
@@ -406,7 +406,7 @@ A tensor with the same dtype as `x`.
 
 ---
 
-[\[source\]](https://github.com/keras-team/keras/tree/v3.6.0/keras/src/ops/core.py#L817)
+{{< keras/source link="https://github.com/keras-team/keras/tree/v3.6.0/keras/src/ops/core.py#L817" >}}
 
 ### `saturate_cast` function
 
@@ -441,7 +441,7 @@ Saturate casting to `uint8` will clip values to `uint8` range before casting and
 
 ---
 
-[\[source\]](https://github.com/keras-team/keras/tree/v3.6.0/keras/src/ops/core.py#L107)
+{{< keras/source link="https://github.com/keras-team/keras/tree/v3.6.0/keras/src/ops/core.py#L107" >}}
 
 ### `scan` function
 
@@ -476,7 +476,7 @@ A pair where the first element represents the final loop carry value and the sec
 
 ---
 
-[\[source\]](https://github.com/keras-team/keras/tree/v3.6.0/keras/src/ops/core.py#L288)
+{{< keras/source link="https://github.com/keras-team/keras/tree/v3.6.0/keras/src/ops/core.py#L288" >}}
 
 ### `scatter` function
 
@@ -500,7 +500,7 @@ At a high level, this operation does `zeros[indices] = updates` and returns the 
 
 ---
 
-[\[source\]](https://github.com/keras-team/keras/tree/v3.6.0/keras/src/ops/core.py#L327)
+{{< keras/source link="https://github.com/keras-team/keras/tree/v3.6.0/keras/src/ops/core.py#L327" >}}
 
 ### `scatter_update` function
 
@@ -530,7 +530,7 @@ A tensor, has the same shape and dtype as `inputs`.
 
 ---
 
-[\[source\]](https://github.com/keras-team/keras/tree/v3.6.0/keras/src/ops/math.py#L104)
+{{< keras/source link="https://github.com/keras-team/keras/tree/v3.6.0/keras/src/ops/math.py#L104" >}}
 
 ### `segment_max` function
 
@@ -555,7 +555,7 @@ A tensor containing the max of segments, where each element represents the max o
 
 ---
 
-[\[source\]](https://github.com/keras-team/keras/tree/v3.6.0/keras/src/ops/math.py#L57)
+{{< keras/source link="https://github.com/keras-team/keras/tree/v3.6.0/keras/src/ops/math.py#L57" >}}
 
 ### `segment_sum` function
 
@@ -580,7 +580,7 @@ A tensor containing the sum of segments, where each element represents the sum o
 
 ---
 
-[\[source\]](https://github.com/keras-team/keras/tree/v3.6.0/keras/src/ops/core.py#L719)
+{{< keras/source link="https://github.com/keras-team/keras/tree/v3.6.0/keras/src/ops/core.py#L719" >}}
 
 ### `shape` function
 
@@ -604,7 +604,7 @@ A tuple of integers or None values, indicating the shape of the input tensor.
 
 ---
 
-[\[source\]](https://github.com/keras-team/keras/tree/v3.6.0/keras/src/ops/core.py#L387)
+{{< keras/source link="https://github.com/keras-team/keras/tree/v3.6.0/keras/src/ops/core.py#L387" >}}
 
 ### `slice` function
 
@@ -628,7 +628,7 @@ A tensor, has the same shape and dtype as `inputs`.
 
 ---
 
-[\[source\]](https://github.com/keras-team/keras/tree/v3.6.0/keras/src/ops/core.py#L426)
+{{< keras/source link="https://github.com/keras-team/keras/tree/v3.6.0/keras/src/ops/core.py#L426" >}}
 
 ### `slice_update` function
 
@@ -652,7 +652,7 @@ A tensor, has the same shape and dtype as `inputs`.
 
 ---
 
-[\[source\]](https://github.com/keras-team/keras/tree/v3.6.0/keras/src/ops/core.py#L593)
+{{< keras/source link="https://github.com/keras-team/keras/tree/v3.6.0/keras/src/ops/core.py#L593" >}}
 
 ### `stop_gradient` function
 
@@ -674,7 +674,7 @@ The variable with gradient computation disabled.
 
 ---
 
-[\[source\]](https://github.com/keras-team/keras/tree/v3.6.0/keras/src/ops/core.py#L472)
+{{< keras/source link="https://github.com/keras-team/keras/tree/v3.6.0/keras/src/ops/core.py#L472" >}}
 
 ### `switch` function
 
@@ -706,7 +706,7 @@ The outputs of `branch(*operands)` for the branch that was selected based on `in
 
 ---
 
-[\[source\]](https://github.com/keras-team/keras/tree/v3.6.0/keras/src/ops/math.py#L157)
+{{< keras/source link="https://github.com/keras-team/keras/tree/v3.6.0/keras/src/ops/math.py#L157" >}}
 
 ### `top_k` function
 
@@ -730,7 +730,7 @@ A tuple containing two tensors. The first tensor contains the top-k values, and 
 
 ---
 
-[\[source\]](https://github.com/keras-team/keras/tree/v3.6.0/keras/src/ops/core.py#L695)
+{{< keras/source link="https://github.com/keras-team/keras/tree/v3.6.0/keras/src/ops/core.py#L695" >}}
 
 ### `unstack` function
 
@@ -754,7 +754,7 @@ A list of tensors unpacked along the given axis.
 
 ---
 
-[\[source\]](https://github.com/keras-team/keras/tree/v3.6.0/keras/src/ops/core.py#L1002)
+{{< keras/source link="https://github.com/keras-team/keras/tree/v3.6.0/keras/src/ops/core.py#L1002" >}}
 
 ### `vectorized_map` function
 
@@ -774,7 +774,7 @@ In this case, `function` is expected to take as input a single list of tensor ar
 
 ---
 
-[\[source\]](https://github.com/keras-team/keras/tree/v3.6.0/keras/src/ops/core.py#L532)
+{{< keras/source link="https://github.com/keras-team/keras/tree/v3.6.0/keras/src/ops/core.py#L532" >}}
 
 ### `while_loop` function
 

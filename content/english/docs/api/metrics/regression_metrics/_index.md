@@ -5,7 +5,7 @@ weight: 4
 type: docs
 ---
 
-[\[source\]](https://github.com/keras-team/keras/tree/v3.6.0/keras/src/metrics/regression_metrics.py#L16)
+{{< keras/source link="https://github.com/keras-team/keras/tree/v3.6.0/keras/src/metrics/regression_metrics.py#L16" >}}
 
 ### `MeanSquaredError` class
 
@@ -28,7 +28,7 @@ Formula:
 
 ---
 
-[\[source\]](https://github.com/keras-team/keras/tree/v3.6.0/keras/src/metrics/regression_metrics.py#L186)
+{{< keras/source link="https://github.com/keras-team/keras/tree/v3.6.0/keras/src/metrics/regression_metrics.py#L186" >}}
 
 ### `RootMeanSquaredError` class
 
@@ -59,7 +59,7 @@ Usage with `compile()` API:
 
 ---
 
-[\[source\]](https://github.com/keras-team/keras/tree/v3.6.0/keras/src/metrics/regression_metrics.py#L47)
+{{< keras/source link="https://github.com/keras-team/keras/tree/v3.6.0/keras/src/metrics/regression_metrics.py#L47" >}}
 
 ### `MeanAbsoluteError` class
 
@@ -86,7 +86,7 @@ Usage with `compile()` API:
 
 ---
 
-[\[source\]](https://github.com/keras-team/keras/tree/v3.6.0/keras/src/metrics/regression_metrics.py#L92)
+{{< keras/source link="https://github.com/keras-team/keras/tree/v3.6.0/keras/src/metrics/regression_metrics.py#L92" >}}
 
 ### `MeanAbsolutePercentageError` class
 
@@ -115,7 +115,7 @@ Usage with `compile()` API:
 
 ---
 
-[\[source\]](https://github.com/keras-team/keras/tree/v3.6.0/keras/src/metrics/regression_metrics.py#L139)
+{{< keras/source link="https://github.com/keras-team/keras/tree/v3.6.0/keras/src/metrics/regression_metrics.py#L139" >}}
 
 ### `MeanSquaredLogarithmicError` class
 
@@ -144,7 +144,7 @@ Usage with `compile()` API:
 
 ---
 
-[\[source\]](https://github.com/keras-team/keras/tree/v3.6.0/keras/src/metrics/regression_metrics.py#L254)
+{{< keras/source link="https://github.com/keras-team/keras/tree/v3.6.0/keras/src/metrics/regression_metrics.py#L254" >}}
 
 ### `CosineSimilarity` class
 
@@ -176,7 +176,7 @@ Usage with `compile()` API:
 
 ---
 
-[\[source\]](https://github.com/keras-team/keras/tree/v3.6.0/keras/src/metrics/regression_metrics.py#L311)
+{{< keras/source link="https://github.com/keras-team/keras/tree/v3.6.0/keras/src/metrics/regression_metrics.py#L311" >}}
 
 ### `LogCoshError` class
 
@@ -205,7 +205,7 @@ Usage with `compile()` API:
 
 ---
 
-[\[source\]](https://github.com/keras-team/keras/tree/v3.6.0/keras/src/metrics/regression_metrics.py#L359)
+{{< keras/source link="https://github.com/keras-team/keras/tree/v3.6.0/keras/src/metrics/regression_metrics.py#L359" >}}
 
 ### `R2Score` class
 

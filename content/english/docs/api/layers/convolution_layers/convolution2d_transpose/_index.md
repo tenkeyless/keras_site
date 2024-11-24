@@ -5,7 +5,7 @@ weight: 9
 type: docs
 ---
 
-[\[source\]](https://github.com/keras-team/keras/tree/v3.6.0/keras/src/layers/convolutional/conv2d_transpose.py#L5)
+{{< keras/source link="https://github.com/keras-team/keras/tree/v3.6.0/keras/src/layers/convolutional/conv2d_transpose.py#L5" >}}
 
 ### `Conv2DTranspose` class
 

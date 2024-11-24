@@ -3,7 +3,7 @@ title: Dropout layer
 toc: false
 ---
 
-[\[source\]](https://github.com/keras-team/keras/tree/v3.6.0/keras/src/layers/regularization/dropout.py#L6)
+{{< keras/source link="https://github.com/keras-team/keras/tree/v3.6.0/keras/src/layers/regularization/dropout.py#L6" >}}
 
 ### `Dropout` class
 

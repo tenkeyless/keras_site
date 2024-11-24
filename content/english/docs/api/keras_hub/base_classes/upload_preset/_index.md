@@ -3,7 +3,7 @@ title: upload_preset
 toc: false
 ---
 
-[\[source\]](https://github.com/keras-team/keras-hub/tree/v0.17.0/keras_hub/src/utils/preset_utils.py#L365)
+{{< keras/source link="https://github.com/keras-team/keras-hub/tree/v0.17.0/keras_hub/src/utils/preset_utils.py#L365" >}}
 
 ### `upload_preset` function
 

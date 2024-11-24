@@ -5,7 +5,7 @@ weight: 1
 type: docs
 ---
 
-[\[source\]](https://github.com/keras-team/keras/tree/v3.6.0/keras/src/ops/numpy.py#L86)
+{{< keras/source link="https://github.com/keras-team/keras/tree/v3.6.0/keras/src/ops/numpy.py#L86" >}}
 
 ### `absolute` function
 
@@ -29,7 +29,7 @@ An array containing the absolute value of each element in `x`.
 
 ---
 
-[\[source\]](https://github.com/keras-team/keras/tree/v3.6.0/keras/src/ops/numpy.py#L139)
+{{< keras/source link="https://github.com/keras-team/keras/tree/v3.6.0/keras/src/ops/numpy.py#L139" >}}
 
 ### `add` function
 
@@ -56,7 +56,7 @@ The tensor containing the element-wise sum of `x1` and `x2`.
 
 ---
 
-[\[source\]](https://github.com/keras-team/keras/tree/v3.6.0/keras/src/ops/numpy.py#L198)
+{{< keras/source link="https://github.com/keras-team/keras/tree/v3.6.0/keras/src/ops/numpy.py#L198" >}}
 
 ### `all` function
 
@@ -86,7 +86,7 @@ The tensor containing the logical AND reduction over the `axis`.
 
 ---
 
-[\[source\]](https://github.com/keras-team/keras/tree/v3.6.0/keras/src/ops/numpy.py#L321)
+{{< keras/source link="https://github.com/keras-team/keras/tree/v3.6.0/keras/src/ops/numpy.py#L321" >}}
 
 ### `amax` function
 
@@ -114,7 +114,7 @@ An array with the maximum value. If `axis=None`, the result is a scalar value re
 
 ---
 
-[\[source\]](https://github.com/keras-team/keras/tree/v3.6.0/keras/src/ops/numpy.py#L376)
+{{< keras/source link="https://github.com/keras-team/keras/tree/v3.6.0/keras/src/ops/numpy.py#L376" >}}
 
 ### `amin` function
 
@@ -142,7 +142,7 @@ An array with the minimum value. If `axis=None`, the result is a scalar value re
 
 ---
 
-[\[source\]](https://github.com/keras-team/keras/tree/v3.6.0/keras/src/ops/numpy.py#L262)
+{{< keras/source link="https://github.com/keras-team/keras/tree/v3.6.0/keras/src/ops/numpy.py#L262" >}}
 
 ### `any` function
 
@@ -172,7 +172,7 @@ The tensor containing the logical OR reduction over the `axis`.
 
 ---
 
-[\[source\]](https://github.com/keras-team/keras/tree/v3.6.0/keras/src/ops/numpy.py#L447)
+{{< keras/source link="https://github.com/keras-team/keras/tree/v3.6.0/keras/src/ops/numpy.py#L447" >}}
 
 ### `append` function
 
@@ -200,7 +200,7 @@ When `axis` is specified, `x1` and `x2` must have compatible shapes.
 
 ---
 
-[\[source\]](https://github.com/keras-team/keras/tree/v3.6.0/keras/src/ops/numpy.py#L508)
+{{< keras/source link="https://github.com/keras-team/keras/tree/v3.6.0/keras/src/ops/numpy.py#L508" >}}
 
 ### `arange` function
 
@@ -233,7 +233,7 @@ Tensor of evenly spaced values. For floating point arguments, the length of the 
 
 ---
 
-[\[source\]](https://github.com/keras-team/keras/tree/v3.6.0/keras/src/ops/numpy.py#L570)
+{{< keras/source link="https://github.com/keras-team/keras/tree/v3.6.0/keras/src/ops/numpy.py#L570" >}}
 
 ### `arccos` function
 
@@ -257,7 +257,7 @@ Tensor of the angle of the ray intersecting the unit circle at the given x-coord
 
 ---
 
-[\[source\]](https://github.com/keras-team/keras/tree/v3.6.0/keras/src/ops/numpy.py#L606)
+{{< keras/source link="https://github.com/keras-team/keras/tree/v3.6.0/keras/src/ops/numpy.py#L606" >}}
 
 ### `arccosh` function
 
@@ -279,7 +279,7 @@ Output tensor of same shape as x.
 
 ---
 
-[\[source\]](https://github.com/keras-team/keras/tree/v3.6.0/keras/src/ops/numpy.py#L640)
+{{< keras/source link="https://github.com/keras-team/keras/tree/v3.6.0/keras/src/ops/numpy.py#L640" >}}
 
 ### `arcsin` function
 
@@ -301,7 +301,7 @@ Tensor of the inverse sine of each element in `x`, in radians and in the closed 
 
 ---
 
-[\[source\]](https://github.com/keras-team/keras/tree/v3.6.0/keras/src/ops/numpy.py#L675)
+{{< keras/source link="https://github.com/keras-team/keras/tree/v3.6.0/keras/src/ops/numpy.py#L675" >}}
 
 ### `arcsinh` function
 
@@ -323,7 +323,7 @@ Output tensor of same shape as `x`.
 
 ---
 
-[\[source\]](https://github.com/keras-team/keras/tree/v3.6.0/keras/src/ops/numpy.py#L709)
+{{< keras/source link="https://github.com/keras-team/keras/tree/v3.6.0/keras/src/ops/numpy.py#L709" >}}
 
 ### `arctan` function
 
@@ -345,7 +345,7 @@ Tensor of the inverse tangent of each element in `x`, in the interval `[-pi/2, p
 
 ---
 
-[\[source\]](https://github.com/keras-team/keras/tree/v3.6.0/keras/src/ops/numpy.py#L748)
+{{< keras/source link="https://github.com/keras-team/keras/tree/v3.6.0/keras/src/ops/numpy.py#L748" >}}
 
 ### `arctan2` function
 
@@ -376,7 +376,7 @@ Note the order of the parameters. `arctan2` is defined also when x2=0 and at sev
 
 ---
 
-[\[source\]](https://github.com/keras-team/keras/tree/v3.6.0/keras/src/ops/numpy.py#L806)
+{{< keras/source link="https://github.com/keras-team/keras/tree/v3.6.0/keras/src/ops/numpy.py#L806" >}}
 
 ### `arctanh` function
 
@@ -394,7 +394,7 @@ Output tensor of same shape as `x`.
 
 ---
 
-[\[source\]](https://github.com/keras-team/keras/tree/v3.6.0/keras/src/ops/numpy.py#L840)
+{{< keras/source link="https://github.com/keras-team/keras/tree/v3.6.0/keras/src/ops/numpy.py#L840" >}}
 
 ### `argmax` function
 
@@ -418,7 +418,7 @@ Tensor of indices. It has the same shape as `x`, with the dimension along `axis`
 
 ---
 
-[\[source\]](https://github.com/keras-team/keras/tree/v3.6.0/keras/src/ops/numpy.py#L891)
+{{< keras/source link="https://github.com/keras-team/keras/tree/v3.6.0/keras/src/ops/numpy.py#L891" >}}
 
 ### `argmin` function
 
@@ -442,7 +442,7 @@ Tensor of indices. It has the same shape as `x`, with the dimension along `axis`
 
 ---
 
-[\[source\]](https://github.com/keras-team/keras/tree/v3.6.0/keras/src/ops/numpy.py#L6589)
+{{< keras/source link="https://github.com/keras-team/keras/tree/v3.6.0/keras/src/ops/numpy.py#L6589" >}}
 
 ### `argpartition` function
 
@@ -464,7 +464,7 @@ Array of indices that partition `x` along the specified `axis`.
 
 ---
 
-[\[source\]](https://github.com/keras-team/keras/tree/v3.6.0/keras/src/ops/numpy.py#L937)
+{{< keras/source link="https://github.com/keras-team/keras/tree/v3.6.0/keras/src/ops/numpy.py#L937" >}}
 
 ### `argsort` function
 
@@ -493,7 +493,7 @@ Two-dimensional array:
 
 ---
 
-[\[source\]](https://github.com/keras-team/keras/tree/v3.6.0/keras/src/ops/numpy.py#L983)
+{{< keras/source link="https://github.com/keras-team/keras/tree/v3.6.0/keras/src/ops/numpy.py#L983" >}}
 
 ### `array` function
 
@@ -518,7 +518,7 @@ A tensor.
 
 ---
 
-[\[source\]](https://github.com/keras-team/keras/tree/v3.6.0/keras/src/ops/numpy.py#L1051)
+{{< keras/source link="https://github.com/keras-team/keras/tree/v3.6.0/keras/src/ops/numpy.py#L1051" >}}
 
 ### `average` function
 
@@ -545,7 +545,7 @@ Return the average along the specified axis.
 
 ---
 
-[\[source\]](https://github.com/keras-team/keras/tree/v3.6.0/keras/src/ops/numpy.py#L1140)
+{{< keras/source link="https://github.com/keras-team/keras/tree/v3.6.0/keras/src/ops/numpy.py#L1140" >}}
 
 ### `bincount` function
 
@@ -570,7 +570,7 @@ Count the number of occurrences of each value in a tensor of integers.
 
 ---
 
-[\[source\]](https://github.com/keras-team/keras/tree/v3.6.0/keras/src/ops/numpy.py#L1199)
+{{< keras/source link="https://github.com/keras-team/keras/tree/v3.6.0/keras/src/ops/numpy.py#L1199" >}}
 
 ### `bitwise_and` function
 
@@ -591,7 +591,7 @@ Result tensor.
 
 ---
 
-[\[source\]](https://github.com/keras-team/keras/tree/v3.6.0/keras/src/ops/numpy.py#L1230)
+{{< keras/source link="https://github.com/keras-team/keras/tree/v3.6.0/keras/src/ops/numpy.py#L1230" >}}
 
 ### `bitwise_invert` function
 
@@ -611,7 +611,7 @@ Result tensor.
 
 ---
 
-[\[source\]](https://github.com/keras-team/keras/tree/v3.6.0/keras/src/ops/numpy.py#L1355)
+{{< keras/source link="https://github.com/keras-team/keras/tree/v3.6.0/keras/src/ops/numpy.py#L1355" >}}
 
 ### `bitwise_left_shift` function
 
@@ -632,7 +632,7 @@ Result tensor.
 
 ---
 
-[\[source\]](https://github.com/keras-team/keras/tree/v3.6.0/keras/src/ops/numpy.py#L1260)
+{{< keras/source link="https://github.com/keras-team/keras/tree/v3.6.0/keras/src/ops/numpy.py#L1260" >}}
 
 ### `bitwise_not` function
 
@@ -652,7 +652,7 @@ Result tensor.
 
 ---
 
-[\[source\]](https://github.com/keras-team/keras/tree/v3.6.0/keras/src/ops/numpy.py#L1291)
+{{< keras/source link="https://github.com/keras-team/keras/tree/v3.6.0/keras/src/ops/numpy.py#L1291" >}}
 
 ### `bitwise_or` function
 
@@ -673,7 +673,7 @@ Result tensor.
 
 ---
 
-[\[source\]](https://github.com/keras-team/keras/tree/v3.6.0/keras/src/ops/numpy.py#L1421)
+{{< keras/source link="https://github.com/keras-team/keras/tree/v3.6.0/keras/src/ops/numpy.py#L1421" >}}
 
 ### `bitwise_right_shift` function
 
@@ -694,7 +694,7 @@ Result tensor.
 
 ---
 
-[\[source\]](https://github.com/keras-team/keras/tree/v3.6.0/keras/src/ops/numpy.py#L1323)
+{{< keras/source link="https://github.com/keras-team/keras/tree/v3.6.0/keras/src/ops/numpy.py#L1323" >}}
 
 ### `bitwise_xor` function
 
@@ -715,7 +715,7 @@ Result tensor.
 
 ---
 
-[\[source\]](https://github.com/keras-team/keras/tree/v3.6.0/keras/src/ops/numpy.py#L1489)
+{{< keras/source link="https://github.com/keras-team/keras/tree/v3.6.0/keras/src/ops/numpy.py#L1489" >}}
 
 ### `broadcast_to` function
 
@@ -738,7 +738,7 @@ A tensor with the desired shape.
 
 ---
 
-[\[source\]](https://github.com/keras-team/keras/tree/v3.6.0/keras/src/ops/numpy.py#L1531)
+{{< keras/source link="https://github.com/keras-team/keras/tree/v3.6.0/keras/src/ops/numpy.py#L1531" >}}
 
 ### `ceil` function
 
@@ -758,7 +758,7 @@ The ceiling of each element in `x`, with float dtype.
 
 ---
 
-[\[source\]](https://github.com/keras-team/keras/tree/v3.6.0/keras/src/ops/numpy.py#L1565)
+{{< keras/source link="https://github.com/keras-team/keras/tree/v3.6.0/keras/src/ops/numpy.py#L1565" >}}
 
 ### `clip` function
 
@@ -780,7 +780,7 @@ The clipped tensor.
 
 ---
 
-[\[source\]](https://github.com/keras-team/keras/tree/v3.6.0/keras/src/ops/numpy.py#L1622)
+{{< keras/source link="https://github.com/keras-team/keras/tree/v3.6.0/keras/src/ops/numpy.py#L1622" >}}
 
 ### `concatenate` function
 
@@ -799,7 +799,7 @@ The concatenated tensor.
 
 ---
 
-[\[source\]](https://github.com/keras-team/keras/tree/v3.6.0/keras/src/ops/numpy.py#L1676)
+{{< keras/source link="https://github.com/keras-team/keras/tree/v3.6.0/keras/src/ops/numpy.py#L1676" >}}
 
 ### `conj` function
 
@@ -809,7 +809,7 @@ Shorthand for [`keras.ops.conjugate`](/api/ops/numpy#conjugate-function).
 
 ---
 
-[\[source\]](https://github.com/keras-team/keras/tree/v3.6.0/keras/src/ops/numpy.py#L1652)
+{{< keras/source link="https://github.com/keras-team/keras/tree/v3.6.0/keras/src/ops/numpy.py#L1652" >}}
 
 ### `conjugate` function
 
@@ -831,7 +831,7 @@ The complex conjugate of each element in `x`.
 
 ---
 
-[\[source\]](https://github.com/keras-team/keras/tree/v3.6.0/keras/src/ops/numpy.py#L1691)
+{{< keras/source link="https://github.com/keras-team/keras/tree/v3.6.0/keras/src/ops/numpy.py#L1691" >}}
 
 ### `copy` function
 
@@ -849,7 +849,7 @@ A copy of `x`.
 
 ---
 
-[\[source\]](https://github.com/keras-team/keras/tree/v3.6.0/keras/src/ops/numpy.py#L6453)
+{{< keras/source link="https://github.com/keras-team/keras/tree/v3.6.0/keras/src/ops/numpy.py#L6453" >}}
 
 ### `correlate` function
 
@@ -869,7 +869,7 @@ Output tensor, cross-correlation of `x1` and `x2`.
 
 ---
 
-[\[source\]](https://github.com/keras-team/keras/tree/v3.6.0/keras/src/ops/numpy.py#L1719)
+{{< keras/source link="https://github.com/keras-team/keras/tree/v3.6.0/keras/src/ops/numpy.py#L1719" >}}
 
 ### `cos` function
 
@@ -887,7 +887,7 @@ The corresponding cosine values.
 
 ---
 
-[\[source\]](https://github.com/keras-team/keras/tree/v3.6.0/keras/src/ops/numpy.py#L1747)
+{{< keras/source link="https://github.com/keras-team/keras/tree/v3.6.0/keras/src/ops/numpy.py#L1747" >}}
 
 ### `cosh` function
 
@@ -905,7 +905,7 @@ Output tensor of same shape as `x`.
 
 ---
 
-[\[source\]](https://github.com/keras-team/keras/tree/v3.6.0/keras/src/ops/numpy.py#L1780)
+{{< keras/source link="https://github.com/keras-team/keras/tree/v3.6.0/keras/src/ops/numpy.py#L1780" >}}
 
 ### `count_nonzero` function
 
@@ -930,7 +930,7 @@ int or tensor of ints.
 
 ---
 
-[\[source\]](https://github.com/keras-team/keras/tree/v3.6.0/keras/src/ops/numpy.py#L1862)
+{{< keras/source link="https://github.com/keras-team/keras/tree/v3.6.0/keras/src/ops/numpy.py#L1862" >}}
 
 ### `cross` function
 
@@ -961,7 +961,7 @@ Vector cross product(s).
 
 ---
 
-[\[source\]](https://github.com/keras-team/keras/tree/v3.6.0/keras/src/ops/numpy.py#L1934)
+{{< keras/source link="https://github.com/keras-team/keras/tree/v3.6.0/keras/src/ops/numpy.py#L1934" >}}
 
 ### `cumprod` function
 
@@ -981,7 +981,7 @@ Output tensor.
 
 ---
 
-[\[source\]](https://github.com/keras-team/keras/tree/v3.6.0/keras/src/ops/numpy.py#L1973)
+{{< keras/source link="https://github.com/keras-team/keras/tree/v3.6.0/keras/src/ops/numpy.py#L1973" >}}
 
 ### `cumsum` function
 
@@ -1001,7 +1001,7 @@ Output tensor.
 
 ---
 
-[\[source\]](https://github.com/keras-team/keras/tree/v3.6.0/keras/src/ops/numpy.py#L2026)
+{{< keras/source link="https://github.com/keras-team/keras/tree/v3.6.0/keras/src/ops/numpy.py#L2026" >}}
 
 ### `diag` function
 
@@ -1028,7 +1028,7 @@ The extracted diagonal or constructed diagonal tensor.
 
 ---
 
-[\[source\]](https://github.com/keras-team/keras/tree/v3.6.0/keras/src/ops/numpy.py#L2107)
+{{< keras/source link="https://github.com/keras-team/keras/tree/v3.6.0/keras/src/ops/numpy.py#L2107" >}}
 
 ### `diagonal` function
 
@@ -1061,7 +1061,7 @@ Tensor of diagonals.
 
 ---
 
-[\[source\]](https://github.com/keras-team/keras/tree/v3.6.0/keras/src/ops/numpy.py#L2186)
+{{< keras/source link="https://github.com/keras-team/keras/tree/v3.6.0/keras/src/ops/numpy.py#L2186" >}}
 
 ### `diff` function
 
@@ -1089,7 +1089,7 @@ Tensor of diagonals.
 
 ---
 
-[\[source\]](https://github.com/keras-team/keras/tree/v3.6.0/keras/src/ops/numpy.py#L2236)
+{{< keras/source link="https://github.com/keras-team/keras/tree/v3.6.0/keras/src/ops/numpy.py#L2236" >}}
 
 ### `digitize` function
 
@@ -1112,7 +1112,7 @@ Output array of indices, of same shape as `x`.
 
 ---
 
-[\[source\]](https://github.com/keras-team/keras/tree/v3.6.0/keras/src/ops/numpy.py#L5861)
+{{< keras/source link="https://github.com/keras-team/keras/tree/v3.6.0/keras/src/ops/numpy.py#L5861" >}}
 
 ### `divide` function
 
@@ -1133,7 +1133,7 @@ Output tensor, the quotient `x1/x2`, element-wise.
 
 ---
 
-[\[source\]](https://github.com/keras-team/keras/tree/v3.6.0/keras/src/ops/numpy.py#L5900)
+{{< keras/source link="https://github.com/keras-team/keras/tree/v3.6.0/keras/src/ops/numpy.py#L5900" >}}
 
 ### `divide_no_nan` function
 
@@ -1152,7 +1152,7 @@ The quotient `x1/x2`, element-wise, with zero where x2 is zero.
 
 ---
 
-[\[source\]](https://github.com/keras-team/keras/tree/v3.6.0/keras/src/ops/numpy.py#L2299)
+{{< keras/source link="https://github.com/keras-team/keras/tree/v3.6.0/keras/src/ops/numpy.py#L2299" >}}
 
 ### `dot` function
 
@@ -1179,7 +1179,7 @@ Dot product of `x1` and `x2`.
 
 ---
 
-[\[source\]](https://github.com/keras-team/keras/tree/v3.6.0/keras/src/ops/numpy.py#L2507)
+{{< keras/source link="https://github.com/keras-team/keras/tree/v3.6.0/keras/src/ops/numpy.py#L2507" >}}
 
 ### `einsum` function
 
@@ -1226,7 +1226,7 @@ Matrix vector multiplication:
 
 ---
 
-[\[source\]](https://github.com/keras-team/keras/tree/v3.6.0/keras/src/ops/numpy.py#L2605)
+{{< keras/source link="https://github.com/keras-team/keras/tree/v3.6.0/keras/src/ops/numpy.py#L2605" >}}
 
 ### `empty` function
 
@@ -1245,7 +1245,7 @@ The empty tensor.
 
 ---
 
-[\[source\]](https://github.com/keras-team/keras/tree/v3.6.0/keras/src/ops/numpy.py#L2630)
+{{< keras/source link="https://github.com/keras-team/keras/tree/v3.6.0/keras/src/ops/numpy.py#L2630" >}}
 
 ### `equal` function
 
@@ -1264,7 +1264,7 @@ Output tensor, element-wise comparison of `x1` and `x2`.
 
 ---
 
-[\[source\]](https://github.com/keras-team/keras/tree/v3.6.0/keras/src/ops/numpy.py#L2657)
+{{< keras/source link="https://github.com/keras-team/keras/tree/v3.6.0/keras/src/ops/numpy.py#L2657" >}}
 
 ### `exp` function
 
@@ -1282,7 +1282,7 @@ Output tensor, element-wise exponential of `x`.
 
 ---
 
-[\[source\]](https://github.com/keras-team/keras/tree/v3.6.0/keras/src/ops/numpy.py#L2693)
+{{< keras/source link="https://github.com/keras-team/keras/tree/v3.6.0/keras/src/ops/numpy.py#L2693" >}}
 
 ### `expand_dims` function
 
@@ -1303,7 +1303,7 @@ Output tensor with the number of dimensions increased.
 
 ---
 
-[\[source\]](https://github.com/keras-team/keras/tree/v3.6.0/keras/src/ops/numpy.py#L2729)
+{{< keras/source link="https://github.com/keras-team/keras/tree/v3.6.0/keras/src/ops/numpy.py#L2729" >}}
 
 ### `expm1` function
 
@@ -1321,7 +1321,7 @@ Output tensor, element-wise exponential minus one.
 
 ---
 
-[\[source\]](https://github.com/keras-team/keras/tree/v3.6.0/keras/src/ops/numpy.py#L6332)
+{{< keras/source link="https://github.com/keras-team/keras/tree/v3.6.0/keras/src/ops/numpy.py#L6332" >}}
 
 ### `eye` function
 
@@ -1342,7 +1342,7 @@ Tensor with ones on the k-th diagonal and zeros elsewhere.
 
 ---
 
-[\[source\]](https://github.com/keras-team/keras/tree/v3.6.0/keras/src/ops/numpy.py#L2756)
+{{< keras/source link="https://github.com/keras-team/keras/tree/v3.6.0/keras/src/ops/numpy.py#L2756" >}}
 
 ### `flip` function
 
@@ -1363,7 +1363,7 @@ Output tensor with entries of `axis` reversed.
 
 ---
 
-[\[source\]](https://github.com/keras-team/keras/tree/v3.6.0/keras/src/ops/numpy.py#L2789)
+{{< keras/source link="https://github.com/keras-team/keras/tree/v3.6.0/keras/src/ops/numpy.py#L2789" >}}
 
 ### `floor` function
 
@@ -1383,7 +1383,7 @@ Output tensor, element-wise floor of `x`.
 
 ---
 
-[\[source\]](https://github.com/keras-team/keras/tree/v3.6.0/keras/src/ops/numpy.py#L6365)
+{{< keras/source link="https://github.com/keras-team/keras/tree/v3.6.0/keras/src/ops/numpy.py#L6365" >}}
 
 ### `floor_divide` function
 
@@ -1402,7 +1402,7 @@ Output tensor, `y = floor(x1/x2)`
 
 ---
 
-[\[source\]](https://github.com/keras-team/keras/tree/v3.6.0/keras/src/ops/numpy.py#L2815)
+{{< keras/source link="https://github.com/keras-team/keras/tree/v3.6.0/keras/src/ops/numpy.py#L2815" >}}
 
 ### `full` function
 
@@ -1422,7 +1422,7 @@ Output tensor.
 
 ---
 
-[\[source\]](https://github.com/keras-team/keras/tree/v3.6.0/keras/src/ops/numpy.py#L2839)
+{{< keras/source link="https://github.com/keras-team/keras/tree/v3.6.0/keras/src/ops/numpy.py#L2839" >}}
 
 ### `full_like` function
 
@@ -1442,7 +1442,7 @@ Tensor of `fill_value` with the same shape and type as `x`.
 
 ---
 
-[\[source\]](https://github.com/keras-team/keras/tree/v3.6.0/keras/src/ops/numpy.py#L2929)
+{{< keras/source link="https://github.com/keras-team/keras/tree/v3.6.0/keras/src/ops/numpy.py#L2929" >}}
 
 ### `get_item` function
 
@@ -1452,7 +1452,7 @@ Return `x[key]`.
 
 ---
 
-[\[source\]](https://github.com/keras-team/keras/tree/v3.6.0/keras/src/ops/numpy.py#L2948)
+{{< keras/source link="https://github.com/keras-team/keras/tree/v3.6.0/keras/src/ops/numpy.py#L2948" >}}
 
 ### `greater` function
 
@@ -1471,7 +1471,7 @@ Output tensor, element-wise comparison of `x1` and `x2`.
 
 ---
 
-[\[source\]](https://github.com/keras-team/keras/tree/v3.6.0/keras/src/ops/numpy.py#L2975)
+{{< keras/source link="https://github.com/keras-team/keras/tree/v3.6.0/keras/src/ops/numpy.py#L2975" >}}
 
 ### `greater_equal` function
 
@@ -1490,7 +1490,7 @@ Output tensor, element-wise comparison of `x1` and `x2`.
 
 ---
 
-[\[source\]](https://github.com/keras-team/keras/tree/v3.6.0/keras/src/ops/numpy.py#L6650)
+{{< keras/source link="https://github.com/keras-team/keras/tree/v3.6.0/keras/src/ops/numpy.py#L6650" >}}
 
 ### `histogram` function
 
@@ -1530,7 +1530,7 @@ The tensor formed by stacking the given tensors.
 
 ---
 
-[\[source\]](https://github.com/keras-team/keras/tree/v3.6.0/keras/src/ops/numpy.py#L3050)
+{{< keras/source link="https://github.com/keras-team/keras/tree/v3.6.0/keras/src/ops/numpy.py#L3050" >}}
 
 ### `identity` function
 
@@ -1551,7 +1551,7 @@ The identity tensor.
 
 ---
 
-[\[source\]](https://github.com/keras-team/keras/tree/v3.6.0/keras/src/ops/numpy.py#L3076)
+{{< keras/source link="https://github.com/keras-team/keras/tree/v3.6.0/keras/src/ops/numpy.py#L3076" >}}
 
 ### `imag` function
 
@@ -1569,7 +1569,7 @@ The imaginary component of the complex argument.
 
 ---
 
-[\[source\]](https://github.com/keras-team/keras/tree/v3.6.0/keras/src/ops/numpy.py#L3104)
+{{< keras/source link="https://github.com/keras-team/keras/tree/v3.6.0/keras/src/ops/numpy.py#L3104" >}}
 
 ### `isclose` function
 
@@ -1591,7 +1591,7 @@ Output boolean tensor.
 
 ---
 
-[\[source\]](https://github.com/keras-team/keras/tree/v3.6.0/keras/src/ops/numpy.py#L3131)
+{{< keras/source link="https://github.com/keras-team/keras/tree/v3.6.0/keras/src/ops/numpy.py#L3131" >}}
 
 ### `isfinite` function
 
@@ -1611,7 +1611,7 @@ Output boolean tensor.
 
 ---
 
-[\[source\]](https://github.com/keras-team/keras/tree/v3.6.0/keras/src/ops/numpy.py#L3158)
+{{< keras/source link="https://github.com/keras-team/keras/tree/v3.6.0/keras/src/ops/numpy.py#L3158" >}}
 
 ### `isinf` function
 
@@ -1629,7 +1629,7 @@ Output boolean tensor.
 
 ---
 
-[\[source\]](https://github.com/keras-team/keras/tree/v3.6.0/keras/src/ops/numpy.py#L3181)
+{{< keras/source link="https://github.com/keras-team/keras/tree/v3.6.0/keras/src/ops/numpy.py#L3181" >}}
 
 ### `isnan` function
 
@@ -1647,7 +1647,7 @@ Output boolean tensor.
 
 ---
 
-[\[source\]](https://github.com/keras-team/keras/tree/v3.6.0/keras/src/ops/numpy.py#L1389)
+{{< keras/source link="https://github.com/keras-team/keras/tree/v3.6.0/keras/src/ops/numpy.py#L1389" >}}
 
 ### `left_shift` function
 
@@ -1668,7 +1668,7 @@ Result tensor.
 
 ---
 
-[\[source\]](https://github.com/keras-team/keras/tree/v3.6.0/keras/src/ops/numpy.py#L3207)
+{{< keras/source link="https://github.com/keras-team/keras/tree/v3.6.0/keras/src/ops/numpy.py#L3207" >}}
 
 ### `less` function
 
@@ -1687,7 +1687,7 @@ Output tensor, element-wise comparison of `x1` and `x2`.
 
 ---
 
-[\[source\]](https://github.com/keras-team/keras/tree/v3.6.0/keras/src/ops/numpy.py#L3234)
+{{< keras/source link="https://github.com/keras-team/keras/tree/v3.6.0/keras/src/ops/numpy.py#L3234" >}}
 
 ### `less_equal` function
 
@@ -1706,7 +1706,7 @@ Output tensor, element-wise comparison of `x1` and `x2`.
 
 ---
 
-[\[source\]](https://github.com/keras-team/keras/tree/v3.6.0/keras/src/ops/numpy.py#L3307)
+{{< keras/source link="https://github.com/keras-team/keras/tree/v3.6.0/keras/src/ops/numpy.py#L3307" >}}
 
 ### `linspace` function
 
@@ -1736,7 +1736,7 @@ A tensor of evenly spaced numbers. If `retstep` is `True`, returns `(samples, st
 
 ---
 
-[\[source\]](https://github.com/keras-team/keras/tree/v3.6.0/keras/src/ops/numpy.py#L3367)
+{{< keras/source link="https://github.com/keras-team/keras/tree/v3.6.0/keras/src/ops/numpy.py#L3367" >}}
 
 ### `log` function
 
@@ -1754,7 +1754,7 @@ Output tensor, element-wise natural logarithm of `x`.
 
 ---
 
-[\[source\]](https://github.com/keras-team/keras/tree/v3.6.0/keras/src/ops/numpy.py#L3395)
+{{< keras/source link="https://github.com/keras-team/keras/tree/v3.6.0/keras/src/ops/numpy.py#L3395" >}}
 
 ### `log10` function
 
@@ -1772,7 +1772,7 @@ Output tensor, element-wise base 10 logarithm of `x`.
 
 ---
 
-[\[source\]](https://github.com/keras-team/keras/tree/v3.6.0/keras/src/ops/numpy.py#L3424)
+{{< keras/source link="https://github.com/keras-team/keras/tree/v3.6.0/keras/src/ops/numpy.py#L3424" >}}
 
 ### `log1p` function
 
@@ -1792,7 +1792,7 @@ Output tensor, element-wise natural logarithm of `1 + x`.
 
 ---
 
-[\[source\]](https://github.com/keras-team/keras/tree/v3.6.0/keras/src/ops/numpy.py#L3454)
+{{< keras/source link="https://github.com/keras-team/keras/tree/v3.6.0/keras/src/ops/numpy.py#L3454" >}}
 
 ### `log2` function
 
@@ -1810,7 +1810,7 @@ Output tensor, element-wise base-2 logarithm of `x`.
 
 ---
 
-[\[source\]](https://github.com/keras-team/keras/tree/v3.6.0/keras/src/ops/numpy.py#L3485)
+{{< keras/source link="https://github.com/keras-team/keras/tree/v3.6.0/keras/src/ops/numpy.py#L3485" >}}
 
 ### `logaddexp` function
 
@@ -1831,7 +1831,7 @@ Output tensor, element-wise logarithm of the sum of exponentiations of the input
 
 ---
 
-[\[source\]](https://github.com/keras-team/keras/tree/v3.6.0/keras/src/ops/numpy.py#L3515)
+{{< keras/source link="https://github.com/keras-team/keras/tree/v3.6.0/keras/src/ops/numpy.py#L3515" >}}
 
 ### `logical_and` function
 
@@ -1852,7 +1852,7 @@ Output tensor, element-wise logical AND of the inputs.
 
 ---
 
-[\[source\]](https://github.com/keras-team/keras/tree/v3.6.0/keras/src/ops/numpy.py#L3546)
+{{< keras/source link="https://github.com/keras-team/keras/tree/v3.6.0/keras/src/ops/numpy.py#L3546" >}}
 
 ### `logical_not` function
 
@@ -1872,7 +1872,7 @@ Output tensor, element-wise logical NOT of the input.
 
 ---
 
-[\[source\]](https://github.com/keras-team/keras/tree/v3.6.0/keras/src/ops/numpy.py#L3579)
+{{< keras/source link="https://github.com/keras-team/keras/tree/v3.6.0/keras/src/ops/numpy.py#L3579" >}}
 
 ### `logical_or` function
 
@@ -1893,7 +1893,7 @@ Output tensor, element-wise logical OR of the inputs.
 
 ---
 
-[\[source\]](https://github.com/keras-team/keras/tree/v3.6.0/keras/src/ops/numpy.py#L6392)
+{{< keras/source link="https://github.com/keras-team/keras/tree/v3.6.0/keras/src/ops/numpy.py#L6392" >}}
 
 ### `logical_xor` function
 
@@ -1912,7 +1912,7 @@ Output boolean tensor.
 
 ---
 
-[\[source\]](https://github.com/keras-team/keras/tree/v3.6.0/keras/src/ops/numpy.py#L3649)
+{{< keras/source link="https://github.com/keras-team/keras/tree/v3.6.0/keras/src/ops/numpy.py#L3649" >}}
 
 ### `logspace` function
 
@@ -1940,7 +1940,7 @@ A tensor of evenly spaced samples on a log scale.
 
 ---
 
-[\[source\]](https://github.com/keras-team/keras/tree/v3.6.0/keras/src/ops/numpy.py#L3711)
+{{< keras/source link="https://github.com/keras-team/keras/tree/v3.6.0/keras/src/ops/numpy.py#L3711" >}}
 
 ### `matmul` function
 
@@ -1964,7 +1964,7 @@ Output tensor, matrix product of the inputs.
 
 ---
 
-[\[source\]](https://github.com/keras-team/keras/tree/v3.6.0/keras/src/ops/numpy.py#L3758)
+{{< keras/source link="https://github.com/keras-team/keras/tree/v3.6.0/keras/src/ops/numpy.py#L3758" >}}
 
 ### `max` function
 
@@ -1985,7 +1985,7 @@ Maximum of `x`.
 
 ---
 
-[\[source\]](https://github.com/keras-team/keras/tree/v3.6.0/keras/src/ops/numpy.py#L3800)
+{{< keras/source link="https://github.com/keras-team/keras/tree/v3.6.0/keras/src/ops/numpy.py#L3800" >}}
 
 ### `maximum` function
 
@@ -2004,7 +2004,7 @@ Output tensor, element-wise maximum of `x1` and `x2`.
 
 ---
 
-[\[source\]](https://github.com/keras-team/keras/tree/v3.6.0/keras/src/ops/numpy.py#L6166)
+{{< keras/source link="https://github.com/keras-team/keras/tree/v3.6.0/keras/src/ops/numpy.py#L6166" >}}
 
 ### `mean` function
 
@@ -2024,7 +2024,7 @@ Output tensor containing the mean values.
 
 ---
 
-[\[source\]](https://github.com/keras-team/keras/tree/v3.6.0/keras/src/ops/numpy.py#L3838)
+{{< keras/source link="https://github.com/keras-team/keras/tree/v3.6.0/keras/src/ops/numpy.py#L3838" >}}
 
 ### `median` function
 
@@ -2044,7 +2044,7 @@ The output tensor.
 
 ---
 
-[\[source\]](https://github.com/keras-team/keras/tree/v3.6.0/keras/src/ops/numpy.py#L3892)
+{{< keras/source link="https://github.com/keras-team/keras/tree/v3.6.0/keras/src/ops/numpy.py#L3892" >}}
 
 ### `meshgrid` function
 
@@ -2071,7 +2071,7 @@ Sequence of N tensors.
 
 ---
 
-[\[source\]](https://github.com/keras-team/keras/tree/v3.6.0/keras/src/ops/numpy.py#L3951)
+{{< keras/source link="https://github.com/keras-team/keras/tree/v3.6.0/keras/src/ops/numpy.py#L3951" >}}
 
 ### `min` function
 
@@ -2092,7 +2092,7 @@ Minimum of `x`.
 
 ---
 
-[\[source\]](https://github.com/keras-team/keras/tree/v3.6.0/keras/src/ops/numpy.py#L3993)
+{{< keras/source link="https://github.com/keras-team/keras/tree/v3.6.0/keras/src/ops/numpy.py#L3993" >}}
 
 ### `minimum` function
 
@@ -2111,7 +2111,7 @@ Output tensor, element-wise minimum of `x1` and `x2`.
 
 ---
 
-[\[source\]](https://github.com/keras-team/keras/tree/v3.6.0/keras/src/ops/numpy.py#L4026)
+{{< keras/source link="https://github.com/keras-team/keras/tree/v3.6.0/keras/src/ops/numpy.py#L4026" >}}
 
 ### `mod` function
 
@@ -2130,7 +2130,7 @@ Output tensor, element-wise remainder of division.
 
 ---
 
-[\[source\]](https://github.com/keras-team/keras/tree/v3.6.0/keras/src/ops/numpy.py#L4086)
+{{< keras/source link="https://github.com/keras-team/keras/tree/v3.6.0/keras/src/ops/numpy.py#L4086" >}}
 
 ### `moveaxis` function
 
@@ -2152,7 +2152,7 @@ Tensor with moved axes.
 
 ---
 
-[\[source\]](https://github.com/keras-team/keras/tree/v3.6.0/keras/src/ops/numpy.py#L5824)
+{{< keras/source link="https://github.com/keras-team/keras/tree/v3.6.0/keras/src/ops/numpy.py#L5824" >}}
 
 ### `multiply` function
 
@@ -2171,7 +2171,7 @@ Output tensor, element-wise product of `x1` and `x2`.
 
 ---
 
-[\[source\]](https://github.com/keras-team/keras/tree/v3.6.0/keras/src/ops/numpy.py#L4122)
+{{< keras/source link="https://github.com/keras-team/keras/tree/v3.6.0/keras/src/ops/numpy.py#L4122" >}}
 
 ### `nan_to_num` function
 
@@ -2192,7 +2192,7 @@ Replace NaN with zero and infinity with large finite numbers.
 
 ---
 
-[\[source\]](https://github.com/keras-team/keras/tree/v3.6.0/keras/src/ops/numpy.py#L4157)
+{{< keras/source link="https://github.com/keras-team/keras/tree/v3.6.0/keras/src/ops/numpy.py#L4157" >}}
 
 ### `ndim` function
 
@@ -2210,7 +2210,7 @@ The number of dimensions in `x`.
 
 ---
 
-[\[source\]](https://github.com/keras-team/keras/tree/v3.6.0/keras/src/ops/numpy.py#L5989)
+{{< keras/source link="https://github.com/keras-team/keras/tree/v3.6.0/keras/src/ops/numpy.py#L5989" >}}
 
 ### `negative` function
 
@@ -2228,7 +2228,7 @@ Output tensor, `y = -x`.
 
 ---
 
-[\[source\]](https://github.com/keras-team/keras/tree/v3.6.0/keras/src/ops/numpy.py#L4182)
+{{< keras/source link="https://github.com/keras-team/keras/tree/v3.6.0/keras/src/ops/numpy.py#L4182" >}}
 
 ### `nonzero` function
 
@@ -2246,7 +2246,7 @@ Indices of elements that are non-zero.
 
 ---
 
-[\[source\]](https://github.com/keras-team/keras/tree/v3.6.0/keras/src/ops/linalg.py#L312)
+{{< keras/source link="https://github.com/keras-team/keras/tree/v3.6.0/keras/src/ops/linalg.py#L312" >}}
 
 ### `norm` function
 
@@ -2275,7 +2275,7 @@ Norm of the matrix or vector(s).
 
 ---
 
-[\[source\]](https://github.com/keras-team/keras/tree/v3.6.0/keras/src/ops/numpy.py#L4208)
+{{< keras/source link="https://github.com/keras-team/keras/tree/v3.6.0/keras/src/ops/numpy.py#L4208" >}}
 
 ### `not_equal` function
 
@@ -2294,7 +2294,7 @@ Output tensor, element-wise comparsion of `x1` and `x2`.
 
 ---
 
-[\[source\]](https://github.com/keras-team/keras/tree/v3.6.0/keras/src/ops/numpy.py#L6303)
+{{< keras/source link="https://github.com/keras-team/keras/tree/v3.6.0/keras/src/ops/numpy.py#L6303" >}}
 
 ### `ones` function
 
@@ -2313,7 +2313,7 @@ Tensor of ones with the given shape and dtype.
 
 ---
 
-[\[source\]](https://github.com/keras-team/keras/tree/v3.6.0/keras/src/ops/numpy.py#L4234)
+{{< keras/source link="https://github.com/keras-team/keras/tree/v3.6.0/keras/src/ops/numpy.py#L4234" >}}
 
 ### `ones_like` function
 
@@ -2332,7 +2332,7 @@ A tensor of ones with the same shape and type as `x`.
 
 ---
 
-[\[source\]](https://github.com/keras-team/keras/tree/v3.6.0/keras/src/ops/numpy.py#L4304)
+{{< keras/source link="https://github.com/keras-team/keras/tree/v3.6.0/keras/src/ops/numpy.py#L4304" >}}
 
 ### `outer` function
 
@@ -2355,7 +2355,7 @@ Outer product of `x1` and `x2`.
 
 ---
 
-[\[source\]](https://github.com/keras-team/keras/tree/v3.6.0/keras/src/ops/numpy.py#L4380)
+{{< keras/source link="https://github.com/keras-team/keras/tree/v3.6.0/keras/src/ops/numpy.py#L4380" >}}
 
 ### `pad` function
 
@@ -2380,7 +2380,7 @@ Padded tensor.
 
 ---
 
-[\[source\]](https://github.com/keras-team/keras/tree/v3.6.0/keras/src/ops/numpy.py#L5964)
+{{< keras/source link="https://github.com/keras-team/keras/tree/v3.6.0/keras/src/ops/numpy.py#L5964" >}}
 
 ### `power` function
 
@@ -2399,7 +2399,7 @@ Output tensor, the bases in `x1` raised to the exponents in `x2`.
 
 ---
 
-[\[source\]](https://github.com/keras-team/keras/tree/v3.6.0/keras/src/ops/numpy.py#L4454)
+{{< keras/source link="https://github.com/keras-team/keras/tree/v3.6.0/keras/src/ops/numpy.py#L4454" >}}
 
 ### `prod` function
 
@@ -2420,7 +2420,7 @@ Product of elements of `x` over the given axis or axes.
 
 ---
 
-[\[source\]](https://github.com/keras-team/keras/tree/v3.6.0/keras/src/ops/numpy.py#L4503)
+{{< keras/source link="https://github.com/keras-team/keras/tree/v3.6.0/keras/src/ops/numpy.py#L4503" >}}
 
 ### `quantile` function
 
@@ -2447,7 +2447,7 @@ The quantile(s). If `q` is a single probability and `axis=None`, then the result
 
 ---
 
-[\[source\]](https://github.com/keras-team/keras/tree/v3.6.0/keras/src/ops/numpy.py#L4556)
+{{< keras/source link="https://github.com/keras-team/keras/tree/v3.6.0/keras/src/ops/numpy.py#L4556" >}}
 
 ### `ravel` function
 
@@ -2467,7 +2467,7 @@ Output tensor.
 
 ---
 
-[\[source\]](https://github.com/keras-team/keras/tree/v3.6.0/keras/src/ops/numpy.py#L4582)
+{{< keras/source link="https://github.com/keras-team/keras/tree/v3.6.0/keras/src/ops/numpy.py#L4582" >}}
 
 ### `real` function
 
@@ -2485,7 +2485,7 @@ The real component of the complex argument.
 
 ---
 
-[\[source\]](https://github.com/keras-team/keras/tree/v3.6.0/keras/src/ops/numpy.py#L4605)
+{{< keras/source link="https://github.com/keras-team/keras/tree/v3.6.0/keras/src/ops/numpy.py#L4605" >}}
 
 ### `reciprocal` function
 
@@ -2505,7 +2505,7 @@ Output tensor, element-wise reciprocal of `x`.
 
 ---
 
-[\[source\]](https://github.com/keras-team/keras/tree/v3.6.0/keras/src/ops/numpy.py#L4679)
+{{< keras/source link="https://github.com/keras-team/keras/tree/v3.6.0/keras/src/ops/numpy.py#L4679" >}}
 
 ### `repeat` function
 
@@ -2525,7 +2525,7 @@ Output tensor.
 
 ---
 
-[\[source\]](https://github.com/keras-team/keras/tree/v3.6.0/keras/src/ops/numpy.py#L4713)
+{{< keras/source link="https://github.com/keras-team/keras/tree/v3.6.0/keras/src/ops/numpy.py#L4713" >}}
 
 ### `reshape` function
 
@@ -2544,7 +2544,7 @@ The reshaped tensor.
 
 ---
 
-[\[source\]](https://github.com/keras-team/keras/tree/v3.6.0/keras/src/ops/numpy.py#L1455)
+{{< keras/source link="https://github.com/keras-team/keras/tree/v3.6.0/keras/src/ops/numpy.py#L1455" >}}
 
 ### `right_shift` function
 
@@ -2565,7 +2565,7 @@ Result tensor.
 
 ---
 
-[\[source\]](https://github.com/keras-team/keras/tree/v3.6.0/keras/src/ops/numpy.py#L4744)
+{{< keras/source link="https://github.com/keras-team/keras/tree/v3.6.0/keras/src/ops/numpy.py#L4744" >}}
 
 ### `roll` function
 
@@ -2587,7 +2587,7 @@ Output tensor.
 
 ---
 
-[\[source\]](https://github.com/keras-team/keras/tree/v3.6.0/keras/src/ops/numpy.py#L4778)
+{{< keras/source link="https://github.com/keras-team/keras/tree/v3.6.0/keras/src/ops/numpy.py#L4778" >}}
 
 ### `round` function
 
@@ -2606,7 +2606,7 @@ Output tensor.
 
 ---
 
-[\[source\]](https://github.com/keras-team/keras/tree/v3.6.0/keras/src/ops/numpy.py#L4814)
+{{< keras/source link="https://github.com/keras-team/keras/tree/v3.6.0/keras/src/ops/numpy.py#L4814" >}}
 
 ### `searchsorted` function
 
@@ -2626,7 +2626,7 @@ Tensor of insertion indices of same shape as `values`.
 
 ---
 
-[\[source\]](https://github.com/keras-team/keras/tree/v3.6.0/keras/src/ops/numpy.py#L6487)
+{{< keras/source link="https://github.com/keras-team/keras/tree/v3.6.0/keras/src/ops/numpy.py#L6487" >}}
 
 ### `select` function
 
@@ -2650,7 +2650,7 @@ Tensor where the output at position `m` is the `m`\-th element of the tensor in 
 
 ---
 
-[\[source\]](https://github.com/keras-team/keras/tree/v3.6.0/keras/src/ops/numpy.py#L4846)
+{{< keras/source link="https://github.com/keras-team/keras/tree/v3.6.0/keras/src/ops/numpy.py#L4846" >}}
 
 ### `sign` function
 
@@ -2668,7 +2668,7 @@ Output tensor of same shape as `x`.
 
 ---
 
-[\[source\]](https://github.com/keras-team/keras/tree/v3.6.0/keras/src/ops/numpy.py#L4875)
+{{< keras/source link="https://github.com/keras-team/keras/tree/v3.6.0/keras/src/ops/numpy.py#L4875" >}}
 
 ### `sin` function
 
@@ -2686,7 +2686,7 @@ Output tensor of same shape as `x`.
 
 ---
 
-[\[source\]](https://github.com/keras-team/keras/tree/v3.6.0/keras/src/ops/numpy.py#L4904)
+{{< keras/source link="https://github.com/keras-team/keras/tree/v3.6.0/keras/src/ops/numpy.py#L4904" >}}
 
 ### `sinh` function
 
@@ -2704,7 +2704,7 @@ Output tensor of same shape as `x`.
 
 ---
 
-[\[source\]](https://github.com/keras-team/keras/tree/v3.6.0/keras/src/ops/numpy.py#L4927)
+{{< keras/source link="https://github.com/keras-team/keras/tree/v3.6.0/keras/src/ops/numpy.py#L4927" >}}
 
 ### `size` function
 
@@ -2722,7 +2722,7 @@ Number of elements in `x`.
 
 ---
 
-[\[source\]](https://github.com/keras-team/keras/tree/v3.6.0/keras/src/ops/numpy.py#L6555)
+{{< keras/source link="https://github.com/keras-team/keras/tree/v3.6.0/keras/src/ops/numpy.py#L6555" >}}
 
 ### `slogdet` function
 
@@ -2740,7 +2740,7 @@ A tuple `(sign, logabsdet)`. `sign` is a number representing the sign of the det
 
 ---
 
-[\[source\]](https://github.com/keras-team/keras/tree/v3.6.0/keras/src/ops/numpy.py#L4954)
+{{< keras/source link="https://github.com/keras-team/keras/tree/v3.6.0/keras/src/ops/numpy.py#L4954" >}}
 
 ### `sort` function
 
@@ -2759,7 +2759,7 @@ Sorted tensor.
 
 ---
 
-[\[source\]](https://github.com/keras-team/keras/tree/v3.6.0/keras/src/ops/numpy.py#L5016)
+{{< keras/source link="https://github.com/keras-team/keras/tree/v3.6.0/keras/src/ops/numpy.py#L5016" >}}
 
 ### `split` function
 
@@ -2781,7 +2781,7 @@ A list of tensors.
 
 ---
 
-[\[source\]](https://github.com/keras-team/keras/tree/v3.6.0/keras/src/ops/numpy.py#L6046)
+{{< keras/source link="https://github.com/keras-team/keras/tree/v3.6.0/keras/src/ops/numpy.py#L6046" >}}
 
 ### `sqrt` function
 
@@ -2799,7 +2799,7 @@ Output tensor, the non-negative square root of `x`.
 
 ---
 
-[\[source\]](https://github.com/keras-team/keras/tree/v3.6.0/keras/src/ops/numpy.py#L6016)
+{{< keras/source link="https://github.com/keras-team/keras/tree/v3.6.0/keras/src/ops/numpy.py#L6016" >}}
 
 ### `square` function
 
@@ -2817,7 +2817,7 @@ Output tensor, the square of `x`.
 
 ---
 
-[\[source\]](https://github.com/keras-team/keras/tree/v3.6.0/keras/src/ops/numpy.py#L6090)
+{{< keras/source link="https://github.com/keras-team/keras/tree/v3.6.0/keras/src/ops/numpy.py#L6090" >}}
 
 ### `squeeze` function
 
@@ -2836,7 +2836,7 @@ The input tensor with all or a subset of the dimensions of length 1 removed.
 
 ---
 
-[\[source\]](https://github.com/keras-team/keras/tree/v3.6.0/keras/src/ops/numpy.py#L5072)
+{{< keras/source link="https://github.com/keras-team/keras/tree/v3.6.0/keras/src/ops/numpy.py#L5072" >}}
 
 ### `stack` function
 
@@ -2857,7 +2857,7 @@ The stacked tensor.
 
 ---
 
-[\[source\]](https://github.com/keras-team/keras/tree/v3.6.0/keras/src/ops/numpy.py#L5113)
+{{< keras/source link="https://github.com/keras-team/keras/tree/v3.6.0/keras/src/ops/numpy.py#L5113" >}}
 
 ### `std` function
 
@@ -2877,7 +2877,7 @@ Output tensor containing the standard deviation values.
 
 ---
 
-[\[source\]](https://github.com/keras-team/keras/tree/v3.6.0/keras/src/ops/numpy.py#L5790)
+{{< keras/source link="https://github.com/keras-team/keras/tree/v3.6.0/keras/src/ops/numpy.py#L5790" >}}
 
 ### `subtract` function
 
@@ -2896,7 +2896,7 @@ Output tensor, element-wise difference of `x1` and `x2`.
 
 ---
 
-[\[source\]](https://github.com/keras-team/keras/tree/v3.6.0/keras/src/ops/numpy.py#L6252)
+{{< keras/source link="https://github.com/keras-team/keras/tree/v3.6.0/keras/src/ops/numpy.py#L6252" >}}
 
 ### `sum` function
 
@@ -2916,7 +2916,7 @@ Output tensor containing the sum.
 
 ---
 
-[\[source\]](https://github.com/keras-team/keras/tree/v3.6.0/keras/src/ops/numpy.py#L5151)
+{{< keras/source link="https://github.com/keras-team/keras/tree/v3.6.0/keras/src/ops/numpy.py#L5151" >}}
 
 ### `swapaxes` function
 
@@ -2936,7 +2936,7 @@ A tensor with the axes swapped.
 
 ---
 
-[\[source\]](https://github.com/keras-team/keras/tree/v3.6.0/keras/src/ops/numpy.py#L5191)
+{{< keras/source link="https://github.com/keras-team/keras/tree/v3.6.0/keras/src/ops/numpy.py#L5191" >}}
 
 ### `take` function
 
@@ -2956,7 +2956,7 @@ The corresponding tensor of values.
 
 ---
 
-[\[source\]](https://github.com/keras-team/keras/tree/v3.6.0/keras/src/ops/numpy.py#L5224)
+{{< keras/source link="https://github.com/keras-team/keras/tree/v3.6.0/keras/src/ops/numpy.py#L5224" >}}
 
 ### `take_along_axis` function
 
@@ -2976,7 +2976,7 @@ The corresponding tensor of values.
 
 ---
 
-[\[source\]](https://github.com/keras-team/keras/tree/v3.6.0/keras/src/ops/numpy.py#L5261)
+{{< keras/source link="https://github.com/keras-team/keras/tree/v3.6.0/keras/src/ops/numpy.py#L5261" >}}
 
 ### `tan` function
 
@@ -2994,7 +2994,7 @@ Output tensor of same shape as `x`.
 
 ---
 
-[\[source\]](https://github.com/keras-team/keras/tree/v3.6.0/keras/src/ops/numpy.py#L5290)
+{{< keras/source link="https://github.com/keras-team/keras/tree/v3.6.0/keras/src/ops/numpy.py#L5290" >}}
 
 ### `tanh` function
 
@@ -3012,7 +3012,7 @@ Output tensor of same shape as `x`.
 
 ---
 
-[\[source\]](https://github.com/keras-team/keras/tree/v3.6.0/keras/src/ops/numpy.py#L5350)
+{{< keras/source link="https://github.com/keras-team/keras/tree/v3.6.0/keras/src/ops/numpy.py#L5350" >}}
 
 ### `tensordot` function
 
@@ -3032,7 +3032,7 @@ The tensor dot product of the inputs.
 
 ---
 
-[\[source\]](https://github.com/keras-team/keras/tree/v3.6.0/keras/src/ops/numpy.py#L5399)
+{{< keras/source link="https://github.com/keras-team/keras/tree/v3.6.0/keras/src/ops/numpy.py#L5399" >}}
 
 ### `tile` function
 
@@ -3057,7 +3057,7 @@ The tiled output tensor.
 
 ---
 
-[\[source\]](https://github.com/keras-team/keras/tree/v3.6.0/keras/src/ops/numpy.py#L5448)
+{{< keras/source link="https://github.com/keras-team/keras/tree/v3.6.0/keras/src/ops/numpy.py#L5448" >}}
 
 ### `trace` function
 
@@ -3084,7 +3084,7 @@ If `x` is 2-D, the sum of the diagonal is returned. If `x` has larger dimensions
 
 ---
 
-[\[source\]](https://github.com/keras-team/keras/tree/v3.6.0/keras/src/ops/numpy.py#L6123)
+{{< keras/source link="https://github.com/keras-team/keras/tree/v3.6.0/keras/src/ops/numpy.py#L6123" >}}
 
 ### `transpose` function
 
@@ -3103,7 +3103,7 @@ Returns a tensor with `axes` transposed.
 
 ---
 
-[\[source\]](https://github.com/keras-team/keras/tree/v3.6.0/keras/src/ops/numpy.py#L5496)
+{{< keras/source link="https://github.com/keras-team/keras/tree/v3.6.0/keras/src/ops/numpy.py#L5496" >}}
 
 ### `tri` function
 
@@ -3124,7 +3124,7 @@ Tensor with its lower triangle filled with ones and zeros elsewhere. `T[i, j] ==
 
 ---
 
-[\[source\]](https://github.com/keras-team/keras/tree/v3.6.0/keras/src/ops/numpy.py#L5527)
+{{< keras/source link="https://github.com/keras-team/keras/tree/v3.6.0/keras/src/ops/numpy.py#L5527" >}}
 
 ### `tril` function
 
@@ -3145,7 +3145,7 @@ Lower triangle of `x`, of same shape and data type as `x`.
 
 ---
 
-[\[source\]](https://github.com/keras-team/keras/tree/v3.6.0/keras/src/ops/numpy.py#L5559)
+{{< keras/source link="https://github.com/keras-team/keras/tree/v3.6.0/keras/src/ops/numpy.py#L5559" >}}
 
 ### `triu` function
 
@@ -3166,7 +3166,7 @@ Upper triangle of `x`, of same shape and data type as `x`.
 
 ---
 
-[\[source\]](https://github.com/keras-team/keras/tree/v3.6.0/keras/src/ops/numpy.py#L5937)
+{{< keras/source link="https://github.com/keras-team/keras/tree/v3.6.0/keras/src/ops/numpy.py#L5937" >}}
 
 ### `true_divide` function
 
@@ -3176,7 +3176,7 @@ Alias for [`keras.ops.divide`](/api/ops/numpy#divide-function).
 
 ---
 
-[\[source\]](https://github.com/keras-team/keras/tree/v3.6.0/keras/src/ops/numpy.py#L5590)
+{{< keras/source link="https://github.com/keras-team/keras/tree/v3.6.0/keras/src/ops/numpy.py#L5590" >}}
 
 ### `trunc` function
 
@@ -3200,7 +3200,7 @@ The truncated value of each element in `x`.
 
 ---
 
-[\[source\]](https://github.com/keras-team/keras/tree/v3.6.0/keras/src/ops/numpy.py#L6204)
+{{< keras/source link="https://github.com/keras-team/keras/tree/v3.6.0/keras/src/ops/numpy.py#L6204" >}}
 
 ### `var` function
 
@@ -3220,7 +3220,7 @@ Output tensor containing the variance.
 
 ---
 
-[\[source\]](https://github.com/keras-team/keras/tree/v3.6.0/keras/src/ops/numpy.py#L5626)
+{{< keras/source link="https://github.com/keras-team/keras/tree/v3.6.0/keras/src/ops/numpy.py#L5626" >}}
 
 ### `vdot` function
 
@@ -3243,7 +3243,7 @@ Output tensor.
 
 ---
 
-[\[source\]](https://github.com/keras-team/keras/tree/v3.6.0/keras/src/ops/numpy.py#L5648)
+{{< keras/source link="https://github.com/keras-team/keras/tree/v3.6.0/keras/src/ops/numpy.py#L5648" >}}
 
 ### `vectorize` function
 
@@ -3267,7 +3267,7 @@ A new function that applies `pyfunc` to every element of its input along axis 0 
 
 ---
 
-[\[source\]](https://github.com/keras-team/keras/tree/v3.6.0/keras/src/ops/numpy.py#L5717)
+{{< keras/source link="https://github.com/keras-team/keras/tree/v3.6.0/keras/src/ops/numpy.py#L5717" >}}
 
 ### `vstack` function
 
@@ -3285,7 +3285,7 @@ Tensor formed by stacking the given tensors.
 
 ---
 
-[\[source\]](https://github.com/keras-team/keras/tree/v3.6.0/keras/src/ops/numpy.py#L5749)
+{{< keras/source link="https://github.com/keras-team/keras/tree/v3.6.0/keras/src/ops/numpy.py#L5749" >}}
 
 ### `where` function
 
@@ -3305,7 +3305,7 @@ A tensor with elements from `x1` where `condition` is `True`, and elements from 
 
 ---
 
-[\[source\]](https://github.com/keras-team/keras/tree/v3.6.0/keras/src/ops/numpy.py#L6280)
+{{< keras/source link="https://github.com/keras-team/keras/tree/v3.6.0/keras/src/ops/numpy.py#L6280" >}}
 
 ### `zeros` function
 
@@ -3324,7 +3324,7 @@ Tensor of zeros with the given shape and dtype.
 
 ---
 
-[\[source\]](https://github.com/keras-team/keras/tree/v3.6.0/keras/src/ops/numpy.py#L4260)
+{{< keras/source link="https://github.com/keras-team/keras/tree/v3.6.0/keras/src/ops/numpy.py#L4260" >}}
 
 ### `zeros_like` function
 

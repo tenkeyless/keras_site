@@ -5,7 +5,7 @@ weight: 3
 type: docs
 ---
 
-[\[source\]](https://github.com/keras-team/keras/tree/v3.6.0/keras/src/layers/preprocessing/feature_space.py#L72)
+{{< keras/source link="https://github.com/keras-team/keras/tree/v3.6.0/keras/src/layers/preprocessing/feature_space.py#L72" >}}
 
 ### `FeatureSpace` class
 

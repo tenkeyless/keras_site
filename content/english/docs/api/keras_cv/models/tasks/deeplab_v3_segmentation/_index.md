@@ -3,7 +3,7 @@ title: deeplab_v3_segmentation
 toc: false
 ---
 
-[\[source\]](https://github.com/keras-team/keras-cv/tree/v0.9.0/keras_cv/src/models/segmentation/deeplab_v3_plus/deeplab_v3_plus.py#L33)
+{{< keras/source link="https://github.com/keras-team/keras-cv/tree/v0.9.0/keras_cv/src/models/segmentation/deeplab_v3_plus/deeplab_v3_plus.py#L33" >}}
 
 ### `DeepLabV3Plus` class
 
@@ -29,7 +29,7 @@ A Keras model implementing the DeepLabV3+ architecture for semantic segmentation
 
 ---
 
-[\[source\]](https://github.com/keras-team/keras-cv/tree/v0.9.0/keras_cv/src/models/task.py#L183)
+{{< keras/source link="https://github.com/keras-team/keras-cv/tree/v0.9.0/keras_cv/src/models/task.py#L183" >}}
 
 ### `from_preset` method
 

@@ -5,7 +5,7 @@ weight: 1
 type: docs
 ---
 
-[\[source\]](https://github.com/keras-team/keras-tuner/tree/v1.4.7/keras_tuner/src/engine/hyperparameters/hyperparameters.py#L29)
+{{< keras/source link="https://github.com/keras-team/keras-tuner/tree/v1.4.7/keras_tuner/src/engine/hyperparameters/hyperparameters.py#L29" >}}
 
 ### `HyperParameters` class
 
@@ -24,7 +24,7 @@ To prevent the users from depending on inactive hyperparameter values, only acti
 
 ---
 
-[\[source\]](https://github.com/keras-team/keras-tuner/tree/v1.4.7/keras_tuner/src/engine/hyperparameters/hyperparameters.py#L496)
+{{< keras/source link="https://github.com/keras-team/keras-tuner/tree/v1.4.7/keras_tuner/src/engine/hyperparameters/hyperparameters.py#L496" >}}
 
 ### `Boolean` method
 
@@ -45,7 +45,7 @@ The value of the hyperparameter, or None if the hyperparameter is not active.
 
 ---
 
-[\[source\]](https://github.com/keras-team/keras-tuner/tree/v1.4.7/keras_tuner/src/engine/hyperparameters/hyperparameters.py#L258)
+{{< keras/source link="https://github.com/keras-team/keras-tuner/tree/v1.4.7/keras_tuner/src/engine/hyperparameters/hyperparameters.py#L258" >}}
 
 ### `Choice` method
 
@@ -70,7 +70,7 @@ The value of the hyperparameter, or None if the hyperparameter is not active.
 
 ---
 
-[\[source\]](https://github.com/keras-team/keras-tuner/tree/v1.4.7/keras_tuner/src/engine/hyperparameters/hyperparameters.py#L525)
+{{< keras/source link="https://github.com/keras-team/keras-tuner/tree/v1.4.7/keras_tuner/src/engine/hyperparameters/hyperparameters.py#L525" >}}
 
 ### `Fixed` method
 
@@ -91,7 +91,7 @@ The value of the hyperparameter, or None if the hyperparameter is not active.
 
 ---
 
-[\[source\]](https://github.com/keras-team/keras-tuner/tree/v1.4.7/keras_tuner/src/engine/hyperparameters/hyperparameters.py#L401)
+{{< keras/source link="https://github.com/keras-team/keras-tuner/tree/v1.4.7/keras_tuner/src/engine/hyperparameters/hyperparameters.py#L401" >}}
 
 ### `Float` method
 
@@ -134,7 +134,7 @@ The value of the hyperparameter, or None if the hyperparameter is not active.
 
 ---
 
-[\[source\]](https://github.com/keras-team/keras-tuner/tree/v1.4.7/keras_tuner/src/engine/hyperparameters/hyperparameters.py#L302)
+{{< keras/source link="https://github.com/keras-team/keras-tuner/tree/v1.4.7/keras_tuner/src/engine/hyperparameters/hyperparameters.py#L302" >}}
 
 ### `Int` method
 
@@ -179,7 +179,7 @@ The value of the hyperparameter, or None if the hyperparameter is not active.
 
 ---
 
-[\[source\]](https://github.com/keras-team/keras-tuner/tree/v1.4.7/keras_tuner/src/engine/hyperparameters/hyperparameters.py#L87)
+{{< keras/source link="https://github.com/keras-team/keras-tuner/tree/v1.4.7/keras_tuner/src/engine/hyperparameters/hyperparameters.py#L87" >}}
 
 ### `conditional_scope` method
 
@@ -206,7 +206,7 @@ This feature is for the `Tuner` to collect more information of the search space 
 
 ---
 
-[\[source\]](https://github.com/keras-team/keras-tuner/tree/v1.4.7/keras_tuner/src/engine/hyperparameters/hyperparameters.py#L238)
+{{< keras/source link="https://github.com/keras-team/keras-tuner/tree/v1.4.7/keras_tuner/src/engine/hyperparameters/hyperparameters.py#L238" >}}
 
 ### `get` method
 

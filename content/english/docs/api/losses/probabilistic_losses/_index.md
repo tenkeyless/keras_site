@@ -5,7 +5,7 @@ weight: 1
 type: docs
 ---
 
-[\[source\]](https://github.com/keras-team/keras/tree/v3.6.0/keras/src/losses/losses.py#L497)
+{{< keras/source link="https://github.com/keras-team/keras/tree/v3.6.0/keras/src/losses/losses.py#L497" >}}
 
 ### `BinaryCrossentropy` class
 
@@ -47,7 +47,7 @@ As a standalone function:
 
 ---
 
-[\[source\]](https://github.com/keras-team/keras/tree/v3.6.0/keras/src/losses/losses.py#L616)
+{{< keras/source link="https://github.com/keras-team/keras/tree/v3.6.0/keras/src/losses/losses.py#L616" >}}
 
 ### `BinaryFocalCrossentropy` class
 
@@ -106,7 +106,7 @@ As a standalone function:
 
 ---
 
-[\[source\]](https://github.com/keras-team/keras/tree/v3.6.0/keras/src/losses/losses.py#L797)
+{{< keras/source link="https://github.com/keras-team/keras/tree/v3.6.0/keras/src/losses/losses.py#L797" >}}
 
 ### `CategoricalCrossentropy` class
 
@@ -143,7 +143,7 @@ Usage with the `compile()` API:
 
 ---
 
-[\[source\]](https://github.com/keras-team/keras/tree/v3.6.0/keras/src/losses/losses.py#L894)
+{{< keras/source link="https://github.com/keras-team/keras/tree/v3.6.0/keras/src/losses/losses.py#L894" >}}
 
 ### `CategoricalFocalCrossentropy` class
 
@@ -202,7 +202,7 @@ Usage with the `compile()` API:
 
 ---
 
-[\[source\]](https://github.com/keras-team/keras/tree/v3.6.0/keras/src/losses/losses.py#L1041)
+{{< keras/source link="https://github.com/keras-team/keras/tree/v3.6.0/keras/src/losses/losses.py#L1041" >}}
 
 ### `SparseCategoricalCrossentropy` class
 
@@ -237,7 +237,7 @@ Usage with the `compile()` API:
 
 ---
 
-[\[source\]](https://github.com/keras-team/keras/tree/v3.6.0/keras/src/losses/losses.py#L466)
+{{< keras/source link="https://github.com/keras-team/keras/tree/v3.6.0/keras/src/losses/losses.py#L466" >}}
 
 ### `Poisson` class
 
@@ -257,7 +257,7 @@ Formula:
 
 ---
 
-[\[source\]](https://github.com/keras-team/keras/tree/v3.6.0/keras/src/losses/losses.py#L2024)
+{{< keras/source link="https://github.com/keras-team/keras/tree/v3.6.0/keras/src/losses/losses.py#L2024" >}}
 
 ### `CTC` class
 
@@ -273,7 +273,7 @@ CTC (Connectionist Temporal Classification) loss.
 
 ---
 
-[\[source\]](https://github.com/keras-team/keras/tree/v3.6.0/keras/src/losses/losses.py#L429)
+{{< keras/source link="https://github.com/keras-team/keras/tree/v3.6.0/keras/src/losses/losses.py#L429" >}}
 
 ### `KLDivergence` class
 
@@ -295,7 +295,7 @@ Formula:
 
 ---
 
-[\[source\]](https://github.com/keras-team/keras/tree/v3.6.0/keras/src/losses/losses.py#L1885)
+{{< keras/source link="https://github.com/keras-team/keras/tree/v3.6.0/keras/src/losses/losses.py#L1885" >}}
 
 ### `binary_crossentropy` function
 
@@ -321,7 +321,7 @@ Binary crossentropy loss value. shape = `[batch_size, d0, .. dN-1]`.
 
 ---
 
-[\[source\]](https://github.com/keras-team/keras/tree/v3.6.0/keras/src/losses/losses.py#L1663)
+{{< keras/source link="https://github.com/keras-team/keras/tree/v3.6.0/keras/src/losses/losses.py#L1663" >}}
 
 ### `categorical_crossentropy` function
 
@@ -347,7 +347,7 @@ Categorical crossentropy loss value.
 
 ---
 
-[\[source\]](https://github.com/keras-team/keras/tree/v3.6.0/keras/src/losses/losses.py#L1822)
+{{< keras/source link="https://github.com/keras-team/keras/tree/v3.6.0/keras/src/losses/losses.py#L1822" >}}
 
 ### `sparse_categorical_crossentropy` function
 
@@ -373,7 +373,7 @@ Sparse categorical crossentropy loss value.
 
 ---
 
-[\[source\]](https://github.com/keras-team/keras/tree/v3.6.0/keras/src/losses/losses.py#L1624)
+{{< keras/source link="https://github.com/keras-team/keras/tree/v3.6.0/keras/src/losses/losses.py#L1624" >}}
 
 ### `poisson` function
 
@@ -400,7 +400,7 @@ Poisson loss values with shape = `[batch_size, d0, .. dN-1]`.
 
 ---
 
-[\[source\]](https://github.com/keras-team/keras/tree/v3.6.0/keras/src/losses/losses.py#L2055)
+{{< keras/source link="https://github.com/keras-team/keras/tree/v3.6.0/keras/src/losses/losses.py#L2055" >}}
 
 ### `ctc` function
 
@@ -415,7 +415,7 @@ CTC (Connectionist Temporal Classification) loss.
 
 ---
 
-[\[source\]](https://github.com/keras-team/keras/tree/v3.6.0/keras/src/losses/losses.py#L1573)
+{{< keras/source link="https://github.com/keras-team/keras/tree/v3.6.0/keras/src/losses/losses.py#L1573" >}}
 
 ### `kl_divergence` function
 

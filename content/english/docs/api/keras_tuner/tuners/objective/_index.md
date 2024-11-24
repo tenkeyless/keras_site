@@ -5,7 +5,7 @@ weight: 7
 type: docs
 ---
 
-[\[source\]](https://github.com/keras-team/keras-tuner/tree/v1.4.7/keras_tuner/src/engine/objective.py#L19)
+{{< keras/source link="https://github.com/keras-team/keras-tuner/tree/v1.4.7/keras_tuner/src/engine/objective.py#L19" >}}
 
 ### `Objective` class
 

@@ -5,7 +5,7 @@ weight: 3
 type: docs
 ---
 
-[\[source\]](https://github.com/keras-team/keras/tree/v3.6.0/keras/src/optimizers/adam.py#L6)
+{{< keras/source link="https://github.com/keras-team/keras/tree/v3.6.0/keras/src/optimizers/adam.py#L6" >}}
 
 ### `Adam` class
 

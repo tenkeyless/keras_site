@@ -3,7 +3,7 @@ title: batch_normalization
 toc: false
 ---
 
-[\[source\]](https://github.com/keras-team/keras/tree/v3.6.0/keras/src/layers/normalization/batch_normalization.py#L11)
+{{< keras/source link="https://github.com/keras-team/keras/tree/v3.6.0/keras/src/layers/normalization/batch_normalization.py#L11" >}}
 
 ### `BatchNormalization` class
 

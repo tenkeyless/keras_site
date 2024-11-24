@@ -3,7 +3,7 @@ title: backbone
 toc: false
 ---
 
-[\[source\]](https://github.com/keras-team/keras-hub/tree/v0.17.0/keras_hub/src/models/backbone.py#L11)
+{{< keras/source link="https://github.com/keras-team/keras-hub/tree/v0.17.0/keras_hub/src/models/backbone.py#L11" >}}
 
 ### `Backbone` class
 
@@ -26,7 +26,7 @@ All backbones include a `from_preset()` constructor which can be used to load a 
 
 ---
 
-[\[source\]](https://github.com/keras-team/keras-hub/tree/v0.17.0/keras_hub/src/models/backbone.py#L127)
+{{< keras/source link="https://github.com/keras-team/keras-hub/tree/v0.17.0/keras_hub/src/models/backbone.py#L127" >}}
 
 ### `from_preset` method
 
@@ -66,7 +66,7 @@ This layer embeds integer token ids to the hidden dim of the model.
 
 ---
 
-[\[source\]](https://github.com/keras-team/keras-hub/tree/v0.17.0/keras_hub/src/models/backbone.py#L194)
+{{< keras/source link="https://github.com/keras-team/keras-hub/tree/v0.17.0/keras_hub/src/models/backbone.py#L194" >}}
 
 ### `enable_lora` method
 
@@ -78,7 +78,7 @@ Calling this method will freeze all weights on the backbone, while enabling Lora
 
 ---
 
-[\[source\]](https://github.com/keras-team/keras-hub/tree/v0.17.0/keras_hub/src/models/backbone.py#L217)
+{{< keras/source link="https://github.com/keras-team/keras-hub/tree/v0.17.0/keras_hub/src/models/backbone.py#L217" >}}
 
 ### `save_lora_weights` method
 
@@ -86,7 +86,7 @@ Calling this method will freeze all weights on the backbone, while enabling Lora
 
 ---
 
-[\[source\]](https://github.com/keras-team/keras-hub/tree/v0.17.0/keras_hub/src/models/backbone.py#L246)
+{{< keras/source link="https://github.com/keras-team/keras-hub/tree/v0.17.0/keras_hub/src/models/backbone.py#L246" >}}
 
 ### `load_lora_weights` method
 
@@ -94,7 +94,7 @@ Calling this method will freeze all weights on the backbone, while enabling Lora
 
 ---
 
-[\[source\]](https://github.com/keras-team/keras-hub/tree/v0.17.0/keras_hub/src/models/backbone.py#L185)
+{{< keras/source link="https://github.com/keras-team/keras-hub/tree/v0.17.0/keras_hub/src/models/backbone.py#L185" >}}
 
 ### `save_to_preset` method
 

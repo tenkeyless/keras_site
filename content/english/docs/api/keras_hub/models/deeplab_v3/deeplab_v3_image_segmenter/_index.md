@@ -3,7 +3,7 @@ title: deeplab_v3_image_segmenter
 toc: false
 ---
 
-[\[source\]](https://github.com/keras-team/keras-hub/tree/v0.17.0/keras_hub/src/models/deeplab_v3/deeplab_v3_segmenter.py#L13)
+{{< keras/source link="https://github.com/keras-team/keras-hub/tree/v0.17.0/keras_hub/src/models/deeplab_v3/deeplab_v3_segmenter.py#L13" >}}
 
 ### `DeepLabV3ImageSegmenter` class
 
@@ -34,7 +34,7 @@ Load DeepLabv3+ presets a extension of DeepLabv3 by adding a simple yet effectiv
 
 ---
 
-[\[source\]](https://github.com/keras-team/keras-hub/tree/v0.17.0/keras_hub/src/models/task.py#L129)
+{{< keras/source link="https://github.com/keras-team/keras-hub/tree/v0.17.0/keras_hub/src/models/task.py#L129" >}}
 
 ### `from_preset` method
 

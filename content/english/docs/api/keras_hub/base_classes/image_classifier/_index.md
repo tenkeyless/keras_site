@@ -3,7 +3,7 @@ title: image_classifier
 toc: false
 ---
 
-[\[source\]](https://github.com/keras-team/keras-hub/tree/v0.17.0/keras_hub/src/models/image_classifier.py#L7)
+{{< keras/source link="https://github.com/keras-team/keras-hub/tree/v0.17.0/keras_hub/src/models/image_classifier.py#L7" >}}
 
 ### `ImageClassifier` class
 
@@ -44,7 +44,7 @@ Custom backbone.
 
 ---
 
-[\[source\]](https://github.com/keras-team/keras-hub/tree/v0.17.0/keras_hub/src/models/task.py#L129)
+{{< keras/source link="https://github.com/keras-team/keras-hub/tree/v0.17.0/keras_hub/src/models/task.py#L129" >}}
 
 ### `from_preset` method
 
@@ -290,7 +290,7 @@ densenet_201_imagenet
 
 ---
 
-[\[source\]](https://github.com/keras-team/keras-hub/tree/v0.17.0/keras_hub/src/models/image_classifier.py#L168)
+{{< keras/source link="https://github.com/keras-team/keras-hub/tree/v0.17.0/keras_hub/src/models/image_classifier.py#L168" >}}
 
 ### `compile` method
 
@@ -309,7 +309,7 @@ The `ImageClassifier` task extends the default compilation signature of [`keras.
 
 ---
 
-[\[source\]](https://github.com/keras-team/keras-hub/tree/v0.17.0/keras_hub/src/models/task.py#L238)
+{{< keras/source link="https://github.com/keras-team/keras-hub/tree/v0.17.0/keras_hub/src/models/task.py#L238" >}}
 
 ### `save_to_preset` method
 

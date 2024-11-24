@@ -5,7 +5,7 @@ weight: 5
 type: docs
 ---
 
-[\[source\]](https://github.com/keras-team/keras/tree/v3.6.0/keras/src/applications/vgg16.py#L20)
+{{< keras/source link="https://github.com/keras-team/keras/tree/v3.6.0/keras/src/applications/vgg16.py#L20" >}}
 
 ### `VGG16` function
 
@@ -45,7 +45,7 @@ A `Model` instance.
 
 ---
 
-[\[source\]](https://github.com/keras-team/keras/tree/v3.6.0/keras/src/applications/vgg19.py#L20)
+{{< keras/source link="https://github.com/keras-team/keras/tree/v3.6.0/keras/src/applications/vgg19.py#L20" >}}
 
 ### `VGG19` function
 

@@ -3,7 +3,7 @@ title: TextVectorization layer
 toc: false
 ---
 
-[\[source\]](https://github.com/keras-team/keras/tree/v3.6.0/keras/src/layers/preprocessing/text_vectorization.py#L15)
+{{< keras/source link="https://github.com/keras-team/keras/tree/v3.6.0/keras/src/layers/preprocessing/text_vectorization.py#L15" >}}
 
 ### `TextVectorization` class
 

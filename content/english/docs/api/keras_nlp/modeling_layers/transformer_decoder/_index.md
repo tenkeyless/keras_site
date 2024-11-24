@@ -3,7 +3,7 @@ title: TransformerDecoder layer
 toc: false
 ---
 
-[\[source\]](https://github.com/keras-team/keras-hub/tree/v0.17.0/keras_hub/src/layers/modeling/transformer_decoder.py#L16)
+{{< keras/source link="https://github.com/keras-team/keras-hub/tree/v0.17.0/keras_hub/src/layers/modeling/transformer_decoder.py#L16" >}}
 
 ### `TransformerDecoder` class
 
@@ -39,7 +39,7 @@ This layer can be called with either one or two inputs. The number of inputs mus
 
 ---
 
-[\[source\]](https://github.com/keras-team/keras-hub/tree/v0.17.0/keras_hub/src/layers/modeling/transformer_decoder.py#L240)
+{{< keras/source link="https://github.com/keras-team/keras-hub/tree/v0.17.0/keras_hub/src/layers/modeling/transformer_decoder.py#L240" >}}
 
 ### `call` method
 

@@ -3,7 +3,7 @@ title: resizing
 toc: false
 ---
 
-[\[source\]](https://github.com/keras-team/keras/tree/v3.6.0/keras/src/layers/preprocessing/image_preprocessing/resizing.py#L9)
+{{< keras/source link="https://github.com/keras-team/keras/tree/v3.6.0/keras/src/layers/preprocessing/image_preprocessing/resizing.py#L9" >}}
 
 ### `Resizing` class
 

@@ -3,7 +3,7 @@ title: GPT2CausalLM model
 toc: false
 ---
 
-[\[source\]](https://github.com/keras-team/keras-hub/tree/v0.17.0/keras_hub/src/models/gpt2/gpt2_causal_lm.py#L13)
+{{< keras/source link="https://github.com/keras-team/keras-hub/tree/v0.17.0/keras_hub/src/models/gpt2/gpt2_causal_lm.py#L13" >}}
 
 ### `GPT2CausalLM` class
 
@@ -52,7 +52,7 @@ Custom backbone and vocabulary.
 
 ---
 
-[\[source\]](https://github.com/keras-team/keras-hub/tree/v0.17.0/keras_hub/src/models/task.py#L129)
+{{< keras/source link="https://github.com/keras-team/keras-hub/tree/v0.17.0/keras_hub/src/models/task.py#L129" >}}
 
 ### `from_preset` method
 
@@ -118,7 +118,7 @@ gpt2_base_en_cnn_dailymail
 
 ---
 
-[\[source\]](https://github.com/keras-team/keras-hub/tree/v0.17.0/keras_hub/src/models/causal_lm.py#L272)
+{{< keras/source link="https://github.com/keras-team/keras-hub/tree/v0.17.0/keras_hub/src/models/causal_lm.py#L272" >}}
 
 ### `generate` method
 

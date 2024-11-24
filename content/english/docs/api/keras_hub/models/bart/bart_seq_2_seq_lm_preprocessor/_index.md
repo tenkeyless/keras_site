@@ -3,7 +3,7 @@ title: BartSeq2SeqLMPreprocessor layer
 toc: false
 ---
 
-[\[source\]](https://github.com/keras-team/keras-hub/tree/v0.17.0/keras_hub/src/models/bart/bart_seq_2_seq_lm_preprocessor.py#L8)
+{{< keras/source link="https://github.com/keras-team/keras-hub/tree/v0.17.0/keras_hub/src/models/bart/bart_seq_2_seq_lm_preprocessor.py#L8" >}}
 
 ### `BartSeq2SeqLMPreprocessor` class
 
@@ -40,7 +40,7 @@ Mapping with [`tf.data.Dataset`](https://www.tensorflow.org/api_docs/python/tf/d
 
 ---
 
-[\[source\]](https://github.com/keras-team/keras-hub/tree/v0.17.0/keras_hub/src/models/preprocessor.py#L132)
+{{< keras/source link="https://github.com/keras-team/keras-hub/tree/v0.17.0/keras_hub/src/models/preprocessor.py#L132" >}}
 
 ### `from_preset` method
 
@@ -93,7 +93,7 @@ The `bart_large_en` backbone model fine-tuned on the CNN+DM summarization datase
 
 ---
 
-[\[source\]](https://github.com/keras-team/keras-hub/tree/v0.17.0/keras_hub/src/models/seq_2_seq_lm_preprocessor.py#L144)
+{{< keras/source link="https://github.com/keras-team/keras-hub/tree/v0.17.0/keras_hub/src/models/seq_2_seq_lm_preprocessor.py#L144" >}}
 
 ### `generate_preprocess` method
 
@@ -107,7 +107,7 @@ Unlike calling the layer for training, this method does not compute labels and w
 
 ---
 
-[\[source\]](https://github.com/keras-team/keras-hub/tree/v0.17.0/keras_hub/src/models/seq_2_seq_lm_preprocessor.py#L205)
+{{< keras/source link="https://github.com/keras-team/keras-hub/tree/v0.17.0/keras_hub/src/models/seq_2_seq_lm_preprocessor.py#L205" >}}
 
 ### `generate_postprocess` method
 

@@ -3,7 +3,7 @@ title: preprocessor
 toc: false
 ---
 
-[\[source\]](https://github.com/keras-team/keras-hub/tree/v0.17.0/keras_hub/src/models/preprocessor.py#L15)
+{{< keras/source link="https://github.com/keras-team/keras-hub/tree/v0.17.0/keras_hub/src/models/preprocessor.py#L15" >}}
 
 ### `Preprocessor` class
 
@@ -17,7 +17,7 @@ This class can be subclassed similar to any [`keras.layers.Layer`](/api/layers/b
 
 ---
 
-[\[source\]](https://github.com/keras-team/keras-hub/tree/v0.17.0/keras_hub/src/models/preprocessor.py#L132)
+{{< keras/source link="https://github.com/keras-team/keras-hub/tree/v0.17.0/keras_hub/src/models/preprocessor.py#L132" >}}
 
 ### `from_preset` method
 
@@ -46,7 +46,7 @@ As there are usually multiple preprocessing classes for a given model, this meth
 
 ---
 
-[\[source\]](https://github.com/keras-team/keras-hub/tree/v0.17.0/keras_hub/src/models/preprocessor.py#L222)
+{{< keras/source link="https://github.com/keras-team/keras-hub/tree/v0.17.0/keras_hub/src/models/preprocessor.py#L222" >}}
 
 ### `save_to_preset` method
 

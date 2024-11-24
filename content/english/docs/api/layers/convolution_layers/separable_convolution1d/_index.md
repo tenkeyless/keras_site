@@ -7,7 +7,7 @@ type: docs
 
 {{< keras/original checkedAt="2024-11-24" >}}
 
-[\[source\]](https://github.com/keras-team/keras/tree/v3.6.0/keras/src/layers/convolutional/separable_conv1d.py#L5)
+{{< keras/source link="https://github.com/keras-team/keras/tree/v3.6.0/keras/src/layers/convolutional/separable_conv1d.py#L5" >}}
 
 ### `SeparableConv1D` class
 

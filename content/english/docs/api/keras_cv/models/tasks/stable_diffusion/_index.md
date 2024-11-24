@@ -3,7 +3,7 @@ title: stable_diffusion
 toc: false
 ---
 
-[\[source\]](https://github.com/keras-team/keras-cv/tree/v0.9.0/keras_cv/src/models/stable_diffusion/stable_diffusion.py#L361)
+{{< keras/source link="https://github.com/keras-team/keras-cv/tree/v0.9.0/keras_cv/src/models/stable_diffusion/stable_diffusion.py#L361" >}}
 
 ### `StableDiffusion` class
 
@@ -32,7 +32,7 @@ Stable Diffusion is a powerful image generation model that can be used, among ot
 
 ---
 
-[\[source\]](https://github.com/keras-team/keras-cv/tree/v0.9.0/keras_cv/src/models/stable_diffusion/stable_diffusion.py#L447)
+{{< keras/source link="https://github.com/keras-team/keras-cv/tree/v0.9.0/keras_cv/src/models/stable_diffusion/stable_diffusion.py#L447" >}}
 
 ### `StableDiffusionV2` class
 
@@ -61,7 +61,7 @@ Stable Diffusion is a powerful image generation model that can be used, among ot
 
 ---
 
-[\[source\]](https://github.com/keras-team/keras-cv/tree/v0.9.0/keras_cv/src/models/stable_diffusion/decoder.py#L24)
+{{< keras/source link="https://github.com/keras-team/keras-cv/tree/v0.9.0/keras_cv/src/models/stable_diffusion/decoder.py#L24" >}}
 
 ### `Decoder` class
 
@@ -75,7 +75,7 @@ Stable Diffusion is a powerful image generation model that can be used, among ot
 
 ---
 
-[\[source\]](https://github.com/keras-team/keras-cv/tree/v0.9.0/keras_cv/src/models/stable_diffusion/diffusion_model.py#L21)
+{{< keras/source link="https://github.com/keras-team/keras-cv/tree/v0.9.0/keras_cv/src/models/stable_diffusion/diffusion_model.py#L21" >}}
 
 ### `DiffusionModel` class
 
@@ -121,7 +121,7 @@ In addition, [`keras.Sequential`](/api/models/sequential#sequential-class) is a 
 
 ---
 
-[\[source\]](https://github.com/keras-team/keras-cv/tree/v0.9.0/keras_cv/src/models/stable_diffusion/image_encoder.py#L24)
+{{< keras/source link="https://github.com/keras-team/keras-cv/tree/v0.9.0/keras_cv/src/models/stable_diffusion/image_encoder.py#L24" >}}
 
 ### `ImageEncoder` class
 
@@ -131,7 +131,7 @@ ImageEncoder is the VAE Encoder for StableDiffusion.
 
 ---
 
-[\[source\]](https://github.com/keras-team/keras-cv/tree/v0.9.0/keras_cv/src/models/stable_diffusion/noise_scheduler.py#L24)
+{{< keras/source link="https://github.com/keras-team/keras-cv/tree/v0.9.0/keras_cv/src/models/stable_diffusion/noise_scheduler.py#L24" >}}
 
 ### `NoiseScheduler` class
 
@@ -143,7 +143,7 @@ ImageEncoder is the VAE Encoder for StableDiffusion.
 
 ---
 
-[\[source\]](https://github.com/keras-team/keras-cv/tree/v0.9.0/keras_cv/src/models/stable_diffusion/clip_tokenizer.py#L80)
+{{< keras/source link="https://github.com/keras-team/keras-cv/tree/v0.9.0/keras_cv/src/models/stable_diffusion/clip_tokenizer.py#L80" >}}
 
 ### `SimpleTokenizer` class
 
@@ -151,7 +151,7 @@ ImageEncoder is the VAE Encoder for StableDiffusion.
 
 ---
 
-[\[source\]](https://github.com/keras-team/keras-cv/tree/v0.9.0/keras_cv/src/models/stable_diffusion/text_encoder.py#L20)
+{{< keras/source link="https://github.com/keras-team/keras-cv/tree/v0.9.0/keras_cv/src/models/stable_diffusion/text_encoder.py#L20" >}}
 
 ### `TextEncoder` class
 
@@ -197,7 +197,7 @@ In addition, [`keras.Sequential`](/api/models/sequential#sequential-class) is a 
 
 ---
 
-[\[source\]](https://github.com/keras-team/keras-cv/tree/v0.9.0/keras_cv/src/models/stable_diffusion/text_encoder.py#L45)
+{{< keras/source link="https://github.com/keras-team/keras-cv/tree/v0.9.0/keras_cv/src/models/stable_diffusion/text_encoder.py#L45" >}}
 
 ### `TextEncoderV2` class
 

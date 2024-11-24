@@ -3,7 +3,7 @@ title: Sampler base class
 toc: false
 ---
 
-[\[source\]](https://github.com/keras-team/keras-hub/tree/v0.17.0/keras_hub/src/samplers/sampler.py#L9)
+{{< keras/source link="https://github.com/keras-team/keras-hub/tree/v0.17.0/keras_hub/src/samplers/sampler.py#L9" >}}
 
 ### `Sampler` class
 
@@ -27,7 +27,7 @@ This base class can be extended to implement different auto-regressive sampling 
 
 ---
 
-[\[source\]](https://github.com/keras-team/keras-hub/tree/v0.17.0/keras_hub/src/samplers/sampler.py#L208)
+{{< keras/source link="https://github.com/keras-team/keras-hub/tree/v0.17.0/keras_hub/src/samplers/sampler.py#L208" >}}
 
 ### `get_next_token` method
 

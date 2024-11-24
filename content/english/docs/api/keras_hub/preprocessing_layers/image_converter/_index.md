@@ -3,7 +3,7 @@ title: image_converter
 toc: false
 ---
 
-[\[source\]](https://github.com/keras-team/keras-hub/tree/v0.17.0/keras_hub/src/layers/preprocessing/image_converter.py#L20)
+{{< keras/source link="https://github.com/keras-team/keras-hub/tree/v0.17.0/keras_hub/src/layers/preprocessing/image_converter.py#L20" >}}
 
 ### `ImageConverter` class
 

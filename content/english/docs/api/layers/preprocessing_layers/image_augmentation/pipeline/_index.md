@@ -3,7 +3,7 @@ title: pipeline
 toc: false
 ---
 
-[\[source\]](https://github.com/keras-team/keras/tree/v3.6.0/keras/src/layers/preprocessing/pipeline.py#L7)
+{{< keras/source link="https://github.com/keras-team/keras/tree/v3.6.0/keras/src/layers/preprocessing/pipeline.py#L7" >}}
 
 ### `Pipeline` class
 

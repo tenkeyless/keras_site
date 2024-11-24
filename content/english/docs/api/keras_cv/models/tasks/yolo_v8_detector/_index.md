@@ -3,7 +3,7 @@ title: yolo_v8_detector
 toc: false
 ---
 
-[\[source\]](https://github.com/keras-team/keras-cv/tree/v0.9.0/keras_cv/src/models/object_detection/yolo_v8/yolo_v8_detector.py#L323)
+{{< keras/source link="https://github.com/keras-team/keras-cv/tree/v0.9.0/keras_cv/src/models/object_detection/yolo_v8/yolo_v8_detector.py#L323" >}}
 
 ### `YOLOV8Detector` class
 
@@ -26,7 +26,7 @@ Implements the YOLOV8 architecture for object detection.
 
 ---
 
-[\[source\]](https://github.com/keras-team/keras-cv/tree/v0.9.0/keras_cv/src/models/task.py#L183)
+{{< keras/source link="https://github.com/keras-team/keras-cv/tree/v0.9.0/keras_cv/src/models/task.py#L183" >}}
 
 ### `from_preset` method
 

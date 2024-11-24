@@ -3,7 +3,7 @@ title: GlobalAveragePooling1D layer
 toc: false
 ---
 
-[\[source\]](https://github.com/keras-team/keras/tree/v3.6.0/keras/src/layers/pooling/global_average_pooling1d.py#L7)
+{{< keras/source link="https://github.com/keras-team/keras/tree/v3.6.0/keras/src/layers/pooling/global_average_pooling1d.py#L7" >}}
 
 ### `GlobalAveragePooling1D` class
 

@@ -62,7 +62,7 @@ Note that all losses are available both via a class handle and via a function ha
 
 ## Base Loss API
 
-[\[source\]](https://github.com/keras-team/keras/tree/v3.6.0/keras/src/losses/loss.py#L10)
+{{< keras/source link="https://github.com/keras-team/keras/tree/v3.6.0/keras/src/losses/loss.py#L10" >}}
 
 ### `Loss` class
 
