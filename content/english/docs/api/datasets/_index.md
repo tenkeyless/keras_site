@@ -1,6 +1,7 @@
 ---
-title: datasets
-linkTitle: datasets
-toc: false
-weight: 5
+title: Datasets
+linkTitle: Built-int small datasets
+toc: true
+weight: 9
+type: docs
 ---

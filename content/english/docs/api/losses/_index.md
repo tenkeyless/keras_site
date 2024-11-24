@@ -1,6 +1,8 @@
 ---
-title: losses
-toc: false
+title: Losses
+toc: true
+weight: 7
+type: docs
 ---
 
 The purpose of loss functions is to compute the quantity that a model should seek to minimize during training.

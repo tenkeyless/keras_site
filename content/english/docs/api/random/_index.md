@@ -1,4 +1,6 @@
 ---
-title: random
-toc: false
+title: RNG API
+toc: true
+weight: 13
+type: docs
 ---
