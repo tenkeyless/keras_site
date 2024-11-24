@@ -5,8 +5,7 @@ weight: 36
 type: docs
 ---
 
-> - Original Link : [https://keras.io/examples/vision/super_resolution_sub_pixel/](https://keras.io/examples/vision/super_resolution_sub_pixel/)
-> - Last Checked at : 2024-11-20
+{{< original checkedAt="2024-11-20" >}}
 
 **Author:** [Xingyu Long](https://github.com/xingyu-long)  
 **Date created:** 2020/07/28  

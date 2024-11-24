@@ -5,8 +5,7 @@ weight: 41
 type: docs
 ---
 
-> - Original Link : [https://keras.io/examples/vision/randaugment/](https://keras.io/examples/vision/randaugment/)
-> - Last Checked at : 2024-11-20
+{{< original checkedAt="2024-11-20" >}}
 
 **Authors:** [Sayak Paul](https://twitter.com/RisingSayak)[Sachin Prasad](https://github.com/sachinprasadhs)  
 **Date created:** 2021/03/13  

@@ -5,8 +5,7 @@ weight: 9
 type: docs
 ---
 
-> - Original Link : [https://keras.io/keras_cv/](https://keras.io/keras_cv/)
-> - Last Checked at : 2024-11-19
+{{< original checkedAt="2024-11-19" >}}
 
 KerasCV is a library of modular computer vision components that work natively with TensorFlow, JAX, or PyTorch. Built on Keras 3, these models, layers, metrics, callbacks, etc., can be trained and serialized in any framework and re-used in another without costly migrations.
 

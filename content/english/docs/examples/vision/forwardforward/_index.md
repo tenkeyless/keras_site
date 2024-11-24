@@ -5,8 +5,7 @@ weight: 72
 type: docs
 ---
 
-> - Original Link : [https://keras.io/examples/vision/forwardforward/](https://keras.io/examples/vision/forwardforward/)
-> - Last Checked at : 2024-11-21
+{{< original checkedAt="2024-11-21" >}}
 
 **Author:** [Suvaditya Mukherjee](https://twitter.com/halcyonrayes)  
 **Date created:** 2023/01/08  

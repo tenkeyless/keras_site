@@ -5,8 +5,7 @@ weight: 4
 type: docs
 ---
 
-> - Original Link : [https://keras.io/examples/timeseries/event_classification_for_payment_card_fraud_detection/](https://keras.io/examples/timeseries/event_classification_for_payment_card_fraud_detection/)
-> - Last Checked at : 2024-11-22
+{{< original checkedAt="2024-11-22" >}}
 
 **Author:** [achoum](https://github.com/achoum/)  
 **Date created:** 2024/02/01  

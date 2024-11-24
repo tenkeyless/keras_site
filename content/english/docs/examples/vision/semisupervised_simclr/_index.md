@@ -5,8 +5,7 @@ weight: 15
 type: docs
 ---
 
-> - Original Link : [https://keras.io/examples/vision/semisupervised_simclr/](https://keras.io/examples/vision/semisupervised_simclr/)
-> - Last Checked at : 2024-11-20
+{{< original checkedAt="2024-11-20" >}}
 
 **Author:** [András Béres](https://www.linkedin.com/in/andras-beres-789190210)  
 **Date created:** 2021/04/24  

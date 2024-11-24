@@ -5,8 +5,7 @@ weight: 5
 type: docs
 ---
 
-> - Original Link : [https://keras.io/examples/generative/fine_tune_via_textual_inversion/](https://keras.io/examples/generative/fine_tune_via_textual_inversion/)
-> - Last Checked at : 2024-11-22
+{{< original checkedAt="2024-11-22" >}}
 
 **Authors:** Ian Stenbit, [lukewood](https://lukewood.xyz)  
 **Date created:** 2022/12/09  

@@ -5,8 +5,7 @@ weight: 6
 type: docs
 ---
 
-> - Original Link : [https://keras.io/examples/keras_recipes/trainer_pattern/](https://keras.io/examples/keras_recipes/trainer_pattern/)
-> - Last Checked at : 2024-11-24
+{{< original checkedAt="2024-11-24" >}}
 
 **Author:** [nkovela1](https://nkovela1.github.io/)  
 **Date created:** 2022/09/19  

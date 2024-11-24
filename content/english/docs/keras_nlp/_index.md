@@ -5,8 +5,7 @@ weight: 10
 type: docs
 ---
 
-> - Original Link : [https://keras.io/keras_nlp/](https://keras.io/keras_nlp/)
-> - Last Checked at : 2024-11-19
+{{< original checkedAt="2024-11-19" >}}
 
 KerasNLP is a natural language processing library that works natively with TensorFlow, JAX, or PyTorch. Built on Keras 3, these models, layers, metrics, and tokenizers can be trained and serialized in any framework and re-used in another without costly migrations.
 

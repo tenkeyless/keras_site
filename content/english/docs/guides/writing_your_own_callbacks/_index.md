@@ -6,8 +6,7 @@ weight: 13
 type: docs
 ---
 
-> - Original Link : [https://keras.io/guides/writing_your_own_callbacks/](https://keras.io/guides/writing_your_own_callbacks/)
-> - Last Checked at : 2024-11-18
+{{< original checkedAt="2024-11-18" >}}
 
 **Authors:** Rick Chao, Francois Chollet  
 **Date created:** 2019/03/20  

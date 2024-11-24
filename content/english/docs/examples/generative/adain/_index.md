@@ -6,8 +6,7 @@ type: docs
 math: true
 ---
 
-> - Original Link : [https://keras.io/examples/generative/adain/](https://keras.io/examples/generative/adain/)
-> - Last Checked at : 2024-11-23
+{{< original checkedAt="2024-11-23" >}}
 
 **Author:** [Aritra Roy Gosthipaty](https://twitter.com/arig23498), [Ritwik Raha](https://twitter.com/ritwik_raha)  
 **Date created:** 2021/11/08  

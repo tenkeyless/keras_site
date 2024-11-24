@@ -6,8 +6,7 @@ weight: 9
 type: docs
 ---
 
-> - Original Link : [https://keras.io/guides/writing_a_custom_training_loop_in_tensorflow/](https://keras.io/guides/writing_a_custom_training_loop_in_tensorflow/)
-> - Last Checked at : 2024-11-18
+{{< original checkedAt="2024-11-18" >}}
 
 **Author:** [fchollet](https://twitter.com/fchollet)  
 **Date created:** 2019/03/01  

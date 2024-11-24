@@ -6,8 +6,7 @@ type: docs
 math: true
 ---
 
-> - Original Link : [https://keras.io/examples/generative/wgan-graphs/](https://keras.io/examples/generative/wgan-graphs/)
-> - Last Checked at : 2024-11-23
+{{< original checkedAt="2024-11-23" >}}
 
 **Author:** [akensert](https://github.com/akensert)  
 **Date created:** 2021/06/30  

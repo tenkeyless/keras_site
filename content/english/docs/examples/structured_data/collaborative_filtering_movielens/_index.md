@@ -5,8 +5,7 @@ weight: 10
 type: docs
 ---
 
-> - Original Link : [https://keras.io/examples/structured_data/collaborative_filtering_movielens/](https://keras.io/examples/structured_data/collaborative_filtering_movielens/)
-> - Last Checked at : 2024-11-22
+{{< original checkedAt="2024-11-22" >}}
 
 **Author:** [Siddhartha Banerjee](https://twitter.com/sidd2006)  
 **Date created:** 2020/05/24  

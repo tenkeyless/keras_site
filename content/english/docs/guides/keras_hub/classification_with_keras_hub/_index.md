@@ -6,8 +6,7 @@ weight: 5
 type: docs
 ---
 
-> - Original Link : [https://keras.io/guides/keras_hub/classification_with_keras_hub/](https://keras.io/guides/keras_hub/classification_with_keras_hub/)
-> - Last Checked at : 2024-11-19
+{{< original checkedAt="2024-11-19" >}}
 
 **Author:** [Gowtham Paimagam](https://github.com/gowthamkpr), [lukewood](https://lukewood.xyz)  
 **Date created:** 09/24/2024  

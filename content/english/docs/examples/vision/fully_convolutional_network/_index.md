@@ -5,8 +5,7 @@ weight: 23
 type: docs
 ---
 
-> - Original Link : [https://keras.io/examples/vision/fully_convolutional_network/](https://keras.io/examples/vision/fully_convolutional_network/)
-> - Last Checked at : 2024-11-20
+{{< original checkedAt="2024-11-20" >}}
 
 **Author:** [Suvaditya Mukherjee](https://twitter.com/halcyonrayes)  
 **Date created:** 2023/06/16  

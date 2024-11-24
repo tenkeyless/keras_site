@@ -5,8 +5,7 @@ weight: 3
 type: docs
 ---
 
-> - Original Link : [https://keras.io/examples/structured_data/imbalanced_classification/](https://keras.io/examples/structured_data/imbalanced_classification/)
-> - Last Checked at : 2024-11-22
+{{< original checkedAt="2024-11-22" >}}
 
 **Author:** [fchollet](https://twitter.com/fchollet)  
 **Date created:** 2019/05/28  

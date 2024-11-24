@@ -5,8 +5,7 @@ weight: 11
 type: docs
 ---
 
-> - Original Link : [https://keras.io/examples/generative/cyclegan/](https://keras.io/examples/generative/cyclegan/)
-> - Last Checked at : 2024-11-23
+{{< original checkedAt="2024-11-23" >}}
 
 **Author:** [A_K_Nain](https://twitter.com/A_K_Nain)  
 **Date created:** 2020/08/12  

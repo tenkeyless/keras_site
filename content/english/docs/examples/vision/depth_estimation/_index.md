@@ -5,8 +5,7 @@ weight: 28
 type: docs
 ---
 
-> - Original Link : [https://keras.io/examples/vision/depth_estimation/](https://keras.io/examples/vision/depth_estimation/)
-> - Last Checked at : 2024-11-20
+{{< original checkedAt="2024-11-20" >}}
 
 **Author:** [Victor Basu](https://www.linkedin.com/in/victor-basu-520958147)  
 **Date created:** 2021/08/30  

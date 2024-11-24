@@ -5,8 +5,7 @@ weight: 68
 type: docs
 ---
 
-> - Original Link : [https://keras.io/examples/vision/barlow_twins/](https://keras.io/examples/vision/barlow_twins/)
-> - Last Checked at : 2024-11-21
+{{< original checkedAt="2024-11-21" >}}
 
 **Author:** [Abhiraam Eranti](https://github.com/dewball345)  
 **Date created:** 2021/11/04  

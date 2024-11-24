@@ -5,8 +5,7 @@ weight: 55
 type: docs
 ---
 
-> - Original Link : [https://keras.io/examples/vision/video_classification/](https://keras.io/examples/vision/video_classification/)
-> - Last Checked at : 2024-11-21
+{{< original checkedAt="2024-11-21" >}}
 
 **Author:** [Sayak Paul](https://twitter.com/RisingSayak)  
 **Date created:** 2021/05/28  

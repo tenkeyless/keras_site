@@ -5,8 +5,7 @@ weight: 6
 type: docs
 ---
 
-> - Original Link : [https://keras.io/examples/vision/mlp_image_classification/](https://keras.io/examples/vision/mlp_image_classification/)
-> - Last Checked at : 2024-11-19
+{{< original checkedAt="2024-11-19" >}}
 
 **Author:** [Khalid Salama](https://www.linkedin.com/in/khalid-salama-24403144/)  
 **Date created:** 2021/05/30  

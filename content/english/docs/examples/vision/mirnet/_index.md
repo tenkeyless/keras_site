@@ -5,8 +5,7 @@ weight: 35
 type: docs
 ---
 
-> - Original Link : [https://keras.io/examples/vision/mirnet/](https://keras.io/examples/vision/mirnet/)
-> - Last Checked at : 2024-11-20
+{{< original checkedAt="2024-11-20" >}}
 
 **Author:** [Soumik Rakshit](http://github.com/soumik12345)  
 **Date created:** 2021/09/11  

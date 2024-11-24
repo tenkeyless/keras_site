@@ -5,8 +5,7 @@ weight: 1
 type: docs
 ---
 
-> - Original Link : [https://keras.io/examples/vision/image_classification_from_scratch/](https://keras.io/examples/vision/image_classification_from_scratch/)
-> - Last Checked at : 2024-11-19
+{{< original checkedAt="2024-11-19" >}}
 
 **Author:** [fchollet](https://twitter.com/fchollet)  
 **Date created:** 2020/04/27  

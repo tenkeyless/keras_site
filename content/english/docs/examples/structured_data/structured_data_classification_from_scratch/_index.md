@@ -5,8 +5,7 @@ weight: 4
 type: docs
 ---
 
-> - Original Link : [https://keras.io/examples/structured_data/structured_data_classification_from_scratch/](https://keras.io/examples/structured_data/structured_data_classification_from_scratch/)
-> - Last Checked at : 2024-11-22
+{{< original checkedAt="2024-11-22" >}}
 
 **Author:** [fchollet](https://twitter.com/fchollet)  
 **Date created:** 2020/06/09  

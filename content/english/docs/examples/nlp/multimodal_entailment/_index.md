@@ -5,8 +5,7 @@ weight: 14
 type: docs
 ---
 
-> - Original Link : [https://keras.io/examples/nlp/multimodal_entailment/](https://keras.io/examples/nlp/multimodal_entailment/)
-> - Last Checked at : 2024-11-21
+{{< original checkedAt="2024-11-21" >}}
 
 **Author:** [Sayak Paul](https://twitter.com/RisingSayak)  
 **Date created:** 2021/08/08  

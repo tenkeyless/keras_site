@@ -5,8 +5,7 @@ weight: 9
 type: docs
 ---
 
-> - Original Link : [https://keras.io/examples/vision/cct/](https://keras.io/examples/vision/cct/)
-> - Last Checked at : 2024-11-20
+{{< original checkedAt="2024-11-20" >}}
 
 **Author:** [Sayak Paul](https://twitter.com/RisingSayak)  
 **Date created:** 2021/06/30  

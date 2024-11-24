@@ -6,8 +6,7 @@ weight: 11
 type: docs
 ---
 
-> - Original Link : [https://keras.io/guides/serialization_and_saving/](https://keras.io/guides/serialization_and_saving/)
-> - Last Checked at : 2024-11-18
+{{< original checkedAt="2024-11-18" >}}
 
 **Authors:** Neel Kovelamudi, Francois Chollet  
 **Date created:** 2023/06/14  

@@ -5,8 +5,7 @@ weight: 63
 type: docs
 ---
 
-> - Original Link : [https://keras.io/examples/vision/fixres/](https://keras.io/examples/vision/fixres/)
-> - Last Checked at : 2024-11-21
+{{< original checkedAt="2024-11-21" >}}
 
 **Author:** [Sayak Paul](https://twitter.com/RisingSayak)  
 **Date created:** 2021/10/08  

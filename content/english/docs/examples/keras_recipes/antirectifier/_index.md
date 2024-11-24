@@ -5,8 +5,7 @@ weight: 10
 type: docs
 ---
 
-> - Original Link : [https://keras.io/examples/keras_recipes/antirectifier/](https://keras.io/examples/keras_recipes/antirectifier/)
-> - Last Checked at : 2024-11-24
+{{< original checkedAt="2024-11-24" >}}
 
 **Author:** [fchollet](https://twitter.com/fchollet)  
 **Date created:** 2016/01/06  

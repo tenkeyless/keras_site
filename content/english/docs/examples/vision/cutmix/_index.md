@@ -6,8 +6,7 @@ type: docs
 math: true
 ---
 
-> - Original Link : [https://keras.io/examples/vision/cutmix/](https://keras.io/examples/vision/cutmix/)
-> - Last Checked at : 2024-11-20
+{{< original checkedAt="2024-11-20" >}}
 
 **Author:** [Sayan Nath](https://twitter.com/sayannath2350)  
 **Date created:** 2021/06/08  

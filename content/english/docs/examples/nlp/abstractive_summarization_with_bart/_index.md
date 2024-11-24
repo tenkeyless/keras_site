@@ -5,8 +5,7 @@ weight: 22
 type: docs
 ---
 
-> - Original Link : [https://keras.io/examples/nlp/abstractive_summarization_with_bart/](https://keras.io/examples/nlp/abstractive_summarization_with_bart/)
-> - Last Checked at : 2024-11-21
+{{< original checkedAt="2024-11-21" >}}
 
 **Author:** [Abheesht Sharma](https://github.com/abheesht17/)  
 **Date created:** 2023/07/08  

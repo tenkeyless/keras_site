@@ -5,8 +5,7 @@ weight: 1
 type: docs
 ---
 
-> - Original Link : [https://keras.io/examples/nlp/text_classification_from_scratch/](https://keras.io/examples/nlp/text_classification_from_scratch/)
-> - Last Checked at : 2024-11-21
+{{< original checkedAt="2024-11-21" >}}
 
 **Authors:** Mark Omernick, Francois Chollet  
 **Date created:** 2019/11/06  

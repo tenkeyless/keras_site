@@ -6,8 +6,7 @@ weight: 3
 type: docs
 ---
 
-> - Original Link : [https://keras.io/guides/keras_cv/cut_mix_mix_up_and_rand_augment/](https://keras.io/guides/keras_cv/cut_mix_mix_up_and_rand_augment/)
-> - Last Checked at : 2024-11-19
+{{< original checkedAt="2024-11-19" >}}
 
 **Author:** [lukewood](https://twitter.com/luke_wood_ml)  
 **Date created:** 2022/04/08  

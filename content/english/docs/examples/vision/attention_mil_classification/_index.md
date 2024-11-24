@@ -7,8 +7,7 @@ type: docs
 math: true
 ---
 
-> - Original Link : [https://keras.io/examples/vision/attention_mil_classification/](https://keras.io/examples/vision/attention_mil_classification/)
-> - Last Checked at : 2024-11-19
+{{< original checkedAt="2024-11-19" >}}
 
 **Author:** [Mohamad Jaber](https://www.linkedin.com/in/mohamadjaber1/)  
 **Date created:** 2021/08/16  

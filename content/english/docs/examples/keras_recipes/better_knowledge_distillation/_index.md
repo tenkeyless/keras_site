@@ -5,8 +5,7 @@ weight: 17
 type: docs
 ---
 
-> - Original Link : [https://keras.io/examples/keras_recipes/better_knowledge_distillation/](https://keras.io/examples/keras_recipes/better_knowledge_distillation/)
-> - Last Checked at : 2024-11-24
+{{< original checkedAt="2024-11-24" >}}
 
 **Author:** [Sayak Paul](https://twitter.com/RisingSayak)  
 **Date created:** 2021/08/01  

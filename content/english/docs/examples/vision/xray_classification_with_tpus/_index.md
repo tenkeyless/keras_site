@@ -5,8 +5,7 @@ weight: 8
 type: docs
 ---
 
-> - Original Link : [https://keras.io/examples/vision/xray_classification_with_tpus/](https://keras.io/examples/vision/xray_classification_with_tpus/)
-> - Last Checked at : 2024-11-20
+{{< original checkedAt="2024-11-20" >}}
 
 **Author:** Amy MiHyun Jang  
 **Date created:** 2020/07/28  

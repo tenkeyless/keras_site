@@ -5,8 +5,7 @@ weight: 3
 type: docs
 ---
 
-> - Original Link : [https://keras.io/examples/vision/image_classification_efficientnet_fine_tuning/](https://keras.io/examples/vision/image_classification_efficientnet_fine_tuning/)
-> - Last Checked at : 2024-11-19
+{{< original checkedAt="2024-11-19" >}}
 
 **Author:** [Yixing Fu](https://github.com/yixingfu)  
 **Date created:** 2020/06/30  

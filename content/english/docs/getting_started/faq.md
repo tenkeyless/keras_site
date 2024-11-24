@@ -6,8 +6,7 @@ weight: 4
 type: docs
 ---
 
-> - Original Link : [https://keras.io/getting_started/faq/](https://keras.io/getting_started/faq/)
-> - Last Checked at : 2024-11-18
+{{< original checkedAt="2024-11-18" >}}
 
 A list of frequently Asked Keras Questions.
 

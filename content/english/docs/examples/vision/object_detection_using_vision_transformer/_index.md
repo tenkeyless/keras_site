@@ -5,8 +5,7 @@ weight: 26
 type: docs
 ---
 
-> - Original Link : [https://keras.io/examples/vision/object_detection_using_vision_transformer/](https://keras.io/examples/vision/object_detection_using_vision_transformer/)
-> - Last Checked at : 2024-11-20
+{{< original checkedAt="2024-11-20" >}}
 
 **Author:** [Karan V. Dave](https://www.linkedin.com/in/karan-dave-811413164/)  
 **Date created:** 2022/03/27  

@@ -6,8 +6,7 @@ type: docs
 math: true
 ---
 
-> - Original Link : [https://keras.io/examples/vision/nerf/](https://keras.io/examples/vision/nerf/)
-> - Last Checked at : 2024-11-20
+{{< original checkedAt="2024-11-20" >}}
 
 **Authors:** [Aritra Roy Gosthipaty](https://twitter.com/arig23498), [Ritwik Raha](https://twitter.com/ritwik_raha)  
 **Date created:** 2021/08/09  

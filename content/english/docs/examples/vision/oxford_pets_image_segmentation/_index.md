@@ -5,8 +5,7 @@ weight: 20
 type: docs
 ---
 
-> - Original Link : [https://keras.io/examples/vision/oxford_pets_image_segmentation/](https://keras.io/examples/vision/oxford_pets_image_segmentation/)
-> - Last Checked at : 2024-11-20
+{{< original checkedAt="2024-11-20" >}}
 
 **Author:** [fchollet](https://twitter.com/fchollet)  
 **Date created:** 2019/03/20  

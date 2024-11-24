@@ -5,8 +5,7 @@ weight: 6
 type: docs
 ---
 
-> - Original Link : [https://keras.io/examples/audio/uk_ireland_accent_recognition/](https://keras.io/examples/audio/uk_ireland_accent_recognition/)
-> - Last Checked at : 2024-11-23
+{{< original checkedAt="2024-11-23" >}}
 
 **Author:** [Fadi Badine](https://twitter.com/fadibadine)  
 **Date created:** 2022/04/16  

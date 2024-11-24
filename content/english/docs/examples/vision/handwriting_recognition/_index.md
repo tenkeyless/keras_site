@@ -5,8 +5,7 @@ weight: 33
 type: docs
 ---
 
-> - Original Link : [https://keras.io/examples/vision/handwriting_recognition/](https://keras.io/examples/vision/handwriting_recognition/)
-> - Last Checked at : 2024-11-20
+{{< original checkedAt="2024-11-20" >}}
 
 **Authors:** [A_K_Nain](https://twitter.com/A_K_Nain), [Sayak Paul](https://twitter.com/RisingSayak)  
 **Date created:** 2021/08/16  

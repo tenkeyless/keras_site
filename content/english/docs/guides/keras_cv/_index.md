@@ -6,8 +6,7 @@ weight: 21
 type: docs
 ---
 
-> - Original Link : [https://keras.io/guides/keras_cv/](https://keras.io/guides/keras_cv/)
-> - Last Checked at : 2024-11-19
+{{< original checkedAt="2024-11-19" >}}
 
 These guides cover the [KerasCV]({{< relref "/docs/keras_cv" >}}) library.
 

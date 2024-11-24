@@ -6,8 +6,7 @@ weight: 12
 type: docs
 ---
 
-> - Original Link : [https://keras.io/guides/customizing_saving_and_serialization/](https://keras.io/guides/customizing_saving_and_serialization/)
-> - Last Checked at : 2024-11-18
+{{< original checkedAt="2024-11-18" >}}
 
 **Author:** Neel Kovelamudi  
 **Date created:** 2023/03/15  

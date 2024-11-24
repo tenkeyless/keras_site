@@ -5,8 +5,7 @@ weight: 10
 type: docs
 ---
 
-> - Original Link : [https://keras.io/examples/nlp/data_parallel_training_with_keras_hub/](https://keras.io/examples/nlp/data_parallel_training_with_keras_hub/)
-> - Last Checked at : 2024-11-21
+{{< original checkedAt="2024-11-21" >}}
 
 **Author:** Anshuman Mishra  
 **Date created:** 2023/07/07  

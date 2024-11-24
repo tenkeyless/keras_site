@@ -5,8 +5,7 @@ weight: 12
 type: docs
 ---
 
-> - Original Link : [https://keras.io/examples/keras_recipes/memory_efficient_embeddings/](https://keras.io/examples/keras_recipes/memory_efficient_embeddings/)
-> - Last Checked at : 2024-11-24
+{{< original checkedAt="2024-11-24" >}}
 
 **Author:** [Khalid Salama](https://www.linkedin.com/in/khalid-salama-24403144/)  
 **Date created:** 2021/02/15  

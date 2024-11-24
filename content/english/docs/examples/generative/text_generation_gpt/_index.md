@@ -5,8 +5,7 @@ weight: 21
 type: docs
 ---
 
-> - Original Link : [https://keras.io/examples/generative/text_generation_gpt/](https://keras.io/examples/generative/text_generation_gpt/)
-> - Last Checked at : 2024-11-23
+{{< original checkedAt="2024-11-23" >}}
 
 **Author:** [Jesse Chan](https://github.com/jessechancy)  
 **Date created:** 2022/07/25  

@@ -5,8 +5,7 @@ weight: 60
 type: docs
 ---
 
-> - Original Link : [https://keras.io/examples/vision/gradient_centralization/](https://keras.io/examples/vision/gradient_centralization/)
-> - Last Checked at : 2024-11-21
+{{< original checkedAt="2024-11-21" >}}
 
 **Author:** [Rishit Dagli](https://github.com/Rishit-dagli)  
 **Date created:** 2021/06/18  

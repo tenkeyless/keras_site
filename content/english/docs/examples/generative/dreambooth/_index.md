@@ -5,8 +5,7 @@ weight: 3
 type: docs
 ---
 
-> - Original Link : [https://keras.io/examples/generative/dreambooth/](https://keras.io/examples/generative/dreambooth/)
-> - Last Checked at : 2024-11-22
+{{< original checkedAt="2024-11-22" >}}
 
 **Author:** [Sayak Paul](https://twitter.com/RisingSayak), [Chansung Park](https://twitter.com/algo_diver)  
 **Date created:** 2023/02/01  

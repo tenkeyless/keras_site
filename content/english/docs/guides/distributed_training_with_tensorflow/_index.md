@@ -6,8 +6,7 @@ weight: 16
 type: docs
 ---
 
-> - Original Link : [https://keras.io/guides/distributed_training_with_tensorflow/](https://keras.io/guides/distributed_training_with_tensorflow/)
-> - Last Checked at : 2024-11-18
+{{< original checkedAt="2024-11-18" >}}
 
 **Author:** [fchollet](https://twitter.com/fchollet)  
 **Date created:** 2020/04/28  

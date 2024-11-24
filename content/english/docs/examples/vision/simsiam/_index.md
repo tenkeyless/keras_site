@@ -5,8 +5,7 @@ weight: 76
 type: docs
 ---
 
-> - Original Link : [https://keras.io/examples/vision/simsiam/](https://keras.io/examples/vision/simsiam/)
-> - Last Checked at : 2024-11-21
+{{< original checkedAt="2024-11-21" >}}
 
 **Author:** [Sayak Paul](https://twitter.com/RisingSayak)  
 **Date created:** 2021/03/19  

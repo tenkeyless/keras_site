@@ -6,8 +6,7 @@ weight: 3
 type: docs
 ---
 
-> - Original Link : [https://keras.io/guides/keras_tuner/custom_tuner/](https://keras.io/guides/keras_tuner/custom_tuner/)
-> - Last Checked at : 2024-11-18
+{{< original checkedAt="2024-11-18" >}}
 
 **Authors:** Tom O'Malley, Haifeng Jin  
 **Date created:** 2019/10/28  

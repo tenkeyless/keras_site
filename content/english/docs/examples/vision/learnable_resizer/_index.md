@@ -5,8 +5,7 @@ weight: 66
 type: docs
 ---
 
-> - Original Link : [https://keras.io/examples/vision/learnable_resizer/](https://keras.io/examples/vision/learnable_resizer/)
-> - Last Checked at : 2024-11-21
+{{< original checkedAt="2024-11-21" >}}
 
 **Author:** [Sayak Paul](https://twitter.com/RisingSayak)  
 **Date created:** 2021/04/30  

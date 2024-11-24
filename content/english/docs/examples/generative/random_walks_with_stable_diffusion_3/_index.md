@@ -5,8 +5,7 @@ weight: 27
 type: docs
 ---
 
-> - Original Link : [https://keras.io/examples/generative/random_walks_with_stable_diffusion_3/](https://keras.io/examples/generative/random_walks_with_stable_diffusion_3/)
-> - Last Checked at : 2024-11-23
+{{< original checkedAt="2024-11-23" >}}
 
 **Authors:** [Hongyu Chiu](https://github.com/james77777778), Ian Stenbit, [fchollet](https://twitter.com/fchollet), [lukewood](https://twitter.com/luke_wood_ml)  
 **Date created:** 2024/11/11  

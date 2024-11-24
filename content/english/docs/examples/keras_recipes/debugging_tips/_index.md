@@ -5,8 +5,7 @@ weight: 4
 type: docs
 ---
 
-> - Original Link : [https://keras.io/examples/keras_recipes/debugging_tips/](https://keras.io/examples/keras_recipes/debugging_tips/)
-> - Last Checked at : 2024-11-24
+{{< original checkedAt="2024-11-24" >}}
 
 **Author:** [fchollet](https://twitter.com/fchollet)  
 **Date created:** 2020/05/16  

@@ -6,8 +6,7 @@ weight: 20
 type: docs
 ---
 
-> - Original Link : [https://keras.io/guides/keras_tuner/](https://keras.io/guides/keras_tuner/)
-> - Last Checked at : 2024-11-18
+{{< original checkedAt="2024-11-18" >}}
 
 These guides cover KerasTuner best practices.
 

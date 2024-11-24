@@ -6,8 +6,7 @@ type: docs
 math: true
 ---
 
-> - Original Link : [https://keras.io/examples/vision/vit_small_ds/](https://keras.io/examples/vision/vit_small_ds/)
-> - Last Checked at : 2024-11-20
+{{< original checkedAt="2024-11-20" >}}
 
 **Author:** [Aritra Roy Gosthipaty](https://twitter.com/ariG23498)  
 **Date created:** 2022/01/07  

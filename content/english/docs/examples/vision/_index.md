@@ -4,8 +4,7 @@ toc: true
 weight: 1
 ---
 
-> - Original Link : [https://keras.io/examples/vision/](https://keras.io/examples/vision/)
-> - Last Checked at : 2024-11-21
+{{< original checkedAt="2024-11-21" >}}
 
 ### Image classification
 

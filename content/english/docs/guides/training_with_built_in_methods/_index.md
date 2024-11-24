@@ -5,8 +5,7 @@ weight: 4
 type: docs
 ---
 
-> - Original Link : [https://keras.io/guides/training_with_built_in_methods/](https://keras.io/guides/training_with_built_in_methods/)
-> - Last Checked at : 2024-11-18
+{{< original checkedAt="2024-11-18" >}}
 
 **Author:** [fchollet](https://twitter.com/fchollet)  
 **Date created:** 2019/03/01  

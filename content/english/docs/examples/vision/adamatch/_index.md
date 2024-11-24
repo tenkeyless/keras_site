@@ -5,8 +5,7 @@ weight: 67
 type: docs
 ---
 
-> - Original Link : [https://keras.io/examples/vision/adamatch/](https://keras.io/examples/vision/adamatch/)
-> - Last Checked at : 2024-11-21
+{{< original checkedAt="2024-11-21" >}}
 
 **Author:** [Sayak Paul](https://twitter.com/RisingSayak)  
 **Date created:** 2021/06/19  

@@ -5,8 +5,7 @@ weight: 4
 type: docs
 ---
 
-> - Original Link : [https://keras.io/examples/nlp/multi_label_classification/](https://keras.io/examples/nlp/multi_label_classification/)
-> - Last Checked at : 2024-11-21
+{{< original checkedAt="2024-11-21" >}}
 
 **Author:** [Sayak Paul](https://twitter.com/RisingSayak), [Soumik Rakshit](https://github.com/soumik12345)  
 **Date created:** 2020/09/25  

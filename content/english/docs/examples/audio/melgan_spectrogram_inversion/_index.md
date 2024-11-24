@@ -6,8 +6,7 @@ type: docs
 math: true
 ---
 
-> - Original Link : [https://keras.io/examples/audio/melgan_spectrogram_inversion/](https://keras.io/examples/audio/melgan_spectrogram_inversion/)
-> - Last Checked at : 2024-11-23
+{{< original checkedAt="2024-11-23" >}}
 
 **Author:** [Darshan Deshpande](https://twitter.com/getdarshan)  
 **Date created:** 2021/09/02  

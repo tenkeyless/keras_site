@@ -5,8 +5,7 @@ weight: 18
 type: docs
 ---
 
-> - Original Link : [https://keras.io/examples/generative/neural_style_transfer/](https://keras.io/examples/generative/neural_style_transfer/)
-> - Last Checked at : 2024-11-23
+{{< original checkedAt="2024-11-23" >}}
 
 **Author:** [fchollet](https://twitter.com/fchollet)  
 **Date created:** 2016/01/11  

@@ -5,8 +5,7 @@ weight: 9
 type: docs
 ---
 
-> - Original Link : [https://keras.io/examples/generative/wgan_gp/](https://keras.io/examples/generative/wgan_gp/)
-> - Last Checked at : 2024-11-23
+{{< original checkedAt="2024-11-23" >}}
 
 **Author:** [A_K_Nain](https://twitter.com/A_K_Nain)  
 **Date created:** 2020/05/9  

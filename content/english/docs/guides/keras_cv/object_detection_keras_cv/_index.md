@@ -6,8 +6,7 @@ weight: 1
 type: docs
 ---
 
-> - Original Link : [https://keras.io/guides/keras_cv/object_detection_keras_cv/](https://keras.io/guides/keras_cv/object_detection_keras_cv/)
-> - Last Checked at : 2024-11-19
+{{< original checkedAt="2024-11-19" >}}
 
 **Author:** [lukewood](https://twitter.com/luke_wood_ml), Ian Stenbit, Tirth Patel  
 **Date created:** 2023/04/08  

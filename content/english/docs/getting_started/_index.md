@@ -7,8 +7,7 @@ weight: 3
 type: docs
 ---
 
-> - Original Link : [https://keras.io/getting_started/](https://keras.io/getting_started/)
-> - Last Checked at : 2024-11-18
+{{< original checkedAt="2024-11-18" >}}
 
 ## Learning resources
 

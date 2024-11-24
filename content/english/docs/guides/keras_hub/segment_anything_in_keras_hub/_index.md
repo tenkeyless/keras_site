@@ -6,8 +6,7 @@ weight: 6
 type: docs
 ---
 
-> - Original Link : [https://keras.io/guides/keras_hub/segment_anything_in_keras_hub/](https://keras.io/guides/keras_hub/segment_anything_in_keras_hub/)
-> - Last Checked at : 2024-11-19
+{{< original checkedAt="2024-11-19" >}}
 
 **Author:** Tirth Patel, Ian Stenbit, Divyashree Sreepathihalli  
 **Date created:** 2024/10/1  

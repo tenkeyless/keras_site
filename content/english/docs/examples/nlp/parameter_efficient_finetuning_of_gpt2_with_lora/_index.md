@@ -5,8 +5,7 @@ weight: 24
 type: docs
 ---
 
-> - Original Link : [https://keras.io/examples/nlp/parameter_efficient_finetuning_of_gpt2_with_lora/](https://keras.io/examples/nlp/parameter_efficient_finetuning_of_gpt2_with_lora/)
-> - Last Checked at : 2024-11-21
+{{< original checkedAt="2024-11-21" >}}
 
 **Author:** [Abheesht Sharma](https://github.com/abheesht17/), [Matthew Watson](https://github.com/mattdangerw/)  
 **Date created:** 2023/05/27  

@@ -5,8 +5,7 @@ weight: 3
 type: docs
 ---
 
-> - Original Link : [https://keras.io/examples/rl/deep_q_network_breakout/](https://keras.io/examples/rl/deep_q_network_breakout/)
-> - Last Checked at : 2024-11-23
+{{< original checkedAt="2024-11-23" >}}
 
 **Author:** [Jacob Chapman](https://twitter.com/jacoblchapman) and [Mathias Lechner](https://twitter.com/MLech20)  
 **Date created:** 2020/05/23  

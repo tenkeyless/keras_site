@@ -5,8 +5,7 @@ weight: 42
 type: docs
 ---
 
-> - Original Link : [https://keras.io/examples/vision/image_captioning/](https://keras.io/examples/vision/image_captioning/)
-> - Last Checked at : 2024-11-20
+{{< original checkedAt="2024-11-20" >}}
 
 **Author:** [A_K_Nain](https://twitter.com/A_K_Nain)  
 **Date created:** 2021/05/29  

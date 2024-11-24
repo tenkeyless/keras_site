@@ -6,8 +6,7 @@ weight: 14
 type: docs
 ---
 
-> - Original Link : [https://keras.io/guides/transfer_learning/](https://keras.io/guides/transfer_learning/)
-> - Last Checked at : 2024-11-18
+{{< original checkedAt="2024-11-18" >}}
 
 **Author:** [fchollet](https://twitter.com/fchollet)  
 **Date created:** 2020/04/15  

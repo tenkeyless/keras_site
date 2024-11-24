@@ -5,8 +5,7 @@ weight: 44
 type: docs
 ---
 
-> - Original Link : [https://keras.io/examples/vision/visualizing_what_convnets_learn/](https://keras.io/examples/vision/visualizing_what_convnets_learn/)
-> - Last Checked at : 2024-11-20
+{{< original checkedAt="2024-11-20" >}}
 
 **Author:** [fchollet](https://twitter.com/fchollet)  
 **Date created:** 2020/05/29  

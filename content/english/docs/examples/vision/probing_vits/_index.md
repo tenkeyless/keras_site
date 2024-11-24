@@ -5,8 +5,7 @@ weight: 46
 type: docs
 ---
 
-> - Original Link : [https://keras.io/examples/vision/probing_vits/](https://keras.io/examples/vision/probing_vits/)
-> - Last Checked at : 2024-11-20
+{{< original checkedAt="2024-11-20" >}}
 
 **Authors:** [Aritra Roy Gosthipaty](https://twitter.com/ariG23498), [Sayak Paul](https://twitter.com/RisingSayak) (equal contribution)  
 **Date created:** 2022/04/12  

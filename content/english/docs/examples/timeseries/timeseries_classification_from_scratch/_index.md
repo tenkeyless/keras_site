@@ -5,8 +5,7 @@ weight: 1
 type: docs
 ---
 
-> - Original Link : [https://keras.io/examples/timeseries/timeseries_classification_from_scratch/](https://keras.io/examples/timeseries/timeseries_classification_from_scratch/)
-> - Last Checked at : 2024-11-22
+{{< original checkedAt="2024-11-22" >}}
 
 **Author:** [hfawaz](https://github.com/hfawaz/)  
 **Date created:** 2020/07/21  

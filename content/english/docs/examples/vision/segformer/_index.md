@@ -5,8 +5,7 @@ weight: 75
 type: docs
 ---
 
-> - Original Link : [https://keras.io/examples/vision/segformer/](https://keras.io/examples/vision/segformer/)
-> - Last Checked at : 2024-11-21
+{{< original checkedAt="2024-11-21" >}}
 
 **Author:** [Sayak Paul](https://twitter.com/RisingSayak)  
 **Date created:** 2023/01/25  

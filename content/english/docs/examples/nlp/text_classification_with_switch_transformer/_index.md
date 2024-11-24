@@ -5,8 +5,7 @@ weight: 6
 type: docs
 ---
 
-> - Original Link : [https://keras.io/examples/nlp/text_classification_with_switch_transformer/](https://keras.io/examples/nlp/text_classification_with_switch_transformer/)
-> - Last Checked at : 2024-11-21
+{{< original checkedAt="2024-11-21" >}}
 
 **Author:** [Khalid Salama](https://www.linkedin.com/in/khalid-salama-24403144/)  
 **Date created:** 2020/05/10  

@@ -5,8 +5,7 @@ weight: 11
 type: docs
 ---
 
-> - Original Link : [https://keras.io/examples/vision/eanet/](https://keras.io/examples/vision/eanet/)
-> - Last Checked at : 2024-11-20
+{{< original checkedAt="2024-11-20" >}}
 
 **Author:** [ZhiYong Chang](https://github.com/czy00000)  
 **Date created:** 2021/10/19  

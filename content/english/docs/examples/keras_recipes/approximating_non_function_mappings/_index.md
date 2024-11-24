@@ -5,8 +5,7 @@ weight: 15
 type: docs
 ---
 
-> - Original Link : [https://keras.io/examples/keras_recipes/approximating_non_function_mappings/](https://keras.io/examples/keras_recipes/approximating_non_function_mappings/)
-> - Last Checked at : 2024-11-24
+{{< original checkedAt="2024-11-24" >}}
 
 **Author:** [lukewood](https://twitter.com/luke_wood_ml)  
 **Date created:** 2023/07/15  

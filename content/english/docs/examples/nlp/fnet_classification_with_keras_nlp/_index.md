@@ -5,8 +5,7 @@ weight: 3
 type: docs
 ---
 
-> - Original Link : [https://keras.io/examples/nlp/fnet_classification_with_keras_nlp/](https://keras.io/examples/nlp/fnet_classification_with_keras_nlp/)
-> - Last Checked at : 2024-11-21
+{{< original checkedAt="2024-11-21" >}}
 
 **Author:** [Abheesht Sharma](https://github.com/abheesht17/)  
 **Date created:** 2022/06/01  

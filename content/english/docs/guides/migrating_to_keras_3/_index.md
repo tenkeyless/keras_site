@@ -6,8 +6,7 @@ weight: 19
 type: docs
 ---
 
-> - Original Link : [https://keras.io/guides/migrating_to_keras_3/](https://keras.io/guides/migrating_to_keras_3/)
-> - Last Checked at : 2024-11-18
+{{< original checkedAt="2024-11-18" >}}
 
 **Author:** [Divyashree Sreepathihalli](https://github.com/divyashreepathihalli)  
 **Date created:** 2023/10/23  

@@ -5,8 +5,7 @@ weight: 50
 type: docs
 ---
 
-> - Original Link : [https://keras.io/examples/vision/siamese_contrastive/](https://keras.io/examples/vision/siamese_contrastive/)
-> - Last Checked at : 2024-11-21
+{{< original checkedAt="2024-11-21" >}}
 
 **Author:** Mehdi  
 **Date created:** 2021/05/06  

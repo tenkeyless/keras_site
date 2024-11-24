@@ -5,8 +5,7 @@ weight: 65
 type: docs
 ---
 
-> - Original Link : [https://keras.io/examples/vision/patch_convnet/](https://keras.io/examples/vision/patch_convnet/)
-> - Last Checked at : 2024-11-21
+{{< original checkedAt="2024-11-21" >}}
 
 **Author:** [Aritra Roy Gosthipaty](https://twitter.com/ariG23498)  
 **Date created:** 2022/01/22  

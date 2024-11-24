@@ -5,8 +5,7 @@ weight: 14
 type: docs
 ---
 
-> - Original Link : [https://keras.io/examples/vision/reptile/](https://keras.io/examples/vision/reptile/)
-> - Last Checked at : 2024-11-20
+{{< original checkedAt="2024-11-20" >}}
 
 **Author:** [ADMoreau](https://github.com/ADMoreau)  
 **Date created:** 2020/05/21  

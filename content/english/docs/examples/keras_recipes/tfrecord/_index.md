@@ -5,8 +5,7 @@ weight: 19
 type: docs
 ---
 
-> - Original Link : [https://keras.io/examples/keras_recipes/tfrecord/](https://keras.io/examples/keras_recipes/tfrecord/)
-> - Last Checked at : 2024-11-24
+{{< original checkedAt="2024-11-24" >}}
 
 **Author:** Amy MiHyun Jang  
 **Date created:** 2020/07/29  

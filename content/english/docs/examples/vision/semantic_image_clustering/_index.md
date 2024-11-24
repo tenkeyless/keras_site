@@ -5,8 +5,7 @@ weight: 49
 type: docs
 ---
 
-> - Original Link : [https://keras.io/examples/vision/xray_classification_with_tpus/](https://keras.io/examples/vision/xray_classification_with_tpus/)
-> - Last Checked at : 2024-11-21
+{{< original checkedAt="2024-11-21" >}}
 
 **Author:** [Khalid Salama](https://www.linkedin.com/in/khalid-salama-24403144/)  
 **Date created:** 2021/02/28  

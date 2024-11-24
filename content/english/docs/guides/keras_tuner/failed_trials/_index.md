@@ -6,8 +6,7 @@ weight: 5
 type: docs
 ---
 
-> - Original Link : [https://keras.io/guides/functional_api/](https://keras.io/guides/functional_api/)
-> - Last Checked at : 2024-11-19
+{{< original checkedAt="2024-11-19" >}}
 
 **Authors:** Haifeng Jin  
 **Date created:** 2023/02/28  

@@ -5,8 +5,7 @@ weight: 17
 type: docs
 ---
 
-> - Original Link : [https://keras.io/examples/generative/vq_vae/](https://keras.io/examples/generative/vq_vae/)
-> - Last Checked at : 2024-11-23
+{{< original checkedAt="2024-11-23" >}}
 
 **Author:** [Sayak Paul](https://twitter.com/RisingSayak)  
 **Date created:** 2021/07/21  

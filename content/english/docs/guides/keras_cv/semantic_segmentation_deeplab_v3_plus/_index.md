@@ -6,8 +6,7 @@ weight: 6
 type: docs
 ---
 
-> - Original Link : [https://keras.io/guides/keras_cv/semantic_segmentation_deeplab_v3_plus/](https://keras.io/guides/keras_cv/semantic_segmentation_deeplab_v3_plus/)
-> - Last Checked at : 2024-11-19
+{{< original checkedAt="2024-11-19" >}}
 
 **Author:** [Divyashree Sreepathihalli](https://github.com/divyashreepathihalli), [Ian Stenbit](https://github.com/ianstenbit)  
 **Date created:** 2023/08/22  

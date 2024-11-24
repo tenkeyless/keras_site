@@ -5,8 +5,7 @@ weight: 37
 type: docs
 ---
 
-> - Original Link : [https://keras.io/examples/vision/edsr/](https://keras.io/examples/vision/edsr/)
-> - Last Checked at : 2024-11-20
+{{< original checkedAt="2024-11-20" >}}
 
 **Author:** Gitesh Chawda  
 **Date created:** 2022/04/07  

@@ -5,8 +5,7 @@ weight: 28
 type: docs
 ---
 
-> - Original Link : [https://keras.io/examples/nlp/t5_hf_summarization/](https://keras.io/examples/nlp/t5_hf_summarization/)
-> - Last Checked at : 2024-11-22
+{{< original checkedAt="2024-11-22" >}}
 
 **Author:** Sreyan Ghosh  
 **Date created:** 2022/07/04  

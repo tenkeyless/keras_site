@@ -6,8 +6,7 @@ weight: 2
 type: docs
 ---
 
-> - Original Link : [https://keras.io/getting_started/benchmarks/](https://keras.io/getting_started/benchmarks/)
-> - Last Checked at : 2024-11-18
+{{< original checkedAt="2024-11-18" >}}
 
 We benchmark the three backends of Keras 3 ([TensorFlow](https://tensorflow.org/), [JAX](https://jax.readthedocs.io/en/latest/), [PyTorch](https://pytorch.org/)) alongside Keras 2 with TensorFlow. Find code and setup details for reproducing our results [here](https://github.com/haifeng-jin/keras-benchmarks/tree/v0.0.5).
 

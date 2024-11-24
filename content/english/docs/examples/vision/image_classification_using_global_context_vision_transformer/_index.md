@@ -5,8 +5,7 @@ weight: 19
 type: docs
 ---
 
-> - Original Link : [https://keras.io/examples/vision/image_classification_using_global_context_vision_transformer/](https://keras.io/examples/vision/image_classification_using_global_context_vision_transformer/)
-> - Last Checked at : 2024-11-20
+{{< original checkedAt="2024-11-20" >}}
 
 **Author:** Md Awsafur Rahman  
 **Date created:** 2023/10/30  

@@ -4,8 +4,7 @@ toc: false
 weight: 2
 ---
 
-> - Original Link : [https://keras.io/examples/nlp/](https://keras.io/examples/nlp/)
-> - Last Checked at : 2024-11-22
+{{< original checkedAt="2024-11-22" >}}
 
 ### Text classification
 

@@ -5,8 +5,7 @@ weight: 2
 type: docs
 ---
 
-> - Original Link : [https://keras.io/examples/generative/random_walks_with_stable_diffusion/](https://keras.io/examples/generative/random_walks_with_stable_diffusion/)
-> - Last Checked at : 2024-11-22
+{{< original checkedAt="2024-11-22" >}}
 
 **Authors:** Ian Stenbit, [fchollet](https://twitter.com/fchollet), [lukewood](https://twitter.com/luke_wood_ml)  
 **Date created:** 2022/09/28  

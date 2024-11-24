@@ -5,8 +5,7 @@ weight: 2
 type: docs
 ---
 
-> - Original Link : [https://keras.io/examples/audio/ctc_asr/](https://keras.io/examples/audio/ctc_asr/)
-> - Last Checked at : 2024-11-23
+{{< original checkedAt="2024-11-23" >}}
 
 **Authors:** [Mohamed Reda Bouadjenek](https://rbouadjenek.github.io/) and [Ngoc Dung Huynh](https://www.linkedin.com/in/parkerhuynh/)  
 **Date created:** 2021/09/26  

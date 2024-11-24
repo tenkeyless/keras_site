@@ -5,8 +5,7 @@ weight: 24
 type: docs
 ---
 
-> - Original Link : [https://keras.io/examples/vision/retinanet/](https://keras.io/examples/vision/retinanet/)
-> - Last Checked at : 2024-11-20
+{{< original checkedAt="2024-11-20" >}}
 
 **Author:** [Srihari Humbarwadi](https://twitter.com/srihari_rh)  
 **Date created:** 2020/05/17  

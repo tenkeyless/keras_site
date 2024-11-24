@@ -5,8 +5,7 @@ weight: 2
 type: docs
 ---
 
-> - Original Link : [https://keras.io/examples/structured_data/feature_space_advanced/](https://keras.io/examples/structured_data/feature_space_advanced/)
-> - Last Checked at : 2024-11-22
+{{< original checkedAt="2024-11-22" >}}
 
 **Author:** [Dimitre Oliveira](https://www.linkedin.com/in/dimitre-oliveira-7a1a0113a/)  
 **Date created:** 2023/07/01  

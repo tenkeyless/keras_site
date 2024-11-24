@@ -5,8 +5,7 @@ weight: 13
 type: docs
 ---
 
-> - Original Link : [https://keras.io/examples/generative/deep_dream/](https://keras.io/examples/generative/deep_dream/)
-> - Last Checked at : 2024-11-23
+{{< original checkedAt="2024-11-23" >}}
 
 **Author:** [fchollet](https://twitter.com/fchollet)  
 **Date created:** 2016/01/13  

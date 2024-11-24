@@ -5,8 +5,7 @@ weight: 57
 type: docs
 ---
 
-> - Original Link : [https://keras.io/examples/vision/video_transformers/](https://keras.io/examples/vision/video_transformers/)
-> - Last Checked at : 2024-11-21
+{{< original checkedAt="2024-11-21" >}}
 
 **Author:** [Sayak Paul](https://twitter.com/RisingSayak)  
 **Date created:** 2021/08/06  

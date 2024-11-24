@@ -5,8 +5,7 @@ weight: 21
 type: docs
 ---
 
-> - Original Link : [https://keras.io/examples/nlp/masked_language_modeling/](https://keras.io/examples/nlp/masked_language_modeling/)
-> - Last Checked at : 2024-11-21
+{{< original checkedAt="2024-11-21" >}}
 
 **Author:** [Ankur Singh](https://twitter.com/ankur310794)  
 **Date created:** 2020/09/18  

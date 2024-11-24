@@ -5,8 +5,7 @@ weight: 7
 type: docs
 ---
 
-> - Original Link : [https://keras.io/examples/keras_recipes/endpoint_layer_pattern/](https://keras.io/examples/keras_recipes/endpoint_layer_pattern/)
-> - Last Checked at : 2024-11-24
+{{< original checkedAt="2024-11-24" >}}
 
 **Author:** [fchollet](https://twitter.com/fchollet)  
 **Date created:** 2019/05/10  

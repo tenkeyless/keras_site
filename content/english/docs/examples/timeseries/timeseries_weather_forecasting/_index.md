@@ -5,8 +5,7 @@ weight: 7
 type: docs
 ---
 
-> - Original Link : [https://keras.io/examples/timeseries/timeseries_weather_forecasting/](https://keras.io/examples/timeseries/timeseries_weather_forecasting/)
-> - Last Checked at : 2024-11-22
+{{< original checkedAt="2024-11-22" >}}
 
 **Authors:** [Prabhanshu Attri](https://prabhanshu.com/github), [Yashika Sharma](https://github.com/yashika51), [Kristi Takach](https://github.com/ktakattack), [Falak Shah](https://github.com/falaktheoptimist)  
 **Date created:** 2020/06/23  

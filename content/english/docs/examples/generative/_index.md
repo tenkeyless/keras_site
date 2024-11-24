@@ -4,8 +4,7 @@ toc: false
 weight: 5
 ---
 
-> - Original Link : [https://keras.io/examples/generative/](https://keras.io/examples/generative/)
-> - Last Checked at : 2024-11-23
+{{< original checkedAt="2024-11-23" >}}
 
 ### Image generation
 

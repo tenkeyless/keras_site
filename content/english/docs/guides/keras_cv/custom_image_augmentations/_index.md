@@ -6,8 +6,7 @@ weight: 5
 type: docs
 ---
 
-> - Original Link : [https://keras.io/guides/keras_cv/custom_image_augmentations/](https://keras.io/guides/keras_cv/custom_image_augmentations/)
-> - Last Checked at : 2024-11-19
+{{< original checkedAt="2024-11-19" >}}
 
 **Author:** [lukewood](https://twitter.com/luke_wood_ml)  
 **Date created:** 2022/04/26  

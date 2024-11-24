@@ -5,8 +5,7 @@ weight: 47
 type: docs
 ---
 
-> - Original Link : [https://keras.io/examples/vision/grad_cam/](https://keras.io/examples/vision/grad_cam/)
-> - Last Checked at : 2024-11-20
+{{< original checkedAt="2024-11-20" >}}
 
 **Author:** [fchollet](https://twitter.com/fchollet)  
 **Date created:** 2020/04/26  

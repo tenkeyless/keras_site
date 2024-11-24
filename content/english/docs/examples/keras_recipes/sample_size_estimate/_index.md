@@ -5,8 +5,7 @@ weight: 11
 type: docs
 ---
 
-> - Original Link : [https://keras.io/examples/keras_recipes/sample_size_estimate/](https://keras.io/examples/keras_recipes/sample_size_estimate/)
-> - Last Checked at : 2024-11-24
+{{< original checkedAt="2024-11-24" >}}
 
 **Author:** [JacoVerster](https://twitter.com/JacoVerster)  
 **Date created:** 2021/05/20  

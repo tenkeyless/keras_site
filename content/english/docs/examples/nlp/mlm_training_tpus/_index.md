@@ -5,8 +5,7 @@ weight: 25
 type: docs
 ---
 
-> - Original Link : [https://keras.io/examples/nlp/mlm_training_tpus/](https://keras.io/examples/nlp/mlm_training_tpus/)
-> - Last Checked at : 2024-11-21
+{{< original checkedAt="2024-11-21" >}}
 
 **Authors:** [Matthew Carrigan](https://twitter.com/carrigmat), [Sayak Paul](https://twitter.com/RisingSayak)  
 **Date created:** 2023/05/21  

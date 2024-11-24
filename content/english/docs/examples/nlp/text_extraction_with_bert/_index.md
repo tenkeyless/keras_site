@@ -5,8 +5,7 @@ weight: 16
 type: docs
 ---
 
-> - Original Link : [https://keras.io/examples/nlp/text_extraction_with_bert/](https://keras.io/examples/nlp/text_extraction_with_bert/)
-> - Last Checked at : 2024-11-21
+{{< original checkedAt="2024-11-21" >}}
 
 **Author:** [Apoorv Nandan](https://twitter.com/NandanApoorv)  
 **Date created:** 2020/05/23  

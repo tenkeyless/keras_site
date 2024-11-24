@@ -5,8 +5,7 @@ weight: 7
 type: docs
 ---
 
-> - Original Link : [https://keras.io/examples/nlp/tweet-classification-using-tfdf/](https://keras.io/examples/nlp/tweet-classification-using-tfdf/)
-> - Last Checked at : 2024-11-21
+{{< original checkedAt="2024-11-21" >}}
 
 **Author:** Gitesh Chawda  
 **Date created:** 2022/09/05  

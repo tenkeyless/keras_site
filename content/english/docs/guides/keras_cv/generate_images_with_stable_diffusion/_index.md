@@ -6,8 +6,7 @@ weight: 4
 type: docs
 ---
 
-> - Original Link : [https://keras.io/guides/keras_tuner/tailor_the_search_space/](https://keras.io/guides/keras_tuner/tailor_the_search_space/)
-> - Last Checked at : 2024-11-19
+{{< original checkedAt="2024-11-19" >}}
 
 **Authors:** [fchollet](https://twitter.com/fchollet), [lukewood](https://twitter.com/luke_wood_ml), [divamgupta](https://github.com/divamgupta)  
 **Date created:** 2022/09/25  

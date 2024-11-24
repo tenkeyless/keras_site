@@ -5,8 +5,7 @@ weight: 5
 type: docs
 ---
 
-> - Original Link : [https://keras.io/examples/keras_recipes/parameter_efficient_finetuning_of_gemma_with_lora_and_qlora/](https://keras.io/examples/keras_recipes/parameter_efficient_finetuning_of_gemma_with_lora_and_qlora/)
-> - Last Checked at : 2024-11-24
+{{< original checkedAt="2024-11-24" >}}
 
 **Author:** [lukewood](https://lukewood.xyz)  
 **Date created:** 2021/03/11  

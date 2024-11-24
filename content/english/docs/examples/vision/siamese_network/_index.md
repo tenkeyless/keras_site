@@ -5,8 +5,7 @@ weight: 51
 type: docs
 ---
 
-> - Original Link : [https://keras.io/examples/vision/siamese_network/](https://keras.io/examples/vision/siamese_network/)
-> - Last Checked at : 2024-11-21
+{{< original checkedAt="2024-11-21" >}}
 
 **Authors:** [Hazem Essam](https://twitter.com/hazemessamm) and [Santiago L. Valdarrama](https://twitter.com/svpino)  
 **Date created:** 2021/03/25  

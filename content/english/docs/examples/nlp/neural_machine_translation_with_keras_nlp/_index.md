@@ -5,8 +5,7 @@ weight: 11
 type: docs
 ---
 
-> - Original Link : [https://keras.io/examples/nlp/neural_machine_translation_with_keras_nlp/](https://keras.io/examples/nlp/neural_machine_translation_with_keras_nlp/)
-> - Last Checked at : 2024-11-21
+{{< original checkedAt="2024-11-21" >}}
 
 **Author:** [Abheesht Sharma](https://github.com/abheesht17/)  
 **Date created:** 2022/05/26  

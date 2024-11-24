@@ -7,8 +7,7 @@ weight: 1
 type: docs
 ---
 
-> - Original Link : [https://keras.io/keras_3/](https://keras.io/keras_3/)
-> - Last Checked at : 2024-11-18
+{{< original checkedAt="2024-11-18" >}}
 
 {{< cards >}}
 {{< card link="/docs/getting_started" title="Get started" icon="bookmark-alt" >}}

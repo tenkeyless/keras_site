@@ -5,8 +5,7 @@ weight: 77
 type: docs
 ---
 
-> - Original Link : [https://keras.io/examples/vision/supervised-contrastive-learning/](https://keras.io/examples/vision/supervised-contrastive-learning/)
-> - Last Checked at : 2024-11-21
+{{< original checkedAt="2024-11-21" >}}
 
 **Author:** [Khalid Salama](https://www.linkedin.com/in/khalid-salama-24403144/)  
 **Date created:** 2020/11/30  

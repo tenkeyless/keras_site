@@ -6,8 +6,7 @@ weight: 6
 type: docs
 ---
 
-> - Original Link : [https://keras.io/guides/custom_train_step_in_tensorflow/](https://keras.io/guides/custom_train_step_in_tensorflow/)
-> - Last Checked at : 2024-11-18
+{{< original checkedAt="2024-11-18" >}}
 
 **Author:** [fchollet](https://twitter.com/fchollet)  
 **Date created:** 2020/04/15  

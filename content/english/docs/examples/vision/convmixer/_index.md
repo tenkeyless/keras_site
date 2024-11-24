@@ -5,8 +5,7 @@ weight: 10
 type: docs
 ---
 
-> - Original Link : [https://keras.io/examples/vision/convmixer/](https://keras.io/examples/vision/convmixer/)
-> - Last Checked at : 2024-11-20
+{{< original checkedAt="2024-11-20" >}}
 
 **Author:** [Sayak Paul](https://twitter.com/RisingSayak)  
 **Date created:** 2021/10/12  

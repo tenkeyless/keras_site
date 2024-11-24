@@ -5,8 +5,7 @@ weight: 6
 type: docs
 ---
 
-> - Original Link : [https://keras.io/examples/timeseries/timeseries_traffic_forecasting/](https://keras.io/examples/timeseries/timeseries_traffic_forecasting/)
-> - Last Checked at : 2024-11-22
+{{< original checkedAt="2024-11-22" >}}
 
 **Author:** [Arash Khodadadi](https://www.linkedin.com/in/arash-khodadadi-08a02490/)  
 **Date created:** 2021/12/28  

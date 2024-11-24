@@ -4,8 +4,7 @@ toc: false
 weight: 3
 ---
 
-> - Original Link : [https://keras.io/examples/structured_data/](https://keras.io/examples/structured_data/)
-> - Last Checked at : 2024-11-22
+{{< original checkedAt="2024-11-22" >}}
 
 ### Structured data classification
 

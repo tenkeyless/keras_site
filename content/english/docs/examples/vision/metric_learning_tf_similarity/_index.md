@@ -5,8 +5,7 @@ weight: 53
 type: docs
 ---
 
-> - Original Link : [https://keras.io/examples/vision/metric_learning_tf_similarity/](https://keras.io/examples/vision/metric_learning_tf_similarity/)
-> - Last Checked at : 2024-11-21
+{{< original checkedAt="2024-11-21" >}}
 
 **Author:** [Owen Vallis](https://twitter.com/owenvallis)  
 **Date created:** 2021/09/30  

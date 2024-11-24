@@ -5,8 +5,7 @@ weight: 22
 type: docs
 ---
 
-> - Original Link : [https://keras.io/examples/generative/text_generation_with_miniature_gpt/](https://keras.io/examples/generative/text_generation_with_miniature_gpt/)
-> - Last Checked at : 2024-11-23
+{{< original checkedAt="2024-11-23" >}}
 
 **Author:** [Apoorv Nandan](https://twitter.com/NandanApoorv)  
 **Date created:** 2020/05/29  

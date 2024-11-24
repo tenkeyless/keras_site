@@ -6,8 +6,7 @@ weight: 4
 type: docs
 ---
 
-> - Original Link : [https://keras.io/guides/keras_tuner/visualize_tuning/](https://keras.io/guides/keras_tuner/visualize_tuning/)
-> - Last Checked at : 2024-11-19
+{{< original checkedAt="2024-11-19" >}}
 
 **Author:** Haifeng Jin  
 **Date created:** 2021/06/25  

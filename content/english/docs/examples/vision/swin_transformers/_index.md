@@ -5,8 +5,7 @@ weight: 16
 type: docs
 ---
 
-> - Original Link : [https://keras.io/examples/vision/swin_transformers/](https://keras.io/examples/vision/swin_transformers/)
-> - Last Checked at : 2024-11-20
+{{< original checkedAt="2024-11-20" >}}
 
 **Author:** [Rishit Dagli](https://twitter.com/rishit_dagli)  
 **Date created:** 2021/09/08  

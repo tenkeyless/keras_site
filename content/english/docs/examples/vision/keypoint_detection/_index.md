@@ -5,8 +5,7 @@ weight: 25
 type: docs
 ---
 
-> - Original Link : [https://keras.io/examples/vision/xray_classification_with_tpus/](https://keras.io/examples/vision/xray_classification_with_tpus/)
-> - Last Checked at : 2024-11-20
+{{< original checkedAt="2024-11-20" >}}
 
 **Author:** [Sayak Paul](https://twitter.com/RisingSayak), converted to Keras 3 by [Muhammad Anas Raza](https://anasrz.com)  
 **Date created:** 2021/05/02  

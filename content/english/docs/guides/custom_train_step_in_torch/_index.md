@@ -6,8 +6,7 @@ weight: 7
 type: docs
 ---
 
-> - Original Link : [https://keras.io/guides/custom_train_step_in_torch/](https://keras.io/guides/custom_train_step_in_torch/)
-> - Last Checked at : 2024-11-18
+{{< original checkedAt="2024-11-18" >}}
 
 **Author:** [fchollet](https://twitter.com/fchollet)  
 **Date created:** 2023/06/27  

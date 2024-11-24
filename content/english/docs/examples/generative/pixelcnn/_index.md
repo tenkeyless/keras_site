@@ -5,8 +5,7 @@ weight: 15
 type: docs
 ---
 
-> - Original Link : [https://keras.io/examples/generative/pixelcnn/](https://keras.io/examples/generative/pixelcnn/)
-> - Last Checked at : 2024-11-23
+{{< original checkedAt="2024-11-23" >}}
 
 **Author:** [ADMoreau](https://github.com/ADMoreau)  
 **Date created:** 2020/05/17  

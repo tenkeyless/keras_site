@@ -5,8 +5,7 @@ weight: 30
 type: docs
 ---
 
-> - Original Link : [https://keras.io/examples/vision/pointnet_segmentation/](https://keras.io/examples/vision/pointnet_segmentation/)
-> - Last Checked at : 2024-11-20
+{{< original checkedAt="2024-11-20" >}}
 
 **Author:** [Soumik Rakshit](https://github.com/soumik12345), [Sayak Paul](https://github.com/sayakpaul)  
 **Date created:** 2020/10/23  

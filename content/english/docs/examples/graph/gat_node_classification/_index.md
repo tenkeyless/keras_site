@@ -5,8 +5,7 @@ weight: 1
 type: docs
 ---
 
-> - Original Link : [https://keras.io/examples/graph/gat_node_classification/](https://keras.io/examples/graph/gat_node_classification/)
-> - Last Checked at : 2024-11-24
+{{< original checkedAt="2024-11-24" >}}
 
 **Author:** [akensert](https://github.com/akensert)  
 **Date created:** 2021/09/13  

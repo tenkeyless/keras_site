@@ -5,8 +5,7 @@ weight: 2
 type: docs
 ---
 
-> - Original Link : [https://keras.io/examples/rl/ppo_cartpole/](https://keras.io/examples/rl/ppo_cartpole/)
-> - Last Checked at : 2024-11-23
+{{< original checkedAt="2024-11-23" >}}
 
 **Author:** [Ilias Chrysovergis](https://twitter.com/iliachry)  
 **Date created:** 2021/06/24  

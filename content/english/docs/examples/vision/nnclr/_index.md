@@ -5,8 +5,7 @@ weight: 54
 type: docs
 ---
 
-> - Original Link : [https://keras.io/examples/vision/nnclr/](https://keras.io/examples/vision/nnclr/)
-> - Last Checked at : 2024-11-21
+{{< original checkedAt="2024-11-21" >}}
 
 **Author:** [Rishit Dagli](https://twitter.com/rishit_dagli)  
 **Date created:** 2021/09/13  

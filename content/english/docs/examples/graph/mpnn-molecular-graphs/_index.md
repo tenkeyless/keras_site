@@ -5,8 +5,7 @@ weight: 3
 type: docs
 ---
 
-> - Original Link : [https://keras.io/examples/graph/mpnn-molecular-graphs/](https://keras.io/examples/graph/mpnn-molecular-graphs/)
-> - Last Checked at : 2024-11-24
+{{< original checkedAt="2024-11-24" >}}
 
 **Author:** [akensert](http://github.com/akensert)  
 **Date created:** 2021/08/16  

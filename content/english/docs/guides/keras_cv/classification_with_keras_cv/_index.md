@@ -6,8 +6,7 @@ weight: 2
 type: docs
 ---
 
-> - Original Link : [https://keras.io/guides/keras_cv/classification_with_keras_cv/](https://keras.io/guides/keras_cv/classification_with_keras_cv/)
-> - Last Checked at : 2024-11-19
+{{< original checkedAt="2024-11-19" >}}
 
 **Author:** [lukewood](https://lukewood.xyz)  
 **Date created:** 03/28/2023  

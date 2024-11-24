@@ -5,8 +5,7 @@ weight: 45
 type: docs
 ---
 
-> - Original Link : [https://keras.io/examples/vision/integrated_gradients/](https://keras.io/examples/vision/integrated_gradients/)
-> - Last Checked at : 2024-11-20
+{{< original checkedAt="2024-11-20" >}}
 
 **Author:** [A_K_Nain](https://twitter.com/A_K_Nain)  
 **Date created:** 2020/06/02  

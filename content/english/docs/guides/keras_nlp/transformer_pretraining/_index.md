@@ -6,8 +6,7 @@ weight: 2
 type: docs
 ---
 
-> - Original Link : [https://keras.io/guides/keras_nlp/transformer_pretraining/](https://keras.io/guides/keras_nlp/transformer_pretraining/)
-> - Last Checked at : 2024-11-19
+{{< original checkedAt="2024-11-19" >}}
 
 **Author:** [Matthew Watson](https://github.com/mattdangerw/)  
 **Date created:** 2022/04/18  

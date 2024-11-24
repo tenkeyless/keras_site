@@ -5,8 +5,7 @@ weight: 58
 type: docs
 ---
 
-> - Original Link : [https://keras.io/examples/vision/vivit/](https://keras.io/examples/vision/vivit/)
-> - Last Checked at : 2024-11-21
+{{< original checkedAt="2024-11-21" >}}
 
 **Author:** [Aritra Roy Gosthipaty](https://twitter.com/ariG23498), [Ayush Thakur](https://twitter.com/ayushthakur0) (equal contribution)  
 **Date created:** 2022/01/12  

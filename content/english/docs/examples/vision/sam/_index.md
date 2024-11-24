@@ -5,8 +5,7 @@ weight: 74
 type: docs
 ---
 
-> - Original Link : [https://keras.io/examples/vision/sam/](https://keras.io/examples/vision/sam/)
-> - Last Checked at : 2024-11-21
+{{< original checkedAt="2024-11-21" >}}
 
 **Authors:** [Merve Noyan](https://twitter.com/mervenoyann) & [Sayak Paul](https://twitter.com/RisingSayak)  
 **Date created:** 2023/07/11  

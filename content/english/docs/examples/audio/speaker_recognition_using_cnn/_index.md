@@ -5,8 +5,7 @@ weight: 4
 type: docs
 ---
 
-> - Original Link : [https://keras.io/examples/audio/speaker_recognition_using_cnn/](https://keras.io/examples/audio/speaker_recognition_using_cnn/)
-> - Last Checked at : 2024-11-23
+{{< original checkedAt="2024-11-23" >}}
 
 **Author:** [Fadi Badine](https://twitter.com/fadibadine)  
 **Date created:** 14/06/2020  

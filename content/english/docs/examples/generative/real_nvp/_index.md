@@ -5,8 +5,7 @@ weight: 28
 type: docs
 ---
 
-> - Original Link : [https://keras.io/examples/generative/real_nvp/](https://keras.io/examples/generative/real_nvp/)
-> - Last Checked at : 2024-11-23
+{{< original checkedAt="2024-11-23" >}}
 
 **Authors:** [Mandolini Giorgio Maria](https://www.linkedin.com/in/giorgio-maria-mandolini-a2a1b71b4/), [Sanna Daniele](https://www.linkedin.com/in/daniele-sanna-338629bb/), [Zannini Quirini Giorgio](https://www.linkedin.com/in/giorgio-zannini-quirini-16ab181a0/)  
 **Date created:** 2020/08/10  

@@ -6,8 +6,7 @@ weight: 7
 type: docs
 ---
 
-> - Original Link : [https://keras.io/guides/keras_cv/segment_anything_in_keras_cv/](https://keras.io/guides/keras_cv/segment_anything_in_keras_cv/)
-> - Last Checked at : 2024-11-19
+{{< original checkedAt="2024-11-19" >}}
 
 **Author:** Tirth Patel, Ian Stenbit  
 **Date created:** 2023/12/04  

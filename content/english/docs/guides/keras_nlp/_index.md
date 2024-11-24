@@ -6,8 +6,7 @@ weight: 22
 type: docs
 ---
 
-> - Original Link : [https://keras.io/guides/keras_nlp/](https://keras.io/guides/keras_nlp/)
-> - Last Checked at : 2024-11-19
+{{< original checkedAt="2024-11-19" >}}
 
 These guides cover the [KerasNLP]({{< relref "/docs/keras_nlp" >}}) library.
 

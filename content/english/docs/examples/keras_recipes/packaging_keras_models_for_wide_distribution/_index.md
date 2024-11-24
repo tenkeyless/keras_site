@@ -5,8 +5,7 @@ weight: 14
 type: docs
 ---
 
-> - Original Link : [https://keras.io/examples/keras_recipes/packaging_keras_models_for_wide_distribution/](https://keras.io/examples/keras_recipes/packaging_keras_models_for_wide_distribution/)
-> - Last Checked at : 2024-11-24
+{{< original checkedAt="2024-11-24" >}}
 
 **Author:** Martin Görner  
 **Date created:** 2023/12/13  

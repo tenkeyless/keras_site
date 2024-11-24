@@ -5,8 +5,7 @@ weight: 62
 type: docs
 ---
 
-> - Original Link : [https://keras.io/examples/vision/knowledge_distillation/](https://keras.io/examples/vision/knowledge_distillation/)
-> - Last Checked at : 2024-11-21
+{{< original checkedAt="2024-11-21" >}}
 
 **Author:** [Kenneth Borup](https://twitter.com/Kennethborup)  
 **Date created:** 2020/09/01  

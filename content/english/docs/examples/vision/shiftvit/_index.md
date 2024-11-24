@@ -5,8 +5,7 @@ weight: 18
 type: docs
 ---
 
-> - Original Link : [https://keras.io/examples/vision/shiftvit/](https://keras.io/examples/vision/shiftvit/)
-> - Last Checked at : 2024-11-20
+{{< original checkedAt="2024-11-20" >}}
 
 **Author:** [Aritra Roy Gosthipaty](https://twitter.com/ariG23498), [Ritwik Raha](https://twitter.com/ritwik_raha), [Shivalika Singh](https://www.linkedin.com/in/shivalika-singh/)  
 **Date created:** 2022/02/24  

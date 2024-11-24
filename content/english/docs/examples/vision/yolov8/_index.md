@@ -5,8 +5,7 @@ weight: 79
 type: docs
 ---
 
-> - Original Link : [https://keras.io/examples/vision/yolov8/](https://keras.io/examples/vision/yolov8/)
-> - Last Checked at : 2024-11-21
+{{< original checkedAt="2024-11-21" >}}
 
 **Author:** [Gitesh Chawda](https://twitter.com/gitesh12_)  
 **Date created:** 2023/06/26  

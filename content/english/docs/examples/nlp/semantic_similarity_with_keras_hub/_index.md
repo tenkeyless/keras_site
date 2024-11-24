@@ -5,8 +5,7 @@ weight: 18
 type: docs
 ---
 
-> - Original Link : [https://keras.io/examples/nlp/semantic_similarity_with_keras_hub/](https://keras.io/examples/nlp/semantic_similarity_with_keras_hub/)
-> - Last Checked at : 2024-11-21
+{{< original checkedAt="2024-11-21" >}}
 
 **Author:** [Anshuman Mishra](https://github.com/shivance/)  
 **Date created:** 2023/02/25  

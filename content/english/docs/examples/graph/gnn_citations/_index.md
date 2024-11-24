@@ -5,8 +5,7 @@ weight: 2
 type: docs
 ---
 
-> - Original Link : [https://keras.io/examples/graph/gnn_citations/](https://keras.io/examples/graph/gnn_citations/)
-> - Last Checked at : 2024-11-24
+{{< original checkedAt="2024-11-24" >}}
 
 **Author:** [Khalid Salama](https://www.linkedin.com/in/khalid-salama-24403144/)  
 **Date created:** 2021/05/30  

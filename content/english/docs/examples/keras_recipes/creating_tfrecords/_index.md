@@ -5,8 +5,7 @@ weight: 13
 type: docs
 ---
 
-> - Original Link : [https://keras.io/examples/keras_recipes/creating_tfrecords/](https://keras.io/examples/keras_recipes/creating_tfrecords/)
-> - Last Checked at : 2024-11-24
+{{< original checkedAt="2024-11-24" >}}
 
 **Author:** [Dimitre Oliveira](https://www.linkedin.com/in/dimitre-oliveira-7a1a0113a/)  
 **Date created:** 2021/02/27  

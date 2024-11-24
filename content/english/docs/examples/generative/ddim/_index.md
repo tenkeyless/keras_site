@@ -5,8 +5,7 @@ weight: 1
 type: docs
 ---
 
-> - Original Link : [https://keras.io/examples/generative/ddim/](https://keras.io/examples/generative/ddim/)
-> - Last Checked at : 2024-11-22
+{{< original checkedAt="2024-11-22" >}}
 
 **Author:** [András Béres](https://www.linkedin.com/in/andras-beres-789190210)  
 **Date created:** 2022/06/24  

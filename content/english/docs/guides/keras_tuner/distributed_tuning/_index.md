@@ -6,8 +6,7 @@ weight: 2
 type: docs
 ---
 
-> - Original Link : [https://keras.io/guides/keras_tuner/distributed_tuning/](https://keras.io/guides/keras_tuner/distributed_tuning/)
-> - Last Checked at : 2024-11-18
+{{< original checkedAt="2024-11-18" >}}
 
 **Authors:** Tom O'Malley, Haifeng Jin  
 **Date created:** 2019/10/24  

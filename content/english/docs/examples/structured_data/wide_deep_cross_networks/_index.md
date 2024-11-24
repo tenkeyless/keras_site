@@ -5,8 +5,7 @@ weight: 5
 type: docs
 ---
 
-> - Original Link : [https://keras.io/examples/structured_data/wide_deep_cross_networks/](https://keras.io/examples/structured_data/wide_deep_cross_networks/)
-> - Last Checked at : 2024-11-22
+{{< original checkedAt="2024-11-22" >}}
 
 **Author:** [Khalid Salama](https://www.linkedin.com/in/khalid-salama-24403144/)  
 **Date created:** 2020/12/31  

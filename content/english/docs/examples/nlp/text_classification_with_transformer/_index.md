@@ -5,8 +5,7 @@ weight: 5
 type: docs
 ---
 
-> - Original Link : [https://keras.io/examples/nlp/text_classification_with_transformer/](https://keras.io/examples/nlp/text_classification_with_transformer/)
-> - Last Checked at : 2024-11-21
+{{< original checkedAt="2024-11-21" >}}
 
 **Author:** [Apoorv Nandan](https://twitter.com/NandanApoorv)  
 **Date created:** 2020/05/10  

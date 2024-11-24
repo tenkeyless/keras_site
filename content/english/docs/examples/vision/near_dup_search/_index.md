@@ -5,8 +5,7 @@ weight: 48
 type: docs
 ---
 
-> - Original Link : [https://keras.io/examples/vision/near_dup_search/](https://keras.io/examples/vision/near_dup_search/)
-> - Last Checked at : 2024-11-21
+{{< original checkedAt="2024-11-21" >}}
 
 **Author:** [Sayak Paul](https://twitter.com/RisingSayak)  
 **Date created:** 2021/09/10  

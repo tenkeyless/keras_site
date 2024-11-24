@@ -5,8 +5,7 @@ weight: 20
 type: docs
 ---
 
-> - Original Link : [https://keras.io/examples/nlp/sentence_embeddings_with_sbert/](https://keras.io/examples/nlp/sentence_embeddings_with_sbert/)
-> - Last Checked at : 2024-11-21
+{{< original checkedAt="2024-11-21" >}}
 
 **Author:** [Mohammed Abu El-Nasr](https://github.com/abuelnasr0)  
 **Date created:** 2023/07/14  

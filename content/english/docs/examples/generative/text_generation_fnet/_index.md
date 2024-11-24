@@ -5,8 +5,7 @@ weight: 24
 type: docs
 ---
 
-> - Original Link : [https://keras.io/examples/generative/text_generation_fnet/](https://keras.io/examples/generative/text_generation_fnet/)
-> - Last Checked at : 2024-11-23
+{{< original checkedAt="2024-11-23" >}}
 
 **Author:** [Darshan Deshpande](https://twitter.com/getdarshan)  
 **Date created:** 2021/10/05  

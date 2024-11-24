@@ -5,8 +5,7 @@ weight: 12
 type: docs
 ---
 
-> - Original Link : [https://keras.io/examples/nlp/neural_machine_translation_with_transformer/](https://keras.io/examples/nlp/neural_machine_translation_with_transformer/)
-> - Last Checked at : 2024-11-21
+{{< original checkedAt="2024-11-21" >}}
 
 **Author:** [fchollet](https://twitter.com/fchollet)  
 **Date created:** 2021/05/26  

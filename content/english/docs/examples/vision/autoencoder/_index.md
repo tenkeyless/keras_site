@@ -5,8 +5,7 @@ weight: 34
 type: docs
 ---
 
-> - Original Link : [https://keras.io/examples/vision/autoencoder/](https://keras.io/examples/vision/autoencoder/)
-> - Last Checked at : 2024-11-20
+{{< original checkedAt="2024-11-20" >}}
 
 **Author:** [Santiago L. Valdarrama](https://twitter.com/svpino)  
 **Date created:** 2021/03/01  

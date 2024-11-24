@@ -5,8 +5,7 @@ weight: 7
 type: docs
 ---
 
-> - Original Link : [https://keras.io/examples/audio/wav2vec2_audiocls/](https://keras.io/examples/audio/wav2vec2_audiocls/)
-> - Last Checked at : 2024-11-23
+{{< original checkedAt="2024-11-23" >}}
 
 **Author:** Sreyan Ghosh  
 **Date created:** 2022/07/01  

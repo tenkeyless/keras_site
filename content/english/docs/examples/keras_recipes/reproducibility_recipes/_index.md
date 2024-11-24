@@ -5,8 +5,7 @@ weight: 8
 type: docs
 ---
 
-> - Original Link : [https://keras.io/examples/keras_recipes/reproducibility_recipes/](https://keras.io/examples/keras_recipes/reproducibility_recipes/)
-> - Last Checked at : 2024-11-24
+{{< original checkedAt="2024-11-24" >}}
 
 **Author:** [Frightera](https://github.com/Frightera)  
 **Date created:** 2023/05/05  

@@ -6,8 +6,7 @@ weight: 6
 type: docs
 ---
 
-> - Original Link : [https://keras.io/guides/keras_tuner/tailor_the_search_space/](https://keras.io/guides/keras_tuner/tailor_the_search_space/)
-> - Last Checked at : 2024-11-19
+{{< original checkedAt="2024-11-19" >}}
 
 **Authors:** Luca Invernizzi, James Long, Francois Chollet, Tom O'Malley, Haifeng Jin  
 **Date created:** 2019/05/31  

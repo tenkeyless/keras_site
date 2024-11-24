@@ -5,8 +5,7 @@ weight: 15
 type: docs
 ---
 
-> - Original Link : [https://keras.io/examples/nlp/ner_transformers/](https://keras.io/examples/nlp/ner_transformers/)
-> - Last Checked at : 2024-11-21
+{{< original checkedAt="2024-11-21" >}}
 
 **Author:** [Varun Singh](https://www.linkedin.com/in/varunsingh2/)  
 **Date created:** 2021/06/23  

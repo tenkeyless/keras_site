@@ -5,8 +5,7 @@ weight: 2
 type: docs
 ---
 
-> - Original Link : [https://keras.io/examples/keras_recipes/float8_training_and_inference_with_transformer/](https://keras.io/examples/keras_recipes/float8_training_and_inference_with_transformer/)
-> - Last Checked at : 2024-11-24
+{{< original checkedAt="2024-11-24" >}}
 
 **Author:** [Hongyu Chiu](https://github.com/james77777778)  
 **Date created:** 2024/05/14  

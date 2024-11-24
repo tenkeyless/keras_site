@@ -5,8 +5,7 @@ weight: 5
 type: docs
 ---
 
-> - Original Link : [hhttps://keras.io/examples/timeseries/timeseries_anomaly_detection/](https://keras.io/examples/timeseries/timeseries_anomaly_detection/)
-> - Last Checked at : 2024-11-22
+{{< original checkedAt="2024-11-22" >}}
 
 **Author:** [pavithrasv](https://github.com/pavithrasv)  
 **Date created:** 2020/05/31  

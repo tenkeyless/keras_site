@@ -5,8 +5,7 @@ weight: 38
 type: docs
 ---
 
-> - Original Link : [https://keras.io/examples/vision/zero_dce/](https://keras.io/examples/vision/zero_dce/)
-> - Last Checked at : 2024-11-20
+{{< original checkedAt="2024-11-20" >}}
 
 **Author:** [Soumik Rakshit](http://github.com/soumik12345)  
 **Date created:** 2021/09/18  

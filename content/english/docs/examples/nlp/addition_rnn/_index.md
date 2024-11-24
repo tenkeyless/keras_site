@@ -5,8 +5,7 @@ weight: 17
 type: docs
 ---
 
-> - Original Link : [https://keras.io/examples/nlp/addition_rnn/](https://keras.io/examples/nlp/addition_rnn/)
-> - Last Checked at : 2024-11-21
+{{< original checkedAt="2024-11-21" >}}
 
 **Author:** [Smerity](https://twitter.com/Smerity) and others  
 **Date created:** 2015/08/17  

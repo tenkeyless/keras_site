@@ -5,8 +5,7 @@ weight: 8
 type: docs
 ---
 
-> - Original Link : [https://keras.io/examples/nlp/pretrained_word_embeddings/](https://keras.io/examples/nlp/pretrained_word_embeddings/)
-> - Last Checked at : 2024-11-21
+{{< original checkedAt="2024-11-21" >}}
 
 **Author:** [fchollet](https://twitter.com/fchollet)  
 **Date created:** 2020/05/05  

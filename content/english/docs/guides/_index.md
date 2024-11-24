@@ -5,8 +5,7 @@ weight: 4
 type: docs
 ---
 
-> - Original Link : [https://keras.io/guides/](https://keras.io/guides/)
-> - Last Checked at : 2024-11-18
+{{< original checkedAt="2024-11-18" >}}
 
 Our developer guides are deep-dives into specific topics such as layer subclassing, fine-tuning, or model saving. They're one of the best ways to become a Keras expert.
 

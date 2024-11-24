@@ -6,8 +6,7 @@ weight: 1
 type: docs
 ---
 
-> - Original Link : [https://keras.io/guides/keras_nlp/getting_started/](https://keras.io/guides/keras_nlp/getting_started/)
-> - Last Checked at : 2024-11-19
+{{< original checkedAt="2024-11-19" >}}
 
 **Author:** [Jonathan Bischof](https://github.com/jbischof)  
 **Date created:** 2022/12/15  

@@ -5,8 +5,7 @@ weight: 14
 type: docs
 ---
 
-> - Original Link : [https://keras.io/examples/generative/gaugan/](https://keras.io/examples/generative/gaugan/)
-> - Last Checked at : 2024-11-23
+{{< original checkedAt="2024-11-23" >}}
 
 **Author:** [Soumik Rakshit](https://github.com/soumik12345), [Sayak Paul](https://twitter.com/RisingSayak)  
 **Date created:** 2021/12/26  

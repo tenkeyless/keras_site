@@ -5,8 +5,7 @@ weight: 20
 type: docs
 ---
 
-> - Original Link : [https://keras.io/examples/generative/gpt2_text_generation_with_kerasnlp/](https://keras.io/examples/generative/gpt2_text_generation_with_kerasnlp/)
-> - Last Checked at : 2024-11-23
+{{< original checkedAt="2024-11-23" >}}
 
 **Author:** Chen Qian  
 **Date created:** 2023/04/17  

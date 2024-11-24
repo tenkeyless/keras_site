@@ -5,8 +5,7 @@ weight: 16
 type: docs
 ---
 
-> - Original Link : [https://keras.io/examples/keras_recipes/bayesian_neural_networks/](https://keras.io/examples/keras_recipes/bayesian_neural_networks/)
-> - Last Checked at : 2024-11-24
+{{< original checkedAt="2024-11-24" >}}
 
 **Author:** [Khalid Salama](https://www.linkedin.com/in/khalid-salama-24403144/)  
 **Date created:** 2021/01/15  

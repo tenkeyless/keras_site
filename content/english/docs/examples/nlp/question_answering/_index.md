@@ -5,8 +5,7 @@ weight: 27
 type: docs
 ---
 
-> - Original Link : [https://keras.io/examples/nlp/question_answering/](https://keras.io/examples/nlp/question_answering/)
-> - Last Checked at : 2024-11-22
+{{< original checkedAt="2024-11-22" >}}
 
 **Author:** Matthew Carrigan and Merve Noyan  
 **Date created:** 2022/01/13  

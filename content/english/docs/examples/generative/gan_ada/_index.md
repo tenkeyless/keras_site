@@ -5,8 +5,7 @@ weight: 12
 type: docs
 ---
 
-> - Original Link : [https://keras.io/examples/generative/gan_ada/](https://keras.io/examples/generative/gan_ada/)
-> - Last Checked at : 2024-11-23
+{{< original checkedAt="2024-11-23" >}}
 
 **Author:** [András Béres](https://www.linkedin.com/in/andras-beres-789190210)  
 **Date created:** 2021/10/28  

@@ -5,8 +5,7 @@ weight: 19
 type: docs
 ---
 
-> - Original Link : [https://keras.io/examples/nlp/semantic_similarity_with_bert/](https://keras.io/examples/nlp/semantic_similarity_with_bert/)
-> - Last Checked at : 2024-11-21
+{{< original checkedAt="2024-11-21" >}}
 
 **Author:** [Mohamad Merchant](https://twitter.com/mohmadmerchant1)  
 **Date created:** 2020/08/15  

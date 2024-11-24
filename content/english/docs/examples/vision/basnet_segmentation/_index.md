@@ -5,8 +5,7 @@ weight: 22
 type: docs
 ---
 
-> - Original Link : [https://keras.io/examples/vision/basnet_segmentation/](https://keras.io/examples/vision/basnet_segmentation/)
-> - Last Checked at : 2024-11-20
+{{< original checkedAt="2024-11-20" >}}
 
 **Author:** [Hamid Ali](https://github.com/hamidriasat)  
 **Date created:** 2023/05/30  

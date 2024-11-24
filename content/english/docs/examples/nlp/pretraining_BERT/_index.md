@@ -5,8 +5,7 @@ weight: 23
 type: docs
 ---
 
-> - Original Link : [https://keras.io/examples/nlp/pretraining_BERT/](https://keras.io/examples/nlp/pretraining_BERT/)
-> - Last Checked at : 2024-11-21
+{{< original checkedAt="2024-11-21" >}}
 
 **Author:** Sreyan Ghosh  
 **Date created:** 2022/07/01  

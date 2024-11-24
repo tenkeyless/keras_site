@@ -5,8 +5,7 @@ weight: 2
 type: docs
 ---
 
-> - Original Link : [https://keras.io/examples/timeseries/timeseries_classification_transformer/](https://keras.io/examples/timeseries/timeseries_classification_transformer/)
-> - Last Checked at : 2024-11-22
+{{< original checkedAt="2024-11-22" >}}
 
 **Author:** [Theodoros Ntakouris](https://github.com/ntakouris)  
 **Date created:** 2021/06/25  

@@ -5,8 +5,7 @@ weight: 61
 type: docs
 ---
 
-> - Original Link : [https://keras.io/examples/vision/token_learner/](https://keras.io/examples/vision/token_learner/)
-> - Last Checked at : 2024-11-21
+{{< original checkedAt="2024-11-21" >}}
 
 **Authors:** [Aritra Roy Gosthipaty](https://twitter.com/ariG23498), [Sayak Paul](https://twitter.com/RisingSayak) (equal contribution), converted to Keras 3 by [Muhammad Anas Raza](https://anasrz.com)  
 **Date created:** 2021/12/10  

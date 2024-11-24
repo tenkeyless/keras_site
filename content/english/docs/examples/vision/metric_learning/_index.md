@@ -5,8 +5,7 @@ weight: 52
 type: docs
 ---
 
-> - Original Link : [https://keras.io/examples/vision/metric_learning/](https://keras.io/examples/vision/metric_learning/)
-> - Last Checked at : 2024-11-21
+{{< original checkedAt="2024-11-21" >}}
 
 **Author:** [Mat Kelcey](https://twitter.com/mat_kelcey)  
 **Date created:** 2020/06/05  

@@ -6,8 +6,7 @@ weight: 1
 type: docs
 ---
 
-> - Original Link : [https://keras.io/getting_started/intro_to_keras_for_engineers/](https://keras.io/getting_started/intro_to_keras_for_engineers/)
-> - Last Checked at : 2024-11-18
+{{< original checkedAt="2024-11-18" >}}
 
 **Author:** [fchollet](https://twitter.com/fchollet)  
 **Date created:** 2023/07/10  

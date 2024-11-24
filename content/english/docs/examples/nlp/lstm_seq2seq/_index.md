@@ -5,8 +5,7 @@ weight: 13
 type: docs
 ---
 
-> - Original Link : [https://keras.io/examples/nlp/lstm_seq2seq/](https://keras.io/examples/nlp/lstm_seq2seq/)
-> - Last Checked at : 2024-11-21
+{{< original checkedAt="2024-11-21" >}}
 
 **Author:** [fchollet](https://twitter.com/fchollet)  
 **Date created:** 2017/09/29  

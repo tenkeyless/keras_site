@@ -4,8 +4,7 @@ toc: false
 weight: 4
 ---
 
-> - Original Link : [https://keras.io/examples/timeseries/](https://keras.io/examples/timeseries/)
-> - Last Checked at : 2024-11-22
+{{< original checkedAt="2024-11-22" >}}
 
 ### Timeseries classification
 

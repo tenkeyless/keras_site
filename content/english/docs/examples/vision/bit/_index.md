@@ -5,8 +5,7 @@ weight: 59
 type: docs
 ---
 
-> - Original Link : [https://keras.io/examples/vision/bit/](https://keras.io/examples/vision/bit/)
-> - Last Checked at : 2024-11-21
+{{< original checkedAt="2024-11-21" >}}
 
 **Author:** [Sayan Nath](https://twitter.com/sayannath2350)  
 **Date created:** 2021/09/24  

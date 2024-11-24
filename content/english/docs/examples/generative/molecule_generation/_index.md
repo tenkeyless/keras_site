@@ -6,8 +6,7 @@ type: docs
 math: true
 ---
 
-> - Original Link : [https://keras.io/examples/generative/molecule_generation/](https://keras.io/examples/generative/molecule_generation/)
-> - Last Checked at : 2024-11-23
+{{< original checkedAt="2024-11-23" >}}
 
 **Author:** [Victor Basu](https://www.linkedin.com/in/victor-basu-520958147)  
 **Date created:** 2022/03/10  

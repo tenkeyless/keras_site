@@ -5,8 +5,7 @@ weight: 43
 type: docs
 ---
 
-> - Original Link : [https://keras.io/examples/vision/nl_image_search/](https://keras.io/examples/vision/nl_image_search/)
-> - Last Checked at : 2024-11-20
+{{< original checkedAt="2024-11-20" >}}
 
 **Author:** [Khalid Salama](https://www.linkedin.com/in/khalid-salama-24403144/)  
 **Date created:** 2021/01/30  

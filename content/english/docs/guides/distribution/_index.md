@@ -6,8 +6,7 @@ weight: 18
 type: docs
 ---
 
-> - Original Link : [https://keras.io/guides/distribution/](https://keras.io/guides/distribution/)
-> - Last Checked at : 2024-11-18
+{{< original checkedAt="2024-11-18" >}}
 
 **Author:** [Qianli Zhu](https://github.com/qlzh727)  
 **Date created:** 2023/11/07  

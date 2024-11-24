@@ -5,8 +5,7 @@ weight: 27
 type: docs
 ---
 
-> - Original Link : [https://keras.io/examples/vision/3D_image_classification/](https://keras.io/examples/vision/3D_image_classification/)
-> - Last Checked at : 2024-11-20
+{{< original checkedAt="2024-11-20" >}}
 
 **Author:** [Hasib Zunair](https://twitter.com/hasibzunair)  
 **Date created:** 2020/09/23  

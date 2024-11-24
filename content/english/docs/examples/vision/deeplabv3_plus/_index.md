@@ -5,8 +5,7 @@ weight: 21
 type: docs
 ---
 
-> - Original Link : [https://keras.io/examples/vision/deeplabv3_plus/](https://keras.io/examples/vision/deeplabv3_plus/)
-> - Last Checked at : 2024-11-20
+{{< original checkedAt="2024-11-20" >}}
 
 **Author:** [Soumik Rakshit](http://github.com/soumik12345)  
 **Date created:** 2021/08/31  

@@ -5,8 +5,7 @@ weight: 18
 type: docs
 ---
 
-> - Original Link : [https://keras.io/examples/keras_recipes/sklearn_metric_callbacks/](https://keras.io/examples/keras_recipes/sklearn_metric_callbacks/)
-> - Last Checked at : 2024-11-24
+{{< original checkedAt="2024-11-24" >}}
 
 **Author:** [lukewood](https://lukewood.xyz)  
 **Date created:** 2021/10/07  

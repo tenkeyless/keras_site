@@ -6,8 +6,7 @@ type: docs
 math: true
 ---
 
-> - Original Link : [https://keras.io/examples/nlp/active_learning_review_classification/](https://keras.io/examples/nlp/active_learning_review_classification/)
-> - Last Checked at : 2024-11-21
+{{< original checkedAt="2024-11-21" >}}
 
 **Author:** [Darshan Deshpande](https://twitter.com/getdarshan)  
 **Date created:** 2021/10/29  

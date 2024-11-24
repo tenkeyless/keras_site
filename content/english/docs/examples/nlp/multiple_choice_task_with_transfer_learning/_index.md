@@ -5,8 +5,7 @@ weight: 26
 type: docs
 ---
 
-> - Original Link : [https://keras.io/examples/nlp/multiple_choice_task_with_transfer_learning/](https://keras.io/examples/nlp/multiple_choice_task_with_transfer_learning/)
-> - Last Checked at : 2024-11-21
+{{< original checkedAt="2024-11-21" >}}
 
 **Author:** Md Awsafur Rahman  
 **Date created:** 2023/09/14  

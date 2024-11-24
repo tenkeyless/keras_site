@@ -5,8 +5,7 @@ weight: 9
 type: docs
 ---
 
-> - Original Link : [https://keras.io/examples/nlp/bidirectional_lstm_imdb/](https://keras.io/examples/nlp/bidirectional_lstm_imdb/)
-> - Last Checked at : 2024-11-21
+{{< original checkedAt="2024-11-21" >}}
 
 **Author:** [fchollet](https://twitter.com/fchollet)  
 **Date created:** 2020/05/03  

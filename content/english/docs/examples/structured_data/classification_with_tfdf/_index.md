@@ -5,8 +5,7 @@ weight: 7
 type: docs
 ---
 
-> - Original Link : [https://keras.io/examples/structured_data/classification_with_tfdf/](https://keras.io/examples/structured_data/classification_with_tfdf/)
-> - Last Checked at : 2024-11-22
+{{< original checkedAt="2024-11-22" >}}
 
 **Author:** [Khalid Salama](https://www.linkedin.com/in/khalid-salama-24403144/)  
 **Date created:** 2022/01/25  

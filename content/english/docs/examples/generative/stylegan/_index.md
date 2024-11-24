@@ -5,8 +5,7 @@ weight: 16
 type: docs
 ---
 
-> - Original Link : [https://keras.io/examples/generative/stylegan/](https://keras.io/examples/generative/stylegan/)
-> - Last Checked at : 2024-11-23
+{{< original checkedAt="2024-11-23" >}}
 
 **Author:** [Soon-Yau Cheong](https://www.linkedin.com/in/soonyau/)  
 **Date created:** 2021/07/01  

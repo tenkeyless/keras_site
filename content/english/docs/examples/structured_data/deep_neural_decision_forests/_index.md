@@ -5,8 +5,7 @@ weight: 8
 type: docs
 ---
 
-> - Original Link : [https://keras.io/examples/structured_data/deep_neural_decision_forests/](https://keras.io/examples/structured_data/deep_neural_decision_forests/)
-> - Last Checked at : 2024-11-22
+{{< original checkedAt="2024-11-22" >}}
 
 **Author:** [Khalid Salama](https://www.linkedin.com/in/khalid-salama-24403144/)  
 **Date created:** 2021/01/15  

@@ -5,8 +5,7 @@ weight: 4
 type: docs
 ---
 
-> - Original Link : [https://keras.io/examples/rl/ddpg_pendulum/](https://keras.io/examples/rl/ddpg_pendulum/)
-> - Last Checked at : 2024-11-23
+{{< original checkedAt="2024-11-23" >}}
 
 **Author:** [amifunny](https://github.com/amifunny)  
 **Date created:** 2020/06/04  

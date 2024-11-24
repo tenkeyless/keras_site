@@ -5,8 +5,7 @@ weight: 73
 type: docs
 ---
 
-> - Original Link : [https://keras.io/examples/vision/masked_image_modeling/](https://keras.io/examples/vision/masked_image_modeling/)
-> - Last Checked at : 2024-11-21
+{{< original checkedAt="2024-11-21" >}}
 
 **Author:** [Aritra Roy Gosthipaty](https://twitter.com/arig23498), [Sayak Paul](https://twitter.com/RisingSayak)  
 **Date created:** 2021/12/20  

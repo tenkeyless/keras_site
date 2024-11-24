@@ -5,8 +5,7 @@ weight: 8
 type: docs
 ---
 
-> - Original Link : [https://keras.io/keras_hub/](https://keras.io/keras_hub/)
-> - Last Checked at : 2024-11-19
+{{< original checkedAt="2024-11-19" >}}
 
 **KerasHub** is a pretrained modeling library that aims to be simple, flexible, and fast. The library provides [Keras 3]({{< relref "/docs/keras_3" >}}) implementations of popular model architectures, paired with a collection of pretrained checkpoints available on [Kaggle Models](https://kaggle.com/models/). Models can be use for both training and inference, on any of the TensorFlow, Jax, and Torch backends.
 

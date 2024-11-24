@@ -5,8 +5,7 @@ weight: 23
 type: docs
 ---
 
-> - Original Link : [https://keras.io/examples/generative/lstm_character_level_text_generation/](https://keras.io/examples/generative/lstm_character_level_text_generation/)
-> - Last Checked at : 2024-11-23
+{{< original checkedAt="2024-11-23" >}}
 
 **Author:** [fchollet](https://twitter.com/fchollet)  
 **Date created:** 2015/06/15  

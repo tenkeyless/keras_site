@@ -5,8 +5,7 @@ weight: 5
 type: docs
 ---
 
-> - Original Link : [https://keras.io/examples/audio/stft/](https://keras.io/examples/audio/stft/)
-> - Last Checked at : 2024-11-23
+{{< original checkedAt="2024-11-23" >}}
 
 **Author:** [Mostafa M. Amin](https://mostafa-amin.com)  
 **Date created:** 2024/10/04  

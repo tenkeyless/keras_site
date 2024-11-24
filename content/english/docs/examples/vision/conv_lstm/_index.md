@@ -5,8 +5,7 @@ weight: 56
 type: docs
 ---
 
-> - Original Link : [https://keras.io/examples/vision/conv_lstm/](https://keras.io/examples/vision/conv_lstm/)
-> - Last Checked at : 2024-11-21
+{{< original checkedAt="2024-11-21" >}}
 
 **Author:** [Amogh Joshi](https://github.com/amogh7joshi)  
 **Date created:** 2021/06/02  

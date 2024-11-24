@@ -5,8 +5,7 @@ weight: 3
 type: docs
 ---
 
-> - Original Link : [https://keras.io/examples/timeseries/eeg_signal_classification/](https://keras.io/examples/timeseries/eeg_signal_classification/)
-> - Last Checked at : 2024-11-22
+{{< original checkedAt="2024-11-22" >}}
 
 **Author:** [Suvaditya Mukherjee](https://github.com/suvadityamuk)  
 **Date created:** 2022/11/03  
