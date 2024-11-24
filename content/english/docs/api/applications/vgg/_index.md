@@ -1,6 +1,8 @@
 ---
 title: VGG16 and VGG19
-toc: false
+toc: true
+weight: 5
+type: docs
 ---
 
 [\[source\]](https://github.com/keras-team/keras/tree/v3.6.0/keras/src/applications/vgg16.py#L20)

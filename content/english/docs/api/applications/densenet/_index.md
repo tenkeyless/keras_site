@@ -1,6 +1,6 @@
 ---
-title: Xception
+title: DenseNet
 toc: true
-weight: 1
+weight: 8
 type: docs
 ---
