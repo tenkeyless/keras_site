@@ -1,6 +1,6 @@
 ---
-title: SGD
+title: Adagrad
 toc: true
-weight: 1
+weight: 6
 type: docs
 ---

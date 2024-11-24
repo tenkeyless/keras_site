@@ -1,6 +1,6 @@
 ---
-title: SGD
+title: RMSprop
 toc: true
-weight: 1
+weight: 2
 type: docs
 ---

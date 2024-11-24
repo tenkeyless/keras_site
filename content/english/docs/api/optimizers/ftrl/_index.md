@@ -1,6 +1,6 @@
 ---
-title: SGD
+title: Ftrl
 toc: true
-weight: 1
+weight: 10
 type: docs
 ---

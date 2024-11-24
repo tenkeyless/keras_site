@@ -1,6 +1,6 @@
 ---
-title: SGD
+title: Adamax
 toc: true
-weight: 1
+weight: 7
 type: docs
 ---

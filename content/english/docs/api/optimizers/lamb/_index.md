@@ -1,6 +1,6 @@
 ---
-title: SGD
+title: Lamb
 toc: true
-weight: 1
+weight: 12
 type: docs
 ---

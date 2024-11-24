@@ -1,6 +1,6 @@
 ---
-title: SGD
+title: Nadam
 toc: true
-weight: 1
+weight: 9
 type: docs
 ---

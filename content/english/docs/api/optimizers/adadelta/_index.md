@@ -1,6 +1,6 @@
 ---
-title: SGD
+title: Adadelta
 toc: true
-weight: 1
+weight: 5
 type: docs
 ---
