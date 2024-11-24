@@ -1,13 +1,29 @@
 ---
 title: Embedding layer
-toc: false
+toc: true
+weight: 6
+type: docs
 ---
+
+{{< keras/original checkedAt="2024-11-24" >}}
 
 [\[source\]](https://github.com/keras-team/keras/tree/v3.6.0/keras/src/layers/core/embedding.py#L14)
 
 ### `Embedding` class
 
-`keras.layers.Embedding(     input_dim,     output_dim,     embeddings_initializer="uniform",     embeddings_regularizer=None,     embeddings_constraint=None,     mask_zero=False,     weights=None,     lora_rank=None,     **kwargs )`
+```python
+keras.layers.Embedding(
+    input_dim,
+    output_dim,
+    embeddings_initializer="uniform",
+    embeddings_regularizer=None,
+    embeddings_constraint=None,
+    mask_zero=False,
+    weights=None,
+    lora_rank=None,
+    **kwargs
+)
+```
 
 Turns nonnegative integers (indexes) into dense vectors of fixed size.
 
@@ -17,7 +33,20 @@ This layer can only be used on nonnegative integer inputs of a fixed range.
 
 **Example**
 
-`` >>> model = keras.Sequential() >>> model.add(keras.layers.Embedding(1000, 64)) >>> # The model will take as input an integer matrix of size (batch, >>> # input_length), and the largest integer (i.e. word index) in the input >>> # should be no larger than 999 (vocabulary size). >>> # Now model.output_shape is (None, 10, 64), where `None` is the batch >>> # dimension. >>> input_array = np.random.randint(1000, size=(32, 10)) >>> model.compile('rmsprop', 'mse') >>> output_array = model.predict(input_array) >>> print(output_array.shape) (32, 10, 64) ``
+```console
+>>> model = keras.Sequential()
+>>> model.add(keras.layers.Embedding(1000, 64))
+>>> # The model will take as input an integer matrix of size (batch,
+>>> # input_length), and the largest integer (i.e. word index) in the input
+>>> # should be no larger than 999 (vocabulary size).
+>>> # Now model.output_shape is (None, 10, 64), where `None` is the batch
+>>> # dimension.
+>>> input_array = np.random.randint(1000, size=(32, 10))
+>>> model.compile('rmsprop', 'mse')
+>>> output_array = model.predict(input_array)
+>>> print(output_array.shape)
+(32, 10, 64)
+```
 
 **Arguments**
 
@@ -37,5 +66,3 @@ This layer can only be used on nonnegative integer inputs of a fixed range.
 **Output shape**
 
 3D tensor with shape: `(batch_size, input_length, output_dim)`.
-
----

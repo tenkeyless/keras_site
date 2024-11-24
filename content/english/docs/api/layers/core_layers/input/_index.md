@@ -5,11 +5,24 @@ weight: 1
 type: docs
 ---
 
-[\[source\]](https://github.com/keras-team/keras/tree/v3.6.0/keras/src/layers/core/input_layer.py#L95)
+{{< keras/original checkedAt="2024-11-24" >}}
+
+{{< keras/source link="https://github.com/keras-team/keras/tree/v3.6.0/keras/src/layers/core/input_layer.py#L95" >}}
 
 ### `Input` function
 
-`keras.Input(     shape=None,     batch_size=None,     dtype=None,     sparse=None,     batch_shape=None,     name=None,     tensor=None,     optional=False, )`
+```python
+keras.Input(
+    shape=None,
+    batch_size=None,
+    dtype=None,
+    sparse=None,
+    batch_shape=None,
+    name=None,
+    tensor=None,
+    optional=False,
+)
+```
 
 Used to instantiate a Keras tensor.
 
@@ -34,6 +47,9 @@ A Keras tensor.
 
 **Example**
 
-`# This is a logistic regression in Keras x = Input(shape=(32,)) y = Dense(16, activation='softmax')(x) model = Model(x, y)`
-
----
+```python
+# This is a logistic regression in Keras
+x = Input(shape=(32,))
+y = Dense(16, activation='softmax')(x)
+model = Model(x, y)
+```
