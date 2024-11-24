@@ -1,6 +1,8 @@
 ---
-title: text
-toc: false
+title: Text data loading
+toc: true
+weight: 3
+type: docs
 ---
 
 [\[source\]](https://github.com/keras-team/keras/tree/v3.6.0/keras/src/utils/text_dataset_utils.py#L8)

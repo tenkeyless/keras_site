@@ -1,6 +1,8 @@
 ---
 title: Timeseries data loading
-toc: false
+toc: true
+weight: 2
+type: docs
 ---
 
 [\[source\]](https://github.com/keras-team/keras/tree/v3.6.0/keras/src/utils/timeseries_dataset_utils.py#L7)
