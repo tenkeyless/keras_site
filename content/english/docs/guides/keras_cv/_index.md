@@ -6,7 +6,7 @@ weight: 21
 type: docs
 ---
 
-{{< original checkedAt="2024-11-19" >}}
+{{< keras/original checkedAt="2024-11-19" >}}
 
 These guides cover the [KerasCV]({{< relref "/docs/keras_cv" >}}) library.
 

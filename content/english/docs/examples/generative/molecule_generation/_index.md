@@ -6,16 +6,14 @@ type: docs
 math: true
 ---
 
-{{< original checkedAt="2024-11-23" >}}
+{{< keras/original checkedAt="2024-11-23" >}}
 
 **Author:** [Victor Basu](https://www.linkedin.com/in/victor-basu-520958147)  
 **Date created:** 2022/03/10  
 **Last modified:** 2022/03/24  
 **Description:** Implementing a Convolutional Variational AutoEncoder (VAE) for Drug Discovery.
 
-{{< hextra/hero-button
-    text="ⓘ This example uses Keras 2"
-    style="background: rgb(255 237 183); color: black; margin: 1em 0 0.5em 0; pointer-events: none;" >}}
+{{< keras/version v=2 >}}
 
 {{< cards cols="2" >}}
 {{< card link="https://colab.research.google.com/github/keras-team/keras-io/blob/master/examples/generative/ipynb/molecule_generation.ipynb" title="Colab" tag="Colab" tagType="warning">}}

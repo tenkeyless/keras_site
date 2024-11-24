@@ -5,16 +5,14 @@ weight: 20
 type: docs
 ---
 
-{{< original checkedAt="2024-11-23" >}}
+{{< keras/original checkedAt="2024-11-23" >}}
 
 **Author:** Chen Qian  
 **Date created:** 2023/04/17  
 **Last modified:** 2024/04/12  
 **Description:** Use KerasNLP GPT2 model and `samplers` to do text generation.
 
-{{< hextra/hero-button
-    text="ⓘ This example uses Keras 3"
-    style="background: rgb(23, 132, 133); margin: 1em 0 0.5em 0; pointer-events: none;" >}}
+{{< keras/version v=3 >}}
 
 {{< cards cols="2" >}}
 {{< card link="https://colab.research.google.com/github/keras-team/keras-io/blob/master/examples/generative/ipynb/gpt2_text_generation_with_kerashub.ipynb" title="Colab" tag="Colab" tagType="warning">}}

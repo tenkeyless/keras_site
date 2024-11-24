@@ -6,7 +6,7 @@ weight: 3
 type: docs
 ---
 
-{{< original checkedAt="2024-11-19" >}}
+{{< keras/original checkedAt="2024-11-19" >}}
 
 **Author:** [Matthew Watson](https://github.com/mattdangerw/)  
 **Date created:** 2022/04/18  

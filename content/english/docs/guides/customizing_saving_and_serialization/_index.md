@@ -6,7 +6,7 @@ weight: 12
 type: docs
 ---
 
-{{< original checkedAt="2024-11-18" >}}
+{{< keras/original checkedAt="2024-11-18" >}}
 
 **Author:** Neel Kovelamudi  
 **Date created:** 2023/03/15  

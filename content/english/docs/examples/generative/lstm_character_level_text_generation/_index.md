@@ -5,16 +5,14 @@ weight: 23
 type: docs
 ---
 
-{{< original checkedAt="2024-11-23" >}}
+{{< keras/original checkedAt="2024-11-23" >}}
 
 **Author:** [fchollet](https://twitter.com/fchollet)  
 **Date created:** 2015/06/15  
 **Last modified:** 2020/04/30  
 **Description:** Generate text from Nietzsche's writings with a character-level LSTM.
 
-{{< hextra/hero-button
-    text="ⓘ This example uses Keras 3"
-    style="background: rgb(23, 132, 133); margin: 1em 0 0.5em 0; pointer-events: none;" >}}
+{{< keras/version v=3 >}}
 
 {{< cards cols="2" >}}
 {{< card link="https://colab.research.google.com/github/keras-team/keras-io/blob/master/examples/generative/ipynb/lstm_character_level_text_generation.ipynb" title="Colab" tag="Colab" tagType="warning">}}

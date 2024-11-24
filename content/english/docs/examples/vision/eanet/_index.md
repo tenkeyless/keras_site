@@ -5,16 +5,14 @@ weight: 11
 type: docs
 ---
 
-{{< original checkedAt="2024-11-20" >}}
+{{< keras/original checkedAt="2024-11-20" >}}
 
 **Author:** [ZhiYong Chang](https://github.com/czy00000)  
 **Date created:** 2021/10/19  
 **Last modified:** 2023/07/18  
 **Description:** Image classification with a Transformer that leverages external attention.
 
-{{< hextra/hero-button
-    text="ⓘ This example uses Keras 3"
-    style="background: rgb(23, 132, 133); margin: 1em 0 0.5em 0; pointer-events: none;" >}}
+{{< keras/version v=3 >}}
 
 {{< cards cols="2" >}}
 {{< card link="https://colab.research.google.com/github/keras-team/keras-io/blob/master/examples/vision/ipynb/eanet.ipynb" title="Colab" tag="Colab" tagType="warning">}}

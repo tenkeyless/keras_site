@@ -5,16 +5,14 @@ weight: 11
 type: docs
 ---
 
-{{< original checkedAt="2024-11-24" >}}
+{{< keras/original checkedAt="2024-11-24" >}}
 
 **Author:** [JacoVerster](https://twitter.com/JacoVerster)  
 **Date created:** 2021/05/20  
 **Last modified:** 2021/06/06  
 **Description:** Modeling the relationship between training set size and model accuracy.
 
-{{< hextra/hero-button
-    text="ⓘ This example uses Keras 3"
-    style="background: rgb(23, 132, 133); margin: 1em 0 0.5em 0; pointer-events: none;" >}}
+{{< keras/version v=3 >}}
 
 {{< cards cols="2" >}}
 {{< card link="https://colab.research.google.com/github/keras-team/keras-io/blob/master/examples/keras_recipes/ipynb/sample_size_estimate.ipynb" title="Colab" tag="Colab" tagType="warning">}}

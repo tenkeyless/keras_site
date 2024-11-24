@@ -6,16 +6,14 @@ type: docs
 math: true
 ---
 
-{{< original checkedAt="2024-11-21" >}}
+{{< keras/original checkedAt="2024-11-21" >}}
 
 **Author:** [Aritra Roy Gosthipaty](https://twitter.com/ariG23498), [Suvaditya Mukherjee](https://twitter.com/halcyonrayes)  
 **Date created:** 2023/03/12  
 **Last modified:** 2024/11/12  
 **Description:** Image Classification with Temporal Latent Bottleneck Networks.
 
-{{< hextra/hero-button
-    text="ⓘ This example uses Keras 2"
-    style="background: rgb(255 237 183); color: black; margin: 1em 0 0.5em 0; pointer-events: none;" >}}
+{{< keras/version v=2 >}}
 
 {{< cards cols="2" >}}
 {{< card link="https://colab.research.google.com/github/keras-team/keras-io/blob/master/examples/vision/ipynb/temporal_latent_bottleneck.ipynb" title="Colab" tag="Colab" tagType="warning">}}

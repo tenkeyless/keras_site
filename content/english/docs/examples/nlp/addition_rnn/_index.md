@@ -5,16 +5,14 @@ weight: 17
 type: docs
 ---
 
-{{< original checkedAt="2024-11-21" >}}
+{{< keras/original checkedAt="2024-11-21" >}}
 
 **Author:** [Smerity](https://twitter.com/Smerity) and others  
 **Date created:** 2015/08/17  
 **Last modified:** 2024/02/13  
 **Description:** A model that learns to add strings of numbers, e.g. "535+61" -> "596".
 
-{{< hextra/hero-button
-    text="ⓘ This example uses Keras 3"
-    style="background: rgb(23, 132, 133); margin: 1em 0 0.5em 0; pointer-events: none;" >}}
+{{< keras/version v=3 >}}
 
 {{< cards cols="2" >}}
 {{< card link="https://colab.research.google.com/github/keras-team/keras-io/blob/master/examples/nlp/ipynb/addition_rnn.ipynb" title="Colab" tag="Colab" tagType="warning">}}

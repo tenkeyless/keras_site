@@ -5,16 +5,14 @@ weight: 14
 type: docs
 ---
 
-{{< original checkedAt="2024-11-24" >}}
+{{< keras/original checkedAt="2024-11-24" >}}
 
 **Author:** Martin Görner  
 **Date created:** 2023/12/13  
 **Last modified:** 2023/12/13  
 **Description:** When sharing your deep learning models, package them using the Functional Subclassing pattern.
 
-{{< hextra/hero-button
-    text="ⓘ This example uses Keras 3"
-    style="background: rgb(23, 132, 133); margin: 1em 0 0.5em 0; pointer-events: none;" >}}
+{{< keras/version v=3 >}}
 
 {{< cards cols="2" >}}
 {{< card link="https://colab.research.google.com/github/keras-team/keras-io/blob/master/examples/keras_recipes/ipynb/packaging_keras_models_for_wide_distribution.ipynb" title="Colab" tag="Colab" tagType="warning">}}

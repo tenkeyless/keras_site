@@ -5,16 +5,14 @@ weight: 20
 type: docs
 ---
 
-{{< original checkedAt="2024-11-21" >}}
+{{< keras/original checkedAt="2024-11-21" >}}
 
 **Author:** [Mohammed Abu El-Nasr](https://github.com/abuelnasr0)  
 **Date created:** 2023/07/14  
 **Last modified:** 2023/07/14  
 **Description:** Fine-tune a RoBERTa model to generate sentence embeddings using KerasHub.
 
-{{< hextra/hero-button
-    text="ⓘ This example uses Keras 3"
-    style="background: rgb(23, 132, 133); margin: 1em 0 0.5em 0; pointer-events: none;" >}}
+{{< keras/version v=3 >}}
 
 {{< cards cols="2" >}}
 {{< card link="https://colab.research.google.com/github/keras-team/keras-io/blob/master/examples/nlp/ipynb/sentence_embeddings_with_sbert.ipynb" title="Colab" tag="Colab" tagType="warning">}}

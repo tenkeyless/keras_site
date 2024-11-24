@@ -6,16 +6,14 @@ type: docs
 math: true
 ---
 
-{{< original checkedAt="2024-11-21" >}}
+{{< keras/original checkedAt="2024-11-21" >}}
 
 **Author:** [Darshan Deshpande](https://twitter.com/getdarshan)  
 **Date created:** 2021/10/29  
 **Last modified:** 2024/05/08  
 **Description:** Demonstrating the advantages of active learning through review classification.
 
-{{< hextra/hero-button
-    text="ⓘ This example uses Keras 3"
-    style="background: rgb(23, 132, 133); margin: 1em 0 0.5em 0; pointer-events: none;" >}}
+{{< keras/version v=3 >}}
 
 {{< cards cols="2" >}}
 {{< card link="https://colab.research.google.com/github/keras-team/keras-io/blob/master/examples/nlp/ipynb/active_learning_review_classification.ipynb" title="Colab" tag="Colab" tagType="warning">}}

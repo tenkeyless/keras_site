@@ -6,7 +6,7 @@ weight: 13
 type: docs
 ---
 
-{{< original checkedAt="2024-11-18" >}}
+{{< keras/original checkedAt="2024-11-18" >}}
 
 **Authors:** Rick Chao, Francois Chollet  
 **Date created:** 2019/03/20  

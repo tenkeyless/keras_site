@@ -5,16 +5,14 @@ weight: 4
 type: docs
 ---
 
-{{< original checkedAt="2024-11-23" >}}
+{{< keras/original checkedAt="2024-11-23" >}}
 
 **Author:** [Fadi Badine](https://twitter.com/fadibadine)  
 **Date created:** 14/06/2020  
 **Last modified:** 19/07/2023  
 **Description:** Classify speakers using Fast Fourier Transform (FFT) and a 1D Convnet.
 
-{{< hextra/hero-button
-    text="ⓘ This example uses Keras 2"
-    style="background: rgb(255 237 183); color: black; margin: 1em 0 0.5em 0; pointer-events: none;" >}}
+{{< keras/version v=2 >}}
 
 {{< cards cols="2" >}}
 {{< card link="https://colab.research.google.com/github/keras-team/keras-io/blob/master/examples/audio/ipynb/speaker_recognition_using_cnn.ipynb" title="Colab" tag="Colab" tagType="warning">}}

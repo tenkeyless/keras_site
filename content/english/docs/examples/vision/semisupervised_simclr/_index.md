@@ -5,16 +5,14 @@ weight: 15
 type: docs
 ---
 
-{{< original checkedAt="2024-11-20" >}}
+{{< keras/original checkedAt="2024-11-20" >}}
 
 **Author:** [András Béres](https://www.linkedin.com/in/andras-beres-789190210)  
 **Date created:** 2021/04/24  
 **Last modified:** 2024/03/04  
 **Description:** Contrastive pretraining with SimCLR for semi-supervised image classification on the STL-10 dataset.
 
-{{< hextra/hero-button
-    text="ⓘ This example uses Keras 3"
-    style="background: rgb(23, 132, 133); margin: 1em 0 0.5em 0; pointer-events: none;" >}}
+{{< keras/version v=3 >}}
 
 {{< cards cols="2" >}}
 {{< card link="https://colab.research.google.com/github/keras-team/keras-io/blob/master/examples/vision/ipynb/semisupervised_simclr.ipynb" title="Colab" tag="Colab" tagType="warning">}}

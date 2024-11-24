@@ -6,7 +6,7 @@ weight: 6
 type: docs
 ---
 
-{{< original checkedAt="2024-11-19" >}}
+{{< keras/original checkedAt="2024-11-19" >}}
 
 **Author:** Tirth Patel, Ian Stenbit, Divyashree Sreepathihalli  
 **Date created:** 2024/10/1  

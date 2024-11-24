@@ -5,16 +5,14 @@ weight: 4
 type: docs
 ---
 
-{{< original checkedAt="2024-11-24" >}}
+{{< keras/original checkedAt="2024-11-24" >}}
 
 **Author:** [Khalid Salama](https://www.linkedin.com/in/khalid-salama-24403144/)  
 **Date created:** 2021/05/15  
 **Last modified:** 2021/05/15  
 **Description:** Implementing the node2vec model to generate embeddings for movies from the MovieLens dataset.
 
-{{< hextra/hero-button
-    text="ⓘ This example uses Keras 2"
-    style="background: rgb(255 237 183); color: black; margin: 1em 0 0.5em 0; pointer-events: none;" >}}
+{{< keras/version v=2 >}}
 
 {{< cards cols="2" >}}
 {{< card link="https://colab.research.google.com/github/keras-team/keras-io/blob/master/examples/graph/ipynb/node2vec_movielens.ipynb" title="Colab" tag="Colab" tagType="warning">}}

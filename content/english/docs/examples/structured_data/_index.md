@@ -4,7 +4,7 @@ toc: false
 weight: 3
 ---
 
-{{< original checkedAt="2024-11-22" >}}
+{{< keras/original checkedAt="2024-11-22" >}}
 
 ### Structured data classification
 

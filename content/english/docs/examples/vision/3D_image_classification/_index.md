@@ -5,16 +5,14 @@ weight: 27
 type: docs
 ---
 
-{{< original checkedAt="2024-11-20" >}}
+{{< keras/original checkedAt="2024-11-20" >}}
 
 **Author:** [Hasib Zunair](https://twitter.com/hasibzunair)  
 **Date created:** 2020/09/23  
 **Last modified:** 2024/01/11  
 **Description:** Train a 3D convolutional neural network to predict presence of pneumonia.
 
-{{< hextra/hero-button
-    text="ⓘ This example uses Keras 3"
-    style="background: rgb(23, 132, 133); margin: 1em 0 0.5em 0; pointer-events: none;" >}}
+{{< keras/version v=3 >}}
 
 {{< cards cols="2" >}}
 {{< card link="https://colab.research.google.com/github/keras-team/keras-io/blob/master/examples/vision/ipynb/3D_image_classification.ipynb" title="Colab" tag="Colab" tagType="warning">}}

@@ -6,7 +6,7 @@ weight: 19
 type: docs
 ---
 
-{{< original checkedAt="2024-11-18" >}}
+{{< keras/original checkedAt="2024-11-18" >}}
 
 **Author:** [Divyashree Sreepathihalli](https://github.com/divyashreepathihalli)  
 **Date created:** 2023/10/23  

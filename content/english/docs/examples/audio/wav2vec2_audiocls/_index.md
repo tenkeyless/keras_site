@@ -5,16 +5,14 @@ weight: 7
 type: docs
 ---
 
-{{< original checkedAt="2024-11-23" >}}
+{{< keras/original checkedAt="2024-11-23" >}}
 
 **Author:** Sreyan Ghosh  
 **Date created:** 2022/07/01  
 **Last modified:** 2022/08/27  
 **Description:** Training Wav2Vec 2.0 using Hugging Face Transformers for Audio Classification.
 
-{{< hextra/hero-button
-    text="ⓘ This example uses Keras 2"
-    style="background: rgb(255 237 183); color: black; margin: 1em 0 0.5em 0; pointer-events: none;" >}}
+{{< keras/version v=2 >}}
 
 {{< cards cols="2" >}}
 {{< card link="https://colab.research.google.com/github/keras-team/keras-io/blob/master/examples/audio/ipynb/wav2vec2_audiocls.ipynb" title="Colab" tag="Colab" tagType="warning">}}

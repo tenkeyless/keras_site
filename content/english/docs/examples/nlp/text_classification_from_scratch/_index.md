@@ -5,16 +5,14 @@ weight: 1
 type: docs
 ---
 
-{{< original checkedAt="2024-11-21" >}}
+{{< keras/original checkedAt="2024-11-21" >}}
 
 **Authors:** Mark Omernick, Francois Chollet  
 **Date created:** 2019/11/06  
 **Last modified:** 2020/05/17  
 **Description:** Text sentiment classification starting from raw text files.
 
-{{< hextra/hero-button
-    text="ⓘ This example uses Keras 3"
-    style="background: rgb(23, 132, 133); margin: 1em 0 0.5em 0; pointer-events: none;" >}}
+{{< keras/version v=3 >}}
 
 {{< cards cols="2" >}}
 {{< card link="https://colab.research.google.com/github/keras-team/keras-io/blob/master/examples/nlp/ipynb/text_classification_from_scratch.ipynb" title="Colab" tag="Colab" tagType="warning">}}

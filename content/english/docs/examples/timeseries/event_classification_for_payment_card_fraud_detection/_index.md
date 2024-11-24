@@ -5,16 +5,14 @@ weight: 4
 type: docs
 ---
 
-{{< original checkedAt="2024-11-22" >}}
+{{< keras/original checkedAt="2024-11-22" >}}
 
 **Author:** [achoum](https://github.com/achoum/)  
 **Date created:** 2024/02/01  
 **Last modified:** 2024/02/01  
 **Description:** Detection of fraudulent payment card transactions using Temporian and a feed-forward neural network.
 
-{{< hextra/hero-button
-    text="ⓘ This example uses Keras 3"
-    style="background: rgb(23, 132, 133); margin: 1em 0 0.5em 0; pointer-events: none;" >}}
+{{< keras/version v=3 >}}
 
 {{< cards cols="2" >}}
 {{< card link="https://colab.research.google.com/github/keras-team/keras-io/blob/master/examples/timeseries/ipynb/event_classification_for_payment_card_fraud_detection.ipynb" title="Colab" tag="Colab" tagType="warning">}}

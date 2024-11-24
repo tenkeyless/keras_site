@@ -5,16 +5,14 @@ weight: 6
 type: docs
 ---
 
-{{< original checkedAt="2024-11-22" >}}
+{{< keras/original checkedAt="2024-11-22" >}}
 
 **Author:** [Arash Khodadadi](https://www.linkedin.com/in/arash-khodadadi-08a02490/)  
 **Date created:** 2021/12/28  
 **Last modified:** 2023/11/22  
 **Description:** This example demonstrates how to do timeseries forecasting over graphs.
 
-{{< hextra/hero-button
-    text="ⓘ This example uses Keras 3"
-    style="background: rgb(23, 132, 133); margin: 1em 0 0.5em 0; pointer-events: none;" >}}
+{{< keras/version v=3 >}}
 
 {{< cards cols="2" >}}
 {{< card link="https://colab.research.google.com/github/keras-team/keras-io/blob/master/examples/timeseries/ipynb/timeseries_traffic_forecasting.ipynb" title="Colab" tag="Colab" tagType="warning">}}

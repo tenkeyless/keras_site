@@ -4,7 +4,7 @@ toc: false
 weight: 9
 ---
 
-{{< original checkedAt="2024-11-24" >}}
+{{< keras/original checkedAt="2024-11-24" >}}
 
 ### Keras usage tips
 

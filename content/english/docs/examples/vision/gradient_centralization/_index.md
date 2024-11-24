@@ -5,16 +5,14 @@ weight: 60
 type: docs
 ---
 
-{{< original checkedAt="2024-11-21" >}}
+{{< keras/original checkedAt="2024-11-21" >}}
 
 **Author:** [Rishit Dagli](https://github.com/Rishit-dagli)  
 **Date created:** 2021/06/18  
 **Last modified:** 2023/07/25  
 **Description:** Implement Gradient Centralization to improve training performance of DNNs.
 
-{{< hextra/hero-button
-    text="ⓘ This example uses Keras 3"
-    style="background: rgb(23, 132, 133); margin: 1em 0 0.5em 0; pointer-events: none;" >}}
+{{< keras/version v=3 >}}
 
 {{< cards cols="2" >}}
 {{< card link="https://colab.research.google.com/github/keras-team/keras-io/blob/master/examples/vision/ipynb/gradient_centralization.ipynb" title="Colab" tag="Colab" tagType="warning">}}

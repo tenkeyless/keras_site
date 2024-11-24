@@ -6,7 +6,7 @@ weight: 3
 type: docs
 ---
 
-{{< original checkedAt="2024-11-18" >}}
+{{< keras/original checkedAt="2024-11-18" >}}
 
 **Authors:** Tom O'Malley, Haifeng Jin  
 **Date created:** 2019/10/28  

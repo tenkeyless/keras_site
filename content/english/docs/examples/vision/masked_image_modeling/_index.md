@@ -5,16 +5,14 @@ weight: 73
 type: docs
 ---
 
-{{< original checkedAt="2024-11-21" >}}
+{{< keras/original checkedAt="2024-11-21" >}}
 
 **Author:** [Aritra Roy Gosthipaty](https://twitter.com/arig23498), [Sayak Paul](https://twitter.com/RisingSayak)  
 **Date created:** 2021/12/20  
 **Last modified:** 2021/12/21  
 **Description:** Implementing Masked Autoencoders for self-supervised pretraining.
 
-{{< hextra/hero-button
-    text="ⓘ This example uses Keras 2"
-    style="background: rgb(255 237 183); color: black; margin: 1em 0 0.5em 0; pointer-events: none;" >}}
+{{< keras/version v=2 >}}
 
 {{< cards cols="2" >}}
 {{< card link="https://colab.research.google.com/github/keras-team/keras-io/blob/master/examples/vision/ipynb/masked_image_modeling.ipynb" title="Colab" tag="Colab" tagType="warning">}}

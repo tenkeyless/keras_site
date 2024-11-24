@@ -5,16 +5,14 @@ weight: 2
 type: docs
 ---
 
-{{< original checkedAt="2024-11-22" >}}
+{{< keras/original checkedAt="2024-11-22" >}}
 
 **Author:** [Theodoros Ntakouris](https://github.com/ntakouris)  
 **Date created:** 2021/06/25  
 **Last modified:** 2021/08/05  
 **Description:** This notebook demonstrates how to do timeseries classification using a Transformer model.
 
-{{< hextra/hero-button
-    text="ⓘ This example uses Keras 3"
-    style="background: rgb(23, 132, 133); margin: 1em 0 0.5em 0; pointer-events: none;" >}}
+{{< keras/version v=3 >}}
 
 {{< cards cols="2" >}}
 {{< card link="https://colab.research.google.com/github/keras-team/keras-io/blob/master/examples/timeseries/ipynb/timeseries_classification_transformer.ipynb" title="Colab" tag="Colab" tagType="warning">}}

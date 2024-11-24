@@ -4,7 +4,7 @@ toc: false
 weight: 2
 ---
 
-{{< original checkedAt="2024-11-22" >}}
+{{< keras/original checkedAt="2024-11-22" >}}
 
 ### Text classification
 

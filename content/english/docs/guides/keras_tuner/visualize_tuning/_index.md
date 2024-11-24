@@ -6,7 +6,7 @@ weight: 4
 type: docs
 ---
 
-{{< original checkedAt="2024-11-19" >}}
+{{< keras/original checkedAt="2024-11-19" >}}
 
 **Author:** Haifeng Jin  
 **Date created:** 2021/06/25  

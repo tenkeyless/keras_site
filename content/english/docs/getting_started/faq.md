@@ -6,7 +6,7 @@ weight: 4
 type: docs
 ---
 
-{{< original checkedAt="2024-11-18" >}}
+{{< keras/original checkedAt="2024-11-18" >}}
 
 A list of frequently Asked Keras Questions.
 

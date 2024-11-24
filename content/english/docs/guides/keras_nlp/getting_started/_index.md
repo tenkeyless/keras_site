@@ -6,7 +6,7 @@ weight: 1
 type: docs
 ---
 
-{{< original checkedAt="2024-11-19" >}}
+{{< keras/original checkedAt="2024-11-19" >}}
 
 **Author:** [Jonathan Bischof](https://github.com/jbischof)  
 **Date created:** 2022/12/15  

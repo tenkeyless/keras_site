@@ -5,16 +5,14 @@ weight: 6
 type: docs
 ---
 
-{{< original checkedAt="2024-11-24" >}}
+{{< keras/original checkedAt="2024-11-24" >}}
 
 **Author:** [nkovela1](https://nkovela1.github.io/)  
 **Date created:** 2022/09/19  
 **Last modified:** 2022/09/26  
 **Description:** Guide on how to share a custom training step across multiple Keras models.
 
-{{< hextra/hero-button
-    text="ⓘ This example uses Keras 3"
-    style="background: rgb(23, 132, 133); margin: 1em 0 0.5em 0; pointer-events: none;" >}}
+{{< keras/version v=3 >}}
 
 {{< cards cols="2" >}}
 {{< card link="https://colab.research.google.com/github/keras-team/keras-io/blob/master/examples/keras_recipes/ipynb/trainer_pattern.ipynb" title="Colab" tag="Colab" tagType="warning">}}

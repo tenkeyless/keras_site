@@ -5,16 +5,14 @@ weight: 3
 type: docs
 ---
 
-{{< original checkedAt="2024-11-24" >}}
+{{< keras/original checkedAt="2024-11-24" >}}
 
 **Author:** [akensert](http://github.com/akensert)  
 **Date created:** 2021/08/16  
 **Last modified:** 2021/12/27  
 **Description:** Implementation of an MPNN to predict blood-brain barrier permeability.
 
-{{< hextra/hero-button
-    text="ⓘ This example uses Keras 2"
-    style="background: rgb(255 237 183); color: black; margin: 1em 0 0.5em 0; pointer-events: none;" >}}
+{{< keras/version v=2 >}}
 
 {{< cards cols="2" >}}
 {{< card link="https://colab.research.google.com/github/keras-team/keras-io/blob/master/examples/graph/ipynb/mpnn-molecular-graphs.ipynb" title="Colab" tag="Colab" tagType="warning">}}

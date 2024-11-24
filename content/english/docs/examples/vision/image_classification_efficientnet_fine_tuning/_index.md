@@ -5,16 +5,14 @@ weight: 3
 type: docs
 ---
 
-{{< original checkedAt="2024-11-19" >}}
+{{< keras/original checkedAt="2024-11-19" >}}
 
 **Author:** [Yixing Fu](https://github.com/yixingfu)  
 **Date created:** 2020/06/30  
 **Last modified:** 2023/07/10  
 **Description:** Use EfficientNet with weights pre-trained on imagenet for Stanford Dogs classification.
 
-{{< hextra/hero-button
-    text="ⓘ This example uses Keras 3"
-    style="background: rgb(23, 132, 133); margin: 1em 0 0.5em 0; pointer-events: none;" >}}
+{{< keras/version v=3 >}}
 
 {{< cards cols="2" >}}
 {{< card link="https://colab.research.google.com/github/keras-team/keras-io/blob/master/examples/vision/ipynb/image_classification_efficientnet_fine_tuning.ipynb" title="Colab" tag="Colab" tagType="warning">}}

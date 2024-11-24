@@ -6,16 +6,14 @@ type: docs
 math: true
 ---
 
-{{< original checkedAt="2024-11-20" >}}
+{{< keras/original checkedAt="2024-11-20" >}}
 
 **Author:** [Aritra Roy Gosthipaty](https://twitter.com/ariG23498)  
 **Date created:** 2022/01/07  
 **Last modified:** 2022/01/10  
 **Description:** Training a ViT from scratch on smaller datasets with shifted patch tokenization and locality self-attention.
 
-{{< hextra/hero-button
-    text="ⓘ This example uses Keras 2"
-    style="background: rgb(255 237 183); color: black; margin: 1em 0 0.5em 0; pointer-events: none;" >}}
+{{< keras/version v=2 >}}
 
 {{< cards cols="2" >}}
 {{< card link="https://colab.research.google.com/github/keras-team/keras-io/blob/master/examples/vision/ipynb/vit_small_ds.ipynb" title="Colab" tag="Colab" tagType="warning">}}

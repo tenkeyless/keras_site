@@ -5,16 +5,14 @@ weight: 1
 type: docs
 ---
 
-{{< original checkedAt="2024-11-22" >}}
+{{< keras/original checkedAt="2024-11-22" >}}
 
 **Author:** [fchollet](https://twitter.com/fchollet)  
 **Date created:** 2022/11/09  
 **Last modified:** 2022/11/09  
 **Description:** Classify tabular data in a few lines of code.
 
-{{< hextra/hero-button
-    text="ⓘ This example uses Keras 3"
-    style="background: rgb(23, 132, 133); margin: 1em 0 0.5em 0; pointer-events: none;" >}}
+{{< keras/version v=3 >}}
 
 {{< cards cols="2" >}}
 {{< card link="https://colab.research.google.com/github/keras-team/keras-io/blob/master/examples/structured_data/ipynb/structured_data_classification_with_feature_space.ipynb" title="Colab" tag="Colab" tagType="warning">}}
