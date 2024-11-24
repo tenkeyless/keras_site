@@ -1,22 +1,24 @@
 ---
-title: Conv2DTranspose layer
+title: Conv3DTranspose layer
 toc: true
-weight: 9
+weight: 10
 type: docs
 ---
 
-[\[source\]](https://github.com/keras-team/keras/tree/v3.6.0/keras/src/layers/convolutional/conv2d_transpose.py#L5)
+{{< keras/original checkedAt="2024-11-24" >}}
 
-### `Conv2DTranspose` class
+[\[source\]](https://github.com/keras-team/keras/tree/v3.6.0/keras/src/layers/convolutional/conv3d_transpose.py#L5)
+
+### `Conv3DTranspose` class
 
 ```python
-keras.layers.Conv2DTranspose(
+keras.layers.Conv3DTranspose(
     filters,
     kernel_size,
-    strides=(1, 1),
+    strides=(1, 1, 1),
     padding="valid",
     data_format=None,
-    dilation_rate=(1, 1),
+    dilation_rate=(1, 1, 1),
     activation=None,
     use_bias=True,
     kernel_initializer="glorot_uniform",
@@ -30,7 +32,7 @@ keras.layers.Conv2DTranspose(
 )
 ```
 
-2D transposed convolution layer.
+3D transposed convolution layer.
 
 The need for transposed convolutions generally arise from the desire to use a transformation going in the opposite direction of a normal convolution, i.e., from something that has the shape of the output of some convolution to something that has the shape of its input while maintaining a connectivity pattern that is compatible with said convolution.
 
@@ -40,7 +42,7 @@ The need for transposed convolutions generally arise from the desire to use a tr
 - **kernel_size**: int or tuple/list of 1 integer, specifying the size of the transposed convolution window.
 - **strides**: int or tuple/list of 1 integer, specifying the stride length of the transposed convolution. `strides > 1` is incompatible with `dilation_rate > 1`.
 - **padding**: string, either `"valid"` or `"same"` (case-insensitive). `"valid"` means no padding. `"same"` results in padding evenly to the left/right or up/down of the input. When `padding="same"` and `strides=1`, the output has the same size as the input.
-- **data_format**: string, either `"channels_last"` or `"channels_first"`. The ordering of the dimensions in the inputs. `"channels_last"` corresponds to inputs with shape `(batch_size, height, width, channels)` while `"channels_first"` corresponds to inputs with shape `(batch_size, channels, height, width)`. It defaults to the `image_data_format` value found in your Keras config file at `~/.keras/keras.json`. If you never set it, then it will be `"channels_last"`.
+- **data_format**: string, either `"channels_last"` or `"channels_first"`. The ordering of the dimensions in the inputs. `"channels_last"` corresponds to inputs with shape `(batch_size, spatial_dim1, spatial_dim2, spatial_dim3, channels)` while `"channels_first"` corresponds to inputs with shape `(batch_size, channels, spatial_dim1, spatial_dim2, spatial_dim3)`. It defaults to the `image_data_format` value found in your Keras config file at `~/.keras/keras.json`. If you never set it, then it will be `"channels_last"`.
 - **dilation_rate**: int or tuple/list of 1 integers, specifying the dilation rate to use for dilated transposed convolution.
 - **activation**: Activation function. If `None`, no activation is applied.
 - **use_bias**: bool, if `True`, bias will be added to the output.
@@ -54,17 +56,17 @@ The need for transposed convolutions generally arise from the desire to use a tr
 
 **Input shape**
 
-- If `data_format="channels_last"`: A 4D tensor with shape: `(batch_size, height, width, channels)`
-- If `data_format="channels_first"`: A 4D tensor with shape: `(batch_size, channels, height, width)`
+- If `data_format="channels_last"`: 5D tensor with shape: `(batch_size, spatial_dim1, spatial_dim2, spatial_dim3, channels)`
+- If `data_format="channels_first"`: 5D tensor with shape: `(batch_size, channels, spatial_dim1, spatial_dim2, spatial_dim3)`
 
 **Output shape**
 
-- If `data_format="channels_last"`: A 4D tensor with shape: `(batch_size, new_height, new_width, filters)`
-- If `data_format="channels_first"`: A 4D tensor with shape: `(batch_size, filters, new_height, new_width)`
+- If `data_format="channels_last"`: 5D tensor with shape: `(batch_size, new_spatial_dim1, new_spatial_dim2, new_spatial_dim3, filters)`
+- If `data_format="channels_first"`: 5D tensor with shape: `(batch_size, filters, new_spatial_dim1, new_spatial_dim2, new_spatial_dim3)`
 
 **Returns**
 
-A 4D tensor representing `activation(conv2d_transpose(inputs, kernel) + bias)`.
+A 5D tensor representing `activation(conv3d(inputs, kernel) + bias)`.
 
 **Raises**
 
@@ -78,8 +80,8 @@ A 4D tensor representing `activation(conv2d_transpose(inputs, kernel) + bias)`.
 **Example**
 
 ```console
->>> x = np.random.rand(4, 10, 8, 128)
->>> y = keras.layers.Conv2DTranspose(32, 2, 2, activation='relu')(x)
+>>> x = np.random.rand(4, 10, 8, 12, 128)
+>>> y = keras.layers.Conv3DTranspose(32, 2, 2, activation='relu')(x)
 >>> print(y.shape)
-(4, 20, 16, 32)
+(4, 20, 16, 24, 32)
 ```
