@@ -5,11 +5,13 @@ weight: 1
 type: docs
 ---
 
-[\[source\]](https://github.com/keras-team/keras/tree/v3.6.0/keras/src/models/model.py#L32)
+{{< keras/source link="https://github.com/keras-team/keras/tree/v3.6.0/keras/src/models/model.py#L32" >}}
 
 ### `Model` class
 
-`keras.Model()`
+```python
+keras.Model()
+```
 
 A model grouping layers into an object with training/inference features.
 
@@ -19,7 +21,12 @@ There are three ways to instantiate a `Model`:
 
 You start from `Input`, you chain layer calls to specify the model's forward pass, and finally, you create your model from inputs and outputs:
 
-`inputs = keras.Input(shape=(37,)) x = keras.layers.Dense(32, activation="relu")(inputs) outputs = keras.layers.Dense(5, activation="softmax")(x) model = keras.Model(inputs=inputs, outputs=outputs)`
+```python
+inputs = keras.Input(shape=(37,))
+x = keras.layers.Dense(32, activation="relu")(inputs)
+outputs = keras.layers.Dense(5, activation="softmax")(x)
+model = keras.Model(inputs=inputs, outputs=outputs)
+```
 
 Note: Only dicts, lists, and tuples of input tensors are supported. Nested inputs are not supported (e.g. lists of list or dicts of dict).
 
@@ -27,35 +34,83 @@ A new Functional API model can also be created by using the intermediate tensors
 
 **Example**
 
-`inputs = keras.Input(shape=(None, None, 3)) processed = keras.layers.RandomCrop(width=128, height=128)(inputs) conv = keras.layers.Conv2D(filters=32, kernel_size=3)(processed) pooling = keras.layers.GlobalAveragePooling2D()(conv) feature = keras.layers.Dense(10)(pooling)  full_model = keras.Model(inputs, feature) backbone = keras.Model(processed, conv) activations = keras.Model(conv, feature)`
+```python
+inputs = keras.Input(shape=(None, None, 3))
+processed = keras.layers.RandomCrop(width=128, height=128)(inputs)
+conv = keras.layers.Conv2D(filters=32, kernel_size=3)(processed)
+pooling = keras.layers.GlobalAveragePooling2D()(conv)
+feature = keras.layers.Dense(10)(pooling)
 
-Note that the `backbone` and `activations` models are not created with [`keras.Input`](/api/layers/core_layers/input#input-function) objects, but with the tensors that originate from [`keras.Input`](/api/layers/core_layers/input#input-function) objects. Under the hood, the layers and weights will be shared across these models, so that user can train the `full_model`, and use `backbone` or `activations` to do feature extraction. The inputs and outputs of the model can be nested structures of tensors as well, and the created models are standard Functional API models that support all the existing APIs.
+full_model = keras.Model(inputs, feature)
+backbone = keras.Model(processed, conv)
+activations = keras.Model(conv, feature)
+```
+
+Note that the `backbone` and `activations` models are not created with [`keras.Input`]({{< relref "/docs/api/layers/core_layers/input#input-function" >}}) objects, but with the tensors that originate from [`keras.Input`]({{< relref "/docs/api/layers/core_layers/input#input-function" >}}) objects. Under the hood, the layers and weights will be shared across these models, so that user can train the `full_model`, and use `backbone` or `activations` to do feature extraction. The inputs and outputs of the model can be nested structures of tensors as well, and the created models are standard Functional API models that support all the existing APIs.
 
 ## By subclassing the `Model` class
 
 In that case, you should define your layers in `__init__()` and you should implement the model's forward pass in `call()`.
 
-`class MyModel(keras.Model):     def __init__(self):         super().__init__()         self.dense1 = keras.layers.Dense(32, activation="relu")         self.dense2 = keras.layers.Dense(5, activation="softmax")      def call(self, inputs):         x = self.dense1(inputs)         return self.dense2(x)  model = MyModel()`
+```python
+class MyModel(keras.Model):
+    def __init__(self):
+        super().__init__()
+        self.dense1 = keras.layers.Dense(32, activation="relu")
+        self.dense2 = keras.layers.Dense(5, activation="softmax")
+
+    def call(self, inputs):
+        x = self.dense1(inputs)
+        return self.dense2(x)
+
+model = MyModel()
+```
 
 If you subclass `Model`, you can optionally have a `training` argument (boolean) in `call()`, which you can use to specify a different behavior in training and inference:
 
-`class MyModel(keras.Model):     def __init__(self):         super().__init__()         self.dense1 = keras.layers.Dense(32, activation="relu")         self.dense2 = keras.layers.Dense(5, activation="softmax")         self.dropout = keras.layers.Dropout(0.5)      def call(self, inputs, training=False):         x = self.dense1(inputs)         x = self.dropout(x, training=training)         return self.dense2(x)  model = MyModel()`
+```python
+class MyModel(keras.Model):
+    def __init__(self):
+        super().__init__()
+        self.dense1 = keras.layers.Dense(32, activation="relu")
+        self.dense2 = keras.layers.Dense(5, activation="softmax")
+        self.dropout = keras.layers.Dropout(0.5)
+
+    def call(self, inputs, training=False):
+        x = self.dense1(inputs)
+        x = self.dropout(x, training=training)
+        return self.dense2(x)
+
+model = MyModel()
+```
 
 Once the model is created, you can config the model with losses and metrics with `model.compile()`, train the model with `model.fit()`, or use the model to do prediction with `model.predict()`.
 
 ## With the `Sequential` class
 
-In addition, [`keras.Sequential`](/api/models/sequential#sequential-class) is a special case of model where the model is purely a stack of single-input, single-output layers.
+In addition, [`keras.Sequential`]({{< relref "/docs/api/models/sequential#sequential-class" >}}) is a special case of model where the model is purely a stack of single-input, single-output layers.
 
-`model = keras.Sequential([     keras.Input(shape=(None, None, 3)),     keras.layers.Conv2D(filters=32, kernel_size=3), ])`
+```python
+model = keras.Sequential([
+    keras.Input(shape=(None, None, 3)),
+    keras.layers.Conv2D(filters=32, kernel_size=3),
+])
+```
 
----
-
-[\[source\]](https://github.com/keras-team/keras/tree/v3.6.0/keras/src/models/model.py#L216)
+{{< keras/source link="https://github.com/keras-team/keras/tree/v3.6.0/keras/src/models/model.py#L216" >}}
 
 ### `summary` method
 
-`Model.summary(     line_length=None,     positions=None,     print_fn=None,     expand_nested=False,     show_trainable=False,     layer_range=None, )`
+```python
+Model.summary(
+    line_length=None,
+    positions=None,
+    print_fn=None,
+    expand_nested=False,
+    show_trainable=False,
+    layer_range=None,
+)
+```
 
 Prints a string summary of the network.
 
@@ -72,13 +127,13 @@ Prints a string summary of the network.
 
 - **ValueError**: if `summary()` is called before the model is built.
 
----
-
-[\[source\]](https://github.com/keras-team/keras/tree/v3.6.0/keras/src/models/model.py#L175)
+{{< keras/source link="https://github.com/keras-team/keras/tree/v3.6.0/keras/src/models/model.py#L175" >}}
 
 ### `get_layer` method
 
-`Model.get_layer(name=None, index=None)`
+```python
+Model.get_layer(name=None, index=None)
+```
 
 Retrieves a layer based on either its name (unique) or index.
 
@@ -92,5 +147,3 @@ If `name` and `index` are both provided, `index` will take precedence. Indices a
 **Returns**
 
 A layer instance.
-
----
