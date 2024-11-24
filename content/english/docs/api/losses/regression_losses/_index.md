@@ -1,7 +1,8 @@
 ---
 title: Regression losses
-toc: false
-weight: 5
+toc: true
+weight: 2
+type: docs
 ---
 
 [\[source\]](https://github.com/keras-team/keras/tree/v3.6.0/keras/src/losses/losses.py#L42)
