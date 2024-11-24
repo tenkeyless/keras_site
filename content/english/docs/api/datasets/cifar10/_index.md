@@ -1,6 +1,6 @@
 ---
-title: cifar10
-linkTitle: cifar10
-toc: false
-weight: 5
+title: CIFAR10 small images classification dataset
+toc: true
+weight: 2
+type: docs
 ---
