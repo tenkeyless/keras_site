@@ -1,6 +1,8 @@
 ---
-title: base_metric
-toc: false
+title: Base Metric class
+toc: true
+weight: 1
+type: docs
 ---
 
 [\[source\]](https://github.com/keras-team/keras/tree/v3.6.0/keras/src/metrics/metric.py#L11)

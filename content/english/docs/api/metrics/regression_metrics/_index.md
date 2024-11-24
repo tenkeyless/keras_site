@@ -1,6 +1,8 @@
 ---
-title: regression_metrics
-toc: false
+title: Regression metrics
+toc: true
+weight: 4
+type: docs
 ---
 
 [\[source\]](https://github.com/keras-team/keras/tree/v3.6.0/keras/src/metrics/regression_metrics.py#L16)
