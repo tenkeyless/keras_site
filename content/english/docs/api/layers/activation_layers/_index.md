@@ -1,4 +1,6 @@
 ---
-title: activation_layers
-toc: false
+title: Activation layers
+toc: true
+weight: 16
+type: docs
 ---

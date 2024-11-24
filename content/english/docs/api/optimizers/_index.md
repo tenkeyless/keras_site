@@ -1,7 +1,8 @@
 ---
 title: Optimizers
-linkTitle: Optimizers
-toc: false
+toc: true
+weight: 5
+type: docs
 ---
 
 ## Available optimizers

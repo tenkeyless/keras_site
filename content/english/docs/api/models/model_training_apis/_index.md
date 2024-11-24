@@ -1,6 +1,8 @@
 ---
-title: model_training_apis
-toc: false
+title: Model training APIs
+toc: true
+weight: 3
+type: docs
 ---
 
 [\[source\]](https://github.com/keras-team/keras/tree/v3.6.0/keras/src/trainers/trainer.py#L38)

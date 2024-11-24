@@ -1,7 +1,7 @@
 ---
-title: KerasTuner
+title: KerasTuner API
+linkTitle: KerasTuner
 toc: true
-weight: 7
+weight: 15
 type: docs
 ---
-

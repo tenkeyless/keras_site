@@ -1,6 +1,8 @@
 ---
-title: seed_generator
-toc: false
+title: SeedGenerator class
+toc: true
+weight: 1
+type: docs
 ---
 
 [\[source\]](https://github.com/keras-team/keras/tree/v3.6.0/keras/src/random/seed_generator.py#L12)

@@ -1,4 +1,6 @@
 ---
 title: Callbacks API
-toc: false
+toc: true
+weight: 3
+type: docs
 ---

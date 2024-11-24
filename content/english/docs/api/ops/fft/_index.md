@@ -1,6 +1,8 @@
 ---
-title: fft
-toc: false
+title: FFT ops
+toc: true
+weight: 6
+type: docs
 ---
 
 [\[source\]](https://github.com/keras-team/keras/tree/v3.6.0/keras/src/ops/math.py#L378)

@@ -1,7 +1,8 @@
 ---
 title: Adam
-toc: false
-weight: 5
+toc: true
+weight: 3
+type: docs
 ---
 
 [\[source\]](https://github.com/keras-team/keras/tree/v3.6.0/keras/src/optimizers/adam.py#L6)

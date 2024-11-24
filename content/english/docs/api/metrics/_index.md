@@ -1,6 +1,8 @@
 ---
-title: metrics
-toc: false
+title: Metrics
+toc: true
+weight: 6
+type: docs
 ---
 
 A metric is a function that is used to judge the performance of your model.

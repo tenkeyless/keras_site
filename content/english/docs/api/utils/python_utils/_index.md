@@ -1,6 +1,8 @@
 ---
 title: Python & NumPy utilities
-toc: false
+toc: true
+weight: 5
+type: docs
 ---
 
 [\[source\]](https://github.com/keras-team/keras/tree/v3.6.0/keras/src/utils/rng_utils.py#L10)

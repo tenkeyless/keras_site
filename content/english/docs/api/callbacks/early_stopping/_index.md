@@ -1,6 +1,8 @@
 ---
-title: early_stopping
-toc: false
+title: EarlyStopping
+toc: true
+weight: 5
+type: docs
 ---
 
 [\[source\]](https://github.com/keras-team/keras/tree/v3.6.0/keras/src/callbacks/early_stopping.py#L10)

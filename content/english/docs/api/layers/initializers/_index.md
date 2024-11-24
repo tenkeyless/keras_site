@@ -1,6 +1,8 @@
 ---
 title: Layer weight initializers
-toc: false
+toc: true
+weight: 3
+type: docs
 ---
 
 ## Usage of initializers

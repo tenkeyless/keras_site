@@ -1,6 +1,8 @@
 ---
 title: ResNet and ResNetV2
-toc: false
+toc: true
+weight: 6
+type: docs
 ---
 
 [\[source\]](https://github.com/keras-team/keras/tree/v3.6.0/keras/src/applications/resnet.py#L384)

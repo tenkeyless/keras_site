@@ -1,4 +1,6 @@
 ---
-title: core_layers
-toc: false
+title: Core layers
+toc: true
+weight: 6
+type: docs
 ---

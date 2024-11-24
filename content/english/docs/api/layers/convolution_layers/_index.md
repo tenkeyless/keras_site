@@ -1,4 +1,6 @@
 ---
-title: convolution_layers
-toc: false
+title: Convolution layers
+toc: true
+weight: 7
+type: docs
 ---

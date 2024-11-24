@@ -1,4 +1,6 @@
 ---
-title: attention_layers
-toc: false
+title: Attention layers
+toc: true
+weight: 13
+type: docs
 ---

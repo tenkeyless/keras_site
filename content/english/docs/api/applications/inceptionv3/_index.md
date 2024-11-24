@@ -1,4 +1,6 @@
 ---
-title: inceptionv3
-toc: false
+title: InceptionV3
+toc: true
+weight: 10
+type: docs
 ---

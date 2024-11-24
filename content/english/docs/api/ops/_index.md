@@ -1,5 +1,6 @@
 ---
 title: Ops API
-linkTitle: Ops API
-toc: false
+toc: true
+weight: 4
+type: docs
 ---

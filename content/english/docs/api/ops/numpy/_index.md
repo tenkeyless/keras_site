@@ -1,7 +1,8 @@
 ---
 title: NumPy ops
-linkTitle: NumPy ops
-toc: false
+toc: true
+weight: 1
+type: docs
 ---
 
 [\[source\]](https://github.com/keras-team/keras/tree/v3.6.0/keras/src/ops/numpy.py#L86)

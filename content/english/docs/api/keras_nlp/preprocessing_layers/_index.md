@@ -1,4 +1,6 @@
 ---
-title: preprocessing_layers
-toc: false
+title: Preprocessing Layers
+toc: true
+weight: 4
+type: docs
 ---

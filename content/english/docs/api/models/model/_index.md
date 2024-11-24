@@ -1,6 +1,8 @@
 ---
-title: Model
-toc: false
+title: The Model class
+toc: true
+weight: 1
+type: docs
 ---
 
 [\[source\]](https://github.com/keras-team/keras/tree/v3.6.0/keras/src/models/model.py#L32)

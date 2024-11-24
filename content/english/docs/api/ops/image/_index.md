@@ -1,6 +1,8 @@
 ---
-title: image
-toc: false
+title: Image ops
+toc: true
+weight: 5
+type: docs
 ---
 
 [\[source\]](https://github.com/keras-team/keras/tree/v3.6.0/keras/src/ops/image.py#L449)

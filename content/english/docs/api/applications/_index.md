@@ -1,4 +1,6 @@
 ---
-title: Multi-device distribution
-toc: false
+title: Keras Applications
+toc: true
+weight: 10
+type: docs
 ---

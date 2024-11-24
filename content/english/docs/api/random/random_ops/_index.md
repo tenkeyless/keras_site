@@ -1,6 +1,8 @@
 ---
-title: random_ops
-toc: false
+title: Random operations
+toc: true
+weight: 2
+type: docs
 ---
 
 [\[source\]](https://github.com/keras-team/keras/tree/v3.6.0/keras/src/random/random.py#L272)

@@ -1,8 +1,8 @@
 ---
 title: Accuracy metrics
-linkTitle: Accuracy metrics
-toc: false
-weight: 5
+toc: true
+weight: 2
+type: docs
 ---
 
 [\[source\]](https://github.com/keras-team/keras/tree/v3.6.0/keras/src/metrics/accuracy_metrics.py#L15)

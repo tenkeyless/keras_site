@@ -1,5 +1,6 @@
 ---
-title: adamw
-linkTitle: adamw
-toc: false
+title: AdamW
+toc: true
+weight: 4
+type: docs
 ---

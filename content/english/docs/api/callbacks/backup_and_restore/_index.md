@@ -1,6 +1,8 @@
 ---
 title: BackupAndRestore
-toc: false
+toc: true
+weight: 3
+type: docs
 ---
 
 [\[source\]](https://github.com/keras-team/keras/tree/v3.6.0/keras/src/callbacks/backup_and_restore.py#L8)

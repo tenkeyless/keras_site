@@ -1,5 +1,6 @@
 ---
-title: sgd
-linkTitle: sgd
-toc: false
+title: SGD
+toc: true
+weight: 1
+type: docs
 ---

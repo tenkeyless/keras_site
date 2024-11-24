@@ -1,4 +1,6 @@
 ---
-title: data_loading
-toc: false
+title: Data loading
+toc: true
+weight: 8
+type: docs
 ---

@@ -1,6 +1,8 @@
 ---
-title: hyperparameters
-toc: false
+title: HyperParameters
+toc: true
+weight: 1
+type: docs
 ---
 
 [\[source\]](https://github.com/keras-team/keras-tuner/tree/v1.4.7/keras_tuner/src/engine/hyperparameters/hyperparameters.py#L29)

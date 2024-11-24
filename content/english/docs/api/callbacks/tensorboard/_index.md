@@ -1,6 +1,8 @@
 ---
 title: TensorBoard
-toc: false
+toc: true
+weight: 4
+type: docs
 ---
 
 [\[source\]](https://github.com/keras-team/keras/tree/v3.6.0/keras/src/callbacks/tensorboard.py#L17)
