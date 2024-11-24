@@ -1,18 +1,18 @@
 ---
-title: GRU layer
+title: LSTM layer
 toc: true
-weight: 3
+weight: 1
 type: docs
 ---
 
-{{< keras/original checkedAt="2024-11-25" >}}
+{{< keras/original checkedAt="2024-11-24" >}}
 
-[\[source\]](https://github.com/keras-team/keras/tree/v3.6.0/keras/src/layers/rnn/gru.py#L330)
+[\[source\]](https://github.com/keras-team/keras/tree/v3.6.0/keras/src/layers/rnn/lstm.py#L318)
 
-### `GRU` class
+### `LSTM` class
 
 ```python
-keras.layers.GRU(
+keras.layers.LSTM(
     units,
     activation="tanh",
     recurrent_activation="sigmoid",
@@ -20,6 +20,7 @@ keras.layers.GRU(
     kernel_initializer="glorot_uniform",
     recurrent_initializer="orthogonal",
     bias_initializer="zeros",
+    unit_forget_bias=True,
     kernel_regularizer=None,
     recurrent_regularizer=None,
     bias_regularizer=None,
@@ -35,44 +36,39 @@ keras.layers.GRU(
     go_backwards=False,
     stateful=False,
     unroll=False,
-    reset_after=True,
     use_cudnn="auto",
     **kwargs
 )
 ```
 
-Gated Recurrent Unit - Cho et al. 2014.
+Long Short-Term Memory layer - Hochreiter 1997.
 
-Based on available runtime hardware and constraints, this layer will choose different implementations (cuDNN-based or backend-native) to maximize the performance. If a GPU is available and all the arguments to the layer meet the requirement of the cuDNN kernel (see below for details), the layer will use a fast cuDNN implementation when using the TensorFlow backend.
-
-The requirements to use the cuDNN implementation are:
+Based on available runtime hardware and constraints, this layer will choose different implementations (cuDNN-based or backend-native) to maximize the performance. If a GPU is available and all the arguments to the layer meet the requirement of the cuDNN kernel (see below for details), the layer will use a fast cuDNN implementation when using the TensorFlow backend. The requirements to use the cuDNN implementation are:
 
 1.  `activation` == `tanh`
 2.  `recurrent_activation` == `sigmoid`
 3.  `dropout` == 0 and `recurrent_dropout` == 0
 4.  `unroll` is `False`
 5.  `use_bias` is `True`
-6.  `reset_after` is `True`
-7.  Inputs, if use masking, are strictly right-padded.
-8.  Eager execution is enabled in the outermost context.
-
-There are two variants of the GRU implementation. The default one is based on [v3](https://arxiv.org/abs/1406.1078v3) and has reset gate applied to hidden state before matrix multiplication. The other one is based on [original](https://arxiv.org/abs/1406.1078v1) and has the order reversed.
-
-The second variant is compatible with CuDNNGRU (GPU-only) and allows inference on CPU. Thus it has separate biases for `kernel` and `recurrent_kernel`. To use this variant, set `reset_after=True` and `recurrent_activation='sigmoid'`.
+6.  Inputs, if use masking, are strictly right-padded.
+7.  Eager execution is enabled in the outermost context.
 
 For example:
 
 ```console
 >>> inputs = np.random.random((32, 10, 8))
->>> gru = keras.layers.GRU(4)
->>> output = gru(inputs)
+>>> lstm = keras.layers.LSTM(4)
+>>> output = lstm(inputs)
 >>> output.shape
 (32, 4)
->>> gru = keras.layers.GRU(4, return_sequences=True, return_state=True)
->>> whole_sequence_output, final_state = gru(inputs)
->>> whole_sequence_output.shape
+>>> lstm = keras.layers.LSTM(
+...     4, return_sequences=True, return_state=True)
+>>> whole_seq_output, final_memory_state, final_carry_state = lstm(inputs)
+>>> whole_seq_output.shape
 (32, 10, 4)
->>> final_state.shape
+>>> final_memory_state.shape
+(32, 4)
+>>> final_carry_state.shape
 (32, 4)
 ```
 
@@ -85,6 +81,7 @@ For example:
 - **kernel_initializer**: Initializer for the `kernel` weights matrix, used for the linear transformation of the inputs. Default: `"glorot_uniform"`.
 - **recurrent_initializer**: Initializer for the `recurrent_kernel` weights matrix, used for the linear transformation of the recurrent state. Default: `"orthogonal"`.
 - **bias_initializer**: Initializer for the bias vector. Default: `"zeros"`.
+- **unit_forget_bias**: Boolean (default `True`). If `True`, add 1 to the bias of the forget gate at initialization. Setting it to `True` will also force `bias_initializer="zeros"`. This is recommended in [Jozefowicz et al.](https://github.com/mlresearch/v37/blob/gh-pages/jozefowicz15.pdf)
 - **kernel_regularizer**: Regularizer function applied to the `kernel` weights matrix. Default: `None`.
 - **recurrent_regularizer**: Regularizer function applied to the `recurrent_kernel` weights matrix. Default: `None`.
 - **bias_regularizer**: Regularizer function applied to the bias vector. Default: `None`.
@@ -97,10 +94,9 @@ For example:
 - **seed**: Random seed for dropout.
 - **return_sequences**: Boolean. Whether to return the last output in the output sequence, or the full sequence. Default: `False`.
 - **return_state**: Boolean. Whether to return the last state in addition to the output. Default: `False`.
-- **go_backwards**: Boolean (default `False`). If `True`, process the input sequence backwards and return the reversed sequence.
+- **go_backwards**: Boolean (default: `False`). If `True`, process the input sequence backwards and return the reversed sequence.
 - **stateful**: Boolean (default: `False`). If `True`, the last state for each sample at index i in a batch will be used as initial state for the sample of index i in the following batch.
-- **unroll**: Boolean (default: `False`). If `True`, the network will be unrolled, else a symbolic loop will be used. Unrolling can speed-up a RNN, although it tends to be more memory-intensive. Unrolling is only suitable for short sequences.
-- **reset_after**: GRU convention (whether to apply reset gate after or before matrix multiplication). `False` is `"before"`, `True` is `"after"` (default and cuDNN compatible).
+- **unroll**: Boolean (default False). If `True`, the network will be unrolled, else a symbolic loop will be used. Unrolling can speed-up a RNN, although it tends to be more memory-intensive. Unrolling is only suitable for short sequences.
 - **use_cudnn**: Whether to use a cuDNN-backed implementation. `"auto"` will attempt to use cuDNN when feasible, and will fallback to the default implementation if not.
 
 **Call arguments**
