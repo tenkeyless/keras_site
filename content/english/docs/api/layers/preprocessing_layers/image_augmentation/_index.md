@@ -1,4 +1,6 @@
 ---
-title: image_augmentation
-toc: false
+title: Image augmentation layers
+toc: true
+weight: 5
+type: docs
 ---

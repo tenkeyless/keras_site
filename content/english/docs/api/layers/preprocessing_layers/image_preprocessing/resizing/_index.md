@@ -1,6 +1,8 @@
 ---
-title: resizing
-toc: false
+title: Resizing layer
+toc: true
+weight: 1
+type: docs
 ---
 
 {{< keras/source link="https://github.com/keras-team/keras/tree/v3.6.0/keras/src/layers/preprocessing/image_preprocessing/resizing.py#L9" >}}

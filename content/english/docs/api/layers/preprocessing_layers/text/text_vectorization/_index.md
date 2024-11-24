@@ -1,13 +1,34 @@
 ---
-title: TextVectorization layer
-toc: false
+title: TextVectorization layers
+toc: true
+weight: 1
+type: docs
 ---
+
+{{< keras/original checkedAt="2024-11-25" >}}
 
 {{< keras/source link="https://github.com/keras-team/keras/tree/v3.6.0/keras/src/layers/preprocessing/text_vectorization.py#L15" >}}
 
 ### `TextVectorization` class
 
-`keras.layers.TextVectorization(     max_tokens=None,     standardize="lower_and_strip_punctuation",     split="whitespace",     ngrams=None,     output_mode="int",     output_sequence_length=None,     pad_to_max_tokens=False,     vocabulary=None,     idf_weights=None,     sparse=False,     ragged=False,     encoding="utf-8",     name=None,     **kwargs )`
+```python
+keras.layers.TextVectorization(
+    max_tokens=None,
+    standardize="lower_and_strip_punctuation",
+    split="whitespace",
+    ngrams=None,
+    output_mode="int",
+    output_sequence_length=None,
+    pad_to_max_tokens=False,
+    vocabulary=None,
+    idf_weights=None,
+    sparse=False,
+    ragged=False,
+    encoding="utf-8",
+    name=None,
+    **kwargs
+)
+```
 
 A preprocessing layer which maps text features to integer sequences.
 
@@ -25,7 +46,7 @@ The processing of each example contains the following steps:
 
 Some notes on passing callables to customize splitting and normalization for this layer:
 
-1.  Any callable can be passed to this Layer, but if you want to serialize this object you should only pass functions that are registered Keras serializables (see [`keras.saving.register_keras_serializable`](/api/models/model_saving_apis/serialization_utils#registerkerasserializable-function) for more details).
+1.  Any callable can be passed to this Layer, but if you want to serialize this object you should only pass functions that are registered Keras serializables (see [`keras.saving.register_keras_serializable`]({{< relref "/docs/api/models/model_saving_apis/serialization_utils#registerkerasserializable-function" >}}) for more details).
 2.  When using a custom callable for `standardize`, the data received by the callable will be exactly as passed to this layer. The callable should return a tensor of the same shape as the input.
 3.  When using a custom callable for `split`, the data received by the callable will have the 1st dimension squeezed out - instead of `[["string to split"], ["another string to split"]]`, the Callable will see `["string to split", "another string to split"]`. The callable should return a [`tf.Tensor`](https://www.tensorflow.org/api_docs/python/tf/Tensor) of dtype `string` with the first dimension containing the split tokens - in this example, we should see something like `[["string", "to", "split"], ["another", "string", "to", "split"]]`.
 
@@ -65,16 +86,51 @@ Some notes on passing callables to customize splitting and normalization for thi
 
 This example instantiates a `TextVectorization` layer that lowercases text, splits on whitespace, strips punctuation, and outputs integer vocab indices.
 
-`>>> max_tokens = 5000  # Maximum vocab size. >>> max_len = 4  # Sequence length to pad the outputs to. >>> # Create the layer. >>> vectorize_layer = TextVectorization( ...     max_tokens=max_tokens, ...     output_mode='int', ...     output_sequence_length=max_len)`
+```console
+>>> max_tokens = 5000  # Maximum vocab size.
+>>> max_len = 4  # Sequence length to pad the outputs to.
+>>> # Create the layer.
+>>> vectorize_layer = TextVectorization(
+...     max_tokens=max_tokens,
+...     output_mode='int',
+...     output_sequence_length=max_len)
+```
 
-`` >>> # Now that the vocab layer has been created, call `adapt` on the >>> # list of strings to create the vocabulary. >>> vectorize_layer.adapt(["foo bar", "bar baz", "baz bada boom"]) ``
+```console
+>>> # Now that the vocab layer has been created, call `adapt` on the
+>>> # list of strings to create the vocabulary.
+>>> vectorize_layer.adapt(["foo bar", "bar baz", "baz bada boom"])
+```
 
-`>>> # Now, the layer can map strings to integers -- you can use an >>> # embedding layer to map these integers to learned embeddings. >>> input_data = [["foo qux bar"], ["qux baz"]] >>> vectorize_layer(input_data) array([[4, 1, 3, 0],        [1, 2, 0, 0]])`
+```console
+>>> # Now, the layer can map strings to integers -- you can use an
+>>> # embedding layer to map these integers to learned embeddings.
+>>> input_data = [["foo qux bar"], ["qux baz"]]
+>>> vectorize_layer(input_data)
+array([[4, 1, 3, 0],
+       [1, 2, 0, 0]])
+```
 
 This example instantiates a `TextVectorization` layer by passing a list of vocabulary terms to the layer's `__init__()` method.
 
-`>>> vocab_data = ["earth", "wind", "and", "fire"] >>> max_len = 4  # Sequence length to pad the outputs to. >>> # Create the layer, passing the vocab directly. You can also pass the >>> # vocabulary arg a path to a file containing one vocabulary word per >>> # line. >>> vectorize_layer = keras.layers.TextVectorization( ...     max_tokens=max_tokens, ...     output_mode='int', ...     output_sequence_length=max_len, ...     vocabulary=vocab_data)`
+```console
+>>> vocab_data = ["earth", "wind", "and", "fire"]
+>>> max_len = 4  # Sequence length to pad the outputs to.
+>>> # Create the layer, passing the vocab directly. You can also pass the
+>>> # vocabulary arg a path to a file containing one vocabulary word per
+>>> # line.
+>>> vectorize_layer = keras.layers.TextVectorization(
+...     max_tokens=max_tokens,
+...     output_mode='int',
+...     output_sequence_length=max_len,
+...     vocabulary=vocab_data)
+```
 
-`>>> # Because we've passed the vocabulary directly, we don't need to adapt >>> # the layer - the vocabulary is already set. The vocabulary contains the >>> # padding token ('') and OOV token ('[UNK]') >>> # as well as the passed tokens. >>> vectorize_layer.get_vocabulary() ['', '[UNK]', 'earth', 'wind', 'and', 'fire']`
-
----
+```console
+>>> # Because we've passed the vocabulary directly, we don't need to adapt
+>>> # the layer - the vocabulary is already set. The vocabulary contains the
+>>> # padding token ('') and OOV token ('[UNK]')
+>>> # as well as the passed tokens.
+>>> vectorize_layer.get_vocabulary()
+['', '[UNK]', 'earth', 'wind', 'and', 'fire']
+```
