@@ -1,4 +1,6 @@
 ---
-title: regularization_layers
-toc: false
+title: Regularization layers
+toc: true
+weight: 12
+type: docs
 ---

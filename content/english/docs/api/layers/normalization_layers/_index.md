@@ -1,4 +1,6 @@
 ---
-title: normalization_layers
-toc: false
+title: Normalization layers
+toc: true
+weight: 11
+type: docs
 ---

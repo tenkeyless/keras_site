@@ -1,4 +1,6 @@
 ---
-title: recurrent_layers
-toc: false
+title: Recurrent layers
+toc: true
+weight: 9
+type: docs
 ---

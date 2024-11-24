@@ -1,6 +1,8 @@
 ---
-title: base_layer
-toc: false
+title: The base Layer class
+toc: true
+weight: 1
+type: docs
 ---
 
 [\[source\]](https://github.com/keras-team/keras/tree/v3.6.0/keras/src/layers/layer.py#L61)
