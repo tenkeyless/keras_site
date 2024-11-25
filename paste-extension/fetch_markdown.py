@@ -4,6 +4,17 @@ import requests
 from bs4 import BeautifulSoup
 from markdownify import markdownify
 import re
+from datetime import datetime
+
+
+def add_metadata(markdown_content):
+    """
+    Markdown 콘텐츠 맨 앞에 `{{< keras/original checkedAt="현재 날짜" >}}`를 추가합니다.
+    """
+    # 현재 날짜를 'YYYY-MM-DD' 형식으로 가져오기
+    current_date = datetime.now().strftime("%Y-%m-%d")
+    metadata = f'{{{{< keras/original checkedAt="{current_date}" >}}}}\n\n'
+    return metadata + markdown_content
 
 
 def get_url_from_file_path(file_path):
@@ -54,7 +65,7 @@ def clean_markdown(markdown_content):
                 if i + 1 < len(lines):  # 다음 줄이 존재하는지 확인
                     next_line = lines[i + 1].strip()
                     if next_line.startswith("$") or next_line.startswith(">>>"):
-                        code_language = "plain"
+                        code_language = "console"
                 cleaned_lines.append(f"```{code_language}")
             inside_code_block = not inside_code_block
         elif inside_code_block:
@@ -108,6 +119,23 @@ def change_keras_link(markdown_content):
     return transformed_content
 
 
+def remove_h1_and_hr(markdown_content):
+    """
+    Markdown 내용에서 h1 제목(`# title`)과 줄긋기(`---`)를 제거합니다.
+    """
+    lines = markdown_content.split("\n")
+    cleaned_lines = []
+    for line in lines:
+        # h1 제목 제거 (라인이 #로 시작하고 그 뒤에 공백이 있으면 h1)
+        if line.startswith("# ") and len(line.strip()) > 1:
+            continue
+        # --- 줄긋기 제거
+        if line.strip() == "---":
+            continue
+        cleaned_lines.append(line)
+    return "\n".join(cleaned_lines)
+
+
 def fetch_and_clean_content(url):
     """
     URL에서 <div class='k-content'> 내용을 가져와 Markdown으로 변환 후 클린업.
@@ -138,6 +166,12 @@ def fetch_and_clean_content(url):
         # rel 링크 변환
         markdown_content = change_link(markdown_content)
         markdown_content = change_keras_link(markdown_content)
+
+        # h1 제목과 줄긋기 제거
+        markdown_content = remove_h1_and_hr(markdown_content)
+
+        # 메타데이터 추가
+        markdown_content = add_metadata(markdown_content)
 
         return markdown_content
 
