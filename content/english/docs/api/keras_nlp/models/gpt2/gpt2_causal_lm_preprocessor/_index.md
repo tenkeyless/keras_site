@@ -1,13 +1,15 @@
 ---
 title: GPT2CausalLMPreprocessor layer
-toc: false
+toc: true
+weight: 4
+type: docs
 ---
 
 {{< keras/source link="https://github.com/keras-team/keras-hub/tree/v0.17.0/keras_hub/src/models/gpt2/gpt2_causal_lm_preprocessor.py#L7" >}}
 
 ### `GPT2CausalLMPreprocessor` class
 
-`keras_nlp.models.GPT2CausalLMPreprocessor(     tokenizer, sequence_length=1024, add_start_token=True, add_end_token=True, **kwargs )`
+`keras_hub.models.GPT2CausalLMPreprocessor(     tokenizer, sequence_length=1024, add_start_token=True, add_end_token=True, **kwargs )`
 
 GPT2 Causal LM preprocessor.
 
@@ -128,7 +130,7 @@ This method reverses `generate_preprocess()`, by first removing all padding and 
 
 ### `tokenizer` property
 
-`keras_nlp.models.GPT2CausalLMPreprocessor.tokenizer`
+`keras_hub.models.GPT2CausalLMPreprocessor.tokenizer`
 
 The tokenizer used to tokenize strings.
 

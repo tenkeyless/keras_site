@@ -1,13 +1,15 @@
 ---
 title: GPT2CausalLM model
-toc: false
+toc: true
+weight: 3
+type: docs
 ---
 
 {{< keras/source link="https://github.com/keras-team/keras-hub/tree/v0.17.0/keras_hub/src/models/gpt2/gpt2_causal_lm.py#L13" >}}
 
 ### `GPT2CausalLM` class
 
-`keras_nlp.models.GPT2CausalLM(backbone, preprocessor=None, **kwargs)`
+`keras_hub.models.GPT2CausalLM(backbone, preprocessor=None, **kwargs)`
 
 An end-to-end GPT2 model for causal language modeling.
 
@@ -143,7 +145,7 @@ If a `preprocessor` is attached to the model, `inputs` will be preprocessed insi
 
 ### `backbone` property
 
-`keras_nlp.models.GPT2CausalLM.backbone`
+`keras_hub.models.GPT2CausalLM.backbone`
 
 A [`keras_hub.models.Backbone`](/api/keras_hub/base_classes/backbone#backbone-class) model with the core architecture.
 
@@ -151,7 +153,7 @@ A [`keras_hub.models.Backbone`](/api/keras_hub/base_classes/backbone#backbone-cl
 
 ### `preprocessor` property
 
-`keras_nlp.models.GPT2CausalLM.preprocessor`
+`keras_hub.models.GPT2CausalLM.preprocessor`
 
 A [`keras_hub.models.Preprocessor`](/api/keras_hub/base_classes/preprocessor#preprocessor-class) layer used to preprocess input.
 

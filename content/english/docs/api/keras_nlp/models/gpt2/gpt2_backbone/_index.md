@@ -1,13 +1,15 @@
 ---
 title: GPT2Backbone model
-toc: false
+toc: true
+weight: 2
+type: docs
 ---
 
 {{< keras/source link="https://github.com/keras-team/keras-hub/tree/v0.17.0/keras_hub/src/models/gpt2/gpt2_backbone.py#L17" >}}
 
 ### `GPT2Backbone` class
 
-`keras_nlp.models.GPT2Backbone(     vocabulary_size,     num_layers,     num_heads,     hidden_dim,     intermediate_dim,     dropout=0.1,     max_sequence_length=1024,     dtype=None,     **kwargs )`
+`keras_hub.models.GPT2Backbone(     vocabulary_size,     num_layers,     num_heads,     hidden_dim,     intermediate_dim,     dropout=0.1,     max_sequence_length=1024,     dtype=None,     **kwargs )`
 
 GPT-2 core network with hyperparameters.
 
@@ -102,7 +104,7 @@ gpt2_base_en_cnn_dailymail
 
 ### `token_embedding` property
 
-`keras_nlp.models.GPT2Backbone.token_embedding`
+`keras_hub.models.GPT2Backbone.token_embedding`
 
 A [`keras.layers.Embedding`](/api/layers/core_layers/embedding#embedding-class) instance for embedding token ids.
 
