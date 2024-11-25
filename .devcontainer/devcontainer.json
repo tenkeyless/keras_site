@@ -29,5 +29,6 @@
     "keras_kr_doc"
   ],
   "postCreateCommand": "pip install requests beautifulsoup4 markdownify",
-  "postStartCommand": "hugo server --buildDrafts --disableFastRender --bind=0.0.0.0 --port=1314"
+  // "postStartCommand": "hugo server --buildDrafts --disableFastRender --bind=0.0.0.0 --port=1314"
+  "postStartCommand": "hugo server --buildDrafts --bind=0.0.0.0 --port=1314"
 }
