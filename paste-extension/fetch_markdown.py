@@ -42,9 +42,7 @@ def save_to_file(content, file_path):
 def clean_markdown(markdown_content):
     """
     Markdown 내용 후처리:
-    - <p> 태그로 인한 불필요한 줄바꿈 제거.
-    - 코드 블록(````) 줄바꿈 문제 해결 및 언어 지정.
-    - 리스트(`*`)와 텍스트를 올바르게 분리.
+    - 코드 블록(````) 언어 지정.
     """
     lines = markdown_content.split("\n")
     cleaned_lines = []
@@ -71,23 +69,12 @@ def clean_markdown(markdown_content):
         elif inside_code_block:
             # 코드 블록 내의 줄 추가
             buffer.append(line)
-        elif line.startswith("* "):  # 리스트 항목 처리
-            if buffer:
-                cleaned_lines.append(" ".join(buffer))
-                buffer = []
-            cleaned_lines.append(line.strip())
         else:
-            # 일반 텍스트 처리
-            if line.strip() == "":
-                if buffer:
-                    cleaned_lines.append(" ".join(buffer))
-                    buffer = []
-                cleaned_lines.append("")
-            else:
-                buffer.append(line.strip())
+            # 코드 블록 외부: 그대로 추가
+            cleaned_lines.append(line)
 
     if buffer:
-        cleaned_lines.append(" ".join(buffer))  # 마지막 줄 처리
+        cleaned_lines.append("\n".join(buffer))  # 마지막 줄 처리
 
     return "\n".join(cleaned_lines)
 
