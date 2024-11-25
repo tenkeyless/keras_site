@@ -1,5 +1,5 @@
 ---
-title: Bounding box formats
+title: Convert bounding box formats
 toc: true
 weight: 1
 type: docs
