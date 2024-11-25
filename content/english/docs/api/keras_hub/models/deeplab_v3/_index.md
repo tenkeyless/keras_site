@@ -1,4 +1,6 @@
 ---
-title: deeplab_v3
-toc: false
+title: DeepLabV3 and DeepLabV3Plus
+toc: true
+weight: 6
+type: docs
 ---

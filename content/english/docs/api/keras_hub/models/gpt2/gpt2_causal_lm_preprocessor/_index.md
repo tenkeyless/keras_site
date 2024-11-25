@@ -1,6 +1,8 @@
 ---
 title: GPT2CausalLMPreprocessor layer
-toc: false
+toc: true
+weight: 4
+type: docs
 ---
 
 {{< keras/source link="https://github.com/keras-team/keras-hub/tree/v0.17.0/keras_hub/src/models/gpt2/gpt2_causal_lm_preprocessor.py#L7" >}}

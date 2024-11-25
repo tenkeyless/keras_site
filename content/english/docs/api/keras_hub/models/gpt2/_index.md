@@ -1,4 +1,6 @@
 ---
-title: gpt2
-toc: false
+title: GPT2
+toc: true
+weight: 13
+type: docs
 ---

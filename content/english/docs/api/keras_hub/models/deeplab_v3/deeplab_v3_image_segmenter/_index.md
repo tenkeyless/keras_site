@@ -1,6 +1,8 @@
 ---
-title: deeplab_v3_image_segmenter
-toc: false
+title: DeepLabV3ImageSegmenter model
+toc: true
+weight: 3
+type: docs
 ---
 
 {{< keras/source link="https://github.com/keras-team/keras-hub/tree/v0.17.0/keras_hub/src/models/deeplab_v3/deeplab_v3_segmenter.py#L13" >}}

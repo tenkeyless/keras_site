@@ -1,6 +1,8 @@
 ---
 title: OPTCausalLM model
-toc: false
+toc: true
+weight: 3
+type: docs
 ---
 
 {{< keras/source link="https://github.com/keras-team/keras-hub/tree/v0.17.0/keras_hub/src/models/opt/opt_causal_lm.py#L12" >}}
