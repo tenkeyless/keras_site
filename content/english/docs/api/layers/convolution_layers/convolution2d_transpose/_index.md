@@ -1,13 +1,34 @@
 ---
 title: Conv2DTranspose layer
-toc: false
+toc: true
+weight: 9
+type: docs
 ---
 
-[\[source\]](https://github.com/keras-team/keras/tree/v3.6.0/keras/src/layers/convolutional/conv2d_transpose.py#L5)
+{{< keras/source link="https://github.com/keras-team/keras/tree/v3.6.0/keras/src/layers/convolutional/conv2d_transpose.py#L5" >}}
 
 ### `Conv2DTranspose` class
 
-`keras.layers.Conv2DTranspose(     filters,     kernel_size,     strides=(1, 1),     padding="valid",     data_format=None,     dilation_rate=(1, 1),     activation=None,     use_bias=True,     kernel_initializer="glorot_uniform",     bias_initializer="zeros",     kernel_regularizer=None,     bias_regularizer=None,     activity_regularizer=None,     kernel_constraint=None,     bias_constraint=None,     **kwargs )`
+```python
+keras.layers.Conv2DTranspose(
+    filters,
+    kernel_size,
+    strides=(1, 1),
+    padding="valid",
+    data_format=None,
+    dilation_rate=(1, 1),
+    activation=None,
+    use_bias=True,
+    kernel_initializer="glorot_uniform",
+    bias_initializer="zeros",
+    kernel_regularizer=None,
+    bias_regularizer=None,
+    activity_regularizer=None,
+    kernel_constraint=None,
+    bias_constraint=None,
+    **kwargs
+)
+```
 
 2D transposed convolution layer.
 
@@ -56,6 +77,9 @@ A 4D tensor representing `activation(conv2d_transpose(inputs, kernel) + bias)`.
 
 **Example**
 
-`>>> x = np.random.rand(4, 10, 8, 128) >>> y = keras.layers.Conv2DTranspose(32, 2, 2, activation='relu')(x) >>> print(y.shape) (4, 20, 16, 32)`
-
----
+```console
+>>> x = np.random.rand(4, 10, 8, 128)
+>>> y = keras.layers.Conv2DTranspose(32, 2, 2, activation='relu')(x)
+>>> print(y.shape)
+(4, 20, 16, 32)
+```

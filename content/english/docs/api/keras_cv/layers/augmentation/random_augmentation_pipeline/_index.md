@@ -3,7 +3,7 @@ title: random_augmentation_pipeline
 toc: false
 ---
 
-[\[source\]](https://github.com/keras-team/keras-cv/tree/v0.9.0/keras_cv/src/layers/preprocessing/random_augmentation_pipeline.py#L25)
+{{< keras/source link="https://github.com/keras-team/keras-cv/tree/v0.9.0/keras_cv/src/layers/preprocessing/random_augmentation_pipeline.py#L25" >}}
 
 ### `RandomAugmentationPipeline` class
 

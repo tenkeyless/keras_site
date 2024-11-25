@@ -3,7 +3,7 @@ title: image_classifier_preprocessor
 toc: false
 ---
 
-[\[source\]](https://github.com/keras-team/keras-hub/tree/v0.17.0/keras_hub/src/models/image_classifier_preprocessor.py#L8)
+{{< keras/source link="https://github.com/keras-team/keras-hub/tree/v0.17.0/keras_hub/src/models/image_classifier_preprocessor.py#L8" >}}
 
 ### `ImageClassifierPreprocessor` class
 
@@ -25,7 +25,7 @@ Examples.
 
 ---
 
-[\[source\]](https://github.com/keras-team/keras-hub/tree/v0.17.0/keras_hub/src/models/preprocessor.py#L132)
+{{< keras/source link="https://github.com/keras-team/keras-hub/tree/v0.17.0/keras_hub/src/models/preprocessor.py#L132" >}}
 
 ### `from_preset` method
 
@@ -270,7 +270,7 @@ vgg_19_imagenet
 
 ---
 
-[\[source\]](https://github.com/keras-team/keras-hub/tree/v0.17.0/keras_hub/src/models/task.py#L238)
+{{< keras/source link="https://github.com/keras-team/keras-hub/tree/v0.17.0/keras_hub/src/models/task.py#L238" >}}
 
 ### `save_to_preset` method
 

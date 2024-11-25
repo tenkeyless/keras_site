@@ -1,13 +1,37 @@
 ---
 title: Conv1D layer
-toc: false
+toc: true
+weight: 1
+type: docs
 ---
 
-[\[source\]](https://github.com/keras-team/keras/tree/v3.6.0/keras/src/layers/convolutional/conv1d.py#L6)
+{{< keras/original checkedAt="2024-11-24" >}}
+
+{{< keras/source link="https://github.com/keras-team/keras/tree/v3.6.0/keras/src/layers/convolutional/conv1d.py#L6" >}}
 
 ### `Conv1D` class
 
-`keras.layers.Conv1D(     filters,     kernel_size,     strides=1,     padding="valid",     data_format=None,     dilation_rate=1,     groups=1,     activation=None,     use_bias=True,     kernel_initializer="glorot_uniform",     bias_initializer="zeros",     kernel_regularizer=None,     bias_regularizer=None,     activity_regularizer=None,     kernel_constraint=None,     bias_constraint=None,     **kwargs )`
+```python
+keras.layers.Conv1D(
+    filters,
+    kernel_size,
+    strides=1,
+    padding="valid",
+    data_format=None,
+    dilation_rate=1,
+    groups=1,
+    activation=None,
+    use_bias=True,
+    kernel_initializer="glorot_uniform",
+    bias_initializer="zeros",
+    kernel_regularizer=None,
+    bias_regularizer=None,
+    activity_regularizer=None,
+    kernel_constraint=None,
+    bias_constraint=None,
+    **kwargs
+)
+```
 
 1D convolution layer (e.g. temporal convolution).
 
@@ -52,6 +76,11 @@ A 3D tensor representing `activation(conv1d(inputs, kernel) + bias)`.
 
 **Example**
 
-`>>> # The inputs are 128-length vectors with 10 timesteps, and the >>> # batch size is 4. >>> x = np.random.rand(4, 10, 128) >>> y = keras.layers.Conv1D(32, 3, activation='relu')(x) >>> print(y.shape) (4, 8, 32)`
-
----
+```console
+>>> # The inputs are 128-length vectors with 10 timesteps, and the
+>>> # batch size is 4.
+>>> x = np.random.rand(4, 10, 128)
+>>> y = keras.layers.Conv1D(32, 3, activation='relu')(x)
+>>> print(y.shape)
+(4, 8, 32)
+```

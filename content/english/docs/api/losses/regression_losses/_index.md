@@ -5,7 +5,7 @@ weight: 2
 type: docs
 ---
 
-[\[source\]](https://github.com/keras-team/keras/tree/v3.6.0/keras/src/losses/losses.py#L42)
+{{< keras/source link="https://github.com/keras-team/keras/tree/v3.6.0/keras/src/losses/losses.py#L42" >}}
 
 ### `MeanSquaredError` class
 
@@ -25,7 +25,7 @@ Formula:
 
 ---
 
-[\[source\]](https://github.com/keras-team/keras/tree/v3.6.0/keras/src/losses/losses.py#L78)
+{{< keras/source link="https://github.com/keras-team/keras/tree/v3.6.0/keras/src/losses/losses.py#L78" >}}
 
 ### `MeanAbsoluteError` class
 
@@ -45,7 +45,7 @@ Formula:
 
 ---
 
-[\[source\]](https://github.com/keras-team/keras/tree/v3.6.0/keras/src/losses/losses.py#L114)
+{{< keras/source link="https://github.com/keras-team/keras/tree/v3.6.0/keras/src/losses/losses.py#L114" >}}
 
 ### `MeanAbsolutePercentageError` class
 
@@ -65,7 +65,7 @@ Formula:
 
 ---
 
-[\[source\]](https://github.com/keras-team/keras/tree/v3.6.0/keras/src/losses/losses.py#L153)
+{{< keras/source link="https://github.com/keras-team/keras/tree/v3.6.0/keras/src/losses/losses.py#L153" >}}
 
 ### `MeanSquaredLogarithmicError` class
 
@@ -85,7 +85,7 @@ Formula:
 
 ---
 
-[\[source\]](https://github.com/keras-team/keras/tree/v3.6.0/keras/src/losses/losses.py#L192)
+{{< keras/source link="https://github.com/keras-team/keras/tree/v3.6.0/keras/src/losses/losses.py#L192" >}}
 
 ### `CosineSimilarity` class
 
@@ -108,7 +108,7 @@ Formula:
 
 ---
 
-[\[source\]](https://github.com/keras-team/keras/tree/v3.6.0/keras/src/losses/losses.py#L242)
+{{< keras/source link="https://github.com/keras-team/keras/tree/v3.6.0/keras/src/losses/losses.py#L242" >}}
 
 ### `Huber` class
 
@@ -131,7 +131,7 @@ See: [Huber loss](https://en.wikipedia.org/wiki/Huber_loss).
 
 ---
 
-[\[source\]](https://github.com/keras-team/keras/tree/v3.6.0/keras/src/losses/losses.py#L288)
+{{< keras/source link="https://github.com/keras-team/keras/tree/v3.6.0/keras/src/losses/losses.py#L288" >}}
 
 ### `LogCosh` class
 
@@ -153,7 +153,7 @@ where x is the error `y_pred - y_true`.
 
 ---
 
-[\[source\]](https://github.com/keras-team/keras/tree/v3.6.0/keras/src/losses/losses.py#L2202)
+{{< keras/source link="https://github.com/keras-team/keras/tree/v3.6.0/keras/src/losses/losses.py#L2202" >}}
 
 ### `Tversky` class
 
@@ -183,7 +183,7 @@ Tversky loss value.
 
 ---
 
-[\[source\]](https://github.com/keras-team/keras/tree/v3.6.0/keras/src/losses/losses.py#L2093)
+{{< keras/source link="https://github.com/keras-team/keras/tree/v3.6.0/keras/src/losses/losses.py#L2093" >}}
 
 ### `Dice` class
 
@@ -216,7 +216,7 @@ Dice loss value.
 
 ---
 
-[\[source\]](https://github.com/keras-team/keras/tree/v3.6.0/keras/src/losses/losses.py#L1267)
+{{< keras/source link="https://github.com/keras-team/keras/tree/v3.6.0/keras/src/losses/losses.py#L1267" >}}
 
 ### `mean_squared_error` function
 
@@ -243,7 +243,7 @@ Mean squared error values with shape = `[batch_size, d0, .. dN-1]`.
 
 ---
 
-[\[source\]](https://github.com/keras-team/keras/tree/v3.6.0/keras/src/losses/losses.py#L1306)
+{{< keras/source link="https://github.com/keras-team/keras/tree/v3.6.0/keras/src/losses/losses.py#L1306" >}}
 
 ### `mean_absolute_error` function
 
@@ -268,7 +268,7 @@ Mean absolute error values with shape = `[batch_size, d0, .. dN-1]`.
 
 ---
 
-[\[source\]](https://github.com/keras-team/keras/tree/v3.6.0/keras/src/losses/losses.py#L1343)
+{{< keras/source link="https://github.com/keras-team/keras/tree/v3.6.0/keras/src/losses/losses.py#L1343" >}}
 
 ### `mean_absolute_percentage_error` function
 
@@ -297,7 +297,7 @@ Mean absolute percentage error values with shape = `[batch_size, d0, .. dN-1]`.
 
 ---
 
-[\[source\]](https://github.com/keras-team/keras/tree/v3.6.0/keras/src/losses/losses.py#L1389)
+{{< keras/source link="https://github.com/keras-team/keras/tree/v3.6.0/keras/src/losses/losses.py#L1389" >}}
 
 ### `mean_squared_logarithmic_error` function
 
@@ -326,7 +326,7 @@ Mean squared logarithmic error values with shape = `[batch_size, d0, .. dN-1]`.
 
 ---
 
-[\[source\]](https://github.com/keras-team/keras/tree/v3.6.0/keras/src/losses/losses.py#L1436)
+{{< keras/source link="https://github.com/keras-team/keras/tree/v3.6.0/keras/src/losses/losses.py#L1436" >}}
 
 ### `cosine_similarity` function
 
@@ -356,7 +356,7 @@ Cosine similarity tensor.
 
 ---
 
-[\[source\]](https://github.com/keras-team/keras/tree/v3.6.0/keras/src/losses/losses.py#L1476)
+{{< keras/source link="https://github.com/keras-team/keras/tree/v3.6.0/keras/src/losses/losses.py#L1476" >}}
 
 ### `huber` function
 
@@ -386,7 +386,7 @@ Tensor with one scalar loss entry per sample.
 
 ---
 
-[\[source\]](https://github.com/keras-team/keras/tree/v3.6.0/keras/src/losses/losses.py#L1526)
+{{< keras/source link="https://github.com/keras-team/keras/tree/v3.6.0/keras/src/losses/losses.py#L1526" >}}
 
 ### `log_cosh` function
 
@@ -415,7 +415,7 @@ Logcosh error values with shape = `[batch_size, d0, .. dN-1]`.
 
 ---
 
-[\[source\]](https://github.com/keras-team/keras/tree/v3.6.0/keras/src/losses/losses.py#L2263)
+{{< keras/source link="https://github.com/keras-team/keras/tree/v3.6.0/keras/src/losses/losses.py#L2263" >}}
 
 ### `tversky` function
 
@@ -444,7 +444,7 @@ Tversky loss value.
 
 ---
 
-[\[source\]](https://github.com/keras-team/keras/tree/v3.6.0/keras/src/losses/losses.py#L2168)
+{{< keras/source link="https://github.com/keras-team/keras/tree/v3.6.0/keras/src/losses/losses.py#L2168" >}}
 
 ### `dice` function
 

@@ -3,7 +3,7 @@ title: ContrastiveSampler
 toc: false
 ---
 
-[\[source\]](https://github.com/keras-team/keras-hub/tree/v0.17.0/keras_hub/src/samplers/contrastive_sampler.py#L9)
+{{< keras/source link="https://github.com/keras-team/keras-hub/tree/v0.17.0/keras_hub/src/samplers/contrastive_sampler.py#L9" >}}
 
 ### `ContrastiveSampler` class
 

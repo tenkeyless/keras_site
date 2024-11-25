@@ -5,7 +5,7 @@ weight: 6
 type: docs
 ---
 
-[\[source\]](https://github.com/keras-team/keras/tree/v3.6.0/keras/src/applications/resnet.py#L384)
+{{< keras/source link="https://github.com/keras-team/keras/tree/v3.6.0/keras/src/applications/resnet.py#L384" >}}
 
 ### `ResNet50` function
 
@@ -43,7 +43,7 @@ A Model instance.
 
 ---
 
-[\[source\]](https://github.com/keras-team/keras/tree/v3.6.0/keras/src/applications/resnet.py#L425)
+{{< keras/source link="https://github.com/keras-team/keras/tree/v3.6.0/keras/src/applications/resnet.py#L425" >}}
 
 ### `ResNet101` function
 
@@ -81,7 +81,7 @@ A Model instance.
 
 ---
 
-[\[source\]](https://github.com/keras-team/keras/tree/v3.6.0/keras/src/applications/resnet.py#L465)
+{{< keras/source link="https://github.com/keras-team/keras/tree/v3.6.0/keras/src/applications/resnet.py#L465" >}}
 
 ### `ResNet152` function
 
@@ -119,7 +119,7 @@ A Model instance.
 
 ---
 
-[\[source\]](https://github.com/keras-team/keras/tree/v3.6.0/keras/src/applications/resnet_v2.py#L6)
+{{< keras/source link="https://github.com/keras-team/keras/tree/v3.6.0/keras/src/applications/resnet_v2.py#L6" >}}
 
 ### `ResNet50V2` function
 
@@ -157,7 +157,7 @@ A Model instance.
 
 ---
 
-[\[source\]](https://github.com/keras-team/keras/tree/v3.6.0/keras/src/applications/resnet_v2.py#L48)
+{{< keras/source link="https://github.com/keras-team/keras/tree/v3.6.0/keras/src/applications/resnet_v2.py#L48" >}}
 
 ### `ResNet101V2` function
 
@@ -195,7 +195,7 @@ A Model instance.
 
 ---
 
-[\[source\]](https://github.com/keras-team/keras/tree/v3.6.0/keras/src/applications/resnet_v2.py#L90)
+{{< keras/source link="https://github.com/keras-team/keras/tree/v3.6.0/keras/src/applications/resnet_v2.py#L90" >}}
 
 ### `ResNet152V2` function
 

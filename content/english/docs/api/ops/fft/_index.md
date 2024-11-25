@@ -5,7 +5,7 @@ weight: 6
 type: docs
 ---
 
-[\[source\]](https://github.com/keras-team/keras/tree/v3.6.0/keras/src/ops/math.py#L378)
+{{< keras/source link="https://github.com/keras-team/keras/tree/v3.6.0/keras/src/ops/math.py#L378" >}}
 
 ### `fft` function
 
@@ -27,7 +27,7 @@ A tuple containing two tensors - the real and imaginary parts of the output tens
 
 ---
 
-[\[source\]](https://github.com/keras-team/keras/tree/v3.6.0/keras/src/ops/math.py#L450)
+{{< keras/source link="https://github.com/keras-team/keras/tree/v3.6.0/keras/src/ops/math.py#L450" >}}
 
 ### `fft2` function
 
@@ -49,7 +49,7 @@ A tuple containing two tensors - the real and imaginary parts of the output.
 
 ---
 
-[\[source\]](https://github.com/keras-team/keras/tree/v3.6.0/keras/src/ops/math.py#L509)
+{{< keras/source link="https://github.com/keras-team/keras/tree/v3.6.0/keras/src/ops/math.py#L509" >}}
 
 ### `rfft` function
 
@@ -80,7 +80,7 @@ A tuple containing two tensors - the real and imaginary parts of the output.
 
 ---
 
-[\[source\]](https://github.com/keras-team/keras/tree/v3.6.0/keras/src/ops/math.py#L677)
+{{< keras/source link="https://github.com/keras-team/keras/tree/v3.6.0/keras/src/ops/math.py#L677" >}}
 
 ### `stft` function
 
@@ -109,7 +109,7 @@ A tuple containing two tensors - the real and imaginary parts of the STFT output
 
 ---
 
-[\[source\]](https://github.com/keras-team/keras/tree/v3.6.0/keras/src/ops/math.py#L590)
+{{< keras/source link="https://github.com/keras-team/keras/tree/v3.6.0/keras/src/ops/math.py#L590" >}}
 
 ### `irfft` function
 
@@ -140,7 +140,7 @@ A tensor containing the inverse real-valued Fast Fourier Transform along the las
 
 ---
 
-[\[source\]](https://github.com/keras-team/keras/tree/v3.6.0/keras/src/ops/math.py#L797)
+{{< keras/source link="https://github.com/keras-team/keras/tree/v3.6.0/keras/src/ops/math.py#L797" >}}
 
 ### `istft` function
 

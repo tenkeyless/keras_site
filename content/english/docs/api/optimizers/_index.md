@@ -49,7 +49,7 @@ Check out [the learning rate schedule API documentation](/api/optimizers/learnin
 
 These methods and attributes are common to all Keras optimizers.
 
-[\[source\]](https://github.com/keras-team/keras/tree/v3.6.0/keras/src/optimizers/optimizer.py#L21)
+{{< keras/source link="https://github.com/keras-team/keras/tree/v3.6.0/keras/src/optimizers/optimizer.py#L21" >}}
 
 ### `Optimizer` class
 
@@ -69,7 +69,7 @@ If you intend to create your own optimization algorithm, please inherit from thi
 
 ---
 
-[\[source\]](https://github.com/keras-team/keras/tree/v3.6.0/keras/src/optimizers/base_optimizer.py#L342)
+{{< keras/source link="https://github.com/keras-team/keras/tree/v3.6.0/keras/src/optimizers/base_optimizer.py#L342" >}}
 
 ### `apply_gradients` method
 

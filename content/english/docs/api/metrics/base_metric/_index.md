@@ -5,7 +5,7 @@ weight: 1
 type: docs
 ---
 
-[\[source\]](https://github.com/keras-team/keras/tree/v3.6.0/keras/src/metrics/metric.py#L11)
+{{< keras/source link="https://github.com/keras-team/keras/tree/v3.6.0/keras/src/metrics/metric.py#L11" >}}
 
 ### `Metric` class
 

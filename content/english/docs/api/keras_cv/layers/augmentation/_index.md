@@ -3,7 +3,7 @@ title: mix_up
 toc: false
 ---
 
-[\[source\]](https://github.com/keras-team/keras-cv/tree/v0.9.0/keras_cv/src/layers/preprocessing/mix_up.py#L24)
+{{< keras/source link="https://github.com/keras-team/keras-cv/tree/v0.9.0/keras_cv/src/layers/preprocessing/mix_up.py#L24" >}}
 
 ### `MixUp` class
 

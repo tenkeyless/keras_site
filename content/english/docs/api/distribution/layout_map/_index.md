@@ -5,7 +5,7 @@ weight: 1
 type: docs
 ---
 
-[\[source\]](https://github.com/keras-team/keras/tree/v3.6.0/keras/src/distribution/distribution_lib.py#L683)
+{{< keras/source link="https://github.com/keras-team/keras/tree/v3.6.0/keras/src/distribution/distribution_lib.py#L683" >}}
 
 ### `LayoutMap` class
 
@@ -29,7 +29,7 @@ As shortcut, tuple or list of axis names are also allowed when inserting as valu
 
 ---
 
-[\[source\]](https://github.com/keras-team/keras/tree/v3.6.0/keras/src/distribution/distribution_lib.py#L134)
+{{< keras/source link="https://github.com/keras-team/keras/tree/v3.6.0/keras/src/distribution/distribution_lib.py#L134" >}}
 
 ### `DeviceMesh` class
 
@@ -49,7 +49,7 @@ See more details in [jax.sharding.Mesh](https://jax.readthedocs.io/en/latest/jax
 
 ---
 
-[\[source\]](https://github.com/keras-team/keras/tree/v3.6.0/keras/src/distribution/distribution_lib.py#L212)
+{{< keras/source link="https://github.com/keras-team/keras/tree/v3.6.0/keras/src/distribution/distribution_lib.py#L212" >}}
 
 ### `TensorLayout` class
 
@@ -68,7 +68,7 @@ See more details in [jax.sharding.NamedSharding](https://jax.readthedocs.io/en/l
 
 ---
 
-[\[source\]](https://github.com/keras-team/keras/tree/v3.6.0/keras/src/distribution/distribution_lib.py#L805)
+{{< keras/source link="https://github.com/keras-team/keras/tree/v3.6.0/keras/src/distribution/distribution_lib.py#L805" >}}
 
 ### `distribute_tensor` function
 

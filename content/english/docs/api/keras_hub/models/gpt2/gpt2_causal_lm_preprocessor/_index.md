@@ -3,7 +3,7 @@ title: GPT2CausalLMPreprocessor layer
 toc: false
 ---
 
-[\[source\]](https://github.com/keras-team/keras-hub/tree/v0.17.0/keras_hub/src/models/gpt2/gpt2_causal_lm_preprocessor.py#L7)
+{{< keras/source link="https://github.com/keras-team/keras-hub/tree/v0.17.0/keras_hub/src/models/gpt2/gpt2_causal_lm_preprocessor.py#L7" >}}
 
 ### `GPT2CausalLMPreprocessor` class
 
@@ -35,7 +35,7 @@ For use with generation, the layer also exposes two methods `generate_preprocess
 
 ---
 
-[\[source\]](https://github.com/keras-team/keras-hub/tree/v0.17.0/keras_hub/src/models/preprocessor.py#L132)
+{{< keras/source link="https://github.com/keras-team/keras-hub/tree/v0.17.0/keras_hub/src/models/preprocessor.py#L132" >}}
 
 ### `from_preset` method
 
@@ -100,7 +100,7 @@ gpt2_base_en_cnn_dailymail
 
 ---
 
-[\[source\]](https://github.com/keras-team/keras-hub/tree/v0.17.0/keras_hub/src/models/causal_lm_preprocessor.py#L114)
+{{< keras/source link="https://github.com/keras-team/keras-hub/tree/v0.17.0/keras_hub/src/models/causal_lm_preprocessor.py#L114" >}}
 
 ### `generate_preprocess` method
 
@@ -114,7 +114,7 @@ Unlike calling the layer for training, this method does not compute labels and w
 
 ---
 
-[\[source\]](https://github.com/keras-team/keras-hub/tree/v0.17.0/keras_hub/src/models/causal_lm_preprocessor.py#L143)
+{{< keras/source link="https://github.com/keras-team/keras-hub/tree/v0.17.0/keras_hub/src/models/causal_lm_preprocessor.py#L143" >}}
 
 ### `generate_postprocess` method
 

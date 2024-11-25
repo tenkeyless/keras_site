@@ -1,13 +1,21 @@
 ---
 title: UpSampling2D layer
-toc: false
+toc: true
+weight: 9
+type: docs
 ---
 
-[\[source\]](https://github.com/keras-team/keras/tree/v3.6.0/keras/src/layers/reshaping/up_sampling2d.py#L9)
+{{< keras/original checkedAt="2024-11-25" >}}
+
+{{< keras/source link="https://github.com/keras-team/keras/tree/v3.6.0/keras/src/layers/reshaping/up_sampling2d.py#L9" >}}
 
 ### `UpSampling2D` class
 
-`keras.layers.UpSampling2D(     size=(2, 2), data_format=None, interpolation="nearest", **kwargs )`
+```python
+keras.layers.UpSampling2D(
+    size=(2, 2), data_format=None, interpolation="nearest", **kwargs
+)
+```
 
 Upsampling layer for 2D inputs.
 
@@ -15,7 +23,25 @@ The implementation uses interpolative resizing, given the resize method (specifi
 
 **Example**
 
-`>>> input_shape = (2, 2, 1, 3) >>> x = np.arange(np.prod(input_shape)).reshape(input_shape) >>> print(x) [[[[ 0  1  2]]   [[ 3  4  5]]]  [[[ 6  7  8]]   [[ 9 10 11]]]] >>> y = keras.layers.UpSampling2D(size=(1, 2))(x) >>> print(y) [[[[ 0  1  2]    [ 0  1  2]]   [[ 3  4  5]    [ 3  4  5]]]  [[[ 6  7  8]    [ 6  7  8]]   [[ 9 10 11]    [ 9 10 11]]]]`
+```console
+>>> input_shape = (2, 2, 1, 3)
+>>> x = np.arange(np.prod(input_shape)).reshape(input_shape)
+>>> print(x)
+[[[[ 0  1  2]]
+  [[ 3  4  5]]]
+ [[[ 6  7  8]]
+  [[ 9 10 11]]]]
+>>> y = keras.layers.UpSampling2D(size=(1, 2))(x)
+>>> print(y)
+[[[[ 0  1  2]
+   [ 0  1  2]]
+  [[ 3  4  5]
+   [ 3  4  5]]]
+ [[[ 6  7  8]
+   [ 6  7  8]]
+  [[ 9 10 11]
+   [ 9 10 11]]]]
+```
 
 **Arguments**
 
@@ -30,5 +56,3 @@ The implementation uses interpolative resizing, given the resize method (specifi
 **Output shape**
 
 4D tensor with shape: - If `data_format` is `"channels_last"`: `(batch_size, upsampled_rows, upsampled_cols, channels)` - If `data_format` is `"channels_first"`: `(batch_size, channels, upsampled_rows, upsampled_cols)`
-
----

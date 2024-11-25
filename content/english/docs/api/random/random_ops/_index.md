@@ -5,7 +5,7 @@ weight: 2
 type: docs
 ---
 
-[\[source\]](https://github.com/keras-team/keras/tree/v3.6.0/keras/src/random/random.py#L272)
+{{< keras/source link="https://github.com/keras-team/keras/tree/v3.6.0/keras/src/random/random.py#L272" >}}
 
 ### `beta` function
 
@@ -25,7 +25,7 @@ The values are drawm from a Beta distribution parametrized by alpha and beta.
 
 ---
 
-[\[source\]](https://github.com/keras-team/keras/tree/v3.6.0/keras/src/random/random.py#L236)
+{{< keras/source link="https://github.com/keras-team/keras/tree/v3.6.0/keras/src/random/random.py#L236" >}}
 
 ### `binomial` function
 
@@ -45,7 +45,7 @@ The values are drawn from a Binomial distribution with specified trial count and
 
 ---
 
-[\[source\]](https://github.com/keras-team/keras/tree/v3.6.0/keras/src/random/random.py#L32)
+{{< keras/source link="https://github.com/keras-team/keras/tree/v3.6.0/keras/src/random/random.py#L32" >}}
 
 ### `categorical` function
 
@@ -70,7 +70,7 @@ A 2-D tensor with (batch_size, num_samples).
 
 ---
 
-[\[source\]](https://github.com/keras-team/keras/tree/v3.6.0/keras/src/random/random.py#L186)
+{{< keras/source link="https://github.com/keras-team/keras/tree/v3.6.0/keras/src/random/random.py#L186" >}}
 
 ### `dropout` function
 
@@ -78,7 +78,7 @@ A 2-D tensor with (batch_size, num_samples).
 
 ---
 
-[\[source\]](https://github.com/keras-team/keras/tree/v3.6.0/keras/src/random/random.py#L213)
+{{< keras/source link="https://github.com/keras-team/keras/tree/v3.6.0/keras/src/random/random.py#L213" >}}
 
 ### `gamma` function
 
@@ -95,7 +95,7 @@ Draw random samples from the Gamma distribution.
 
 ---
 
-[\[source\]](https://github.com/keras-team/keras/tree/v3.6.0/keras/src/random/random.py#L5)
+{{< keras/source link="https://github.com/keras-team/keras/tree/v3.6.0/keras/src/random/random.py#L5" >}}
 
 ### `normal` function
 
@@ -113,7 +113,7 @@ Draw random samples from a normal (Gaussian) distribution.
 
 ---
 
-[\[source\]](https://github.com/keras-team/keras/tree/v3.6.0/keras/src/random/random.py#L116)
+{{< keras/source link="https://github.com/keras-team/keras/tree/v3.6.0/keras/src/random/random.py#L116" >}}
 
 ### `randint` function
 
@@ -135,7 +135,7 @@ The generated values follow a uniform distribution in the range `[minval, maxval
 
 ---
 
-[\[source\]](https://github.com/keras-team/keras/tree/v3.6.0/keras/src/random/random.py#L193)
+{{< keras/source link="https://github.com/keras-team/keras/tree/v3.6.0/keras/src/random/random.py#L193" >}}
 
 ### `shuffle` function
 
@@ -151,7 +151,7 @@ Shuffle the elements of a tensor uniformly at random along an axis.
 
 ---
 
-[\[source\]](https://github.com/keras-team/keras/tree/v3.6.0/keras/src/random/random.py#L155)
+{{< keras/source link="https://github.com/keras-team/keras/tree/v3.6.0/keras/src/random/random.py#L155" >}}
 
 ### `truncated_normal` function
 
@@ -171,7 +171,7 @@ The values are drawn from a normal distribution with specified mean and standard
 
 ---
 
-[\[source\]](https://github.com/keras-team/keras/tree/v3.6.0/keras/src/random/random.py#L77)
+{{< keras/source link="https://github.com/keras-team/keras/tree/v3.6.0/keras/src/random/random.py#L77" >}}
 
 ### `uniform` function
 

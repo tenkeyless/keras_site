@@ -1,13 +1,32 @@
 ---
-title: dense
-toc: false
+title: Dense layer
+toc: true
+weight: 3
+type: docs
 ---
 
-[\[source\]](https://github.com/keras-team/keras/tree/v3.6.0/keras/src/layers/core/dense.py#L15)
+{{< keras/original checkedAt="2024-11-24" >}}
+
+{{< keras/source link="https://github.com/keras-team/keras/tree/v3.6.0/keras/src/layers/core/dense.py#L15" >}}
 
 ### `Dense` class
 
-`keras.layers.Dense(     units,     activation=None,     use_bias=True,     kernel_initializer="glorot_uniform",     bias_initializer="zeros",     kernel_regularizer=None,     bias_regularizer=None,     activity_regularizer=None,     kernel_constraint=None,     bias_constraint=None,     lora_rank=None,     **kwargs )`
+```python
+keras.layers.Dense(
+    units,
+    activation=None,
+    use_bias=True,
+    kernel_initializer="glorot_uniform",
+    bias_initializer="zeros",
+    kernel_regularizer=None,
+    bias_regularizer=None,
+    activity_regularizer=None,
+    kernel_constraint=None,
+    bias_constraint=None,
+    lora_rank=None,
+    **kwargs
+)
+```
 
 Just your regular densely-connected NN layer.
 
@@ -36,5 +55,3 @@ N-D tensor with shape: `(batch_size, ..., input_dim)`. The most common situation
 **Output shape**
 
 N-D tensor with shape: `(batch_size, ..., units)`. For instance, for a 2D input with shape `(batch_size, input_dim)`, the output would have shape `(batch_size, units)`.
-
----

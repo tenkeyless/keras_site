@@ -3,7 +3,7 @@ title: task
 toc: false
 ---
 
-[\[source\]](https://github.com/keras-team/keras-hub/tree/v0.17.0/keras_hub/src/models/task.py#L21)
+{{< keras/source link="https://github.com/keras-team/keras-hub/tree/v0.17.0/keras_hub/src/models/task.py#L21" >}}
 
 ### `Task` class
 
@@ -23,7 +23,7 @@ All `Task` classes include a `from_preset()` constructor which can be used to lo
 
 ---
 
-[\[source\]](https://github.com/keras-team/keras-hub/tree/v0.17.0/keras_hub/src/models/task.py#L129)
+{{< keras/source link="https://github.com/keras-team/keras-hub/tree/v0.17.0/keras_hub/src/models/task.py#L129" >}}
 
 ### `from_preset` method
 
@@ -53,7 +53,7 @@ This constructor can be called in one of two ways. Either from a task specific b
 
 ---
 
-[\[source\]](https://github.com/keras-team/keras-hub/tree/v0.17.0/keras_hub/src/models/task.py#L238)
+{{< keras/source link="https://github.com/keras-team/keras-hub/tree/v0.17.0/keras_hub/src/models/task.py#L238" >}}
 
 ### `save_to_preset` method
 

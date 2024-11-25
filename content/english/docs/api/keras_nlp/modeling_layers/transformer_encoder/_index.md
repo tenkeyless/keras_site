@@ -3,7 +3,7 @@ title: transformer_encoder
 toc: false
 ---
 
-[\[source\]](https://github.com/keras-team/keras-hub/tree/v0.17.0/keras_hub/src/layers/modeling/transformer_encoder.py#L11)
+{{< keras/source link="https://github.com/keras-team/keras-hub/tree/v0.17.0/keras_hub/src/layers/modeling/transformer_encoder.py#L11" >}}
 
 ### `TransformerEncoder` class
 
@@ -37,7 +37,7 @@ This layer will correctly compute an attention mask from an implicit Keras paddi
 
 ---
 
-[\[source\]](https://github.com/keras-team/keras-hub/tree/v0.17.0/keras_hub/src/layers/modeling/transformer_encoder.py#L172)
+{{< keras/source link="https://github.com/keras-team/keras-hub/tree/v0.17.0/keras_hub/src/layers/modeling/transformer_encoder.py#L172" >}}
 
 ### `call` method
 

@@ -5,7 +5,7 @@ weight: 5
 type: docs
 ---
 
-[\[source\]](https://github.com/keras-team/keras/tree/v3.6.0/keras/src/utils/rng_utils.py#L10)
+{{< keras/source link="https://github.com/keras-team/keras/tree/v3.6.0/keras/src/utils/rng_utils.py#L10" >}}
 
 ### `set_random_seed` function
 
@@ -27,7 +27,7 @@ Note that the TensorFlow seed is set even if you're not using TensorFlow as your
 
 ---
 
-[\[source\]](https://github.com/keras-team/keras/tree/v3.6.0/keras/src/utils/dataset_utils.py#L15)
+{{< keras/source link="https://github.com/keras-team/keras/tree/v3.6.0/keras/src/utils/dataset_utils.py#L15" >}}
 
 ### `split_dataset` function
 
@@ -53,7 +53,7 @@ Splits a dataset into a left half and a right half (e.g. train / test).
 
 ---
 
-[\[source\]](https://github.com/keras-team/keras/tree/v3.6.0/keras/src/trainers/data_adapters/data_adapter_utils.py#L53)
+{{< keras/source link="https://github.com/keras-team/keras/tree/v3.6.0/keras/src/trainers/data_adapters/data_adapter_utils.py#L53" >}}
 
 ### `pack_x_y_sample_weight` function
 
@@ -79,7 +79,7 @@ Tuple in the format used in `Model.fit()`.
 
 ---
 
-[\[source\]](https://github.com/keras-team/keras/tree/v3.6.0/keras/src/utils/file_utils.py#L129)
+{{< keras/source link="https://github.com/keras-team/keras/tree/v3.6.0/keras/src/utils/file_utils.py#L129" >}}
 
 ### `get_file` function
 
@@ -119,7 +119,7 @@ Downloading something from the Internet carries a risk. NEVER download a file/ar
 
 ---
 
-[\[source\]](https://github.com/keras-team/keras/tree/v3.6.0/keras/src/utils/progbar.py#L11)
+{{< keras/source link="https://github.com/keras-team/keras/tree/v3.6.0/keras/src/utils/progbar.py#L11" >}}
 
 ### `Progbar` class
 
@@ -138,7 +138,7 @@ Displays a progress bar.
 
 ---
 
-[\[source\]](https://github.com/keras-team/keras/tree/v3.6.0/keras/src/trainers/data_adapters/py_dataset_adapter.py#L17)
+{{< keras/source link="https://github.com/keras-team/keras/tree/v3.6.0/keras/src/trainers/data_adapters/py_dataset_adapter.py#L17" >}}
 
 ### `PyDataset` class
 
@@ -165,7 +165,7 @@ Notes:
 
 ---
 
-[\[source\]](https://github.com/keras-team/keras/tree/v3.6.0/keras/src/utils/numerical_utils.py#L38)
+{{< keras/source link="https://github.com/keras-team/keras/tree/v3.6.0/keras/src/utils/numerical_utils.py#L38" >}}
 
 ### `to_categorical` function
 
@@ -194,7 +194,7 @@ A binary matrix representation of the input as a NumPy array. The class axis is 
 
 ---
 
-[\[source\]](https://github.com/keras-team/keras/tree/v3.6.0/keras/src/utils/numerical_utils.py#L8)
+{{< keras/source link="https://github.com/keras-team/keras/tree/v3.6.0/keras/src/utils/numerical_utils.py#L8" >}}
 
 ### `normalize` function
 

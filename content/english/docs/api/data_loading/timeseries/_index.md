@@ -5,7 +5,7 @@ weight: 2
 type: docs
 ---
 
-[\[source\]](https://github.com/keras-team/keras/tree/v3.6.0/keras/src/utils/timeseries_dataset_utils.py#L7)
+{{< keras/source link="https://github.com/keras-team/keras/tree/v3.6.0/keras/src/utils/timeseries_dataset_utils.py#L7" >}}
 
 ### `timeseries_dataset_from_array` function
 
@@ -54,7 +54,7 @@ Consider two arrays of scalar values `X` and `Y`, both of shape `(100,)`. The re
 
 ---
 
-[\[source\]](https://github.com/keras-team/keras/tree/v3.6.0/keras/src/utils/sequence_utils.py#L6)
+{{< keras/source link="https://github.com/keras-team/keras/tree/v3.6.0/keras/src/utils/sequence_utils.py#L6" >}}
 
 ### `pad_sequences` function
 

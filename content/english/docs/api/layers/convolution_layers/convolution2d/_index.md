@@ -1,13 +1,37 @@
 ---
 title: Conv2D layer
-toc: false
+toc: true
+weight: 2
+type: docs
 ---
 
-[\[source\]](https://github.com/keras-team/keras/tree/v3.6.0/keras/src/layers/convolutional/conv2d.py#L5)
+{{< keras/original checkedAt="2024-11-24" >}}
+
+{{< keras/source link="https://github.com/keras-team/keras/tree/v3.6.0/keras/src/layers/convolutional/conv2d.py#L5" >}}
 
 ### `Conv2D` class
 
-`keras.layers.Conv2D(     filters,     kernel_size,     strides=(1, 1),     padding="valid",     data_format=None,     dilation_rate=(1, 1),     groups=1,     activation=None,     use_bias=True,     kernel_initializer="glorot_uniform",     bias_initializer="zeros",     kernel_regularizer=None,     bias_regularizer=None,     activity_regularizer=None,     kernel_constraint=None,     bias_constraint=None,     **kwargs )`
+```python
+keras.layers.Conv2D(
+    filters,
+    kernel_size,
+    strides=(1, 1),
+    padding="valid",
+    data_format=None,
+    dilation_rate=(1, 1),
+    groups=1,
+    activation=None,
+    use_bias=True,
+    kernel_initializer="glorot_uniform",
+    bias_initializer="zeros",
+    kernel_regularizer=None,
+    bias_regularizer=None,
+    activity_regularizer=None,
+    kernel_constraint=None,
+    bias_constraint=None,
+    **kwargs
+)
+```
 
 2D convolution layer.
 
@@ -52,6 +76,9 @@ A 4D tensor representing `activation(conv2d(inputs, kernel) + bias)`.
 
 **Example**
 
-`>>> x = np.random.rand(4, 10, 10, 128) >>> y = keras.layers.Conv2D(32, 3, activation='relu')(x) >>> print(y.shape) (4, 8, 8, 32)`
-
----
+```console
+>>> x = np.random.rand(4, 10, 10, 128)
+>>> y = keras.layers.Conv2D(32, 3, activation='relu')(x)
+>>> print(y.shape)
+(4, 8, 8, 32)
+```

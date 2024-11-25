@@ -1,13 +1,19 @@
 ---
 title: GlobalAveragePooling1D layer
-toc: false
+toc: true
+weight: 10
+type: docs
 ---
 
-[\[source\]](https://github.com/keras-team/keras/tree/v3.6.0/keras/src/layers/pooling/global_average_pooling1d.py#L7)
+{{< keras/original checkedAt="2024-11-24" >}}
+
+{{< keras/source link="https://github.com/keras-team/keras/tree/v3.6.0/keras/src/layers/pooling/global_average_pooling1d.py#L7" >}}
 
 ### `GlobalAveragePooling1D` class
 
-`keras.layers.GlobalAveragePooling1D(data_format=None, keepdims=False, **kwargs)`
+```python
+keras.layers.GlobalAveragePooling1D(data_format=None, keepdims=False, **kwargs)
+```
 
 Global average pooling operation for temporal data.
 
@@ -33,6 +39,9 @@ Global average pooling operation for temporal data.
 
 **Example**
 
-`>>> x = np.random.rand(2, 3, 4) >>> y = keras.layers.GlobalAveragePooling1D()(x) >>> y.shape (2, 4)`
-
----
+```console
+>>> x = np.random.rand(2, 3, 4)
+>>> y = keras.layers.GlobalAveragePooling1D()(x)
+>>> y.shape
+(2, 4)
+```

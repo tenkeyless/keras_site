@@ -5,11 +5,22 @@ weight: 1
 type: docs
 ---
 
-[\[source\]](https://github.com/keras-team/keras/tree/v3.6.0/keras/src/layers/layer.py#L61)
+{{< keras/original checkedAt="2024-11-24" >}}
+
+{{< keras/source link="https://github.com/keras-team/keras/tree/v3.6.0/keras/src/layers/layer.py#L61" >}}
 
 ### `Layer` class
 
-`keras.layers.Layer(     activity_regularizer=None,     trainable=True,     dtype=None,     autocast=True,     name=None,     **kwargs )`
+```python
+keras.layers.Layer(
+    activity_regularizer=None,
+    trainable=True,
+    dtype=None,
+    autocast=True,
+    name=None,
+    **kwargs
+)
+```
 
 This is the class from which all layers inherit.
 
@@ -51,49 +62,117 @@ We recommend that descendants of `Layer` implement the following methods:
 
 Here's a basic example: a layer with two variables, `w` and `b`, that returns `y = w . x + b`. It shows how to implement `build()` and `call()`. Variables set as attributes of a layer are tracked as weights of the layers (in `layer.weights`).
 
-`` class SimpleDense(Layer):     def __init__(self, units=32):         super().__init__()         self.units = units      # Create the state of the layer (weights)     def build(self, input_shape):         self.kernel = self.add_weight(             shape=(input_shape[-1], self.units),             initializer="glorot_uniform",             trainable=True,             name="kernel",         )         self.bias = self.add_weight(             shape=(self.units,),             initializer="zeros",             trainable=True,             name="bias",         )      # Defines the computation     def call(self, inputs):         return ops.matmul(inputs, self.kernel) + self.bias  # Instantiates the layer. linear_layer = SimpleDense(4)  # This will also call `build(input_shape)` and create the weights. y = linear_layer(ops.ones((2, 2))) assert len(linear_layer.weights) == 2  # These weights are trainable, so they're listed in `trainable_weights`: assert len(linear_layer.trainable_weights) == 2 ``
+```python
+class SimpleDense(Layer):
+    def __init__(self, units=32):
+        super().__init__()
+        self.units = units
+
+    # Create the state of the layer (weights)
+    def build(self, input_shape):
+        self.kernel = self.add_weight(
+            shape=(input_shape[-1], self.units),
+            initializer="glorot_uniform",
+            trainable=True,
+            name="kernel",
+        )
+        self.bias = self.add_weight(
+            shape=(self.units,),
+            initializer="zeros",
+            trainable=True,
+            name="bias",
+        )
+
+    # Defines the computation
+    def call(self, inputs):
+        return ops.matmul(inputs, self.kernel) + self.bias
+
+# Instantiates the layer.
+linear_layer = SimpleDense(4)
+
+# This will also call `build(input_shape)` and create the weights.
+y = linear_layer(ops.ones((2, 2)))
+assert len(linear_layer.weights) == 2
+
+# These weights are trainable, so they're listed in `trainable_weights`:
+assert len(linear_layer.trainable_weights) == 2
+```
 
 Besides trainable weights, updated via backpropagation during training, layers can also have non-trainable weights. These weights are meant to be updated manually during `call()`. Here's a example layer that computes the running sum of its inputs:
 
-`class ComputeSum(Layer):    def __init__(self, input_dim):       super(ComputeSum, self).__init__()       # Create a non-trainable weight.       self.total = self.add_weight(         shape=(),         initializer="zeros",         trainable=False,         name="total",       )    def call(self, inputs):       self.total.assign(self.total + ops.sum(inputs))       return self.total  my_sum = ComputeSum(2) x = ops.ones((2, 2)) y = my_sum(x)  assert my_sum.weights == [my_sum.total] assert my_sum.non_trainable_weights == [my_sum.total] assert my_sum.trainable_weights == []`
+```python
+class ComputeSum(Layer):
 
----
+  def __init__(self, input_dim):
+      super(ComputeSum, self).__init__()
+      # Create a non-trainable weight.
+      self.total = self.add_weight(
+        shape=(),
+        initializer="zeros",
+        trainable=False,
+        name="total",
+      )
+
+  def call(self, inputs):
+      self.total.assign(self.total + ops.sum(inputs))
+      return self.total
+
+my_sum = ComputeSum(2)
+x = ops.ones((2, 2))
+y = my_sum(x)
+
+assert my_sum.weights == [my_sum.total]
+assert my_sum.non_trainable_weights == [my_sum.total]
+assert my_sum.trainable_weights == []
+```
 
 ### `weights` property
 
-`keras.layers.Layer.weights`
+```python
+keras.layers.Layer.weights
+```
 
 List of all weight variables of the layer.
 
 Unlike, `layer.variables` this excludes metric state and random seeds.
 
----
-
 ### `trainable_weights` property
 
-`keras.layers.Layer.trainable_weights`
+```python
+keras.layers.Layer.trainable_weights
+```
 
 List of all trainable weight variables of the layer.
 
 These are the weights that get updated by the optimizer during training.
 
----
-
 ### `non_trainable_weights` property
 
-`keras.layers.Layer.non_trainable_weights`
+```python
+keras.layers.Layer.non_trainable_weights
+```
 
 List of all non-trainable weight variables of the layer.
 
 These are the weights that should not be updated by the optimizer during training. Unlike, `layer.non_trainable_variables` this excludes metric state and random seeds.
 
----
-
-[\[source\]](https://github.com/keras-team/keras/tree/v3.6.0/keras/src/layers/layer.py#L485)
+{{< keras/source link="https://github.com/keras-team/keras/tree/v3.6.0/keras/src/layers/layer.py#L485" >}}
 
 ### `add_weight` method
 
-`Layer.add_weight(     shape=None,     initializer=None,     dtype=None,     trainable=True,     autocast=True,     regularizer=None,     constraint=None,     aggregation="mean",     name=None, )`
+```python
+Layer.add_weight(
+    shape=None,
+    initializer=None,
+    dtype=None,
+    trainable=True,
+    autocast=True,
+    regularizer=None,
+    constraint=None,
+    aggregation="mean",
+    name=None,
+)
+```
 
 Add a weight variable to the layer.
 
@@ -109,66 +188,71 @@ Add a weight variable to the layer.
 - **aggregation**: String, one of `'mean'`, `'sum'`, `'only_first_replica'`. Annotates the variable with the type of multi-replica aggregation to be used for this variable when writing custom data parallel training loops.
 - **name**: String name of the variable. Useful for debugging purposes.
 
----
-
 ### `trainable` property
 
-`keras.layers.Layer.trainable`
+```python
+keras.layers.Layer.trainable
+```
 
 Settable boolean, whether this layer should be trainable or not.
 
----
-
-[\[source\]](https://github.com/keras-team/keras/tree/v3.6.0/keras/src/layers/layer.py#L688)
+{{< keras/source link="https://github.com/keras-team/keras/tree/v3.6.0/keras/src/layers/layer.py#L688" >}}
 
 ### `get_weights` method
 
-`Layer.get_weights()`
+```python
+Layer.get_weights()
+```
 
 Return the values of `layer.weights` as a list of NumPy arrays.
 
----
-
-[\[source\]](https://github.com/keras-team/keras/tree/v3.6.0/keras/src/layers/layer.py#L692)
+{{< keras/source link="https://github.com/keras-team/keras/tree/v3.6.0/keras/src/layers/layer.py#L692" >}}
 
 ### `set_weights` method
 
-`Layer.set_weights(weights)`
+```python
+Layer.set_weights(weights)
+```
 
 Sets the values of `layer.weights` from a list of NumPy arrays.
 
----
-
-[\[source\]](https://github.com/keras-team/keras/tree/v3.6.0/keras/src/layers/layer.py#L1531)
+{{< keras/source link="https://github.com/keras-team/keras/tree/v3.6.0/keras/src/layers/layer.py#L1531" >}}
 
 ### `get_config` method
 
-`Model.get_config()`
+```python
+Model.get_config()
+```
 
 Returns the config of the object.
 
 An object config is a Python dictionary (serializable) containing the information needed to re-instantiate it.
 
----
-
-[\[source\]](https://github.com/keras-team/keras/tree/v3.6.0/keras/src/layers/layer.py#L1104)
+{{< keras/source link="https://github.com/keras-team/keras/tree/v3.6.0/keras/src/layers/layer.py#L1104" >}}
 
 ### `add_loss` method
 
-`Layer.add_loss(loss)`
+```python
+Layer.add_loss(loss)
+```
 
 Can be called inside of the `call()` method to add a scalar loss.
 
 **Example**
 
-`class MyLayer(Layer):     ...     def call(self, x):         self.add_loss(ops.sum(x))         return x`
+```python
 
----
+class MyLayer(Layer):
+    ...
+    def call(self, x):
+        self.add_loss(ops.sum(x))
+        return x
+```
 
 ### `losses` property
 
-`keras.layers.Layer.losses`
+```python
+keras.layers.Layer.losses
+```
 
 List of scalar losses from `add_loss`, regularizers and sublayers.
-
----

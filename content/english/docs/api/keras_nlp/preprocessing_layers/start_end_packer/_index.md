@@ -3,7 +3,7 @@ title: StartEndPacker layer
 toc: false
 ---
 
-[\[source\]](https://github.com/keras-team/keras-hub/tree/v0.17.0/keras_hub/src/layers/preprocessing/start_end_packer.py#L14)
+{{< keras/source link="https://github.com/keras-team/keras-hub/tree/v0.17.0/keras_hub/src/layers/preprocessing/start_end_packer.py#L14" >}}
 
 ### `StartEndPacker` class
 

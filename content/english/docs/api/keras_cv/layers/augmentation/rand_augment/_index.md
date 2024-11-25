@@ -3,7 +3,7 @@ title: rand_augment
 toc: false
 ---
 
-[\[source\]](https://github.com/keras-team/keras-cv/tree/v0.9.0/keras_cv/src/layers/preprocessing/rand_augment.py#L24)
+{{< keras/source link="https://github.com/keras-team/keras-cv/tree/v0.9.0/keras_cv/src/layers/preprocessing/rand_augment.py#L24" >}}
 
 ### `RandAugment` class
 

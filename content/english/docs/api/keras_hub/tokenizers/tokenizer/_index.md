@@ -3,7 +3,7 @@ title: tokenizer
 toc: false
 ---
 
-[\[source\]](https://github.com/keras-team/keras-hub/tree/v0.17.0/keras_hub/src/tokenizers/tokenizer.py#L18)
+{{< keras/source link="https://github.com/keras-team/keras-hub/tree/v0.17.0/keras_hub/src/tokenizers/tokenizer.py#L18" >}}
 
 ### `Tokenizer` class
 
@@ -25,7 +25,7 @@ Subclassers should implement `get_vocabulary()`, `vocabulary_size()`, `token_to_
 
 ---
 
-[\[source\]](https://github.com/keras-team/keras-hub/tree/v0.17.0/keras_hub/src/tokenizers/tokenizer.py#L213)
+{{< keras/source link="https://github.com/keras-team/keras-hub/tree/v0.17.0/keras_hub/src/tokenizers/tokenizer.py#L213" >}}
 
 ### `from_preset` method
 
@@ -55,7 +55,7 @@ This constructor can be called in one of two ways. Either from the base class li
 
 ---
 
-[\[source\]](https://github.com/keras-team/keras-hub/tree/v0.17.0/keras_hub/src/tokenizers/tokenizer.py#L186)
+{{< keras/source link="https://github.com/keras-team/keras-hub/tree/v0.17.0/keras_hub/src/tokenizers/tokenizer.py#L186" >}}
 
 ### `save_to_preset` method
 

@@ -5,7 +5,7 @@ weight: 2
 type: docs
 ---
 
-[\[source\]](https://github.com/keras-team/keras/tree/v3.6.0/keras/src/metrics/accuracy_metrics.py#L15)
+{{< keras/source link="https://github.com/keras-team/keras/tree/v3.6.0/keras/src/metrics/accuracy_metrics.py#L15" >}}
 
 ### `Accuracy` class
 
@@ -34,7 +34,7 @@ Usage with `compile()` API:
 
 ---
 
-[\[source\]](https://github.com/keras-team/keras/tree/v3.6.0/keras/src/metrics/accuracy_metrics.py#L72)
+{{< keras/source link="https://github.com/keras-team/keras/tree/v3.6.0/keras/src/metrics/accuracy_metrics.py#L72" >}}
 
 ### `BinaryAccuracy` class
 
@@ -64,7 +64,7 @@ Usage with `compile()` API:
 
 ---
 
-[\[source\]](https://github.com/keras-team/keras/tree/v3.6.0/keras/src/metrics/accuracy_metrics.py#L160)
+{{< keras/source link="https://github.com/keras-team/keras/tree/v3.6.0/keras/src/metrics/accuracy_metrics.py#L160" >}}
 
 ### `CategoricalAccuracy` class
 
@@ -97,7 +97,7 @@ Usage with `compile()` API:
 
 ---
 
-[\[source\]](https://github.com/keras-team/keras/tree/v3.6.0/keras/src/metrics/accuracy_metrics.py#L249)
+{{< keras/source link="https://github.com/keras-team/keras/tree/v3.6.0/keras/src/metrics/accuracy_metrics.py#L249" >}}
 
 ### `SparseCategoricalAccuracy` class
 
@@ -130,7 +130,7 @@ Usage with `compile()` API:
 
 ---
 
-[\[source\]](https://github.com/keras-team/keras/tree/v3.6.0/keras/src/metrics/accuracy_metrics.py#L333)
+{{< keras/source link="https://github.com/keras-team/keras/tree/v3.6.0/keras/src/metrics/accuracy_metrics.py#L333" >}}
 
 ### `TopKCategoricalAccuracy` class
 
@@ -156,7 +156,7 @@ Usage with `compile()` API:
 
 ---
 
-[\[source\]](https://github.com/keras-team/keras/tree/v3.6.0/keras/src/metrics/accuracy_metrics.py#L411)
+{{< keras/source link="https://github.com/keras-team/keras/tree/v3.6.0/keras/src/metrics/accuracy_metrics.py#L411" >}}
 
 ### `SparseTopKCategoricalAccuracy` class
 

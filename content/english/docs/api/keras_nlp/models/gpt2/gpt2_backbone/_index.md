@@ -3,7 +3,7 @@ title: GPT2Backbone model
 toc: false
 ---
 
-[\[source\]](https://github.com/keras-team/keras-hub/tree/v0.17.0/keras_hub/src/models/gpt2/gpt2_backbone.py#L17)
+{{< keras/source link="https://github.com/keras-team/keras-hub/tree/v0.17.0/keras_hub/src/models/gpt2/gpt2_backbone.py#L17" >}}
 
 ### `GPT2Backbone` class
 
@@ -34,7 +34,7 @@ Disclaimer: Pre-trained models are provided on an "as is" basis, without warrant
 
 ---
 
-[\[source\]](https://github.com/keras-team/keras-hub/tree/v0.17.0/keras_hub/src/models/backbone.py#L127)
+{{< keras/source link="https://github.com/keras-team/keras-hub/tree/v0.17.0/keras_hub/src/models/backbone.py#L127" >}}
 
 ### `from_preset` method
 

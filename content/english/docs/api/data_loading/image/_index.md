@@ -5,7 +5,7 @@ weight: 1
 type: docs
 ---
 
-[\[source\]](https://github.com/keras-team/keras/tree/v3.6.0/keras/src/utils/image_dataset_utils.py#L12)
+{{< keras/source link="https://github.com/keras-team/keras/tree/v3.6.0/keras/src/utils/image_dataset_utils.py#L12" >}}
 
 ### `image_dataset_from_directory` function
 
@@ -66,7 +66,7 @@ Rules regarding number of channels in the yielded images:
 
 ---
 
-[\[source\]](https://github.com/keras-team/keras/tree/v3.6.0/keras/src/utils/image_utils.py#L187)
+{{< keras/source link="https://github.com/keras-team/keras/tree/v3.6.0/keras/src/utils/image_utils.py#L187" >}}
 
 ### `load_img` function
 
@@ -92,7 +92,7 @@ A PIL Image instance.
 
 ---
 
-[\[source\]](https://github.com/keras-team/keras/tree/v3.6.0/keras/src/utils/image_utils.py#L110)
+{{< keras/source link="https://github.com/keras-team/keras/tree/v3.6.0/keras/src/utils/image_utils.py#L110" >}}
 
 ### `img_to_array` function
 
@@ -116,7 +116,7 @@ A 3D NumPy array.
 
 ---
 
-[\[source\]](https://github.com/keras-team/keras/tree/v3.6.0/keras/src/utils/image_utils.py#L162)
+{{< keras/source link="https://github.com/keras-team/keras/tree/v3.6.0/keras/src/utils/image_utils.py#L162" >}}
 
 ### `save_img` function
 
@@ -135,7 +135,7 @@ Saves an image stored as a NumPy array to a path or file object.
 
 ---
 
-[\[source\]](https://github.com/keras-team/keras/tree/v3.6.0/keras/src/utils/image_utils.py#L35)
+{{< keras/source link="https://github.com/keras-team/keras/tree/v3.6.0/keras/src/utils/image_utils.py#L35" >}}
 
 ### `array_to_img` function
 

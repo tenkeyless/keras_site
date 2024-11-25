@@ -5,7 +5,7 @@ weight: 2
 type: docs
 ---
 
-[\[source\]](https://github.com/keras-team/keras/tree/v3.6.0/keras/src/callbacks/model_checkpoint.py#L14)
+{{< keras/source link="https://github.com/keras-team/keras/tree/v3.6.0/keras/src/callbacks/model_checkpoint.py#L14" >}}
 
 ### `ModelCheckpoint` class
 

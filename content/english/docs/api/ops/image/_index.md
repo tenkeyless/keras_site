@@ -5,7 +5,7 @@ weight: 5
 type: docs
 ---
 
-[\[source\]](https://github.com/keras-team/keras/tree/v3.6.0/keras/src/ops/image.py#L449)
+{{< keras/source link="https://github.com/keras-team/keras/tree/v3.6.0/keras/src/ops/image.py#L449" >}}
 
 ### `affine_transform` function
 
@@ -40,7 +40,7 @@ Applied affine transform image or batch of images.
 
 ---
 
-[\[source\]](https://github.com/keras-team/keras/tree/v3.6.0/keras/src/ops/image.py#L1076)
+{{< keras/source link="https://github.com/keras-team/keras/tree/v3.6.0/keras/src/ops/image.py#L1076" >}}
 
 ### `crop_images` function
 
@@ -69,7 +69,7 @@ Cropped image or batch of images.
 
 ---
 
-[\[source\]](https://github.com/keras-team/keras/tree/v3.6.0/keras/src/ops/image.py#L604)
+{{< keras/source link="https://github.com/keras-team/keras/tree/v3.6.0/keras/src/ops/image.py#L604" >}}
 
 ### `extract_patches` function
 
@@ -96,7 +96,7 @@ Extracted patches 3D (if not batched) or 4D (if batched)
 
 ---
 
-[\[source\]](https://github.com/keras-team/keras/tree/v3.6.0/keras/src/ops/image.py#L176)
+{{< keras/source link="https://github.com/keras-team/keras/tree/v3.6.0/keras/src/ops/image.py#L176" >}}
 
 ### `hsv_to_rgb` function
 
@@ -125,7 +125,7 @@ RGB image or batch of RGB images.
 
 ---
 
-[\[source\]](https://github.com/keras-team/keras/tree/v3.6.0/keras/src/ops/image.py#L741)
+{{< keras/source link="https://github.com/keras-team/keras/tree/v3.6.0/keras/src/ops/image.py#L741" >}}
 
 ### `map_coordinates` function
 
@@ -154,7 +154,7 @@ Output input or batch of inputs.
 
 ---
 
-[\[source\]](https://github.com/keras-team/keras/tree/v3.6.0/keras/src/ops/image.py#L850)
+{{< keras/source link="https://github.com/keras-team/keras/tree/v3.6.0/keras/src/ops/image.py#L850" >}}
 
 ### `pad_images` function
 
@@ -185,7 +185,7 @@ Padded image or batch of images.
 
 ---
 
-[\[source\]](https://github.com/keras-team/keras/tree/v3.6.0/keras/src/ops/image.py#L272)
+{{< keras/source link="https://github.com/keras-team/keras/tree/v3.6.0/keras/src/ops/image.py#L272" >}}
 
 ### `resize` function
 
@@ -219,7 +219,7 @@ Resized image or batch of images.
 
 ---
 
-[\[source\]](https://github.com/keras-team/keras/tree/v3.6.0/keras/src/ops/image.py#L104)
+{{< keras/source link="https://github.com/keras-team/keras/tree/v3.6.0/keras/src/ops/image.py#L104" >}}
 
 ### `rgb_to_hsv` function
 
@@ -250,7 +250,7 @@ HSV image or batch of HSV images.
 
 ---
 
-[\[source\]](https://github.com/keras-team/keras/tree/v3.6.0/keras/src/ops/image.py#L35)
+{{< keras/source link="https://github.com/keras-team/keras/tree/v3.6.0/keras/src/ops/image.py#L35" >}}
 
 ### `rgb_to_grayscale` function
 

@@ -5,7 +5,7 @@ weight: 2
 type: docs
 ---
 
-[\[source\]](https://github.com/keras-team/keras/tree/v3.6.0/keras/src/ops/nn.py#L754)
+{{< keras/source link="https://github.com/keras-team/keras/tree/v3.6.0/keras/src/ops/nn.py#L754" >}}
 
 ### `average_pool` function
 
@@ -27,7 +27,7 @@ A tensor of rank N+2, the result of the average pooling operation.
 
 ---
 
-[\[source\]](https://github.com/keras-team/keras/tree/v3.6.0/keras/src/ops/nn.py#L1746)
+{{< keras/source link="https://github.com/keras-team/keras/tree/v3.6.0/keras/src/ops/nn.py#L1746" >}}
 
 ### `batch_normalization` function
 
@@ -57,7 +57,7 @@ The normalized tensor.
 
 ---
 
-[\[source\]](https://github.com/keras-team/keras/tree/v3.6.0/keras/src/ops/nn.py#L1348)
+{{< keras/source link="https://github.com/keras-team/keras/tree/v3.6.0/keras/src/ops/nn.py#L1348" >}}
 
 ### `binary_crossentropy` function
 
@@ -83,7 +83,7 @@ The binary cross-entropy loss is commonly used in binary classification tasks wh
 
 ---
 
-[\[source\]](https://github.com/keras-team/keras/tree/v3.6.0/keras/src/ops/nn.py#L1422)
+{{< keras/source link="https://github.com/keras-team/keras/tree/v3.6.0/keras/src/ops/nn.py#L1422" >}}
 
 ### `categorical_crossentropy` function
 
@@ -110,7 +110,7 @@ The categorical cross-entropy loss is commonly used in multi-class classificatio
 
 ---
 
-[\[source\]](https://github.com/keras-team/keras/tree/v3.6.0/keras/src/ops/nn.py#L850)
+{{< keras/source link="https://github.com/keras-team/keras/tree/v3.6.0/keras/src/ops/nn.py#L850" >}}
 
 ### `conv` function
 
@@ -135,7 +135,7 @@ A tensor of rank N+2, the result of the conv operation.
 
 ---
 
-[\[source\]](https://github.com/keras-team/keras/tree/v3.6.0/keras/src/ops/nn.py#L1174)
+{{< keras/source link="https://github.com/keras-team/keras/tree/v3.6.0/keras/src/ops/nn.py#L1174" >}}
 
 ### `conv_transpose` function
 
@@ -161,7 +161,7 @@ A tensor of rank N+2, the result of the conv operation.
 
 ---
 
-[\[source\]](https://github.com/keras-team/keras/tree/v3.6.0/keras/src/ops/nn.py#L1910)
+{{< keras/source link="https://github.com/keras-team/keras/tree/v3.6.0/keras/src/ops/nn.py#L1910" >}}
 
 ### `ctc_decode` function
 
@@ -187,7 +187,7 @@ Decodes the output of a CTC model.
 
 ---
 
-[\[source\]](https://github.com/keras-team/keras/tree/v3.6.0/keras/src/ops/nn.py#L1837)
+{{< keras/source link="https://github.com/keras-team/keras/tree/v3.6.0/keras/src/ops/nn.py#L1837" >}}
 
 ### `ctc_loss` function
 
@@ -205,7 +205,7 @@ CTC (Connectionist Temporal Classification) loss.
 
 ---
 
-[\[source\]](https://github.com/keras-team/keras/tree/v3.6.0/keras/src/ops/nn.py#L943)
+{{< keras/source link="https://github.com/keras-team/keras/tree/v3.6.0/keras/src/ops/nn.py#L943" >}}
 
 ### `depthwise_conv` function
 
@@ -230,7 +230,7 @@ A tensor of rank N+2, the result of the depthwise conv operation.
 
 ---
 
-[\[source\]](https://github.com/keras-team/keras/tree/v3.6.0/keras/src/ops/nn.py#L2151)
+{{< keras/source link="https://github.com/keras-team/keras/tree/v3.6.0/keras/src/ops/nn.py#L2151" >}}
 
 ### `dot_product_attention` function
 
@@ -262,7 +262,7 @@ An array of the attention output with the same shape of `query`.
 
 ---
 
-[\[source\]](https://github.com/keras-team/keras/tree/v3.6.0/keras/src/ops/nn.py#L394)
+{{< keras/source link="https://github.com/keras-team/keras/tree/v3.6.0/keras/src/ops/nn.py#L394" >}}
 
 ### `elu` function
 
@@ -289,7 +289,7 @@ A tensor with the same shape as `x`.
 
 ---
 
-[\[source\]](https://github.com/keras-team/keras/tree/v3.6.0/keras/src/ops/nn.py#L470)
+{{< keras/source link="https://github.com/keras-team/keras/tree/v3.6.0/keras/src/ops/nn.py#L470" >}}
 
 ### `gelu` function
 
@@ -316,7 +316,7 @@ A tensor with the same shape as `x`.
 
 ---
 
-[\[source\]](https://github.com/keras-team/keras/tree/v3.6.0/keras/src/ops/nn.py#L305)
+{{< keras/source link="https://github.com/keras-team/keras/tree/v3.6.0/keras/src/ops/nn.py#L305" >}}
 
 ### `hard_sigmoid` function
 
@@ -342,7 +342,7 @@ A tensor with the same shape as `x`.
 
 ---
 
-[\[source\]](https://github.com/keras-team/keras/tree/v3.6.0/keras/src/ops/nn.py#L268)
+{{< keras/source link="https://github.com/keras-team/keras/tree/v3.6.0/keras/src/ops/nn.py#L268" >}}
 
 ### `leaky_relu` function
 
@@ -369,7 +369,7 @@ A tensor with the same shape as `x`.
 
 ---
 
-[\[source\]](https://github.com/keras-team/keras/tree/v3.6.0/keras/src/ops/nn.py#L227)
+{{< keras/source link="https://github.com/keras-team/keras/tree/v3.6.0/keras/src/ops/nn.py#L227" >}}
 
 ### `log_sigmoid` function
 
@@ -393,7 +393,7 @@ A tensor with the same shape as `x`.
 
 ---
 
-[\[source\]](https://github.com/keras-team/keras/tree/v3.6.0/keras/src/ops/nn.py#L585)
+{{< keras/source link="https://github.com/keras-team/keras/tree/v3.6.0/keras/src/ops/nn.py#L585" >}}
 
 ### `log_softmax` function
 
@@ -418,7 +418,7 @@ A tensor with the same shape as `x`.
 
 ---
 
-[\[source\]](https://github.com/keras-team/keras/tree/v3.6.0/keras/src/ops/nn.py#L668)
+{{< keras/source link="https://github.com/keras-team/keras/tree/v3.6.0/keras/src/ops/nn.py#L668" >}}
 
 ### `max_pool` function
 
@@ -440,7 +440,7 @@ A tensor of rank N+2, the result of the max pooling operation.
 
 ---
 
-[\[source\]](https://github.com/keras-team/keras/tree/v3.6.0/keras/src/ops/nn.py#L1679)
+{{< keras/source link="https://github.com/keras-team/keras/tree/v3.6.0/keras/src/ops/nn.py#L1679" >}}
 
 ### `moments` function
 
@@ -467,7 +467,7 @@ A tuple containing two tensors - mean and variance.
 
 ---
 
-[\[source\]](https://github.com/keras-team/keras/tree/v3.6.0/keras/src/ops/nn.py#L1606)
+{{< keras/source link="https://github.com/keras-team/keras/tree/v3.6.0/keras/src/ops/nn.py#L1606" >}}
 
 ### `multi_hot` function
 
@@ -495,7 +495,7 @@ This function encodes integer labels as multi-hot vectors, where each label is m
 
 ---
 
-[\[source\]](https://github.com/keras-team/keras/tree/v3.6.0/keras/src/ops/nn.py#L1993)
+{{< keras/source link="https://github.com/keras-team/keras/tree/v3.6.0/keras/src/ops/nn.py#L1993" >}}
 
 ### `normalize` function
 
@@ -522,7 +522,7 @@ The normalized array.
 
 ---
 
-[\[source\]](https://github.com/keras-team/keras/tree/v3.6.0/keras/src/ops/nn.py#L1280)
+{{< keras/source link="https://github.com/keras-team/keras/tree/v3.6.0/keras/src/ops/nn.py#L1280" >}}
 
 ### `one_hot` function
 
@@ -550,7 +550,7 @@ The one-hot encoding is a representation where each integer value is converted i
 
 ---
 
-[\[source\]](https://github.com/keras-team/keras/tree/v3.6.0/keras/src/ops/nn.py#L2078)
+{{< keras/source link="https://github.com/keras-team/keras/tree/v3.6.0/keras/src/ops/nn.py#L2078" >}}
 
 ### `psnr` function
 
@@ -576,7 +576,7 @@ This function computes the Peak Signal-to-Noise Ratio between two signals, `x1` 
 
 ---
 
-[\[source\]](https://github.com/keras-team/keras/tree/v3.6.0/keras/src/ops/nn.py#L26)
+{{< keras/source link="https://github.com/keras-team/keras/tree/v3.6.0/keras/src/ops/nn.py#L26" >}}
 
 ### `relu` function
 
@@ -600,7 +600,7 @@ A tensor with the same shape as `x`.
 
 ---
 
-[\[source\]](https://github.com/keras-team/keras/tree/v3.6.0/keras/src/ops/nn.py#L57)
+{{< keras/source link="https://github.com/keras-team/keras/tree/v3.6.0/keras/src/ops/nn.py#L57" >}}
 
 ### `relu6` function
 
@@ -624,7 +624,7 @@ A tensor with the same shape as `x`.
 
 ---
 
-[\[source\]](https://github.com/keras-team/keras/tree/v3.6.0/keras/src/ops/nn.py#L430)
+{{< keras/source link="https://github.com/keras-team/keras/tree/v3.6.0/keras/src/ops/nn.py#L430" >}}
 
 ### `selu` function
 
@@ -650,7 +650,7 @@ A tensor with the same shape as `x`.
 
 ---
 
-[\[source\]](https://github.com/keras-team/keras/tree/v3.6.0/keras/src/ops/nn.py#L1052)
+{{< keras/source link="https://github.com/keras-team/keras/tree/v3.6.0/keras/src/ops/nn.py#L1052" >}}
 
 ### `separable_conv` function
 
@@ -676,7 +676,7 @@ A tensor of rank N+2, the result of the depthwise conv operation.
 
 ---
 
-[\[source\]](https://github.com/keras-team/keras/tree/v3.6.0/keras/src/ops/nn.py#L88)
+{{< keras/source link="https://github.com/keras-team/keras/tree/v3.6.0/keras/src/ops/nn.py#L88" >}}
 
 ### `sigmoid` function
 
@@ -700,7 +700,7 @@ A tensor with the same shape as `x`.
 
 ---
 
-[\[source\]](https://github.com/keras-team/keras/tree/v3.6.0/keras/src/ops/nn.py#L185)
+{{< keras/source link="https://github.com/keras-team/keras/tree/v3.6.0/keras/src/ops/nn.py#L185" >}}
 
 ### `silu` function
 
@@ -724,7 +724,7 @@ A tensor with the same shape as `x`.
 
 ---
 
-[\[source\]](https://github.com/keras-team/keras/tree/v3.6.0/keras/src/ops/nn.py#L345)
+{{< keras/source link="https://github.com/keras-team/keras/tree/v3.6.0/keras/src/ops/nn.py#L345" >}}
 
 ### `hard_silu` function
 
@@ -754,7 +754,7 @@ A tensor with the same shape as `x`.
 
 ---
 
-[\[source\]](https://github.com/keras-team/keras/tree/v3.6.0/keras/src/ops/nn.py#L513)
+{{< keras/source link="https://github.com/keras-team/keras/tree/v3.6.0/keras/src/ops/nn.py#L513" >}}
 
 ### `softmax` function
 
@@ -783,7 +783,7 @@ A tensor with the same shape as `x`.
 
 ---
 
-[\[source\]](https://github.com/keras-team/keras/tree/v3.6.0/keras/src/ops/nn.py#L120)
+{{< keras/source link="https://github.com/keras-team/keras/tree/v3.6.0/keras/src/ops/nn.py#L120" >}}
 
 ### `softplus` function
 
@@ -807,7 +807,7 @@ A tensor with the same shape as `x`.
 
 ---
 
-[\[source\]](https://github.com/keras-team/keras/tree/v3.6.0/keras/src/ops/nn.py#L153)
+{{< keras/source link="https://github.com/keras-team/keras/tree/v3.6.0/keras/src/ops/nn.py#L153" >}}
 
 ### `softsign` function
 
@@ -831,7 +831,7 @@ A tensor with the same shape as `x`.
 
 ---
 
-[\[source\]](https://github.com/keras-team/keras/tree/v3.6.0/keras/src/ops/nn.py#L1509)
+{{< keras/source link="https://github.com/keras-team/keras/tree/v3.6.0/keras/src/ops/nn.py#L1509" >}}
 
 ### `sparse_categorical_crossentropy` function
 
@@ -858,7 +858,7 @@ The sparse categorical cross-entropy loss is similar to categorical cross-entrop
 
 ---
 
-[\[source\]](https://github.com/keras-team/keras/tree/v3.6.0/keras/src/ops/nn.py#L185)
+{{< keras/source link="https://github.com/keras-team/keras/tree/v3.6.0/keras/src/ops/nn.py#L185" >}}
 
 ### `silu` function
 
@@ -882,7 +882,7 @@ A tensor with the same shape as `x`.
 
 ---
 
-[\[source\]](https://github.com/keras-team/keras/tree/v3.6.0/keras/src/ops/nn.py#L345)
+{{< keras/source link="https://github.com/keras-team/keras/tree/v3.6.0/keras/src/ops/nn.py#L345" >}}
 
 ### `hard_silu` function
 

@@ -3,7 +3,7 @@ title: token_and_position_embedding
 toc: false
 ---
 
-[\[source\]](https://github.com/keras-team/keras-hub/tree/v0.17.0/keras_hub/src/layers/modeling/token_and_position_embedding.py#L11)
+{{< keras/source link="https://github.com/keras-team/keras-hub/tree/v0.17.0/keras_hub/src/layers/modeling/token_and_position_embedding.py#L11" >}}
 
 ### `TokenAndPositionEmbedding` class
 

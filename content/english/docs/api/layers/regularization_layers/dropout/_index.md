@@ -1,13 +1,19 @@
 ---
 title: Dropout layer
-toc: false
+toc: true
+weight: 1
+type: docs
 ---
 
-[\[source\]](https://github.com/keras-team/keras/tree/v3.6.0/keras/src/layers/regularization/dropout.py#L6)
+{{< keras/original checkedAt="2024-11-25" >}}
+
+{{< keras/source link="https://github.com/keras-team/keras/tree/v3.6.0/keras/src/layers/regularization/dropout.py#L6" >}}
 
 ### `Dropout` class
 
-`keras.layers.Dropout(rate, noise_shape=None, seed=None, **kwargs)`
+```python
+keras.layers.Dropout(rate, noise_shape=None, seed=None, **kwargs)
+```
 
 Applies dropout to the input.
 
@@ -27,5 +33,3 @@ Note that the `Dropout` layer only applies when `training` is set to `True` in `
 
 - **inputs**: Input tensor (of any rank).
 - **training**: Python boolean indicating whether the layer should behave in training mode (adding dropout) or in inference mode (doing nothing).
-
----
