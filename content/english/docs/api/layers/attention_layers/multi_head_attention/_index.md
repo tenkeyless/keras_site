@@ -1,13 +1,36 @@
 ---
 title: MultiHeadAttention layer
-toc: false
+toc: true
+weight: 2
+type: docs
 ---
+
+{{< keras/original checkedAt="2024-11-25" >}}
 
 {{< keras/source link="https://github.com/keras-team/keras/tree/v3.6.0/keras/src/layers/attention/multi_head_attention.py#L19" >}}
 
 ### `MultiHeadAttention` class
 
-`keras.layers.MultiHeadAttention(     num_heads,     key_dim,     value_dim=None,     dropout=0.0,     use_bias=True,     output_shape=None,     attention_axes=None,     kernel_initializer="glorot_uniform",     bias_initializer="zeros",     kernel_regularizer=None,     bias_regularizer=None,     activity_regularizer=None,     kernel_constraint=None,     bias_constraint=None,     seed=None,     **kwargs )`
+```python
+keras.layers.MultiHeadAttention(
+    num_heads,
+    key_dim,
+    value_dim=None,
+    dropout=0.0,
+    use_bias=True,
+    output_shape=None,
+    attention_axes=None,
+    kernel_initializer="glorot_uniform",
+    bias_initializer="zeros",
+    kernel_regularizer=None,
+    bias_regularizer=None,
+    activity_regularizer=None,
+    kernel_constraint=None,
+    bias_constraint=None,
+    seed=None,
+    **kwargs
+)
+```
 
 MultiHeadAttention layer.
 
@@ -51,5 +74,3 @@ Finally, the result tensor with the last dimension as `value_dim` can take a lin
 
 - **attention_output**: The result of the computation, of shape `(B, T, E)`, where `T` is for target sequence shapes and `E` is the query input last dimension if `output_shape` is `None`. Otherwise, the multi-head outputs are projected to the shape specified by `output_shape`.
 - **attention_scores**: (Optional) multi-head attention coefficients over attention axes.
-
----
