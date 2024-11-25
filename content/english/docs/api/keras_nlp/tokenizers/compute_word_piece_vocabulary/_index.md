@@ -1,6 +1,8 @@
 ---
 title: compute_word_piece_vocabulary function
-toc: false
+toc: true
+weight: 7
+type: docs
 ---
 
 {{< keras/source link="https://github.com/keras-team/keras-hub/tree/v0.17.0/keras_hub/src/tokenizers/word_piece_tokenizer_trainer.py#L14" >}}

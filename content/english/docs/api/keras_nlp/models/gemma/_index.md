@@ -1,6 +1,6 @@
 ---
 title: Gemma
 toc: true
-weight: 12
+weight: 7
 type: docs
 ---

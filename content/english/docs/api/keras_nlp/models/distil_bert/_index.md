@@ -1,6 +1,6 @@
 ---
 title: DistilBERT
 toc: true
-weight: 8
+weight: 6
 type: docs
 ---

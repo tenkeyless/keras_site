@@ -1,6 +1,8 @@
 ---
-title: masked_lm_mask_generator
-toc: false
+title: MaskedLMMaskGenerator layer
+toc: true
+weight: 7
+type: docs
 ---
 
 {{< keras/source link="https://github.com/keras-team/keras-hub/tree/v0.17.0/keras_hub/src/layers/preprocessing/masked_lm_mask_generator.py#L16" >}}

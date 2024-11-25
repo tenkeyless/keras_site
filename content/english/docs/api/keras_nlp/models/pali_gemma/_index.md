@@ -1,6 +1,6 @@
 ---
 title: PaliGemma
 toc: true
-weight: 19
+weight: 16
 type: docs
 ---

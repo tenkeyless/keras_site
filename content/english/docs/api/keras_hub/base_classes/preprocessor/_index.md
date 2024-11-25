@@ -1,6 +1,8 @@
 ---
-title: preprocessor
-toc: false
+title: Preprocessor
+toc: true
+weight: 11
+type: docs
 ---
 
 {{< keras/source link="https://github.com/keras-team/keras-hub/tree/v0.17.0/keras_hub/src/models/preprocessor.py#L15" >}}

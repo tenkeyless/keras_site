@@ -1,6 +1,8 @@
 ---
-title: task
-toc: false
+title: Task
+toc: true
+weight: 2
+type: docs
 ---
 
 {{< keras/source link="https://github.com/keras-team/keras-hub/tree/v0.17.0/keras_hub/src/models/task.py#L21" >}}

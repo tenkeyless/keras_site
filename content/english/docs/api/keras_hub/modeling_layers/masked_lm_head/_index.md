@@ -1,6 +1,8 @@
 ---
-title: masked_lm_head
-toc: false
+title: MaskedLMHead layer
+toc: true
+weight: 10
+type: docs
 ---
 
 {{< keras/source link="https://github.com/keras-team/keras-hub/tree/v0.17.0/keras_hub/src/layers/modeling/masked_lm_head.py#L7" >}}

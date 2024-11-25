@@ -1,6 +1,8 @@
 ---
-title: transformer_encoder
-toc: false
+title: TransformerEncoder layer
+toc: true
+weight: 1
+type: docs
 ---
 
 {{< keras/source link="https://github.com/keras-team/keras-hub/tree/v0.17.0/keras_hub/src/layers/modeling/transformer_encoder.py#L11" >}}

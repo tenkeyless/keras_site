@@ -1,6 +1,8 @@
 ---
 title: upload_preset
-toc: false
+toc: true
+weight: 18
+type: docs
 ---
 
 {{< keras/source link="https://github.com/keras-team/keras-hub/tree/v0.17.0/keras_hub/src/utils/preset_utils.py#L365" >}}

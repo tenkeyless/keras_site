@@ -1,6 +1,8 @@
 ---
-title: word_piece_tokenizer
-toc: false
+title: WordPieceTokenizer
+toc: true
+weight: 2
+type: docs
 ---
 
 {{< keras/source link="https://github.com/keras-team/keras-hub/tree/v0.17.0/keras_hub/src/tokenizers/word_piece_tokenizer.py#L190" >}}

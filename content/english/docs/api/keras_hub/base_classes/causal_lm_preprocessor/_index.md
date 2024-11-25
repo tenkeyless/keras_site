@@ -1,6 +1,8 @@
 ---
-title: causal_lm_preprocessor
-toc: false
+title: CausalLMPreprocessor
+toc: true
+weight: 3
+type: docs
 ---
 
 {{< keras/source link="https://github.com/keras-team/keras-hub/tree/v0.17.0/keras_hub/src/models/causal_lm_preprocessor.py#L10" >}}

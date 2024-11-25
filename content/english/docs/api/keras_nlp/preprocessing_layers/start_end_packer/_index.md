@@ -1,6 +1,8 @@
 ---
 title: StartEndPacker layer
-toc: false
+toc: true
+weight: 1
+type: docs
 ---
 
 {{< keras/source link="https://github.com/keras-team/keras-hub/tree/v0.17.0/keras_hub/src/layers/preprocessing/start_end_packer.py#L14" >}}

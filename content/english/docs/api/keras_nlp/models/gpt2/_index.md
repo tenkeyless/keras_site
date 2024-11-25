@@ -1,6 +1,6 @@
 ---
 title: GPT2
 toc: true
-weight: 13
+weight: 11
 type: docs
 ---

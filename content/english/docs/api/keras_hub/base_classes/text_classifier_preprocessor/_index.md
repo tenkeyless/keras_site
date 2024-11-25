@@ -1,6 +1,8 @@
 ---
-title: text_classifier_preprocessor
-toc: false
+title: TextClassifierPreprocessor
+toc: true
+weight: 16
+type: docs
 ---
 
 {{< keras/source link="https://github.com/keras-team/keras-hub/tree/v0.17.0/keras_hub/src/models/text_classifier_preprocessor.py#L11" >}}

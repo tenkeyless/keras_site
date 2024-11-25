@@ -1,6 +1,8 @@
 ---
-title: text_classifier
-toc: false
+title: TextClassifier
+toc: true
+weight: 15
+type: docs
 ---
 
 {{< keras/source link="https://github.com/keras-team/keras-hub/tree/v0.17.0/keras_hub/src/models/text_classifier.py#L7" >}}

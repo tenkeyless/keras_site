@@ -1,6 +1,8 @@
 ---
 title: FNetEncoder layer
-toc: false
+toc: true
+weight: 3
+type: docs
 ---
 
 {{< keras/source link="https://github.com/keras-team/keras-hub/tree/v0.17.0/keras_hub/src/layers/modeling/f_net_encoder.py#L8" >}}
