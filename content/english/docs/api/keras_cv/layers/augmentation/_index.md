@@ -1,27 +1,27 @@
 ---
-title: mix_up
-toc: false
+title: Augmentation layers
+toc: true
+weight: 1
+type: docs
 ---
 
-{{< keras/source link="https://github.com/keras-team/keras-cv/tree/v0.9.0/keras_cv/src/layers/preprocessing/mix_up.py#L24" >}}
+{{< keras/original checkedAt="2024-11-25" >}}
 
-### `MixUp` class
-
-`keras_cv.layers.MixUp(alpha=0.2, seed=None, **kwargs)`
-
-MixUp implements the MixUp data augmentation technique.
-
-**Arguments**
-
-- **alpha**: Float between 0 and 1. Inverse scale parameter for the gamma distribution. This controls the shape of the distribution from which the smoothing values are sampled. Defaults to 0.2, which is a recommended value when training an imagenet1k classification model.
-- **seed**: Integer. Used to create a random seed.
-
-**References**
-
-- [MixUp paper](https://arxiv.org/abs/1710.09412). - [MixUp for Object Detection paper](https://arxiv.org/pdf/1902.04103).
-
-**Example**
-
-`(images, labels), _ = keras.datasets.cifar10.load_data() images, labels = images[:10], labels[:10] # Labels must be floating-point and one-hot encoded labels = tf.cast(tf.one_hot(labels, 10), tf.float32) mixup = keras_cv.layers.preprocessing.MixUp(10) augmented_images, updated_labels = mixup(     {'images': images, 'labels': labels} ) # output == {'images': updated_images, 'labels': updated_labels}`
-
----
+- [AutoContrast layer]({{< relref "/docs/api/keras_cv/layers/augmentation/auto_contrast/" >}})
+- [AugMix layer]({{< relref "/docs/api/keras_cv/layers/augmentation/aug_mix/" >}})
+- [ChannelShuffle layer]({{< relref "/docs/api/keras_cv/layers/augmentation/channel_shuffle/" >}})
+- [CutMix layer]({{< relref "/docs/api/keras_cv/layers/augmentation/cut_mix/" >}})
+- [FourierMix layer]({{< relref "/docs/api/keras_cv/layers/augmentation/fourier_mix/" >}})
+- [GridMask layer]({{< relref "/docs/api/keras_cv/layers/augmentation/grid_mask/" >}})
+- [JitteredResize layer]({{< relref "/docs/api/keras_cv/layers/augmentation/jittered_resize/" >}})
+- [MixUp layer]({{< relref "/docs/api/keras_cv/layers/augmentation/mix_up/" >}})
+- [RandAugment layer]({{< relref "/docs/api/keras_cv/layers/augmentation/rand_augment/" >}})
+- [RandomAugmentationPipeline layer]({{< relref "/docs/api/keras_cv/layers/augmentation/random_augmentation_pipeline/" >}})
+- [RandomChannelShift layer]({{< relref "/docs/api/keras_cv/layers/augmentation/random_channel_shift/" >}})
+- [RandomColorDegeneration layer]({{< relref "/docs/api/keras_cv/layers/augmentation/random_color_degeneration/" >}})
+- [RandomCutout layer]({{< relref "/docs/api/keras_cv/layers/augmentation/random_cutout/" >}})
+- [RandomHue layer]({{< relref "/docs/api/keras_cv/layers/augmentation/random_hue/" >}})
+- [RandomSaturation layer]({{< relref "/docs/api/keras_cv/layers/augmentation/random_saturation/" >}})
+- [RandomSharpness layer]({{< relref "/docs/api/keras_cv/layers/augmentation/random_sharpness/" >}})
+- [RandomShear layer]({{< relref "/docs/api/keras_cv/layers/augmentation/random_shear/" >}})
+- [Solarization layer]({{< relref "/docs/api/keras_cv/layers/augmentation/solarization/" >}})
