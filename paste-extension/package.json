@@ -1,0 +1,23 @@
+{
+  "name": "insert-markdown-extension",
+  "displayName": "Insert Markdown Extension",
+  "description": "Run Python script and insert markdown output into editor.",
+  "version": "0.0.1",
+  "publisher": "your-name",
+  "engines": {
+    "vscode": "^1.78.0"
+  },
+  "activationEvents": [
+    "onCommand:extension.insertMarkdownOutput"
+  ],
+  "main": "./vscode-extension.js",
+  "contributes": {
+    "commands": [
+      {
+        "command": "extension.insertMarkdownOutput",
+        "title": "Insert Markdown Output"
+      }
+    ]
+  },
+  "dependencies": {}
+}

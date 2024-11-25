@@ -7,6 +7,13 @@
 
 - [Hextra 문서](https://imfing.github.io/hextra/docs/)
 
+## markdown 붙여넣기 확장
+
+1. Command + Shift + P를 누르고,
+2. install extension from location을 선택한 다음,
+3. `/workspaces/keras_kr_doc/paste-extension/` 이 위치에서 확장을 설치합니다.
+4. 파일에서, `Insert Markdown Output`을 수행합니다.
+
 ## 편집
 
 - 상대 링크 교체
