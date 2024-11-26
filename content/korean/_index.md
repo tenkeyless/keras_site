@@ -11,7 +11,7 @@ layout: hextra-home
 
 <div class="hx-mb-12">
 {{< hextra/hero-subtitle >}}
-  단순함. 유연함. 강력함.
+  간단함. 유연함. 강력함.
 {{< /hextra/hero-subtitle >}}
 </div>
 
