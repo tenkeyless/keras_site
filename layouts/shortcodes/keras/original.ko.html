@@ -1,0 +1,23 @@
+<blockquote>
+    <ul>
+        {{ if .Get "link" }}
+        <li>
+            원본 링크 :
+            <a href="{{ .Get "link" }}" target="_blank" rel="noopener">{{ .Get "link" }}</a>
+        </li>
+        {{ else }}
+        {{ $parts := split .Page.RelPermalink "/" }}
+        {{ $cleanedLink := "" }}
+        {{ range $index, $element := $parts }}
+            {{ if ge $index 2 }}
+                {{ $cleanedLink = printf "%s/%s" $cleanedLink $element }}
+            {{ end }}
+        {{ end }}
+        <li>
+            원본 링크 :
+            <a href="https://keras.io{{ $cleanedLink }}" target="_blank" rel="noopener">https://keras.io{{ $cleanedLink }}</a>
+        </li>
+        {{ end }}
+        <li>최종 확인 : {{ .Get "checkedAt" }}</li>
+    </ul>
+</blockquote>

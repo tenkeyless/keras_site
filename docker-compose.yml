@@ -1,0 +1,10 @@
+version: "3.8"
+
+services:
+  keras-site:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: keras_site
+    ports:
+      - "8080:80"

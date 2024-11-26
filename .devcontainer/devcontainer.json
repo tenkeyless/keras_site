@@ -5,7 +5,10 @@
       "extended": true,
       "version": "0.132.2"
     },
-    "ghcr.io/devcontainers/features/node:1": {}
+    "ghcr.io/devcontainers/features/node:1": {},
+    "ghcr.io/devcontainers/features/python:1": {
+      "version": "3.11"
+    }
   },
   "customizations": {
     "vscode": {
@@ -13,10 +16,19 @@
         "mhutchie.git-graph",
         "esbenp.prettier-vscode",
         "tamasfe.even-better-toml",
-        "budparr.language-hugo-vscode"
+        "budparr.language-hugo-vscode",
+        "ms-python.python"
       ]
     }
   },
-  "forwardPorts": [1313],
-  "postCreateCommand": "hugo server --buildDrafts --disableFastRender --bind=0.0.0.0"
+  "forwardPorts": [
+    1314
+  ],
+  "runArgs": [
+    "--name",
+    "keras_site__vscode_dev"
+  ],
+  "postCreateCommand": "pip install requests beautifulsoup4 markdownify",
+  // "postStartCommand": "hugo server --buildDrafts --disableFastRender --bind=0.0.0.0 --port=1314"
+  "postStartCommand": "hugo server --buildDrafts --bind=0.0.0.0 --port=1314"
 }
