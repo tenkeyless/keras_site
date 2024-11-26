@@ -1,0 +1,17 @@
+<a
+    class="hextra-feature-card not-prose hx-block hx-relative hx-overflow-hidden hx-rounded-xl hover:hx-border-gray-300 dark:hx-border-neutral-800 dark:hover:hx-border-neutral-700 before:hx-pointer-events-none before:hx-absolute before:hx-inset-0 before:hx-bg-glass-gradient">
+    <div class="hx-relative hx-w-full hx-p-6">
+        <h2 class="hx-text-2xl hx-font-bold hx-leading-7 hx-mb-2 hx-flex hx-items-center">
+            <span style="margin: 0 auto; text-align: center;">{{ .Get "title" }}</span>
+        </h2>
+        <h3 class="hx-text-base hx-font-medium hx-leading-none hx-flex hx-items-center">
+            <span style="margin: 0 auto; text-align: center;">{{ .Get "subtitle" }}</span>
+        </h3>
+        <h3 class="hx-text-sm hx-font-medium hx-leading-6 hx-mb-2 hx-flex hx-items-center">
+            <span style="margin: 0 auto; text-align: center; opacity: 0.7">{{ .Get "workAt" }}</span>
+        </h3>
+        <p class="hx-text-gray-500 dark:hx-text-gray-400 hx-text-sm hx-leading-6" style="text-align: center; font-style: italic;">
+            {{ .Get "words" }}
+        </p>
+    </div>
+</a>

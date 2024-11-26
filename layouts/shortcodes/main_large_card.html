@@ -1,0 +1,10 @@
+<a
+    class="hextra-card hx-group hx-flex hx-flex-col hx-justify-start hx-overflow-hidden hx-rounded-3xl hx-border hx-border-gray-200 hx-text-current hx-no-underline dark:hx-shadow-none hover:hx-shadow-gray-100 dark:hover:hx-shadow-none hx-shadow-gray-100 active:hx-shadow-sm active:hx-shadow-gray-200 hx-transition-all hx-duration-200 hover:hx-border-gray-300 hx-bg-gray-100 hx-shadow dark:hx-border-neutral-700 dark:hx-bg-neutral-800 dark:hx-text-gray-50 hover:hx-shadow-lg dark:hover:hx-border-neutral-500 dark:hover:hx-bg-neutral-700"><img
+        alt='{{ .Get "title" }}' class="hextra-card-image" loading="lazy" decoding="async" src='{{ .Get "image" }}' />
+    <span
+        class="hextra-card-icon hx-flex hx-text-2xl hx-font-semibold hx-items-start hx-gap-2 hx-pt-6 hx-px-6 hx-text-gray-700 hover:hx-text-gray-900 dark:hx-text-neutral-200 dark:hover:hx-text-neutral-50">{{ .Get "title" }}</span>
+    <div
+        class="hextra-card-subtitle hx-text-base hx-font-normal hx-text-gray-500 dark:hx-text-gray-400 hx-px-6 hx-mb-8 hx-mt-2">
+        {{ .Get "subtitle" }}
+    </div>
+</a>

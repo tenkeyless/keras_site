@@ -1,0 +1,13 @@
+{{ $path := .Get "rellink" }}
+{{ $path := trim $path "/" }}
+<!-- now pass it to the relref function -->
+{{ $relreflink := relref . $path }}
+
+<div class="masthead text-center smooth-black-bg hx-mt-6 hx-py-12 hx-mb-6 hx-w-full hx-bg-black/80 hx-rounded-3xl" style="text-align: center;">
+    <div class="row">
+        <div class="col-xl-8 mx-auto hx-text-2xl hx-text-white hx-font-bold" id="announcement-box">
+            {{ .Get "title" }}
+        </div>
+        <a class="hx-text-xl hx-text-primary-800 hx-font-bold" href='{{ $relreflink }}' id="announcement-link" style="color: hsl(var(--primary-hue) var(--primary-saturation) calc(calc(var(--primary-lightness) / 50) * 45) / var(--tw-text-opacity));">{{ .Get "linkTitle" }}</a>
+    </div>
+</div>
