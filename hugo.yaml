@@ -18,22 +18,27 @@ markup:
 
 menu:
   main:
-    - identifier: documentation
-      name: Doc
-      pageRef: /docs
+    - identifier: about
+      name: About
+      pageRef: /docs/about/
       weight: 1
-    - name: About
-      pageRef: /about
+    - name: API
+      pageRef: /docs/api/
       weight: 2
-    - name: Contact ↗
-      url: "https://github.com/imfing"
+    - identifier: guides
+      name: Guides
+      pageRef: /docs/guides/
       weight: 3
-    - name: Search
+    - identifier: example
+      name: Examples
+      pageRef: /docs/examples/
       weight: 4
+    - name: Search
+      weight: 5
       params:
         type: search
     - name: GitHub
-      weight: 5
+      weight: 6
       url: "https://github.com/imfing/hextra-starter-template"
       params:
         icon: github
@@ -50,7 +55,7 @@ params:
     displayPoweredBy: true
 
   editURL:
-    enable: true
+    enable: false
     base: "https://github.com/imfing/hextra-starter-template/edit/main/content"
 
   theme:
