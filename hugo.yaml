@@ -67,10 +67,10 @@ languages:
   en:
     languageName: English
     contentDir: content/english
-    title: Keras Official Documentation
+    title: Keras
     weight: 10
   ko:
     languageName: 한국어
     contentDir: content/korean
-    title: Keras 공식 문서
+    title: Keras
     weight: 20
