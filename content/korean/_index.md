@@ -22,7 +22,7 @@ layout: hextra-home
 {{< main_button rellink="/docs/examples" title="예제"  >}}
 </div>
 
-{{< main_large_text title="이제 JAX, TensorFlow, PyTorch에서 Keras를 사용할 수 있습니다!" rellink="/docs/keras_3" linkTitle="Read the Keras 3.0 release announcement" >}}
+{{< main_large_text title="이제 JAX, TensorFlow, PyTorch에서 Keras를 사용할 수 있습니다!" rellink="/docs/keras_3" linkTitle="Keras 3.0 릴리스 공지 읽기" >}}
 
 <div class="hx-w-full" style="padding: 0 2rem; ">
 {{< cards cols="3" >}}
