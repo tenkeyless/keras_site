@@ -4,3 +4,160 @@ toc: true
 weight: 10
 type: docs
 ---
+
+{{< keras/original checkedAt="2024-11-26" >}}
+
+{{< keras/source link="https://github.com/keras-team/keras-hub/tree/v0.17.0/keras_hub/src/models/masked_lm_preprocessor.py#L14" >}}
+
+### `MaskedLMPreprocessor` class
+
+```python
+keras_hub.models.MaskedLMPreprocessor(
+    tokenizer,
+    sequence_length=512,
+    truncate="round_robin",
+    mask_selection_rate=0.15,
+    mask_selection_length=96,
+    mask_token_rate=0.8,
+    random_token_rate=0.1,
+    **kwargs
+)
+```
+
+Base class for masked language modeling preprocessing layers.
+
+`MaskedLMPreprocessor` tasks wrap a `keras_hub.tokenizer.Tokenizer` to
+create a preprocessing layer for masked language modeling tasks. It is
+intended to be paired with a `keras.models.MaskedLM` task.
+
+All `MaskedLMPreprocessor` take inputs a single input. This can be a single
+string, a batch of strings, or a tuple of batches of string segments that
+should be combined into a single sequence. See examples below. These inputs
+will be tokenized, combined, and masked randomly along the sequence.
+
+This layer will always output a `(x, y, sample_weight)` tuple, where `x`
+is a dictionary with the masked, tokenized inputs, `y` contains the tokens
+that were masked in `x`, and `sample_weight` marks where `y` contains padded
+values. The exact contents of `x` will vary depending on the model being
+used.
+
+All `MaskedLMPreprocessor` tasks include a `from_preset()` constructor
+which can be used to load a pre-trained config and vocabularies. You can
+call the `from_preset()` constructor directly on this base class, in which
+case the correct class for you model will be automatically instantiated.
+
+Examples.
+
+```python
+preprocessor = keras_hub.models.MaskedLMPreprocessor.from_preset(
+    "bert_base_en_uncased",
+    sequence_length=256, # Optional.
+)
+# Tokenize, mask and pack a single sentence.
+x = "The quick brown fox jumped."
+x, y, sample_weight = preprocessor(x)
+# Preprocess a batch of labeled sentence pairs.
+first = ["The quick brown fox jumped.", "Call me Ishmael."]
+second = ["The fox tripped.", "Oh look, a whale."]
+x, y, sample_weight = preprocessor((first, second))
+# With a [`tf.data.Dataset`](https://www.tensorflow.org/api_docs/python/tf/data/Dataset).
+ds = tf.data.Dataset.from_tensor_slices((first, second))
+ds = ds.map(preprocessor, num_parallel_calls=tf.data.AUTOTUNE)
+```
+
+{{< keras/source link="https://github.com/keras-team/keras-hub/tree/v0.17.0/keras_hub/src/models/preprocessor.py#L132" >}}
+
+### `from_preset` method
+
+```python
+MaskedLMPreprocessor.from_preset(preset, config_file="preprocessor.json", **kwargs)
+```
+
+Instantiate a [`keras_hub.models.Preprocessor`]({{< relref "/docs/api/keras_hub/base_classes/preprocessor#preprocessor-class" >}}) from a model preset.
+
+A preset is a directory of configs, weights and other file assets used
+to save and load a pre-trained model. The `preset` can be passed as
+one of:
+
+1. a built-in preset identifier like `'bert_base_en'`
+2. a Kaggle Models handle like `'kaggle://user/bert/keras/bert_base_en'`
+3. a Hugging Face handle like `'hf://user/bert_base_en'`
+4. a path to a local preset directory like `'./bert_base_en'`
+
+For any `Preprocessor` subclass, you can run `cls.presets.keys()` to
+list all built-in presets available on the class.
+
+As there are usually multiple preprocessing classes for a given model,
+this method should be called on a specific subclass like
+`keras_hub.models.BertTextClassifierPreprocessor.from_preset()`.
+
+**Arguments**
+
+- **preset**: string. A built-in preset identifier, a Kaggle Models
+  handle, a Hugging Face handle, or a path to a local directory.
+
+**Examples**
+
+```python
+# Load a preprocessor for Gemma generation.
+preprocessor = keras_hub.models.GemmaCausalLMPreprocessor.from_preset(
+    "gemma_2b_en",
+)
+# Load a preprocessor for Bert classification.
+preprocessor = keras_hub.models.BertTextClassifierPreprocessor.from_preset(
+    "bert_base_en",
+)
+```
+
+| Preset name                         | Parameters | Description                                                                                                                         |
+| ----------------------------------- | ---------- | ----------------------------------------------------------------------------------------------------------------------------------- |
+| deberta_v3_extra_small_en           | 70.68M     | 12-layer DeBERTaV3 model where case is maintained. Trained on English Wikipedia, BookCorpus and OpenWebText.                        |
+| deberta_v3_small_en                 | 141.30M    | 6-layer DeBERTaV3 model where case is maintained. Trained on English Wikipedia, BookCorpus and OpenWebText.                         |
+| deberta_v3_base_en                  | 183.83M    | 12-layer DeBERTaV3 model where case is maintained. Trained on English Wikipedia, BookCorpus and OpenWebText.                        |
+| deberta_v3_large_en                 | 434.01M    | 24-layer DeBERTaV3 model where case is maintained. Trained on English Wikipedia, BookCorpus and OpenWebText.                        |
+| deberta_v3_base_multi               | 278.22M    | 12-layer DeBERTaV3 model where case is maintained. Trained on the 2.5TB multilingual CC100 dataset.                                 |
+| roberta_base_en                     | 124.05M    | 12-layer RoBERTa model where case is maintained.Trained on English Wikipedia, BooksCorpus, CommonCraw, and OpenWebText.             |
+| roberta_large_en                    | 354.31M    | 24-layer RoBERTa model where case is maintained.Trained on English Wikipedia, BooksCorpus, CommonCraw, and OpenWebText.             |
+| xlm_roberta_base_multi              | 277.45M    | 12-layer XLM-RoBERTa model where case is maintained. Trained on CommonCrawl in 100 languages.                                       |
+| xlm_roberta_large_multi             | 558.84M    | 24-layer XLM-RoBERTa model where case is maintained. Trained on CommonCrawl in 100 languages.                                       |
+| albert_base_en_uncased              | 11.68M     | 12-layer ALBERT model where all input is lowercased. Trained on English Wikipedia + BooksCorpus.                                    |
+| albert_large_en_uncased             | 17.68M     | 24-layer ALBERT model where all input is lowercased. Trained on English Wikipedia + BooksCorpus.                                    |
+| albert_extra_large_en_uncased       | 58.72M     | 24-layer ALBERT model where all input is lowercased. Trained on English Wikipedia + BooksCorpus.                                    |
+| albert_extra_extra_large_en_uncased | 222.60M    | 12-layer ALBERT model where all input is lowercased. Trained on English Wikipedia + BooksCorpus.                                    |
+| f_net_base_en                       | 82.86M     | 12-layer FNet model where case is maintained. Trained on the C4 dataset.                                                            |
+| f_net_large_en                      | 236.95M    | 24-layer FNet model where case is maintained. Trained on the C4 dataset.                                                            |
+| bert_tiny_en_uncased                | 4.39M      | 2-layer BERT model where all input is lowercased. Trained on English Wikipedia + BooksCorpus.                                       |
+| bert_small_en_uncased               | 28.76M     | 4-layer BERT model where all input is lowercased. Trained on English Wikipedia + BooksCorpus.                                       |
+| bert_medium_en_uncased              | 41.37M     | 8-layer BERT model where all input is lowercased. Trained on English Wikipedia + BooksCorpus.                                       |
+| bert_base_en_uncased                | 109.48M    | 12-layer BERT model where all input is lowercased. Trained on English Wikipedia + BooksCorpus.                                      |
+| bert_base_en                        | 108.31M    | 12-layer BERT model where case is maintained. Trained on English Wikipedia + BooksCorpus.                                           |
+| bert_base_zh                        | 102.27M    | 12-layer BERT model. Trained on Chinese Wikipedia.                                                                                  |
+| bert_base_multi                     | 177.85M    | 12-layer BERT model where case is maintained. Trained on trained on Wikipedias of 104 languages                                     |
+| bert_large_en_uncased               | 335.14M    | 24-layer BERT model where all input is lowercased. Trained on English Wikipedia + BooksCorpus.                                      |
+| bert_large_en                       | 333.58M    | 24-layer BERT model where case is maintained. Trained on English Wikipedia + BooksCorpus.                                           |
+| bert_tiny_en_uncased_sst2           | 4.39M      | The bert_tiny_en_uncased backbone model fine-tuned on the SST-2 sentiment analysis dataset.                                         |
+| distil_bert_base_en_uncased         | 66.36M     | 6-layer DistilBERT model where all input is lowercased. Trained on English Wikipedia + BooksCorpus using BERT as the teacher model. |
+| distil_bert_base_en                 | 65.19M     | 6-layer DistilBERT model where case is maintained. Trained on English Wikipedia + BooksCorpus using BERT as the teacher model.      |
+| distil_bert_base_multi              | 134.73M    | 6-layer DistilBERT model where case is maintained. Trained on Wikipedias of 104 languages                                           |
+
+{{< keras/source link="https://github.com/keras-team/keras-hub/tree/v0.17.0/keras_hub/src/models/preprocessor.py#L222" >}}
+
+### `save_to_preset` method
+
+```python
+MaskedLMPreprocessor.save_to_preset(preset_dir)
+```
+
+Save preprocessor to a preset directory.
+
+**Arguments**
+
+- **preset_dir**: The path to the local model preset directory.
+
+### `tokenizer` property
+
+```python
+keras_hub.models.MaskedLMPreprocessor.tokenizer
+```
+
+The tokenizer used to tokenize strings.
