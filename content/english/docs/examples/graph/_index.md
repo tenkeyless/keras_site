@@ -1,6 +1,6 @@
 ---
 title: Graph Data
-toc: false
+toc: true
 weight: 8
 ---
 

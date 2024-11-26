@@ -1,6 +1,6 @@
 ---
 title: Quick Keras Recipes
-toc: false
+toc: true
 weight: 9
 ---
 

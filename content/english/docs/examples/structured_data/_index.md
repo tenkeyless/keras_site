@@ -1,6 +1,6 @@
 ---
 title: Structured Data
-toc: false
+toc: true
 weight: 3
 ---
 

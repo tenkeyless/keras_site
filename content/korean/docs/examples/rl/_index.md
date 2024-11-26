@@ -1,6 +1,6 @@
 ---
 title: Reinforcement Learning
-toc: false
+toc: true
 weight: 7
 ---
 

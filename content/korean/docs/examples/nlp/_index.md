@@ -1,6 +1,6 @@
 ---
 title: Natural Language Processing
-toc: false
+toc: true
 weight: 2
 ---
 

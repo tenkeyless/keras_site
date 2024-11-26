@@ -1,6 +1,6 @@
 ---
 title: Timeseries
-toc: false
+toc: true
 weight: 4
 ---
 

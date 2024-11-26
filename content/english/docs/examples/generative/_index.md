@@ -1,6 +1,6 @@
 ---
 title: Generative Deep Learning
-toc: false
+toc: true
 weight: 5
 ---
 
