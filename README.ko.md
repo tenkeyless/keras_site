@@ -20,13 +20,25 @@
 $ docker build -t keras_site_image .
 ```
 
-### Docker 컨테이너 실행
+### Docker 컨테이너 생성 및 실행
 
 ```console
 $ docker run -d --name keras_site -p 8080:80 keras_site_image
 ```
 
 `http://localhost:8080`으로 접속합니다.
+
+### Docker 컨테이너 실행
+
+위의 명령으로 컨테이너가 생성되면, 컨테이너를 멈추거나 시작할 수 있습니다.
+
+```console
+$ docker start keras_site_local  # 컨테이너 시작
+$ docker stop keras_site_local  # 컨테이너 멈추기
+$ docker rm keras_site_local  # 컨테이너 삭제
+```
+
+컨테이너를 삭제하면, 컨테이너를 재생성해야 합니다.
 
 ## 참고 사이트
 

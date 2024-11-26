@@ -20,13 +20,25 @@ The image build is performed only once. Or, if the content is updated, it is exe
 $ docker build -t keras_site_image .
 ```
 
-### Docker container run
+### Creating and running a Docker container
 
 ```console
 $ docker run -d --name keras_site -p 8080:80 keras_site_image
 ```
 
 Open `http://localhost:8080`.
+
+### Running a Docker container
+
+Once the container is created with the above command, you can stop or start the container.
+
+```console
+$ docker start keras_site_local  # Start the container
+$ docker stop keras_site_local  # Stop the container
+$ docker rm keras_site_local  # Delete the container
+```
+
+If you delete the container, you will need to recreate it.
 
 ## References
 
