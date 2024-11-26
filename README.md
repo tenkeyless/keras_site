@@ -43,11 +43,11 @@ If you delete the container, you will need to recreate it.
 ## References
 
 - Keras: https://keras.io
-- Import official documentation
+  - Import official documentation
 - Hugo: https://gohugo.io/
-- Web server
+  - Web server
 - Hextra: https://imfing.github.io/hextra/
-- Hugo-based documentation support plugin
+  - Hugo-based documentation support plugin
 
 ## Editing on VSCode
 
