@@ -4,6 +4,8 @@ toc: false
 weight: 6
 ---
 
+{{< keras/original checkedAt="2024-11-22" >}}
+
 ### Speech recognition
 
 | Starter | Keras Version                                                                                                        | Title                                                                                                  | Date Created | Last Modified |

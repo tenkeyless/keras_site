@@ -4,6 +4,8 @@ toc: false
 weight: 7
 ---
 
+{{< keras/original checkedAt="2024-11-22" >}}
+
 | Starter | Keras Version                                                                                                        | Title                                                                                            | Date Created | Last Modified |
 | ------- | -------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------ | ------------ | ------------- |
 |         | {{< hextra/hero-button text="V3" style="background: rgb(23, 132, 133);pointer-events: none; padding: 0.1em 1em;" >}} | [Actor Critic Method]({{< relref "/docs/examples/rl/actor_critic_cartpole" >}})                  | 2020/05/13   | 2024/02/22    |
