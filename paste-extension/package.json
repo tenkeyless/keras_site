@@ -8,7 +8,8 @@
     "vscode": "^1.78.0"
   },
   "activationEvents": [
-    "onCommand:extension.insertMarkdownOutput"
+    "onCommand:extension.insertMarkdownOutput",
+    "onCommand:extension.addSlugsToHeadings"
   ],
   "main": "./vscode-extension.js",
   "contributes": {
@@ -16,8 +17,14 @@
       {
         "command": "extension.insertMarkdownOutput",
         "title": "Insert Markdown Output"
+      },
+      {
+        "command": "extension.addSlugsToHeadings",
+        "title": "Add Slugs to Headings"
       }
     ]
   },
-  "dependencies": {}
+  "dependencies": {
+    "slugify": "^1.6.6"
+  }
 }
