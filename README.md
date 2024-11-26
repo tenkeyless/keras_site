@@ -1,83 +1,106 @@
-# Keras 공식 문서
+# Keras Clone Website
 
-이 페이지는 [Keras 공식 문서](https://keras.io/)의 번역을 위한 것입니다.
+This website is a clone of the Keras website.
 
-기존 프로젝트 대신, [Hugo](https://gohugo.io/)와 [Hextra](https://imfing.github.io/hextra/)를 활용한 페이지입니다.
-문서 편집을 위해 다음 사이트를 참고하세요.
+The following changes have been made from the official Keras website:
 
-- [Hextra 문서](https://imfing.github.io/hextra/docs/)
+1. Multilingual support
+2. Dark mode support
+3. Documentation errors fixed
 
-## markdown 붙여넣기 확장
+## Run on local computer
 
-1. Command + Shift + P를 누르고,
-2. install extension from location을 선택한 다음,
-3. `/workspaces/keras_kr_doc/paste-extension/` 이 위치에서 확장을 설치합니다.
-4. 파일에서, `Insert Markdown Output`을 수행합니다.
+This site can run locally as a Docker container.
 
-## 편집
+### Docker image build
 
-- 상대 링크 교체
-  - `\((\/[^\)]+)\)` or `\((\/api[^\)]+)\)`
-  - `({{< relref "/docs$1" >}})`
-- keras.io 링크 교체
-  - `\[([^\]]+)\]\(https:\/\/keras\.io(\/[^\)]+)\)`
-  - `[$1]({{< relref "/docs$2" >}})`
-- 소스 링크 교체
-  - `\[\\\[source\\\]\]\((.+?)\)`
-  - `{{< keras/source link="$1" >}}`
+The image build is performed only once. Or, if the content is updated, it is executed.
 
-### 정규식 링크 교체
+```console
+$ docker build -t keras_site_image .
+```
 
-```plain
-[`tf.data.Dataset`](https://www.tensorflow.org/api_docs/python/tf/data/Dataset)
+### Docker container run
 
+```console
+$ docker run -d --name keras_site -p 8080:80 keras_site_image
+```
+
+Open `http://localhost:8080`.
+
+## References
+
+- Keras: https://keras.io
+- Import official documentation
+- Hugo: https://gohugo.io/
+- Web server
+- Hextra: https://imfing.github.io/hextra/
+- Hugo-based documentation support plugin
+
+## Editing on VSCode
+
+VSCode runs on a Docker container based on `devcontainer.json`.
+
+### VSCode API import extension
+
+1. Press Command + Shift + P
+2. Select install extension from location
+3. Install the extension from this location: `/workspaces/keras_kr_doc/paste-extension/`
+4. In the file, do `Insert Markdown Output`
+
+### Regex
+
+#### Replace relative links
+
+```markdown
 [`keras.callbacks.Callback`](/api/callbacks/base_callback#callback-class)
 ```
 
-이 둘에 대해 변경하고자 하는데,
+Change this link to:
 
-```plain
+```markdown
+[`keras.callbacks.Callback`]({{< relref "/docs/api/callbacks/base_callback#callback-class" >}})
+```
+
+Apply the regex as follows:
+
+- Find: `\((\/[^\)]+)\)`
+- Replace: `({{< relref "/docs$1" >}})`
+
+#### Replace keras.io links
+
+```markdown
+[`keras.callbacks.Callback`](https://keras.io/api/callbacks/base_callback#callback-class)
+
 [`tf.data.Dataset`](https://www.tensorflow.org/api_docs/python/tf/data/Dataset)
-
-[`keras.callbacks.Callback`](\{\{< relref "/docs/api/callbacks/base_callback#callback-class" >\}\})
 ```
 
-앞에 것은 건드리지 않고, 뒤에 것만 건드려야 하는 상황이며, 이런 경우,
+Change these links to: (Do not change links other than keras.io.)
 
-```plain
-\((\/[^\)]+)\)
+```markdown
+[`keras.callbacks.Callback`]({{< relref "/docs/api/callbacks/base_callback#callback-class" >}})
+
+[`tf.data.Dataset`](https://www.tensorflow.org/api_docs/python/tf/data/Dataset)
 ```
 
-이런 정규식을 검색해서,
+The regular expression is applied as follows.
 
-```plain
-({{< relref "/docs$1" >}})
-```
+- Find: `\[([^\]]+)\]\(https:\/\/keras\.io(\/[^\)]+)\)`
+- Replace: `[$1]({{< relref "/docs$2" >}})`
 
-이렇게 변경하도록 합니다.
-
-### 정규식 링크 교체 2
+#### Replace source link
 
 ```plain
 [\[source\]](https://github.com/keras-team/keras/tree/v3.6.0/keras/src/backend/tensorflow/trainer.py#L555)
 ```
 
-이런 링크를
+Change this link to the following:
 
 ```plain
-\{\{< keras/source link="https://github.com/keras-team/keras/tree/v3.6.0/keras/src/backend/tensorflow/trainer.py#L555" >\}\}
+{{< keras/source link="https://github.com/keras-team/keras/tree/v3.6.0/keras/src/backend/tensorflow/trainer.py#L555" >}}
 ```
 
-이렇게 변경하고자 할 때,
+The regular expression is applied as follows:
 
-```plain
-\[\\\[source\\\]\]\((.+?)\)
-```
-
-이런 정규식을 검색해서,
-
-```plain
-{{< keras/source link="$1" >}}
-```
-
-이렇게 변경하도록 합니다.
+- Find: `\[\\\[source\\\]\]\((.+?)\)`
+- Replace: `{{< keras/source link="$1" >}}`
