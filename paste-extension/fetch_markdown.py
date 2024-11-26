@@ -108,18 +108,34 @@ def change_keras_link(markdown_content):
 
 def remove_h1_and_hr(markdown_content):
     """
-    Markdown 내용에서 h1 제목(`# title`)과 줄긋기(`---`)를 제거합니다.
+    Markdown 내용에서 h1 제목(`# title`)과 줄긋기(`---`)를 제거하되, 코드 블록 내부는 무시합니다.
     """
     lines = markdown_content.split("\n")
     cleaned_lines = []
+    inside_code_block = False
+
     for line in lines:
-        # h1 제목 제거 (라인이 #로 시작하고 그 뒤에 공백이 있으면 h1)
+        if line.startswith("```"):  # 코드 블록의 시작/종료
+            inside_code_block = not inside_code_block
+            cleaned_lines.append(line)
+            continue
+
+        if inside_code_block:
+            # 코드 블록 내부는 그대로 유지
+            cleaned_lines.append(line)
+            continue
+
+        # h1 제목 제거
         if line.startswith("# ") and len(line.strip()) > 1:
             continue
+
         # --- 줄긋기 제거
         if line.strip() == "---":
             continue
+
+        # 나머지 줄 추가
         cleaned_lines.append(line)
+
     return "\n".join(cleaned_lines)
 
 
