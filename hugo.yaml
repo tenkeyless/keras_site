@@ -39,7 +39,7 @@ menu:
         type: search
     - name: GitHub
       weight: 6
-      url: "https://github.com/imfing/hextra-starter-template"
+      url: "https://github.com/tenkeyless/keras_site"
       params:
         icon: github
 
@@ -56,7 +56,7 @@ params:
 
   editURL:
     enable: false
-    base: "https://github.com/imfing/hextra-starter-template/edit/main/content"
+    base: "https://github.com/tenkeyless/keras_site/edit/main/content"
 
   theme:
     default: system
