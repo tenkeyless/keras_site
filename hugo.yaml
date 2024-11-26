@@ -41,7 +41,9 @@ menu:
 params:
   navbar:
     displayTitle: true
-    displayLogo: false
+    displayLogo: true
+    logo:
+      path: images/logo.png
 
   footer:
     displayCopyright: false
@@ -52,7 +54,6 @@ params:
     base: "https://github.com/imfing/hextra-starter-template/edit/main/content"
 
   theme:
-    # light | dark | system
     default: system
     displayToggle: true
 
