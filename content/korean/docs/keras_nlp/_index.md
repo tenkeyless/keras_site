@@ -26,19 +26,19 @@ Keras에 익숙하다면, 이미 KerasNLP의 대부분을 이해한 것입니다
 [시작하기]({{< relref "/docs/guides/keras_nlp/getting_started" >}})를 확인하고 API를 배워보세요.
 우리는 [기여](https://github.com/keras-team/keras-nlp/blob/master/CONTRIBUTING.md)를 환영합니다.
 
-## 빠른 링크
+## 빠른 링크 {#quick-links}
 
 - [KerasNLP API 참조]({{< relref "/docs/api/keras_nlp" >}})
 - [KerasNLP GitHub](https://github.com/keras-team/keras-nlp)
 - [사전 트레이닝된 모델 리스트]({{< relref "/docs/api/keras_nlp/models" >}})
 
-## 가이드
+## 가이드 {#guides}
 
 - [KerasNLP 시작하기]({{< relref "/docs/guides/keras_nlp/getting_started" >}})
 - [KerasNLP로 모델 업로드]({{< relref "/docs/guides/keras_nlp/upload" >}})
 - [트랜스포머를 처음부터 사전 트레이닝하기]({{< relref "/docs/guides/keras_nlp/transformer_pretraining" >}})
 
-## 예제
+## 예제 {#examples}
 
 - [GPT-2 텍스트 생성]({{< relref "/docs/examples/generative/gpt2_text_generation_with_kerasnlp" >}})
 - [LoRA를 사용한 GPT-2의 파라미터 효율적 파인 튜닝]({{< relref "/docs/examples/nlp/parameter_efficient_finetuning_of_gpt2_with_lora" >}})
@@ -49,12 +49,12 @@ Keras에 익숙하다면, 이미 KerasNLP의 대부분을 이해한 것입니다
 - [처음부터 GPT 텍스트 생성]({{< relref "/docs/examples/generative/text_generation_gpt" >}})
 - [FNet을 사용한 텍스트 분류]({{< relref "/docs/examples/nlp/fnet_classification_with_keras_nlp" >}})
 
-## 설치
+## 설치 {#installation}
 
 KerasNLP는 Keras 2와 Keras 3 모두를 지원합니다.
 JAX, TensorFlow, PyTorch와 함께 KerasNLP 모델과 레이어를 사용하려면 Keras 3을 권장합니다.
 
-### Keras 2 설치
+### Keras 2 설치 {#keras-2-installation}
 
 최신 KerasNLP 릴리스를 Keras 2와 함께 설치하려면 다음 명령어를 실행하세요:
 
@@ -62,7 +62,7 @@ JAX, TensorFlow, PyTorch와 함께 KerasNLP 모델과 레이어를 사용하려�
 pip install --upgrade keras-nlp
 ```
 
-### Keras 3 설치
+### Keras 3 설치 {#keras-3-installation}
 
 Keras 3과 KerasNLP를 설치하는 방법은 두 가지가 있습니다.
 반드시 KerasNLP를 먼저 설치한 **이후**, Keras 3을 설치하여 stable 버전을 사용할 수 있습니다.
@@ -85,7 +85,7 @@ pip install --upgrade keras-nlp-nightly
 자세한 설치 정보와 다양한 프레임워크와의 호환성에 대한 내용은,
 [Keras 시작하기]({{< relref "/docs/getting_started" >}})에서 확인하세요.
 
-## 빠른 시작
+## 빠른 시작 {#quickstart}
 
 BERT를 사용한 소규모 감정 분석 작업에 대해,
 [`keras_nlp.models`]({{< relref "/docs/api/keras_nlp/models" >}}) API를 사용하여 파인 튜닝하기:
@@ -114,21 +114,21 @@ classifier.fit(imdb_train, validation_data=imdb_test)
 classifier.predict(["What an amazing movie!", "A total waste of my time."])
 ```
 
-## 호환성
+## 호환성 {#compatibility}
 
 우리는 [Semantic Versioning](https://semver.org/)을 따르며,
 KerasNLP 구성 요소로 작성된 코드와 저장된 모델에 대해 하위 호환성을 보장할 계획입니다.
 그러나 현재 `0.y.z`의 사전 릴리스 개발 단계에서는 언제든지 호환성이 깨질 수 있으며,
 API는 stable로 간주되어서는 안 됩니다.
 
-## 면책 조항
+## 면책 조항 {#disclaimer}
 
 KerasNLP는 `keras_nlp.models` API를 통해 사전 트레이닝된 모델에 접근할 수 있게 합니다.
 이 사전 트레이닝된 모델은 어떠한 종류의 보증이나 조건 없이 "있는 그대로" 제공됩니다.
 다음의 기본 모델은 제3자에 의해 제공되며, 별도의 라이선스가 적용됩니다:
 BART, DeBERTa, DistilBERT, GPT-2, OPT, RoBERTa, Whisper, XLM-RoBERTa.
 
-## KerasNLP 인용
+## KerasNLP 인용 {#citing-kerasnlp}
 
 KerasNLP가 연구에 도움이 되었다면, 인용을 해주시면 감사하겠습니다. 아래는 BibTeX 항목입니다:
 

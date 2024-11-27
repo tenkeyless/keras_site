@@ -1,6 +1,6 @@
 ---
 slug: benchmarks
-title: Keras 3 benchmarks
+title: Keras 3 벤치마크
 toc: true
 weight: 2
 type: docs
@@ -8,77 +8,114 @@ type: docs
 
 {{< keras/original checkedAt="2024-11-18" >}}
 
-We benchmark the three backends of Keras 3 ([TensorFlow](https://tensorflow.org/), [JAX](https://jax.readthedocs.io/en/latest/), [PyTorch](https://pytorch.org/)) alongside Keras 2 with TensorFlow. Find code and setup details for reproducing our results [here](https://github.com/haifeng-jin/keras-benchmarks/tree/v0.0.5).
+우리는 TensorFlow를 사용하는 Keras 2와 함께,
+Keras 3의 세 백엔드([TensorFlow](https://tensorflow.org/),
+[JAX](https://jax.readthedocs.io/en/latest/),
+[PyTorch](https://pytorch.org/))를 벤치마크했습니다.
+결과를 재생성하기 위한 코드와 설정 세부 정보는
+[여기](https://github.com/haifeng-jin/keras-benchmarks/tree/v0.0.5)에서 찾을 수 있습니다.
 
-## Models
+## 모델 {#models}
 
-We chose a set of popular computer vision and natural language processing models for both generative and non-generative AI tasks. See the table below for our selections.
+우리는 생성 및 비생성 AI 작업 모두에 인기 있는 컴퓨터 비전 및 자연어 처리 모델 세트를 선택했습니다.
+우리의 선택은 아래 표를 참조하세요.
 
-**Table 1**: Models used in benchmarking.
+**Table 1**: 벤치마킹에 사용되는 모델
 
-|     | Non-Generative      | Generative             |
+|     | 비생성형            | 생성형                 |
 | --- | ------------------- | ---------------------- |
 | CV  | SegmentAnything[^1] | StableDiffusion[^2]    |
 | NLP | BERT[^3]            | Gemma[^4], Mistral[^5] |
 
-We are not measuring the best possible performance achievable by each framework, but the out-of-the-box performance of common user workflows. With this goal in mind, we leveraged pre-existing implementations from KerasCV and KerasHub for the Keras versions of the models.
+우리는 각 프레임워크에서 달성할 수 있는 최상의 성능을 측정하는 것이 아니라,
+일반적인 사용자 워크플로의 기본 제공 성능을 측정합니다.
+이 목표를 염두에 두고,
+우리는 모델의 Keras 버전에 대해 KerasCV와 KerasNLP의 기존 구현을 활용했습니다.
 
-## Hardware
+## 하드웨어 {#hardware}
 
-All benchmarks are done with a single NVIDIA A100 GPU with 40GB of GPU memory on a Google Cloud Compute Engine of machine type `a2-highgpu-1g` with 12 vCPUs and 85GB host memory.
+모든 벤치마크는 12개 vCPU와 85GB 호스트 메모리를 갖춘,
+머신 타입이 `a2-highgpu-1g`인 Google Cloud Compute Engine에서,
+40GB의 GPU 메모리를 갖춘 단일 NVIDIA A100 GPU로 수행되었습니다.
 
-## Results
+## 결과 {#results}
 
-Table 2 displays benchmarking results in milliseconds per step. Each step involves training or predicting on a single data batch. Results are averaged over 100 steps, excluding the first, which includes model creation and compilation overhead.
+Table 2는 스텝당 밀리초 단위로 벤치마킹 결과를 표시합니다.
+각 스텝은 단일 데이터 배치에 대한 트레이닝 또는 예측을 포함합니다.
+결과는 모델 생성 및 컴파일 오버헤드를 포함하는 첫 번째 단계를 제외한, 100개 스텝에 대한 평균입니다.
 
-For fair comparison, we use the same batch size across frameworks if it is the same model and task (fit or predict). However, for different models and tasks, due to their different sizes and architectures, we use different batch sizes to avoid either running out of memory (too large) or under GPU utilization (too small).
+공정한 비교를 위해,
+동일한 모델 및 작업(fit 또는 predict)인 경우, 프레임워크 전체에서 동일한 배치 크기를 사용합니다.
+그러나 다른 모델 및 작업의 경우, 크기와 아키텍처가 다르기 때문에,
+메모리 부족(너무 큼)이나 GPU 사용률 저하(너무 작음)를 방지하기 위해 다른 배치 크기를 사용합니다.
 
-For large language models (Gemma and Mistral), we also used the same batch size since they are the same model type with similar number of parameters (7B). We also benchmarked text generation with batch size equal to 1 since it is widely requested by the users. We used `bfloat16` precision for their training and inferencing, and LoRA[^6] for their training (fine-tuning).
+대규모 언어 모델(Gemma 및 Mistral)의 경우에도,
+유사한 수의 매개변수(7B)를 가진 동일한 모델 타입이므로 동일한 배치 크기를 사용했습니다.
+또한 사용자가 널리 요청하기 때문에, 배치 크기가 1인 텍스트 생성을 벤치마킹했습니다.
+트레이닝 및 추론에는 `bfloat16` 정밀도를 사용했고,
+트레이닝(파인 튜닝)에는 LoRA6[^6]를 사용했습니다.
 
-To measure out-of-the-box performance, we try to use all default settings. For example, use high-level APIs (e.g. Use Keras `model.fit()`) with as little configuration as possible.
+기본 성능을 측정하기 위해, 모든 기본 설정을 사용하려고 합니다.
+예를 들어, 가능한 한 구성이 적은 높은 레벨 API(예: Keras `model.fit()` 사용)를 사용합니다.
 
-Note that this is quite different from measuring an optimized implementation for a particular hardware/framework/model combination. Please refer to [MLPerf](https://mlcommons.org/benchmarks/) for the best optimized results for different frameworks.
+이는 특정 하드웨어/프레임워크/모델 조합에 대한 최적화된 구현을 측정하는 것과는 상당히 다릅니다.
+다양한 프레임워크에 대한 최상의 최적화된 결과는
+[MLPerf](https://mlcommons.org/benchmarks/)를 참조하세요.
 
-**Table 2**: Benchmarking results. The speed is measured in ms/step. Lower is better.
+**Table 2**: 벤치마킹 결과. 속도는 ms/스텝으로 측정됩니다. 낮을수록 좋습니다.
 
-|                                | Batch size | Keras 2 (TensorFlow) | Keras 3 (TensorFlow) | Keras 3 (JAX) | Keras 3 (PyTorch) (eager) | Keras 3 (best) |
-| ------------------------------ | ---------- | -------------------- | -------------------- | ------------- | ------------------------- | -------------- |
-| **SegmentAnything (fit)**      | 1          | 386.93               | **355.25**           | 361.69        | 1,388.87                  | **355.25**     |
-| **SegmentAnything (predict)**  | 4          | 1,859.27             | 438.50               | **376.34**    | 1,720.96                  | **376.34**     |
-| **Stable Diffusion (fit)**     | 8          | 1,023.21             | 392.24               | **391.21**    | 823.44                    | **391.21**     |
-| **Stable Diffusion (predict)** | 13         | 649.71               | **616.04**           | 627.27        | 1,337.17                  | **616.04**     |
-| **BERT (fit)**                 | 32         | 486.00               | **214.49**           | 222.37        | 808.68                    | **214.49**     |
-| **BERT (predict)**             | 256        | 470.12               | 466.01               | **418.72**    | 1,865.98                  | **418.72**     |
-| **Gemma (fit)**                | 8          | NA                   | 232.52               | 273.67        | 525.15                    | **232.52**     |
-| **Gemma (generate)**           | 32         | NA                   | 1,134.91             | **1,128.21**  | 7,952.67\*                | **1,128.21**   |
-| **Gemma (generate)**           | 1          | NA                   | 758.57               | **703.46**    | 7,649.40\*                | **703.46**     |
-| **Mistral (fit)**              | 8          | NA                   | **185.92**           | 213.22        | 452.12                    | **185.92**     |
-| **Mistral (generate)**         | 32         | NA                   | 966.06               | **957.25**    | 10,932.59\*               | **957.25**     |
-| **Mistral (generate)**         | 1          | NA                   | 743.28               | **679.30**    | 11,054.67\*               | **679.30**     |
+|                                | 배치 크기 | Keras 2 (TensorFlow) | Keras 3 (TensorFlow) | Keras 3 (JAX) | Keras 3 (PyTorch) (eager) | Keras 3 (베스트) |
+| ------------------------------ | --------- | -------------------- | -------------------- | ------------- | ------------------------- | ---------------- |
+| **SegmentAnything (fit)**      | 1         | 386.93               | **355.25**           | 361.69        | 1,388.87                  | **355.25**       |
+| **SegmentAnything (predict)**  | 4         | 1,859.27             | 438.50               | **376.34**    | 1,720.96                  | **376.34**       |
+| **Stable Diffusion (fit)**     | 8         | 1,023.21             | 392.24               | **391.21**    | 823.44                    | **391.21**       |
+| **Stable Diffusion (predict)** | 13        | 649.71               | **616.04**           | 627.27        | 1,337.17                  | **616.04**       |
+| **BERT (fit)**                 | 32        | 486.00               | **214.49**           | 222.37        | 808.68                    | **214.49**       |
+| **BERT (predict)**             | 256       | 470.12               | 466.01               | **418.72**    | 1,865.98                  | **418.72**       |
+| **Gemma (fit)**                | 8         | NA                   | 232.52               | 273.67        | 525.15                    | **232.52**       |
+| **Gemma (generate)**           | 32        | NA                   | 1,134.91             | **1,128.21**  | 7,952.67\*                | **1,128.21**     |
+| **Gemma (generate)**           | 1         | NA                   | 758.57               | **703.46**    | 7,649.40\*                | **703.46**       |
+| **Mistral (fit)**              | 8         | NA                   | **185.92**           | 213.22        | 452.12                    | **185.92**       |
+| **Mistral (generate)**         | 32        | NA                   | 966.06               | **957.25**    | 10,932.59\*               | **957.25**       |
+| **Mistral (generate)**         | 1         | NA                   | 743.28               | **679.30**    | 11,054.67\*               | **679.30**       |
 
-\* _LLM inference with the PyTorch backend is abnormally slow at this time because KerasHub uses static sequence padding, unlike HuggingFace. This will be addressed soon._
+\* _PyTorch 백엔드를 사용한 LLM 추론은 KerasHub가, HuggingFace와 달리, static 시퀀스 패딩을 사용하기 때문에, 현재 비정상적으로 느립니다. 이는 곧 해결될 것입니다._
 
-## Discussion
+## 토론 {#discussion}
 
-### Key Finding 1: There is no "best" backend
+### 주요 발견 1: "최고의" 백엔드는 없습니다. {#key-finding-1-there-is-no-best-backend}
 
-Each of the three backends of Keras offers unique strengths. Crucially, from a performance standpoint, there's no single backend that consistently outpaces the others. The fastest backend often depends on your specific model architecture.
+Keras의 세 가지 백엔드는 각각 고유한 강점을 제공합니다.
+중요한 점은, 성능 관점에서 다른 백엔드를 지속적으로 앞지르는 단일 백엔드는 없다는 것입니다.
+가장 빠른 백엔드는 종종 특정 모델 아키텍처에 따라 달라집니다.
 
-This underscores the value of framework optionality when chasing optimal performance. Keras 3 empowers you to seamlessly switch backends, ensuring you find the ideal match for your model.
+이는 최적의 성능을 추구할 때 프레임워크 선택성의 가치를 강조합니다.
+Keras 3는 백엔드를 원활하게 전환하여, 모델에 이상적인 매치를 찾을 수 있도록 지원합니다.
 
-### Key Finding 2: Keras 3 is faster than Keras 2
+### 주요 발견 2: Keras 3은 Keras 2보다 빠릅니다. {#key-finding-2-keras-3-is-faster-than-keras-2}
 
-We also calculated the throughput (steps/ms) increase of Keras 3 (using its best-performing backend) over Keras 2 with TensorFlow from Table 1. Results are shown in the following figure.
+또한 Table 1에서 TensorFlow를 사용한 Keras 2에 비해
+Keras 3(성능이 가장 좋은 백엔드 사용)의 처리량(스텝/ms) 증가를 계산했습니다.
+결과는 다음 그림에 나와 있습니다.
 
-![Figrue 2](/images/getting_started/benchmarks/jPncf0F.png "Figure 1: Keras 3 speedup over Keras 2 measured in throughput (steps/ms)")
+![Figrue 2](/images/getting_started/benchmarks/jPncf0F.png "Figure 1: 처리량(스텝/ms) 측면에서 Keras 2보다 Keras 3의 속도 향상")
 
-Keras 3 consistently outperformed Keras 2 across all benchmarked models, with substantial speed increases in many cases. SegmentAnything inference saw a remarkable 380% boost, StableDiffusion training throughput increased by over 150%, and BERT training throughput rose by over 100%.
+Keras 3는 모든 벤치마크 모델에서 Keras 2보다 지속적으로 성능이 우수했으며,
+많은 케이스에서 상당한 속도 증가를 보였습니다.
+SegmentAnything 추론은 380%의 놀라운 증가를 보였고,
+StableDiffusion 학습 처리량은 150% 이상 증가했으며,
+BERT 학습 처리량은 100% 이상 증가했습니다.
 
-Importantly, you would still see a performance boost even if you simply upgrade to Keras 3 and continue using the TensorFlow backend. This is mainly because Keras 2 uses more TensorFlow fused ops directly, which may be sub-optimal for XLA compilation in certain use cases.
+중요한 점은 Keras 3으로 업그레이드하고,
+TensorFlow 백엔드를 계속 사용하더라도 여전히 성능이 향상된다는 것입니다.
+이는 주로 Keras 2가 더 많은 TensorFlow fused ops을 직접 사용하기 때문이며,
+이는 특정 사용 케이스에서 XLA 컴파일에 최적이 아닐 수 있습니다.
 
-## Conclusions
+## 결론 {#conclusions}
 
-Framework performance depends heavily on the specific model. Keras 3 empowers you to select the fastest framework for your task – an option almost always to outperform both Keras 2.
+프레임워크 성능은 특정 모델에 크게 좌우됩니다.
+Keras 3는 작업에 가장 빠른 프레임워크를 선택할 수 있는 권한을 부여합니다.
+이는 거의 항상 Keras 2보다 성능이 뛰어납니다.
 
 [^1]: Kirillov, Alexander, et al. "Segment anything." ICCV (2023).
 [^2]: Rombach, Robin, et al. "High-resolution image synthesis with latent diffusion models." CVPR (2022).

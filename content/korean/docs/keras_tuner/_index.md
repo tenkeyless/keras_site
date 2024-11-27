@@ -14,14 +14,14 @@ define-by-run 구문을 사용해 탐색 공간을 쉽게 설정하고,
 KerasTuner는 기본적으로 베이지안 최적화, 하이퍼밴드, 그리고 랜덤 서치 알고리즘을 제공하며,
 연구자들이 새로운 탐색 알고리즘을 실험할 수 있도록 확장하기 쉽게 설계되었습니다.
 
-## 빠른 링크
+## 빠른 링크 {#quick-links}
 
 - [KerasTuner 시작하기]({{< relref "/docs/guides/keras_tuner/getting_started" >}})
 - [KerasTuner 개발자 가이드]({{< relref "/docs/guides/keras_tuner" >}})
 - [KerasTuner API 참조]({{< relref "/docs/api/keras_tuner" >}})
 - [KerasTuner GitHub](https://github.com/keras-team/keras-tuner)
 
-## 설치
+## 설치 {#installation}
 
 최신 릴리스를 설치하세요:
 
@@ -31,7 +31,7 @@ pip install keras-tuner --upgrade
 
 다른 버전은 [GitHub 저장소](https://github.com/keras-team/keras-tuner)에서 확인할 수 있습니다.
 
-## 빠른 소개
+## 빠른 소개 {#quick-introduction}
 
 KerasTuner와 TensorFlow를 임포트하세요:
 
@@ -75,7 +75,7 @@ best_model = tuner.get_best_models()[0]
 KerasTuner에 대해 더 알고 싶다면,
 [이 시작 가이드]({{< relref "/docs/guides/keras_tuner/getting_started" >}})를 확인하세요.
 
-## KerasTuner 인용
+## KerasTuner 인용 {#citing-kerastuner}
 
 KerasTuner가 연구에 도움이 되었다면, 인용해 주시면 감사하겠습니다. 아래는 BibTeX 항목입니다:
 
