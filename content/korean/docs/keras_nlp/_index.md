@@ -7,75 +7,92 @@ type: docs
 
 {{< keras/original checkedAt="2024-11-19" >}}
 
-KerasNLP is a natural language processing library that works natively with TensorFlow, JAX, or PyTorch. Built on Keras 3, these models, layers, metrics, and tokenizers can be trained and serialized in any framework and re-used in another without costly migrations.
+KerasNLP는 TensorFlow, JAX, 또는 PyTorch와 네이티브로 작동하는 자연어 처리 라이브러리입니다.
+Keras 3를 기반으로 구축된 이 모델, 레이어, 메트릭, 그리고 토크나이저는
+어떤 프레임워크에서라도 트레이닝 및 직렬화할 수 있으며,
+비용이 많이 드는 마이그레이션 없이도 재사용할 수 있습니다.
 
-KerasNLP supports users through their entire development cycle. Our workflows are built from modular components that have state-of-the-art preset weights when used out-of-the-box and are easily customizable when more control is needed.
+KerasNLP는 사용자의 전체 개발 주기를 지원합니다.
+우리의 워크플로우는 모듈식 구성 요소로 이루어져 있으며,
+즉시 사용 가능한 최첨단 사전 트레이닝된 가중치와 아키텍처를 제공하며,
+더 많은 제어가 필요할 때 쉽게 커스터마이즈할 수 있습니다.
 
-This library is an extension of the core Keras API; all high-level modules are [`Layers`]({{< relref "/docs/api/layers" >}}) or [`Models`]({{< relref "/docs/api/models" >}}) that receive that same level of polish as core Keras. If you are familiar with Keras, congratulations! You already understand most of KerasNLP.
+이 라이브러리는 Keras의 core API의 확장입니다.
+모든 상위 모듈은 [`Layers`]({{< relref "/docs/api/layers" >}}) 또는
+[`Models`]({{< relref "/docs/api/models" >}})로,
+core Keras와 동일한 레벨의 완성도를 자랑합니다.
+Keras에 익숙하다면, 이미 KerasNLP의 대부분을 이해한 것입니다.
 
-See our [Getting Started guide]({{< relref "/docs/guides/keras_nlp/getting_started" >}}) to start learning our API. We welcome [contributions](https://github.com/keras-team/keras-nlp/blob/master/CONTRIBUTING.md).
+[시작하기]({{< relref "/docs/guides/keras_nlp/getting_started" >}})를 확인하고 API를 배워보세요.
+우리는 [기여](https://github.com/keras-team/keras-nlp/blob/master/CONTRIBUTING.md)를 환영합니다.
 
-## Quick links
+## 빠른 링크
 
-- [KerasNLP API reference]({{< relref "/docs/api/keras_nlp" >}})
-- [KerasNLP on GitHub](https://github.com/keras-team/keras-nlp)
-- [List of available pre-trained models]({{< relref "/docs/api/keras_nlp/models" >}})
+- [KerasNLP API 참조]({{< relref "/docs/api/keras_nlp" >}})
+- [KerasNLP GitHub](https://github.com/keras-team/keras-nlp)
+- [사전 트레이닝된 모델 리스트]({{< relref "/docs/api/keras_nlp/models" >}})
 
-## Guides
+## 가이드
 
-- [Getting Started with KerasNLP]({{< relref "/docs/guides/keras_nlp/getting_started" >}})
-- [Uploading Models with KerasNLP]({{< relref "/docs/guides/keras_nlp/upload" >}})
-- [Pretraining a Transformer from scratch]({{< relref "/docs/guides/keras_nlp/transformer_pretraining" >}})
+- [KerasNLP 시작하기]({{< relref "/docs/guides/keras_nlp/getting_started" >}})
+- [KerasNLP로 모델 업로드]({{< relref "/docs/guides/keras_nlp/upload" >}})
+- [트랜스포머를 처음부터 사전 트레이닝하기]({{< relref "/docs/guides/keras_nlp/transformer_pretraining" >}})
 
-## Examples
+## 예제
 
-- [GPT-2 text generation]({{< relref "/docs/examples/generative/gpt2_text_generation_with_kerasnlp" >}})
-- [Parameter-efficient fine-tuning of GPT-2 with LoRA]({{< relref "/docs/examples/nlp/parameter_efficient_finetuning_of_gpt2_with_lora" >}})
-- [Semantic Similarity]({{< relref "/docs/examples/nlp/semantic_similarity_with_keras_nlp" >}})
-- [Sentence embeddings using Siamese RoBERTa-networks]({{< relref "/docs/examples/nlp/sentence_embeddings_with_sbert" >}})
-- [Data Parallel Training with tf.distribute]({{< relref "/docs/examples/nlp/data_parallel_training_with_keras_nlp" >}})
-- [English-to-Spanish translation]({{< relref "/docs/examples/nlp/neural_machine_translation_with_keras_nlp" >}})
-- [GPT text generation from scratch]({{< relref "/docs/examples/generative/text_generation_gpt" >}})
-- [Text Classification using FNet]({{< relref "/docs/examples/nlp/fnet_classification_with_keras_nlp" >}})
+- [GPT-2 텍스트 생성]({{< relref "/docs/examples/generative/gpt2_text_generation_with_kerasnlp" >}})
+- [LoRA를 사용한 GPT-2의 파라미터 효율적 파인 튜닝]({{< relref "/docs/examples/nlp/parameter_efficient_finetuning_of_gpt2_with_lora" >}})
+- [시맨틱 유사성]({{< relref "/docs/examples/nlp/semantic_similarity_with_keras_nlp" >}})
+- [Siamese RoBERTa 네트워크를 사용한 문장 임베딩]({{< relref "/docs/examples/nlp/sentence_embeddings_with_sbert" >}})
+- [tf.distribute로 데이터 병렬 트레이닝]({{< relref "/docs/examples/nlp/data_parallel_training_with_keras_nlp" >}})
+- [영어-스페인어 번역]({{< relref "/docs/examples/nlp/neural_machine_translation_with_keras_nlp" >}})
+- [처음부터 GPT 텍스트 생성]({{< relref "/docs/examples/generative/text_generation_gpt" >}})
+- [FNet을 사용한 텍스트 분류]({{< relref "/docs/examples/nlp/fnet_classification_with_keras_nlp" >}})
 
-## Installation
+## 설치
 
-KerasNLP supports both Keras 2 and Keras 3. We recommend Keras 3 for all new users, as it enables using KerasNLP models and layers with JAX, TensorFlow and PyTorch.
+KerasNLP는 Keras 2와 Keras 3 모두를 지원합니다.
+JAX, TensorFlow, PyTorch와 함께 KerasNLP 모델과 레이어를 사용하려면 Keras 3을 권장합니다.
 
-### Keras 2 Installation
+### Keras 2 설치
 
-To install the latest KerasNLP release with Keras 2, simply run:
+최신 KerasNLP 릴리스를 Keras 2와 함께 설치하려면 다음 명령어를 실행하세요:
 
 ```shell
 pip install --upgrade keras-nlp
 ```
 
-### Keras 3 Installation
+### Keras 3 설치
 
-There are currently two ways to install Keras 3 with KerasNLP. To install the stable versions of KerasNLP and Keras 3, you should install Keras 3 **after** installing KerasNLP. This is a temporary step while TensorFlow is pinned to Keras 2, and will no longer be necessary after TensorFlow 2.16.
+Keras 3과 KerasNLP를 설치하는 방법은 두 가지가 있습니다.
+반드시 KerasNLP를 먼저 설치한 **이후**, Keras 3을 설치하여 stable 버전을 사용할 수 있습니다.
+이는 TensorFlow가 Keras 2에 고정되어 있는 동안 필요한 임시 단계이며,
+TensorFlow 2.16 이후에는 더 이상 필요하지 않을 것입니다.
 
 ```shell
 pip install --upgrade keras-nlp
 pip install --upgrade keras
 ```
 
-To install the latest nightly changes for both KerasNLP and Keras, you can use our nightly package.
+KerasNLP와 Keras의 최신 nightly 빌드를 설치하려면, nightly 패키지를 사용할 수 있습니다.
 
 ```shell
 pip install --upgrade keras-nlp-nightly
 ```
 
-**Note:** Keras 3 will not function with TensorFlow 2.14 or earlier.
+**참고:** Keras 3는 TensorFlow 2.14 이하 버전에서는 작동하지 않습니다.
 
-See [Getting started with Keras]({{< relref "/docs/getting_started" >}}) for more information on installing Keras generally and compatibility with different frameworks.
+자세한 설치 정보와 다양한 프레임워크와의 호환성에 대한 내용은,
+[Keras 시작하기]({{< relref "/docs/getting_started" >}})에서 확인하세요.
 
-## Quickstart
+## 빠른 시작
 
-Fine-tune BERT on a small sentiment analysis task using the [`keras_nlp.models`]({{< relref "/docs/api/keras_nlp/models" >}}) API:
+BERT를 사용한 소규모 감정 분석 작업에 대해,
+[`keras_nlp.models`]({{< relref "/docs/api/keras_nlp/models" >}}) API를 사용하여 파인 튜닝하기:
 
 ```python
 import os
-os.environ["KERAS_BACKEND"] = "tensorflow"  # Or "jax" or "torch"!
+os.environ["KERAS_BACKEND"] = "tensorflow"  # 또는 "jax"나 "torch"!
 
 import keras_nlp
 import tensorflow_datasets as tfds
@@ -86,28 +103,34 @@ imdb_train, imdb_test = tfds.load(
     as_supervised=True,
     batch_size=16,
 )
-# Load a BERT model.
+# BERT 모델 로드.
 classifier = keras_nlp.models.BertClassifier.from_preset(
     "bert_base_en_uncased",
     num_classes=2,
 )
-# Fine-tune on IMDb movie reviews.
+# IMDb 영화 리뷰로 파인 튜닝.
 classifier.fit(imdb_train, validation_data=imdb_test)
-# Predict two new examples.
+# 두 개의 새로운 예시 예측.
 classifier.predict(["What an amazing movie!", "A total waste of my time."])
 ```
 
-## Compatibility
+## 호환성
 
-We follow [Semantic Versioning](https://semver.org/), and plan to provide backwards compatibility guarantees both for code and saved models built with our components. While we continue with pre-release `0.y.z` development, we may break compatibility at any time and APIs should not be consider stable.
+우리는 [Semantic Versioning](https://semver.org/)을 따르며,
+KerasNLP 구성 요소로 작성된 코드와 저장된 모델에 대해 하위 호환성을 보장할 계획입니다.
+그러나 현재 `0.y.z`의 사전 릴리스 개발 단계에서는 언제든지 호환성이 깨질 수 있으며,
+API는 stable로 간주되어서는 안 됩니다.
 
-## Disclaimer
+## 면책 조항
 
-KerasNLP provides access to pre-trained models via the `keras_nlp.models` API. These pre-trained models are provided on an "as is" basis, without warranties or conditions of any kind. The following underlying models are provided by third parties, and subject to separate licenses: BART, DeBERTa, DistilBERT, GPT-2, OPT, RoBERTa, Whisper, and XLM-RoBERTa.
+KerasNLP는 `keras_nlp.models` API를 통해 사전 트레이닝된 모델에 접근할 수 있게 합니다.
+이 사전 트레이닝된 모델은 어떠한 종류의 보증이나 조건 없이 "있는 그대로" 제공됩니다.
+다음의 기본 모델은 제3자에 의해 제공되며, 별도의 라이선스가 적용됩니다:
+BART, DeBERTa, DistilBERT, GPT-2, OPT, RoBERTa, Whisper, XLM-RoBERTa.
 
-## Citing KerasNLP
+## KerasNLP 인용
 
-If KerasNLP helps your research, we appreciate your citations. Here is the BibTeX entry:
+KerasNLP가 연구에 도움이 되었다면, 인용을 해주시면 감사하겠습니다. 아래는 BibTeX 항목입니다:
 
 ```latex
 @misc{kerasnlp2022,
