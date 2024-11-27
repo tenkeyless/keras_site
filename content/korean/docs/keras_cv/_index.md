@@ -22,20 +22,20 @@ KerasCV는 Keras API의 수평적 확장으로 이해할 수 있습니다.
 
 ![gif](/images/keras-cv-augmentations.gif)
 
-## 빠른 링크
+## 빠른 링크 {#quick-links}
 
 - [사용 가능한 모델 및 사전 설정 목록]({{< relref "/docs/api/keras_cv/models" >}})
 - [개발자 가이드]({{< relref "/docs/guides/keras_cv" >}})
 - [기여 가이드](https://github.com/keras-team/keras-cv/blob/master/CONTRIBUTING.md)
 - [API 디자인 가이드라인](https://github.com/keras-team/keras-cv/blob/master/API_DESIGN.md)
 
-## 설치
+## 설치 {#installation}
 
 KerasCV는 Keras 2와 Keras 3을 모두 지원합니다.
 모든 신규 사용자에게는 Keras 3을 권장합니다.
 KerasCV 모델과 레이어를 JAX, TensorFlow, PyTorch에서 사용할 수 있기 때문입니다.
 
-### Keras 2 설치
+### Keras 2 설치 {#keras-2-installation}
 
 Keras 2에서 최신 KerasCV 릴리스를 설치하려면, 다음을 실행하기만 하면 됩니다.
 
@@ -43,7 +43,7 @@ Keras 2에서 최신 KerasCV 릴리스를 설치하려면, 다음을 실행하�
 pip install --upgrade keras-cv tensorflow
 ```
 
-### Keras 3 설치
+### Keras 3 설치 {#keras-3-installation}
 
 현재 KerasCV로 Keras 3를 설치하는 방법은 두 가지가 있습니다.
 KerasCV와 Keras 3의 안정적인 버전을 설치하려면, 반드시 KerasCV를 설치한 **이후에** Keras 3를 설치해야 합니다.
@@ -66,7 +66,7 @@ pip install --upgrade keras-cv-nightly tf-nightly
 Keras를 일반적으로 설치하는 방법과 다양한 프레임워크와의 호환성에 대한 자세한 내용은,
 [Keras 시작하기]({{< relref "/docs/getting_started" >}})를 참조하세요.
 
-## 빠른 시작
+## 빠른 시작 {#quickstart}
 
 ```python
 import os
@@ -132,13 +132,13 @@ model.fit(
 )
 ```
 
-## 면책 조항
+## 면책 조항 {#disclaimer}
 
 KerasCV는 `keras_cv.models` API를 통해 사전 트레이닝된 모델에 대한 액세스를 제공합니다.
 이러한 사전 트레이닝된 모델은 어떠한 종류의 보증이나 조건 없이 "있는 그대로" 제공됩니다.
 다음 기본 모델은 타사에서 제공하며, 별도의 라이선스가 적용됩니다. StableDiffusion, Vision Transfomer
 
-## KerasCV 인용
+## KerasCV 인용 {#citing-kerascv}
 
 KerasCV가 당신의 연구에 도움이 된다면, 당신의 인용에 감사드립니다. BibTeX 항목은 다음과 같습니다.
 
