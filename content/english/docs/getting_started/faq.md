@@ -223,7 +223,7 @@ from keras.models import load_model
 model = load_model('my_model.h5', custom_objects={'AttentionLayer': AttentionLayer})
 ```
 
-Alternatively, you can use a [custom object scope]({{< relref "/docs/api/utils/#customobjectscope" >}}):
+Alternatively, you can use a [custom object scope]({{< relref "/docs/api/models/model_saving_apis/serialization_utils/#customobjectscope-class" >}}):
 
 ```python
 from keras.utils import CustomObjectScope
