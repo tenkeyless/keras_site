@@ -12,37 +12,6 @@ A list of frequently Asked Keras Questions.
 
 ## General questions
 
-- [How can I train a Keras model on multiple GPUs (on a single machine)?](#how-can-i-train-a-keras-model-on-multiple-gpus-on-a-single-machine)
-- [How can I train a Keras model on TPU?](#how-can-i-train-a-keras-model-on-tpu)
-- [Where is the Keras configuration file stored?](#where-is-the-keras-configuration-file-stored)
-- [How to do hyperparameter tuning with Keras?](#how-to-do-hyperparameter-tuning-with-keras)
-- [How can I obtain reproducible results using Keras during development?](#how-can-i-obtain-reproducible-results-using-keras-during-development)
-- [What are my options for saving models?](#what-are-my-options-for-saving-models)
-- [How can I install HDF5 or h5py to save my models?](#how-can-i-install-hdf5-or-h5py-to-save-my-models)
-- [How should I cite Keras?](#how-should-i-cite-keras)
-
-## Training-related questions
-
-- [What do "sample", "batch", and "epoch" mean?](#what-do-sample-batch-and-epoch-mean)
-- [Why is my training loss much higher than my testing loss?](#why-is-my-training-loss-much-higher-than-my-testing-loss)
-- [How can I ensure my training run can recover from program interruptions?](#how-can-i-ensure-my-training-run-can-recover-from-program-interruptions)
-- [How can I interrupt training when the validation loss isn't decreasing anymore?](#how-can-i-interrupt-training-when-the-validation-loss-isnt-decreasing-anymore)
-- [How can I freeze layers and do fine-tuning?](#how-can-i-freeze-layers-and-do-fine-tuning)
-- [What's the difference between the `training` argument in `call()` and the `trainable` attribute?](#whats-the-difference-between-the-training-argument-in-call-and-the-trainable-attribute)
-- [In `fit()`, how is the validation split computed?](#in-fit-how-is-the-validation-split-computed)
-- [In `fit()`, is the data shuffled during training?](#in-fit-is-the-data-shuffled-during-training)
-- [What's the recommended way to monitor my metrics when training with `fit()`?](#whats-the-recommended-way-to-monitor-my-metrics-when-training-with-fit)
-- [What if I need to customize what `fit()` does?](#what-if-i-need-to-customize-what-fit-does)
-- [What's the difference between `Model` methods `predict()` and `__call__()`?](#whats-the-difference-between-model-methods-predict-and-__call__)
-
-## Modeling-related questions
-
-- [How can I obtain the output of an intermediate layer (feature extraction)?](#how-can-i-obtain-the-output-of-an-intermediate-layer-feature-extraction)
-- [How can I use pre-trained models in Keras?](#how-can-i-use-pre-trained-models-in-keras)
-- [How can I use stateful RNNs?](#how-can-i-use-stateful-rnns)
-
-## General questions
-
 ### How can I train a Keras model on multiple GPUs (on a single machine)?
 
 There are two ways to run a single model on multiple GPUs: **data parallelism** and **device parallelism**. Keras covers both.
@@ -254,7 +223,7 @@ from keras.models import load_model
 model = load_model('my_model.h5', custom_objects={'AttentionLayer': AttentionLayer})
 ```
 
-Alternatively, you can use a [custom object scope]({{< relref "/docs/api/utils/#customobjectscope" >}}):
+Alternatively, you can use a [custom object scope]({{< relref "/docs/api/models/model_saving_apis/serialization_utils/#customobjectscope-class" >}}):
 
 ```python
 from keras.utils import CustomObjectScope

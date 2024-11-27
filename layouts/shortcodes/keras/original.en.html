@@ -7,9 +7,16 @@
         </li>
         {{ else }}
         {{ $parts := split .Page.RelPermalink "/" }}
+        {{ $startIndex := 0 }}
+        {{ range $index, $element := $parts }}
+            {{ if eq $element "docs" }}
+                {{ $startIndex = $index }}
+                {{ break }}
+            {{ end }}
+        {{ end }}
         {{ $cleanedLink := "" }}
         {{ range $index, $element := $parts }}
-            {{ if ge $index 2 }}
+            {{ if gt $index $startIndex }}
                 {{ $cleanedLink = printf "%s/%s" $cleanedLink $element }}
             {{ end }}
         {{ end }}

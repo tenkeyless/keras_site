@@ -705,8 +705,6 @@ for audios, labels in test_ds.take(1):
         display(Audio(audios[index, :, :].squeeze(), rate=SAMPLING_RATE))
 ```
 
-{{% details title="Result" closed="true" %}}
-
 ```plain
  4/4 ━━━━━━━━━━━━━━━━━━━━ 1s 3ms/step
 Speaker:[91m Magaret_Tarcher   Predicted:[91m Benjamin_Netanyau
@@ -769,5 +767,3 @@ Speaker:[92m Nelson_Mandela    Predicted:[92m Nelson_Mandela
 ```
 
 {{< audio wav="/images/examples/audio/speaker_recognition_using_cnn/speaker_recognition_using_cnn_audio_10.wav" >}}
-
-{{% /details %}}
