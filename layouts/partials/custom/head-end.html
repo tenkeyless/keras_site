@@ -1,0 +1,27 @@
+<script>
+  (function () {
+    // 시스템 테마 변경 감지 객체 생성
+    const mediaQuery = window.matchMedia("(prefers-color-scheme: dark)");
+
+    // 시스템 테마와 저장된 테마를 비교하여 필요하면 localStorage에서 항목 제거
+    function checkAndRemoveStoredTheme() {
+      const systemThemeIsDark = mediaQuery.matches;
+      const storedTheme = localStorage.getItem("color-theme");
+
+      if (
+        (systemThemeIsDark && storedTheme === "dark") ||
+        (!systemThemeIsDark && storedTheme === "light")
+      ) {
+        localStorage.removeItem("color-theme");
+      }
+    }
+
+    // 페이지 로드 시 초기 실행
+    checkAndRemoveStoredTheme();
+
+    // 시스템 테마 변경 시 이벤트 리스너 등록
+    mediaQuery.addEventListener("change", function () {
+      checkAndRemoveStoredTheme();
+    });
+  })();
+</script>
