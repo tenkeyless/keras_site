@@ -232,7 +232,12 @@ For further reading, see the [training and evaluation]({{< relref "/docs/guides/
 
 Saving the model and serialization work the same way for models built using the functional API as they do for `Sequential` models. The standard way to save a functional model is to call `model.save()` to save the entire model as a single file. You can later recreate the same model from this file, even if the code that built the model is no longer available.
 
-This saved file includes the: - model architecture - model weight values (that were learned during training) - model training config, if any (as passed to `compile()`) - optimizer and its state, if any (to restart training where you left off)
+This saved file includes the:
+
+- model architecture
+- model weight values (that were learned during training)
+- model training config, if any (as passed to `compile()`)
+- optimizer and its state, if any (to restart training where you left off)
 
 ```python
 model.save("my_model.keras")
