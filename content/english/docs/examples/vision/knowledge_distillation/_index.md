@@ -7,10 +7,10 @@ type: docs
 
 {{< keras/original checkedAt="2024-11-21" >}}
 
-**Author:** [Kenneth Borup](https://twitter.com/Kennethborup)  
-**Date created:** 2020/09/01  
-**Last modified:** 2020/09/01  
-**Description:** Implementation of classical Knowledge Distillation.
+**{{< t f_author >}}** [Kenneth Borup](https://twitter.com/Kennethborup)  
+**{{< t f_date_created >}}** 2020/09/01  
+**{{< t f_last_modified >}}** 2020/09/01  
+**{{< t f_description >}}** Implementation of classical Knowledge Distillation.
 
 {{< keras/version v=3 >}}
 

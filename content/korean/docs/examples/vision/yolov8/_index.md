@@ -7,10 +7,10 @@ type: docs
 
 {{< keras/original checkedAt="2024-11-21" >}}
 
-**Author:** [Gitesh Chawda](https://twitter.com/gitesh12_)  
-**Date created:** 2023/06/26  
-**Last modified:** 2023/06/26  
-**Description:** Train custom YOLOV8 object detection model with KerasCV.
+**{{< t f_author >}}** [Gitesh Chawda](https://twitter.com/gitesh12_)  
+**{{< t f_date_created >}}** 2023/06/26  
+**{{< t f_last_modified >}}** 2023/06/26  
+**{{< t f_description >}}** Train custom YOLOV8 object detection model with KerasCV.
 
 {{< keras/version v=2 >}}
 

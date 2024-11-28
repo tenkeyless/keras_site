@@ -8,10 +8,10 @@ type: docs
 
 {{< keras/original checkedAt="2024-11-19" >}}
 
-**Author:** [Sayak Paul](https://twitter.com/RisingSayak)  
-**Date created:** 2021/10/20  
-**Last modified:** 2024/02/11  
-**Description:** MobileViT for image classification with combined benefits of convolutions and Transformers.
+**{{< t f_author >}}** [Sayak Paul](https://twitter.com/RisingSayak)  
+**{{< t f_date_created >}}** 2021/10/20  
+**{{< t f_last_modified >}}** 2024/02/11  
+**{{< t f_description >}}** MobileViT for image classification with combined benefits of convolutions and Transformers.
 
 {{< keras/version v=3 >}}
 

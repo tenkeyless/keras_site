@@ -7,10 +7,10 @@ type: docs
 
 {{< keras/original checkedAt="2024-11-20" >}}
 
-**Author:** [Khalid Salama](https://www.linkedin.com/in/khalid-salama-24403144/)  
-**Date created:** 2021/01/30  
-**Last modified:** 2021/01/30  
-**Description:** Implementation of a dual encoder model for retrieving images that match natural language queries.
+**{{< t f_author >}}** [Khalid Salama](https://www.linkedin.com/in/khalid-salama-24403144/)  
+**{{< t f_date_created >}}** 2021/01/30  
+**{{< t f_last_modified >}}** 2021/01/30  
+**{{< t f_description >}}** Implementation of a dual encoder model for retrieving images that match natural language queries.
 
 {{< keras/version v=2 >}}
 

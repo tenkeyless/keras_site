@@ -7,10 +7,10 @@ type: docs
 
 {{< keras/original checkedAt="2024-11-21" >}}
 
-**Author:** [Rishit Dagli](https://github.com/Rishit-dagli)  
-**Date created:** 2021/06/18  
-**Last modified:** 2023/07/25  
-**Description:** Implement Gradient Centralization to improve training performance of DNNs.
+**{{< t f_author >}}** [Rishit Dagli](https://github.com/Rishit-dagli)  
+**{{< t f_date_created >}}** 2021/06/18  
+**{{< t f_last_modified >}}** 2023/07/25  
+**{{< t f_description >}}** Implement Gradient Centralization to improve training performance of DNNs.
 
 {{< keras/version v=3 >}}
 

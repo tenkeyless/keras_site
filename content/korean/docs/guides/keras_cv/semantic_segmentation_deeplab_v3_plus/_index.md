@@ -8,10 +8,10 @@ type: docs
 
 {{< keras/original checkedAt="2024-11-19" >}}
 
-**Author:** [Divyashree Sreepathihalli](https://github.com/divyashreepathihalli), [Ian Stenbit](https://github.com/ianstenbit)  
-**Date created:** 2023/08/22  
-**Last modified:** 2023/08/24  
-**Description:** Train and use DeepLabv3+ segmentation model with KerasCV.
+**{{< t f_author >}}** [Divyashree Sreepathihalli](https://github.com/divyashreepathihalli), [Ian Stenbit](https://github.com/ianstenbit)  
+**{{< t f_date_created >}}** 2023/08/22  
+**{{< t f_last_modified >}}** 2023/08/24  
+**{{< t f_description >}}** Train and use DeepLabv3+ segmentation model with KerasCV.
 
 {{< cards cols="2" >}}
 {{< card link="https://colab.research.google.com/github/keras-team/keras-io/blob/master/guides/ipynb/keras_cv/semantic_segmentation_deeplab_v3_plus.ipynb" title="Colab" tag="Colab" tagType="warning">}}

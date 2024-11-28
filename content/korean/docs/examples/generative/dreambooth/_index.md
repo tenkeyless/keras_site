@@ -7,10 +7,10 @@ type: docs
 
 {{< keras/original checkedAt="2024-11-22" >}}
 
-**Author:** [Sayak Paul](https://twitter.com/RisingSayak), [Chansung Park](https://twitter.com/algo_diver)  
-**Date created:** 2023/02/01  
-**Last modified:** 2023/02/05  
-**Description:** Implementing DreamBooth.
+**{{< t f_author >}}** [Sayak Paul](https://twitter.com/RisingSayak), [Chansung Park](https://twitter.com/algo_diver)  
+**{{< t f_date_created >}}** 2023/02/01  
+**{{< t f_last_modified >}}** 2023/02/05  
+**{{< t f_description >}}** Implementing DreamBooth.
 
 {{< keras/version v=2 >}}
 

@@ -7,10 +7,10 @@ type: docs
 
 {{< keras/original checkedAt="2024-11-20" >}}
 
-**Author:** [Soumik Rakshit](http://github.com/soumik12345)  
-**Date created:** 2021/09/11  
-**Last modified:** 2023/07/15  
-**Description:** Implementing the MIRNet architecture for low-light image enhancement.
+**{{< t f_author >}}** [Soumik Rakshit](http://github.com/soumik12345)  
+**{{< t f_date_created >}}** 2021/09/11  
+**{{< t f_last_modified >}}** 2023/07/15  
+**{{< t f_description >}}** Implementing the MIRNet architecture for low-light image enhancement.
 
 {{< keras/version v=3 >}}
 

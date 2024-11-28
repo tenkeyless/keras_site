@@ -7,10 +7,10 @@ type: docs
 
 {{< keras/original checkedAt="2024-11-20" >}}
 
-**Author:** [Aritra Roy Gosthipaty](https://twitter.com/ariG23498)  
-**Date created:** 2021/07/25  
-**Last modified:** 2021/07/25  
-**Description:** Deep dive into location-specific and channel-agnostic "involution" kernels.
+**{{< t f_author >}}** [Aritra Roy Gosthipaty](https://twitter.com/ariG23498)  
+**{{< t f_date_created >}}** 2021/07/25  
+**{{< t f_last_modified >}}** 2021/07/25  
+**{{< t f_description >}}** Deep dive into location-specific and channel-agnostic "involution" kernels.
 
 {{< keras/version v=3 >}}
 

@@ -7,10 +7,10 @@ type: docs
 
 {{< keras/original checkedAt="2024-11-20" >}}
 
-**Author:** [Sayak Paul](https://twitter.com/RisingSayak), converted to Keras 3 by [Muhammad Anas Raza](https://anasrz.com)  
-**Date created:** 2021/05/02  
-**Last modified:** 2023/07/19  
-**Description:** Training a keypoint detector with data augmentation and transfer learning.
+**{{< t f_author >}}** [Sayak Paul](https://twitter.com/RisingSayak), converted to Keras 3 by [Muhammad Anas Raza](https://anasrz.com)  
+**{{< t f_date_created >}}** 2021/05/02  
+**{{< t f_last_modified >}}** 2023/07/19  
+**{{< t f_description >}}** Training a keypoint detector with data augmentation and transfer learning.
 
 {{< keras/version v=3 >}}
 

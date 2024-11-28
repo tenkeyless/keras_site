@@ -8,10 +8,10 @@ type: docs
 
 {{< keras/original checkedAt="2024-11-19" >}}
 
-**Author:** [Matthew Watson](https://github.com/mattdangerw/)  
-**Date created:** 2022/04/18  
-**Last modified:** 2023/07/15  
-**Description:** Use KerasHub to train a Transformer model from scratch.
+**{{< t f_author >}}** [Matthew Watson](https://github.com/mattdangerw/)  
+**{{< t f_date_created >}}** 2022/04/18  
+**{{< t f_last_modified >}}** 2023/07/15  
+**{{< t f_description >}}** Use KerasHub to train a Transformer model from scratch.
 
 {{< cards cols="2" >}}
 {{< card link="https://colab.research.google.com/github/keras-team/keras-io/blob/master/guides/ipynb/keras_hub/transformer_pretraining.ipynb" title="Colab" tag="Colab" tagType="warning">}}

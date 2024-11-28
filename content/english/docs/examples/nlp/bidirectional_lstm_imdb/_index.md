@@ -7,10 +7,10 @@ type: docs
 
 {{< keras/original checkedAt="2024-11-21" >}}
 
-**Author:** [fchollet](https://twitter.com/fchollet)  
-**Date created:** 2020/05/03  
-**Last modified:** 2020/05/03  
-**Description:** Train a 2-layer bidirectional LSTM on the IMDB movie review sentiment classification dataset.
+**{{< t f_author >}}** [fchollet](https://twitter.com/fchollet)  
+**{{< t f_date_created >}}** 2020/05/03  
+**{{< t f_last_modified >}}** 2020/05/03  
+**{{< t f_description >}}** Train a 2-layer bidirectional LSTM on the IMDB movie review sentiment classification dataset.
 
 {{< keras/version v=3 >}}
 

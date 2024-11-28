@@ -7,10 +7,10 @@ type: docs
 
 {{< keras/original checkedAt="2024-11-23" >}}
 
-**Author:** [amifunny](https://github.com/amifunny)  
-**Date created:** 2020/06/04  
-**Last modified:** 2024/03/23  
-**Description:** Implementing DDPG algorithm on the Inverted Pendulum Problem.
+**{{< t f_author >}}** [amifunny](https://github.com/amifunny)  
+**{{< t f_date_created >}}** 2020/06/04  
+**{{< t f_last_modified >}}** 2024/03/23  
+**{{< t f_description >}}** Implementing DDPG algorithm on the Inverted Pendulum Problem.
 
 {{< keras/version v=3 >}}
 

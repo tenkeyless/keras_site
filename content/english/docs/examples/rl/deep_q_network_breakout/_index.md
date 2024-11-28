@@ -7,10 +7,10 @@ type: docs
 
 {{< keras/original checkedAt="2024-11-23" >}}
 
-**Author:** [Jacob Chapman](https://twitter.com/jacoblchapman) and [Mathias Lechner](https://twitter.com/MLech20)  
-**Date created:** 2020/05/23  
-**Last modified:** 2024/03/16  
-**Description:** Play Atari Breakout with a Deep Q-Network.
+**{{< t f_author >}}** [Jacob Chapman](https://twitter.com/jacoblchapman) and [Mathias Lechner](https://twitter.com/MLech20)  
+**{{< t f_date_created >}}** 2020/05/23  
+**{{< t f_last_modified >}}** 2024/03/16  
+**{{< t f_description >}}** Play Atari Breakout with a Deep Q-Network.
 
 {{< keras/version v=3 >}}
 

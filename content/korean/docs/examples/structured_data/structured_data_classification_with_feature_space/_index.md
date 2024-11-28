@@ -7,10 +7,10 @@ type: docs
 
 {{< keras/original checkedAt="2024-11-22" >}}
 
-**Author:** [fchollet](https://twitter.com/fchollet)  
-**Date created:** 2022/11/09  
-**Last modified:** 2022/11/09  
-**Description:** Classify tabular data in a few lines of code.
+**{{< t f_author >}}** [fchollet](https://twitter.com/fchollet)  
+**{{< t f_date_created >}}** 2022/11/09  
+**{{< t f_last_modified >}}** 2022/11/09  
+**{{< t f_description >}}** Classify tabular data in a few lines of code.
 
 {{< keras/version v=3 >}}
 

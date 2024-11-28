@@ -7,10 +7,10 @@ type: docs
 
 {{< keras/original checkedAt="2024-11-24" >}}
 
-**Author:** [Sayak Paul](https://twitter.com/RisingSayak)  
-**Date created:** 2021/08/01  
-**Last modified:** 2021/08/01  
-**Description:** Training better student models via knowledge distillation with function matching.
+**{{< t f_author >}}** [Sayak Paul](https://twitter.com/RisingSayak)  
+**{{< t f_date_created >}}** 2021/08/01  
+**{{< t f_last_modified >}}** 2021/08/01  
+**{{< t f_description >}}** Training better student models via knowledge distillation with function matching.
 
 {{< keras/version v=2 >}}
 

@@ -7,10 +7,10 @@ type: docs
 
 {{< keras/original checkedAt="2024-11-21" >}}
 
-**Author:** [Sayan Nath](https://twitter.com/sayannath2350)  
-**Date created:** 2021/09/24  
-**Last modified:** 2024/01/03  
-**Description:** BigTransfer (BiT) State-of-the-art transfer learning for image classification.
+**{{< t f_author >}}** [Sayan Nath](https://twitter.com/sayannath2350)  
+**{{< t f_date_created >}}** 2021/09/24  
+**{{< t f_last_modified >}}** 2024/01/03  
+**{{< t f_description >}}** BigTransfer (BiT) State-of-the-art transfer learning for image classification.
 
 {{< keras/version v=3 >}}
 

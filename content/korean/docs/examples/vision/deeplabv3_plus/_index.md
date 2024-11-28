@@ -7,10 +7,10 @@ type: docs
 
 {{< keras/original checkedAt="2024-11-20" >}}
 
-**Author:** [Soumik Rakshit](http://github.com/soumik12345)  
-**Date created:** 2021/08/31  
-**Last modified:** 2024/01/05  
-**Description:** Implement DeepLabV3+ architecture for Multi-class Semantic Segmentation.
+**{{< t f_author >}}** [Soumik Rakshit](http://github.com/soumik12345)  
+**{{< t f_date_created >}}** 2021/08/31  
+**{{< t f_last_modified >}}** 2024/01/05  
+**{{< t f_description >}}** Implement DeepLabV3+ architecture for Multi-class Semantic Segmentation.
 
 {{< keras/version v=3 >}}
 

@@ -8,10 +8,10 @@ math: true
 
 {{< keras/original checkedAt="2024-11-23" >}}
 
-**Author:** [akensert](https://github.com/akensert)  
-**Date created:** 2021/06/30  
-**Last modified:** 2021/06/30  
-**Description:** Complete implementation of WGAN-GP with R-GCN to generate novel molecules.
+**{{< t f_author >}}** [akensert](https://github.com/akensert)  
+**{{< t f_date_created >}}** 2021/06/30  
+**{{< t f_last_modified >}}** 2021/06/30  
+**{{< t f_description >}}** Complete implementation of WGAN-GP with R-GCN to generate novel molecules.
 
 {{< keras/version v=2 >}}
 

@@ -7,10 +7,10 @@ type: docs
 
 {{< keras/original checkedAt="2024-11-24" >}}
 
-**Author:** [Dimitre Oliveira](https://www.linkedin.com/in/dimitre-oliveira-7a1a0113a/)  
-**Date created:** 2021/02/27  
-**Last modified:** 2023/12/20  
-**Description:** Converting data to the TFRecord format.
+**{{< t f_author >}}** [Dimitre Oliveira](https://www.linkedin.com/in/dimitre-oliveira-7a1a0113a/)  
+**{{< t f_date_created >}}** 2021/02/27  
+**{{< t f_last_modified >}}** 2023/12/20  
+**{{< t f_description >}}** Converting data to the TFRecord format.
 
 {{< keras/version v=3 >}}
 

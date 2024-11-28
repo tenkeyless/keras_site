@@ -7,10 +7,10 @@ type: docs
 
 {{< keras/original checkedAt="2024-11-23" >}}
 
-**Author:** [fchollet](https://twitter.com/fchollet)  
-**Date created:** 2015/06/15  
-**Last modified:** 2020/04/30  
-**Description:** Generate text from Nietzsche's writings with a character-level LSTM.
+**{{< t f_author >}}** [fchollet](https://twitter.com/fchollet)  
+**{{< t f_date_created >}}** 2015/06/15  
+**{{< t f_last_modified >}}** 2020/04/30  
+**{{< t f_description >}}** Generate text from Nietzsche's writings with a character-level LSTM.
 
 {{< keras/version v=3 >}}
 

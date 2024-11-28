@@ -7,10 +7,10 @@ type: docs
 
 {{< keras/original checkedAt="2024-11-23" >}}
 
-**Author:** [Apoorv Nandan](https://twitter.com/NandanApoorv)  
-**Date created:** 2021/01/13  
-**Last modified:** 2021/01/13  
-**Description:** Training a sequence-to-sequence Transformer for automatic speech recognition.
+**{{< t f_author >}}** [Apoorv Nandan](https://twitter.com/NandanApoorv)  
+**{{< t f_date_created >}}** 2021/01/13  
+**{{< t f_last_modified >}}** 2021/01/13  
+**{{< t f_description >}}** Training a sequence-to-sequence Transformer for automatic speech recognition.
 
 {{< keras/version v=3 >}}
 

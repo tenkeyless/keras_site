@@ -7,10 +7,10 @@ type: docs
 
 {{< keras/original checkedAt="2024-11-21" >}}
 
-**Author:** [Khalid Salama](https://www.linkedin.com/in/khalid-salama-24403144/)  
-**Date created:** 2021/02/28  
-**Last modified:** 2021/02/28  
-**Description:** Semantic Clustering by Adopting Nearest neighbors (SCAN) algorithm.
+**{{< t f_author >}}** [Khalid Salama](https://www.linkedin.com/in/khalid-salama-24403144/)  
+**{{< t f_date_created >}}** 2021/02/28  
+**{{< t f_last_modified >}}** 2021/02/28  
+**{{< t f_description >}}** Semantic Clustering by Adopting Nearest neighbors (SCAN) algorithm.
 
 {{< keras/version v=3 >}}
 

@@ -7,10 +7,10 @@ type: docs
 
 {{< keras/original checkedAt="2024-11-24" >}}
 
-**Author:** [lukewood](https://twitter.com/luke_wood_ml)  
-**Date created:** 2023/07/15  
-**Last modified:** 2023/07/15  
-**Description:** Approximate non one to one mapping using mixture density networks.
+**{{< t f_author >}}** [lukewood](https://twitter.com/luke_wood_ml)  
+**{{< t f_date_created >}}** 2023/07/15  
+**{{< t f_last_modified >}}** 2023/07/15  
+**{{< t f_description >}}** Approximate non one to one mapping using mixture density networks.
 
 {{< keras/version v=2 >}}
 

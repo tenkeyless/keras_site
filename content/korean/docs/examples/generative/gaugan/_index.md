@@ -7,10 +7,10 @@ type: docs
 
 {{< keras/original checkedAt="2024-11-23" >}}
 
-**Author:** [Soumik Rakshit](https://github.com/soumik12345), [Sayak Paul](https://twitter.com/RisingSayak)  
-**Date created:** 2021/12/26  
-**Last modified:** 2022/01/03  
-**Description:** Implementing a GauGAN for conditional image generation.
+**{{< t f_author >}}** [Soumik Rakshit](https://github.com/soumik12345), [Sayak Paul](https://twitter.com/RisingSayak)  
+**{{< t f_date_created >}}** 2021/12/26  
+**{{< t f_last_modified >}}** 2022/01/03  
+**{{< t f_description >}}** Implementing a GauGAN for conditional image generation.
 
 {{< keras/version v=3 >}}
 

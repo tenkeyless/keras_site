@@ -7,10 +7,10 @@ type: docs
 
 {{< keras/original checkedAt="2024-11-23" >}}
 
-**Author:** [Sayak Paul](https://twitter.com/RisingSayak)  
-**Date created:** 2021/07/13  
-**Last modified:** 2024/01/02  
-**Description:** Training a GAN conditioned on class labels to generate handwritten digits.
+**{{< t f_author >}}** [Sayak Paul](https://twitter.com/RisingSayak)  
+**{{< t f_date_created >}}** 2021/07/13  
+**{{< t f_last_modified >}}** 2024/01/02  
+**{{< t f_description >}}** Training a GAN conditioned on class labels to generate handwritten digits.
 
 {{< keras/version v=3 >}}
 

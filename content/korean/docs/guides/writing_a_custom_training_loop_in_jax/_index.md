@@ -8,10 +8,10 @@ type: docs
 
 {{< keras/original checkedAt="2024-11-18" >}}
 
-**Author:** [fchollet](https://twitter.com/fchollet)  
-**Date created:** 2023/06/25  
-**Last modified:** 2023/06/25  
-**Description:** Writing low-level training & evaluation loops in JAX.
+**{{< t f_author >}}** [fchollet](https://twitter.com/fchollet)  
+**{{< t f_date_created >}}** 2023/06/25  
+**{{< t f_last_modified >}}** 2023/06/25  
+**{{< t f_description >}}** Writing low-level training & evaluation loops in JAX.
 
 {{< cards cols="2" >}}
 {{< card link="https://colab.research.google.com/github/keras-team/keras-io/blob/master/guides/ipynb/writing_a_custom_training_loop_in_jax.ipynb" title="Colab" tag="Colab" tagType="warning">}}

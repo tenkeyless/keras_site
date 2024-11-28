@@ -7,10 +7,10 @@ type: docs
 
 {{< keras/original checkedAt="2024-11-20" >}}
 
-**Author:** [Xingyu Long](https://github.com/xingyu-long)  
-**Date created:** 2020/07/28  
-**Last modified:** 2020/08/27  
-**Description:** Implementing Super-Resolution using Efficient sub-pixel model on BSDS500.
+**{{< t f_author >}}** [Xingyu Long](https://github.com/xingyu-long)  
+**{{< t f_date_created >}}** 2020/07/28  
+**{{< t f_last_modified >}}** 2020/08/27  
+**{{< t f_description >}}** Implementing Super-Resolution using Efficient sub-pixel model on BSDS500.
 
 {{< keras/version v=3 >}}
 

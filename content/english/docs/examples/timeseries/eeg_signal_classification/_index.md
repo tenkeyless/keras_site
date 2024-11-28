@@ -7,10 +7,10 @@ type: docs
 
 {{< keras/original checkedAt="2024-11-22" >}}
 
-**Author:** [Suvaditya Mukherjee](https://github.com/suvadityamuk)  
-**Date created:** 2022/11/03  
-**Last modified:** 2022/11/05  
-**Description:** Training a Convolutional model to classify EEG signals produced by exposure to certain stimuli.
+**{{< t f_author >}}** [Suvaditya Mukherjee](https://github.com/suvadityamuk)  
+**{{< t f_date_created >}}** 2022/11/03  
+**{{< t f_last_modified >}}** 2022/11/05  
+**{{< t f_description >}}** Training a Convolutional model to classify EEG signals produced by exposure to certain stimuli.
 
 {{< keras/version v=3 >}}
 

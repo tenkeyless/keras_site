@@ -7,10 +7,10 @@ type: docs
 
 {{< keras/original checkedAt="2024-11-21" >}}
 
-**Author:** [Sayak Paul](https://twitter.com/RisingSayak)  
-**Date created:** 2021/04/30  
-**Last modified:** 2023/12/18  
-**Description:** How to optimally learn representations of images for a given resolution.
+**{{< t f_author >}}** [Sayak Paul](https://twitter.com/RisingSayak)  
+**{{< t f_date_created >}}** 2021/04/30  
+**{{< t f_last_modified >}}** 2023/12/18  
+**{{< t f_description >}}** How to optimally learn representations of images for a given resolution.
 
 {{< keras/version v=3 >}}
 

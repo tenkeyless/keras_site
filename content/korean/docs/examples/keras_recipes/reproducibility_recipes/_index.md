@@ -7,10 +7,10 @@ type: docs
 
 {{< keras/original checkedAt="2024-11-24" >}}
 
-**Author:** [Frightera](https://github.com/Frightera)  
-**Date created:** 2023/05/05  
-**Last modified:** 2023/05/05  
-**Description:** Demonstration of random weight initialization and reproducibility in Keras models.
+**{{< t f_author >}}** [Frightera](https://github.com/Frightera)  
+**{{< t f_date_created >}}** 2023/05/05  
+**{{< t f_last_modified >}}** 2023/05/05  
+**{{< t f_description >}}** Demonstration of random weight initialization and reproducibility in Keras models.
 
 {{< keras/version v=3 >}}
 

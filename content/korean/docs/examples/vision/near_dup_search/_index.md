@@ -7,10 +7,10 @@ type: docs
 
 {{< keras/original checkedAt="2024-11-21" >}}
 
-**Author:** [Sayak Paul](https://twitter.com/RisingSayak)  
-**Date created:** 2021/09/10  
-**Last modified:** 2023/08/30  
-**Description:** Building a near-duplicate image search utility using deep learning and locality-sensitive hashing.
+**{{< t f_author >}}** [Sayak Paul](https://twitter.com/RisingSayak)  
+**{{< t f_date_created >}}** 2021/09/10  
+**{{< t f_last_modified >}}** 2023/08/30  
+**{{< t f_description >}}** Building a near-duplicate image search utility using deep learning and locality-sensitive hashing.
 
 {{< keras/version v=2 >}}
 

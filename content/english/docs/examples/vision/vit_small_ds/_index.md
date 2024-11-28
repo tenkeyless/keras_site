@@ -8,10 +8,10 @@ math: true
 
 {{< keras/original checkedAt="2024-11-20" >}}
 
-**Author:** [Aritra Roy Gosthipaty](https://twitter.com/ariG23498)  
-**Date created:** 2022/01/07  
-**Last modified:** 2022/01/10  
-**Description:** Training a ViT from scratch on smaller datasets with shifted patch tokenization and locality self-attention.
+**{{< t f_author >}}** [Aritra Roy Gosthipaty](https://twitter.com/ariG23498)  
+**{{< t f_date_created >}}** 2022/01/07  
+**{{< t f_last_modified >}}** 2022/01/10  
+**{{< t f_description >}}** Training a ViT from scratch on smaller datasets with shifted patch tokenization and locality self-attention.
 
 {{< keras/version v=2 >}}
 

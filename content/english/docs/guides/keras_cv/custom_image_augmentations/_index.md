@@ -8,10 +8,10 @@ type: docs
 
 {{< keras/original checkedAt="2024-11-19" >}}
 
-**Author:** [lukewood](https://twitter.com/luke_wood_ml)  
-**Date created:** 2022/04/26  
-**Last modified:** 2023/11/29  
-**Description:** Use BaseImageAugmentationLayer to implement custom data augmentations.
+**{{< t f_author >}}** [lukewood](https://twitter.com/luke_wood_ml)  
+**{{< t f_date_created >}}** 2022/04/26  
+**{{< t f_last_modified >}}** 2023/11/29  
+**{{< t f_description >}}** Use BaseImageAugmentationLayer to implement custom data augmentations.
 
 {{< cards cols="2" >}}
 {{< card link="https://colab.research.google.com/github/keras-team/keras-io/blob/master/guides/ipynb/keras_cv/custom_image_augmentations.ipynb" title="Colab" tag="Colab" tagType="warning">}}

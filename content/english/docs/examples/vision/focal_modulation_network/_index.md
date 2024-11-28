@@ -8,10 +8,10 @@ math: true
 
 {{< keras/original checkedAt="2024-11-21" >}}
 
-**Author:** [Aritra Roy Gosthipaty](https://twitter.com/ariG23498), [Ritwik Raha](https://twitter.com/ritwik_raha)  
-**Date created:** 2023/01/25  
-**Last modified:** 2023/02/15  
-**Description:** Image classification with Focal Modulation Networks.
+**{{< t f_author >}}** [Aritra Roy Gosthipaty](https://twitter.com/ariG23498), [Ritwik Raha](https://twitter.com/ritwik_raha)  
+**{{< t f_date_created >}}** 2023/01/25  
+**{{< t f_last_modified >}}** 2023/02/15  
+**{{< t f_description >}}** Image classification with Focal Modulation Networks.
 
 {{< keras/version v=2 >}}
 

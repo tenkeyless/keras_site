@@ -8,10 +8,10 @@ math: true
 
 {{< keras/original checkedAt="2024-11-21" >}}
 
-**Author:** [Darshan Deshpande](https://twitter.com/getdarshan)  
-**Date created:** 2021/10/29  
-**Last modified:** 2024/05/08  
-**Description:** Demonstrating the advantages of active learning through review classification.
+**{{< t f_author >}}** [Darshan Deshpande](https://twitter.com/getdarshan)  
+**{{< t f_date_created >}}** 2021/10/29  
+**{{< t f_last_modified >}}** 2024/05/08  
+**{{< t f_description >}}** Demonstrating the advantages of active learning through review classification.
 
 {{< keras/version v=3 >}}
 

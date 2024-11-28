@@ -7,10 +7,10 @@ type: docs
 
 {{< keras/original checkedAt="2024-11-24" >}}
 
-**Author:** [Khalid Salama](https://www.linkedin.com/in/khalid-salama-24403144/)  
-**Date created:** 2021/02/15  
-**Last modified:** 2023/11/15  
-**Description:** Using compositional & mixed-dimension embeddings for memory-efficient recommendation models.
+**{{< t f_author >}}** [Khalid Salama](https://www.linkedin.com/in/khalid-salama-24403144/)  
+**{{< t f_date_created >}}** 2021/02/15  
+**{{< t f_last_modified >}}** 2023/11/15  
+**{{< t f_description >}}** Using compositional & mixed-dimension embeddings for memory-efficient recommendation models.
 
 {{< keras/version v=3 >}}
 

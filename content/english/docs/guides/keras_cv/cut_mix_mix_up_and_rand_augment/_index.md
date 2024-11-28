@@ -8,10 +8,10 @@ type: docs
 
 {{< keras/original checkedAt="2024-11-19" >}}
 
-**Author:** [lukewood](https://twitter.com/luke_wood_ml)  
-**Date created:** 2022/04/08  
-**Last modified:** 2022/04/08  
-**Description:** Use KerasCV to augment images with CutMix, MixUp, RandAugment, and more.
+**{{< t f_author >}}** [lukewood](https://twitter.com/luke_wood_ml)  
+**{{< t f_date_created >}}** 2022/04/08  
+**{{< t f_last_modified >}}** 2022/04/08  
+**{{< t f_description >}}** Use KerasCV to augment images with CutMix, MixUp, RandAugment, and more.
 
 {{< cards cols="2" >}}
 {{< card link="https://colab.research.google.com/github/keras-team/keras-io/blob/master/guides/ipynb/keras_cv/cut_mix_mix_up_and_rand_augment.ipynb" title="Colab" tag="Colab" tagType="warning">}}

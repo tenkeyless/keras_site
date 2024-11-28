@@ -7,10 +7,10 @@ type: docs
 
 {{< keras/original checkedAt="2024-11-22" >}}
 
-**Author:** [fchollet](https://twitter.com/fchollet)  
-**Date created:** 2019/05/28  
-**Last modified:** 2020/04/17  
-**Description:** Demonstration of how to handle highly imbalanced classification problems.
+**{{< t f_author >}}** [fchollet](https://twitter.com/fchollet)  
+**{{< t f_date_created >}}** 2019/05/28  
+**{{< t f_last_modified >}}** 2020/04/17  
+**{{< t f_description >}}** Demonstration of how to handle highly imbalanced classification problems.
 
 {{< keras/version v=3 >}}
 

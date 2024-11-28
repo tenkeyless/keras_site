@@ -7,10 +7,10 @@ type: docs
 
 {{< keras/original checkedAt="2024-11-24" >}}
 
-**Author:** [fchollet](https://twitter.com/fchollet)  
-**Date created:** 2019/05/10  
-**Last modified:** 2023/11/22  
-**Description:** Demonstration of the "endpoint layer" pattern (layer that handles loss management).
+**{{< t f_author >}}** [fchollet](https://twitter.com/fchollet)  
+**{{< t f_date_created >}}** 2019/05/10  
+**{{< t f_last_modified >}}** 2023/11/22  
+**{{< t f_description >}}** Demonstration of the "endpoint layer" pattern (layer that handles loss management).
 
 {{< keras/version v=3 >}}
 

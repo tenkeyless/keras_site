@@ -7,10 +7,10 @@ type: docs
 
 {{< keras/original checkedAt="2024-11-22" >}}
 
-**Author:** Sreyan Ghosh  
-**Date created:** 2022/07/04  
-**Last modified:** 2022/08/28  
-**Description:** Training T5 using Hugging Face Transformers for Abstractive Summarization.
+**{{< t f_author >}}** Sreyan Ghosh  
+**{{< t f_date_created >}}** 2022/07/04  
+**{{< t f_last_modified >}}** 2022/08/28  
+**{{< t f_description >}}** Training T5 using Hugging Face Transformers for Abstractive Summarization.
 
 {{< keras/version v=2 >}}
 

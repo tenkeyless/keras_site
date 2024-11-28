@@ -7,10 +7,10 @@ type: docs
 
 {{< keras/original checkedAt="2024-11-21" >}}
 
-**Author:** [Sayak Paul](https://twitter.com/RisingSayak)  
-**Date created:** 2021/10/08  
-**Last modified:** 2021/10/10  
-**Description:** Mitigating resolution discrepancy between training and test sets.
+**{{< t f_author >}}** [Sayak Paul](https://twitter.com/RisingSayak)  
+**{{< t f_date_created >}}** 2021/10/08  
+**{{< t f_last_modified >}}** 2021/10/10  
+**{{< t f_description >}}** Mitigating resolution discrepancy between training and test sets.
 
 {{< keras/version v=3 >}}
 

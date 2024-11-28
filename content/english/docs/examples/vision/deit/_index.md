@@ -8,10 +8,10 @@ math: true
 
 {{< keras/original checkedAt="2024-11-21" >}}
 
-**Author:** [Sayak Paul](https://twitter.com/RisingSayak)  
-**Date created:** 2022/04/05  
-**Last modified:** 2022/04/08  
-**Description:** Distillation of Vision Transformers through attention.
+**{{< t f_author >}}** [Sayak Paul](https://twitter.com/RisingSayak)  
+**{{< t f_date_created >}}** 2022/04/05  
+**{{< t f_last_modified >}}** 2022/04/08  
+**{{< t f_description >}}** Distillation of Vision Transformers through attention.
 
 {{< keras/version v=2 >}}
 

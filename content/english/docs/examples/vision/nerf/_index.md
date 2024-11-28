@@ -9,9 +9,9 @@ math: true
 {{< keras/original checkedAt="2024-11-20" >}}
 
 **Authors:** [Aritra Roy Gosthipaty](https://twitter.com/arig23498), [Ritwik Raha](https://twitter.com/ritwik_raha)  
-**Date created:** 2021/08/09  
-**Last modified:** 2023/11/13  
-**Description:** Minimal implementation of volumetric rendering as shown in NeRF.
+**{{< t f_date_created >}}** 2021/08/09  
+**{{< t f_last_modified >}}** 2023/11/13  
+**{{< t f_description >}}** Minimal implementation of volumetric rendering as shown in NeRF.
 
 {{< keras/version v=3 >}}
 

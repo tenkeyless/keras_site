@@ -9,9 +9,9 @@ type: docs
 {{< keras/original checkedAt="2024-11-18" >}}
 
 **Authors:** Neel Kovelamudi, Francois Chollet  
-**Date created:** 2023/06/14  
-**Last modified:** 2023/06/30  
-**Description:** Complete guide to saving, serializing, and exporting models.
+**{{< t f_date_created >}}** 2023/06/14  
+**{{< t f_last_modified >}}** 2023/06/30  
+**{{< t f_description >}}** Complete guide to saving, serializing, and exporting models.
 
 {{< cards cols="2" >}}
 {{< card link="https://colab.research.google.com/github/keras-team/keras-io/blob/master/guides/ipynb/serialization_and_saving.ipynb" title="Colab" tag="Colab" tagType="warning">}}

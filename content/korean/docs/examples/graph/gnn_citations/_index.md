@@ -7,10 +7,10 @@ type: docs
 
 {{< keras/original checkedAt="2024-11-24" >}}
 
-**Author:** [Khalid Salama](https://www.linkedin.com/in/khalid-salama-24403144/)  
-**Date created:** 2021/05/30  
-**Last modified:** 2021/05/30  
-**Description:** Implementing a graph neural network model for predicting the topic of a paper given its citations.
+**{{< t f_author >}}** [Khalid Salama](https://www.linkedin.com/in/khalid-salama-24403144/)  
+**{{< t f_date_created >}}** 2021/05/30  
+**{{< t f_last_modified >}}** 2021/05/30  
+**{{< t f_description >}}** Implementing a graph neural network model for predicting the topic of a paper given its citations.
 
 {{< keras/version v=2 >}}
 

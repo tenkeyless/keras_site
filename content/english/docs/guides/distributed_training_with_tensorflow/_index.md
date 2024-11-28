@@ -8,10 +8,10 @@ type: docs
 
 {{< keras/original checkedAt="2024-11-18" >}}
 
-**Author:** [fchollet](https://twitter.com/fchollet)  
-**Date created:** 2020/04/28  
-**Last modified:** 2023/06/29  
-**Description:** Guide to multi-GPU training for Keras models with TensorFlow.
+**{{< t f_author >}}** [fchollet](https://twitter.com/fchollet)  
+**{{< t f_date_created >}}** 2020/04/28  
+**{{< t f_last_modified >}}** 2023/06/29  
+**{{< t f_description >}}** Guide to multi-GPU training for Keras models with TensorFlow.
 
 {{< cards cols="2" >}}
 {{< card link="https://colab.research.google.com/github/keras-team/keras-io/blob/master/guides/ipynb/distributed_training_with_tensorflow.ipynb" title="Colab" tag="Colab" tagType="warning">}}

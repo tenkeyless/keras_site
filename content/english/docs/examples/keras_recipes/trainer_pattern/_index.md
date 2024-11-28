@@ -7,10 +7,10 @@ type: docs
 
 {{< keras/original checkedAt="2024-11-24" >}}
 
-**Author:** [nkovela1](https://nkovela1.github.io/)  
-**Date created:** 2022/09/19  
-**Last modified:** 2022/09/26  
-**Description:** Guide on how to share a custom training step across multiple Keras models.
+**{{< t f_author >}}** [nkovela1](https://nkovela1.github.io/)  
+**{{< t f_date_created >}}** 2022/09/19  
+**{{< t f_last_modified >}}** 2022/09/26  
+**{{< t f_description >}}** Guide on how to share a custom training step across multiple Keras models.
 
 {{< keras/version v=3 >}}
 

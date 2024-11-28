@@ -7,10 +7,10 @@ type: docs
 
 {{< keras/original checkedAt="2024-11-24" >}}
 
-**Author:** Amy MiHyun Jang  
-**Date created:** 2020/07/29  
-**Last modified:** 2020/08/07  
-**Description:** Loading TFRecords for computer vision models.
+**{{< t f_author >}}** Amy MiHyun Jang  
+**{{< t f_date_created >}}** 2020/07/29  
+**{{< t f_last_modified >}}** 2020/08/07  
+**{{< t f_description >}}** Loading TFRecords for computer vision models.
 
 {{< keras/version v=2 >}}
 

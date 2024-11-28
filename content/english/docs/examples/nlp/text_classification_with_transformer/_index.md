@@ -7,10 +7,10 @@ type: docs
 
 {{< keras/original checkedAt="2024-11-21" >}}
 
-**Author:** [Apoorv Nandan](https://twitter.com/NandanApoorv)  
-**Date created:** 2020/05/10  
-**Last modified:** 2024/01/18  
-**Description:** Implement a Transformer block as a Keras layer and use it for text classification.
+**{{< t f_author >}}** [Apoorv Nandan](https://twitter.com/NandanApoorv)  
+**{{< t f_date_created >}}** 2020/05/10  
+**{{< t f_last_modified >}}** 2024/01/18  
+**{{< t f_description >}}** Implement a Transformer block as a Keras layer and use it for text classification.
 
 {{< keras/version v=3 >}}
 

@@ -7,10 +7,10 @@ type: docs
 
 {{< keras/original checkedAt="2024-11-20" >}}
 
-**Author:** [Hamid Ali](https://github.com/hamidriasat)  
-**Date created:** 2023/05/30  
-**Last modified:** 2023/07/13  
-**Description:** Boundaries aware segmentation model trained on the DUTS dataset.
+**{{< t f_author >}}** [Hamid Ali](https://github.com/hamidriasat)  
+**{{< t f_date_created >}}** 2023/05/30  
+**{{< t f_last_modified >}}** 2023/07/13  
+**{{< t f_description >}}** Boundaries aware segmentation model trained on the DUTS dataset.
 
 {{< keras/version v=2 >}}
 

@@ -7,10 +7,10 @@ type: docs
 
 {{< keras/original checkedAt="2024-11-23" >}}
 
-**Author:** Chen Qian  
-**Date created:** 2023/04/17  
-**Last modified:** 2024/04/12  
-**Description:** Use KerasHub GPT2 model and `samplers` to do text generation.
+**{{< t f_author >}}** Chen Qian  
+**{{< t f_date_created >}}** 2023/04/17  
+**{{< t f_last_modified >}}** 2024/04/12  
+**{{< t f_description >}}** Use KerasHub GPT2 model and `samplers` to do text generation.
 
 {{< keras/version v=3 >}}
 

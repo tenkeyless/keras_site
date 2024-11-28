@@ -7,10 +7,10 @@ type: docs
 
 {{< keras/original checkedAt="2024-11-23" >}}
 
-**Author:** [Fadi Badine](https://twitter.com/fadibadine)  
-**Date created:** 14/06/2020  
-**Last modified:** 19/07/2023  
-**Description:** Classify speakers using Fast Fourier Transform (FFT) and a 1D Convnet.
+**{{< t f_author >}}** [Fadi Badine](https://twitter.com/fadibadine)  
+**{{< t f_date_created >}}** 14/06/2020  
+**{{< t f_last_modified >}}** 19/07/2023  
+**{{< t f_description >}}** Classify speakers using Fast Fourier Transform (FFT) and a 1D Convnet.
 
 {{< keras/version v=2 >}}
 

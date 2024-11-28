@@ -7,10 +7,10 @@ type: docs
 
 {{< keras/original checkedAt="2024-11-23" >}}
 
-**Author:** [Fadi Badine](https://twitter.com/fadibadine)  
-**Date created:** 2022/04/16  
-**Last modified:** 2022/04/16  
-**Description:** Training a model to classify UK & Ireland accents using feature extraction from Yamnet.
+**{{< t f_author >}}** [Fadi Badine](https://twitter.com/fadibadine)  
+**{{< t f_date_created >}}** 2022/04/16  
+**{{< t f_last_modified >}}** 2022/04/16  
+**{{< t f_description >}}** Training a model to classify UK & Ireland accents using feature extraction from Yamnet.
 
 {{< keras/version v=2 >}}
 

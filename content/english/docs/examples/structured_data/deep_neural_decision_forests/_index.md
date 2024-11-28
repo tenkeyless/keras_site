@@ -7,10 +7,10 @@ type: docs
 
 {{< keras/original checkedAt="2024-11-22" >}}
 
-**Author:** [Khalid Salama](https://www.linkedin.com/in/khalid-salama-24403144/)  
-**Date created:** 2021/01/15  
-**Last modified:** 2021/01/15  
-**Description:** How to train differentiable decision trees for end-to-end learning in deep neural networks.
+**{{< t f_author >}}** [Khalid Salama](https://www.linkedin.com/in/khalid-salama-24403144/)  
+**{{< t f_date_created >}}** 2021/01/15  
+**{{< t f_last_modified >}}** 2021/01/15  
+**{{< t f_description >}}** How to train differentiable decision trees for end-to-end learning in deep neural networks.
 
 {{< keras/version v=3 >}}
 

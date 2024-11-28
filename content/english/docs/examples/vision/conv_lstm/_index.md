@@ -7,10 +7,10 @@ type: docs
 
 {{< keras/original checkedAt="2024-11-21" >}}
 
-**Author:** [Amogh Joshi](https://github.com/amogh7joshi)  
-**Date created:** 2021/06/02  
-**Last modified:** 2023/11/10  
-**Description:** How to build and train a convolutional LSTM model for next-frame video prediction.
+**{{< t f_author >}}** [Amogh Joshi](https://github.com/amogh7joshi)  
+**{{< t f_date_created >}}** 2021/06/02  
+**{{< t f_last_modified >}}** 2023/11/10  
+**{{< t f_description >}}** How to build and train a convolutional LSTM model for next-frame video prediction.
 
 {{< keras/version v=3 >}}
 

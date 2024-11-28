@@ -7,10 +7,10 @@ type: docs
 
 {{< keras/original checkedAt="2024-11-19" >}}
 
-**Author:** [fchollet](https://twitter.com/fchollet)  
-**Date created:** 2015/06/19  
-**Last modified:** 2020/04/21  
-**Description:** A simple convnet that achieves ~99% test accuracy on MNIST.
+**{{< t f_author >}}** [fchollet](https://twitter.com/fchollet)  
+**{{< t f_date_created >}}** 2015/06/19  
+**{{< t f_last_modified >}}** 2020/04/21  
+**{{< t f_description >}}** A simple convnet that achieves ~99% test accuracy on MNIST.
 
 {{< keras/version v=3 >}}
 

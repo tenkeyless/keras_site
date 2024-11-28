@@ -7,10 +7,10 @@ type: docs
 
 {{< keras/original checkedAt="2024-11-21" >}}
 
-**Author:** [Sayak Paul](https://twitter.com/RisingSayak)  
-**Date created:** 2021/05/28  
-**Last modified:** 2023/12/08  
-**Description:** Training a video classifier with transfer learning and a recurrent model on the UCF101 dataset.
+**{{< t f_author >}}** [Sayak Paul](https://twitter.com/RisingSayak)  
+**{{< t f_date_created >}}** 2021/05/28  
+**{{< t f_last_modified >}}** 2023/12/08  
+**{{< t f_description >}}** Training a video classifier with transfer learning and a recurrent model on the UCF101 dataset.
 
 {{< keras/version v=3 >}}
 

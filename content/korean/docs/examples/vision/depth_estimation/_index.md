@@ -7,10 +7,10 @@ type: docs
 
 {{< keras/original checkedAt="2024-11-20" >}}
 
-**Author:** [Victor Basu](https://www.linkedin.com/in/victor-basu-520958147)  
-**Date created:** 2021/08/30  
-**Last modified:** 2024/08/13  
-**Description:** Implement a depth estimation model with a convnet.
+**{{< t f_author >}}** [Victor Basu](https://www.linkedin.com/in/victor-basu-520958147)  
+**{{< t f_date_created >}}** 2021/08/30  
+**{{< t f_last_modified >}}** 2024/08/13  
+**{{< t f_description >}}** Implement a depth estimation model with a convnet.
 
 {{< keras/version v=3 >}}
 

@@ -7,10 +7,10 @@ type: docs
 
 {{< keras/original checkedAt="2024-11-21" >}}
 
-**Author:** [Sayak Paul](https://twitter.com/RisingSayak)  
-**Date created:** 2021/08/06  
-**Last modified:** 2023/07/22  
-**Description:** Training a video classifier with hybrid transformers.
+**{{< t f_author >}}** [Sayak Paul](https://twitter.com/RisingSayak)  
+**{{< t f_date_created >}}** 2021/08/06  
+**{{< t f_last_modified >}}** 2023/07/22  
+**{{< t f_description >}}** Training a video classifier with hybrid transformers.
 
 {{< keras/version v=3 >}}
 

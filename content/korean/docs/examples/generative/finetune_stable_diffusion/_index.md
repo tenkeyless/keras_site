@@ -7,10 +7,10 @@ type: docs
 
 {{< keras/original checkedAt="2024-11-23" >}}
 
-**Author:** [Sayak Paul](https://twitter.com/RisingSayak), [Chansung Park](https://twitter.com/algo_diver)  
-**Date created:** 2022/12/28  
-**Last modified:** 2023/01/13  
-**Description:** Fine-tuning Stable Diffusion using a custom image-caption dataset.
+**{{< t f_author >}}** [Sayak Paul](https://twitter.com/RisingSayak), [Chansung Park](https://twitter.com/algo_diver)  
+**{{< t f_date_created >}}** 2022/12/28  
+**{{< t f_last_modified >}}** 2023/01/13  
+**{{< t f_description >}}** Fine-tuning Stable Diffusion using a custom image-caption dataset.
 
 {{< keras/version v=2 >}}
 

@@ -8,10 +8,10 @@ math: true
 
 {{< keras/original checkedAt="2024-11-20" >}}
 
-**Author:** [Sayak Paul](https://twitter.com/RisingSayak)  
-**Date created:** 2021/03/06  
-**Last modified:** 2023/07/24  
-**Description:** Data augmentation using the mixup technique for image classification.
+**{{< t f_author >}}** [Sayak Paul](https://twitter.com/RisingSayak)  
+**{{< t f_date_created >}}** 2021/03/06  
+**{{< t f_last_modified >}}** 2023/07/24  
+**{{< t f_description >}}** Data augmentation using the mixup technique for image classification.
 
 {{< keras/version v=3 >}}
 

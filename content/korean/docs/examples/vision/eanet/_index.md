@@ -7,10 +7,10 @@ type: docs
 
 {{< keras/original checkedAt="2024-11-20" >}}
 
-**Author:** [ZhiYong Chang](https://github.com/czy00000)  
-**Date created:** 2021/10/19  
-**Last modified:** 2023/07/18  
-**Description:** Image classification with a Transformer that leverages external attention.
+**{{< t f_author >}}** [ZhiYong Chang](https://github.com/czy00000)  
+**{{< t f_date_created >}}** 2021/10/19  
+**{{< t f_last_modified >}}** 2023/07/18  
+**{{< t f_description >}}** Image classification with a Transformer that leverages external attention.
 
 {{< keras/version v=3 >}}
 

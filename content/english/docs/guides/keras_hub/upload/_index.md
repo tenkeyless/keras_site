@@ -8,10 +8,10 @@ type: docs
 
 {{< keras/original checkedAt="2024-11-19" >}}
 
-**Author:** [Samaneh Saadat](https://github.com/SamanehSaadat/), [Matthew Watson](https://github.com/mattdangerw/)  
-**Date created:** 2024/04/29  
-**Last modified:** 2024/04/29  
-**Description:** An introduction on how to upload a fine-tuned KerasHub model to model hubs.
+**{{< t f_author >}}** [Samaneh Saadat](https://github.com/SamanehSaadat/), [Matthew Watson](https://github.com/mattdangerw/)  
+**{{< t f_date_created >}}** 2024/04/29  
+**{{< t f_last_modified >}}** 2024/04/29  
+**{{< t f_description >}}** An introduction on how to upload a fine-tuned KerasHub model to model hubs.
 
 {{< cards cols="2" >}}
 {{< card link="https://colab.research.google.com/github/keras-team/keras-io/blob/master/guides/ipynb/keras_hub/upload.ipynb" title="Colab" tag="Colab" tagType="warning">}}

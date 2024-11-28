@@ -7,10 +7,10 @@ type: docs
 
 {{< keras/original checkedAt="2024-11-22" >}}
 
-**Author:** Matthew Carrigan and Merve Noyan  
-**Date created:** 2022/01/13  
-**Last modified:** 2022/01/13  
-**Description:** Question answering implementation using Keras and Hugging Face Transformers.
+**{{< t f_author >}}** Matthew Carrigan and Merve Noyan  
+**{{< t f_date_created >}}** 2022/01/13  
+**{{< t f_last_modified >}}** 2022/01/13  
+**{{< t f_description >}}** Question answering implementation using Keras and Hugging Face Transformers.
 
 {{< keras/version v=2 >}}
 

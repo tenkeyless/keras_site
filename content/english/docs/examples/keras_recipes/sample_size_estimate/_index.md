@@ -7,10 +7,10 @@ type: docs
 
 {{< keras/original checkedAt="2024-11-24" >}}
 
-**Author:** [JacoVerster](https://twitter.com/JacoVerster)  
-**Date created:** 2021/05/20  
-**Last modified:** 2021/06/06  
-**Description:** Modeling the relationship between training set size and model accuracy.
+**{{< t f_author >}}** [JacoVerster](https://twitter.com/JacoVerster)  
+**{{< t f_date_created >}}** 2021/05/20  
+**{{< t f_last_modified >}}** 2021/06/06  
+**{{< t f_description >}}** Modeling the relationship between training set size and model accuracy.
 
 {{< keras/version v=3 >}}
 

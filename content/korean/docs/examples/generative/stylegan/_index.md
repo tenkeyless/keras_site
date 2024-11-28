@@ -7,10 +7,10 @@ type: docs
 
 {{< keras/original checkedAt="2024-11-23" >}}
 
-**Author:** [Soon-Yau Cheong](https://www.linkedin.com/in/soonyau/)  
-**Date created:** 2021/07/01  
-**Last modified:** 2021/12/20  
-**Description:** Implementation of StyleGAN for image generation.
+**{{< t f_author >}}** [Soon-Yau Cheong](https://www.linkedin.com/in/soonyau/)  
+**{{< t f_date_created >}}** 2021/07/01  
+**{{< t f_last_modified >}}** 2021/12/20  
+**{{< t f_description >}}** Implementation of StyleGAN for image generation.
 
 {{< keras/version v=2 >}}
 

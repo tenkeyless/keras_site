@@ -7,10 +7,10 @@ type: docs
 
 {{< keras/original checkedAt="2024-11-20" >}}
 
-**Author:** [Hasib Zunair](https://twitter.com/hasibzunair)  
-**Date created:** 2020/09/23  
-**Last modified:** 2024/01/11  
-**Description:** Train a 3D convolutional neural network to predict presence of pneumonia.
+**{{< t f_author >}}** [Hasib Zunair](https://twitter.com/hasibzunair)  
+**{{< t f_date_created >}}** 2020/09/23  
+**{{< t f_last_modified >}}** 2024/01/11  
+**{{< t f_description >}}** Train a 3D convolutional neural network to predict presence of pneumonia.
 
 {{< keras/version v=3 >}}
 

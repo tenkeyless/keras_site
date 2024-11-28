@@ -8,10 +8,10 @@ type: docs
 
 {{< keras/original checkedAt="2024-11-19" >}}
 
-**Author:** [Gowtham Paimagam](https://github.com/gowthamkpr), [lukewood](https://lukewood.xyz)  
-**Date created:** 09/24/2024  
-**Last modified:** 10/22/2024  
-**Description:** Use KerasHub to train powerful image classifiers.
+**{{< t f_author >}}** [Gowtham Paimagam](https://github.com/gowthamkpr), [lukewood](https://lukewood.xyz)  
+**{{< t f_date_created >}}** 09/24/2024  
+**{{< t f_last_modified >}}** 10/22/2024  
+**{{< t f_description >}}** Use KerasHub to train powerful image classifiers.
 
 {{< cards cols="2" >}}
 {{< card link="https://colab.research.google.com/github/keras-team/keras-io/blob/master/guides/ipynb/keras_hub/classification_with_keras_hub.ipynb" title="Colab" tag="Colab" tagType="warning">}}

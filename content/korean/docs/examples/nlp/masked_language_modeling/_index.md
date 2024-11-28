@@ -7,10 +7,10 @@ type: docs
 
 {{< keras/original checkedAt="2024-11-21" >}}
 
-**Author:** [Ankur Singh](https://twitter.com/ankur310794)  
-**Date created:** 2020/09/18  
-**Last modified:** 2024/03/15  
-**Description:** Implement a Masked Language Model (MLM) with BERT and fine-tune it on the IMDB Reviews dataset.
+**{{< t f_author >}}** [Ankur Singh](https://twitter.com/ankur310794)  
+**{{< t f_date_created >}}** 2020/09/18  
+**{{< t f_last_modified >}}** 2024/03/15  
+**{{< t f_description >}}** Implement a Masked Language Model (MLM) with BERT and fine-tune it on the IMDB Reviews dataset.
 
 {{< keras/version v=3 >}}
 

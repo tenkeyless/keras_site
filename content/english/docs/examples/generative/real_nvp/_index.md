@@ -8,9 +8,9 @@ type: docs
 {{< keras/original checkedAt="2024-11-23" >}}
 
 **Authors:** [Mandolini Giorgio Maria](https://www.linkedin.com/in/giorgio-maria-mandolini-a2a1b71b4/), [Sanna Daniele](https://www.linkedin.com/in/daniele-sanna-338629bb/), [Zannini Quirini Giorgio](https://www.linkedin.com/in/giorgio-zannini-quirini-16ab181a0/)  
-**Date created:** 2020/08/10  
-**Last modified:** 2020/08/10  
-**Description:** Estimating the density distribution of the "double moon" dataset.
+**{{< t f_date_created >}}** 2020/08/10  
+**{{< t f_last_modified >}}** 2020/08/10  
+**{{< t f_description >}}** Estimating the density distribution of the "double moon" dataset.
 
 {{< keras/version v=2 >}}
 

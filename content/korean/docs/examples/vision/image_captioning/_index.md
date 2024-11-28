@@ -7,10 +7,10 @@ type: docs
 
 {{< keras/original checkedAt="2024-11-20" >}}
 
-**Author:** [A_K_Nain](https://twitter.com/A_K_Nain)  
-**Date created:** 2021/05/29  
-**Last modified:** 2021/10/31  
-**Description:** Implement an image captioning model using a CNN and a Transformer.
+**{{< t f_author >}}** [A_K_Nain](https://twitter.com/A_K_Nain)  
+**{{< t f_date_created >}}** 2021/05/29  
+**{{< t f_last_modified >}}** 2021/10/31  
+**{{< t f_description >}}** Implement an image captioning model using a CNN and a Transformer.
 
 {{< keras/version v=3 >}}
 

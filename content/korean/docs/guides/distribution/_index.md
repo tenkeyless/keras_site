@@ -8,10 +8,10 @@ type: docs
 
 {{< keras/original checkedAt="2024-11-18" >}}
 
-**Author:** [Qianli Zhu](https://github.com/qlzh727)  
-**Date created:** 2023/11/07  
-**Last modified:** 2023/11/07  
-**Description:** Complete guide to the distribution API for multi-backend Keras.
+**{{< t f_author >}}** [Qianli Zhu](https://github.com/qlzh727)  
+**{{< t f_date_created >}}** 2023/11/07  
+**{{< t f_last_modified >}}** 2023/11/07  
+**{{< t f_description >}}** Complete guide to the distribution API for multi-backend Keras.
 
 {{< cards cols="2" >}}
 {{< card link="https://colab.research.google.com/github/keras-team/keras-io/blob/master/guides/ipynb/distribution.ipynb" title="Colab" tag="Colab" tagType="warning">}}

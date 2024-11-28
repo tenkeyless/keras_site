@@ -8,10 +8,10 @@ math: true
 
 {{< keras/original checkedAt="2024-11-23" >}}
 
-**Author:** [Victor Basu](https://www.linkedin.com/in/victor-basu-520958147)  
-**Date created:** 2022/03/10  
-**Last modified:** 2022/03/24  
-**Description:** Implementing a Convolutional Variational AutoEncoder (VAE) for Drug Discovery.
+**{{< t f_author >}}** [Victor Basu](https://www.linkedin.com/in/victor-basu-520958147)  
+**{{< t f_date_created >}}** 2022/03/10  
+**{{< t f_last_modified >}}** 2022/03/24  
+**{{< t f_description >}}** Implementing a Convolutional Variational AutoEncoder (VAE) for Drug Discovery.
 
 {{< keras/version v=2 >}}
 

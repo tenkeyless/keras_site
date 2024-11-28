@@ -7,10 +7,10 @@ type: docs
 
 {{< keras/original checkedAt="2024-11-18" >}}
 
-**Author:** [fchollet](https://twitter.com/fchollet)  
-**Date created:** 2019/03/01  
-**Last modified:** 2023/06/25  
-**Description:** Complete guide to the functional API.
+**{{< t f_author >}}** [fchollet](https://twitter.com/fchollet)  
+**{{< t f_date_created >}}** 2019/03/01  
+**{{< t f_last_modified >}}** 2023/06/25  
+**{{< t f_description >}}** Complete guide to the functional API.
 
 {{< cards cols="2" >}}
 {{< card link="https://colab.research.google.com/github/keras-team/keras-io/blob/master/guides/ipynb/functional_api.ipynb" title="Colab" tag="Colab" tagType="warning">}}

@@ -7,10 +7,10 @@ type: docs
 
 {{< keras/original checkedAt="2024-11-21" >}}
 
-**Author:** [Mohamad Merchant](https://twitter.com/mohmadmerchant1)  
-**Date created:** 2020/08/15  
-**Last modified:** 2020/08/29  
-**Description:** Natural Language Inference by fine-tuning BERT model on SNLI Corpus.
+**{{< t f_author >}}** [Mohamad Merchant](https://twitter.com/mohmadmerchant1)  
+**{{< t f_date_created >}}** 2020/08/15  
+**{{< t f_last_modified >}}** 2020/08/29  
+**{{< t f_description >}}** Natural Language Inference by fine-tuning BERT model on SNLI Corpus.
 
 {{< keras/version v=3 >}}
 

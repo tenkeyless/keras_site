@@ -7,10 +7,10 @@ type: docs
 
 {{< keras/original checkedAt="2024-11-23" >}}
 
-**Author:** [Mostafa M. Amin](https://mostafa-amin.com)  
-**Date created:** 2024/10/04  
-**Last modified:** 2024/10/04  
-**Description:** Introducing the `STFTSpectrogram` layer to extract spectrograms for audio classification.
+**{{< t f_author >}}** [Mostafa M. Amin](https://mostafa-amin.com)  
+**{{< t f_date_created >}}** 2024/10/04  
+**{{< t f_last_modified >}}** 2024/10/04  
+**{{< t f_description >}}** Introducing the `STFTSpectrogram` layer to extract spectrograms for audio classification.
 
 {{< keras/version v=2 >}}
 

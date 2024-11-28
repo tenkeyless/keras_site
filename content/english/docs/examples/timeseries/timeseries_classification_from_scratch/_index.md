@@ -7,10 +7,10 @@ type: docs
 
 {{< keras/original checkedAt="2024-11-22" >}}
 
-**Author:** [hfawaz](https://github.com/hfawaz/)  
-**Date created:** 2020/07/21  
-**Last modified:** 2023/11/10  
-**Description:** Training a timeseries classifier from scratch on the FordA dataset from the UCR/UEA archive.
+**{{< t f_author >}}** [hfawaz](https://github.com/hfawaz/)  
+**{{< t f_date_created >}}** 2020/07/21  
+**{{< t f_last_modified >}}** 2023/11/10  
+**{{< t f_description >}}** Training a timeseries classifier from scratch on the FordA dataset from the UCR/UEA archive.
 
 {{< keras/version v=3 >}}
 

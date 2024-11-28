@@ -7,10 +7,10 @@ type: docs
 
 {{< keras/original checkedAt="2024-11-22" >}}
 
-**Author:** [András Béres](https://www.linkedin.com/in/andras-beres-789190210)  
-**Date created:** 2022/06/24  
-**Last modified:** 2022/06/24  
-**Description:** Generating images of flowers with denoising diffusion implicit models.
+**{{< t f_author >}}** [András Béres](https://www.linkedin.com/in/andras-beres-789190210)  
+**{{< t f_date_created >}}** 2022/06/24  
+**{{< t f_last_modified >}}** 2022/06/24  
+**{{< t f_description >}}** Generating images of flowers with denoising diffusion implicit models.
 
 {{< keras/version v=3 >}}
 

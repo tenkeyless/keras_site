@@ -7,10 +7,10 @@ type: docs
 
 {{< keras/original checkedAt="2024-11-21" >}}
 
-**Author:** Gitesh Chawda  
-**Date created:** 2022/09/05  
-**Last modified:** 2022/09/05  
-**Description:** Using Tensorflow Decision Forests for text classification.
+**{{< t f_author >}}** Gitesh Chawda  
+**{{< t f_date_created >}}** 2022/09/05  
+**{{< t f_last_modified >}}** 2022/09/05  
+**{{< t f_description >}}** Using Tensorflow Decision Forests for text classification.
 
 {{< keras/version v=2 >}}
 

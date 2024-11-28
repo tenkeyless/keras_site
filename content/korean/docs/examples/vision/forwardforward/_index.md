@@ -7,10 +7,10 @@ type: docs
 
 {{< keras/original checkedAt="2024-11-21" >}}
 
-**Author:** [Suvaditya Mukherjee](https://twitter.com/halcyonrayes)  
-**Date created:** 2023/01/08  
-**Last modified:** 2024/09/17  
-**Description:** Training a Dense-layer model using the Forward-Forward algorithm.
+**{{< t f_author >}}** [Suvaditya Mukherjee](https://twitter.com/halcyonrayes)  
+**{{< t f_date_created >}}** 2023/01/08  
+**{{< t f_last_modified >}}** 2024/09/17  
+**{{< t f_description >}}** Training a Dense-layer model using the Forward-Forward algorithm.
 
 {{< keras/version v=2 >}}
 

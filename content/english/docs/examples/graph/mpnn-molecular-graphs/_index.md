@@ -7,10 +7,10 @@ type: docs
 
 {{< keras/original checkedAt="2024-11-24" >}}
 
-**Author:** [akensert](http://github.com/akensert)  
-**Date created:** 2021/08/16  
-**Last modified:** 2021/12/27  
-**Description:** Implementation of an MPNN to predict blood-brain barrier permeability.
+**{{< t f_author >}}** [akensert](http://github.com/akensert)  
+**{{< t f_date_created >}}** 2021/08/16  
+**{{< t f_last_modified >}}** 2021/12/27  
+**{{< t f_description >}}** Implementation of an MPNN to predict blood-brain barrier permeability.
 
 {{< keras/version v=2 >}}
 

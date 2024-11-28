@@ -7,10 +7,10 @@ type: docs
 
 {{< keras/original checkedAt="2024-11-21" >}}
 
-**Author:** [Smerity](https://twitter.com/Smerity) and others  
-**Date created:** 2015/08/17  
-**Last modified:** 2024/02/13  
-**Description:** A model that learns to add strings of numbers, e.g. "535+61" -> "596".
+**{{< t f_author >}}** [Smerity](https://twitter.com/Smerity) and others  
+**{{< t f_date_created >}}** 2015/08/17  
+**{{< t f_last_modified >}}** 2024/02/13  
+**{{< t f_description >}}** A model that learns to add strings of numbers, e.g. "535+61" -> "596".
 
 {{< keras/version v=3 >}}
 

@@ -7,10 +7,10 @@ type: docs
 
 {{< keras/original checkedAt="2024-11-22" >}}
 
-**Author:** [Arash Khodadadi](https://www.linkedin.com/in/arash-khodadadi-08a02490/)  
-**Date created:** 2021/12/28  
-**Last modified:** 2023/11/22  
-**Description:** This example demonstrates how to do timeseries forecasting over graphs.
+**{{< t f_author >}}** [Arash Khodadadi](https://www.linkedin.com/in/arash-khodadadi-08a02490/)  
+**{{< t f_date_created >}}** 2021/12/28  
+**{{< t f_last_modified >}}** 2023/11/22  
+**{{< t f_description >}}** This example demonstrates how to do timeseries forecasting over graphs.
 
 {{< keras/version v=3 >}}
 

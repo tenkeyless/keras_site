@@ -7,10 +7,10 @@ type: docs
 
 {{< keras/original checkedAt="2024-11-19" >}}
 
-**Author:** [fchollet](https://twitter.com/fchollet)  
-**Date created:** 2020/04/27  
-**Last modified:** 2023/11/09  
-**Description:** Training an image classifier from scratch on the Kaggle Cats vs Dogs dataset.
+**{{< t f_author >}}** [fchollet](https://twitter.com/fchollet)  
+**{{< t f_date_created >}}** 2020/04/27  
+**{{< t f_last_modified >}}** 2023/11/09  
+**{{< t f_description >}}** Training an image classifier from scratch on the Kaggle Cats vs Dogs dataset.
 
 {{< keras/version v=3 >}}
 

@@ -7,10 +7,10 @@ type: docs
 
 {{< keras/original checkedAt="2024-11-21" >}}
 
-**Author:** [Abheesht Sharma](https://github.com/abheesht17/)  
-**Date created:** 2022/06/01  
-**Last modified:** 2022/12/21  
-**Description:** Text Classification on the IMDb Dataset using [`keras_hub.layers.FNetEncoder`]({{< relref "/docs/api/keras_hub/modeling_layers/fnet_encoder#fnetencoder-class" >}}) layer.
+**{{< t f_author >}}** [Abheesht Sharma](https://github.com/abheesht17/)  
+**{{< t f_date_created >}}** 2022/06/01  
+**{{< t f_last_modified >}}** 2022/12/21  
+**{{< t f_description >}}** Text Classification on the IMDb Dataset using [`keras_hub.layers.FNetEncoder`]({{< relref "/docs/api/keras_hub/modeling_layers/fnet_encoder#fnetencoder-class" >}}) layer.
 
 {{< keras/version v=3 >}}
 

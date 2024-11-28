@@ -8,10 +8,10 @@ type: docs
 
 {{< keras/original checkedAt="2024-11-18" >}}
 
-**Author:** Neel Kovelamudi  
-**Date created:** 2023/03/15  
-**Last modified:** 2023/03/15  
-**Description:** A more advanced guide on customizing saving for your layers and models.
+**{{< t f_author >}}** Neel Kovelamudi  
+**{{< t f_date_created >}}** 2023/03/15  
+**{{< t f_last_modified >}}** 2023/03/15  
+**{{< t f_description >}}** A more advanced guide on customizing saving for your layers and models.
 
 {{< cards cols="2" >}}
 {{< card link="https://colab.research.google.com/github/keras-team/keras-io/blob/master/guides/ipynb/customizing_saving_and_serialization.ipynb" title="Colab" tag="Colab" tagType="warning">}}

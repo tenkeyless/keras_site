@@ -7,10 +7,10 @@ type: docs
 
 {{< keras/original checkedAt="2024-11-23" >}}
 
-**Author:** [fchollet](https://twitter.com/fchollet)  
-**Date created:** 2016/01/11  
-**Last modified:** 2020/05/02  
-**Description:** Transferring the style of a reference image to target image using gradient descent.
+**{{< t f_author >}}** [fchollet](https://twitter.com/fchollet)  
+**{{< t f_date_created >}}** 2016/01/11  
+**{{< t f_last_modified >}}** 2020/05/02  
+**{{< t f_description >}}** Transferring the style of a reference image to target image using gradient descent.
 
 {{< keras/version v=3 >}}
 

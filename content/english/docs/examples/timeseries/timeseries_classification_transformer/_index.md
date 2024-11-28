@@ -7,10 +7,10 @@ type: docs
 
 {{< keras/original checkedAt="2024-11-22" >}}
 
-**Author:** [Theodoros Ntakouris](https://github.com/ntakouris)  
-**Date created:** 2021/06/25  
-**Last modified:** 2021/08/05  
-**Description:** This notebook demonstrates how to do timeseries classification using a Transformer model.
+**{{< t f_author >}}** [Theodoros Ntakouris](https://github.com/ntakouris)  
+**{{< t f_date_created >}}** 2021/06/25  
+**{{< t f_last_modified >}}** 2021/08/05  
+**{{< t f_description >}}** This notebook demonstrates how to do timeseries classification using a Transformer model.
 
 {{< keras/version v=3 >}}
 

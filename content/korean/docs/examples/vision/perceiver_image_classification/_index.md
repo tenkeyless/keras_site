@@ -7,10 +7,10 @@ type: docs
 
 {{< keras/original checkedAt="2024-11-20" >}}
 
-**Author:** [Khalid Salama](https://www.linkedin.com/in/khalid-salama-24403144/)  
-**Date created:** 2021/04/30  
-**Last modified:** 2023/12/30  
-**Description:** Implementing the Perceiver model for image classification.
+**{{< t f_author >}}** [Khalid Salama](https://www.linkedin.com/in/khalid-salama-24403144/)  
+**{{< t f_date_created >}}** 2021/04/30  
+**{{< t f_last_modified >}}** 2023/12/30  
+**{{< t f_description >}}** Implementing the Perceiver model for image classification.
 
 {{< keras/version v=3 >}}
 

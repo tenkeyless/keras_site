@@ -7,10 +7,10 @@ type: docs
 
 {{< keras/original checkedAt="2024-11-22" >}}
 
-**Author:** [A_K_Nain](https://twitter.com/A_K_Nain)  
-**Date created:** 2022/11/30  
-**Last modified:** 2022/12/07  
-**Description:** Generating images of flowers with denoising diffusion probabilistic models.
+**{{< t f_author >}}** [A_K_Nain](https://twitter.com/A_K_Nain)  
+**{{< t f_date_created >}}** 2022/11/30  
+**{{< t f_last_modified >}}** 2022/12/07  
+**{{< t f_description >}}** Generating images of flowers with denoising diffusion probabilistic models.
 
 {{< keras/version v=2 >}}
 

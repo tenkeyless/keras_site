@@ -7,10 +7,10 @@ type: docs
 
 {{< keras/original checkedAt="2024-11-20" >}}
 
-**Author:** [Sayak Paul](https://twitter.com/RisingSayak)  
-**Date created:** 2021/10/12  
-**Last modified:** 2021/10/12  
-**Description:** An all-convolutional network applied to patches of images.
+**{{< t f_author >}}** [Sayak Paul](https://twitter.com/RisingSayak)  
+**{{< t f_date_created >}}** 2021/10/12  
+**{{< t f_last_modified >}}** 2021/10/12  
+**{{< t f_description >}}** An all-convolutional network applied to patches of images.
 
 {{< keras/version v=3 >}}
 

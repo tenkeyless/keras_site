@@ -7,10 +7,10 @@ type: docs
 
 {{< keras/original checkedAt="2024-11-21" >}}
 
-**Author:** [Sayak Paul](https://twitter.com/RisingSayak), [Soumik Rakshit](https://github.com/soumik12345)  
-**Date created:** 2020/09/25  
-**Last modified:** 2020/12/23  
-**Description:** Implementing a large-scale multi-label text classification model.
+**{{< t f_author >}}** [Sayak Paul](https://twitter.com/RisingSayak), [Soumik Rakshit](https://github.com/soumik12345)  
+**{{< t f_date_created >}}** 2020/09/25  
+**{{< t f_last_modified >}}** 2020/12/23  
+**{{< t f_description >}}** Implementing a large-scale multi-label text classification model.
 
 {{< keras/version v=2 >}}
 

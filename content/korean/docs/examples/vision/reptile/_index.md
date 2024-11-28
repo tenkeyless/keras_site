@@ -7,10 +7,10 @@ type: docs
 
 {{< keras/original checkedAt="2024-11-20" >}}
 
-**Author:** [ADMoreau](https://github.com/ADMoreau)  
-**Date created:** 2020/05/21  
-**Last modified:** 2023/07/20  
-**Description:** Few-shot classification on the Omniglot dataset using Reptile.
+**{{< t f_author >}}** [ADMoreau](https://github.com/ADMoreau)  
+**{{< t f_date_created >}}** 2020/05/21  
+**{{< t f_last_modified >}}** 2023/07/20  
+**{{< t f_description >}}** Few-shot classification on the Omniglot dataset using Reptile.
 
 {{< keras/version v=3 >}}
 

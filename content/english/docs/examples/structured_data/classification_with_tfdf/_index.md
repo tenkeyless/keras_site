@@ -7,10 +7,10 @@ type: docs
 
 {{< keras/original checkedAt="2024-11-22" >}}
 
-**Author:** [Khalid Salama](https://www.linkedin.com/in/khalid-salama-24403144/)  
-**Date created:** 2022/01/25  
-**Last modified:** 2022/01/25  
-**Description:** Using TensorFlow Decision Forests for structured data classification.
+**{{< t f_author >}}** [Khalid Salama](https://www.linkedin.com/in/khalid-salama-24403144/)  
+**{{< t f_date_created >}}** 2022/01/25  
+**{{< t f_last_modified >}}** 2022/01/25  
+**{{< t f_description >}}** Using TensorFlow Decision Forests for structured data classification.
 
 {{< keras/version v=2 >}}
 

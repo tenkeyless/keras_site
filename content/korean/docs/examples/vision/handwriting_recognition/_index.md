@@ -8,9 +8,9 @@ type: docs
 {{< keras/original checkedAt="2024-11-20" >}}
 
 **Authors:** [A_K_Nain](https://twitter.com/A_K_Nain), [Sayak Paul](https://twitter.com/RisingSayak)  
-**Date created:** 2021/08/16  
-**Last modified:** 2024/09/01  
-**Description:** Training a handwriting recognition model with variable-length sequences.
+**{{< t f_date_created >}}** 2021/08/16  
+**{{< t f_last_modified >}}** 2024/09/01  
+**{{< t f_description >}}** Training a handwriting recognition model with variable-length sequences.
 
 {{< keras/version v=3 >}}
 

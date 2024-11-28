@@ -7,10 +7,10 @@ type: docs
 
 {{< keras/original checkedAt="2024-11-24" >}}
 
-**Author:** Martin Görner  
-**Date created:** 2023/12/13  
-**Last modified:** 2023/12/13  
-**Description:** When sharing your deep learning models, package them using the Functional Subclassing pattern.
+**{{< t f_author >}}** Martin Görner  
+**{{< t f_date_created >}}** 2023/12/13  
+**{{< t f_last_modified >}}** 2023/12/13  
+**{{< t f_description >}}** When sharing your deep learning models, package them using the Functional Subclassing pattern.
 
 {{< keras/version v=3 >}}
 

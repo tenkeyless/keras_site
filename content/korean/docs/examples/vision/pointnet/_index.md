@@ -7,10 +7,10 @@ type: docs
 
 {{< keras/original checkedAt="2024-11-20" >}}
 
-**Author:** [David Griffiths](https://dgriffiths3.github.io)  
-**Date created:** 2020/05/25  
-**Last modified:** 2024/01/09  
-**Description:** Implementation of PointNet for ModelNet10 classification.
+**{{< t f_author >}}** [David Griffiths](https://dgriffiths3.github.io)  
+**{{< t f_date_created >}}** 2020/05/25  
+**{{< t f_last_modified >}}** 2024/01/09  
+**{{< t f_description >}}** Implementation of PointNet for ModelNet10 classification.
 
 {{< keras/version v=3 >}}
 

@@ -8,9 +8,9 @@ type: docs
 {{< keras/original checkedAt="2024-11-22" >}}
 
 **Authors:** Ian Stenbit, [fchollet](https://twitter.com/fchollet), [lukewood](https://twitter.com/luke_wood_ml)  
-**Date created:** 2022/09/28  
-**Last modified:** 2022/09/28  
-**Description:** Explore the latent manifold of Stable Diffusion.
+**{{< t f_date_created >}}** 2022/09/28  
+**{{< t f_last_modified >}}** 2022/09/28  
+**{{< t f_description >}}** Explore the latent manifold of Stable Diffusion.
 
 {{< keras/version v=3 >}}
 

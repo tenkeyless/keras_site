@@ -7,10 +7,10 @@ type: docs
 
 {{< keras/original checkedAt="2024-11-21" >}}
 
-**Author:** [Sayak Paul](https://twitter.com/RisingSayak)  
-**Date created:** 2021/08/08  
-**Last modified:** 2021/08/15  
-**Description:** Training a multimodal model for predicting entailment.
+**{{< t f_author >}}** [Sayak Paul](https://twitter.com/RisingSayak)  
+**{{< t f_date_created >}}** 2021/08/08  
+**{{< t f_last_modified >}}** 2021/08/15  
+**{{< t f_description >}}** Training a multimodal model for predicting entailment.
 
 {{< keras/version v=2 >}}
 

@@ -7,10 +7,10 @@ type: docs
 
 {{< keras/original checkedAt="2024-11-20" >}}
 
-**Author:** [A_K_Nain](https://twitter.com/A_K_Nain)  
-**Date created:** 2020/06/14  
-**Last modified:** 2024/03/13  
-**Description:** How to implement an OCR model using CNNs, RNNs and CTC loss.
+**{{< t f_author >}}** [A_K_Nain](https://twitter.com/A_K_Nain)  
+**{{< t f_date_created >}}** 2020/06/14  
+**{{< t f_last_modified >}}** 2024/03/13  
+**{{< t f_description >}}** How to implement an OCR model using CNNs, RNNs and CTC loss.
 
 {{< keras/version v=3 >}}
 

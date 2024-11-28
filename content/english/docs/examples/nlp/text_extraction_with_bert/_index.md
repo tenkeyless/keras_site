@@ -7,10 +7,10 @@ type: docs
 
 {{< keras/original checkedAt="2024-11-21" >}}
 
-**Author:** [Apoorv Nandan](https://twitter.com/NandanApoorv)  
-**Date created:** 2020/05/23  
-**Last modified:** 2020/05/23  
-**Description:** Fine tune pretrained BERT from HuggingFace Transformers on SQuAD.
+**{{< t f_author >}}** [Apoorv Nandan](https://twitter.com/NandanApoorv)  
+**{{< t f_date_created >}}** 2020/05/23  
+**{{< t f_last_modified >}}** 2020/05/23  
+**{{< t f_description >}}** Fine tune pretrained BERT from HuggingFace Transformers on SQuAD.
 
 {{< keras/version v=2 >}}
 

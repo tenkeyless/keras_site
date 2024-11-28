@@ -7,10 +7,10 @@ type: docs
 
 {{< keras/original checkedAt="2024-11-21" >}}
 
-**Author:** [Sayak Paul](https://twitter.com/RisingSayak)  
-**Date created:** 2021/04/13  
-**Last modified:** 2021/04/19  
-**Description:** Training with consistency regularization for robustness against data distribution shifts.
+**{{< t f_author >}}** [Sayak Paul](https://twitter.com/RisingSayak)  
+**{{< t f_date_created >}}** 2021/04/13  
+**{{< t f_last_modified >}}** 2021/04/19  
+**{{< t f_description >}}** Training with consistency regularization for robustness against data distribution shifts.
 
 {{< keras/version v=2 >}}
 

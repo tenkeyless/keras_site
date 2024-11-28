@@ -7,10 +7,10 @@ type: docs
 
 {{< keras/original checkedAt="2024-11-23" >}}
 
-**Author:** [Apoorv Nandan](https://twitter.com/NandanApoorv)  
-**Date created:** 2020/05/29  
-**Last modified:** 2020/05/29  
-**Description:** Implement a miniature version of GPT and train it to generate text.
+**{{< t f_author >}}** [Apoorv Nandan](https://twitter.com/NandanApoorv)  
+**{{< t f_date_created >}}** 2020/05/29  
+**{{< t f_last_modified >}}** 2020/05/29  
+**{{< t f_description >}}** Implement a miniature version of GPT and train it to generate text.
 
 {{< keras/version v=3 >}}
 

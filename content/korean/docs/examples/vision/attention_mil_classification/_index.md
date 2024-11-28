@@ -9,10 +9,10 @@ math: true
 
 {{< keras/original checkedAt="2024-11-19" >}}
 
-**Author:** [Mohamad Jaber](https://www.linkedin.com/in/mohamadjaber1/)  
-**Date created:** 2021/08/16  
-**Last modified:** 2021/11/25  
-**Description:** MIL approach to classify bags of instances and get their individual instance score.
+**{{< t f_author >}}** [Mohamad Jaber](https://www.linkedin.com/in/mohamadjaber1/)  
+**{{< t f_date_created >}}** 2021/08/16  
+**{{< t f_last_modified >}}** 2021/11/25  
+**{{< t f_description >}}** MIL approach to classify bags of instances and get their individual instance score.
 
 {{< keras/version v=3 >}}
 

@@ -7,10 +7,10 @@ type: docs
 
 {{< keras/original checkedAt="2024-11-24" >}}
 
-**Author:** [fchollet](https://twitter.com/fchollet)  
-**Date created:** 2020/05/16  
-**Last modified:** 2023/11/16  
-**Description:** Four simple tips to help you debug your Keras code.
+**{{< t f_author >}}** [fchollet](https://twitter.com/fchollet)  
+**{{< t f_date_created >}}** 2020/05/16  
+**{{< t f_last_modified >}}** 2023/11/16  
+**{{< t f_description >}}** Four simple tips to help you debug your Keras code.
 
 {{< keras/version v=3 >}}
 

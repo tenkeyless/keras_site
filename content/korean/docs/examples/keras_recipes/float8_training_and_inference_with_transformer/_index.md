@@ -7,10 +7,10 @@ type: docs
 
 {{< keras/original checkedAt="2024-11-24" >}}
 
-**Author:** [Hongyu Chiu](https://github.com/james77777778)  
-**Date created:** 2024/05/14  
-**Last modified:** 2024/05/14  
-**Description:** Train a simple Transformer model with the float8 quantization.
+**{{< t f_author >}}** [Hongyu Chiu](https://github.com/james77777778)  
+**{{< t f_date_created >}}** 2024/05/14  
+**{{< t f_last_modified >}}** 2024/05/14  
+**{{< t f_description >}}** Train a simple Transformer model with the float8 quantization.
 
 {{< keras/version v=3 >}}
 

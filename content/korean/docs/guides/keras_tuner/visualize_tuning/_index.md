@@ -8,10 +8,10 @@ type: docs
 
 {{< keras/original checkedAt="2024-11-19" >}}
 
-**Author:** Haifeng Jin  
-**Date created:** 2021/06/25  
-**Last modified:** 2021/06/05  
-**Description:** Using TensorBoard to visualize the hyperparameter tuning process in KerasTuner.
+**{{< t f_author >}}** Haifeng Jin  
+**{{< t f_date_created >}}** 2021/06/25  
+**{{< t f_last_modified >}}** 2021/06/05  
+**{{< t f_description >}}** Using TensorBoard to visualize the hyperparameter tuning process in KerasTuner.
 
 {{< cards cols="2" >}}
 {{< card link="https://colab.research.google.com/github/keras-team/keras-io/blob/master/guides/ipynb/keras_tuner/visualize_tuning.ipynb" title="Colab" tag="Colab" tagType="warning">}}

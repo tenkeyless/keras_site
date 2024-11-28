@@ -7,10 +7,10 @@ type: docs
 
 {{< keras/original checkedAt="2024-11-24" >}}
 
-**Author:** [lukewood](https://lukewood.xyz)  
-**Date created:** 2021/08/28  
-**Last modified:** 2021/08/28  
-**Description:** Overview of how to use the TensorFlow NumPy API to write Keras models.
+**{{< t f_author >}}** [lukewood](https://lukewood.xyz)  
+**{{< t f_date_created >}}** 2021/08/28  
+**{{< t f_last_modified >}}** 2021/08/28  
+**{{< t f_description >}}** Overview of how to use the TensorFlow NumPy API to write Keras models.
 
 {{< keras/version v=3 >}}
 

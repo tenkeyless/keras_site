@@ -7,10 +7,10 @@ type: docs
 
 {{< keras/original checkedAt="2024-11-23" >}}
 
-**Author:** [Ilias Chrysovergis](https://twitter.com/iliachry)  
-**Date created:** 2021/06/24  
-**Last modified:** 2024/03/12  
-**Description:** Implementation of a Proximal Policy Optimization agent for the CartPole-v1 environment.
+**{{< t f_author >}}** [Ilias Chrysovergis](https://twitter.com/iliachry)  
+**{{< t f_date_created >}}** 2021/06/24  
+**{{< t f_last_modified >}}** 2024/03/12  
+**{{< t f_description >}}** Implementation of a Proximal Policy Optimization agent for the CartPole-v1 environment.
 
 {{< keras/version v=3 >}}
 

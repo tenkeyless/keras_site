@@ -9,9 +9,9 @@ type: docs
 {{< keras/original checkedAt="2024-11-18" >}}
 
 **Authors:** Tom O'Malley, Haifeng Jin  
-**Date created:** 2019/10/28  
-**Last modified:** 2022/01/12  
-**Description:** Use `HyperModel.fit()` to tune training hyperparameters (such as batch size).
+**{{< t f_date_created >}}** 2019/10/28  
+**{{< t f_last_modified >}}** 2022/01/12  
+**{{< t f_description >}}** Use `HyperModel.fit()` to tune training hyperparameters (such as batch size).
 
 {{< cards cols="2" >}}
 {{< card link="https://colab.research.google.com/github/keras-team/keras-io/blob/master/guides/ipynb/keras_tuner/custom_tuner.ipynb" title="Colab" tag="Colab" tagType="warning">}}

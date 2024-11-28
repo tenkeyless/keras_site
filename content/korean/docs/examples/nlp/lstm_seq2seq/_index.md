@@ -7,10 +7,10 @@ type: docs
 
 {{< keras/original checkedAt="2024-11-21" >}}
 
-**Author:** [fchollet](https://twitter.com/fchollet)  
-**Date created:** 2017/09/29  
-**Last modified:** 2023/11/22  
-**Description:** Character-level recurrent sequence-to-sequence model.
+**{{< t f_author >}}** [fchollet](https://twitter.com/fchollet)  
+**{{< t f_date_created >}}** 2017/09/29  
+**{{< t f_last_modified >}}** 2023/11/22  
+**{{< t f_description >}}** Character-level recurrent sequence-to-sequence model.
 
 {{< keras/version v=3 >}}
 

@@ -7,10 +7,10 @@ type: docs
 
 {{< keras/original checkedAt="2024-11-21" >}}
 
-**Author:** [Abheesht Sharma](https://github.com/abheesht17/)  
-**Date created:** 2023/07/08  
-**Last modified:** 2024/03/20  
-**Description:** Use KerasHub to fine-tune BART on the abstractive summarization task.
+**{{< t f_author >}}** [Abheesht Sharma](https://github.com/abheesht17/)  
+**{{< t f_date_created >}}** 2023/07/08  
+**{{< t f_last_modified >}}** 2024/03/20  
+**{{< t f_description >}}** Use KerasHub to fine-tune BART on the abstractive summarization task.
 
 {{< keras/version v=3 >}}
 

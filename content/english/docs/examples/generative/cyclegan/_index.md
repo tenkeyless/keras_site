@@ -7,10 +7,10 @@ type: docs
 
 {{< keras/original checkedAt="2024-11-23" >}}
 
-**Author:** [A_K_Nain](https://twitter.com/A_K_Nain)  
-**Date created:** 2020/08/12  
-**Last modified:** 2024/09/30  
-**Description:** Implementation of CycleGAN.
+**{{< t f_author >}}** [A_K_Nain](https://twitter.com/A_K_Nain)  
+**{{< t f_date_created >}}** 2020/08/12  
+**{{< t f_last_modified >}}** 2024/09/30  
+**{{< t f_description >}}** Implementation of CycleGAN.
 
 {{< keras/version v=3 >}}
 

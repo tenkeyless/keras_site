@@ -8,9 +8,9 @@ type: docs
 {{< keras/original checkedAt="2024-11-22" >}}
 
 **Authors:** [Prabhanshu Attri](https://prabhanshu.com/github), [Yashika Sharma](https://github.com/yashika51), [Kristi Takach](https://github.com/ktakattack), [Falak Shah](https://github.com/falaktheoptimist)  
-**Date created:** 2020/06/23  
-**Last modified:** 2023/11/22  
-**Description:** This notebook demonstrates how to do timeseries forecasting using a LSTM model.
+**{{< t f_date_created >}}** 2020/06/23  
+**{{< t f_last_modified >}}** 2023/11/22  
+**{{< t f_description >}}** This notebook demonstrates how to do timeseries forecasting using a LSTM model.
 
 {{< keras/version v=3 >}}
 

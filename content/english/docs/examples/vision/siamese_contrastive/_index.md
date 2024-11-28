@@ -7,10 +7,10 @@ type: docs
 
 {{< keras/original checkedAt="2024-11-21" >}}
 
-**Author:** Mehdi  
-**Date created:** 2021/05/06  
-**Last modified:** 2022/09/10  
-**Description:** Similarity learning using a siamese network trained with a contrastive loss.
+**{{< t f_author >}}** Mehdi  
+**{{< t f_date_created >}}** 2021/05/06  
+**{{< t f_last_modified >}}** 2022/09/10  
+**{{< t f_description >}}** Similarity learning using a siamese network trained with a contrastive loss.
 
 {{< keras/version v=3 >}}
 

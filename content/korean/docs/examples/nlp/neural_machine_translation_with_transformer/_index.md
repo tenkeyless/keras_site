@@ -7,10 +7,10 @@ type: docs
 
 {{< keras/original checkedAt="2024-11-21" >}}
 
-**Author:** [fchollet](https://twitter.com/fchollet)  
-**Date created:** 2021/05/26  
-**Last modified:** 2023/02/25  
-**Description:** Implementing a sequence-to-sequence Transformer and training it on a machine translation task.
+**{{< t f_author >}}** [fchollet](https://twitter.com/fchollet)  
+**{{< t f_date_created >}}** 2021/05/26  
+**{{< t f_last_modified >}}** 2023/02/25  
+**{{< t f_description >}}** Implementing a sequence-to-sequence Transformer and training it on a machine translation task.
 
 {{< keras/version v=3 >}}
 

@@ -7,10 +7,10 @@ type: docs
 
 {{< keras/original checkedAt="2024-11-20" >}}
 
-**Author:** [Rishit Dagli](https://twitter.com/rishit_dagli)  
-**Date created:** 2021/09/08  
-**Last modified:** 2021/09/08  
-**Description:** Image classification using Swin Transformers, a general-purpose backbone for computer vision.
+**{{< t f_author >}}** [Rishit Dagli](https://twitter.com/rishit_dagli)  
+**{{< t f_date_created >}}** 2021/09/08  
+**{{< t f_last_modified >}}** 2021/09/08  
+**{{< t f_description >}}** Image classification using Swin Transformers, a general-purpose backbone for computer vision.
 
 {{< keras/version v=3 >}}
 

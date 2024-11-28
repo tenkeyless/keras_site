@@ -8,10 +8,10 @@ type: docs
 
 {{< keras/original checkedAt="2024-11-19" >}}
 
-**Author:** Tirth Patel, Ian Stenbit  
-**Date created:** 2023/12/04  
-**Last modified:** 2023/12/19  
-**Description:** Segment anything using text, box, and points prompts in KerasCV.
+**{{< t f_author >}}** Tirth Patel, Ian Stenbit  
+**{{< t f_date_created >}}** 2023/12/04  
+**{{< t f_last_modified >}}** 2023/12/19  
+**{{< t f_description >}}** Segment anything using text, box, and points prompts in KerasCV.
 
 {{< cards cols="2" >}}
 {{< card link="https://colab.research.google.com/github/keras-team/keras-io/blob/master/guides/ipynb/keras_cv/segment_anything_in_keras_cv.ipynb" title="Colab" tag="Colab" tagType="warning">}}

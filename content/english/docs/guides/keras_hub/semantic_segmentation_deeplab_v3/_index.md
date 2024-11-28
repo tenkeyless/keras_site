@@ -9,9 +9,9 @@ type: docs
 {{< keras/original checkedAt="2024-11-19" >}}
 
 **Authors:** [Sachin Prasad](https://github.com/sachinprasadhs), [Divyashree Sreepathihalli](https://github.com/divyashreepathihalli), [Ian Stenbit](https://github.com/ianstenbit)  
-**Date created:** 2024/10/11  
-**Last modified:** 2024/10/22  
-**Description:** DeepLabV3 training and inference with KerasHub.
+**{{< t f_date_created >}}** 2024/10/11  
+**{{< t f_last_modified >}}** 2024/10/22  
+**{{< t f_description >}}** DeepLabV3 training and inference with KerasHub.
 
 {{< cards cols="2" >}}
 {{< card link="https://colab.research.google.com/github/keras-team/keras-io/blob/master/guides/ipynb/keras_hub/semantic_segmentation_deeplab_v3.ipynb" title="Colab" tag="Colab" tagType="warning">}}

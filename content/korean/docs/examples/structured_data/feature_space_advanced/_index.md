@@ -7,10 +7,10 @@ type: docs
 
 {{< keras/original checkedAt="2024-11-22" >}}
 
-**Author:** [Dimitre Oliveira](https://www.linkedin.com/in/dimitre-oliveira-7a1a0113a/)  
-**Date created:** 2023/07/01  
-**Last modified:** 2023/07/01  
-**Description:** How to use FeatureSpace for advanced preprocessing use cases.
+**{{< t f_author >}}** [Dimitre Oliveira](https://www.linkedin.com/in/dimitre-oliveira-7a1a0113a/)  
+**{{< t f_date_created >}}** 2023/07/01  
+**{{< t f_last_modified >}}** 2023/07/01  
+**{{< t f_description >}}** How to use FeatureSpace for advanced preprocessing use cases.
 
 {{< keras/version v=3 >}}
 

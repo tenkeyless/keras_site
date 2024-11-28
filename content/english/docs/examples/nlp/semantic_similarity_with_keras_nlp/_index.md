@@ -7,10 +7,10 @@ type: docs
 
 {{< keras/original checkedAt="2024-11-21" >}}
 
-**Author:** [Anshuman Mishra](https://github.com/shivance/)  
-**Date created:** 2023/02/25  
-**Last modified:** 2023/02/25  
-**Description:** Use pretrained models from KerasNLP for the Semantic Similarity Task.
+**{{< t f_author >}}** [Anshuman Mishra](https://github.com/shivance/)  
+**{{< t f_date_created >}}** 2023/02/25  
+**{{< t f_last_modified >}}** 2023/02/25  
+**{{< t f_description >}}** Use pretrained models from KerasNLP for the Semantic Similarity Task.
 
 {{< keras/version v=3 >}}
 

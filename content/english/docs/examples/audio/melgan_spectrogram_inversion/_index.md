@@ -8,10 +8,10 @@ math: true
 
 {{< keras/original checkedAt="2024-11-23" >}}
 
-**Author:** [Darshan Deshpande](https://twitter.com/getdarshan)  
-**Date created:** 2021/09/02  
-**Last modified:** 2021/09/15  
-**Description:** Inversion of audio from mel-spectrograms using the MelGAN architecture and feature matching.
+**{{< t f_author >}}** [Darshan Deshpande](https://twitter.com/getdarshan)  
+**{{< t f_date_created >}}** 2021/09/02  
+**{{< t f_last_modified >}}** 2021/09/15  
+**{{< t f_description >}}** Inversion of audio from mel-spectrograms using the MelGAN architecture and feature matching.
 
 {{< keras/version v=2 >}}
 

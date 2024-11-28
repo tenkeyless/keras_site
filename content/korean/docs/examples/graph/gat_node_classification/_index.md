@@ -7,10 +7,10 @@ type: docs
 
 {{< keras/original checkedAt="2024-11-24" >}}
 
-**Author:** [akensert](https://github.com/akensert)  
-**Date created:** 2021/09/13  
-**Last modified:** 2021/12/26  
-**Description:** An implementation of a Graph Attention Network (GAT) for node classification.
+**{{< t f_author >}}** [akensert](https://github.com/akensert)  
+**{{< t f_date_created >}}** 2021/09/13  
+**{{< t f_last_modified >}}** 2021/12/26  
+**{{< t f_description >}}** An implementation of a Graph Attention Network (GAT) for node classification.
 
 {{< keras/version v=2 >}}
 

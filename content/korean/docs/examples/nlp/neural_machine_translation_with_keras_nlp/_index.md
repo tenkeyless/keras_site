@@ -7,10 +7,10 @@ type: docs
 
 {{< keras/original checkedAt="2024-11-21" >}}
 
-**Author:** [Abheesht Sharma](https://github.com/abheesht17/)  
-**Date created:** 2022/05/26  
-**Last modified:** 2024/04/30  
-**Description:** Use KerasNLP to train a sequence-to-sequence Transformer model on the machine translation task.
+**{{< t f_author >}}** [Abheesht Sharma](https://github.com/abheesht17/)  
+**{{< t f_date_created >}}** 2022/05/26  
+**{{< t f_last_modified >}}** 2024/04/30  
+**{{< t f_description >}}** Use KerasNLP to train a sequence-to-sequence Transformer model on the machine translation task.
 
 {{< keras/version v=3 >}}
 

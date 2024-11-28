@@ -7,10 +7,10 @@ type: docs
 
 {{< keras/original checkedAt="2024-11-23" >}}
 
-**Author:** [Jesse Chan](https://github.com/jessechancy)  
-**Date created:** 2022/07/25  
-**Last modified:** 2022/07/25  
-**Description:** Using KerasHub to train a mini-GPT model for text generation.
+**{{< t f_author >}}** [Jesse Chan](https://github.com/jessechancy)  
+**{{< t f_date_created >}}** 2022/07/25  
+**{{< t f_last_modified >}}** 2022/07/25  
+**{{< t f_description >}}** Using KerasHub to train a mini-GPT model for text generation.
 
 {{< keras/version v=3 >}}
 

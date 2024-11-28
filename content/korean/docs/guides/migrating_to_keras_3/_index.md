@@ -8,10 +8,10 @@ type: docs
 
 {{< keras/original checkedAt="2024-11-18" >}}
 
-**Author:** [Divyashree Sreepathihalli](https://github.com/divyashreepathihalli)  
-**Date created:** 2023/10/23  
-**Last modified:** 2023/10/30  
-**Description:** Instructions & troubleshooting for migrating your Keras 2 code to multi-backend Keras 3.
+**{{< t f_author >}}** [Divyashree Sreepathihalli](https://github.com/divyashreepathihalli)  
+**{{< t f_date_created >}}** 2023/10/23  
+**{{< t f_last_modified >}}** 2023/10/30  
+**{{< t f_description >}}** Instructions & troubleshooting for migrating your Keras 2 code to multi-backend Keras 3.
 
 {{< cards cols="2" >}}
 {{< card link="https://colab.research.google.com/github/keras-team/keras-io/blob/master/guides/ipynb/migrating_to_keras_3.ipynb" title="Colab" tag="Colab" tagType="warning">}}

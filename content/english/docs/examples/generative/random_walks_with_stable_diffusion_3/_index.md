@@ -8,9 +8,9 @@ type: docs
 {{< keras/original checkedAt="2024-11-23" >}}
 
 **Authors:** [Hongyu Chiu](https://github.com/james77777778), Ian Stenbit, [fchollet](https://twitter.com/fchollet), [lukewood](https://twitter.com/luke_wood_ml)  
-**Date created:** 2024/11/11  
-**Last modified:** 2024/11/11  
-**Description:** Explore the latent manifold of Stable Diffusion 3.
+**{{< t f_date_created >}}** 2024/11/11  
+**{{< t f_last_modified >}}** 2024/11/11  
+**{{< t f_description >}}** Explore the latent manifold of Stable Diffusion 3.
 
 {{< keras/version v=2 >}}
 

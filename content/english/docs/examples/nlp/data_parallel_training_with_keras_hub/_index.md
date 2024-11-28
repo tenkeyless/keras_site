@@ -7,10 +7,10 @@ type: docs
 
 {{< keras/original checkedAt="2024-11-21" >}}
 
-**Author:** Anshuman Mishra  
-**Date created:** 2023/07/07  
-**Last modified:** 2023/07/07  
-**Description:** Data Parallel training with KerasHub and tf.distribute.
+**{{< t f_author >}}** Anshuman Mishra  
+**{{< t f_date_created >}}** 2023/07/07  
+**{{< t f_last_modified >}}** 2023/07/07  
+**{{< t f_description >}}** Data Parallel training with KerasHub and tf.distribute.
 
 {{< keras/version v=3 >}}
 

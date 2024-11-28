@@ -7,10 +7,10 @@ type: docs
 
 {{< keras/original checkedAt="2024-11-23" >}}
 
-**Author:** [Darshan Deshpande](https://twitter.com/getdarshan)  
-**Date created:** 2021/10/05  
-**Last modified:** 2021/10/05  
-**Description:** FNet transformer for text generation in Keras.
+**{{< t f_author >}}** [Darshan Deshpande](https://twitter.com/getdarshan)  
+**{{< t f_date_created >}}** 2021/10/05  
+**{{< t f_last_modified >}}** 2021/10/05  
+**{{< t f_description >}}** FNet transformer for text generation in Keras.
 
 {{< keras/version v=2 >}}
 

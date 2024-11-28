@@ -7,10 +7,10 @@ type: docs
 
 {{< keras/original checkedAt="2024-11-21" >}}
 
-**Author:** [Abheesht Sharma](https://github.com/abheesht17/), [Matthew Watson](https://github.com/mattdangerw/)  
-**Date created:** 2023/05/27  
-**Last modified:** 2023/05/27  
-**Description:** Use KerasHub to fine-tune a GPT-2 LLM with LoRA.
+**{{< t f_author >}}** [Abheesht Sharma](https://github.com/abheesht17/), [Matthew Watson](https://github.com/mattdangerw/)  
+**{{< t f_date_created >}}** 2023/05/27  
+**{{< t f_last_modified >}}** 2023/05/27  
+**{{< t f_description >}}** Use KerasHub to fine-tune a GPT-2 LLM with LoRA.
 
 {{< keras/version v=3 >}}
 

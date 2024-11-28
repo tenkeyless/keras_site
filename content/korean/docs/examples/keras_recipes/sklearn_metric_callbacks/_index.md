@@ -7,10 +7,10 @@ type: docs
 
 {{< keras/original checkedAt="2024-11-24" >}}
 
-**Author:** [lukewood](https://lukewood.xyz)  
-**Date created:** 2021/10/07  
-**Last modified:** 2023/11/17  
-**Description:** This example shows how to use Keras callbacks to evaluate and export non-TensorFlow based metrics.
+**{{< t f_author >}}** [lukewood](https://lukewood.xyz)  
+**{{< t f_date_created >}}** 2021/10/07  
+**{{< t f_last_modified >}}** 2023/11/17  
+**{{< t f_description >}}** This example shows how to use Keras callbacks to evaluate and export non-TensorFlow based metrics.
 
 {{< keras/version v=2 >}}
 

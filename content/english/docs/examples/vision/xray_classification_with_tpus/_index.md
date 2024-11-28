@@ -7,10 +7,10 @@ type: docs
 
 {{< keras/original checkedAt="2024-11-20" >}}
 
-**Author:** Amy MiHyun Jang  
-**Date created:** 2020/07/28  
-**Last modified:** 2024/02/12  
-**Description:** Medical image classification on TPU.
+**{{< t f_author >}}** Amy MiHyun Jang  
+**{{< t f_date_created >}}** 2020/07/28  
+**{{< t f_last_modified >}}** 2024/02/12  
+**{{< t f_description >}}** Medical image classification on TPU.
 
 {{< keras/version v=3 >}}
 

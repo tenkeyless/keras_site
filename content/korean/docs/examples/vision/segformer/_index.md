@@ -7,10 +7,10 @@ type: docs
 
 {{< keras/original checkedAt="2024-11-21" >}}
 
-**Author:** [Sayak Paul](https://twitter.com/RisingSayak)  
-**Date created:** 2023/01/25  
-**Last modified:** 2023/01/29  
-**Description:** Fine-tuning a SegFormer model variant for semantic segmentation.
+**{{< t f_author >}}** [Sayak Paul](https://twitter.com/RisingSayak)  
+**{{< t f_date_created >}}** 2023/01/25  
+**{{< t f_last_modified >}}** 2023/01/29  
+**{{< t f_description >}}** Fine-tuning a SegFormer model variant for semantic segmentation.
 
 {{< keras/version v=2 >}}
 

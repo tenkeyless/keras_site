@@ -7,10 +7,10 @@ type: docs
 
 {{< keras/original checkedAt="2024-11-23" >}}
 
-**Author:** [Sayak Paul](https://twitter.com/RisingSayak)  
-**Date created:** 2021/07/21  
-**Last modified:** 2021/06/27  
-**Description:** Training a VQ-VAE for image reconstruction and codebook sampling for generation.
+**{{< t f_author >}}** [Sayak Paul](https://twitter.com/RisingSayak)  
+**{{< t f_date_created >}}** 2021/07/21  
+**{{< t f_last_modified >}}** 2021/06/27  
+**{{< t f_description >}}** Training a VQ-VAE for image reconstruction and codebook sampling for generation.
 
 {{< keras/version v=2 >}}
 

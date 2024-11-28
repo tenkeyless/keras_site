@@ -7,10 +7,10 @@ type: docs
 
 {{< keras/original checkedAt="2024-11-20" >}}
 
-**Author:** [Santiago L. Valdarrama](https://twitter.com/svpino)  
-**Date created:** 2021/03/01  
-**Last modified:** 2021/03/01  
-**Description:** How to train a deep convolutional autoencoder for image denoising.
+**{{< t f_author >}}** [Santiago L. Valdarrama](https://twitter.com/svpino)  
+**{{< t f_date_created >}}** 2021/03/01  
+**{{< t f_last_modified >}}** 2021/03/01  
+**{{< t f_description >}}** How to train a deep convolutional autoencoder for image denoising.
 
 {{< keras/version v=3 >}}
 

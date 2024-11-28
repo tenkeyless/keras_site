@@ -7,10 +7,10 @@ type: docs
 
 {{< keras/original checkedAt="2024-11-20" >}}
 
-**Author:** [Suvaditya Mukherjee](https://twitter.com/halcyonrayes)  
-**Date created:** 2023/06/16  
-**Last modified:** 2023/12/25  
-**Description:** Using the Fully-Convolutional Network for Image Segmentation.
+**{{< t f_author >}}** [Suvaditya Mukherjee](https://twitter.com/halcyonrayes)  
+**{{< t f_date_created >}}** 2023/06/16  
+**{{< t f_last_modified >}}** 2023/12/25  
+**{{< t f_description >}}** Using the Fully-Convolutional Network for Image Segmentation.
 
 {{< keras/version v=3 >}}
 

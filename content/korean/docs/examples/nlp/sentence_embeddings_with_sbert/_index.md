@@ -7,10 +7,10 @@ type: docs
 
 {{< keras/original checkedAt="2024-11-21" >}}
 
-**Author:** [Mohammed Abu El-Nasr](https://github.com/abuelnasr0)  
-**Date created:** 2023/07/14  
-**Last modified:** 2023/07/14  
-**Description:** Fine-tune a RoBERTa model to generate sentence embeddings using KerasHub.
+**{{< t f_author >}}** [Mohammed Abu El-Nasr](https://github.com/abuelnasr0)  
+**{{< t f_date_created >}}** 2023/07/14  
+**{{< t f_last_modified >}}** 2023/07/14  
+**{{< t f_description >}}** Fine-tune a RoBERTa model to generate sentence embeddings using KerasHub.
 
 {{< keras/version v=3 >}}
 

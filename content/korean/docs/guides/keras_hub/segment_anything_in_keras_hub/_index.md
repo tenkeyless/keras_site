@@ -8,10 +8,10 @@ type: docs
 
 {{< keras/original checkedAt="2024-11-19" >}}
 
-**Author:** Tirth Patel, Ian Stenbit, Divyashree Sreepathihalli  
-**Date created:** 2024/10/1  
-**Last modified:** 2024/10/1  
-**Description:** Segment anything using text, box, and points prompts in KerasHub.
+**{{< t f_author >}}** Tirth Patel, Ian Stenbit, Divyashree Sreepathihalli  
+**{{< t f_date_created >}}** 2024/10/1  
+**{{< t f_last_modified >}}** 2024/10/1  
+**{{< t f_description >}}** Segment anything using text, box, and points prompts in KerasHub.
 
 {{< cards cols="2" >}}
 {{< card link="https://colab.research.google.com/github/keras-team/keras-io/blob/master/guides/ipynb/keras_hub/segment_anything_in_keras_hub.ipynb" title="Colab" tag="Colab" tagType="warning">}}

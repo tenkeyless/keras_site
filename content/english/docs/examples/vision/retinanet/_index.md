@@ -7,10 +7,10 @@ type: docs
 
 {{< keras/original checkedAt="2024-11-20" >}}
 
-**Author:** [Srihari Humbarwadi](https://twitter.com/srihari_rh)  
-**Date created:** 2020/05/17  
-**Last modified:** 2023/07/10  
-**Description:** Implementing RetinaNet: Focal Loss for Dense Object Detection.
+**{{< t f_author >}}** [Srihari Humbarwadi](https://twitter.com/srihari_rh)  
+**{{< t f_date_created >}}** 2020/05/17  
+**{{< t f_last_modified >}}** 2023/07/10  
+**{{< t f_description >}}** Implementing RetinaNet: Focal Loss for Dense Object Detection.
 
 {{< keras/version v=2 >}}
 

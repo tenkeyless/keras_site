@@ -7,10 +7,10 @@ type: docs
 
 {{< keras/original checkedAt="2024-11-20" >}}
 
-**Author:** Md Awsafur Rahman  
-**Date created:** 2023/10/30  
-**Last modified:** 2023/10/30  
-**Description:** Implementation and fine-tuning of Global Context Vision Transformer for image classification.
+**{{< t f_author >}}** Md Awsafur Rahman  
+**{{< t f_date_created >}}** 2023/10/30  
+**{{< t f_last_modified >}}** 2023/10/30  
+**{{< t f_description >}}** Implementation and fine-tuning of Global Context Vision Transformer for image classification.
 
 {{< keras/version v=3 >}}
 

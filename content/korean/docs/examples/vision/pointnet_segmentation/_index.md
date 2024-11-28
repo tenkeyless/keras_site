@@ -7,10 +7,10 @@ type: docs
 
 {{< keras/original checkedAt="2024-11-20" >}}
 
-**Author:** [Soumik Rakshit](https://github.com/soumik12345), [Sayak Paul](https://github.com/sayakpaul)  
-**Date created:** 2020/10/23  
-**Last modified:** 2020/10/24  
-**Description:** Implementation of a PointNet-based model for segmenting point clouds.
+**{{< t f_author >}}** [Soumik Rakshit](https://github.com/soumik12345), [Sayak Paul](https://github.com/sayakpaul)  
+**{{< t f_date_created >}}** 2020/10/23  
+**{{< t f_last_modified >}}** 2020/10/24  
+**{{< t f_description >}}** Implementation of a PointNet-based model for segmenting point clouds.
 
 {{< keras/version v=3 >}}
 

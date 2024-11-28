@@ -1,5 +1,5 @@
 ---
-title: The Functional API
+title: 함수형 API
 toc: true
 weight: 1
 type: docs
@@ -7,17 +7,17 @@ type: docs
 
 {{< keras/original checkedAt="2024-11-18" >}}
 
-**Author:** [fchollet](https://twitter.com/fchollet)  
-**Date created:** 2019/03/01  
-**Last modified:** 2023/06/25  
-**Description:** Complete guide to the functional API.
+**{{< t f_author >}}** [fchollet](https://twitter.com/fchollet)  
+**{{< t f_date_created >}}** 2019/03/01  
+**{{< t f_last_modified >}}** 2023/06/25  
+**{{< t f_description >}}** 함수형 API에 대한 완벽 가이드.
 
 {{< cards cols="2" >}}
 {{< card link="https://colab.research.google.com/github/keras-team/keras-io/blob/master/guides/ipynb/functional_api.ipynb" title="Colab" tag="Colab" tagType="warning">}}
 {{< card link="https://github.com/keras-team/keras-io/blob/master/guides/functional_api.py" title="GitHub" tag="GitHub">}}
 {{< /cards >}}
 
-## Setup
+## 셋업 {#setup}
 
 ```python
 import numpy as np
@@ -26,17 +26,17 @@ from keras import layers
 from keras import ops
 ```
 
-## Introduction
+## 소개 {#introduction}
 
-The Keras functional API is a way to create models that are more flexible than the [`keras.Sequential`]({{< relref "/docs/api/models/sequential#sequential-class" >}}) API. The functional API can handle models with non-linear topology, shared layers, and even multiple inputs or outputs.
+Keras _함수형 API_ 는 [`keras.Sequential`]({{< relref "/docs/api/models/sequential#sequential-class" >}}) API보다 더 유연한 모델을 만드는 방법입니다.
+함수형 API는 비선형 토폴로지, 공유 레이어, 심지어 여러 입력이나 출력이 있는 모델을 다룰 수 있습니다.
 
-The main idea is that a deep learning model is usually a directed acyclic graph (DAG) of layers. So the functional API is a way to build graphs of layers.
+주요 아이디어는 딥러닝 모델이 일반적으로 레이어의 방향성이 있는 비순환 그래프(DAG, directed acyclic graph)라는 것입니다.
+따라서 함수형 API는 _레이어 그래프_ 를 빌드하는 방법입니다.
 
-Consider the following model:
+### 함수형 API 모델 {#functional-api-model}
 
-### Functional API Model
-
-Consider the following model:
+다음 모델을 생각해봅시다.
 
 ```mermaid
 flowchart TD
@@ -55,22 +55,25 @@ flowchart TD
     style N4 fill:#FFD600
 ```
 
-This is a basic graph with three layers. (Yellow `Dense` layers) To build this model using the functional API, start by creating an input node:
+이것은 3개의 레이어(노란색 `Dense` 레이어)가 있는 기본 그래프입니다.
+함수형 API를 사용하여 이 모델을 빌드하려면, 먼저 입력 노드를 만듭니다.
 
 ```python
 inputs = keras.Input(shape=(784,))
 ```
 
-The shape of the data is set as a 784-dimensional vector. The batch size is always omitted since only the shape of each sample is specified.
+데이터 모양은 784차원 벡터로 설정됩니다.
+각 샘플의 모양만 지정되므로, 배치 크기는 항상 생략됩니다.
 
-If, for example, you have an image input with a shape of `(32, 32, 3)`, you would use:
+예를 들어, `(32, 32, 3)` 모양의 이미지 입력이 있는 경우, 다음을 사용합니다.
 
 ```
-# Just for demonstration purposes.
+# 단지 데모 목적입니다.
 img_inputs = keras.Input(shape=(32, 32, 3))
 ```
 
-The `inputs` that is returned contains information about the shape and `dtype` of the input data that you feed to your model. Here's the shape:
+반환된 `inputs`에는 모델에 공급하는 입력 데이터의 모양과 `dtype`에 대한 정보가 들어 있습니다.
+모양은 다음과 같습니다.
 
 ```python
 inputs.shape
@@ -84,7 +87,7 @@ inputs.shape
 
 {{% /details %}}
 
-Here's the dtype:
+dtype은 다음과 같습니다.
 
 ```python
 inputs.dtype
@@ -98,31 +101,32 @@ inputs.dtype
 
 {{% /details %}}
 
-You create a new node in the graph of layers by calling a layer on this `inputs` object:
+이 `inputs` 객체에서 레이어를 호출하여, 레이어 그래프에 새 노드를 만듭니다.
 
 ```python
 dense = layers.Dense(64, activation="relu")
 x = dense(inputs)
 ```
 
-The "layer call" action is like drawing an arrow from "inputs" to this layer you created. You're "passing" the inputs to the `dense` layer, and you get `x` as the output.
+"레이어 호출" 작업은 "inputs"에서 생성한 이 레이어로 화살표를 그리는 것과 같습니다.
+입력을 `dense` 레이어로 "전달"하고, 출력으로 `x`를 얻습니다.
 
-Let's add a few more layers to the graph of layers:
+레이어 그래프에 몇 개의 레이어를 더 추가해 보겠습니다.
 
 ```python
 x = layers.Dense(64, activation="relu")(x)
 outputs = layers.Dense(10)(x)
 ```
 
-At this point, you can create a `Model` by specifying its inputs and outputs in the graph of layers:
+이 시점에서, 그래프 레이어에 입력과 출력을 지정하여 `Model`을 생성할 수 있습니다.
 
 ```python
 model = keras.Model(inputs=inputs, outputs=outputs, name="mnist_model")
 ```
 
-### Model summary & plot
+### 모델 요약 & 플롯 {#model-summary-and-plot}
 
-Let's check out what the model summary looks like:
+모델 요약이 어떤지 살펴보겠습니다.
 
 ```python
 import keras
@@ -163,7 +167,7 @@ Model: "mnist_model"
 
 {{% /details %}}
 
-You can also plot the model as a graph:
+모델을 그래프로 표시할 수도 있습니다.
 
 ```python
 keras.utils.plot_model(model, "my_first_model.png")
@@ -171,7 +175,7 @@ keras.utils.plot_model(model, "my_first_model.png")
 
 ![png](/images/guides/functional_api/model_plot.png)
 
-And, optionally, display the input and output shapes of each layer in the plotted graph:
+그리고, 선택적으로, 플롯된 그래프에 각 레이어의 입력 및 출력 모양을 표시합니다.
 
 ```python
 keras.utils.plot_model(model, "my_first_model_with_shape_info.png", show_shapes=True)
@@ -179,11 +183,12 @@ keras.utils.plot_model(model, "my_first_model_with_shape_info.png", show_shapes=
 
 ![png](/images/guides/functional_api/model_plot-2.png)
 
-This figure and the code are almost identical. In the code version, the connection arrows are replaced by the call operation.
+이 그림과 코드는 거의 동일합니다. 코드 버전에서는, 연결 화살표가 호출 연산으로 대체되었습니다.
 
-A "graph of layers" is an intuitive mental image for a deep learning model, and the functional API is a way to create models that closely mirrors this.
+"레이어 그래프"는 딥러닝 모델에 대한 직관적인 정신적 이미지이며,
+함수형 API는 이를 밀접하게 반영하는 모델을 만드는 방법입니다.
 
-## Training, evaluation, and inference
+## Training, evaluation, and inference {#training-evaluation-and-inference}
 
 Training, evaluation, and inference work exactly in the same way for models built using the functional API as for `Sequential` models.
 
@@ -230,7 +235,7 @@ Test accuracy: 0.9613000154495239
 
 For further reading, see the [training and evaluation]({{< relref "/docs/guides/training_with_built_in_methods" >}}) guide.
 
-## Save and serialize
+## Save and serialize {#save-and-serialize}
 
 Saving the model and serialization work the same way for models built using the functional API as they do for `Sequential` models. The standard way to save a functional model is to call `model.save()` to save the entire model as a single file. You can later recreate the same model from this file, even if the code that built the model is no longer available.
 
@@ -245,7 +250,7 @@ model = keras.models.load_model("my_model.keras")
 
 For details, read the model [serialization & saving]({{< relref "/docs/guides/serialization_and_saving" >}}) guide.
 
-## Use the same graph of layers to define multiple models
+## Use the same graph of layers to define multiple models {#use-the-same-graph-of-layers-to-define-multiple-models}
 
 In the functional API, models are created by specifying their inputs and outputs in a graph of layers. That means that a single graph of layers can be used to generate multiple models.
 
@@ -345,7 +350,7 @@ Here, the decoding architecture is strictly symmetrical to the encoding architec
 
 The reverse of a `Conv2D` layer is a `Conv2DTranspose` layer, and the reverse of a `MaxPooling2D` layer is an `UpSampling2D` layer.
 
-## All models are callable, just like layers
+## All models are callable, just like layers {#all-models-are-callable-just-like-layers}
 
 You can treat any model as if it were a layer by invoking it on an `Input` or on the output of another layer. By calling a model you aren't just reusing the architecture of the model, you're also reusing its weights.
 
@@ -469,9 +474,9 @@ outputs = layers.average([y1, y2, y3])
 ensemble_model = keras.Model(inputs=inputs, outputs=outputs)
 ```
 
-## Manipulate complex graph topologies
+## Manipulate complex graph topologies {#manipulate-complex-graph-topologies}
 
-### Models with multiple inputs and outputs
+### Models with multiple inputs and outputs {#models-with-multiple-inputs-and-outputs}
 
 The functional API makes it easy to manipulate multiple inputs and outputs. This cannot be handled with the `Sequential` API.
 
@@ -598,7 +603,7 @@ When calling fit with a `Dataset` object, it should yield either a tuple of list
 
 For more detailed explanation, refer to the [training and evaluation]({{< relref "/docs/guides/training_with_built_in_methods" >}}) guide.
 
-### A toy ResNet model
+### A toy ResNet model {#a-toy-resnet-model}
 
 In addition to models with multiple inputs and outputs, the functional API makes it easy to manipulate non-linear connectivity topologies – these are models with layers that are not connected sequentially, which the `Sequential` API cannot handle.
 
@@ -722,7 +727,7 @@ model.fit(
 
 {{% /details %}}
 
-## Shared layers
+## Shared layers {#shared-layers}
 
 Another good use for the functional API are models that use _shared layers_. Shared layers are layer instances that are reused multiple times in the same model – they learn features that correspond to multiple paths in the graph-of-layers.
 
@@ -745,7 +750,7 @@ encoded_input_a = shared_embedding(text_input_a)
 encoded_input_b = shared_embedding(text_input_b)
 ```
 
-## Extract and reuse nodes in the graph of layers
+## Extract and reuse nodes in the graph of layers {#extract-and-reuse-nodes-in-the-graph-of-layers}
 
 Because the graph of layers you are manipulating is a static data structure, it can be accessed and inspected. And this is how you are able to plot functional models as images.
 
@@ -774,7 +779,7 @@ extracted_features = feat_extraction_model(img)
 
 This comes in handy for tasks like [neural style transfer]({{< relref "/docs/examples/generative/neural_style_transfer" >}}), among other things.
 
-## Extend the API using custom layers
+## Extend the API using custom layers {#extend-the-api-using-custom-layers}
 
 `keras` includes a wide range of built-in layers, for example:
 
@@ -859,7 +864,7 @@ def from_config(cls, config):
   return cls(**config)
 ```
 
-## When to use the functional API
+## When to use the functional API {#when-to-use-the-functional-api}
 
 Should you use the Keras functional API to create a new model, or just subclass the `Model` class directly? In general, the functional API is higher-level, easier and safer, and has a number of features that subclassed models do not support.
 
@@ -867,11 +872,11 @@ However, model subclassing provides greater flexibility when building models tha
 
 For an in-depth look at the differences between the functional API and model subclassing, read [What are Symbolic and Imperative APIs in TensorFlow 2.0?](https://blog.tensorflow.org/2019/01/what-are-symbolic-and-imperative-apis.html).
 
-### Functional API strengths:
+### Functional API strengths: {#functional-api-strengths}
 
 The following properties are also true for Sequential models (which are also data structures), but are not true for subclassed models (which are Python bytecode, not data structures).
 
-#### Less verbose
+#### Less verbose {#less-verbose}
 
 There is no `super().__init__(...)`, no `def call(self, ...):`, etc.
 
@@ -905,13 +910,13 @@ mlp = MLP()
 _ = mlp(ops.zeros((1, 32)))
 ```
 
-#### Model validation while defining its connectivity graph
+#### Model validation while defining its connectivity graph {#model-validation-while-defining-its-connectivity-graph}
 
 In the functional API, the input specification (shape and dtype) is created in advance (using `Input`). Every time you call a layer, the layer checks that the specification passed to it matches its assumptions, and it will raise a helpful error message if not.
 
 This guarantees that any model you can build with the functional API will run. All debugging – other than convergence-related debugging – happens statically during the model construction and not at execution time. This is similar to type checking in a compiler.
 
-#### A functional model is plottable and inspectable
+#### A functional model is plottable and inspectable {#a-functional-model-is-plottable-and-inspectable}
 
 You can plot the model as a graph, and you can easily access intermediate nodes in this graph. For example, to extract and reuse the activations of intermediate layers (as seen in a previous example):
 
@@ -920,19 +925,19 @@ features_list = [layer.output for layer in vgg19.layers]
 feat_extraction_model = keras.Model(inputs=vgg19.input, outputs=features_list)
 ```
 
-#### A functional model can be serialized or cloned
+#### A functional model can be serialized or cloned {#a-functional-model-can-be-serialized-or-cloned}
 
 Because a functional model is a data structure rather than a piece of code, it is safely serializable and can be saved as a single file that allows you to recreate the exact same model without having access to any of the original code. See the [serialization & saving guide]({{< relref "/docs/guides/serialization_and_saving" >}}).
 
 To serialize a subclassed model, it is necessary for the implementer to specify a `get_config()` and `from_config()` method at the model level.
 
-### Functional API weakness:
+### Functional API weakness: {#functional-api-weakness}
 
-#### It does not support dynamic architectures
+#### It does not support dynamic architectures {#it-does-not-support-dynamic-architectures}
 
 The functional API treats models as DAGs of layers. This is true for most deep learning architectures, but not all – for example, recursive networks or Tree RNNs do not follow this assumption and cannot be implemented in the functional API.
 
-## Mix-and-match API styles
+## Mix-and-match API styles {#mix-and-match-api-styles}
 
 Choosing between the functional API or Model subclassing isn't a binary decision that restricts you into one category of models. All models in the `keras` API can interact with each other, whether they're `Sequential` models, functional models, or subclassed models that are written from scratch.
 

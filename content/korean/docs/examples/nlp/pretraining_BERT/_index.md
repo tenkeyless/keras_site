@@ -7,10 +7,10 @@ type: docs
 
 {{< keras/original checkedAt="2024-11-21" >}}
 
-**Author:** Sreyan Ghosh  
-**Date created:** 2022/07/01  
-**Last modified:** 2022/08/27  
-**Description:** Pretraining BERT using Hugging Face Transformers on NSP and MLM.
+**{{< t f_author >}}** Sreyan Ghosh  
+**{{< t f_date_created >}}** 2022/07/01  
+**{{< t f_last_modified >}}** 2022/08/27  
+**{{< t f_description >}}** Pretraining BERT using Hugging Face Transformers on NSP and MLM.
 
 {{< keras/version v=2 >}}
 

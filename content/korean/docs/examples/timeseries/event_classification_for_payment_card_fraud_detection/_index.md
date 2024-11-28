@@ -7,10 +7,10 @@ type: docs
 
 {{< keras/original checkedAt="2024-11-22" >}}
 
-**Author:** [achoum](https://github.com/achoum/)  
-**Date created:** 2024/02/01  
-**Last modified:** 2024/02/01  
-**Description:** Detection of fraudulent payment card transactions using Temporian and a feed-forward neural network.
+**{{< t f_author >}}** [achoum](https://github.com/achoum/)  
+**{{< t f_date_created >}}** 2024/02/01  
+**{{< t f_last_modified >}}** 2024/02/01  
+**{{< t f_description >}}** Detection of fraudulent payment card transactions using Temporian and a feed-forward neural network.
 
 {{< keras/version v=3 >}}
 

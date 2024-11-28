@@ -7,10 +7,10 @@ type: docs
 
 {{< keras/original checkedAt="2024-11-22" >}}
 
-**Author:** [pavithrasv](https://github.com/pavithrasv)  
-**Date created:** 2020/05/31  
-**Last modified:** 2020/05/31  
-**Description:** Detect anomalies in a timeseries using an Autoencoder.
+**{{< t f_author >}}** [pavithrasv](https://github.com/pavithrasv)  
+**{{< t f_date_created >}}** 2020/05/31  
+**{{< t f_last_modified >}}** 2020/05/31  
+**{{< t f_description >}}** Detect anomalies in a timeseries using an Autoencoder.
 
 {{< keras/version v=3 >}}
 

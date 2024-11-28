@@ -7,10 +7,10 @@ type: docs
 
 {{< keras/original checkedAt="2024-11-23" >}}
 
-**Author:** [ADMoreau](https://github.com/ADMoreau)  
-**Date created:** 2020/05/17  
-**Last modified:** 2020/05/23  
-**Description:** PixelCNN implemented in Keras.
+**{{< t f_author >}}** [ADMoreau](https://github.com/ADMoreau)  
+**{{< t f_date_created >}}** 2020/05/17  
+**{{< t f_last_modified >}}** 2020/05/23  
+**{{< t f_description >}}** PixelCNN implemented in Keras.
 
 {{< keras/version v=3 >}}
 

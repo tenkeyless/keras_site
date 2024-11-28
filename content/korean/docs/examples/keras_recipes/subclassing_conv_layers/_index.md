@@ -7,10 +7,10 @@ type: docs
 
 {{< keras/original checkedAt="2024-11-24" >}}
 
-**Author:** [lukewood](https://lukewood.xyz)  
-**Date created:** 2021/03/11  
-**Last modified:** 2021/03/11  
-**Description:** This example shows how to implement custom convolution layers using the `Conv.convolution_op()` API.
+**{{< t f_author >}}** [lukewood](https://lukewood.xyz)  
+**{{< t f_date_created >}}** 2021/03/11  
+**{{< t f_last_modified >}}** 2021/03/11  
+**{{< t f_description >}}** This example shows how to implement custom convolution layers using the `Conv.convolution_op()` API.
 
 {{< keras/version v=3 >}}
 

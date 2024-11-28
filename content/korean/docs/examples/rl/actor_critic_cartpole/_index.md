@@ -7,10 +7,10 @@ type: docs
 
 {{< keras/original checkedAt="2024-11-23" >}}
 
-**Author:** [Apoorv Nandan](https://twitter.com/NandanApoorv)  
-**Date created:** 2020/05/13  
-**Last modified:** 2024/02/22  
-**Description:** Implement Actor Critic Method in CartPole environment.
+**{{< t f_author >}}** [Apoorv Nandan](https://twitter.com/NandanApoorv)  
+**{{< t f_date_created >}}** 2020/05/13  
+**{{< t f_last_modified >}}** 2024/02/22  
+**{{< t f_description >}}** Implement Actor Critic Method in CartPole environment.
 
 {{< keras/version v=3 >}}
 

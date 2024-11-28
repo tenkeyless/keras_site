@@ -7,10 +7,10 @@ type: docs
 
 {{< keras/original checkedAt="2024-11-23" >}}
 
-**Author:** [fchollet](https://twitter.com/fchollet)  
-**Date created:** 2019/04/29  
-**Last modified:** 2023/12/21  
-**Description:** A simple DCGAN trained using `fit()` by overriding `train_step` on CelebA images.
+**{{< t f_author >}}** [fchollet](https://twitter.com/fchollet)  
+**{{< t f_date_created >}}** 2019/04/29  
+**{{< t f_last_modified >}}** 2023/12/21  
+**{{< t f_description >}}** A simple DCGAN trained using `fit()` by overriding `train_step` on CelebA images.
 
 {{< keras/version v=3 >}}
 

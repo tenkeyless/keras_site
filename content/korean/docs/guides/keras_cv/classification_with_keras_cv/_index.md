@@ -8,10 +8,10 @@ type: docs
 
 {{< keras/original checkedAt="2024-11-19" >}}
 
-**Author:** [lukewood](https://lukewood.xyz)  
-**Date created:** 03/28/2023  
-**Last modified:** 03/28/2023  
-**Description:** Use KerasCV to train powerful image classifiers.
+**{{< t f_author >}}** [lukewood](https://lukewood.xyz)  
+**{{< t f_date_created >}}** 03/28/2023  
+**{{< t f_last_modified >}}** 03/28/2023  
+**{{< t f_description >}}** Use KerasCV to train powerful image classifiers.
 
 {{< cards cols="2" >}}
 {{< card link="https://colab.research.google.com/github/keras-team/keras-io/blob/master/guides/ipynb/keras_cv/classification_with_keras_cv.ipynb" title="Colab" tag="Colab" tagType="warning">}}

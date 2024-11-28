@@ -7,10 +7,10 @@ type: docs
 
 {{< keras/original checkedAt="2024-11-21" >}}
 
-**Author:** [fchollet](https://twitter.com/fchollet)  
-**Date created:** 2020/05/05  
-**Last modified:** 2020/05/05  
-**Description:** Text classification on the Newsgroup20 dataset using pre-trained GloVe word embeddings.
+**{{< t f_author >}}** [fchollet](https://twitter.com/fchollet)  
+**{{< t f_date_created >}}** 2020/05/05  
+**{{< t f_last_modified >}}** 2020/05/05  
+**{{< t f_description >}}** Text classification on the Newsgroup20 dataset using pre-trained GloVe word embeddings.
 
 {{< keras/version v=3 >}}
 

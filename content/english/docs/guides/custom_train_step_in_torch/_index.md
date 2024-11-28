@@ -8,10 +8,10 @@ type: docs
 
 {{< keras/original checkedAt="2024-11-18" >}}
 
-**Author:** [fchollet](https://twitter.com/fchollet)  
-**Date created:** 2023/06/27  
-**Last modified:** 2024/08/01  
-**Description:** Overriding the training step of the Model class with PyTorch.
+**{{< t f_author >}}** [fchollet](https://twitter.com/fchollet)  
+**{{< t f_date_created >}}** 2023/06/27  
+**{{< t f_last_modified >}}** 2024/08/01  
+**{{< t f_description >}}** Overriding the training step of the Model class with PyTorch.
 
 {{< cards cols="2" >}}
 {{< card link="https://colab.research.google.com/github/keras-team/keras-io/blob/master/guides/ipynb/custom_train_step_in_torch.ipynb" title="Colab" tag="Colab" tagType="warning">}}

@@ -8,9 +8,9 @@ type: docs
 {{< keras/original checkedAt="2024-11-20" >}}
 
 **Authors:** [Aritra Roy Gosthipaty](https://twitter.com/ariG23498), [Sayak Paul](https://twitter.com/RisingSayak) (equal contribution)  
-**Date created:** 2022/04/12  
-**Last modified:** 2023/11/20  
-**Description:** Looking into the representations learned by different Vision Transformers variants.
+**{{< t f_date_created >}}** 2022/04/12  
+**{{< t f_last_modified >}}** 2023/11/20  
+**{{< t f_description >}}** Looking into the representations learned by different Vision Transformers variants.
 
 {{< keras/version v=3 >}}
 

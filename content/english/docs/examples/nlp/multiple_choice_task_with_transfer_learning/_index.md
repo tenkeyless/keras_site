@@ -7,10 +7,10 @@ type: docs
 
 {{< keras/original checkedAt="2024-11-21" >}}
 
-**Author:** Md Awsafur Rahman  
-**Date created:** 2023/09/14  
-**Last modified:** 2023/09/14  
-**Description:** Use pre-trained nlp models for multiplechoice task.
+**{{< t f_author >}}** Md Awsafur Rahman  
+**{{< t f_date_created >}}** 2023/09/14  
+**{{< t f_last_modified >}}** 2023/09/14  
+**{{< t f_description >}}** Use pre-trained nlp models for multiplechoice task.
 
 {{< keras/version v=2 >}}
 

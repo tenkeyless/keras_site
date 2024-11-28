@@ -7,10 +7,10 @@ type: docs
 
 {{< keras/original checkedAt="2024-11-19" >}}
 
-**Author:** [Yixing Fu](https://github.com/yixingfu)  
-**Date created:** 2020/06/30  
-**Last modified:** 2023/07/10  
-**Description:** Use EfficientNet with weights pre-trained on imagenet for Stanford Dogs classification.
+**{{< t f_author >}}** [Yixing Fu](https://github.com/yixingfu)  
+**{{< t f_date_created >}}** 2020/06/30  
+**{{< t f_last_modified >}}** 2023/07/10  
+**{{< t f_description >}}** Use EfficientNet with weights pre-trained on imagenet for Stanford Dogs classification.
 
 {{< keras/version v=3 >}}
 

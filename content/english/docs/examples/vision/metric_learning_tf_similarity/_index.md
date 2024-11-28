@@ -7,10 +7,10 @@ type: docs
 
 {{< keras/original checkedAt="2024-11-21" >}}
 
-**Author:** [Owen Vallis](https://twitter.com/owenvallis)  
-**Date created:** 2021/09/30  
-**Last modified:** 2022/02/29  
-**Description:** Example of using similarity metric learning on CIFAR-10 images.
+**{{< t f_author >}}** [Owen Vallis](https://twitter.com/owenvallis)  
+**{{< t f_date_created >}}** 2021/09/30  
+**{{< t f_last_modified >}}** 2022/02/29  
+**{{< t f_description >}}** Example of using similarity metric learning on CIFAR-10 images.
 
 {{< keras/version v=2 >}}
 

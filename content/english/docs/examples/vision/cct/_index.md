@@ -7,10 +7,10 @@ type: docs
 
 {{< keras/original checkedAt="2024-11-20" >}}
 
-**Author:** [Sayak Paul](https://twitter.com/RisingSayak)  
-**Date created:** 2021/06/30  
-**Last modified:** 2023/08/07  
-**Description:** Compact Convolutional Transformers for efficient image classification.
+**{{< t f_author >}}** [Sayak Paul](https://twitter.com/RisingSayak)  
+**{{< t f_date_created >}}** 2021/06/30  
+**{{< t f_last_modified >}}** 2023/08/07  
+**{{< t f_description >}}** Compact Convolutional Transformers for efficient image classification.
 
 {{< keras/version v=3 >}}
 

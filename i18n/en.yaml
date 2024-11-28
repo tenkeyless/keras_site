@@ -1,0 +1,8 @@
+documentation: documentation
+about: about
+guides: guides
+example: example
+f_author: "Author:"
+f_date_created: "{{< t f_date_created >}}"
+f_last_modified: "Last modified:"
+f_description: "Description:"

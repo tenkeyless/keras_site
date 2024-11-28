@@ -7,10 +7,10 @@ type: docs
 
 {{< keras/original checkedAt="2024-11-21" >}}
 
-**Author:** [Aritra Roy Gosthipaty](https://twitter.com/ariG23498)  
-**Date created:** 2022/01/22  
-**Last modified:** 2022/01/22  
-**Description:** Building a patch-convnet architecture and visualizing its attention maps.
+**{{< t f_author >}}** [Aritra Roy Gosthipaty](https://twitter.com/ariG23498)  
+**{{< t f_date_created >}}** 2022/01/22  
+**{{< t f_last_modified >}}** 2022/01/22  
+**{{< t f_description >}}** Building a patch-convnet architecture and visualizing its attention maps.
 
 {{< keras/version v=3 >}}
 

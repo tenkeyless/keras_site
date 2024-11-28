@@ -9,9 +9,9 @@ type: docs
 {{< keras/original checkedAt="2024-11-19" >}}
 
 **Authors:** Luca Invernizzi, James Long, Francois Chollet, Tom O'Malley, Haifeng Jin  
-**Date created:** 2019/05/31  
-**Last modified:** 2021/10/27  
-**Description:** Tune a subset of the hyperparameters without changing the hypermodel.
+**{{< t f_date_created >}}** 2019/05/31  
+**{{< t f_last_modified >}}** 2021/10/27  
+**{{< t f_description >}}** Tune a subset of the hyperparameters without changing the hypermodel.
 
 {{< cards cols="2" >}}
 {{< card link="https://colab.research.google.com/github/keras-team/keras-io/blob/master/guides/ipynb/keras_tuner/tailor_the_search_space.ipynb" title="Colab" tag="Colab" tagType="warning">}}

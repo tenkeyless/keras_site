@@ -7,10 +7,10 @@ type: docs
 
 {{< keras/original checkedAt="2024-11-24" >}}
 
-**Author:** [Dimitre Oliveira](https://www.linkedin.com/in/dimitre-oliveira-7a1a0113a/)  
-**Date created:** 2023/01/02  
-**Last modified:** 2023/01/02  
-**Description:** How to serve TensorFlow models with TensorFlow Serving.
+**{{< t f_author >}}** [Dimitre Oliveira](https://www.linkedin.com/in/dimitre-oliveira-7a1a0113a/)  
+**{{< t f_date_created >}}** 2023/01/02  
+**{{< t f_last_modified >}}** 2023/01/02  
+**{{< t f_description >}}** How to serve TensorFlow models with TensorFlow Serving.
 
 {{< keras/version v=3 >}}
 

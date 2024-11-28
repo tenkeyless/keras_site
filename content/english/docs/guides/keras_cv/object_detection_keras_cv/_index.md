@@ -8,10 +8,10 @@ type: docs
 
 {{< keras/original checkedAt="2024-11-19" >}}
 
-**Author:** [lukewood](https://twitter.com/luke_wood_ml), Ian Stenbit, Tirth Patel  
-**Date created:** 2023/04/08  
-**Last modified:** 2023/08/10  
-**Description:** Train an object detection model with KerasCV.
+**{{< t f_author >}}** [lukewood](https://twitter.com/luke_wood_ml), Ian Stenbit, Tirth Patel  
+**{{< t f_date_created >}}** 2023/04/08  
+**{{< t f_last_modified >}}** 2023/08/10  
+**{{< t f_description >}}** Train an object detection model with KerasCV.
 
 {{< cards cols="2" >}}
 {{< card link="https://colab.research.google.com/github/keras-team/keras-io/blob/master/guides/ipynb/keras_cv/object_detection_keras_cv.ipynb" title="Colab" tag="Colab" tagType="warning">}}

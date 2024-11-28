@@ -7,10 +7,10 @@ type: docs
 
 {{< keras/original checkedAt="2024-11-20" >}}
 
-**Author:** [fchollet](https://twitter.com/fchollet)  
-**Date created:** 2019/03/20  
-**Last modified:** 2020/04/20  
-**Description:** Image segmentation model trained from scratch on the Oxford Pets dataset.
+**{{< t f_author >}}** [fchollet](https://twitter.com/fchollet)  
+**{{< t f_date_created >}}** 2019/03/20  
+**{{< t f_last_modified >}}** 2020/04/20  
+**{{< t f_description >}}** Image segmentation model trained from scratch on the Oxford Pets dataset.
 
 {{< keras/version v=3 >}}
 

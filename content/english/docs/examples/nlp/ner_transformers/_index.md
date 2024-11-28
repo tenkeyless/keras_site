@@ -7,10 +7,10 @@ type: docs
 
 {{< keras/original checkedAt="2024-11-21" >}}
 
-**Author:** [Varun Singh](https://www.linkedin.com/in/varunsingh2/)  
-**Date created:** 2021/06/23  
-**Last modified:** 2024/04/05  
-**Description:** NER using the Transformers and data from CoNLL 2003 shared task.
+**{{< t f_author >}}** [Varun Singh](https://www.linkedin.com/in/varunsingh2/)  
+**{{< t f_date_created >}}** 2021/06/23  
+**{{< t f_last_modified >}}** 2024/04/05  
+**{{< t f_description >}}** NER using the Transformers and data from CoNLL 2003 shared task.
 
 {{< keras/version v=3 >}}
 

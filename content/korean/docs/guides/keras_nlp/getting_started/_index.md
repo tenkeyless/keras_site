@@ -8,10 +8,10 @@ type: docs
 
 {{< keras/original checkedAt="2024-11-19" >}}
 
-**Author:** [Jonathan Bischof](https://github.com/jbischof)  
-**Date created:** 2022/12/15  
-**Last modified:** 2023/07/01  
-**Description:** An introduction to the KerasNLP API.
+**{{< t f_author >}}** [Jonathan Bischof](https://github.com/jbischof)  
+**{{< t f_date_created >}}** 2022/12/15  
+**{{< t f_last_modified >}}** 2023/07/01  
+**{{< t f_description >}}** An introduction to the KerasNLP API.
 
 {{< cards cols="2" >}}
 {{< card link="https://colab.research.google.com/github/keras-team/keras-io/blob/master/guides/ipynb/keras_nlp/getting_started.ipynb" title="Colab" tag="Colab" tagType="warning">}}

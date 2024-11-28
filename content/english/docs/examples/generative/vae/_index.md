@@ -7,10 +7,10 @@ type: docs
 
 {{< keras/original checkedAt="2024-11-23" >}}
 
-**Author:** [fchollet](https://twitter.com/fchollet)  
-**Date created:** 2020/05/03  
-**Last modified:** 2024/04/24  
-**Description:** Convolutional Variational AutoEncoder (VAE) trained on MNIST digits.
+**{{< t f_author >}}** [fchollet](https://twitter.com/fchollet)  
+**{{< t f_date_created >}}** 2020/05/03  
+**{{< t f_last_modified >}}** 2024/04/24  
+**{{< t f_description >}}** Convolutional Variational AutoEncoder (VAE) trained on MNIST digits.
 
 {{< keras/version v=3 >}}
 

@@ -7,10 +7,10 @@ type: docs
 
 {{< keras/original checkedAt="2024-11-20" >}}
 
-**Author:** [Aritra Roy Gosthipaty](https://twitter.com/ariG23498), [Ritwik Raha](https://twitter.com/ritwik_raha), [Shivalika Singh](https://www.linkedin.com/in/shivalika-singh/)  
-**Date created:** 2022/02/24  
-**Last modified:** 2022/10/15  
-**Description:** A minimal implementation of ShiftViT.
+**{{< t f_author >}}** [Aritra Roy Gosthipaty](https://twitter.com/ariG23498), [Ritwik Raha](https://twitter.com/ritwik_raha), [Shivalika Singh](https://www.linkedin.com/in/shivalika-singh/)  
+**{{< t f_date_created >}}** 2022/02/24  
+**{{< t f_last_modified >}}** 2022/10/15  
+**{{< t f_description >}}** A minimal implementation of ShiftViT.
 
 {{< keras/version v=2 >}}
 

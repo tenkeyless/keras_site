@@ -7,10 +7,10 @@ type: docs
 
 {{< keras/original checkedAt="2024-11-22" >}}
 
-**Author:** [Khalid Salama](https://www.linkedin.com/in/khalid-salama-24403144/)  
-**Date created:** 2020/12/31  
-**Last modified:** 2021/05/05  
-**Description:** Using Wide & Deep and Deep & Cross networks for structured data classification.
+**{{< t f_author >}}** [Khalid Salama](https://www.linkedin.com/in/khalid-salama-24403144/)  
+**{{< t f_date_created >}}** 2020/12/31  
+**{{< t f_last_modified >}}** 2021/05/05  
+**{{< t f_description >}}** Using Wide & Deep and Deep & Cross networks for structured data classification.
 
 {{< keras/version v=3 >}}
 

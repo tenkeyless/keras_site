@@ -7,10 +7,10 @@ type: docs
 
 {{< keras/original checkedAt="2024-11-21" >}}
 
-**Author:** [Mat Kelcey](https://twitter.com/mat_kelcey)  
-**Date created:** 2020/06/05  
-**Last modified:** 2020/06/09  
-**Description:** Example of using similarity metric learning on CIFAR-10 images.
+**{{< t f_author >}}** [Mat Kelcey](https://twitter.com/mat_kelcey)  
+**{{< t f_date_created >}}** 2020/06/05  
+**{{< t f_last_modified >}}** 2020/06/09  
+**{{< t f_description >}}** Example of using similarity metric learning on CIFAR-10 images.
 
 {{< keras/version v=3 >}}
 

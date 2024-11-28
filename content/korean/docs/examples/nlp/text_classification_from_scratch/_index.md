@@ -8,9 +8,9 @@ type: docs
 {{< keras/original checkedAt="2024-11-21" >}}
 
 **Authors:** Mark Omernick, Francois Chollet  
-**Date created:** 2019/11/06  
-**Last modified:** 2020/05/17  
-**Description:** Text sentiment classification starting from raw text files.
+**{{< t f_date_created >}}** 2019/11/06  
+**{{< t f_last_modified >}}** 2020/05/17  
+**{{< t f_description >}}** Text sentiment classification starting from raw text files.
 
 {{< keras/version v=3 >}}
 

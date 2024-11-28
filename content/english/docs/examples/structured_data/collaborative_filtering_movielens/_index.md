@@ -7,10 +7,10 @@ type: docs
 
 {{< keras/original checkedAt="2024-11-22" >}}
 
-**Author:** [Siddhartha Banerjee](https://twitter.com/sidd2006)  
-**Date created:** 2020/05/24  
-**Last modified:** 2020/05/24  
-**Description:** Recommending movies using a model trained on Movielens dataset.
+**{{< t f_author >}}** [Siddhartha Banerjee](https://twitter.com/sidd2006)  
+**{{< t f_date_created >}}** 2020/05/24  
+**{{< t f_last_modified >}}** 2020/05/24  
+**{{< t f_description >}}** Recommending movies using a model trained on Movielens dataset.
 
 {{< keras/version v=3 >}}
 

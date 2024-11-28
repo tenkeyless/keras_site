@@ -9,9 +9,9 @@ type: docs
 {{< keras/original checkedAt="2024-11-18" >}}
 
 **Authors:** Rick Chao, Francois Chollet  
-**Date created:** 2019/03/20  
-**Last modified:** 2023/06/25  
-**Description:** Complete guide to writing new Keras callbacks.
+**{{< t f_date_created >}}** 2019/03/20  
+**{{< t f_last_modified >}}** 2023/06/25  
+**{{< t f_description >}}** Complete guide to writing new Keras callbacks.
 
 {{< cards cols="2" >}}
 {{< card link="https://colab.research.google.com/github/keras-team/keras-io/blob/master/guides/ipynb/writing_your_own_callbacks.ipynb" title="Colab" tag="Colab" tagType="warning">}}

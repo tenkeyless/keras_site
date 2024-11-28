@@ -7,10 +7,10 @@ type: docs
 
 {{< keras/original checkedAt="2024-11-22" >}}
 
-**Author:** [fchollet](https://twitter.com/fchollet)  
-**Date created:** 2020/06/09  
-**Last modified:** 2020/06/09  
-**Description:** Binary classification of structured data including numerical and categorical features.
+**{{< t f_author >}}** [fchollet](https://twitter.com/fchollet)  
+**{{< t f_date_created >}}** 2020/06/09  
+**{{< t f_last_modified >}}** 2020/06/09  
+**{{< t f_description >}}** Binary classification of structured data including numerical and categorical features.
 
 {{< keras/version v=3 >}}
 

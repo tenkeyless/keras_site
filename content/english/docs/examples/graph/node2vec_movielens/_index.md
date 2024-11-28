@@ -7,10 +7,10 @@ type: docs
 
 {{< keras/original checkedAt="2024-11-24" >}}
 
-**Author:** [Khalid Salama](https://www.linkedin.com/in/khalid-salama-24403144/)  
-**Date created:** 2021/05/15  
-**Last modified:** 2021/05/15  
-**Description:** Implementing the node2vec model to generate embeddings for movies from the MovieLens dataset.
+**{{< t f_author >}}** [Khalid Salama](https://www.linkedin.com/in/khalid-salama-24403144/)  
+**{{< t f_date_created >}}** 2021/05/15  
+**{{< t f_last_modified >}}** 2021/05/15  
+**{{< t f_description >}}** Implementing the node2vec model to generate embeddings for movies from the MovieLens dataset.
 
 {{< keras/version v=2 >}}
 

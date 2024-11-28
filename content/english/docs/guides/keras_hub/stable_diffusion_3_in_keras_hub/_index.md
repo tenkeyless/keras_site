@@ -8,10 +8,10 @@ type: docs
 
 {{< keras/original checkedAt="2024-11-19" >}}
 
-**Author:** [Hongyu Chiu](https://github.com/james77777778), [fchollet](https://twitter.com/fchollet), [lukewood](https://twitter.com/luke_wood_ml), [divamgupta](https://github.com/divamgupta)  
-**Date created:** 2024/10/09  
-**Last modified:** 2024/10/24  
-**Description:** Image generation using KerasHub's Stable Diffusion 3 model.
+**{{< t f_author >}}** [Hongyu Chiu](https://github.com/james77777778), [fchollet](https://twitter.com/fchollet), [lukewood](https://twitter.com/luke_wood_ml), [divamgupta](https://github.com/divamgupta)  
+**{{< t f_date_created >}}** 2024/10/09  
+**{{< t f_last_modified >}}** 2024/10/24  
+**{{< t f_description >}}** Image generation using KerasHub's Stable Diffusion 3 model.
 
 {{< cards cols="2" >}}
 {{< card link="https://colab.research.google.com/github/keras-team/keras-io/blob/master/guides/ipynb/keras_hub/stable_diffusion_3_in_keras_hub.ipynb" title="Colab" tag="Colab" tagType="warning">}}
