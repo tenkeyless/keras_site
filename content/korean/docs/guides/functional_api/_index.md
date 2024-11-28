@@ -528,38 +528,38 @@ num_departments = 4  # 예측을 위한 부서 수
 
 title_input = keras.Input(
     shape=(None,), name="title"
-)  # Variable-length sequence of ints
-body_input = keras.Input(shape=(None,), name="body")  # Variable-length sequence of ints
+)  # 가변 길이의 int 시퀀스
+body_input = keras.Input(shape=(None,), name="body")  # 가변 길이의 int 시퀀스
 tags_input = keras.Input(
     shape=(num_tags,), name="tags"
-)  # Binary vectors of size `num_tags`
+)  # 크기가 `num_tags`인 이진 벡터
 
-# Embed each word in the title into a 64-dimensional vector
+# 제목의 각 단어를 64차원 벡터에 임베드합니다.
 title_features = layers.Embedding(num_words, 64)(title_input)
-# Embed each word in the text into a 64-dimensional vector
+# 텍스트의 각 단어를 64차원 벡터에 임베드합니다.
 body_features = layers.Embedding(num_words, 64)(body_input)
 
-# Reduce sequence of embedded words in the title into a single 128-dimensional vector
+# 제목에 임베드된 단어의 시퀀스를, 단일 128차원 벡터로 줄입니다.
 title_features = layers.LSTM(128)(title_features)
-# Reduce sequence of embedded words in the body into a single 32-dimensional vector
+# 본문에 포함된 단어의 시퀀스를, 단일 32차원 벡터로 줄입니다.
 body_features = layers.LSTM(32)(body_features)
 
-# Merge all available features into a single large vector via concatenation
+# 연결(concatenation)을 통해, 사용 가능한 모든 특성들을 하나의 큰 벡터로 병합합니다.
 x = layers.concatenate([title_features, body_features, tags_input])
 
-# Stick a logistic regression for priority prediction on top of the features
+# 우선 순위 예측을 위해, 특성 위에 로지스틱 회귀를 붙입니다.
 priority_pred = layers.Dense(1, name="priority")(x)
-# Stick a department classifier on top of the features
+# 특성 위에 부서 분류기를 붙입니다.
 department_pred = layers.Dense(num_departments, name="department")(x)
 
-# Instantiate an end-to-end model predicting both priority and department
+# 우선 순위와 부서를 모두 예측하는, 종단 간 모델 인스턴스화
 model = keras.Model(
     inputs=[title_input, body_input, tags_input],
     outputs={"priority": priority_pred, "department": department_pred},
 )
 ```
 
-Now plot the model:
+이제 모델을 플롯합니다.
 
 ```python
 keras.utils.plot_model(model, "multi_input_and_output_model.png", show_shapes=True)
@@ -567,7 +567,8 @@ keras.utils.plot_model(model, "multi_input_and_output_model.png", show_shapes=Tr
 
 ![png](/images/guides/functional_api/functional_api_40_0.png)
 
-When compiling this model, you can assign different losses to each output. You can even assign different weights to each loss – to modulate their contribution to the total training loss.
+이 모델을 컴파일할 때, 각 출력에 다른 손실을 할당할 수 있습니다.
+각 손실에 다른 가중치를 할당하여, 총 트레이닝 손실에 대한 기여도를 조절할 수도 있습니다.
 
 ```python
 model.compile(
@@ -580,7 +581,8 @@ model.compile(
 )
 ```
 
-Since the output layers have different names, you could also specify the losses and loss weights with the corresponding layer names:
+출력 레이어의 이름이 다르므로,
+해당 레이어 이름으로 손실 및 손실 가중치를 지정할 수도 있습니다.
 
 ```python
 model.compile(
@@ -593,15 +595,15 @@ model.compile(
 )
 ```
 
-Train the model by passing lists of NumPy arrays of inputs and targets:
+입력 및 대상의 NumPy 배열 리스트를 전달하여 모델을 트레이닝합니다.
 
 ```python
-# Dummy input data
+# 더미 입력 데이터
 title_data = np.random.randint(num_words, size=(1280, 12))
 body_data = np.random.randint(num_words, size=(1280, 100))
 tags_data = np.random.randint(2, size=(1280, num_tags)).astype("float32")
 
-# Dummy target data
+# 더미 타겟 데이터
 priority_targets = np.random.random(size=(1280, 1))
 dept_targets = np.random.randint(2, size=(1280, num_departments))
 
@@ -626,15 +628,19 @@ Epoch 2/2
 
 {{% /details %}}
 
-When calling fit with a `Dataset` object, it should yield either a tuple of lists like `([title_data, body_data, tags_data], [priority_targets, dept_targets])` or a tuple of dictionaries like `({'title': title_data, 'body': body_data, 'tags': tags_data}, {'priority': priority_targets, 'department': dept_targets})`.
+`Dataset` 객체로 fit을 호출할 때,
+`([title_data, body_data, tags_data], [priority_targets, dept_targets])`와 같은 리스트 튜플이나,
+`({'title': title_data, 'body': body_data, 'tags': tags_data}, {'priority': priority_targets, 'department': dept_targets})`와 같은 딕셔너리 튜플을 생성해야 합니다.
 
-For more detailed explanation, refer to the [training and evaluation]({{< relref "/docs/guides/training_with_built_in_methods" >}}) guide.
+자세한 설명은 [트레이닝 및 평가]({{< relref "/docs/guides/training_with_built_in_methods" >}}) 가이드를 참조하세요.
 
-### A toy ResNet model {#a-toy-resnet-model}
+### 토이 ResNet 모델 {#a-toy-resnet-model}
 
-In addition to models with multiple inputs and outputs, the functional API makes it easy to manipulate non-linear connectivity topologies – these are models with layers that are not connected sequentially, which the `Sequential` API cannot handle.
+여러 입력과 출력이 있는 모델 외에도, 함수형 API는 비선형 연결 토폴로지를 쉽게 조작할 수 있게 해줍니다.
+이는 순차적으로 연결되지 않은 레이어가 있는 모델로, `Sequential` API에서는 처리할 수 없습니다.
 
-A common use case for this is residual connections. Let's build a toy ResNet model for CIFAR10 to demonstrate this:
+이에 대한 일반적인 사용 사례는 residual 연결입니다.
+이를 보여주기 위해, CIFAR10에 대한 토이 ResNet 모델을 빌드해 보겠습니다.
 
 ```python
 inputs = keras.Input(shape=(32, 32, 3), name="img")
@@ -710,7 +716,7 @@ Model: "toy_resnet"
 
 {{% /details %}}
 
-Plot the model:
+모델을 플롯합니다:
 
 ```python
 keras.utils.plot_model(model, "mini_resnet.png", show_shapes=True)
@@ -718,7 +724,7 @@ keras.utils.plot_model(model, "mini_resnet.png", show_shapes=True)
 
 ![png](/images/guides/functional_api/functional_api_51_0.png)
 
-Now train the model:
+이제 모델을 트레이닝합니다:
 
 ```python
 (x_train, y_train), (x_test, y_test) = keras.datasets.cifar10.load_data()
@@ -733,8 +739,8 @@ model.compile(
     loss=keras.losses.CategoricalCrossentropy(from_logits=True),
     metrics=["acc"],
 )
-# We restrict the data to the first 1000 samples so as to limit execution time
-# on Colab. Try to train on the entire dataset until convergence!
+# Colab에서 실행 시간을 제한하기 위해 데이터를 처음 1000개 샘플로 제한합니다.
+# 수렴할 때까지 전체 데이터 세트에 대해 트레이닝해 보세요!
 model.fit(
     x_train[:1000],
     y_train[:1000],
@@ -754,7 +760,7 @@ model.fit(
 
 {{% /details %}}
 
-## Shared layers {#shared-layers}
+## 공유 레이어 {#shared-layers}
 
 Another good use for the functional API are models that use _shared layers_. Shared layers are layer instances that are reused multiple times in the same model – they learn features that correspond to multiple paths in the graph-of-layers.
 
