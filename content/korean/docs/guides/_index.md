@@ -11,6 +11,10 @@ Our developer guides are deep-dives into specific topics such as layer subclassi
 
 Most of our guides are written as Jupyter notebooks and can be run in one click in [Google Colab](https://colab.research.google.com/notebooks/welcome.ipynb), a hosted notebook environment that requires no setup and runs in the cloud. Google Colab includes GPU and TPU runtimes.
 
+## Contents
+
+{{< default-section-cards-list-recursive >}}
+
 ## Available guides
 
 - [The Functional API]({{< relref "/docs/guides/functional_api" >}})

@@ -1,0 +1,62 @@
+<style>
+    .custom-cards-container {
+        display: flex;
+        flex-direction: column;
+        gap: 0.5rem;
+        padding: 0.5rem;
+    }
+
+    .custom-card-wrapper {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .custom-card {
+        border-radius: 8px;
+        overflow: hidden;
+        transition: all 0.3s ease;
+        padding: 0.5rem;
+    }
+
+    .custom-card:hover {
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        transform: translateY(-3px);
+    }
+
+    .custom-card-children {
+        margin-top: 0.5rem;
+        margin-left: 0.5rem;
+        padding-left: 1rem;
+        border-left: 2px solid #d1d5db;
+    }
+</style>
+
+{{ $rows := .Rows }}
+
+<div class="custom-cards-container">
+    {{ range .Pages }}
+    {{- $link := .Permalink -}}
+    {{- $title := .Title -}}
+    {{- $icon := cond .IsSection "folder" "document" -}}
+    {{- $href := cond (strings.HasPrefix $link "/") ($link | relURL) $link -}}
+
+    <!-- 커스텀 카드 시작 -->
+    <div class="custom-card-wrapper">
+        <a class="custom-card group flex flex-col justify-between overflow-hidden rounded-lg shadow-md border border-gray-300 text-current no-underline bg-white dark:bg-gray-800 hover:shadow-lg hover:border-gray-400 dark:border-gray-600 dark:hover:border-gray-500 transition-all duration-200"
+            {{- if $link -}} href="{{ $href }}" {{- end -}}>
+            <div class="custom-card-header flex items-center gap-2 p-4">
+                <span class="font-semibold text-lg text-gray-700 dark:text-gray-200">{{ $title }}</span>
+            </div>
+        </a>
+
+        <!-- 하위 섹션 처리 -->
+        {{ if or (gt (len .Sections) 0) (gt (len .RegularPages) 0) }}
+        <div class="custom-card-children mt-4 pl-4 border-l-2 border-gray-300 dark:border-gray-600">
+            {{ partial "render-pages-recursive.html" (dict "Pages" (append .Sections .RegularPages) "Context" . "Rows"
+            $rows) }}
+        </div>
+        {{ end }}
+    </div>
+    <!-- 커스텀 카드 끝 -->
+    {{ end }}
+</div>
