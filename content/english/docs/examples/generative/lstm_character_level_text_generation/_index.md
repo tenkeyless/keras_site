@@ -75,7 +75,7 @@ for i, sentence in enumerate(sentences):
     y[i, char_indices[next_chars[i]]] = 1
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 Corpus length: 600893
@@ -145,7 +145,7 @@ for epoch in range(epochs):
         print("-")
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
  1565/1565 ━━━━━━━━━━━━━━━━━━━━ 13s 6ms/step - loss: 2.2850

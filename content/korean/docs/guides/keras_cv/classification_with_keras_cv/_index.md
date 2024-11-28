@@ -97,7 +97,7 @@ Next, let's get some predictions from our classifier:
 predictions = classifier.predict(np.expand_dims(image, axis=0))
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
  1/1 ━━━━━━━━━━━━━━━━━━━━ 4s 4s/step
@@ -121,7 +121,7 @@ with open(classes, "rb") as f:
     classes = json.load(f)
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 Downloading data from https://gist.githubusercontent.com/LukeWood/62eebcd5c5c4a4d0e0b7845780f76d55/raw/fde63e5e4c09e2fa0a3436680f436bdcb8325aac/ImagenetClassnames.json
@@ -137,7 +137,7 @@ top_two = [classes[str(i)] for i in top_classes[-2:]]
 print("Top two classes are:", top_two)
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 Top two classes are: ['Egyptian cat', 'velvet']
@@ -213,7 +213,7 @@ model.compile(
 )
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 Downloading data from https://storage.googleapis.com/keras-cv/models/efficientnetv2b0/imagenet/classification-v0-notop.h5
@@ -228,7 +228,7 @@ Here our classifier is just a simple [`keras.Sequential`]({{< relref "/docs/api/
 model.fit(train_dataset)
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
  216/727 ━━━━━[37m━━━━━━━━━━━━━━━  15s 30ms/step - accuracy: 0.8433 - loss: 0.5113
@@ -296,7 +296,7 @@ classes = {0: "cat", 1: "dog"}
 print("Top class is:", classes[predictions[0].argmax()])
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
  1/1 ━━━━━━━━━━━━━━━━━━━━ 3s 3s/step
@@ -334,7 +334,7 @@ eval_ds = eval_ds.map(package_inputs, num_parallel_calls=tf.data.AUTOTUNE)
 train_ds = train_ds.shuffle(BATCH_SIZE * 16)
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
  Downloading and preparing dataset 125.64 MiB (download: 125.64 MiB, generated: 132.86 MiB, total: 258.50 MiB) to /usr/local/google/home/rameshsampath/tensorflow_datasets/caltech101/3.0.1...
@@ -710,7 +710,7 @@ model.fit(
 )
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
  96/96 ━━━━━━━━━━━━━━━━━━━━ 65s 462ms/step - categorical_accuracy: 0.0068 - loss: 6.6096 - top_k_categorical_accuracy: 0.0497 - val_categorical_accuracy: 0.0122 - val_loss: 4.7151 - val_top_k_categorical_accuracy: 0.1596

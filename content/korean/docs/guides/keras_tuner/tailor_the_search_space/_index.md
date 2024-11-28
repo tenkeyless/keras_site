@@ -103,7 +103,7 @@ y_val = np.random.randint(0, 10, (20, 1))
 tuner.search(x_train, y_train, epochs=1, validation_data=(x_val, y_val))
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 Trial 3 Complete [00h 00m 01s]
@@ -123,7 +123,7 @@ If you summarize the search space, you will see only one hyperparameter.
 tuner.search_space_summary()
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 Search space summary
@@ -158,7 +158,7 @@ tuner = keras_tuner.RandomSearch(
 tuner.search(x_train, y_train, epochs=1, validation_data=(x_val, y_val))
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 Trial 3 Complete [00h 00m 01s]
@@ -178,7 +178,7 @@ If you summarize the search space, you will see the `learning_rate` is marked as
 tuner.search_space_summary()
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 Search space summary
@@ -215,7 +215,7 @@ tuner = keras_tuner.RandomSearch(
 tuner.search(x_train, y_train, epochs=1, validation_data=(x_val, y_val))
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 Trial 3 Complete [00h 00m 01s]
@@ -235,7 +235,7 @@ If you get the best model, you can see the loss function has changed to MSE.
 tuner.get_best_models()[0].loss
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 /usr/local/python/3.10.13/lib/python3.10/site-packages/keras/src/saving/saving_lib.py:388: UserWarning: Skipping variable loading for optimizer 'adam', because it has 2 variables whereas the saved optimizer has 10 variables.
@@ -281,7 +281,7 @@ tuner.search(x_train, y_train, epochs=1, validation_data=(x_val, y_val))
 tuner.search_space_summary()
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 Trial 3 Complete [00h 00m 19s]

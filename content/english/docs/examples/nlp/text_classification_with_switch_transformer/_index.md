@@ -47,7 +47,7 @@ x_train = keras.utils.pad_sequences(x_train, maxlen=num_tokens_per_example)
 x_val = keras.utils.pad_sequences(x_val, maxlen=num_tokens_per_example)
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 25000 Training sequences
@@ -73,7 +73,7 @@ num_tokens_per_batch = (
 print(f"Number of tokens per batch: {num_tokens_per_batch}")
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 Number of tokens per batch: 10000
@@ -318,7 +318,7 @@ classifier = create_classifier()
 run_experiment(classifier)
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 Epoch 1/3

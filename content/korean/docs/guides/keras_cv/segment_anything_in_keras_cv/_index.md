@@ -206,7 +206,7 @@ outputs = model.predict(
 )
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
  1/1 ━━━━━━━━━━━━━━━━━━━━ 48s 48s/step
@@ -282,7 +282,7 @@ plt.axis("off")
 plt.show()
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
  1/1 ━━━━━━━━━━━━━━━━━━━━ 13s 13s/step
@@ -325,7 +325,7 @@ plt.axis("off")
 plt.show()
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
  1/1 ━━━━━━━━━━━━━━━━━━━━ 16s 16s/step
@@ -365,7 +365,7 @@ WEIGHTS_PATH = "groundingdino_swint_ogc.pth"
 grounding_dino = GroundingDINO(CONFIG_PATH, WEIGHTS_PATH)
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 /home/tirthp/oss/virtualenvs/keras-io-dev/lib/python3.10/site-packages/torch/functional.py:504: UserWarning: torch.meshgrid: in an upcoming release, it will be required to pass the indexing argument. (Triggered internally at ../aten/src/ATen/native/TensorShape.cpp:3526.)
@@ -391,7 +391,7 @@ plt.axis("on")
 plt.show()
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 Clipping input data to the valid range for imshow with RGB data ([0..1] for floats or [0..255] for integers).
@@ -419,7 +419,7 @@ outputs = model.predict(
 )
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 /home/tirthp/oss/virtualenvs/keras-io-dev/lib/python3.10/site-packages/transformers/modeling_utils.py:942: FutureWarning: The `device` argument is deprecated and will be removed in v5 of Transformers.
@@ -452,7 +452,7 @@ plt.axis("off")
 plt.show()
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 Clipping input data to the valid range for imshow with RGB data ([0..1] for floats or [0..255] for integers).
@@ -497,7 +497,7 @@ time_taken = timeit.repeat(
 print(f"Time taken with float16 dtype: {min(time_taken) / 3:.10f}s")
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 Time taken with float32 dtype: 0.5304666963s

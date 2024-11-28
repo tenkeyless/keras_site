@@ -160,7 +160,7 @@ x = keras.random.normal(shape=(2, 5))
 y = MyAntirectifier()(x)
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 pos.shape: (2, 5)
@@ -221,7 +221,7 @@ Calling `summary()` can help you check the output shape of each layer:
 model.summary()
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 Model: "functional_1"
@@ -338,7 +338,7 @@ model.compile(
 model.fit(x_train, y_train, epochs=3, batch_size=1024, validation_split=0.1)
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 Epoch 1/3
@@ -416,7 +416,7 @@ model.step_counter = 0
 model.fit(x_train, y_train, epochs=1, batch_size=1024, verbose=0, steps_per_epoch=10)
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 ----Start of step: 0
@@ -585,7 +585,7 @@ model.compile(
 model.fit(x_train, y_train, epochs=5, batch_size=1024, validation_split=0.1)
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 Epoch 1/5
@@ -665,7 +665,7 @@ model.compile(
 model.fit(x_train, y_train, epochs=50, batch_size=2048, validation_split=0.1)
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 Epoch 1/50

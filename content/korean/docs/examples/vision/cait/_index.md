@@ -789,7 +789,7 @@ predicted_label = imagenet_labels[int(np.argmax(logits))]
 print(predicted_label)
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 
@@ -814,7 +814,7 @@ print("Shape of the attention scores from a class attention block:")
 print(ca_ffn_block_0_att.shape)
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 Shape of the attention scores from a class attention block:

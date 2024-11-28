@@ -61,7 +61,7 @@ if not os.path.exists(os.path.abspath(".") + annotation_folder):
     )
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 Downloading data from http://diode-dataset.s3.amazonaws.com/val.tar.gz
@@ -483,7 +483,7 @@ model.fit(
 )
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 Epoch 1/30
@@ -526,7 +526,7 @@ test_loader = next(
 visualize_depth_map(test_loader, test=True, model=model)
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 1/1 ━━━━━━━━━━━━━━━━━━━━ 0s 781ms/step

@@ -41,7 +41,7 @@ Preview how the dataset is organized. Lines prepended by "#" are just metadata i
 !head -20 data/words.txt
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 #--- words.txt ---------------------------------------------------------------#
@@ -121,7 +121,7 @@ print(f"Total validation samples: {len(validation_samples)}")
 print(f"Total test samples: {len(test_samples)}")
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 Total training samples: 86810
@@ -191,7 +191,7 @@ print("Vocab size: ", len(characters))
 train_labels_cleaned[:10]
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 Maximum length:  21
@@ -467,7 +467,7 @@ model = build_model()
 model.summary()
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 Model: "handwriting_recognizer"
@@ -593,7 +593,7 @@ history = model.fit(
 )
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 Epoch 1/10

@@ -153,7 +153,7 @@ print(f"Test data shape: {test_data.shape}")
 print(train_data.head().T)
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 Train data shape: (199523, 42)
@@ -485,7 +485,7 @@ gbt_model = create_gbt_model()
 run_experiment(gbt_model, train_data, test_data)
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 Starting reading the dataset
@@ -508,7 +508,7 @@ The `model.summary()` method will display several types of information about you
 print(gbt_model.summary())
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 Model: "gradient_boosted_trees_model"
@@ -1165,7 +1165,7 @@ binary_target_encoder.adapt(data)
 print(binary_target_encoder([[0], [1], [2]]))
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 tf.Tensor(
@@ -1265,7 +1265,7 @@ gbt_model = create_gbt_with_preprocessor(create_target_encoder())
 run_experiment(gbt_model, train_data, test_data)
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 ### Adapting target encoding for: class_of_worker
@@ -1394,7 +1394,7 @@ run_experiment(
 )
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 Epoch 1/5
@@ -1419,7 +1419,7 @@ gbt_model = create_gbt_with_preprocessor(embedding_encoder)
 run_experiment(gbt_model, train_data, test_data)
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 Use /tmp/tmpao5o88p6 as temporary training directory

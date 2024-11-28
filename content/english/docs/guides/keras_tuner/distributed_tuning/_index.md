@@ -140,7 +140,7 @@ tuner.search(
 )
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 Trial 2 Complete [00h 00m 18s]

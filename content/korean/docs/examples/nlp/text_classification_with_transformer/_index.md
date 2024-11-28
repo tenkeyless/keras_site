@@ -82,7 +82,7 @@ x_train = keras.utils.pad_sequences(x_train, maxlen=maxlen)
 x_val = keras.utils.pad_sequences(x_val, maxlen=maxlen)
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 Downloading data from https://storage.googleapis.com/tensorflow/tf-keras-datasets/imdb.npz
@@ -132,7 +132,7 @@ history = model.fit(
 )
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 Epoch 1/2

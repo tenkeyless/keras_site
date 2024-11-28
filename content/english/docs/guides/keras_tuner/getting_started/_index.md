@@ -66,7 +66,7 @@ import keras_tuner
 build_model(keras_tuner.HyperParameters())
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 <Sequential name=sequential, built=False>
@@ -105,7 +105,7 @@ def build_model(hp):
 build_model(keras_tuner.HyperParameters())
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 <Sequential name=sequential_1, built=False>
@@ -120,7 +120,7 @@ hp = keras_tuner.HyperParameters()
 print(hp.Int("units", min_value=32, max_value=512, step=32))
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 32
@@ -161,7 +161,7 @@ def build_model(hp):
 build_model(keras_tuner.HyperParameters())
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 <Sequential name=sequential_2, built=False>
@@ -201,7 +201,7 @@ def build_model(hp):
 build_model(keras_tuner.HyperParameters())
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 <Sequential name=sequential_3, built=False>
@@ -241,7 +241,7 @@ You can print a summary of the search space:
 tuner.search_space_summary()
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 Search space summary
@@ -289,7 +289,7 @@ Then, start the search for the best hyperparameter configuration. All the argume
 tuner.search(x_train, y_train, epochs=2, validation_data=(x_val, y_val))
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 Trial 3 Complete [00h 00m 19s]
@@ -316,7 +316,7 @@ best_model = models[0]
 best_model.summary()
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 /usr/local/python/3.10.13/lib/python3.10/site-packages/keras/src/saving/saving_lib.py:388: UserWarning: Skipping variable loading for optimizer 'adam', because it has 2 variables whereas the saved optimizer has 18 variables.
@@ -355,7 +355,7 @@ You can also print a summary of the search results.
 tuner.results_summary()
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 Results summary
@@ -421,7 +421,7 @@ y_all = np.concatenate((y_train, y_val))
 model.fit(x=x_all, y=y_all, epochs=1)
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 1/1875 [37m━━━━━━━━━━━━━━━━━━━━  17:57 575ms/step - accuracy: 0.1250 - loss: 2.3113
@@ -643,7 +643,7 @@ model = hypermodel.build(hp)
 hypermodel.fit(hp, model, np.random.rand(100, 28, 28), np.random.rand(100, 10))
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 1/4 ━━━━━[37m━━━━━━━━━━━━━━━ 0s 279ms/step - accuracy: 0.0000e+00 - loss: 12.2230
@@ -700,7 +700,7 @@ model = hypermodel.build(hp)
 hypermodel.fit(hp, model, np.random.rand(100, 28, 28), np.random.rand(100, 10))
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 1/4 ━━━━━[37m━━━━━━━━━━━━━━━ 0s 276ms/step - accuracy: 0.1250 - loss: 12.0090
@@ -768,7 +768,7 @@ tuner = keras_tuner.RandomSearch(
 tuner.search(x_train, y_train, epochs=2, validation_data=(x_val, y_val))
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 Trial 3 Complete [00h 00m 04s]
@@ -793,7 +793,7 @@ model = hypermodel.build(best_hp)
 hypermodel.fit(best_hp, model, x_all, y_all, epochs=1)
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 1/1875 [37m━━━━━━━━━━━━━━━━━━━━  9:00 289ms/step - accuracy: 0.0000e+00 - loss: 2.4352
@@ -952,7 +952,7 @@ tuner.search(
 tuner.results_summary()
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 Trial 3 Complete [00h 00m 01s]
@@ -1064,7 +1064,7 @@ tuner.search(
 tuner.results_summary()
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 Trial 3 Complete [00h 00m 01s]
@@ -1146,7 +1146,7 @@ tuner.search(
 tuner.results_summary()
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 Trial 3 Complete [00h 00m 01s]
@@ -1232,7 +1232,7 @@ tuner.search(
 tuner.results_summary()
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 Trial 3 Complete [00h 00m 01s]
@@ -1304,7 +1304,7 @@ tuner.search()
 print(tuner.get_best_hyperparameters()[0].get("x"))
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 Trial 20 Complete [00h 00m 00s]
@@ -1385,7 +1385,7 @@ best_hp = tuner.get_best_hyperparameters()[0]
 keras_code(**best_hp.values, saving_path="/tmp/best_model.keras")
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 x_train shape: (60000, 28, 28, 1)

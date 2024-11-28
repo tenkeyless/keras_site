@@ -511,7 +511,7 @@ def create_gif(path_to_images, name_gif):
 create_gif("images/*.png", "training.gif")
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 Epoch 1/20
@@ -724,7 +724,7 @@ for ax, ori_img, recons_img, depth_map in zip(
     ax[2].set_title("Depth Map")
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
  1/1 ━━━━━━━━━━━━━━━━━━━━ 0s 475ms/step
@@ -821,7 +821,7 @@ rgb_video = "rgb_video.mp4"
 imageio.mimwrite(rgb_video, rgb_frames, fps=30, quality=7, macro_block_size=None)
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 1it [00:01,  1.02s/it]

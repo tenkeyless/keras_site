@@ -191,7 +191,7 @@ history = model.fit(
 )
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 Epoch 1/300
@@ -833,7 +833,7 @@ axes[1, 1].set_xlim([-2, 2])
 axes[1, 1].set_ylim([-2, 2])
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 94/94 [==============================] - 0s 2ms/step

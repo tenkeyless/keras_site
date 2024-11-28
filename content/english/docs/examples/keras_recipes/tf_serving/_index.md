@@ -65,7 +65,7 @@ Here we load a pre-trained [MobileNet](https://arxiv.org/abs/1704.04861) from th
 model = keras.applications.MobileNet()
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 Downloading data from https://storage.googleapis.com/tensorflow/keras-applications/mobilenet/mobilenet_1_0_224_tf.h5
@@ -153,7 +153,7 @@ print(f"Model output shape: {model_outputs.shape}")
 print(f"Predicted class: {postprocess(model_outputs)}")
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 Original image shape: (540, 960, 3)
@@ -189,7 +189,7 @@ tf.saved_model.save(
 print(f"SavedModel files: {os.listdir(model_export_path)}")
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 INFO:tensorflow:Assets written to: ./model/1/assets
@@ -209,7 +209,7 @@ We'll use the command line utility `saved_model_cli` to look at the [MetaGraphDe
 !saved_model_cli show --dir {model_export_path} --tag_set serve --signature_def serving_default
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 The given SavedModel SignatureDef contains the following input(s):
@@ -443,7 +443,7 @@ tf.saved_model.save(
 !saved_model_cli show --dir {model_sig_export_path} --tag_set serve --signature_def serving_default
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 INFO:tensorflow:Assets written to: ./model/2/assets
@@ -477,7 +477,7 @@ loaded_model = tf.saved_model.load(model_sig_export_path)
 loaded_model.signatures["serving_default"](**{"image": batched_raw_img})
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 {'label': <tf.Tensor: shape=(1,), dtype=string, numpy=array([b'banana'], dtype=object)>}

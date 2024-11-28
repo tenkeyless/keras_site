@@ -69,7 +69,7 @@ tf.get_logger().setLevel(logging.ERROR)
 tf.keras.utils.set_random_seed(42)
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 [nltk_data] Downloading package punkt to /speech/sreyan/nltk_data...
@@ -110,7 +110,7 @@ from datasets import load_dataset
 dataset = load_dataset("wikitext", "wikitext-2-raw-v1")
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 Downloading and preparing dataset wikitext/wikitext-2-raw-v1 (download: 4.50 MiB, generated: 12.90 MiB, post-processed: Unknown size, total: 17.40 MiB) to /speech/sreyan/.cache/huggingface/datasets/wikitext/wikitext-2-raw-v1/1.0.0/a241db52902eaf2c6aa732210bead40c090019a499ceb13bcbfa3f8ab646a126...
@@ -136,7 +136,7 @@ The dataset just has one column which is the raw text, and this is all we need f
 print(dataset)
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 DatasetDict({
@@ -191,7 +191,7 @@ from transformers import AutoTokenizer
 tokenizer = AutoTokenizer.from_pretrained(MODEL_CHECKPOINT)
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 The cache for model files in Transformers v4.22.0 has been updated. Migrating your old cache. This is a one-time only operation. You can interrupt this and resume the migration later on by calling `transformers.utils.move_cache()`.
@@ -387,7 +387,7 @@ tokenized_dataset = dataset.map(
 )
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 Parameter 'function'=<function prepare_train_features at 0x7fd4a214cb90> of the transform datasets.arrow_dataset.Dataset._map_single couldn't be hashed properly, a random hash was used instead. Make sure your transforms and parameters are serializable with pickle or dill for the dataset fingerprinting and caching to work. If you reuse this transform, the caching mechanism will consider it to be different from the previous calls and recompute everything. This warning is only showed once. Subsequent hashing failures won't be showed.
@@ -467,7 +467,7 @@ optimizer = keras.optimizers.Adam(learning_rate=LEARNING_RATE)
 model.compile(optimizer=optimizer)
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 No loss specified in compile() - the model's internal loss computation will be used as the loss. Don't panic - this is a common way to train TensorFlow models in Transformers! To disable this behaviour please pass a loss argument, or explicitly pass `loss=None` if you do not want your model to compute a loss.
@@ -481,7 +481,7 @@ Finally all steps are done and now we can start training our model!
 model.fit(train, validation_data=validation, epochs=MAX_EPOCHS)
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 483/483 [==============================] - 96s 141ms/step - loss: 8.3765 - val_loss: 8.5572

@@ -464,7 +464,7 @@ wrn_model = get_network()
 print(f"Model has {wrn_model.count_params()/1e6} Million parameters.")
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 Model has 1.471226 Million parameters.
@@ -489,7 +489,7 @@ total_ds = tf.data.Dataset.zip((final_source_ds, final_target_ds))
 adamatch_trainer.fit(total_ds, epochs=EPOCHS)
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 Epoch 1/10
@@ -531,7 +531,7 @@ _, accuracy = adamatch_trained_model.evaluate(svhn_test)
 print(f"Accuracy on target test set: {accuracy * 100:.2f}%")
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 136/136 [==============================] - 4s 24ms/step - loss: 508.2073 - sparse_categorical_accuracy: 0.2408
@@ -562,7 +562,7 @@ _, accuracy = adamatch_trained_model.evaluate(source_test_ds)
 print(f"Accuracy on source test set: {accuracy * 100:.2f}%")
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 53/53 [==============================] - 2s 24ms/step - loss: 508.2072 - sparse_categorical_accuracy: 0.9736

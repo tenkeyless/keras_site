@@ -87,7 +87,7 @@ print(f"Shape of training images: {all_digits.shape}")
 print(f"Shape of training labels: {all_labels.shape}")
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 Downloading data from https://storage.googleapis.com/tensorflow/tf-keras-datasets/mnist.npz
@@ -108,7 +108,7 @@ discriminator_in_channels = num_channels + num_classes
 print(generator_in_channels, discriminator_in_channels)
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 138 11
@@ -275,7 +275,7 @@ cond_gan.compile(
 cond_gan.fit(dataset, epochs=20)
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 Epoch 1/20
@@ -371,7 +371,7 @@ end_class = 6  # @param {type:"slider", min:0, max:9, step:1}
 fake_images = interpolate_class(start_class, end_class)
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
  1/1 ━━━━━━━━━━━━━━━━━━━━ 0s 427ms/step

@@ -244,7 +244,7 @@ for step, data in enumerate(train_dataset):
         print(f"Seen so far: {(step + 1) * batch_size} samples")
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 Training loss (for 1 batch) at step 0: 96.2726
@@ -437,7 +437,7 @@ for step, data in enumerate(val_dataset):
         print(f"Seen so far: {(step + 1) * batch_size} samples")
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 Training loss (for 1 batch) at step 0: 70.8851

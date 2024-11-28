@@ -107,7 +107,7 @@ with open(annotation_file, "r") as f:
 print(f"Number of images: {len(annotations)}")
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 Downloading data from http://images.cocodataset.org/zips/val2017.zip
@@ -126,7 +126,7 @@ Number of images: 36781
 pprint.pprint(annotations[60])
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 {'area': 367.89710000000014,
@@ -257,7 +257,7 @@ for features in parsed_dataset.take(1):
     plt.show()
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 bbox: [473.07 395.93  38.65  28.67]
@@ -324,7 +324,7 @@ model.fit(
 )
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
  50/50 ━━━━━━━━━━━━━━━━━━━━ 146s 2s/step - loss: 3.9206 - sparse_categorical_accuracy: 0.1690

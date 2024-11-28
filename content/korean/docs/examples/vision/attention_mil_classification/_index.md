@@ -140,7 +140,7 @@ val_data, val_labels = create_bags(
 )
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 Positive bags: 283
@@ -462,7 +462,7 @@ trained_models = [
 ]
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 Model: "functional_1"
@@ -587,7 +587,7 @@ plot(
 )
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
  10/10 ━━━━━━━━━━━━━━━━━━━━ 1s 53ms/step

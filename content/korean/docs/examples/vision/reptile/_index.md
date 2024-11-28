@@ -140,7 +140,7 @@ train_dataset = Dataset(training=True)
 test_dataset = Dataset(training=False)
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
  Downloading and preparing dataset 17.95 MiB (download: 17.95 MiB, generated: Unknown size, total: 17.95 MiB) to /home/fchollet/tensorflow_datasets/omniglot/3.0.0...
@@ -276,7 +276,7 @@ for meta_iter in range(meta_iters):
             )
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 batch 0: train=0.600000 test=0.200000

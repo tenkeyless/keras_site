@@ -150,7 +150,7 @@ y = np.random.random((1000, 1))
 model.fit(x, y, epochs=3)
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 Epoch 1/3
@@ -275,7 +275,7 @@ y = np.random.random((1000, 1))
 model.fit(x, y, epochs=5)
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 Epoch 1/5
@@ -354,7 +354,7 @@ y = np.random.random((1000, 1))
 model.evaluate(x, y)
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
  32/32 ━━━━━━━━━━━━━━━━━━━━ 0s 973us/step - mae: 0.7887 - loss: 0.8385

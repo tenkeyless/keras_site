@@ -64,7 +64,7 @@ print(f"Validation data samples: {len(x_val)}")
 print(f"Test data samples: {len(x_test)}")
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 Training data samples: 45000
@@ -220,7 +220,7 @@ conv_mixer_model = get_conv_mixer_256_8()
 history, conv_mixer_model = run_experiment(conv_mixer_model)
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 Epoch 1/10
@@ -306,7 +306,7 @@ kernel = np.expand_dims(kernel.squeeze(), axis=2)
 visualization_plot(kernel)
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 5 <DepthwiseConv2D name=depthwise_conv2d, built=True>

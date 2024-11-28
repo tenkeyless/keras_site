@@ -647,7 +647,7 @@ plt.tight_layout()
 plt.show()
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 Weights loaded successfully

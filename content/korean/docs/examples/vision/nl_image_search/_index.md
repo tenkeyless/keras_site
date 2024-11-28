@@ -100,7 +100,7 @@ image_paths = list(image_path_to_caption.keys())
 print(f"Number of images: {len(image_paths)}")
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 Downloading data from http://images.cocodataset.org/annotations/annotations_trainval2014.zip
@@ -180,7 +180,7 @@ valid_example_count = write_data(valid_image_paths, num_valid_files, valid_files
 print(f"{valid_example_count} evaluation examples were written to tfrecord files.")
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 100%|███████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 15/15 [03:19<00:00, 13.27s/it]
@@ -435,7 +435,7 @@ text_encoder.save("text_encoder")
 print("Models are saved.")
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 Number of GPUs: 2
@@ -507,7 +507,7 @@ image_embeddings = vision_encoder.predict(
 print(f"Image embeddings shape: {image_embeddings.shape}.")
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 Loading vision and text encoders...
@@ -589,7 +589,7 @@ eval_accuracy = compute_top_k_accuracy(image_paths[train_size:])
 print(f"Eval accuracy: {round(eval_accuracy * 100, 3)}%")
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
   0%|                                                                                                                                   | 0/118 [00:00<?, ?it/s]

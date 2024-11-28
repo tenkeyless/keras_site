@@ -105,7 +105,7 @@ print(f"Data shape: {data.shape}")
 print(f"Test data shape: {test_data.shape}")
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 Data shape: (199523, 42)
@@ -411,7 +411,7 @@ _, accuracy = model.evaluate(test_dataset)
 print(f"Test accuracy: {round(accuracy * 100, 2)}%")
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 Start training the model...

@@ -177,7 +177,7 @@ We start the search by passing the arguments we defined in the signature of `MyH
 tuner.search(x=x_train, y=y_train, validation_data=(x_val, y_val))
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 Trial 2 Complete [00h 00m 02s]
@@ -201,7 +201,7 @@ best_model = tuner.get_best_models()[0]
 best_model.summary()
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 {'units': 128, 'batch_size': 32, 'learning_rate': 0.0034272591820215972}

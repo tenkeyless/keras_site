@@ -118,7 +118,7 @@ y = np.random.random((1000, 1))
 model.fit(x, y, epochs=3)
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 Epoch 1/3
@@ -203,7 +203,7 @@ y = np.random.random((1000, 1))
 model.fit(x, y, epochs=5)
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 Epoch 1/5
@@ -289,7 +289,7 @@ sw = np.random.random((1000, 1))
 model.fit(x, y, sample_weight=sw, epochs=3)
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 Epoch 1/3
@@ -340,7 +340,7 @@ y = np.random.random((1000, 1))
 model.evaluate(x, y)
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 
@@ -513,7 +513,7 @@ gan.compile(
 gan.fit(dataloader, epochs=1)
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
  1094/1094 ━━━━━━━━━━━━━━━━━━━━ 394s 360ms/step - d_loss: 0.2436 - g_loss: 4.7259

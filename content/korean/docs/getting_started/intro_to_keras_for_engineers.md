@@ -63,7 +63,7 @@ print(x_train.shape[0], "train samples")
 print(x_test.shape[0], "test samples")
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 x_train shape: (60000, 28, 28, 1)
@@ -108,7 +108,7 @@ model = keras.Sequential(
 model.summary()
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 Model: "sequential"
@@ -176,7 +176,7 @@ model.fit(
 score = model.evaluate(x_test, y_test, verbose=0)
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 Epoch 1/20
@@ -228,7 +228,7 @@ model = keras.saving.load_model("final_model.keras")
 predictions = model.predict(x_test)
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
  313/313 ━━━━━━━━━━━━━━━━━━━━ 3s 9ms/step
@@ -344,7 +344,7 @@ model.fit(
 )
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
  399/399 ━━━━━━━━━━━━━━━━━━━━ 70s 174ms/step - acc: 0.5104 - loss: 1.3473 - val_acc: 0.9256 - val_loss: 0.2484
@@ -399,7 +399,7 @@ model.compile(
 model.fit(train_dataloader, epochs=1, validation_data=val_dataloader)
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
  469/469 ━━━━━━━━━━━━━━━━━━━━ 81s 172ms/step - acc: 0.5502 - loss: 1.2550 - val_acc: 0.9419 - val_loss: 0.1972
@@ -436,7 +436,7 @@ model.compile(
 model.fit(train_dataset, epochs=1, validation_data=test_dataset)
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
  469/469 ━━━━━━━━━━━━━━━━━━━━ 81s 172ms/step - acc: 0.5771 - loss: 1.1948 - val_acc: 0.9229 - val_loss: 0.2502

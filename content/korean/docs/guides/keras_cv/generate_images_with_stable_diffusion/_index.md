@@ -56,7 +56,7 @@ model = keras_cv.models.StableDiffusion(
 )
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 By using this model checkpoint, you acknowledge that its usage is subject to the terms of the CreativeML Open RAIL-M license at https://raw.githubusercontent.com/CompVis/stable-diffusion/main/LICENSE
@@ -81,7 +81,7 @@ def plot_images(images):
 plot_images(images)
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
  50/50 ━━━━━━━━━━━━━━━━━━━━ 63s 211ms/step
@@ -105,7 +105,7 @@ images = model.text_to_image(
 plot_images(images)
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
  50/50 ━━━━━━━━━━━━━━━━━━━━ 10s 209ms/step
@@ -212,7 +212,7 @@ print(f"Standard model: {(end - start):.2f} seconds")
 keras.backend.clear_session()  # Clear session to preserve memory.
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
  50/50 ━━━━━━━━━━━━━━━━━━━━ 10s 209ms/step
@@ -245,7 +245,7 @@ print(
 )
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 By using this model checkpoint, you acknowledge that its usage is subject to the terms of the CreativeML Open RAIL-M license at https://raw.githubusercontent.com/CompVis/stable-diffusion/main/LICENSE
@@ -276,7 +276,7 @@ print(f"Mixed precision model: {(end - start):.2f} seconds")
 keras.backend.clear_session()
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
  50/50 ━━━━━━━━━━━━━━━━━━━━ 42s 132ms/step
@@ -305,7 +305,7 @@ images = model.text_to_image("An avocado armchair", batch_size=3)
 plot_images(images)
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 By using this model checkpoint, you acknowledge that its usage is subject to the terms of the CreativeML Open RAIL-M license at https://raw.githubusercontent.com/CompVis/stable-diffusion/main/LICENSE
@@ -332,7 +332,7 @@ print(f"With XLA: {(end - start):.2f} seconds")
 keras.backend.clear_session()
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
  50/50 ━━━━━━━━━━━━━━━━━━━━ 11s 210ms/step
@@ -356,7 +356,7 @@ keras.mixed_precision.set_global_policy("mixed_float16")
 model = keras_cv.models.StableDiffusion(jit_compile=True)
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 By using this model checkpoint, you acknowledge that its usage is subject to the terms of the CreativeML Open RAIL-M license at https://raw.githubusercontent.com/CompVis/stable-diffusion/main/LICENSE
@@ -375,7 +375,7 @@ images = model.text_to_image(
 plot_images(images)
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
  50/50 ━━━━━━━━━━━━━━━━━━━━ 48s 131ms/step
@@ -402,7 +402,7 @@ plot_images(images)
 print(f"XLA + mixed precision: {(end - start):.2f} seconds")
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
  50/50 ━━━━━━━━━━━━━━━━━━━━ 6s 130ms/step
@@ -422,7 +422,7 @@ for result in benchmark_result:
     print("{:<22} {:<22}".format(name, runtime))
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 Model                  Runtime

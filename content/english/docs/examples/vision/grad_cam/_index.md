@@ -135,7 +135,7 @@ plt.matshow(heatmap)
 plt.show()
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
  1/1 ━━━━━━━━━━━━━━━━━━━━ 3s 3s/step
@@ -206,7 +206,7 @@ preds = model.predict(img_array)
 print("Predicted:", decode_predictions(preds, top=2)[0])
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ![jpeg](/images/examples/vision/grad_cam/grad_cam_12_0.jpg)
 

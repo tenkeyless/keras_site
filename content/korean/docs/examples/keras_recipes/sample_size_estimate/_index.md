@@ -90,7 +90,7 @@ num_train_samples = len(img_train)
 print(f"Number of training samples: {num_train_samples}")
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 Number of classes: 5
@@ -451,7 +451,7 @@ def fit_and_predict(train_acc, sample_sizes, pred_sample_size):
 fit_and_predict(train_acc, sample_sizes, pred_sample_size=num_train_samples)
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 Curve fit weights: a = 0.6445642113685608 and b = 0.048097413033246994.
@@ -476,7 +476,7 @@ accuracy = train_model(img_train, label_train)
 print(f"A model accuracy of {accuracy} is reached on {num_train_samples} images!")
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 /var/folders/8n/8w8cqnvj01xd4ghznl11nyn000_93_/T/ipykernel_30919/1838736464.py:16: UserWarning: `input_shape` is undefined or non-square, or `rows` is not in [96, 128, 160, 192, 224]. Weights for input shape (224, 224) will be loaded as the default.

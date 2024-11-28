@@ -63,7 +63,7 @@ print("TensorFlow:", tf.__version__)
 print("TensorFlow Similarity:", tfsim.__version__)
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 TensorFlow: 2.7.0
@@ -131,7 +131,7 @@ val_ds = tfsim.samplers.TFDatasetMultiShotMemorySampler(
 )
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 Batch size is: 80
@@ -229,7 +229,7 @@ model = tfsim.models.SimilarityModel(inputs, outputs)
 model.summary()
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 Model: "similarity_model"
@@ -296,7 +296,7 @@ history = model.fit(
 )
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 Distance metric automatically set to cosine use the distance arg to override.
@@ -323,7 +323,7 @@ model.reset_index()
 model.index(x_index, y_index, data=x_index)
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 [Indexing 200 points]
@@ -366,7 +366,7 @@ calibration = model.calibrate(
 )
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 Performing NN search
@@ -428,7 +428,7 @@ for idx in np.argsort(y_display):
     )
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 Performing NN search

@@ -58,7 +58,7 @@ train_images = train_images.reshape(train_images.shape[0], *IMG_SHAPE).astype("f
 train_images = (train_images - 127.5) / 127.5
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 Downloading data from https://storage.googleapis.com/tensorflow/tf-keras-datasets/train-labels-idx1-ubyte.gz
@@ -166,7 +166,7 @@ d_model = get_discriminator_model()
 d_model.summary()
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 Model: "discriminator"
@@ -283,7 +283,7 @@ g_model = get_generator_model()
 g_model.summary()
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 Model: "generator"
@@ -527,7 +527,7 @@ wgan.compile(
 wgan.fit(train_images, batch_size=BATCH_SIZE, epochs=epochs, callbacks=[cbk])
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 Epoch 1/20

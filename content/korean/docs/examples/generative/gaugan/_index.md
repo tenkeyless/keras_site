@@ -50,7 +50,7 @@ We will be using the [Facades dataset](https://cmp.felk.cvut.cz/~tylecr1/facade/
 !unzip -q facades_data.zip
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 --2024-01-11 22:46:32--  https://drive.google.com/uc?id=1q4FEjQg1YSb4mPx2VdxL7LXKYu3voTMj
@@ -107,7 +107,7 @@ print(f"Total training samples: {len(train_files)}.")
 print(f"Total validation samples: {len(val_files)}.")
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 Total samples: 378.
@@ -206,7 +206,7 @@ for segmentation_map, real_image in zip(sample_train_batch[0], sample_train_batc
     plt.show()
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 Segmentation map batch shape: (4, 256, 256, 3).
@@ -760,7 +760,7 @@ plot_history("vgg_loss")
 plot_history("kl_loss")
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 Epoch 1/15
@@ -887,7 +887,7 @@ for _ in range(5):
     plt.show()
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
  1/1 ━━━━━━━━━━━━━━━━━━━━ 0s 29ms/step

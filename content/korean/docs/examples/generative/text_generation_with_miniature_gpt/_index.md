@@ -223,7 +223,7 @@ text_ds = text_ds.map(prepare_lm_inputs_labels, num_parallel_calls=tf_data.AUTOT
 text_ds = text_ds.prefetch(tf_data.AUTOTUNE)
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
   % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
@@ -320,7 +320,7 @@ model = create_model()
 model.fit(text_ds, verbose=2, epochs=25, callbacks=[text_gen_callback])
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 Epoch 1/25

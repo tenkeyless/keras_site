@@ -120,7 +120,7 @@ model.fit(dataset, epochs=3)
 model.evaluate(dataset)
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 Epoch 1/3
@@ -178,7 +178,7 @@ model.fit(dataset, epochs=3)
 model.evaluate(dataset)
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 Epoch 1/3

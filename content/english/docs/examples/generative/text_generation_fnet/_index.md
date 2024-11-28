@@ -97,7 +97,7 @@ train_dataset = tf.data.Dataset.from_tensor_slices((questions[:40000], answers[:
 val_dataset = tf.data.Dataset.from_tensor_slices((questions[40000:], answers[40000:]))
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 Downloading data from http://www.cs.cornell.edu/~cristian/data/cornell_movie_dialogs_corpus.zip
@@ -318,7 +318,7 @@ Here, the `epochs` parameter is set to a single epoch, but in practice the model
 fnet.fit(train_dataset, epochs=1, validation_data=val_dataset)
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 625/625 [==============================] - 96s 133ms/step - loss: 1.3036 - accuracy: 0.4354 - val_loss: 0.7964 - val_accuracy: 0.6374
@@ -374,7 +374,7 @@ def decode_sentence(input_sentence):
 decode_sentence("Where have you been all this time?")
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 'i m sorry .'

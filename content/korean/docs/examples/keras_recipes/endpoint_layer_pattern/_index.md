@@ -76,7 +76,7 @@ model.compile(keras.optimizers.Adam(1e-3))
 model.fit(data, epochs=2)
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 Epoch 1/2
@@ -109,7 +109,7 @@ inference_model.set_weights(model.get_weights())
 preds = inference_model.predict(np.random.random((1000, 764)))
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
  32/32 ━━━━━━━━━━━━━━━━━━━━ 0s 6ms/step
@@ -149,7 +149,7 @@ model.compile(keras.optimizers.Adam(1e-3))
 model.fit(data, epochs=2)
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 Epoch 1/2

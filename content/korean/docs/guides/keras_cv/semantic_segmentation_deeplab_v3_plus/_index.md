@@ -205,7 +205,7 @@ model = keras_cv.models.DeepLabV3Plus.from_preset(
 )
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 Downloading data from https://storage.googleapis.com/keras-cv/models/resnet50v2/imagenet/classification-v2-notop.h5
@@ -243,7 +243,7 @@ model.compile(
 model.summary()
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 Model: "deep_lab_v3_plus_1"
@@ -297,7 +297,7 @@ eval_ds = eval_ds.map(dict_to_tuple)
 model.fit(train_ds, validation_data=eval_ds, epochs=EPOCHS)
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
    2124/Unknown  735s 319ms/step - categorical_accuracy: 0.7026 - loss: 1.2143 - mean_io_u: 0.0706

@@ -343,7 +343,7 @@ sample_keypoints = sample_keypoints[:4].reshape(-1, 24, 2) * IMG_SIZE
 visualize_keypoints(sample_images[:4], sample_keypoints)
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 Total batches in training set: 166
@@ -388,7 +388,7 @@ Our custom network is fully-convolutional which makes it more parameter-friendly
 get_model().summary()
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 Downloading data from https://storage.googleapis.com/tensorflow/keras-applications/mobilenet_v2/mobilenet_v2_weights_tf_dim_ordering_tf_kernels_1.0_224_no_top.h5
@@ -436,7 +436,7 @@ model.compile(loss="mse", optimizer=keras.optimizers.Adam(1e-4))
 model.fit(train_dataset, validation_data=validation_dataset, epochs=EPOCHS)
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 Epoch 1/5
@@ -470,7 +470,7 @@ visualize_keypoints(sample_val_images, sample_val_keypoints)
 visualize_keypoints(sample_val_images, predictions)
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
  1/1 ━━━━━━━━━━━━━━━━━━━━ 7s 7s/step

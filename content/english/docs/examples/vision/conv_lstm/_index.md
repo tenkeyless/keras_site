@@ -91,7 +91,7 @@ print("Training Dataset Shapes: " + str(x_train.shape) + ", " + str(y_train.shap
 print("Validation Dataset Shapes: " + str(x_val.shape) + ", " + str(y_val.shape))
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 Downloading data from http://www.cs.toronto.edu/~nitish/unsupervised_video/mnist_test_seq.npy
@@ -122,7 +122,7 @@ print(f"Displaying frames for example {data_choice}.")
 plt.show()
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 Displaying frames for example 95.
@@ -201,7 +201,7 @@ model.fit(
 )
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 Epoch 1/20
@@ -294,7 +294,7 @@ for idx, ax in enumerate(axes[1]):
 plt.show()
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
  1/1 ━━━━━━━━━━━━━━━━━━━━ 2s 2s/step
@@ -368,7 +368,7 @@ for i in range(0, len(predicted_videos), 2):
     display(box)
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
  1/1 ━━━━━━━━━━━━━━━━━━━━ 0s 6ms/step

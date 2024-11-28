@@ -51,7 +51,7 @@ print(f"x_train shape: {x_train.shape} - y_train shape: {y_train.shape}")
 print(f"x_test shape: {x_test.shape} - y_test shape: {y_test.shape}")
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 x_train shape: (50000, 32, 32, 3) - y_train shape: (50000, 1)
@@ -93,7 +93,7 @@ print(f"Latent array shape: {latent_dim} X {projection_dim}")
 print(f"Data array shape: {num_patches} X {projection_dim}")
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 Image size: 64 X 64 = 4096
@@ -442,7 +442,7 @@ perceiver_classifier = Perceiver(
 history = run_experiment(perceiver_classifier)
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 Test accuracy: 0.91%

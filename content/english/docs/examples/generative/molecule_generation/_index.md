@@ -64,7 +64,7 @@ from rdkit.Chem.Draw import MolsToGridImage
 RDLogger.DisableLog("rdApp.*")
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 [K     |████████████████████████████████| 20.6 MB 1.2 MB/s
@@ -89,7 +89,7 @@ df["smiles"] = df["smiles"].apply(lambda s: s.replace("\n", ""))
 df.head()
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 Downloading data from https://raw.githubusercontent.com/aspuru-guzik-group/chemical_vae/master/models/zinc_properties/250k_rndm_zinc_drugs_clean_3.csv
@@ -528,7 +528,7 @@ model.compile(vae_optimizer)
 history = model.fit([adjacency_tensor, feature_tensor, qed_tensor], epochs=EPOCHS)
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 Epoch 1/10

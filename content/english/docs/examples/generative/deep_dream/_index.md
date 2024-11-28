@@ -196,7 +196,7 @@ for i, shape in enumerate(successive_shapes):
 keras.utils.save_img(result_prefix + ".png", deprocess_image(img.numpy()))
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 Processing octave 0 with shape (326, 489)

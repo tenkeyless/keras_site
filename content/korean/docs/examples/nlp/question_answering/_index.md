@@ -53,7 +53,7 @@ The `datasets` object itself is a `DatasetDict`, which contains one key for the 
 print(datasets["train"][0])
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 {'id': '5733be284776f41900661182', 'title': 'University_of_Notre_Dame', 'context': 'Architecturally, the school has a Catholic character. Atop the Main Building\'s gold dome is a golden statue of the Virgin Mary. Immediately in front of the Main Building and facing it, is a copper statue of Christ with arms upraised with the legend "Venite Ad Me Omnes". Next to the Main Building is the Basilica of the Sacred Heart. Immediately behind the basilica is the Grotto, a Marian place of prayer and reflection. It is a replica of the grotto at Lourdes, France where the Virgin Mary reputedly appeared to Saint Bernadette Soubirous in 1858. At the end of the main drive (and in a direct line that connects through 3 statues and the Gold Dome), is a simple, modern stone statue of Mary.', 'question': 'To whom did the Virgin Mary allegedly appear in 1858 in Lourdes France?', 'answers': {'text': ['Saint Bernadette Soubirous'], 'answer_start': [515]}}
@@ -82,7 +82,7 @@ model_checkpoint = "distilbert-base-cased"
 tokenizer = AutoTokenizer.from_pretrained(model_checkpoint)
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 Downloading:   0%|          | 0.00/29.0 [00:00<?, ?B/s]
@@ -236,7 +236,7 @@ from transformers import TFAutoModelForQuestionAnswering
 model = TFAutoModelForQuestionAnswering.from_pretrained(model_checkpoint)
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 Downloading:   0%|          | 0.00/338M [00:00<?, ?B/s]
@@ -272,7 +272,7 @@ keras.mixed_precision.set_global_policy("mixed_float16")
 model.compile(optimizer=optimizer)
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 INFO:tensorflow:Mixed precision compatibility check (mixed_float16): OK
@@ -289,7 +289,7 @@ And now we can train our model. Note that we're not passing separate labels - th
 model.fit(train_set, validation_data=validation_set, epochs=1)
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 2773/2773 [==============================] - 1205s 431ms/step - loss: 1.5360 - val_loss: 1.1816
@@ -315,7 +315,7 @@ end_position = tf.argmax(outputs.end_logits, axis=1)
 print(int(start_position), int(end_position[0]))
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 26 30
@@ -330,7 +330,7 @@ answer = inputs["input_ids"][0, int(start_position) : int(end_position) + 1]
 print(answer)
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 [ 8080   111  3014 20480  1116]
@@ -344,7 +344,7 @@ And now we can use the `tokenizer.decode()` method to turn those token IDs back 
 print(tokenizer.decode(answer))
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 consistent & simple APIs

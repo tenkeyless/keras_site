@@ -169,7 +169,7 @@ history = model.fit(
 )
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 Epoch 1/500
@@ -770,7 +770,7 @@ print("Test accuracy", test_acc)
 print("Test loss", test_loss)
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
  42/42 ━━━━━━━━━━━━━━━━━━━━ 1s 13ms/step - loss: 0.0997 - sparse_categorical_accuracy: 0.9687

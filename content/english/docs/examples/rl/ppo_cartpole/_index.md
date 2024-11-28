@@ -321,7 +321,7 @@ for epoch in range(epochs):
     )
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
  Epoch: 1. Mean Return: 20.512820512820515. Mean Length: 20.512820512820515

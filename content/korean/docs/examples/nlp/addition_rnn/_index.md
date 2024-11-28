@@ -148,7 +148,7 @@ while len(questions) < TRAINING_SIZE:
 print("Total questions:", len(questions))
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 Generating data...
@@ -190,7 +190,7 @@ print(x_val.shape)
 print(y_val.shape)
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 Vectorization...
@@ -235,7 +235,7 @@ model.compile(loss="categorical_crossentropy", optimizer="adam", metrics=["accur
 model.summary()
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 Build model...
@@ -303,7 +303,7 @@ for epoch in range(1, epochs):
             print(f"{red_color}☒ {guess}{end_char}")
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 Iteration 1

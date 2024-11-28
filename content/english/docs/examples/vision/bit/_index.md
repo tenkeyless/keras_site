@@ -61,7 +61,7 @@ train_ds, validation_ds = tfds.load(
 )
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 [1mDownloading and preparing dataset 218.21 MiB (download: 218.21 MiB, generated: 221.83 MiB, total: 440.05 MiB) to ~/tensorflow_datasets/tf_flowers/3.0.1...[0m
@@ -254,7 +254,7 @@ history = model.fit(
 )
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 Epoch 1/400
@@ -296,7 +296,7 @@ accuracy = model.evaluate(pipeline_validation)[1] * 100
 print("Accuracy: {:.2f}%".format(accuracy))
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 9/9 [==============================] - 3s 364ms/step - loss: 0.1075 - accuracy: 0.9727

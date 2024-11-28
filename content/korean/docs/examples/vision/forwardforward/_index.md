@@ -92,7 +92,7 @@ for idx, item in enumerate(imgs):
 plt.show()
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 4 Random Training samples and labels
@@ -370,7 +370,7 @@ epochs = 250
 history = model.fit(train_dataset, epochs=epochs)
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 Epoch 1/250
@@ -1152,7 +1152,7 @@ plt.title("Loss over training")
 plt.show()
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 Test Accuracy score : 97.56%

@@ -55,7 +55,7 @@ import tensorflow as tf
 !unzip -q lol_dataset.zip && rm lol_dataset.zip
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 --2023-11-10 23:10:00--  https://huggingface.co/datasets/geekyrakshit/LoL-Dataset/resolve/main/lol_dataset.zip
@@ -153,7 +153,7 @@ print("Train Dataset:", train_dataset.element_spec)
 print("Val Dataset:", val_dataset.element_spec)
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 Train Dataset: (TensorSpec(shape=(4, 128, 128, 3), dtype=tf.float32, name=None), TensorSpec(shape=(4, 128, 128, 3), dtype=tf.float32, name=None))
@@ -429,7 +429,7 @@ plot_history("loss", "Loss")
 plot_history("peak_signal_noise_ratio", "PSNR")
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 Epoch 1/50

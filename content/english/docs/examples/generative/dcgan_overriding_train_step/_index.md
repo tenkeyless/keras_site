@@ -57,7 +57,7 @@ dataset = keras.utils.image_dataset_from_directory(
 dataset = dataset.map(lambda x: x / 255.0)
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 Found 202599 files.
@@ -99,7 +99,7 @@ discriminator = keras.Sequential(
 discriminator.summary()
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 Model: "discriminator"
@@ -156,7 +156,7 @@ generator = keras.Sequential(
 generator.summary()
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 Model: "generator"
@@ -306,7 +306,7 @@ gan.fit(
 )
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
     2/6332 [37m━━━━━━━━━━━━━━━━━━━━  9:54 94ms/step - d_loss: 0.6792 - g_loss: 0.7880

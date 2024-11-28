@@ -236,7 +236,7 @@ for variable, value in zip(model.non_trainable_variables, non_trainable_variable
     variable.assign(value)
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 x_train shape: (60000, 28, 28, 1)

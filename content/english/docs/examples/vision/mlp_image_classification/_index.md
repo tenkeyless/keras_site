@@ -49,7 +49,7 @@ print(f"x_train shape: {x_train.shape} - y_train shape: {y_train.shape}")
 print(f"x_test shape: {x_test.shape} - y_test shape: {y_test.shape}")
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 x_train shape: (50000, 32, 32, 3) - y_train shape: (50000, 1)
@@ -77,7 +77,7 @@ print(f"Patches per image: {num_patches}")
 print(f"Elements per patch (3 channels): {(patch_size ** 2) * 3}")
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 Image size: 64 X 64 = 4096
@@ -318,7 +318,7 @@ mlpmixer_classifier = build_classifier(mlpmixer_blocks)
 history = run_experiment(mlpmixer_classifier)
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 Test accuracy: 9.76%
@@ -386,7 +386,7 @@ fnet_classifier = build_classifier(fnet_blocks, positional_encoding=True)
 history = run_experiment(fnet_classifier)
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 Test accuracy: 13.82%
@@ -466,7 +466,7 @@ gmlp_classifier = build_classifier(gmlp_blocks)
 history = run_experiment(gmlp_classifier)
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 Test accuracy: 17.05%

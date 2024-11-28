@@ -68,7 +68,7 @@ print("trainable_weights:", len(layer.trainable_weights))
 print("non_trainable_weights:", len(layer.non_trainable_weights))
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 weights: 2
@@ -93,7 +93,7 @@ print("trainable_weights:", len(layer.trainable_weights))
 print("non_trainable_weights:", len(layer.non_trainable_weights))
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 weights: 4
@@ -117,7 +117,7 @@ print("trainable_weights:", len(layer.trainable_weights))
 print("non_trainable_weights:", len(layer.non_trainable_weights))
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 weights: 2
@@ -155,7 +155,7 @@ np.testing.assert_allclose(
 )
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
  1/1 ━━━━━━━━━━━━━━━━━━━━ 1s 766ms/step - loss: 0.0615
@@ -320,7 +320,7 @@ print(f"Number of validation samples: {validation_ds.cardinality()}")
 print(f"Number of test samples: {test_ds.cardinality()}")
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
  Downloading and preparing dataset 786.68 MiB (download: 786.68 MiB, generated: Unknown size, total: 786.68 MiB) to /home/mattdangerw/tensorflow_datasets/cats_vs_dogs/4.0.0...
@@ -460,7 +460,7 @@ model = keras.Model(inputs, outputs)
 model.summary(show_trainable=True)
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 Downloading data from https://storage.googleapis.com/tensorflow/keras-applications/xception/xception_weights_tf_dim_ordering_tf_kernels_notop.h5
@@ -506,7 +506,7 @@ print("Fitting the top layer of the model")
 model.fit(train_ds, epochs=epochs, validation_data=validation_ds)
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 Fitting the top layer of the model
@@ -566,7 +566,7 @@ print("Fitting the end-to-end model")
 model.fit(train_ds, epochs=epochs, validation_data=validation_ds)
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 Model: "functional_4"
@@ -608,7 +608,7 @@ print("Test dataset evaluation")
 model.evaluate(test_ds)
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 Test dataset evaluation

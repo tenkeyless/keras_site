@@ -76,7 +76,7 @@ The `inputs` that is returned contains information about the shape and `dtype` o
 inputs.shape
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 (None, 784)
@@ -90,7 +90,7 @@ Here's the dtype:
 inputs.dtype
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 'float32'
@@ -141,7 +141,7 @@ model = keras.Model(inputs=inputs, outputs=outputs, name="mnist_model")
 model.summary()
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 Model: "mnist_model"
@@ -214,7 +214,7 @@ print("Test loss:", test_scores[0])
 print("Test accuracy:", test_scores[1])
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 Epoch 1/2
@@ -274,7 +274,7 @@ autoencoder = keras.Model(encoder_input, decoder_output, name="autoencoder")
 autoencoder.summary()
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 Model: "encoder"
@@ -381,7 +381,7 @@ autoencoder = keras.Model(autoencoder_input, decoded_img, name="autoencoder")
 autoencoder.summary()
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 Model: "encoder"
@@ -581,7 +581,7 @@ model.fit(
 )
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 Epoch 1/2
@@ -628,7 +628,7 @@ model = keras.Model(inputs, outputs, name="toy_resnet")
 model.summary()
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 Model: "toy_resnet"
@@ -712,7 +712,7 @@ model.fit(
 )
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
  13/13 ━━━━━━━━━━━━━━━━━━━━ 1s 60ms/step - acc: 0.1096 - loss: 2.3053 - val_acc: 0.1150 - val_loss: 2.2973
@@ -977,7 +977,7 @@ rnn_model = CustomRNN()
 _ = rnn_model(ops.zeros((1, timesteps, input_dim)))
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 (1, 10, 32)

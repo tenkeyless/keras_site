@@ -215,7 +215,7 @@ for k in sample_batch:
     print(k, sample_batch[k].shape)
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 images (4, 256, 256, 3)
@@ -431,7 +431,7 @@ pokemon_model = keras_cv.models.StableDiffusion(
 pokemon_model.diffusion_model.load_weights(weights_path)
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 By using this model checkpoint, you acknowledge that its usage is subject to the terms of the CreativeML Open RAIL-M license at https://raw.githubusercontent.com/CompVis/stable-diffusion/main/LICENSE
@@ -453,7 +453,7 @@ for prompt in prompts:
     outputs.update({prompt: generated_images})
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 25/25 [==============================] - 17s 231ms/step

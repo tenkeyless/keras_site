@@ -705,7 +705,7 @@ StyleGAN can take a long time to train, in the code below, a small `steps_per_ep
 train(start_res=4, target_res=16, steps_per_epoch=1, display_images=False)
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 Model resolution:4x4
@@ -757,7 +757,7 @@ images = style_gan({"style_code": w, "noise": noise, "alpha": 1.0})
 plot_images(images, 5)
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 Downloading data from https://github.com/soon-yau/stylegan_keras/releases/download/keras_example_v1.0/stylegan_128x128.ckpt.zip
@@ -783,7 +783,7 @@ plt.imshow(image_row)
 plt.axis("off")
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 (-0.5, 383.5, 127.5, -0.5)

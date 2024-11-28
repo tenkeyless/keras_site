@@ -95,7 +95,7 @@ noisy_test_data = noise(test_data)
 display(train_data, noisy_train_data)
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 Downloading data from https://storage.googleapis.com/tensorflow/tf-keras-datasets/mnist.npz
@@ -130,7 +130,7 @@ autoencoder.compile(optimizer="adam", loss="binary_crossentropy")
 autoencoder.summary()
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 Model: "functional_1"
@@ -175,7 +175,7 @@ autoencoder.fit(
 )
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 Epoch 1/50
@@ -293,7 +293,7 @@ predictions = autoencoder.predict(test_data)
 display(test_data, predictions)
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
  313/313 ━━━━━━━━━━━━━━━━━━━━ 1s 1ms/step
@@ -316,7 +316,7 @@ autoencoder.fit(
 )
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 Epoch 1/100
@@ -534,7 +534,7 @@ predictions = autoencoder.predict(noisy_test_data)
 display(noisy_test_data, predictions)
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
  313/313 ━━━━━━━━━━━━━━━━━━━━ 0s 523us/step

@@ -58,7 +58,7 @@ import tensorflow as tf
 !unzip -q lol_dataset.zip && rm lol_dataset.zip
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 --2023-11-20 20:01:50--  https://huggingface.co/datasets/geekyrakshit/LoL-Dataset/resolve/main/lol_dataset.zip
@@ -121,7 +121,7 @@ print("Train Dataset:", train_dataset)
 print("Validation Dataset:", val_dataset)
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 Train Dataset: <_BatchDataset element_spec=TensorSpec(shape=(16, 256, 256, 3), dtype=tf.float32, name=None)>
@@ -482,7 +482,7 @@ plot_result("color_constancy_loss")
 plot_result("exposure_loss")
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 Epoch 1/100

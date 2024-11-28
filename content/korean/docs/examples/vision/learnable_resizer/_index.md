@@ -186,7 +186,7 @@ for i, image in enumerate(sample_images[:6]):
     plt.axis("off")
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 Corrupt JPEG data: 65 extraneous bytes before marker 0xd9
@@ -236,7 +236,7 @@ model.compile(
 model.fit(train_ds, validation_data=validation_ds, epochs=EPOCHS)
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 Epoch 1/5
@@ -283,7 +283,7 @@ for i, image in enumerate(sample_images[:6]):
     plt.axis("off")
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 WARNING:matplotlib.image:Clipping input data to the valid range for imshow with RGB data ([0..1] for floats or [0..255] for integers).

@@ -72,7 +72,7 @@ y = linear_layer(x)
 print(y)
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 [[ 0.085416   -0.06821361 -0.00741937 -0.03429271]
@@ -114,7 +114,7 @@ y = my_sum(x)
 print(y.numpy())
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 [2. 2.]
@@ -133,7 +133,7 @@ print("non-trainable weights:", len(my_sum.non_trainable_weights))
 print("trainable_weights:", my_sum.trainable_weights)
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 weights: 1
@@ -227,7 +227,7 @@ print("weights:", len(mlp.weights))
 print("trainable weights:", len(mlp.trainable_weights))
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 weights: 6
@@ -346,7 +346,7 @@ _ = layer(ops.zeros((1, 1)))
 print(layer.losses)
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 [Array(0.00217911, dtype=float32)]
@@ -376,7 +376,7 @@ model.compile(optimizer="adam")
 model.fit(np.random.random((2, 3)), np.random.random((2, 3)))
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
  1/1 ━━━━━━━━━━━━━━━━━━━━ 0s 60ms/step - loss: 0.2650
@@ -421,7 +421,7 @@ print(config)
 new_layer = Linear.from_config(config)
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 {'units': 64}
@@ -462,7 +462,7 @@ print(config)
 new_layer = Linear.from_config(config)
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 {'name': 'linear_7', 'trainable': True, 'dtype': 'float32', 'units': 64}
@@ -654,7 +654,7 @@ vae.compile(optimizer, loss=keras.losses.MeanSquaredError())
 vae.fit(x_train, x_train, epochs=2, batch_size=64)
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 Epoch 1/2

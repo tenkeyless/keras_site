@@ -55,7 +55,7 @@ with zipfile.ZipFile("data.zip", "r") as z_fp:
     z_fp.extractall("./")
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 Downloading data from https://github.com/srihari-humbarwadi/datasets/releases/download/v0.1.0/data.zip
@@ -814,7 +814,7 @@ optimizer = tf.keras.optimizers.legacy.SGD(learning_rate=learning_rate_fn, momen
 model.compile(loss=loss_fn, optimizer=optimizer)
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 Downloading data from https://storage.googleapis.com/tensorflow/keras-applications/resnet/resnet50_weights_tf_dim_ordering_tf_kernels_notop.h5
@@ -903,7 +903,7 @@ model.fit(
 )
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
     100/Unknown - 290s 3s/step - loss: 4.0817
@@ -925,7 +925,7 @@ latest_checkpoint = tf.train.latest_checkpoint(weights_dir)
 model.load_weights(latest_checkpoint)
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 <tensorflow.python.training.tracking.util.CheckpointLoadStatus at 0x7f4c6823d0d0>

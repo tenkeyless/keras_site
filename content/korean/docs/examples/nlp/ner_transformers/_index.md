@@ -34,7 +34,7 @@ We also download the script used to evaluate NER models.
 !wget https://raw.githubusercontent.com/sighsmile/conlleval/master/conlleval.py
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 Resolving raw.githubusercontent.com (raw.githubusercontent.com)... 185.199.108.133, 185.199.110.133, 185.199.111.133, ...
@@ -188,7 +188,7 @@ mapping = make_tag_lookup_table()
 print(mapping)
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 {0: '[PAD]', 1: 'O', 2: 'B-PER', 3: 'I-PER', 4: 'B-ORG', 5: 'I-ORG', 6: 'B-LOC', 7: 'I-LOC', 8: 'B-MISC', 9: 'I-MISC'}
@@ -217,7 +217,7 @@ vocabulary = [token for token, count in counter.most_common(vocab_size - 2)]
 lookup_layer = keras.layers.StringLookup(vocabulary=vocabulary)
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 21009
@@ -238,7 +238,7 @@ Print out one line to make sure it looks good. The first record in the line is t
 print(list(train_data.take(1).as_numpy_iterator()))
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 [b'9\tEU\trejects\tGerman\tcall\tto\tboycott\tBritish\tlamb\t.\t3\t0\t7\t0\t0\t0\t7\t0\t0']
@@ -329,7 +329,7 @@ prediction = [mapping[i] for i in prediction]
 print(prediction)
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 Epoch 1/10
@@ -393,7 +393,7 @@ def calculate_metrics(dataset):
 calculate_metrics(val_dataset)
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 processed 51362 tokens with 5942 phrases; found: 5659 phrases; correct: 3941.

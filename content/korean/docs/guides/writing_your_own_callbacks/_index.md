@@ -193,7 +193,7 @@ res = model.evaluate(
 res = model.predict(x_test, batch_size=128, callbacks=[CustomCallback()])
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 Starting training; got log keys: []
@@ -303,7 +303,7 @@ res = model.evaluate(
 )
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 Up to batch 0, the average loss is   29.25.
@@ -413,7 +413,7 @@ model.fit(
 )
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 Up to batch 0, the average loss is   25.57.
@@ -540,7 +540,7 @@ model.fit(
 )
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 Epoch 0: Learning rate is 0.10000000149011612.

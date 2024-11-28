@@ -69,7 +69,7 @@ print(f"Total validation samples: {valid_df.shape[0]}")
 print(f"Total test samples: {valid_df.shape[0]}")
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
   % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
@@ -107,7 +107,7 @@ print(f"Sentence2: {train_df.loc[1, 'sentence2']}")
 print(f"Similarity: {train_df.loc[1, 'similarity']}")
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 Sentence1: A person on a horse jumps over a broken down airplane.
@@ -126,7 +126,7 @@ print(train_df.isnull().sum())
 train_df.dropna(axis=0, inplace=True)
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 Number of missing values
@@ -145,7 +145,7 @@ print("Train Target Distribution")
 print(train_df.similarity.value_counts())
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 Train Target Distribution
@@ -165,7 +165,7 @@ print("Validation Target Distribution")
 print(valid_df.similarity.value_counts())
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 Validation Target Distribution
@@ -345,7 +345,7 @@ print(f"Strategy: {strategy}")
 model.summary()
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 HBox(children=(FloatProgress(value=0.0, description='Downloading', max=433.0, style=ProgressStyle(description_…
@@ -403,7 +403,7 @@ valid_data = BertSemanticDataGenerator(
 )
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 HBox(children=(FloatProgress(value=0.0, description='Downloading', max=231508.0, style=ProgressStyle(descripti…
@@ -425,7 +425,7 @@ history = model.fit(
 )
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 Epoch 1/2
@@ -454,7 +454,7 @@ model.compile(
 model.summary()
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 Model: "functional_1"
@@ -504,7 +504,7 @@ history = model.fit(
 )
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 Epoch 1/2
@@ -527,7 +527,7 @@ test_data = BertSemanticDataGenerator(
 model.evaluate(test_data, verbose=1)
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 312/312 [==============================] - 55s 177ms/step - loss: 0.3697 - accuracy: 0.8629
@@ -561,7 +561,7 @@ sentence2 = "Two women are standing with their eyes closed."
 check_similarity(sentence1, sentence2)
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 ('contradiction', ' 0.91%')
@@ -577,7 +577,7 @@ sentence2 = "A happy woman in a fairy costume holds an umbrella"
 check_similarity(sentence1, sentence2)
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 ('neutral', ' 0.88%')
@@ -593,7 +593,7 @@ sentence2 = "Some men are playing a sport"
 check_similarity(sentence1, sentence2)
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 ('entailment', ' 0.94%')

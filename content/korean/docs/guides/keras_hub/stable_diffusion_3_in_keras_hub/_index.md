@@ -179,7 +179,7 @@ for n in num_steps:
 display_generated_images(generated_images)
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 Cost time (`num_steps=10`): 1.35s

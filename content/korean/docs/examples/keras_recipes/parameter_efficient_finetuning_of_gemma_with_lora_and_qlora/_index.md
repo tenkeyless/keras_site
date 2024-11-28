@@ -86,7 +86,7 @@ for idx, example in enumerate(examples):
     print()
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 Example 0:
@@ -144,7 +144,7 @@ for idx, example in enumerate(examples):
     print()
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 Example 0:
@@ -185,7 +185,7 @@ gemma_lm = keras_hub.models.GemmaCausalLM.from_preset(
 gemma_lm.summary()
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 Preprocessor: "gemma_causal_lm_preprocessor"
@@ -261,7 +261,7 @@ gemma_lm.backbone.enable_lora(rank=4)
 gemma_lm.summary()
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 Preprocessor: "gemma_causal_lm_preprocessor"
@@ -321,7 +321,7 @@ outputs = gemma_lm.generate(prompt, max_length=256)
 print("Translation:\n", outputs.replace(prompt, ""))
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 Translation:
@@ -372,7 +372,7 @@ gemma_lm.backbone.enable_lora(rank=4)
 gemma_lm.summary()
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 Preprocessor: "gemma_causal_lm_preprocessor_1"
@@ -424,7 +424,7 @@ outputs = gemma_lm.generate(prompt, max_length=256)
 print("Translation:\n", outputs.replace(prompt, ""))
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 Translation:

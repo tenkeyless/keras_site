@@ -181,7 +181,7 @@ while True:  # Run until solved
         break
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 running reward: 8.82 at episode 10

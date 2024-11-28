@@ -703,7 +703,7 @@ model.fit(
 )
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 31/31 [==============================] - ETA: 0s - loss: 0.7746
@@ -736,7 +736,7 @@ model.ema_network.load_weights("checkpoints/diffusion_model_checkpoint")
 model.plot_images(num_rows=4, num_cols=8)
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
   % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current

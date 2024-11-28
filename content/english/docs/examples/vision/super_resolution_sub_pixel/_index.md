@@ -85,7 +85,7 @@ valid_ds = image_dataset_from_directory(
 )
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 Found 500 files.
@@ -390,7 +390,7 @@ loss_fn = keras.losses.MeanSquaredError()
 optimizer = keras.optimizers.Adam(learning_rate=0.001)
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 Model: "functional_1"
@@ -434,7 +434,7 @@ model.fit(
 model.load_weights(checkpoint_filepath)
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 Epoch 1/100
@@ -812,7 +812,7 @@ print("Avg. PSNR of lowres images is %.4f" % (total_bicubic_psnr / 10))
 print("Avg. PSNR of reconstructions is %.4f" % (total_test_psnr / 10))
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
  1/1 ━━━━━━━━━━━━━━━━━━━━ 0s 19ms/step

@@ -175,7 +175,7 @@ vit_base_i21k_patch16_224 = load_model(MODELS_ZIP["vit_b16_patch16_224-i1k_pretr
 print("Model loaded.")
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 Model loaded.
@@ -208,7 +208,7 @@ predicted_label = imagenet_int_to_str[int(np.argmax(predictions))]
 print(predicted_label)
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
  1/1 ━━━━━━━━━━━━━━━━━━━━ 5s 5s/step
@@ -318,7 +318,7 @@ plt.grid()
 plt.show()
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 Num Heads: 12.
@@ -446,7 +446,7 @@ predictions, attention_score_dict = split_prediction_and_attention_scores(
 )
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 Model loaded.
@@ -568,7 +568,7 @@ for i in range(8):
 fig.tight_layout()
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 WARNING:matplotlib.image:Clipping input data to the valid range for imshow with RGB data ([0..1] for floats or [0..255] for integers).

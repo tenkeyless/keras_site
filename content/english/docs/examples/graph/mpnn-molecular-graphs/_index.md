@@ -293,7 +293,7 @@ print("Molecule:")
 molecule
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 Name:   acetylsalicylate
@@ -314,7 +314,7 @@ print("\tbond features\t", graph[1].shape)
 print("\tpair indices\t", graph[2].shape)
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 Graph (including self-loops):
@@ -593,7 +593,7 @@ plt.ylabel("AUC", fontsize=16)
 plt.legend(fontsize=16)
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 Epoch 1/40

@@ -193,7 +193,7 @@ print(
 )
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 with stride 1 ouput shape: (32, 256, 256, 3)
@@ -234,7 +234,7 @@ train_ds = (
 test_ds = tf.data.Dataset.from_tensor_slices((test_images, test_labels)).batch(256)
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 loading the CIFAR10 dataset...
@@ -305,7 +305,7 @@ print("conv model training...")
 conv_hist = conv_model.fit(train_ds, epochs=20, validation_data=test_ds)
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 building the convolution model...
@@ -395,7 +395,7 @@ print("inv model training...")
 inv_hist = inv_model.fit(train_ds, epochs=20, validation_data=test_ds)
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 building the involution model...
@@ -459,7 +459,7 @@ conv_model.summary()
 inv_model.summary()
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 Model: "sequential_3"
@@ -609,7 +609,7 @@ for ax, test_image in zip(axes, test_images[:10]):
     ax[3].set_title("Involution Kernel 3")
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
  1/1 ━━━━━━━━━━━━━━━━━━━━ 1s 503ms/step

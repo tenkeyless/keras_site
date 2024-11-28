@@ -195,7 +195,7 @@ for i, patch in enumerate(patches[0]):
     plt.axis("off")
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 Image size: 224 X 224
@@ -388,7 +388,7 @@ def plot_history(item):
 plot_history("loss")
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 Epoch 1/100
@@ -574,7 +574,7 @@ print("mean_iou: " + str(mean_iou / len(x_test[:10])))
 plt.show()
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
  1/1 ━━━━━━━━━━━━━━━━━━━━ 1s 1s/step

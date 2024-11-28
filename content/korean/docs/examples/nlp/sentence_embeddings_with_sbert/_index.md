@@ -126,7 +126,7 @@ for x, y in stsb_train:
     break
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 sentence 1 : b"A young girl is sitting on Santa's lap."
@@ -190,7 +190,7 @@ roberta_normal_encoder = keras.Model(inputs=inputs, outputs=n_embedding)
 roberta_normal_encoder.summary()
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 Model: "functional_1"
@@ -268,7 +268,7 @@ for i, sim in enumerate(cosine_similarity_scores[0]):
     print(f"cosine similarity score between sentence {i+1} and the query = {sim} ")
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 cosine similarity score between sentence 1 and the query = 0.96630859375
@@ -292,7 +292,7 @@ roberta_regression_siamese.compile(
 roberta_regression_siamese.fit(stsb_train, validation_data=stsb_valid, epochs=1)
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
  300/300 ━━━━━━━━━━━━━━━━━━━━ 115s 297ms/step - loss: 0.4751 - val_loss: 0.4025
@@ -322,7 +322,7 @@ for i, sim in enumerate(cosine_simalarities[0]):
     print(f"cosine similarity between sentence {i+1} and the query = {sim} ")
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 cosine similarity between sentence 1 and the query = 0.10986328125
@@ -378,7 +378,7 @@ wiki_train = prepare_wiki_data(wiki_train, NUM_TRAIN_BATCHES)
 wiki_test = prepare_wiki_data(wiki_test, NUM_TEST_BATCHES)
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 Archive:  wikipedia-sections-triplets.zip
@@ -415,7 +415,7 @@ roberta_encoder = keras.Model(inputs=input, outputs=embedding)
 roberta_encoder.summary()
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 Model: "functional_3"
@@ -507,7 +507,7 @@ roberta_triplet_siamese.compile(
 roberta_triplet_siamese.fit(wiki_train, validation_data=wiki_test, epochs=1)
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
  200/200 ━━━━━━━━━━━━━━━━━━━━ 128s 467ms/step - loss: 0.7822 - val_loss: 0.7126
@@ -537,7 +537,7 @@ for i, label in enumerate(kmeans.labels_):
     print(f"sentence ({questions[i]}) belongs to cluster {label}")
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 sentence (What should I do to improve my English writting?) belongs to cluster 1

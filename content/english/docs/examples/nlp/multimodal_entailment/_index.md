@@ -167,7 +167,7 @@ random_idx = np.random.choice(len(df))
 visualize(random_idx)
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ![png](/images/examples/nlp/multimodal_entailment/multimodal_entailment_14_0.png)
 
@@ -223,7 +223,7 @@ The dataset suffers from [class imbalance problem](https://developers.google.com
 df["label"].value_counts()
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 NoEntailment     1182
@@ -251,7 +251,7 @@ print(f"Total validation examples: {len(val_df)}")
 print(f"Total test examples: {len(test_df)}")
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 Total training examples: 1197
@@ -344,7 +344,7 @@ print("Shape Type Ids : ", text_preprocessed["input_type_ids"].shape)
 print("Type Ids       : ", text_preprocessed["input_type_ids"][0, :16])
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 Text 1: Renewables met 97% of Scotland's electricity demand in 2020!!!!
@@ -591,7 +591,7 @@ multimodal_model.compile(
 history = multimodal_model.fit(train_ds, validation_data=validation_ds, epochs=10)
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 Epoch 1/10
@@ -625,7 +625,7 @@ _, acc = multimodal_model.evaluate(test_ds)
 print(f"Accuracy on the test set: {round(acc * 100, 2)}%.")
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 5/5 [==============================] - 6s 1s/step - loss: 0.8390 - accuracy: 0.8429

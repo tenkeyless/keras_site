@@ -41,7 +41,7 @@ except:
 print("Number of replicas:", strategy.num_replicas_in_sync)
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 Device: grpc://10.0.27.122:8470
@@ -177,7 +177,7 @@ COUNT_PNEUMONIA = len(
 print("Pneumonia images count in training set: " + str(COUNT_PNEUMONIA))
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 Normal images count in training set: 1349
@@ -236,7 +236,7 @@ for image, label in train_ds.take(1):
     print("Label: ", label.numpy())
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 Image shape:  (180, 180, 3)
@@ -400,7 +400,7 @@ print("Weight for class 0: {:.2f}".format(weight_for_0))
 print("Weight for class 1: {:.2f}".format(weight_for_1))
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 Initial bias: 1.05724
@@ -469,7 +469,7 @@ history = model.fit(
 )
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 Epoch 1/100
@@ -583,7 +583,7 @@ Let's evaluate the model on our test data!
 model.evaluate(test_ds, return_dict=True)
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 4/4 [==============================] - 3s 708ms/step - loss: 0.9718 - binary_accuracy: 0.7901 - precision: 0.7524 - recall: 0.9897
@@ -612,7 +612,7 @@ for score, name in zip(scores, CLASS_NAMES):
     print("This image is %.2f percent %s" % ((100 * score), name))
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 /usr/local/lib/python3.6/dist-packages/ipykernel_launcher.py:3: DeprecationWarning: In future, it will be an error for 'np.bool_' scalars to be interpreted as an index

@@ -104,7 +104,7 @@ import datetime  # tensorboard logs naming
 tf.config.optimizer.set_jit(True)
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 ['Requirement already satisfied: tensorflow-addons in /usr/local/lib/python3.7/dist-packages (0.15.0)',
@@ -900,7 +900,7 @@ plt.plot(history.history["loss"])
 plt.show()
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 Epoch 1/160
@@ -1273,7 +1273,7 @@ model.compile(
 model.fit(xy_ds, epochs=35, validation_data=test_ds)
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 Epoch 1/35

@@ -83,7 +83,7 @@ else:
 print(f"Found {len(transactions_dataframe)} transactions")
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 Download dataset
@@ -123,7 +123,7 @@ fraudulent_rate = transactions_dataframe["TX_FRAUD"].mean()
 print("Rate of fraudulent transactions:", fraudulent_rate)
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 Rate of fraudulent transactions: 0.008369271814634397
@@ -139,7 +139,7 @@ transactions_evset = tp.from_pandas(transactions_dataframe, timestamps="TX_DATET
 transactions_evset
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 WARNING:root:Feature "CUSTOMER_ID" is an array of numpy.object_ and will be casted to numpy.string_ (Note: numpy.string_ is equivalent to numpy.bytes_).
@@ -205,7 +205,7 @@ feature_set_1 = tp.glue(*tmp_features)
 feature_set_1
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 features [6]: sum_transactions_7_days (float64), count_transactions_7_days (int32), sum_transactions_14_days (float64), count_transactions_14_days (int32), sum_transactions_28_days (float64), count_transactions_28_days (int32)
@@ -325,7 +325,7 @@ print("All the available features:")
 all_data.schema.feature_names()
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 All the available features:
@@ -361,7 +361,7 @@ print("The model's input features:")
 input_feature_names
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 The model's input features:
@@ -407,7 +407,7 @@ normalized_features = normalized_features.rename(values.schema.feature_names())
 print(normalized_features)
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 indexes: []
@@ -504,7 +504,7 @@ print(f"Validation examples: {valid_ds_evset.num_events()}")
 print(f"Testing examples: {test_ds_evset.num_events()}")
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 Training examples: 296924
@@ -573,7 +573,7 @@ test_ds = (
 )
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 WARNING:tensorflow:From /home/gbm/my_venv/lib/python3.11/site-packages/tensorflow/python/data/ops/dataset_ops.py:4956: Print (from tensorflow.python.ops.logging_ops) is deprecated and will be removed after 2018-08-20.
@@ -599,7 +599,7 @@ for features, labels in train_ds.take(1):
     print(f"labels: {labels[:4]}")
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 features
@@ -657,7 +657,7 @@ model.compile(
 model.fit(train_ds, validation_data=valid_ds)
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
       5/Unknown  1s 15ms/step - accuracy: 0.0000e+00 - auc: 0.4480 - loss: 0.7678
@@ -691,7 +691,7 @@ We evaluate the model on the test dataset.
 model.evaluate(test_ds)
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
  9002/9002 ━━━━━━━━━━━━━━━━━━━━ 7s 811us/step - accuracy: 0.0000e+00 - auc: 0.8357 - loss: 0.2161
@@ -712,7 +712,7 @@ predictions = model.predict(test_ds)
 predictions = np.nan_to_num(predictions, nan=0)
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
  9002/9002 ━━━━━━━━━━━━━━━━━━━━ 10s 1ms/step
@@ -751,7 +751,7 @@ loaded_model = keras.saving.load_model("fraud_detection_model.keras")
 loaded_model.predict(test_ds.rebatch(5).take(1))
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
  1/1 ━━━━━━━━━━━━━━━━━━━━ 0s 71ms/step

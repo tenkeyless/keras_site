@@ -54,7 +54,7 @@ mse = keras.losses.MeanSquaredError()
 mae = keras.losses.MeanAbsoluteError()
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 |████████████████████████████████| 1.1 MB 5.1 MB/s
@@ -75,7 +75,7 @@ The LJSpeech dataset is primarily used for text-to-speech and consists of 13,100
 !tar -xf /content/LJSpeech-1.1.tar.bz2
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 --2021-09-16 11:45:24--  https://data.keithito.com/data/speech/LJSpeech-1.1.tar.bz2
@@ -108,7 +108,7 @@ train_dataset = tf.data.Dataset.from_tensor_slices((wavs,))
 train_dataset = train_dataset.map(preprocess, num_parallel_calls=tf.data.AUTOTUNE)
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 Number of audio files: 13100
@@ -334,7 +334,7 @@ generator = create_generator((None, 1))
 generator.summary()
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 Model: "model"
@@ -527,7 +527,7 @@ discriminator = create_discriminator((None, 1))
 discriminator.summary()
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 Model: "model_1"
@@ -827,7 +827,7 @@ mel_gan.fit(
 )
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 819/819 [==============================] - 641s 696ms/step - gen_loss: 0.9761 - disc_loss: 0.9350
@@ -854,7 +854,7 @@ Timing the inference speed of a single sample. Running this, you can see that th
 pred = generator.predict(audio_sample, batch_size=32, verbose=1)
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 4/4 [==============================] - 5s 280ms/step

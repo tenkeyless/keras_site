@@ -65,7 +65,7 @@ Our text features are present in the `summaries` column and their corresponding 
 print(f"There are {len(arxiv_data)} rows in the dataset.")
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 There are 51774 rows in the dataset.
@@ -80,7 +80,7 @@ total_duplicate_titles = sum(arxiv_data["titles"].duplicated())
 print(f"There are {total_duplicate_titles} duplicate titles.")
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 There are 12802 duplicate titles.
@@ -101,7 +101,7 @@ print(sum(arxiv_data["terms"].value_counts() == 1))
 print(arxiv_data["terms"].nunique())
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 There are 38972 rows in the deduplicated dataset.
@@ -119,7 +119,7 @@ arxiv_data_filtered = arxiv_data.groupby("terms").filter(lambda x: len(x) > 1)
 arxiv_data_filtered.shape
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 (36651, 3)
@@ -138,7 +138,7 @@ arxiv_data_filtered["terms"] = arxiv_data_filtered["terms"].apply(
 arxiv_data_filtered["terms"].values[:5]
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 array([list(['cs.CV', 'cs.LG']), list(['cs.CV', 'cs.AI', 'cs.LG']),
@@ -172,7 +172,7 @@ print(f"Number of rows in validation set: {len(val_df)}")
 print(f"Number of rows in test set: {len(test_df)}")
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 Number of rows in training set: 32985
@@ -203,7 +203,7 @@ print("Vocabulary:\n")
 print(vocab)
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 Vocabulary:
@@ -222,7 +222,7 @@ label_binarized = lookup([sample_label])
 print(f"Label-binarized representation: {label_binarized}")
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 Original label: ['cs.LG', 'cs.CV', 'eess.IV']
@@ -245,7 +245,7 @@ We first get percentile estimates of the sequence lengths. The purpose will be c
 train_df["summaries"].apply(lambda x: len(x.split(" "))).describe()
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 count    32985.000000
@@ -302,7 +302,7 @@ for i, text in enumerate(text_batch[:5]):
     print(" ")
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 Abstract: b"In this paper we show how using satellite images can improve the accuracy of\nhousing price estimation models. Using Los Angeles County's property assessment\ndataset, by transferring learning from an Inception-v3 model pretrained on\nImageNet, we could achieve an improvement of ~10% in R-squared score compared\nto two baseline models that only use non-image features of the house."
@@ -337,7 +337,7 @@ vocabulary_size = len(vocabulary)
 print(vocabulary_size)
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 153338
@@ -424,7 +424,7 @@ plot_result("loss")
 plot_result("binary_accuracy")
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 Epoch 1/20
@@ -484,7 +484,7 @@ _, binary_acc = shallow_mlp_model.evaluate(test_dataset)
 print(f"Categorical accuracy on the test set: {round(binary_acc * 100, 2)}%.")
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 15/15 [==============================] - 3s 196ms/step - loss: 0.0580 - binary_accuracy: 0.9933
@@ -528,7 +528,7 @@ for i, text in enumerate(text_batch[:5]):
     print(" ")
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 4/4 [==============================] - 0s 62ms/step

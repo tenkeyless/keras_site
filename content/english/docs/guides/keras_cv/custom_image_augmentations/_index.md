@@ -120,7 +120,7 @@ elephants = keras.utils.img_to_array(elephants)
 imshow(elephants)
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 Downloading data from https://i.imgur.com/Bvro0YD.png
@@ -289,7 +289,7 @@ augmented = layer(inputs)
 print(augmented["labels"])
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 2.0
@@ -318,7 +318,7 @@ print(
 imshow(ops.convert_to_numpy(augmented * 255).astype(int))
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 Clipping input data to the valid range for imshow with RGB data ([0..1] for floats or [0..255] for integers).
@@ -401,7 +401,7 @@ print(
 imshow(ops.convert_to_numpy(augmented * 255).astype(int))
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 min and max before augmentation: 0.0 1.0

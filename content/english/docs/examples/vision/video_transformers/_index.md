@@ -187,7 +187,7 @@ def prepare_all_videos(df, root_dir):
     return frame_features, labels
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 Total videos for training: 594
@@ -211,7 +211,7 @@ test_data, test_labels = np.load("test_data.npy"), np.load("test_labels.npy")
 print(f"Frame features in train set: {train_data.shape}")
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 []
@@ -333,7 +333,7 @@ def run_experiment():
 trained_model = run_experiment()
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 Epoch 1/5
@@ -426,7 +426,7 @@ test_frames = predict_action(test_video)
 to_gif(test_frames[:MAX_SEQ_LENGTH])
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 Test video path: v_ShavingBeard_g03_c02.avi

@@ -142,7 +142,7 @@ for epoch in range(epochs):
             print(f"Seen so far: {(step + 1) * batch_size} samples")
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 Training loss (for 1 batch) at step 0: 110.9115
@@ -287,7 +287,7 @@ for epoch in range(epochs):
             print(f"Seen so far: {(step + 1) * batch_size} samples")
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 Start of epoch 0
@@ -476,7 +476,7 @@ for epoch in range(epochs):
     print(f"Validation acc: {float(val_acc):.4f}")
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 Start of epoch 0
@@ -686,7 +686,7 @@ for epoch in range(epochs):
     print(f"Validation acc: {float(val_acc):.4f}")
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 Start of epoch 0

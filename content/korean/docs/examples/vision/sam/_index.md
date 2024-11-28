@@ -39,7 +39,7 @@ In this example, we'll learn how to use the SAM model from 🤗 Transformers for
 !!pip install -q git+https://github.com/huggingface/transformers
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 []
@@ -62,7 +62,7 @@ import glob
 import os
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 /Users/mervenoyan/miniforge3/envs/py310/lib/python3.10/site-packages/tqdm/auto.py:21: TqdmWarning: IProgress not found. Please update jupyter and ipywidgets. See https://ipywidgets.readthedocs.io/en/stable/user_install.html
@@ -102,7 +102,7 @@ model = TFSamModel.from_pretrained("facebook/sam-vit-base")
 processor = SamProcessor.from_pretrained("facebook/sam-vit-base")
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 All model checkpoint layers were used when initializing TFSamModel.
@@ -346,7 +346,7 @@ tf.shape(ground_truth_seg)
 
 ![png](/images/examples/vision/sam/sam_26_0.png)
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 <tf.Tensor: shape=(2,), dtype=int32, numpy=array([256, 256], dtype=int32)>
@@ -458,7 +458,7 @@ for k in sample:
     print(k, sample[k].shape, sample[k].dtype, isinstance(sample[k], tf.Tensor))
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 pixel_values (2, 3, 1024, 1024) <dtype: 'float32'> True
@@ -533,7 +533,7 @@ def train_step(inputs):
         return loss
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 All model checkpoint layers were used when initializing TFSamModel.
@@ -557,7 +557,7 @@ for epoch in range(3):
     print(f"Epoch {epoch + 1}: Loss = {loss}")
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 WARNING:tensorflow:Gradients do not exist for variables ['tf_sam_model_1/mask_decoder/iou_prediction_head/proj_in/kernel:0', 'tf_sam_model_1/mask_decoder/iou_prediction_head/proj_in/bias:0', 'tf_sam_model_1/mask_decoder/iou_prediction_head/proj_out/kernel:0', 'tf_sam_model_1/mask_decoder/iou_prediction_head/proj_out/bias:0', 'tf_sam_model_1/mask_decoder/iou_prediction_head/layers_._0/kernel:0', 'tf_sam_model_1/mask_decoder/iou_prediction_head/layers_._0/bias:0'] when minimizing the loss. If you're using `model.compile()`, did you forget to provide a `loss` argument?
@@ -612,7 +612,7 @@ iou_scores = outputs["iou_scores"]
 show_masks_on_image(raw_image_inference, masks=infer_masks, scores=iou_scores)
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 WARNING:matplotlib.image:Clipping input data to the valid range for imshow with RGB data ([0..1] for floats or [0..255] for integers).

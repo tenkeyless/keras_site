@@ -169,7 +169,7 @@ for i, (image, label) in enumerate(zip(sample_images[:9], sample_labels[:9])):
     plt.axis("off")
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 [0.0, 0.9964277148246765, 0.0, 0.0, 0.003572270041331649, 0.0, 0.0, 0.0, 0.0, 0.0]
@@ -225,7 +225,7 @@ _, test_acc = model.evaluate(test_ds)
 print("Test accuracy: {:.2f}%".format(test_acc * 100))
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 Epoch 1/10
@@ -271,7 +271,7 @@ _, test_acc = model.evaluate(test_ds)
 print("Test accuracy: {:.2f}%".format(test_acc * 100))
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 Epoch 1/10

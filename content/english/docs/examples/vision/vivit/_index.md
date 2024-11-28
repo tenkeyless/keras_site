@@ -316,7 +316,7 @@ def run_experiment():
 model = run_experiment()
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 Test accuracy: 76.72%

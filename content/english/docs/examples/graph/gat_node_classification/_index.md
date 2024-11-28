@@ -87,7 +87,7 @@ print(citations)
 print(papers)
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
       target  source
@@ -147,7 +147,7 @@ print("Edges shape:\t\t", edges.shape)
 print("Node features shape:", node_states.shape)
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 Edges shape:         (5429, 2)
@@ -380,7 +380,7 @@ _, test_accuracy = gat_model.evaluate(x=test_indices, y=test_labels, verbose=0)
 print("--" * 38 + f"\nTest Accuracy {test_accuracy*100:.1f}%")
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 Epoch 1/100
@@ -425,7 +425,7 @@ for i, (probs, label) in enumerate(zip(test_probs[:10], test_labels[:10])):
     print("---" * 20)
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 Example 1: Probabilistic_Methods

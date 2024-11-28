@@ -92,7 +92,7 @@ bit_model = tf.keras.models.load_model("flower_model_bit_0.96875")
 bit_model.count_params()
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 23510597
@@ -118,7 +118,7 @@ embedding_model = tf.keras.Sequential(
 embedding_model.summary()
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 Model: "embedding_model"
@@ -342,7 +342,7 @@ converter.convert()
 converter.save("tensorrt_embedding_model")
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 WARNING:tensorflow:Compiled the loaded model, but the compiled metrics have yet to be built. `model.compile_metrics` will be empty until you train or evaluate the model.
@@ -405,7 +405,7 @@ for hash, entry in lsh_builder_trt.lsh.tables[0].table.items():
         idx += 1
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 145 [{'id_label': '3_4'}, {'id_label': '727_3'}]
@@ -437,7 +437,7 @@ validation_labels = np.array(validation_labels)
 validation_images.shape, validation_labels.shape
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 ((100, 224, 224, 3), (100,))
@@ -494,7 +494,7 @@ for _ in range(5):
 visualize_lsh(lsh_builder)
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 Matches: 507
@@ -526,7 +526,7 @@ for _ in range(5):
     visualize_lsh(lsh_builder_trt)
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 Matches: 458
@@ -572,7 +572,7 @@ benchmark(lsh_builder)
 benchmark(lsh_builder_trt)
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 Time taken: 54.359

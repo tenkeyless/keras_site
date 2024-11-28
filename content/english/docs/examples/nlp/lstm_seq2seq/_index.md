@@ -47,7 +47,7 @@ dirpath = Path(fpath).parent.absolute()
 os.system(f"unzip -q {fpath} -d {dirpath}")
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 0
@@ -134,7 +134,7 @@ for i, (input_text, target_text) in enumerate(zip(input_texts, target_texts)):
     decoder_target_data[i, t:, target_token_index[" "]] = 1.0
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 Number of samples: 10000
@@ -190,7 +190,7 @@ model.fit(
 model.save("s2s_model.keras")
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 Epoch 1/100
@@ -484,7 +484,7 @@ for seq_index in range(20):
     print("Decoded sentence:", decoded_sentence)
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 -

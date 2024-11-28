@@ -72,7 +72,7 @@ BATCH_SIZE = 64
 SHUFFLE_BUFFER_SIZE = BATCH_SIZE * 2
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 Downloading...
@@ -257,7 +257,7 @@ le.fit(eeg["label"])
 eeg["label"] = le.transform(eeg["label"])
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 Before replacing labels
@@ -300,7 +300,7 @@ num_classes = len(eeg["label"].unique())
 print(num_classes)
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 19
@@ -351,7 +351,7 @@ y_test = np.asarray(y_test).astype(np.float32).reshape(-1, 1)
 y_test = keras.utils.to_categorical(y_test)
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 Length of x_train : 8460
@@ -397,7 +397,7 @@ weight_dict = {k: (1 - (v / total)) for k, v in vals_dict.items()}
 print(weight_dict)
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 {1: 0.9872413100261201, 0: 0.975989551938919, 14: 0.9841269841269842, 13: 0.9061683745228049, 9: 0.9838255977496484, 8: 0.9059674502712477, 11: 0.9847297568816556, 10: 0.9063692987743621, 18: 0.9838255977496484, 17: 0.9057665260196905, 16: 0.9373116335141651, 15: 0.9065702230259193, 2: 0.9211372312638135, 12: 0.9525818766325096, 3: 0.9245529435402853, 4: 0.943841671689773, 5: 0.9641350210970464, 6: 0.981514968856741, 7: 0.9443439823186659}
@@ -499,7 +499,7 @@ conv_model = create_model()
 conv_model.summary()
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 Model: "functional_1"
@@ -615,7 +615,7 @@ conv_model_history = conv_model.fit(
 )
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 Epoch 1/30
@@ -751,7 +751,7 @@ def view_evaluated_eeg_plots(model):
 view_evaluated_eeg_plots(conv_model)
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
  24/24 ━━━━━━━━━━━━━━━━━━━━ 0s 4ms/step - auc: 0.6438 - loss: 5.3150 - precision: 0.2589 - recall: 0.0565 - top_k_categorical_accuracy: 0.3281

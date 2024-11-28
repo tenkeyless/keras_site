@@ -96,7 +96,7 @@ raw_val_ds = (
 )
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 Downloading data from https://dldata-public.s3.us-east-2.amazonaws.com/simplebooks.zip
@@ -202,7 +202,7 @@ Let's take a look at our model summary - a large majority of the parameters are 
 model.summary()
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 Model: "functional_1"
@@ -237,7 +237,7 @@ Now that we have our model, let's train it with the `fit()` method.
 model.fit(train_ds, validation_data=val_ds, epochs=EPOCHS)
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 Epoch 1/5
@@ -268,7 +268,7 @@ prompt_tokens = start_packer(tokenizer([""]))
 prompt_tokens
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 <tf.Tensor: shape=(1, 128), dtype=int32, numpy=
@@ -312,7 +312,7 @@ txt = tokenizer.detokenize(output_tokens)
 print(f"Greedy search generated text: \n{txt}\n")
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 Greedy search generated text:
@@ -340,7 +340,7 @@ txt = tokenizer.detokenize(output_tokens)
 print(f"Beam search generated text: \n{txt}\n")
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 Beam search generated text:
@@ -366,7 +366,7 @@ txt = tokenizer.detokenize(output_tokens)
 print(f"Random search generated text: \n{txt}\n")
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 Random search generated text:
@@ -392,7 +392,7 @@ txt = tokenizer.detokenize(output_tokens)
 print(f"Top-K search generated text: \n{txt}\n")
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 Top-K search generated text:
@@ -418,7 +418,7 @@ txt = tokenizer.detokenize(output_tokens)
 print(f"Top-P search generated text: \n{txt}\n")
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 Top-P search generated text:
@@ -453,7 +453,7 @@ text_generation_callback = TopKTextGenerator(k=10)
 model.fit(train_ds.take(1), verbose=2, epochs=2, callbacks=[text_generation_callback])
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 Epoch 1/2

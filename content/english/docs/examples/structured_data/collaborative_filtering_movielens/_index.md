@@ -73,7 +73,7 @@ ratings_file = movielens_dir / "ratings.csv"
 df = pd.read_csv(ratings_file)
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 Downloading data from http://files.grouplens.org/datasets/movielens/ml-latest-small.zip
@@ -110,7 +110,7 @@ print(
 )
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 Number of users: 610, Number of Movies: 9724, Min rating: 0.5, Max rating: 5.0
@@ -198,7 +198,7 @@ history = model.fit(
 )
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 Epoch 1/5
@@ -275,7 +275,7 @@ for row in recommended_movies.itertuples():
     print(row.title, ":", row.genres)
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
  272/272 ━━━━━━━━━━━━━━━━━━━━ 0s 714us/step

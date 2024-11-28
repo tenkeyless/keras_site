@@ -109,7 +109,7 @@ np.testing.assert_allclose(
 )
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
  1/1 ━━━━━━━━━━━━━━━━━━━━ 0s 101ms/step - loss: 0.2908
@@ -311,7 +311,7 @@ np.testing.assert_equal(model.loss_fn, restored_model.loss_fn)
 np.testing.assert_equal(model.loss_metrics, restored_model.loss_metrics)
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
  1/1 ━━━━━━━━━━━━━━━━━━━━ 0s 79ms/step - accuracy: 0.0000e+00 - loss: 0.0627 - mean_metric_wrapper: 0.2500

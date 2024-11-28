@@ -31,7 +31,7 @@ If you're interested in learning about object detection using KerasCV, I highly 
 !pip install --upgrade git+https://github.com/keras-team/keras-cv -q
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 [33mWARNING: Running pip as the 'root' user can result in broken permissions and conflicting behaviour with the system package manager. It is recommended to use a virtual environment instead: https://pip.pypa.io/warnings/venv[0m[33m
@@ -55,7 +55,7 @@ from keras_cv import bounding_box
 from keras_cv import visualization
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 /opt/conda/lib/python3.10/site-packages/tensorflow_io/python/ops/__init__.py:98: UserWarning: unable to load libtensorflow_io_plugins.so: unable to open file: libtensorflow_io_plugins.so, from paths: ['/opt/conda/lib/python3.10/site-packages/tensorflow_io/python/ops/libtensorflow_io_plugins.so']
@@ -171,7 +171,7 @@ for xml_file in tqdm(xml_files):
     classes.append(class_ids)
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
   0%|          | 0/7316 [00:00<?, ?it/s]
@@ -498,7 +498,7 @@ yolo.fit(
 )
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 Epoch 1/3
@@ -538,7 +538,7 @@ def visualize_detections(model, dataset, bounding_box_format):
 visualize_detections(yolo, dataset=val_ds, bounding_box_format="xyxy")
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 1/1 [==============================] - 0s 115ms/step

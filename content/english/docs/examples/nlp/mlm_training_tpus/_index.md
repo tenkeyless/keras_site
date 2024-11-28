@@ -101,7 +101,7 @@ strategy = tf.distribute.TPUStrategy(tpu)
 print(f"Available number of replicas: {strategy.num_replicas_in_sync}")
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 Available number of replicas: 8
@@ -122,7 +122,7 @@ config = transformers.AutoConfig.from_pretrained(pretrained_model_config)
 config.vocab_size = tokenizer.vocab_size
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 Downloading (…)okenizer_config.json:   0%|          | 0.00/483 [00:00<?, ?B/s]
@@ -166,7 +166,7 @@ num_train_samples = count_samples(training_records)
 print(f"Number of total training samples: {num_train_samples}")
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 Number of total training samples: 300917
@@ -280,7 +280,7 @@ single_batch = next(iter(train_dataset))
 print(single_batch.keys())
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 dict_keys(['attention_mask', 'input_ids', 'labels'])
@@ -302,7 +302,7 @@ for k in single_batch:
         print(f"Label shape: {labels.shape}")
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 Input shape: (128, 512)
@@ -319,7 +319,7 @@ print("Taking the first sample:\n")
 print(tokenizer.decode(input_ids[idx].numpy()))
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 Taking the first sample:
@@ -342,7 +342,7 @@ As expected, the decoded tokens contain the special tokens including the mask to
 print(labels[0].numpy()[:30])
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 [-100 -100 -100 -100 -100 -100 -100 -100 -100   43 -100 -100 -100 -100
@@ -382,7 +382,7 @@ with strategy.scope():
     model.compile(optimizer=optimizer, metrics=["accuracy"])
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 No loss specified in compile() - the model's internal loss computation will be used as the loss. Don't panic - this is a common way to train TensorFlow models in Transformers! To disable this behaviour please pass a loss argument, or explicitly pass `loss=None` if you do not want your model to compute a loss.
@@ -415,7 +415,7 @@ callbacks.append(
 )
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 Cloning https://huggingface.co/sayakpaul/masked-lm-tpu into local empty directory.
@@ -444,7 +444,7 @@ model.fit(
 model.save_pretrained(output_dir)
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 Epoch 1/10
@@ -487,7 +487,7 @@ unmasker = pipeline("fill-mask", model=model_id, framework="tf")
 print(unmasker("Goal of my life is to [MASK]."))
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 Downloading (…)lve/main/config.json:   0%|          | 0.00/649 [00:00<?, ?B/s]

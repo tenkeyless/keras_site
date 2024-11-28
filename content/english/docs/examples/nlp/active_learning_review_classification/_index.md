@@ -71,7 +71,7 @@ reviews, labels = tfds.as_numpy(dataset)
 print("Total examples:", reviews.shape[0])
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 Total examples: 50000
@@ -157,7 +157,7 @@ print(f"Unlabeled negative pool: {len(pool_negatives)}")
 print(f"Unlabeled positive pool: {len(pool_positives)}")
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 Initial training set size: 15000
@@ -314,7 +314,7 @@ full_train_dataset = (
 full_dataset_model = train_full_model(full_train_dataset, val_dataset, test_dataset)
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 Model: "sequential"
@@ -614,7 +614,7 @@ active_learning_model = train_active_learning_models(
 )
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 Model: "sequential_1"

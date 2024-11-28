@@ -77,7 +77,7 @@ positive_images_path = cache_dir / "right"
 !unzip -oq right.zip -d $cache_dir
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 Downloading...
@@ -346,7 +346,7 @@ siamese_model.compile(optimizer=optimizers.Adam(0.0001))
 siamese_model.fit(train_dataset, epochs=10, validation_data=val_dataset)
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 Epoch 1/10
@@ -416,7 +416,7 @@ negative_similarity = cosine_similarity(anchor_embedding, negative_embedding)
 print("Negative similarity", negative_similarity.numpy())
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 Positive similarity: 0.99608964

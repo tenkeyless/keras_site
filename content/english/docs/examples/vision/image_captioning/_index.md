@@ -172,7 +172,7 @@ print("Number of training samples: ", len(train_data))
 print("Number of validation samples: ", len(valid_data))
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 Number of training samples:  6114
@@ -596,7 +596,7 @@ caption_model.fit(
 )
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 Epoch 1/30
@@ -698,7 +698,7 @@ generate_caption()
 generate_caption()
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ![png](/images/examples/vision/image_captioning/image_captioning_17_0.png)
 

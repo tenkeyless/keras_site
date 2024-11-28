@@ -39,7 +39,7 @@ except:
 print("Number of replicas:", strategy.num_replicas_in_sync)
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 Number of replicas: 8
@@ -69,7 +69,7 @@ print("Validation TFRecord Files:", len(VALID_FILENAMES))
 print("Test TFRecord Files:", len(TEST_FILENAMES))
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 Train TFRecord Files: 14
@@ -242,7 +242,7 @@ history = model.fit(
 )
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 Downloading data from https://storage.googleapis.com/tensorflow/keras-applications/xception/xception_weights_tf_dim_ordering_tf_kernels_notop.h5

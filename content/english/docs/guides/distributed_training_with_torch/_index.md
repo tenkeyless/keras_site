@@ -220,7 +220,7 @@ def per_device_launch_fn(current_gpu_index, num_gpu):
     cleanup()
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 Running on 0 GPUs

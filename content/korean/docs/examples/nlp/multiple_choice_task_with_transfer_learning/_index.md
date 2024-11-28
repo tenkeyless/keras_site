@@ -45,7 +45,7 @@ In this example we'll use **SWAG** dataset for multiplechoice task.
 !unzip -q swag.zip
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 --2023-11-13 20:05:24--  https://github.com/rowanz/swagaf/archive/refs/heads/master.zip
@@ -69,7 +69,7 @@ swag.zip                [       <=>          ]  19.94M  4.25MB/s    in 4.7s
 !ls swagaf-master/data
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 README.md  test.csv  train.csv  train_full.csv  val.csv  val_full.csv
@@ -121,7 +121,7 @@ valid_df = valid_df.sample(frac=0.02)
 print("# Valid Data: {:,}".format(len(valid_df)))
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 # Train Data: 1,471
@@ -180,7 +180,7 @@ for k, v in outs.items():
     print(k, ":", v.shape)
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 CUDA backend failed to initialize: Found CUDA version 12010, but JAX was built against version 12020, which is newer. The copy of CUDA that is installed must be at least as new as the version against which JAX was built. (Set TF_CPP_MIN_LOG_LEVEL=0 and rerun for more info.)
@@ -475,7 +475,7 @@ Let's checkout the model summary to have a better insight on the model.
 model.summary()
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 Model: "functional_1"
@@ -557,7 +557,7 @@ history = model.fit(
 )
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 Epoch 1/5
@@ -601,7 +601,7 @@ for i in range(0, 50, 10):
     print("-" * 90, "\n")
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
  50/50 ━━━━━━━━━━━━━━━━━━━━ 274s 5s/step

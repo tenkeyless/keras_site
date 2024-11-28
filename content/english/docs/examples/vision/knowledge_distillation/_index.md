@@ -177,7 +177,7 @@ teacher.fit(x_train, y_train, epochs=5)
 teacher.evaluate(x_test, y_test)
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 Epoch 1/5
@@ -220,7 +220,7 @@ distiller.fit(x_train, y_train, epochs=3)
 distiller.evaluate(x_test, y_test)
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 Epoch 1/3
@@ -253,7 +253,7 @@ student_scratch.fit(x_train, y_train, epochs=3)
 student_scratch.evaluate(x_test, y_test)
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 Epoch 1/3

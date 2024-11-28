@@ -222,7 +222,7 @@ _, acc = teacher_model.evaluate(test_ds, verbose=0)
 print(f"Test accuracy: {acc*100}%")
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 Epoch 1/5
@@ -352,7 +352,7 @@ acc = self_trainer.evaluate(test_ds, verbose=0)
 print(f"Test accuracy from student model: {acc*100}%")
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 Epoch 1/5

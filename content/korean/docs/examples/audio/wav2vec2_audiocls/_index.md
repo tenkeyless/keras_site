@@ -94,7 +94,7 @@ The dataset has the following fields:
 print(speech_commands_v1)
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 DatasetDict({
@@ -146,7 +146,7 @@ speech_commands_v1["test"] = speech_commands_v1["test"].select(
 print(speech_commands_v1)
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 DatasetDict({
@@ -175,7 +175,7 @@ for i, label in enumerate(labels):
 print(id2label)
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 {'0': 'yes', '1': 'no', '2': 'up', '3': 'down', '4': 'left', '5': 'right', '6': 'on', '7': 'off', '8': 'stop', '9': 'go', '10': '_silence_', '11': '_unknown_'}
@@ -353,7 +353,7 @@ model.fit(
 )
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 Epoch 1/2
@@ -372,7 +372,7 @@ Great! Now that we have trained our model, we predict the classes for audio samp
 preds = model.predict(test_x)
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 28/28 [==============================] - 4s 44ms/step
@@ -393,7 +393,7 @@ print("Original Label is ", id2label[str(test["label"][rand_int])])
 print("Predicted Label is ", id2label[str(np.argmax((preds[rand_int])))])
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 Original Label is  up

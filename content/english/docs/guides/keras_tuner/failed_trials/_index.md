@@ -107,7 +107,7 @@ tuner.search(
 tuner.results_summary()
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 Trial 12 Complete [00h 00m 00s]
@@ -306,7 +306,7 @@ tuner.search(
 tuner.results_summary()
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 Trial 12 Complete [00h 00m 00s]
@@ -503,7 +503,7 @@ except keras_tuner.errors.FatalError:
     print("The search is terminated.")
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 Trial 7 Complete [00h 00m 01s]

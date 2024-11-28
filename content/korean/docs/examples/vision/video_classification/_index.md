@@ -77,7 +77,7 @@ print(f"Total videos for testing: {len(test_df)}")
 train_df.sample(10)
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 Total videos for training: 594
@@ -171,7 +171,7 @@ label_processor = keras.layers.StringLookup(
 print(label_processor.get_vocabulary())
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 ['CricketShot', 'PlayingCello', 'Punch', 'ShavingBeard', 'TennisSwing']
@@ -237,7 +237,7 @@ print(f"Frame features in train set: {train_data[0].shape}")
 print(f"Frame masks in train set: {train_data[1].shape}")
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 Frame features in train set: (594, 20, 2048)
@@ -304,7 +304,7 @@ def run_experiment():
 _, sequence_model = run_experiment()
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 Epoch 1/10
@@ -406,7 +406,7 @@ test_frames = sequence_prediction(test_video)
 to_gif(test_frames[:MAX_SEQ_LENGTH])
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 Test video path: v_TennisSwing_g03_c01.avi

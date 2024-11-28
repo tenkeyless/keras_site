@@ -65,7 +65,7 @@ print(f"Total training examples: {len(x_train)}")
 print(f"Total test examples: {len(x_test)}")
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 Total training examples: 50000
@@ -331,7 +331,7 @@ plt.title("Negative Cosine Similairty")
 plt.show()
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 Epoch 1/5
@@ -401,7 +401,7 @@ _, test_acc = linear_model.evaluate(test_ds)
 print("Test accuracy: {:.2f}%".format(test_acc * 100))
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 Epoch 1/5

@@ -134,7 +134,7 @@ for epoch in range(epochs):
             print(f"Seen so far: {(step + 1) * batch_size} samples")
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 Start of epoch 0
@@ -317,7 +317,7 @@ for epoch in range(epochs):
     print(f"Time taken: {time.time() - start_time:.2f}s")
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 Start of epoch 0
@@ -464,7 +464,7 @@ for epoch in range(epochs):
     print(f"Time taken: {time.time() - start_time:.2f}s")
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 Start of epoch 0
@@ -630,7 +630,7 @@ discriminator = keras.Sequential(
 discriminator.summary()
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 Model: "discriminator"
@@ -768,7 +768,7 @@ for epoch in range(epochs):
             break
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 Start epoch 0

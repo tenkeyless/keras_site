@@ -80,7 +80,7 @@ print(f"route_distances shape={route_distances.shape}")
 print(f"speeds_array shape={speeds_array.shape}")
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 route_distances shape=(228, 228)
@@ -129,7 +129,7 @@ print(f"route_distances shape={route_distances.shape}")
 print(f"speeds_array shape={speeds_array.shape}")
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 route_distances shape=(26, 26)
@@ -148,7 +148,7 @@ plt.plot(speeds_array[:, [0, -1]])
 plt.legend(["route_0", "route_25"])
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 <matplotlib.legend.Legend at 0x7f5a870b2050>
@@ -167,7 +167,7 @@ plt.xlabel("road number")
 plt.ylabel("road number")
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 Text(0, 0.5, 'road number')
@@ -223,7 +223,7 @@ print(f"validation set size: {val_array.shape}")
 print(f"test set size: {test_array.shape}")
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 train set size: (6336, 26)
@@ -382,7 +382,7 @@ graph = GraphInfo(
 print(f"number of nodes: {graph.num_nodes}, number of edges: {len(graph.edges[0])}")
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 number of nodes: 26, number of edges: 150
@@ -607,7 +607,7 @@ model.fit(
 )
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 Epoch 1/20
@@ -687,7 +687,7 @@ naive_mse, model_mse = (
 print(f"naive MAE: {naive_mse}, model MAE: {model_mse}")
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
  119/119 ━━━━━━━━━━━━━━━━━━━━ 1s 6ms/step

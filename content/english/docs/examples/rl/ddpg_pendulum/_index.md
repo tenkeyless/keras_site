@@ -86,7 +86,7 @@ print("Max Value of Action ->  {}".format(upper_bound))
 print("Min Value of Action ->  {}".format(lower_bound))
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 Size of State Space ->  3
@@ -381,7 +381,7 @@ plt.ylabel("Avg. Episodic Reward")
 plt.show()
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 Episode * 0 * Avg Reward is ==> -1020.8244931732263

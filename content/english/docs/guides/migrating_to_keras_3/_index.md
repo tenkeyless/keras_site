@@ -47,7 +47,7 @@ import tensorflow as tf
 import numpy as np
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
  [[34;49mnotice[1;39;49m][39;49m A new release of pip is available: [31;49m23.3.1[39;49m -> [32;49m24.0
@@ -116,7 +116,7 @@ subclass_model.jit_compile = False
 subclass_model.predict(x_train)
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
  1/1 ━━━━━━━━━━━━━━━━━━━━ 0s 51ms/step
@@ -158,7 +158,7 @@ sequential_model(np.random.rand(3, 5))
 sequential_model.export("saved_model")
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 INFO:tensorflow:Assets written to: saved_model/assets
@@ -205,7 +205,7 @@ keras.models.load_model("saved_model")
 keras.layers.TFSMLayer("saved_model", call_endpoint="serving_default")
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 <TFSMLayer name=tfsm_layer, built=True>
@@ -251,7 +251,7 @@ outputs = inputs["foo"] + inputs["bar"]
 keras.Model(inputs, outputs)
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 <Functional name=functional_2, built=True>
@@ -315,7 +315,7 @@ model.compile(optimizer="adam", loss="mse")
 model.predict(data)
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
  1/1 ━━━━━━━━━━━━━━━━━━━━ 0s 43ms/step
@@ -354,7 +354,7 @@ input = keras.layers.Input([2, 2, 1])
 keras.ops.squeeze(input)
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 <KerasTensor shape=(None, 2, 2), dtype=float32, sparse=None, name=keras_tensor_6>
@@ -408,7 +408,7 @@ multi_output_model.compile(
 multi_output_model.evaluate(x_test, y_test)
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
  1/1 ━━━━━━━━━━━━━━━━━━━━ 0s 112ms/step - loss: 4.0217 - output_1_categorical_crossentropy: 4.0217
@@ -490,7 +490,7 @@ for layer in model.layers:
     print(layer.trainable_variables)
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
  1/1 ━━━━━━━━━━━━━━━━━━━━ 0s 33ms/step
@@ -554,7 +554,7 @@ inputs = {
 layer(inputs)
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 <KerasTensor shape=(None, 1), dtype=float32, sparse=False, name=keras_tensor_14>
@@ -581,7 +581,7 @@ baz = None
 layer(foo, baz=baz)
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 <KerasTensor shape=(None, 1), dtype=float32, sparse=False, name=keras_tensor_15>
@@ -798,7 +798,7 @@ print(keras.random.normal(shape=(), seed=123))
 print(keras.random.normal(shape=(), seed=123))
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 tf.Tensor(0.7832616, shape=(), dtype=float32)
@@ -814,7 +814,7 @@ print(tf.random.normal(shape=(), seed=123))
 print(tf.random.normal(shape=(), seed=123))
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 tf.Tensor(2.4435377, shape=(), dtype=float32)
@@ -833,7 +833,7 @@ print(keras.random.normal(shape=(), seed=seed_generator))
 print(keras.random.normal(shape=(), seed=seed_generator))
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 tf.Tensor(0.6077996, shape=(), dtype=float32)

@@ -312,7 +312,7 @@ model.compile(optimizer=optim_edsr, loss="mae", metrics=[PSNR])
 model.fit(train_ds, epochs=100, steps_per_epoch=200, validation_data=val_ds)
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 Epoch 1/100

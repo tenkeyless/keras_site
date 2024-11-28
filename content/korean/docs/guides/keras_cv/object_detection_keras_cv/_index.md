@@ -206,7 +206,7 @@ visualization.plot_bounding_box_gallery(
 )
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
  1/1 ━━━━━━━━━━━━━━━━━━━━ 11s 11s/step
@@ -252,7 +252,7 @@ visualization.plot_bounding_box_gallery(
 )
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
  1/1 ━━━━━━━━━━━━━━━━━━━━ 5s 5s/step
@@ -297,7 +297,7 @@ visualization.plot_bounding_box_gallery(
 )
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
  1/1 ━━━━━━━━━━━━━━━━━━━━ 5s 5s/step
@@ -604,7 +604,7 @@ model.fit(
 )
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
  20/20 ━━━━━━━━━━━━━━━━━━━━ 7s 59ms/step
@@ -690,7 +690,7 @@ model.prediction_decoder = keras_cv.layers.NonMaxSuppression(
 visualize_detections(model, dataset=visualization_ds, bounding_box_format="xywh")
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
  1/1 ━━━━━━━━━━━━━━━━━━━━ 16s 16s/step
@@ -747,7 +747,7 @@ visualization.plot_bounding_box_gallery(
 )
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 By using this model checkpoint, you acknowledge that its usage is subject to the terms of the CreativeML Open RAIL++-M license at https://github.com/Stability-AI/stablediffusion/blob/main/LICENSE-MODEL

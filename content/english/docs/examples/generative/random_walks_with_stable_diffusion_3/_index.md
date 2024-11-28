@@ -196,7 +196,7 @@ print(f"Positive pooled embeddings shape: {encoding_1[2].shape}")
 print(f"Negative pooled embeddings shape: {encoding_1[3].shape}")
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 Positive embeddings shape: (1, 154, 4096)

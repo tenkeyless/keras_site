@@ -32,7 +32,7 @@ type: docs
 !tar -xf annotations.tar.gz
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
   % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
@@ -77,7 +77,7 @@ for input_path, target_path in zip(input_img_paths[:10], target_img_paths[:10]):
     print(input_path, "|", target_path)
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 Number of samples: 7390
@@ -226,7 +226,7 @@ model = get_model(img_size, num_classes)
 model.summary()
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 Model: "functional_1"
@@ -510,7 +510,7 @@ model.fit(
 )
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 Epoch 1/50
@@ -804,7 +804,7 @@ display(img)
 display_mask(i)  # Note that the model only sees inputs at 150x150.
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
  32/32 ━━━━━━━━━━━━━━━━━━━━ 5s 100ms/step

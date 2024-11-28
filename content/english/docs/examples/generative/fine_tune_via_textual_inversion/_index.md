@@ -56,7 +56,7 @@ import matplotlib.pyplot as plt
 stable_diffusion = keras_cv.models.StableDiffusion()
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 By using this model checkpoint, you acknowledge that its usage is subject to the terms of the CreativeML Open RAIL-M license at https://raw.githubusercontent.com/CompVis/stable-diffusion/main/LICENSE
@@ -405,7 +405,7 @@ all_models = [
 print([[w.shape for w in model.trainable_weights] for model in all_models])
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 [[TensorShape([49409, 768])], [], []]
@@ -552,7 +552,7 @@ generated = stable_diffusion.text_to_image(
 plot_images(generated)
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 25/25 [==============================] - 19s 314ms/step
@@ -640,7 +640,7 @@ trainer.fit(
 )
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 Epoch 1/50
@@ -812,7 +812,7 @@ generated = stable_diffusion.text_to_image(
 plot_images(generated)
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 25/25 [==============================] - 8s 316ms/step
@@ -832,7 +832,7 @@ generated = stable_diffusion.text_to_image(
 plot_images(generated)
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 25/25 [==============================] - 8s 314ms/step
@@ -849,7 +849,7 @@ generated = stable_diffusion.text_to_image(
 plot_images(generated)
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 25/25 [==============================] - 8s 322ms/step
@@ -867,7 +867,7 @@ generated = stable_diffusion.text_to_image(
 plot_images(generated)
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 25/25 [==============================] - 8s 315ms/step

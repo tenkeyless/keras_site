@@ -52,7 +52,7 @@ print(x_test.shape)
 print(y_test.shape)
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 (60000, 28, 28, 1)
@@ -130,7 +130,7 @@ model(x_train[:100])
 model.summary()
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 Model: "functional_1"
@@ -197,7 +197,7 @@ tuner.search(
 )
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 Trial 10 Complete [00h 00m 06s]

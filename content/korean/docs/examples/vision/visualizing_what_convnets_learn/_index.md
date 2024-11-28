@@ -189,7 +189,7 @@ from IPython.display import Image, display
 display(Image("stiched_filters.png"))
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 Processing filter 0

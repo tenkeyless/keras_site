@@ -151,7 +151,7 @@ model.fit(
 model.evaluate(x_test, y_test, verbose=1)
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 Model: "functional_1"

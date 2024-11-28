@@ -227,7 +227,7 @@ epochs = 40  # @param {type: "slider", min:10, max:100}
 hist = model.fit(ds_train, epochs=epochs, validation_data=ds_test)
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 Model: "efficientnetb0"
@@ -1112,7 +1112,7 @@ hist = model.fit(ds_train, epochs=epochs, validation_data=ds_test)
 plot_hist(hist)
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 Epoch 1/25
@@ -1199,7 +1199,7 @@ hist = model.fit(ds_train, epochs=epochs, validation_data=ds_test)
 plot_hist(hist)
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 Epoch 1/4

@@ -58,7 +58,7 @@ img_nrows = 400
 img_ncols = int(width * img_nrows / height)
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 Downloading data from https://i.imgur.com/F28w3Ac.jpg
@@ -179,7 +179,7 @@ outputs_dict = dict([(layer.name, layer.output) for layer in model.layers])
 feature_extractor = keras.Model(inputs=model.inputs, outputs=outputs_dict)
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 Downloading data from https://storage.googleapis.com/tensorflow/keras-applications/vgg19/vgg19_weights_tf_dim_ordering_tf_kernels_notop.h5
@@ -275,7 +275,7 @@ for i in range(1, iterations + 1):
         keras.utils.save_img(fname, img)
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 Iteration 100: loss=11021.63

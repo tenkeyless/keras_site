@@ -115,7 +115,7 @@ def plot_segmentation(original_image, predicted_mask):
 plot_segmentation(image, preds)
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 1/1 ━━━━━━━━━━━━━━━━━━━━ 0s 5s/step
@@ -752,7 +752,7 @@ model.compile(
 model.summary()
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 Preprocessor: "deep_lab_v3_image_segmenter_preprocessor"
@@ -794,7 +794,7 @@ eval_ds = eval_ds.map(dict_to_tuple)
 model.fit(train_ds, validation_data=eval_ds, epochs=EPOCHS)
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
   1/Unknown  40s 40s/step - categorical_accuracy: 0.1191 - loss: 3.0568 - mean_io_u: 0.0118
@@ -824,7 +824,7 @@ masks = ops.expand_dims(ops.argmax(masks, axis=-1), axis=-1)
 plot_images_masks(images, masks, preds)
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 1/1 ━━━━━━━━━━━━━━━━━━━━ 0s 3s/step

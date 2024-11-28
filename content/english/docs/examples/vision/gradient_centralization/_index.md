@@ -66,7 +66,7 @@ print(f"Training images: {metadata.splits['train'].num_examples}")
 print(f"Test images: {metadata.splits['test'].num_examples}")
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 Image shape: (300, 300, 3)
@@ -215,7 +215,7 @@ model.compile(
 model.summary()
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 Model: "sequential"
@@ -269,7 +269,7 @@ history_no_gc = model.fit(
 )
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 Epoch 1/10
@@ -309,7 +309,7 @@ model.summary()
 history_gc = model.fit(train_ds, epochs=10, verbose=1, callbacks=[time_callback_gc])
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 Model: "sequential"
@@ -392,7 +392,7 @@ print(f"Accuracy: {history_gc.history['accuracy'][-1]}")
 print(f"Training Time: {sum(time_callback_gc.times)}")
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 Not using Gradient Centralization

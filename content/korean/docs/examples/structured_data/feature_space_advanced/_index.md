@@ -107,7 +107,7 @@ print(f"Dataframe shape: {dataframe.shape}")
 print(dataframe.head())
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 Dataframe shape: (4119, 21)
@@ -168,7 +168,7 @@ print(
 )
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 Using 3295 samples for training and 824 for validation
@@ -214,7 +214,7 @@ for x, y in dataframe_to_dataset(train_dataframe).take(1):
     print(f"Target: {y}")
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 Input: {'age': <tf.Tensor: shape=(), dtype=int64, numpy=33>, 'job': <tf.Tensor: shape=(), dtype=string, numpy=b'technician'>, 'marital': <tf.Tensor: shape=(), dtype=string, numpy=b'married'>, 'education': <tf.Tensor: shape=(), dtype=string, numpy=b'university.degree'>, 'default': <tf.Tensor: shape=(), dtype=string, numpy=b'unknown'>, 'housing': <tf.Tensor: shape=(), dtype=string, numpy=b'yes'>, 'loan': <tf.Tensor: shape=(), dtype=string, numpy=b'no'>, 'contact': <tf.Tensor: shape=(), dtype=string, numpy=b'cellular'>, 'month': <tf.Tensor: shape=(), dtype=string, numpy=b'aug'>, 'day_of_week': <tf.Tensor: shape=(), dtype=string, numpy=b'tue'>, 'campaign': <tf.Tensor: shape=(), dtype=int64, numpy=1>, 'pdays': <tf.Tensor: shape=(), dtype=int64, numpy=999>, 'previous': <tf.Tensor: shape=(), dtype=int64, numpy=0>, 'poutcome': <tf.Tensor: shape=(), dtype=string, numpy=b'nonexistent'>, 'emp.var.rate': <tf.Tensor: shape=(), dtype=float64, numpy=1.4>, 'cons.price.idx': <tf.Tensor: shape=(), dtype=float64, numpy=93.444>, 'cons.conf.idx': <tf.Tensor: shape=(), dtype=float64, numpy=-36.1>, 'euribor3m': <tf.Tensor: shape=(), dtype=float64, numpy=4.963>, 'nr.employed': <tf.Tensor: shape=(), dtype=float64, numpy=5228.1>, 'previously_contacted': <tf.Tensor: shape=(), dtype=int64, numpy=0>}
@@ -260,7 +260,7 @@ feature_space = FeatureSpace(
 example_feature_space(train_ds_with_no_labels, feature_space, ["campaign"])
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 Input: [{'campaign': 1}]
@@ -281,7 +281,7 @@ feature_space = FeatureSpace(
 example_feature_space(train_ds_with_no_labels, feature_space, ["education"])
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 Input: [{'education': b'basic.9y'}]
@@ -300,7 +300,7 @@ feature_space = FeatureSpace(
 example_feature_space(train_ds_with_no_labels, feature_space, ["age"])
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 Input: [{'age': 40}]
@@ -327,7 +327,7 @@ feature_space = FeatureSpace(
 example_feature_space(train_ds_with_no_labels, feature_space, ["default"])
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 Input: [{'default': b'unknown'}]
@@ -352,7 +352,7 @@ feature_space = FeatureSpace(
 example_feature_space(train_ds_with_no_labels, feature_space, ["previously_contacted"])
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 Input: [{'previously_contacted': 0}]
@@ -391,7 +391,7 @@ feature_space = FeatureSpace(
 example_feature_space(train_ds_with_no_labels, feature_space, ["age", "job"])
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 Input: [{'age': 28}, {'job': b'blue-collar'}]
@@ -420,7 +420,7 @@ feature_space = FeatureSpace(
 example_feature_space(train_ds_with_no_labels, feature_space, ["education"])
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 Input: [{'education': b'university.degree'}]
@@ -508,7 +508,7 @@ for x, _ in train_ds.take(1):
     print(f"preprocessed_x sample: \n{preprocessed_x[0]}")
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 preprocessed_x shape: (32, 77)
@@ -563,7 +563,7 @@ encoded_features = feature_space.get_encoded_features()
 print(encoded_features)
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 <KerasTensor shape=(None, 77), dtype=float32, sparse=False, name=keras_tensor_56>
@@ -592,7 +592,7 @@ model.fit(
 )
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 Epoch 1/20
@@ -701,7 +701,7 @@ print(
 )
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 <KerasTensor shape=(None, 77), dtype=float32, sparse=False, name=keras_tensor_99>

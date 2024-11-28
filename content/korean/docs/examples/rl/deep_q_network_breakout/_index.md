@@ -80,7 +80,7 @@ env = FrameStack(env, 4)
 env.seed(seed)
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 A.L.E: Arcade Learning Environment (version 0.8.1+unknown)
