@@ -812,8 +812,6 @@ extracted_features = feat_extraction_model(img)
 
 This comes in handy for tasks like [neural style transfer]({{< relref "/docs/examples/generative/neural_style_transfer" >}}), among other things.
 
-This comes in handy for tasks like {{< titledRelref "/docs/examples/generative/neural_style_transfer" >}}, among other things.
-
 ## Extend the API using custom layers {#extend-the-api-using-custom-layers}
 
 `keras` includes a wide range of built-in layers, for example:
