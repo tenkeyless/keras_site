@@ -7,10 +7,10 @@ type: docs
 
 {{< keras/original checkedAt="2024-11-22" >}}
 
-**Author:** [fchollet](https://twitter.com/fchollet)  
-**Date created:** 2020/06/09  
-**Last modified:** 2020/06/09  
-**Description:** Binary classification of structured data including numerical and categorical features.
+**{{< t f_author >}}** [fchollet](https://twitter.com/fchollet)  
+**{{< t f_date_created >}}** 2020/06/09  
+**{{< t f_last_modified >}}** 2020/06/09  
+**{{< t f_description >}}** Binary classification of structured data including numerical and categorical features.
 
 {{< keras/version v=3 >}}
 
@@ -77,7 +77,7 @@ The dataset includes 303 samples with 14 columns per sample (13 features, plus t
 dataframe.shape
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 (303, 14)
@@ -113,7 +113,7 @@ print(
 )
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 Using 242 samples for training and 61 for validation
@@ -144,7 +144,7 @@ for x, y in train_ds.take(1):
     print("Target:", y)
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 Input: {'age': <tf.Tensor: shape=(), dtype=int64, numpy=64>, 'sex': <tf.Tensor: shape=(), dtype=int64, numpy=1>, 'cp': <tf.Tensor: shape=(), dtype=int64, numpy=4>, 'trestbps': <tf.Tensor: shape=(), dtype=int64, numpy=128>, 'chol': <tf.Tensor: shape=(), dtype=int64, numpy=263>, 'fbs': <tf.Tensor: shape=(), dtype=int64, numpy=0>, 'restecg': <tf.Tensor: shape=(), dtype=int64, numpy=0>, 'thalach': <tf.Tensor: shape=(), dtype=int64, numpy=105>, 'exang': <tf.Tensor: shape=(), dtype=int64, numpy=1>, 'oldpeak': <tf.Tensor: shape=(), dtype=float64, numpy=0.2>, 'slope': <tf.Tensor: shape=(), dtype=int64, numpy=2>, 'ca': <tf.Tensor: shape=(), dtype=int64, numpy=1>, 'thal': <tf.Tensor: shape=(), dtype=string, numpy=b'reversible'>}
@@ -328,7 +328,7 @@ keras.utils.plot_model(model, show_shapes=True, rankdir="LR")
 model.fit(train_ds, epochs=50, validation_data=val_ds)
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 Epoch 1/50
@@ -473,7 +473,7 @@ print(
 )
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
  1/1 ━━━━━━━━━━━━━━━━━━━━ 0s 252ms/step

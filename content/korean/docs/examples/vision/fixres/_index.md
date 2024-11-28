@@ -7,10 +7,10 @@ type: docs
 
 {{< keras/original checkedAt="2024-11-21" >}}
 
-**Author:** [Sayak Paul](https://twitter.com/RisingSayak)  
-**Date created:** 2021/10/08  
-**Last modified:** 2021/10/10  
-**Description:** Mitigating resolution discrepancy between training and test sets.
+**{{< t f_author >}}** [Sayak Paul](https://twitter.com/RisingSayak)  
+**{{< t f_date_created >}}** 2021/10/08  
+**{{< t f_last_modified >}}** 2021/10/10  
+**{{< t f_description >}}** Mitigating resolution discrepancy between training and test sets.
 
 {{< keras/version v=3 >}}
 
@@ -52,7 +52,7 @@ print(f"Number of training examples: {num_train}")
 print(f"Number of validation examples: {num_val}")
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 Number of training examples: 3303
@@ -208,7 +208,7 @@ vanilla_sample_images, _ = next(iter(vanilla_train_dataset))
 visualize_dataset(vanilla_sample_images)
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ![png](/images/examples/vision/fixres/fixres_13_0.png)
 
@@ -298,7 +298,7 @@ smaller_res_model = train_and_evaluate(
 )
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 Epoch 1/30
@@ -396,7 +396,7 @@ bigger_res_model = train_and_evaluate(
 )
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 Epoch 1/10
@@ -438,7 +438,7 @@ vanilla_bigger_res_model = train_and_evaluate(
 )
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 Epoch 1/30

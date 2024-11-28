@@ -7,10 +7,10 @@ type: docs
 
 {{< keras/original checkedAt="2024-11-23" >}}
 
-**Author:** [Sayak Paul](https://twitter.com/RisingSayak)  
-**Date created:** 2021/07/13  
-**Last modified:** 2024/01/02  
-**Description:** Training a GAN conditioned on class labels to generate handwritten digits.
+**{{< t f_author >}}** [Sayak Paul](https://twitter.com/RisingSayak)  
+**{{< t f_date_created >}}** 2021/07/13  
+**{{< t f_last_modified >}}** 2024/01/02  
+**{{< t f_description >}}** Training a GAN conditioned on class labels to generate handwritten digits.
 
 {{< keras/version v=3 >}}
 
@@ -87,7 +87,7 @@ print(f"Shape of training images: {all_digits.shape}")
 print(f"Shape of training labels: {all_labels.shape}")
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 Downloading data from https://storage.googleapis.com/tensorflow/tf-keras-datasets/mnist.npz
@@ -108,7 +108,7 @@ discriminator_in_channels = num_channels + num_classes
 print(generator_in_channels, discriminator_in_channels)
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 138 11
@@ -275,7 +275,7 @@ cond_gan.compile(
 cond_gan.fit(dataset, epochs=20)
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 Epoch 1/20
@@ -371,7 +371,7 @@ end_class = 6  # @param {type:"slider", min:0, max:9, step:1}
 fake_images = interpolate_class(start_class, end_class)
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
  1/1 ━━━━━━━━━━━━━━━━━━━━ 0s 427ms/step

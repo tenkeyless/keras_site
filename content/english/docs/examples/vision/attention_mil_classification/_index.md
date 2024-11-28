@@ -9,10 +9,10 @@ math: true
 
 {{< keras/original checkedAt="2024-11-19" >}}
 
-**Author:** [Mohamad Jaber](https://www.linkedin.com/in/mohamadjaber1/)  
-**Date created:** 2021/08/16  
-**Last modified:** 2021/11/25  
-**Description:** MIL approach to classify bags of instances and get their individual instance score.
+**{{< t f_author >}}** [Mohamad Jaber](https://www.linkedin.com/in/mohamadjaber1/)  
+**{{< t f_date_created >}}** 2021/08/16  
+**{{< t f_last_modified >}}** 2021/11/25  
+**{{< t f_description >}}** MIL approach to classify bags of instances and get their individual instance score.
 
 {{< keras/version v=3 >}}
 
@@ -140,7 +140,7 @@ val_data, val_labels = create_bags(
 )
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 Positive bags: 283
@@ -462,7 +462,7 @@ trained_models = [
 ]
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 Model: "functional_1"
@@ -587,7 +587,7 @@ plot(
 )
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
  10/10 ━━━━━━━━━━━━━━━━━━━━ 1s 53ms/step

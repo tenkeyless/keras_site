@@ -7,10 +7,10 @@ type: docs
 
 {{< keras/original checkedAt="2024-11-21" >}}
 
-**Author:** Gitesh Chawda  
-**Date created:** 2022/09/05  
-**Last modified:** 2022/09/05  
-**Description:** Using Tensorflow Decision Forests for text classification.
+**{{< t f_author >}}** Gitesh Chawda  
+**{{< t f_date_created >}}** 2022/09/05  
+**{{< t f_last_modified >}}** 2022/09/05  
+**{{< t f_description >}}** Using Tensorflow Decision Forests for text classification.
 
 {{< keras/version v=2 >}}
 
@@ -71,7 +71,7 @@ df = pd.read_csv(
 print(df.head())
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
    id keyword location                                               text  \
@@ -99,7 +99,7 @@ The dataset includes 7613 samples with 5 columns:
 print(f"Training dataset shape: {df.shape}")
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 Training dataset shape: (7613, 5)
@@ -118,7 +118,7 @@ df_shuffled.reset_index(inplace=True, drop=True)
 print(df_shuffled.head())
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
                                                 text  target
@@ -137,7 +137,7 @@ Printing information about the shuffled dataframe:
 print(df_shuffled.info())
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 <class 'pandas.core.frame.DataFrame'>
@@ -163,7 +163,7 @@ print(
 )
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 Total Number of disaster and non-disaster tweets: 0    4342
@@ -182,7 +182,7 @@ for index, example in df_shuffled[:5].iterrows():
     print(f"\tText : {example['text']}")
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 Example #0
@@ -212,7 +212,7 @@ train_df = df_shuffled.drop(test_df.index)
 print(f"Using {len(train_df)} samples for training and {len(test_df)} for validation")
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 Using 6852 samples for training and 761 for validation
@@ -226,7 +226,7 @@ Total number of "disaster" and "non-disaster" tweets in the training data:
 print(train_df["target"].value_counts())
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 0    3929
@@ -242,7 +242,7 @@ Total number of "disaster" and "non-disaster" tweets in the test data:
 print(test_df["target"].value_counts())
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 0    413
@@ -293,7 +293,7 @@ preprocessor = keras.Model(inputs=inputs, outputs=outputs)
 model_1 = tfdf.keras.GradientBoostedTreesModel(preprocessing=preprocessor)
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 Use /tmp/tmpsp7fmsyk as temporary training directory
@@ -307,7 +307,7 @@ Building model_2
 model_2 = tfdf.keras.GradientBoostedTreesModel()
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 Use /tmp/tmpl0zj3vw0 as temporary training directory
@@ -333,7 +333,7 @@ model_2.compile(metrics=["Accuracy", "Recall", "Precision", "AUC"])
 model_2.fit(train_ds)
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 Reading training dataset...
@@ -380,7 +380,7 @@ print("model_2 summary: ")
 print(model_2.summary())
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 model_1 summary:
@@ -731,7 +731,7 @@ for name, value in results.items():
     print(f"{name}: {value:.4f}")
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 model_1 Evaluation:
@@ -771,7 +771,7 @@ for index, row in test_df.iterrows():
         break
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 Text: DFR EP016 Monthly Meltdown - On Dnbheaven 2015.08.06 http://t.co/EjKRf8N8A8 #Drum and Bass #heavy #nasty http://t.co/SPHWE6wFI5

@@ -8,10 +8,10 @@ type: docs
 
 {{< keras/original checkedAt="2024-11-19" >}}
 
-**Author:** [Samaneh Saadat](https://github.com/SamanehSaadat/), [Matthew Watson](https://github.com/mattdangerw/)  
-**Date created:** 2024/04/29  
-**Last modified:** 2024/04/29  
-**Description:** An introduction on how to upload a fine-tuned KerasNLP model to model hubs.
+**{{< t f_author >}}** [Samaneh Saadat](https://github.com/SamanehSaadat/), [Matthew Watson](https://github.com/mattdangerw/)  
+**{{< t f_date_created >}}** 2024/04/29  
+**{{< t f_last_modified >}}** 2024/04/29  
+**{{< t f_description >}}** An introduction on how to upload a fine-tuned KerasNLP model to model hubs.
 
 {{< cards cols="2" >}}
 {{< card link="https://colab.research.google.com/github/keras-team/keras-io/blob/master/guides/ipynb/keras_nlp/upload.ipynb" title="Colab" tag="Colab" tagType="warning">}}
@@ -73,7 +73,7 @@ If you want to build a Causal LM based on a base model, simply call [`keras_nlp.
 causal_lm = keras_nlp.models.CausalLM.from_preset("gpt2_base_en")
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 Downloading from https://www.kaggle.com/api/v1/models/keras/gpt2/keras/gpt2_base_en/2/download/task.json...
@@ -95,7 +95,7 @@ imdb_train_reviews = imdb_train.map(lambda x, y: x)
 causal_lm.fit(imdb_train_reviews)
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 100/100 ━━━━━━━━━━━━━━━━━━━━ 151s 1s/step - loss: 1.0198 - sparse_categorical_accuracy: 0.3271
@@ -118,7 +118,7 @@ Let's see the saved files.
 os.listdir(preset_dir)
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 ['preprocessor.json',
@@ -174,7 +174,7 @@ kaggle_uri = f"kaggle://{kaggle_username}/gpt2/keras/gpt2_imdb"
 keras_nlp.upload_preset(kaggle_uri, preset_dir)
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 Upload successful: preprocessor.json (834B)
@@ -253,7 +253,7 @@ keras_nlp.upload_preset(
 )
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 100/100 ━━━━━━━━━━━━━━━━━━━━ 7s 31ms/step - loss: 0.6975 - sparse_categorical_accuracy: 0.5164

@@ -7,10 +7,10 @@ type: docs
 
 {{< keras/original checkedAt="2024-11-20" >}}
 
-**Author:** [Aritra Roy Gosthipaty](https://twitter.com/ariG23498), [Ritwik Raha](https://twitter.com/ritwik_raha), [Shivalika Singh](https://www.linkedin.com/in/shivalika-singh/)  
-**Date created:** 2022/02/24  
-**Last modified:** 2022/10/15  
-**Description:** A minimal implementation of ShiftViT.
+**{{< t f_author >}}** [Aritra Roy Gosthipaty](https://twitter.com/ariG23498), [Ritwik Raha](https://twitter.com/ritwik_raha), [Shivalika Singh](https://www.linkedin.com/in/shivalika-singh/)  
+**{{< t f_date_created >}}** 2022/02/24  
+**{{< t f_last_modified >}}** 2022/10/15  
+**{{< t f_description >}}** A minimal implementation of ShiftViT.
 
 {{< keras/version v=2 >}}
 
@@ -132,7 +132,7 @@ test_ds = tf.data.Dataset.from_tensor_slices((x_test, y_test))
 test_ds = test_ds.batch(config.batch_size).prefetch(AUTO)
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 Downloading data from https://www.cs.toronto.edu/~kriz/cifar-10-python.tar.gz
@@ -851,7 +851,7 @@ print(f"Top 1 test accuracy: {acc_top1*100:0.2f}%")
 print(f"Top 5 test accuracy: {acc_top5*100:0.2f}%")
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 Epoch 1/100
@@ -1062,7 +1062,7 @@ confidences = get_confidence_scores(probabilities[0])
 print(confidences)
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 1/1 [==============================] - 2s 2s/step

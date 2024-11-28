@@ -7,10 +7,10 @@ type: docs
 
 {{< keras/original checkedAt="2024-11-20" >}}
 
-**Author:** [fchollet](https://twitter.com/fchollet)  
-**Date created:** 2020/05/29  
-**Last modified:** 2020/05/29  
-**Description:** Displaying the visual patterns that convnet filters respond to.
+**{{< t f_author >}}** [fchollet](https://twitter.com/fchollet)  
+**{{< t f_date_created >}}** 2020/05/29  
+**{{< t f_last_modified >}}** 2020/05/29  
+**{{< t f_description >}}** Displaying the visual patterns that convnet filters respond to.
 
 {{< keras/version v=3 >}}
 
@@ -189,7 +189,7 @@ from IPython.display import Image, display
 display(Image("stiched_filters.png"))
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 Processing filter 0

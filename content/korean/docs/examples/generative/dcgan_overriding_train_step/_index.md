@@ -7,10 +7,10 @@ type: docs
 
 {{< keras/original checkedAt="2024-11-23" >}}
 
-**Author:** [fchollet](https://twitter.com/fchollet)  
-**Date created:** 2019/04/29  
-**Last modified:** 2023/12/21  
-**Description:** A simple DCGAN trained using `fit()` by overriding `train_step` on CelebA images.
+**{{< t f_author >}}** [fchollet](https://twitter.com/fchollet)  
+**{{< t f_date_created >}}** 2019/04/29  
+**{{< t f_last_modified >}}** 2023/12/21  
+**{{< t f_description >}}** A simple DCGAN trained using `fit()` by overriding `train_step` on CelebA images.
 
 {{< keras/version v=3 >}}
 
@@ -57,7 +57,7 @@ dataset = keras.utils.image_dataset_from_directory(
 dataset = dataset.map(lambda x: x / 255.0)
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 Found 202599 files.
@@ -99,7 +99,7 @@ discriminator = keras.Sequential(
 discriminator.summary()
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 Model: "discriminator"
@@ -156,7 +156,7 @@ generator = keras.Sequential(
 generator.summary()
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 Model: "generator"
@@ -306,7 +306,7 @@ gan.fit(
 )
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
     2/6332 [37m━━━━━━━━━━━━━━━━━━━━  9:54 94ms/step - d_loss: 0.6792 - g_loss: 0.7880

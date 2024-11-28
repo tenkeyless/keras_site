@@ -7,10 +7,10 @@ type: docs
 
 {{< keras/original checkedAt="2024-11-21" >}}
 
-**Author:** [Suvaditya Mukherjee](https://twitter.com/halcyonrayes)  
-**Date created:** 2023/01/08  
-**Last modified:** 2024/09/17  
-**Description:** Training a Dense-layer model using the Forward-Forward algorithm.
+**{{< t f_author >}}** [Suvaditya Mukherjee](https://twitter.com/halcyonrayes)  
+**{{< t f_date_created >}}** 2023/01/08  
+**{{< t f_last_modified >}}** 2024/09/17  
+**{{< t f_description >}}** Training a Dense-layer model using the Forward-Forward algorithm.
 
 {{< keras/version v=2 >}}
 
@@ -92,7 +92,7 @@ for idx, item in enumerate(imgs):
 plt.show()
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 4 Random Training samples and labels
@@ -370,7 +370,7 @@ epochs = 250
 history = model.fit(train_dataset, epochs=epochs)
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 Epoch 1/250
@@ -1152,7 +1152,7 @@ plt.title("Loss over training")
 plt.show()
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 Test Accuracy score : 97.56%

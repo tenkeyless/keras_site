@@ -7,10 +7,10 @@ type: docs
 
 {{< keras/original checkedAt="2024-11-18" >}}
 
-**Author:** [fchollet](https://twitter.com/fchollet)  
-**Date created:** 2019/03/01  
-**Last modified:** 2023/06/25  
-**Description:** Complete guide to writing `Layer` and `Model` objects from scratch.
+**{{< t f_author >}}** [fchollet](https://twitter.com/fchollet)  
+**{{< t f_date_created >}}** 2019/03/01  
+**{{< t f_last_modified >}}** 2023/06/25  
+**{{< t f_description >}}** Complete guide to writing `Layer` and `Model` objects from scratch.
 
 {{< cards cols="2" >}}
 {{< card link="https://colab.research.google.com/github/keras-team/keras-io/blob/master/guides/ipynb/making_new_layers_and_models_via_subclassing.ipynb" title="Colab" tag="Colab" tagType="warning">}}
@@ -72,7 +72,7 @@ y = linear_layer(x)
 print(y)
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 [[ 0.085416   -0.06821361 -0.00741937 -0.03429271]
@@ -114,7 +114,7 @@ y = my_sum(x)
 print(y.numpy())
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 [2. 2.]
@@ -133,7 +133,7 @@ print("non-trainable weights:", len(my_sum.non_trainable_weights))
 print("trainable_weights:", my_sum.trainable_weights)
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 weights: 1
@@ -189,7 +189,6 @@ class Linear(keras.layers.Layer):
 The `__call__()` method of your layer will automatically run build the first time it is called. You now have a layer that's lazy and thus easier to use:
 
 ```python
-
 # At instantiation, we don't know on what inputs this is going to get called
 linear_layer = Linear(32)
 
@@ -227,7 +226,7 @@ print("weights:", len(mlp.weights))
 print("trainable weights:", len(mlp.trainable_weights))
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 weights: 6
@@ -346,7 +345,7 @@ _ = layer(ops.zeros((1, 1)))
 print(layer.losses)
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 [Array(0.00217911, dtype=float32)]
@@ -359,7 +358,6 @@ These losses are meant to be taken into account when writing custom training loo
 They also work seamlessly with `fit()` (they get automatically summed and added to the main loss, if any):
 
 ```python
-
 inputs = keras.Input(shape=(3,))
 outputs = ActivityRegularizationLayer()(inputs)
 model = keras.Model(inputs, outputs)
@@ -376,7 +374,7 @@ model.compile(optimizer="adam")
 model.fit(np.random.random((2, 3)), np.random.random((2, 3)))
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
  1/1 ━━━━━━━━━━━━━━━━━━━━ 0s 60ms/step - loss: 0.2650
@@ -421,7 +419,7 @@ print(config)
 new_layer = Linear.from_config(config)
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 {'units': 64}
@@ -462,7 +460,7 @@ print(config)
 new_layer = Linear.from_config(config)
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 {'name': 'linear_7', 'trainable': True, 'dtype': 'float32', 'units': 64}
@@ -654,7 +652,7 @@ vae.compile(optimizer, loss=keras.losses.MeanSquaredError())
 vae.fit(x_train, x_train, epochs=2, batch_size=64)
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 Epoch 1/2

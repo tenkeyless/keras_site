@@ -7,10 +7,10 @@ type: docs
 
 {{< keras/original checkedAt="2024-11-21" >}}
 
-**Author:** [Ankur Singh](https://twitter.com/ankur310794)  
-**Date created:** 2020/09/18  
-**Last modified:** 2024/03/15  
-**Description:** Implement a Masked Language Model (MLM) with BERT and fine-tune it on the IMDB Reviews dataset.
+**{{< t f_author >}}** [Ankur Singh](https://twitter.com/ankur310794)  
+**{{< t f_date_created >}}** 2020/09/18  
+**{{< t f_last_modified >}}** 2024/03/15  
+**{{< t f_description >}}** Implement a Masked Language Model (MLM) with BERT and fine-tune it on the IMDB Reviews dataset.
 
 {{< keras/version v=3 >}}
 
@@ -118,7 +118,7 @@ test_df = get_data_from_text_files("test")
 all_data = train_df.append(test_df)
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
   % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
@@ -405,7 +405,7 @@ bert_masked_model = create_masked_language_bert_model()
 bert_masked_model.summary()
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 Model: "masked_bert_model"
@@ -455,7 +455,7 @@ bert_masked_model.fit(mlm_ds, epochs=5, callbacks=[generator_callback])
 bert_masked_model.save("bert_mlm_imdb.keras")
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 Epoch 1/5
@@ -584,7 +584,7 @@ classifer_model.fit(
 )
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 Model: "classification"
@@ -652,7 +652,7 @@ end_to_end_classification_model = get_end_to_end(classifer_model)
 end_to_end_classification_model.evaluate(test_raw_classifier_ds)
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 782/782 [==============================] - 8s 11ms/step - loss: 0.5967 - accuracy: 0.8446

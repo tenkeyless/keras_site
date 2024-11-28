@@ -7,10 +7,10 @@ type: docs
 
 {{< keras/original checkedAt="2024-11-23" >}}
 
-**Author:** [Fadi Badine](https://twitter.com/fadibadine)  
-**Date created:** 14/06/2020  
-**Last modified:** 19/07/2023  
-**Description:** Classify speakers using Fast Fourier Transform (FFT) and a 1D Convnet.
+**{{< t f_author >}}** [Fadi Badine](https://twitter.com/fadibadine)  
+**{{< t f_date_created >}}** 14/06/2020  
+**{{< t f_last_modified >}}** 19/07/2023  
+**{{< t f_description >}}** Classify speakers using Fast Fourier Transform (FFT) and a 1D Convnet.
 
 {{< keras/version v=2 >}}
 
@@ -98,7 +98,7 @@ BATCH_SIZE = 128
 EPOCHS = 1
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 Warning: Your Kaggle API key is readable by other users on this system! To fix this, you can run 'chmod 600 /home/fchollet/.kaggle/kaggle.json'
@@ -216,7 +216,7 @@ print(
 )
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 Found 6 files belonging to 2 directories
@@ -270,7 +270,7 @@ print(
 )
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 6 noise files were split into 354 noise samples where each is 1 sec. long
@@ -406,7 +406,7 @@ valid_ds = valid_ds.map(
 valid_ds = valid_ds.prefetch(tf.data.AUTOTUNE)
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 Our class names: ['Nelson_Mandela', 'Jens_Stoltenberg', 'Benjamin_Netanyau', 'Julia_Gillard', 'Magaret_Tarcher']
@@ -478,7 +478,7 @@ mdlcheckpoint_cb = keras.callbacks.ModelCheckpoint(
 )
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 Model: "functional_1"
@@ -621,7 +621,7 @@ history = model.fit(
 )
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 WARNING: All log messages before absl::InitializeLog() is called are written to STDERR
@@ -648,7 +648,7 @@ W0000 00:00:1699469627.405341  302129 graph_launch.cc:671] Fallback to op-by-op 
 print(model.evaluate(valid_ds))
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
  24/24 ━━━━━━━━━━━━━━━━━━━━ 0s 5ms/step - accuracy: 0.8641 - loss: 0.3521

@@ -7,10 +7,10 @@ type: docs
 
 {{< keras/original checkedAt="2024-11-20" >}}
 
-**Author:** [Khalid Salama](https://www.linkedin.com/in/khalid-salama-24403144/)  
-**Date created:** 2021/04/30  
-**Last modified:** 2023/12/30  
-**Description:** Implementing the Perceiver model for image classification.
+**{{< t f_author >}}** [Khalid Salama](https://www.linkedin.com/in/khalid-salama-24403144/)  
+**{{< t f_date_created >}}** 2021/04/30  
+**{{< t f_last_modified >}}** 2023/12/30  
+**{{< t f_description >}}** Implementing the Perceiver model for image classification.
 
 {{< keras/version v=3 >}}
 
@@ -51,7 +51,7 @@ print(f"x_train shape: {x_train.shape} - y_train shape: {y_train.shape}")
 print(f"x_test shape: {x_test.shape} - y_test shape: {y_test.shape}")
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 x_train shape: (50000, 32, 32, 3) - y_train shape: (50000, 1)
@@ -93,7 +93,7 @@ print(f"Latent array shape: {latent_dim} X {projection_dim}")
 print(f"Data array shape: {num_patches} X {projection_dim}")
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 Image size: 64 X 64 = 4096
@@ -442,7 +442,7 @@ perceiver_classifier = Perceiver(
 history = run_experiment(perceiver_classifier)
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 Test accuracy: 0.91%

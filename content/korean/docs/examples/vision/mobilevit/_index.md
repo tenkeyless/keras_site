@@ -8,10 +8,10 @@ type: docs
 
 {{< keras/original checkedAt="2024-11-19" >}}
 
-**Author:** [Sayak Paul](https://twitter.com/RisingSayak)  
-**Date created:** 2021/10/20  
-**Last modified:** 2024/02/11  
-**Description:** MobileViT for image classification with combined benefits of convolutions and Transformers.
+**{{< t f_author >}}** [Sayak Paul](https://twitter.com/RisingSayak)  
+**{{< t f_date_created >}}** 2021/10/20  
+**{{< t f_last_modified >}}** 2024/02/11  
+**{{< t f_description >}}** MobileViT for image classification with combined benefits of convolutions and Transformers.
 
 {{< keras/version v=3 >}}
 
@@ -254,7 +254,7 @@ mobilevit_xxs = create_mobilevit()
 mobilevit_xxs.summary()
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 Model: "model"
@@ -696,7 +696,7 @@ train_dataset = prepare_dataset(train_dataset, is_training=True)
 val_dataset = prepare_dataset(val_dataset, is_training=False)
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 Number of training examples: 3303
@@ -744,7 +744,7 @@ def run_experiment(epochs=epochs):
 mobilevit_xxs = run_experiment()
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 Epoch 1/30 52/52 [==============================] - 47s 459ms/step - loss: 1.3397 - accuracy: 0.4832 - val_loss: 1.7250 - val_accuracy: 0.1662

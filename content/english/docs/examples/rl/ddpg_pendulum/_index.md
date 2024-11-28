@@ -7,10 +7,10 @@ type: docs
 
 {{< keras/original checkedAt="2024-11-23" >}}
 
-**Author:** [amifunny](https://github.com/amifunny)  
-**Date created:** 2020/06/04  
-**Last modified:** 2024/03/23  
-**Description:** Implementing DDPG algorithm on the Inverted Pendulum Problem.
+**{{< t f_author >}}** [amifunny](https://github.com/amifunny)  
+**{{< t f_date_created >}}** 2020/06/04  
+**{{< t f_last_modified >}}** 2024/03/23  
+**{{< t f_description >}}** Implementing DDPG algorithm on the Inverted Pendulum Problem.
 
 {{< keras/version v=3 >}}
 
@@ -86,7 +86,7 @@ print("Max Value of Action ->  {}".format(upper_bound))
 print("Min Value of Action ->  {}".format(lower_bound))
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 Size of State Space ->  3
@@ -381,7 +381,7 @@ plt.ylabel("Avg. Episodic Reward")
 plt.show()
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 Episode * 0 * Avg Reward is ==> -1020.8244931732263

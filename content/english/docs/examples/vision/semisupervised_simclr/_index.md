@@ -7,10 +7,10 @@ type: docs
 
 {{< keras/original checkedAt="2024-11-20" >}}
 
-**Author:** [András Béres](https://www.linkedin.com/in/andras-beres-789190210)  
-**Date created:** 2021/04/24  
-**Last modified:** 2024/03/04  
-**Description:** Contrastive pretraining with SimCLR for semi-supervised image classification on the STL-10 dataset.
+**{{< t f_author >}}** [András Béres](https://www.linkedin.com/in/andras-beres-789190210)  
+**{{< t f_date_created >}}** 2021/04/24  
+**{{< t f_last_modified >}}** 2024/03/04  
+**{{< t f_description >}}** Contrastive pretraining with SimCLR for semi-supervised image classification on the STL-10 dataset.
 
 {{< keras/version v=3 >}}
 
@@ -131,7 +131,7 @@ def prepare_dataset():
 train_dataset, labeled_train_dataset, test_dataset = prepare_dataset()
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 batch size is 500 (unlabeled) + 25 (labeled)
@@ -292,7 +292,7 @@ print(
 )
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 Epoch 1/20
@@ -523,7 +523,7 @@ print(
 )
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 Model: "encoder"
@@ -649,7 +649,7 @@ print(
 )
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 Epoch 1/20

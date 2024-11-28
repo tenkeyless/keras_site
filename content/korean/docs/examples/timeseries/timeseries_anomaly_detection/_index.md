@@ -7,10 +7,10 @@ type: docs
 
 {{< keras/original checkedAt="2024-11-22" >}}
 
-**Author:** [pavithrasv](https://github.com/pavithrasv)  
-**Date created:** 2020/05/31  
-**Last modified:** 2020/05/31  
-**Description:** Detect anomalies in a timeseries using an Autoencoder.
+**{{< t f_author >}}** [pavithrasv](https://github.com/pavithrasv)  
+**{{< t f_date_created >}}** 2020/05/31  
+**{{< t f_last_modified >}}** 2020/05/31  
+**{{< t f_description >}}** Detect anomalies in a timeseries using an Autoencoder.
 
 {{< keras/version v=3 >}}
 
@@ -63,7 +63,7 @@ print(df_small_noise.head())
 print(df_daily_jumpsup.head())
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
                          value
@@ -126,7 +126,7 @@ df_training_value = (df_small_noise - training_mean) / training_std
 print("Number of training samples:", len(df_training_value))
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 Number of training samples: 4032
@@ -154,7 +154,7 @@ x_train = create_sequences(df_training_value.values)
 print("Training input shape: ", x_train.shape)
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 Training input shape:  (3745, 288, 1)
@@ -207,7 +207,7 @@ model.compile(optimizer=keras.optimizers.Adam(learning_rate=0.001), loss="mse")
 model.summary()
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 Model: "sequential"
@@ -255,7 +255,7 @@ history = model.fit(
 )
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 Epoch 1/50
@@ -339,7 +339,7 @@ threshold = np.max(train_mae_loss)
 print("Reconstruction error threshold: ", threshold)
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
  118/118 ━━━━━━━━━━━━━━━━━━━━ 1s 6ms/step
@@ -349,7 +349,7 @@ print("Reconstruction error threshold: ", threshold)
 
 ![png](/images/examples/timeseries/timeseries_anomaly_detection/timeseries_anomaly_detection_23_1.png)
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 Reconstruction error threshold:  0.1232659916089631
@@ -398,7 +398,7 @@ print("Number of anomaly samples: ", np.sum(anomalies))
 print("Indices of anomaly samples: ", np.where(anomalies))
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ![png](/images/examples/timeseries/timeseries_anomaly_detection/timeseries_anomaly_detection_27_0.png)
 

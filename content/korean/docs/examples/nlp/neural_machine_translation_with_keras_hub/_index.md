@@ -7,10 +7,10 @@ type: docs
 
 {{< keras/original checkedAt="2024-11-21" >}}
 
-**Author:** [Abheesht Sharma](https://github.com/abheesht17/)  
-**Date created:** 2022/05/26  
-**Last modified:** 2024/04/30  
-**Description:** Use KerasHub to train a sequence-to-sequence Transformer model on the machine translation task.
+**{{< t f_author >}}** [Abheesht Sharma](https://github.com/abheesht17/)  
+**{{< t f_date_created >}}** 2022/05/26  
+**{{< t f_last_modified >}}** 2024/04/30  
+**{{< t f_description >}}** Use KerasHub to train a sequence-to-sequence Transformer model on the machine translation task.
 
 {{< keras/version v=3 >}}
 
@@ -59,7 +59,7 @@ from tensorflow_text.tools.wordpiece_vocab import (
 )
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 [31mERROR: pip's dependency resolver does not currently take into account all the packages that are installed. This behaviour is the source of the following dependency conflicts.
@@ -95,7 +95,7 @@ text_file = keras.utils.get_file(
 text_file = pathlib.Path(text_file).parent / "spa-eng" / "spa.txt"
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 Downloading data from http://storage.googleapis.com/download.tensorflow.org/data/spa-eng.zip
@@ -126,7 +126,7 @@ for _ in range(5):
     print(random.choice(text_pairs))
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 ('tom heard that mary had bought a new computer.', 'tom oyó que mary se había comprado un computador nuevo.')
@@ -154,7 +154,7 @@ print(f"{len(val_pairs)} validation pairs")
 print(f"{len(test_pairs)} test pairs")
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 118964 total pairs
@@ -206,7 +206,7 @@ print("English Tokens: ", eng_vocab[100:110])
 print("Spanish Tokens: ", spa_vocab[100:110])
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 English Tokens:  ['at', 'know', 'him', 'there', 'go', 'they', 'her', 'has', 'time', 'will']
@@ -250,7 +250,7 @@ print(
 )
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 English sentence:  i am leaving the books here.
@@ -335,7 +335,7 @@ for inputs, targets in train_ds.take(1):
     print(f"targets.shape: {targets.shape}")
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 inputs["encoder_inputs"].shape: (64, 40)
@@ -418,7 +418,7 @@ transformer.compile(
 transformer.fit(train_ds, epochs=EPOCHS, validation_data=val_ds)
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 Model: "transformer"
@@ -512,7 +512,7 @@ for i in range(2):
     print()
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 WARNING: All log messages before absl::InitializeLog() is called are written to STDERR
@@ -561,7 +561,7 @@ print("ROUGE-1 Score: ", rouge_1.result())
 print("ROUGE-2 Score: ", rouge_2.result())
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 ROUGE-1 Score:  {'precision': <tf.Tensor: shape=(), dtype=float32, numpy=0.30989552>, 'recall': <tf.Tensor: shape=(), dtype=float32, numpy=0.37136248>, 'f1_score': <tf.Tensor: shape=(), dtype=float32, numpy=0.33032653>}

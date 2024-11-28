@@ -7,10 +7,10 @@ type: docs
 
 {{< keras/original checkedAt="2024-11-21" >}}
 
-**Author:** [Khalid Salama](https://www.linkedin.com/in/khalid-salama-24403144/)  
-**Date created:** 2020/05/10  
-**Last modified:** 2021/02/15  
-**Description:** Implement a Switch Transformer for text classification.
+**{{< t f_author >}}** [Khalid Salama](https://www.linkedin.com/in/khalid-salama-24403144/)  
+**{{< t f_date_created >}}** 2020/05/10  
+**{{< t f_last_modified >}}** 2021/02/15  
+**{{< t f_description >}}** Implement a Switch Transformer for text classification.
 
 {{< keras/version v=3 >}}
 
@@ -47,7 +47,7 @@ x_train = keras.utils.pad_sequences(x_train, maxlen=num_tokens_per_example)
 x_val = keras.utils.pad_sequences(x_val, maxlen=num_tokens_per_example)
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 25000 Training sequences
@@ -73,7 +73,7 @@ num_tokens_per_batch = (
 print(f"Number of tokens per batch: {num_tokens_per_batch}")
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 Number of tokens per batch: 10000
@@ -318,7 +318,7 @@ classifier = create_classifier()
 run_experiment(classifier)
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 Epoch 1/3

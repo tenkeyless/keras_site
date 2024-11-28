@@ -7,10 +7,10 @@ type: docs
 
 {{< keras/original checkedAt="2024-11-21" >}}
 
-**Author:** [Abheesht Sharma](https://github.com/abheesht17/)  
-**Date created:** 2022/06/01  
-**Last modified:** 2022/12/21  
-**Description:** Text Classification on the IMDb Dataset using [`keras_hub.layers.FNetEncoder`]({{< relref "/docs/api/keras_hub/modeling_layers/fnet_encoder#fnetencoder-class" >}}) layer.
+**{{< t f_author >}}** [Abheesht Sharma](https://github.com/abheesht17/)  
+**{{< t f_date_created >}}** 2022/06/01  
+**{{< t f_last_modified >}}** 2022/12/21  
+**{{< t f_description >}}** Text Classification on the IMDb Dataset using [`keras_hub.layers.FNetEncoder`]({{< relref "/docs/api/keras_hub/modeling_layers/fnet_encoder#fnetencoder-class" >}}) layer.
 
 {{< keras/version v=3 >}}
 
@@ -73,7 +73,7 @@ First, let's download the IMDB dataset and extract it.
 !tar -xzf aclImdb_v1.tar.gz
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 --2023-11-22 17:59:33--  http://ai.stanford.edu/~amaas/data/sentiment/aclImdb_v1.tar.gz
@@ -102,7 +102,7 @@ print(os.listdir("./aclImdb/train"))
 print(os.listdir("./aclImdb/test"))
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 ['README', 'imdb.vocab', 'imdbEr.txt', 'train', 'test']
@@ -138,7 +138,7 @@ val_ds = keras.utils.text_dataset_from_directory(
 test_ds = keras.utils.text_dataset_from_directory("aclImdb/test", batch_size=BATCH_SIZE)
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 Found 25000 files belonging to 2 classes.
@@ -167,7 +167,7 @@ for text_batch, label_batch in train_ds.take(1):
         print(label_batch.numpy()[i])
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 b'an illegal immigrant resists the social support system causing dire consequences for many. well filmed and acted even though the story is a bit forced, yet the slow pacing really sets off the conclusion. the feeling of being lost in the big city is effectively conveyed. the little person lost in the big society is something to which we can all relate, but i cannot endorse going out of your way to see this movie.'
@@ -216,7 +216,7 @@ Let's see some tokens!
 print("Tokens: ", vocab[100:110])
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 Tokens:  ['à', 'á', 'â', 'ã', 'ä', 'å', 'æ', 'ç', 'è', 'é']
@@ -245,7 +245,7 @@ print("Tokens: ", input_tokens_ex)
 print("Recovered text after detokenizing: ", tokenizer.detokenize(input_tokens_ex))
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 Sentence:  tf.Tensor(b'this picture seemed way to slanted, it\'s almost as bad as the drum beating of the right wing kooks who say everything is rosy in iraq. it paints a picture so unredeemable that i can\'t help but wonder about it\'s legitimacy and bias. also it seemed to meander from being about the murderous carnage of our troops to the lack of health care in the states for ptsd. to me the subject matter seemed confused, it only cared about portraying the military in a bad light, as a) an organzation that uses mind control to turn ordinary peace loving civilians into baby killers and b) an organization that once having used and spent the bodies of it\'s soldiers then discards them to the despotic bureacracy of the v.a. this is a legitimate argument, but felt off topic for me, almost like a movie in and of itself. i felt that "the war tapes" and "blood of my brother" were much more fair and let the viewer draw some conclusions of their own rather than be beaten over the head with the film makers viewpoint. f-', shape=(), dtype=string)
@@ -347,7 +347,7 @@ outputs = keras.layers.Dense(1, activation="sigmoid")(x)
 fnet_classifier = keras.Model(input_ids, outputs, name="fnet_classifier")
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 /home/matt/miniconda3/envs/keras-io/lib/python3.10/site-packages/keras/src/layers/layer.py:861: UserWarning: Layer 'f_net_encoder' (of type FNetEncoder) was passed an input with a mask attached to it. However, this layer does not support masking and will therefore destroy the mask information. Downstream layers will not see the mask.
@@ -370,7 +370,7 @@ fnet_classifier.compile(
 fnet_classifier.fit(train_ds, epochs=EPOCHS, validation_data=val_ds)
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 Model: "fnet_classifier"
@@ -425,7 +425,7 @@ Let's calculate the test accuracy.
 fnet_classifier.evaluate(test_ds, batch_size=BATCH_SIZE)
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
  391/391 ━━━━━━━━━━━━━━━━━━━━ 3s 5ms/step - accuracy: 0.8412 - loss: 0.4281
@@ -480,7 +480,7 @@ transformer_classifier.compile(
 transformer_classifier.fit(train_ds, epochs=EPOCHS, validation_data=val_ds)
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 Model: "transformer_classifier"
@@ -538,7 +538,7 @@ Let's calculate the test accuracy.
 transformer_classifier.evaluate(test_ds, batch_size=BATCH_SIZE)
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
  391/391 ━━━━━━━━━━━━━━━━━━━━ 4s 11ms/step - accuracy: 0.8399 - loss: 0.4579

@@ -7,10 +7,10 @@ type: docs
 
 {{< keras/original checkedAt="2024-11-23" >}}
 
-**Author:** [András Béres](https://www.linkedin.com/in/andras-beres-789190210)  
-**Date created:** 2021/10/28  
-**Last modified:** 2021/10/28  
-**Description:** Generating images from limited data using the Caltech Birds dataset.
+**{{< t f_author >}}** [András Béres](https://www.linkedin.com/in/andras-beres-789190210)  
+**{{< t f_date_created >}}** 2021/10/28  
+**{{< t f_last_modified >}}** 2021/10/28  
+**{{< t f_description >}}** Generating images from limited data using the Caltech Birds dataset.
 
 {{< keras/version v=2 >}}
 
@@ -530,7 +530,7 @@ model.fit(
 )
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 Model: "generator"

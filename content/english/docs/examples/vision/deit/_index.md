@@ -8,10 +8,10 @@ math: true
 
 {{< keras/original checkedAt="2024-11-21" >}}
 
-**Author:** [Sayak Paul](https://twitter.com/RisingSayak)  
-**Date created:** 2022/04/05  
-**Last modified:** 2022/04/08  
-**Description:** Distillation of Vision Transformers through attention.
+**{{< t f_author >}}** [Sayak Paul](https://twitter.com/RisingSayak)  
+**{{< t f_date_created >}}** 2022/04/05  
+**{{< t f_last_modified >}}** 2022/04/08  
+**{{< t f_description >}}** Distillation of Vision Transformers through attention.
 
 {{< keras/version v=2 >}}
 
@@ -127,7 +127,7 @@ train_dataset = prepare_dataset(train_dataset, is_training=True)
 val_dataset = prepare_dataset(val_dataset, is_training=False)
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 Number of training examples: 3303
@@ -395,7 +395,7 @@ outputs = deit_tiny_distilled(dummy_inputs, training=False)
 print(outputs.shape)
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 (2, 5)
@@ -540,7 +540,7 @@ deit_distiller.compile(
 _ = deit_distiller.fit(train_dataset, validation_data=val_dataset, epochs=NUM_EPOCHS)
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 Epoch 1/20

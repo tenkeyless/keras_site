@@ -7,10 +7,10 @@ type: docs
 
 {{< keras/original checkedAt="2024-11-24" >}}
 
-**Author:** [Khalid Salama](https://www.linkedin.com/in/khalid-salama-24403144/)  
-**Date created:** 2021/05/15  
-**Last modified:** 2021/05/15  
-**Description:** Implementing the node2vec model to generate embeddings for movies from the MovieLens dataset.
+**{{< t f_author >}}** [Khalid Salama](https://www.linkedin.com/in/khalid-salama-24403144/)  
+**{{< t f_date_created >}}** 2021/05/15  
+**{{< t f_last_modified >}}** 2021/05/15  
+**{{< t f_description >}}** Implementing the node2vec model to generate embeddings for movies from the MovieLens dataset.
 
 {{< keras/version v=2 >}}
 
@@ -90,7 +90,7 @@ print("Movies data shape:", movies.shape)
 print("Ratings data shape:", ratings.shape)
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 Movies data shape: (9742, 3)
@@ -175,7 +175,7 @@ for group in tqdm(
             pair_frequency[(x, y)] += 1
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 Compute movie rating frequencies: 100%|███████████████████████████████████████████████████████████████████████████| 573/573 [00:00<00:00, 1049.83it/s]
@@ -209,7 +209,7 @@ for pair in tqdm(
         movies_graph.add_edge(x, y, weight=weight)
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 Creating the movie graph: 100%|███████████████████████████████████████████████████████████████████████████| 298586/298586 [00:00<00:00, 552893.62it/s]
@@ -224,7 +224,7 @@ print("Total number of graph nodes:", movies_graph.number_of_nodes())
 print("Total number of graph edges:", movies_graph.number_of_edges())
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 Total number of graph nodes: 1405
@@ -243,7 +243,7 @@ for node in movies_graph.nodes:
 print("Average node degree:", round(sum(degrees) / len(degrees), 2))
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 Average node degree: 57.0
@@ -342,7 +342,7 @@ walks = random_walk(movies_graph, num_walks, num_steps, p, q)
 print("Number of walks generated:", len(walks))
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 Random walks iteration 1 of 5: 100%|█████████████████████████████████████████████████████████████████████████████| 1405/1405 [00:04<00:00, 291.76it/s]
@@ -414,7 +414,7 @@ targets, contexts, labels, weights = generate_examples(
 )
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 Generating positive and negative examples: 100%|██████████████████████████████████████████████████████████████████| 7025/7025 [00:11<00:00, 617.64it/s]
@@ -431,7 +431,7 @@ print(f"Labels shape: {labels.shape}")
 print(f"Weights shape: {weights.shape}")
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 Targets shape: (881412,)
@@ -546,7 +546,7 @@ Now we train the model on the `dataset`.
 history = model.fit(dataset, epochs=num_epochs)
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 Epoch 1/10
@@ -591,7 +591,7 @@ movie_embeddings = model.get_layer("item_embeddings").get_weights()[0]
 print("Embeddings shape:", movie_embeddings.shape)
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 Embeddings shape: (1406, 50)
@@ -654,7 +654,7 @@ for idx, title in enumerate(query_movies):
     print()
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 Matrix, The (1999)

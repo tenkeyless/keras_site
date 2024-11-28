@@ -7,10 +7,10 @@ type: docs
 
 {{< keras/original checkedAt="2024-11-18" >}}
 
-**Author:** [fchollet](https://twitter.com/fchollet)  
-**Date created:** 2020/04/12  
-**Last modified:** 2023/06/25  
-**Description:** Complete guide to the Sequential model.
+**{{< t f_author >}}** [fchollet](https://twitter.com/fchollet)  
+**{{< t f_date_created >}}** 2020/04/12  
+**{{< t f_last_modified >}}** 2023/06/25  
+**{{< t f_description >}}** Complete guide to the Sequential model.
 
 {{< cards cols="2" >}}
 {{< card link="https://colab.research.google.com/github/keras-team/keras-io/blob/master/guides/ipynb/sequential_model.ipynb" title="Colab" tag="Colab" tagType="warning">}}
@@ -85,7 +85,7 @@ Its layers are accessible via the `layers` attribute:
 model.layers
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 [<Dense name=dense, built=False>,
@@ -111,7 +111,7 @@ model.pop()
 print(len(model.layers))  # 2
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 2
@@ -137,7 +137,7 @@ layer = layers.Dense(3)
 layer.weights  # Empty
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 []
@@ -154,7 +154,7 @@ y = layer(x)
 layer.weights  # Now it has weights, of shape (4, 3) and (3,)
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 [<KerasVariable shape=(4, 3), dtype=float32, path=dense_6/kernel>,
@@ -186,7 +186,7 @@ y = model(x)
 print("Number of weights after calling the model:", len(model.weights))  # 6
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 Number of weights after calling the model: 6
@@ -200,7 +200,7 @@ Once a model is "built", you can call its `summary()` method to display its cont
 model.summary()
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 Model: "sequential_3"
@@ -230,7 +230,7 @@ model.add(layers.Dense(2, activation="relu"))
 model.summary()
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 Model: "sequential_4"
@@ -252,7 +252,7 @@ Note that the `Input` object is not displayed as part of `model.layers`, since i
 model.layers
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 [<Dense name=dense_10, built=True>]
@@ -298,7 +298,7 @@ model.add(layers.GlobalMaxPooling2D())
 model.add(layers.Dense(10))
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 Model: "sequential_5"

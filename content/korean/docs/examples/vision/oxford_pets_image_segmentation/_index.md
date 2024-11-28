@@ -7,10 +7,10 @@ type: docs
 
 {{< keras/original checkedAt="2024-11-20" >}}
 
-**Author:** [fchollet](https://twitter.com/fchollet)  
-**Date created:** 2019/03/20  
-**Last modified:** 2020/04/20  
-**Description:** Image segmentation model trained from scratch on the Oxford Pets dataset.
+**{{< t f_author >}}** [fchollet](https://twitter.com/fchollet)  
+**{{< t f_date_created >}}** 2019/03/20  
+**{{< t f_last_modified >}}** 2020/04/20  
+**{{< t f_description >}}** Image segmentation model trained from scratch on the Oxford Pets dataset.
 
 {{< keras/version v=3 >}}
 
@@ -32,7 +32,7 @@ type: docs
 !tar -xf annotations.tar.gz
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
   % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
@@ -77,7 +77,7 @@ for input_path, target_path in zip(input_img_paths[:10], target_img_paths[:10]):
     print(input_path, "|", target_path)
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 Number of samples: 7390
@@ -226,7 +226,7 @@ model = get_model(img_size, num_classes)
 model.summary()
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 Model: "functional_1"
@@ -510,7 +510,7 @@ model.fit(
 )
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 Epoch 1/50
@@ -804,7 +804,7 @@ display(img)
 display_mask(i)  # Note that the model only sees inputs at 150x150.
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
  32/32 ━━━━━━━━━━━━━━━━━━━━ 5s 100ms/step

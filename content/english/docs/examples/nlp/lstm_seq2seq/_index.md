@@ -7,10 +7,10 @@ type: docs
 
 {{< keras/original checkedAt="2024-11-21" >}}
 
-**Author:** [fchollet](https://twitter.com/fchollet)  
-**Date created:** 2017/09/29  
-**Last modified:** 2023/11/22  
-**Description:** Character-level recurrent sequence-to-sequence model.
+**{{< t f_author >}}** [fchollet](https://twitter.com/fchollet)  
+**{{< t f_date_created >}}** 2017/09/29  
+**{{< t f_last_modified >}}** 2023/11/22  
+**{{< t f_description >}}** Character-level recurrent sequence-to-sequence model.
 
 {{< keras/version v=3 >}}
 
@@ -47,7 +47,7 @@ dirpath = Path(fpath).parent.absolute()
 os.system(f"unzip -q {fpath} -d {dirpath}")
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 0
@@ -134,7 +134,7 @@ for i, (input_text, target_text) in enumerate(zip(input_texts, target_texts)):
     decoder_target_data[i, t:, target_token_index[" "]] = 1.0
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 Number of samples: 10000
@@ -190,7 +190,7 @@ model.fit(
 model.save("s2s_model.keras")
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 Epoch 1/100
@@ -484,7 +484,7 @@ for seq_index in range(20):
     print("Decoded sentence:", decoded_sentence)
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 -

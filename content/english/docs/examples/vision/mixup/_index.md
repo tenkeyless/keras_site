@@ -8,10 +8,10 @@ math: true
 
 {{< keras/original checkedAt="2024-11-20" >}}
 
-**Author:** [Sayak Paul](https://twitter.com/RisingSayak)  
-**Date created:** 2021/03/06  
-**Last modified:** 2023/07/24  
-**Description:** Data augmentation using the mixup technique for image classification.
+**{{< t f_author >}}** [Sayak Paul](https://twitter.com/RisingSayak)  
+**{{< t f_date_created >}}** 2021/03/06  
+**{{< t f_last_modified >}}** 2023/07/24  
+**{{< t f_description >}}** Data augmentation using the mixup technique for image classification.
 
 {{< keras/version v=3 >}}
 
@@ -169,7 +169,7 @@ for i, (image, label) in enumerate(zip(sample_images[:9], sample_labels[:9])):
     plt.axis("off")
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 [0.0, 0.9964277148246765, 0.0, 0.0, 0.003572270041331649, 0.0, 0.0, 0.0, 0.0, 0.0]
@@ -225,7 +225,7 @@ _, test_acc = model.evaluate(test_ds)
 print("Test accuracy: {:.2f}%".format(test_acc * 100))
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 Epoch 1/10
@@ -271,7 +271,7 @@ _, test_acc = model.evaluate(test_ds)
 print("Test accuracy: {:.2f}%".format(test_acc * 100))
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 Epoch 1/10

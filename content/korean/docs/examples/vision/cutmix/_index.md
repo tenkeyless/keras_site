@@ -8,10 +8,10 @@ math: true
 
 {{< keras/original checkedAt="2024-11-20" >}}
 
-**Author:** [Sayan Nath](https://twitter.com/sayannath2350)  
-**Date created:** 2021/06/08  
-**Last modified:** 2023/11/14  
-**Description:** Data augmentation with CutMix for image classification on CIFAR-10.
+**{{< t f_author >}}** [Sayan Nath](https://twitter.com/sayannath2350)  
+**{{< t f_date_created >}}** 2021/06/08  
+**{{< t f_last_modified >}}** 2023/11/14  
+**{{< t f_description >}}** Data augmentation with CutMix for image classification on CIFAR-10.
 
 {{< keras/version v=3 >}}
 
@@ -100,7 +100,7 @@ class_names = [
 ]
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 (50000, 32, 32, 3)
@@ -378,7 +378,7 @@ test_loss, test_accuracy = model.evaluate(test_ds)
 print("Test accuracy: {:.2f}%".format(test_accuracy * 100))
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 Epoch 1/15
@@ -434,7 +434,7 @@ test_loss, test_accuracy = model.evaluate(test_ds)
 print("Test accuracy: {:.2f}%".format(test_accuracy * 100))
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 Epoch 1/15

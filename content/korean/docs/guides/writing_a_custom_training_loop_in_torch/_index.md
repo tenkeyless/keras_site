@@ -8,10 +8,10 @@ type: docs
 
 {{< keras/original checkedAt="2024-11-18" >}}
 
-**Author:** [fchollet](https://twitter.com/fchollet)  
-**Date created:** 2023/06/25  
-**Last modified:** 2023/06/25  
-**Description:** Writing low-level training & evaluation loops in PyTorch.
+**{{< t f_author >}}** [fchollet](https://twitter.com/fchollet)  
+**{{< t f_date_created >}}** 2023/06/25  
+**{{< t f_last_modified >}}** 2023/06/25  
+**{{< t f_description >}}** Writing low-level training & evaluation loops in PyTorch.
 
 {{< cards cols="2" >}}
 {{< card link="https://colab.research.google.com/github/keras-team/keras-io/blob/master/guides/ipynb/writing_a_custom_training_loop_in_torch.ipynb" title="Colab" tag="Colab" tagType="warning">}}
@@ -142,7 +142,7 @@ for epoch in range(epochs):
             print(f"Seen so far: {(step + 1) * batch_size} samples")
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 Training loss (for 1 batch) at step 0: 110.9115
@@ -287,7 +287,7 @@ for epoch in range(epochs):
             print(f"Seen so far: {(step + 1) * batch_size} samples")
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 Start of epoch 0
@@ -476,7 +476,7 @@ for epoch in range(epochs):
     print(f"Validation acc: {float(val_acc):.4f}")
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 Start of epoch 0
@@ -686,7 +686,7 @@ for epoch in range(epochs):
     print(f"Validation acc: {float(val_acc):.4f}")
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 Start of epoch 0

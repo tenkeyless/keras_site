@@ -9,9 +9,9 @@ type: docs
 {{< keras/original checkedAt="2024-11-18" >}}
 
 **Authors:** Tom O'Malley, Haifeng Jin  
-**Date created:** 2019/10/24  
-**Last modified:** 2021/06/02  
-**Description:** Tuning the hyperparameters of the models with multiple GPUs and multiple machines.
+**{{< t f_date_created >}}** 2019/10/24  
+**{{< t f_last_modified >}}** 2021/06/02  
+**{{< t f_description >}}** Tuning the hyperparameters of the models with multiple GPUs and multiple machines.
 
 {{< cards cols="2" >}}
 {{< card link="https://colab.research.google.com/github/keras-team/keras-io/blob/master/guides/ipynb/keras_tuner/distributed_tuning.ipynb" title="Colab" tag="Colab" tagType="warning">}}
@@ -140,7 +140,7 @@ tuner.search(
 )
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 Trial 2 Complete [00h 00m 18s]

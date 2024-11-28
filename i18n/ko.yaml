@@ -2,3 +2,8 @@ documentation: 문서
 about: Keras 정보
 guides: 가이드
 example: 예제
+f_author: "저자 :"
+f_date_created: "생성일 :"
+f_last_modified: "최종 편집일 :"
+f_description: "설명 :"
+f_result: "결과"

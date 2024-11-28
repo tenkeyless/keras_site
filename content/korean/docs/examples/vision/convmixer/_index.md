@@ -7,10 +7,10 @@ type: docs
 
 {{< keras/original checkedAt="2024-11-20" >}}
 
-**Author:** [Sayak Paul](https://twitter.com/RisingSayak)  
-**Date created:** 2021/10/12  
-**Last modified:** 2021/10/12  
-**Description:** An all-convolutional network applied to patches of images.
+**{{< t f_author >}}** [Sayak Paul](https://twitter.com/RisingSayak)  
+**{{< t f_date_created >}}** 2021/10/12  
+**{{< t f_last_modified >}}** 2021/10/12  
+**{{< t f_description >}}** An all-convolutional network applied to patches of images.
 
 {{< keras/version v=3 >}}
 
@@ -64,7 +64,7 @@ print(f"Validation data samples: {len(x_val)}")
 print(f"Test data samples: {len(x_test)}")
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 Training data samples: 45000
@@ -220,7 +220,7 @@ conv_mixer_model = get_conv_mixer_256_8()
 history, conv_mixer_model = run_experiment(conv_mixer_model)
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 Epoch 1/10
@@ -306,7 +306,7 @@ kernel = np.expand_dims(kernel.squeeze(), axis=2)
 visualization_plot(kernel)
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 5 <DepthwiseConv2D name=depthwise_conv2d, built=True>

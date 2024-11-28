@@ -7,10 +7,10 @@ type: docs
 
 {{< keras/original checkedAt="2024-11-23" >}}
 
-**Author:** [A_K_Nain](https://twitter.com/A_K_Nain)  
-**Date created:** 2020/05/9  
-**Last modified:** 2023/08/3  
-**Description:** Implementation of Wasserstein GAN with Gradient Penalty.
+**{{< t f_author >}}** [A_K_Nain](https://twitter.com/A_K_Nain)  
+**{{< t f_date_created >}}** 2020/05/9  
+**{{< t f_last_modified >}}** 2023/08/3  
+**{{< t f_description >}}** Implementation of Wasserstein GAN with Gradient Penalty.
 
 {{< keras/version v=3 >}}
 
@@ -58,7 +58,7 @@ train_images = train_images.reshape(train_images.shape[0], *IMG_SHAPE).astype("f
 train_images = (train_images - 127.5) / 127.5
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 Downloading data from https://storage.googleapis.com/tensorflow/tf-keras-datasets/train-labels-idx1-ubyte.gz
@@ -166,7 +166,7 @@ d_model = get_discriminator_model()
 d_model.summary()
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 Model: "discriminator"
@@ -283,7 +283,7 @@ g_model = get_generator_model()
 g_model.summary()
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 Model: "generator"
@@ -527,7 +527,7 @@ wgan.compile(
 wgan.fit(train_images, batch_size=BATCH_SIZE, epochs=epochs, callbacks=[cbk])
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 Epoch 1/20

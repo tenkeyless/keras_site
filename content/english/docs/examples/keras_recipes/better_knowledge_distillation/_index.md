@@ -7,10 +7,10 @@ type: docs
 
 {{< keras/original checkedAt="2024-11-24" >}}
 
-**Author:** [Sayak Paul](https://twitter.com/RisingSayak)  
-**Date created:** 2021/08/01  
-**Last modified:** 2021/08/01  
-**Description:** Training better student models via knowledge distillation with function matching.
+**{{< t f_author >}}** [Sayak Paul](https://twitter.com/RisingSayak)  
+**{{< t f_date_created >}}** 2021/08/01  
+**{{< t f_last_modified >}}** 2021/08/01  
+**{{< t f_description >}}** Training better student models via knowledge distillation with function matching.
 
 {{< keras/version v=2 >}}
 
@@ -84,7 +84,7 @@ print(
 print(f"Number of test examples: {test_ds.cardinality()}.")
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 Number of training examples: 1020.
@@ -150,7 +150,7 @@ teacher_model.trainable = False
 teacher_model.summary()
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 Model: "my_bi_t_model_1"
@@ -263,7 +263,7 @@ def get_resnetv2():
 get_resnetv2().count_params()
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 23773798
@@ -454,7 +454,7 @@ _, top1_accuracy = student.evaluate(test_ds)
 print(f"Top-1 accuracy on the test set: {round(top1_accuracy * 100, 2)}%")
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 Epoch 1/30
@@ -538,7 +538,7 @@ pretrained_student = keras.models.load_model("S-r50x1-128-1000")
 pretrained_student.summary()
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 Model: "resnet"
@@ -578,7 +578,7 @@ _, top1_accuracy = pretrained_student.evaluate(test_ds)
 print(f"Top-1 accuracy on the test set: {round(top1_accuracy * 100, 2)}%")
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 97/97 [==============================] - 14s 131ms/step - loss: 0.0000e+00 - accuracy: 0.8102

@@ -7,10 +7,10 @@ type: docs
 
 {{< keras/original checkedAt="2024-11-20" >}}
 
-**Author:** [Sayak Paul](https://twitter.com/RisingSayak)  
-**Date created:** 2021/06/30  
-**Last modified:** 2023/08/07  
-**Description:** Compact Convolutional Transformers for efficient image classification.
+**{{< t f_author >}}** [Sayak Paul](https://twitter.com/RisingSayak)  
+**{{< t f_date_created >}}** 2021/06/30  
+**{{< t f_last_modified >}}** 2023/08/07  
+**{{< t f_description >}}** Compact Convolutional Transformers for efficient image classification.
 
 {{< keras/version v=3 >}}
 
@@ -72,7 +72,7 @@ print(f"x_train shape: {x_train.shape} - y_train shape: {y_train.shape}")
 print(f"x_test shape: {x_test.shape} - y_test shape: {y_test.shape}")
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 x_train shape: (50000, 32, 32, 3) - y_train shape: (50000, 10)
@@ -375,7 +375,7 @@ cct_model = create_cct_model()
 history = run_experiment(cct_model)
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 Epoch 1/30

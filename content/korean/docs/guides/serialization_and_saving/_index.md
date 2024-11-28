@@ -9,9 +9,9 @@ type: docs
 {{< keras/original checkedAt="2024-11-18" >}}
 
 **Authors:** Neel Kovelamudi, Francois Chollet  
-**Date created:** 2023/06/14  
-**Last modified:** 2023/06/30  
-**Description:** Complete guide to saving, serializing, and exporting models.
+**{{< t f_date_created >}}** 2023/06/14  
+**{{< t f_last_modified >}}** 2023/06/30  
+**{{< t f_description >}}** Complete guide to saving, serializing, and exporting models.
 
 {{< cards cols="2" >}}
 {{< card link="https://colab.research.google.com/github/keras-team/keras-io/blob/master/guides/ipynb/serialization_and_saving.ipynb" title="Colab" tag="Colab" tagType="warning">}}
@@ -108,7 +108,7 @@ np.testing.assert_allclose(
 )
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
  4/4 ━━━━━━━━━━━━━━━━━━━━ 0s 8ms/step - loss: 0.4232
@@ -227,7 +227,7 @@ np.testing.assert_allclose(
 )
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
  1/1 ━━━━━━━━━━━━━━━━━━━━ 0s 46ms/step - loss: 0.2571
@@ -259,7 +259,7 @@ np.testing.assert_allclose(
 )
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
  1/1 ━━━━━━━━━━━━━━━━━━━━ 0s 37ms/step - loss: 0.0535
@@ -293,7 +293,7 @@ np.testing.assert_allclose(
 )
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
  1/1 ━━━━━━━━━━━━━━━━━━━━ 0s 40ms/step - loss: 0.0868
@@ -339,7 +339,7 @@ layer_config = layer.get_config()
 print(layer_config)
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 {'name': 'dense_4', 'trainable': True, 'dtype': 'float32', 'units': 3, 'activation': 'relu', 'use_bias': True, 'kernel_initializer': {'module': 'keras.src.initializers.random_initializers', 'class_name': 'GlorotUniform', 'config': {'seed': None}, 'registered_name': 'GlorotUniform'}, 'bias_initializer': {'module': 'keras.src.initializers.constant_initializers', 'class_name': 'Zeros', 'config': {}, 'registered_name': 'Zeros'}, 'kernel_regularizer': None, 'bias_regularizer': None, 'kernel_constraint': None, 'bias_constraint': None}
@@ -395,7 +395,7 @@ config = keras.saving.serialize_keras_object(my_reg)
 print(config)
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 {'module': 'keras.src.regularizers.regularizers', 'class_name': 'L1', 'config': {'l1': 0.004999999888241291}, 'registered_name': 'L1'}
@@ -560,7 +560,7 @@ print("\nvariables: {}".format(variable_names_2))
 print("variable ordering changed:", variable_names != variable_names_2)
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 variables: ['kernel', 'bias', 'kernel', 'bias']
@@ -606,7 +606,7 @@ model = keras.Sequential(extracted_layers)
 model.summary()
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 Model: "sequential_4"
@@ -695,7 +695,7 @@ new_layer = keras.layers.deserialize(config)
 print(new_layer)
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 {'module': None, 'class_name': 'MyDense', 'config': {'name': 'my_dense_1', 'trainable': True, 'dtype': 'float32', 'units': 64, 'kernel_regularizer': None, 'kernel_initializer': None, 'nested_model': {'module': None, 'class_name': 'MyDense', 'config': {'name': 'my_dense', 'trainable': True, 'dtype': 'float32', 'units': 16, 'kernel_regularizer': 'l1', 'kernel_initializer': 'ones', 'nested_model': None}, 'registered_name': 'MyLayers>KernelMult'}}, 'registered_name': 'MyLayers>KernelMult'}
@@ -771,7 +771,7 @@ config = keras.layers.serialize(layer)
 print(config)
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 {'module': None, 'class_name': 'MyDense', 'config': {'name': 'my_dense_2', 'trainable': True, 'dtype': 'float32', 'units': 16, 'kernel_regularizer': {'module': 'keras.src.regularizers.regularizers', 'class_name': 'L1L2', 'config': {'l1': 1e-05, 'l2': 0.0001}, 'registered_name': 'L1L2'}, 'kernel_initializer': 'ones', 'nested_model': None}, 'registered_name': 'MyLayers>KernelMult'}

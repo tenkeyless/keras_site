@@ -7,10 +7,10 @@ type: docs
 
 {{< keras/original checkedAt="2024-11-21" >}}
 
-**Author:** [Apoorv Nandan](https://twitter.com/NandanApoorv)  
-**Date created:** 2020/05/23  
-**Last modified:** 2020/05/23  
-**Description:** Fine tune pretrained BERT from HuggingFace Transformers on SQuAD.
+**{{< t f_author >}}** [Apoorv Nandan](https://twitter.com/NandanApoorv)  
+**{{< t f_date_created >}}** 2020/05/23  
+**{{< t f_last_modified >}}** 2020/05/23  
+**{{< t f_description >}}** Fine tune pretrained BERT from HuggingFace Transformers on SQuAD.
 
 {{< keras/version v=2 >}}
 
@@ -217,7 +217,7 @@ x_eval, y_eval = create_inputs_targets(eval_squad_examples)
 print(f"{len(eval_squad_examples)} evaluation points created.")
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 87599 training points created.
@@ -278,7 +278,7 @@ else:
 model.summary()
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 INFO:absl:Entering into master device scope: /job:worker/replica:0/task:0/device:CPU:0
@@ -404,7 +404,7 @@ model.fit(
 )
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 epoch=1, exact match score=0.78

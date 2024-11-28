@@ -8,10 +8,10 @@ type: docs
 
 {{< keras/original checkedAt="2024-11-19" >}}
 
-**Author:** [Divyashree Sreepathihalli](https://github.com/divyashreepathihalli), [Ian Stenbit](https://github.com/ianstenbit)  
-**Date created:** 2023/08/22  
-**Last modified:** 2023/08/24  
-**Description:** Train and use DeepLabv3+ segmentation model with KerasCV.
+**{{< t f_author >}}** [Divyashree Sreepathihalli](https://github.com/divyashreepathihalli), [Ian Stenbit](https://github.com/ianstenbit)  
+**{{< t f_date_created >}}** 2023/08/22  
+**{{< t f_last_modified >}}** 2023/08/24  
+**{{< t f_description >}}** Train and use DeepLabv3+ segmentation model with KerasCV.
 
 {{< cards cols="2" >}}
 {{< card link="https://colab.research.google.com/github/keras-team/keras-io/blob/master/guides/ipynb/keras_cv/semantic_segmentation_deeplab_v3_plus.ipynb" title="Colab" tag="Colab" tagType="warning">}}
@@ -205,7 +205,7 @@ model = keras_cv.models.DeepLabV3Plus.from_preset(
 )
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 Downloading data from https://storage.googleapis.com/keras-cv/models/resnet50v2/imagenet/classification-v2-notop.h5
@@ -243,7 +243,7 @@ model.compile(
 model.summary()
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 Model: "deep_lab_v3_plus_1"
@@ -297,7 +297,7 @@ eval_ds = eval_ds.map(dict_to_tuple)
 model.fit(train_ds, validation_data=eval_ds, epochs=EPOCHS)
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
    2124/Unknown  735s 319ms/step - categorical_accuracy: 0.7026 - loss: 1.2143 - mean_io_u: 0.0706

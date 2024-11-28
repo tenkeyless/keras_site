@@ -7,10 +7,10 @@ type: docs
 
 {{< keras/original checkedAt="2024-11-20" >}}
 
-**Author:** [Hasib Zunair](https://twitter.com/hasibzunair)  
-**Date created:** 2020/09/23  
-**Last modified:** 2024/01/11  
-**Description:** Train a 3D convolutional neural network to predict presence of pneumonia.
+**{{< t f_author >}}** [Hasib Zunair](https://twitter.com/hasibzunair)  
+**{{< t f_date_created >}}** 2020/09/23  
+**{{< t f_last_modified >}}** 2024/01/11  
+**{{< t f_description >}}** Train a 3D convolutional neural network to predict presence of pneumonia.
 
 {{< keras/version v=3 >}}
 
@@ -70,7 +70,7 @@ with zipfile.ZipFile("CT-23.zip", "r") as z_fp:
     z_fp.extractall("./MosMedData/")
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 Downloading data from https://github.com/hasibzunair/3D-image-classification-tutorial/releases/download/v0.2/CT-0.zip
@@ -173,7 +173,7 @@ print("CT scans with normal lung tissue: " + str(len(normal_scan_paths)))
 print("CT scans with abnormal lung tissue: " + str(len(abnormal_scan_paths)))
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 CT scans with normal lung tissue: 100
@@ -208,7 +208,7 @@ print(
 )
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 Number of samples in train and validation are 140 and 60.
@@ -295,7 +295,7 @@ print("Dimension of the CT scan is:", image.shape)
 plt.imshow(np.squeeze(image[:, :, 30]), cmap="gray")
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 Dimension of the CT scan is: (128, 128, 64, 1)
@@ -383,7 +383,7 @@ model = get_model(width=128, height=128, depth=64)
 model.summary()
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 Model: "3dcnn"
@@ -469,7 +469,7 @@ model.fit(
 )
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 Epoch 1/100
@@ -626,7 +626,7 @@ for score, name in zip(scores, class_names):
     )
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 1/1 ━━━━━━━━━━━━━━━━━━━━ 0s 478ms/step

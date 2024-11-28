@@ -7,10 +7,10 @@ type: docs
 
 {{< keras/original checkedAt="2024-11-19" >}}
 
-**Author:** [fchollet](https://twitter.com/fchollet)  
-**Date created:** 2020/04/27  
-**Last modified:** 2023/11/09  
-**Description:** Training an image classifier from scratch on the Kaggle Cats vs Dogs dataset.
+**{{< t f_author >}}** [fchollet](https://twitter.com/fchollet)  
+**{{< t f_date_created >}}** 2020/04/27  
+**{{< t f_last_modified >}}** 2023/11/09  
+**{{< t f_description >}}** Training an image classifier from scratch on the Kaggle Cats vs Dogs dataset.
 
 {{< keras/version v=3 >}}
 
@@ -51,7 +51,7 @@ First, let's download the 786M ZIP archive of the raw data:
 !ls
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
   % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
@@ -71,7 +71,7 @@ Now we have a `PetImages` folder which contain two subfolders, `Cat` and `Dog`. 
 !ls PetImages
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 Cat  Dog
@@ -103,7 +103,7 @@ for folder_name in ("Cat", "Dog"):
 print(f"Deleted {num_skipped} images.")
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 Deleted 1590 images.
@@ -127,7 +127,7 @@ train_ds, val_ds = keras.utils.image_dataset_from_directory(
 )
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 Found 23410 files belonging to 2 classes.
@@ -317,7 +317,7 @@ model.fit(
 )
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 Epoch 1/25
@@ -348,7 +348,7 @@ score = float(keras.ops.sigmoid(predictions[0][0]))
 print(f"This image is {100 * (1 - score):.2f}% cat and {100 * score:.2f}% dog.")
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
  1/1 ━━━━━━━━━━━━━━━━━━━━ 2s 2s/step

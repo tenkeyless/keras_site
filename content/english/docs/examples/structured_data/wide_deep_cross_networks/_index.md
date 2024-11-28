@@ -7,10 +7,10 @@ type: docs
 
 {{< keras/original checkedAt="2024-11-22" >}}
 
-**Author:** [Khalid Salama](https://www.linkedin.com/in/khalid-salama-24403144/)  
-**Date created:** 2020/12/31  
-**Last modified:** 2021/05/05  
-**Description:** Using Wide & Deep and Deep & Cross networks for structured data classification.
+**{{< t f_author >}}** [Khalid Salama](https://www.linkedin.com/in/khalid-salama-24403144/)  
+**{{< t f_date_created >}}** 2020/12/31  
+**{{< t f_last_modified >}}** 2021/05/05  
+**{{< t f_description >}}** Using Wide & Deep and Deep & Cross networks for structured data classification.
 
 {{< keras/version v=3 >}}
 
@@ -61,7 +61,7 @@ print(f"Dataset shape: {raw_data.shape}")
 raw_data.head()
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 Dataset shape: (581012, 55)
@@ -122,7 +122,7 @@ print(f"Dataset shape: {data.shape}")
 data.head().T
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 Dataset shape: (581012, 13)
@@ -166,7 +166,7 @@ print(f"Train split size: {len(train_data.index)}")
 print(f"Test split size: {len(test_data.index)}")
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 Train split size: 493323
@@ -361,7 +361,7 @@ baseline_model = create_baseline_model()
 keras.utils.plot_model(baseline_model, show_shapes=True, rankdir="LR")
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 /Users/fchollet/Library/Python/3.10/lib/python/site-packages/numpy/core/numeric.py:2468: FutureWarning: elementwise comparison failed; returning scalar instead, but in the future will perform elementwise comparison
@@ -378,7 +378,7 @@ Let's run it:
 run_experiment(baseline_model)
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 Start training the model...
@@ -526,7 +526,7 @@ wide_and_deep_model = create_wide_and_deep_model()
 keras.utils.plot_model(wide_and_deep_model, show_shapes=True, rankdir="LR")
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 /Users/fchollet/Library/Python/3.10/lib/python/site-packages/numpy/core/numeric.py:2468: FutureWarning: elementwise comparison failed; returning scalar instead, but in the future will perform elementwise comparison
@@ -543,7 +543,7 @@ Let's run it:
 run_experiment(wide_and_deep_model)
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 Start training the model...
@@ -693,7 +693,7 @@ deep_and_cross_model = create_deep_and_cross_model()
 keras.utils.plot_model(deep_and_cross_model, show_shapes=True, rankdir="LR")
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 /Users/fchollet/Library/Python/3.10/lib/python/site-packages/numpy/core/numeric.py:2468: FutureWarning: elementwise comparison failed; returning scalar instead, but in the future will perform elementwise comparison
@@ -710,7 +710,7 @@ Let's run it:
 run_experiment(deep_and_cross_model)
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 Start training the model...

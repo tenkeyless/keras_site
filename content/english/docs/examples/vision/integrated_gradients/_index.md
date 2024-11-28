@@ -7,10 +7,10 @@ type: docs
 
 {{< keras/original checkedAt="2024-11-20" >}}
 
-**Author:** [A_K_Nain](https://twitter.com/A_K_Nain)  
-**Date created:** 2020/06/02  
-**Last modified:** 2020/06/02  
-**Description:** How to obtain integrated gradients for a classification model.
+**{{< t f_author >}}** [A_K_Nain](https://twitter.com/A_K_Nain)  
+**{{< t f_date_created >}}** 2020/06/02  
+**{{< t f_last_modified >}}** 2020/06/02  
+**{{< t f_description >}}** How to obtain integrated gradients for a classification model.
 
 {{< keras/version v=3 >}}
 
@@ -42,7 +42,6 @@ To read in-depth about integrated gradients and why this method works, consider 
 ## Setup
 
 ```python
-
 import numpy as np
 import matplotlib.pyplot as plt
 from scipy import ndimage
@@ -487,7 +486,7 @@ vis.visualize(
 )
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
  1/1 ━━━━━━━━━━━━━━━━━━━━ 5s 5s/step

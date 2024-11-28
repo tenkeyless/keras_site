@@ -7,10 +7,10 @@ type: docs
 
 {{< keras/original checkedAt="2024-11-22" >}}
 
-**Author:** [Khalid Salama](https://www.linkedin.com/in/khalid-salama-24403144/)  
-**Date created:** 2022/01/18  
-**Last modified:** 2022/01/18  
-**Description:** Using contextual embeddings for structured data classification.
+**{{< t f_author >}}** [Khalid Salama](https://www.linkedin.com/in/khalid-salama-24403144/)  
+**{{< t f_date_created >}}** 2022/01/18  
+**{{< t f_last_modified >}}** 2022/01/18  
+**{{< t f_description >}}** Using contextual embeddings for structured data classification.
 
 {{< keras/version v=3 >}}
 
@@ -79,7 +79,7 @@ print(f"Train dataset shape: {train_data.shape}")
 print(f"Test dataset shape: {test_data.shape}")
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 Train dataset shape: (32561, 15)
@@ -389,7 +389,7 @@ print("Total model weights:", baseline_model.count_params())
 keras.utils.plot_model(baseline_model, show_shapes=True, rankdir="LR")
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 An NVIDIA GPU may be present on this machine, but a CUDA-enabled jaxlib is not installed. Falling back to cpu.
@@ -415,7 +415,7 @@ history = run_experiment(
 )
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 Start training the model...
@@ -572,7 +572,7 @@ print("Total model weights:", tabtransformer_model.count_params())
 keras.utils.plot_model(tabtransformer_model, show_shapes=True, rankdir="LR")
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 Total model weights: 88543
@@ -596,7 +596,7 @@ history = run_experiment(
 )
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 Start training the model...

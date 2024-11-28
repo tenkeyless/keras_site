@@ -7,10 +7,10 @@ type: docs
 
 {{< keras/original checkedAt="2024-11-21" >}}
 
-**Author:** [Sayak Paul](https://twitter.com/RisingSayak)  
-**Date created:** 2021/04/30  
-**Last modified:** 2023/12/18  
-**Description:** How to optimally learn representations of images for a given resolution.
+**{{< t f_author >}}** [Sayak Paul](https://twitter.com/RisingSayak)  
+**{{< t f_date_created >}}** 2021/04/30  
+**{{< t f_last_modified >}}** 2023/12/18  
+**{{< t f_description >}}** How to optimally learn representations of images for a given resolution.
 
 {{< keras/version v=3 >}}
 
@@ -186,7 +186,7 @@ for i, image in enumerate(sample_images[:6]):
     plt.axis("off")
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 Corrupt JPEG data: 65 extraneous bytes before marker 0xd9
@@ -236,7 +236,7 @@ model.compile(
 model.fit(train_ds, validation_data=validation_ds, epochs=EPOCHS)
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 Epoch 1/5
@@ -283,7 +283,7 @@ for i, image in enumerate(sample_images[:6]):
     plt.axis("off")
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 WARNING:matplotlib.image:Clipping input data to the valid range for imshow with RGB data ([0..1] for floats or [0..255] for integers).

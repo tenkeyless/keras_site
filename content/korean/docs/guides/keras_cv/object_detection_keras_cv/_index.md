@@ -8,10 +8,10 @@ type: docs
 
 {{< keras/original checkedAt="2024-11-19" >}}
 
-**Author:** [lukewood](https://twitter.com/luke_wood_ml), Ian Stenbit, Tirth Patel  
-**Date created:** 2023/04/08  
-**Last modified:** 2023/08/10  
-**Description:** Train an object detection model with KerasCV.
+**{{< t f_author >}}** [lukewood](https://twitter.com/luke_wood_ml), Ian Stenbit, Tirth Patel  
+**{{< t f_date_created >}}** 2023/04/08  
+**{{< t f_last_modified >}}** 2023/08/10  
+**{{< t f_description >}}** Train an object detection model with KerasCV.
 
 {{< cards cols="2" >}}
 {{< card link="https://colab.research.google.com/github/keras-team/keras-io/blob/master/guides/ipynb/keras_cv/object_detection_keras_cv.ipynb" title="Colab" tag="Colab" tagType="warning">}}
@@ -206,7 +206,7 @@ visualization.plot_bounding_box_gallery(
 )
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
  1/1 ━━━━━━━━━━━━━━━━━━━━ 11s 11s/step
@@ -252,7 +252,7 @@ visualization.plot_bounding_box_gallery(
 )
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
  1/1 ━━━━━━━━━━━━━━━━━━━━ 5s 5s/step
@@ -297,7 +297,7 @@ visualization.plot_bounding_box_gallery(
 )
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
  1/1 ━━━━━━━━━━━━━━━━━━━━ 5s 5s/step
@@ -500,7 +500,6 @@ visualize_dataset(
 Finally, let's unpackage our inputs from the preprocessing dictionary, and prepare to feed the inputs into our model. In order to be TPU compatible, bounding box Tensors need to be `Dense` instead of `Ragged`.
 
 ```python
-
 def dict_to_tuple(inputs):
     return inputs["images"], bounding_box.to_dense(
         inputs["bounding_boxes"], max_boxes=32
@@ -604,7 +603,7 @@ model.fit(
 )
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
  20/20 ━━━━━━━━━━━━━━━━━━━━ 7s 59ms/step
@@ -690,7 +689,7 @@ model.prediction_decoder = keras_cv.layers.NonMaxSuppression(
 visualize_detections(model, dataset=visualization_ds, bounding_box_format="xywh")
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
  1/1 ━━━━━━━━━━━━━━━━━━━━ 16s 16s/step
@@ -747,7 +746,7 @@ visualization.plot_bounding_box_gallery(
 )
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 By using this model checkpoint, you acknowledge that its usage is subject to the terms of the CreativeML Open RAIL++-M license at https://github.com/Stability-AI/stablediffusion/blob/main/LICENSE-MODEL

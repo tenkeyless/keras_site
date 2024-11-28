@@ -7,10 +7,10 @@ type: docs
 
 {{< keras/original checkedAt="2024-11-21" >}}
 
-**Author:** [Abheesht Sharma](https://github.com/abheesht17/)  
-**Date created:** 2023/07/08  
-**Last modified:** 2024/03/20  
-**Description:** Use KerasHub to fine-tune BART on the abstractive summarization task.
+**{{< t f_author >}}** [Abheesht Sharma](https://github.com/abheesht17/)  
+**{{< t f_date_created >}}** 2023/07/08  
+**{{< t f_last_modified >}}** 2024/03/20  
+**{{< t f_description >}}** Use KerasHub to fine-tune BART on the abstractive summarization task.
 
 {{< keras/version v=3 >}}
 
@@ -35,7 +35,7 @@ Before we start implementing the pipeline, let's install and import all the libr
 !pip install git+https://github.com/keras-team/keras-hub.git py7zr -q
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
   Installing build dependencies ... [?25l[?25hdone
@@ -73,7 +73,7 @@ import tensorflow as tf
 import tensorflow_datasets as tfds
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 Using JAX backend.
@@ -111,7 +111,7 @@ with py7zr.SevenZipFile(filename, mode="r") as z:
 samsum_ds = tfds.load("samsum", split="train", as_supervised=True)
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 Downloading data from https://huggingface.co/datasets/samsum/resolve/main/data/corpus.7z
@@ -146,7 +146,7 @@ for dialogue, summary in samsum_ds:
     break
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 b"Carter: Hey Alexis, I just wanted to let you know that I had a really nice time with you tonight. \r\nAlexis: Thanks Carter. Yeah, I really enjoyed myself as well. \r\nCarter: If you are up for it, I would really like to see you again soon.\r\nAlexis: Thanks Carter, I'm flattered. But I have a really busy week coming up.\r\nCarter: Yeah, no worries. I totally understand. But if you ever want to go grab dinner again, just let me know. \r\nAlexis: Yeah of course. Thanks again for tonight. \r\nCarter: Sure. Have a great night. "
@@ -187,7 +187,7 @@ bart_lm = keras_hub.models.BartSeq2SeqLM.from_preset(
 bart_lm.summary()
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 Downloading data from https://storage.googleapis.com/keras-hub/models/bart_base_en/v1/vocab.json
@@ -268,7 +268,7 @@ Let's train the model!
 bart_lm.fit(train_ds, epochs=EPOCHS)
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
  600/600 ━━━━━━━━━━━━━━━━━━━━ 398s 586ms/step - loss: 0.4330
@@ -315,7 +315,7 @@ generated_summaries = generate_text(
 )
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 Total Time Elapsed: 21.22s
@@ -336,7 +336,7 @@ for dialogue, generated_summary, ground_truth_summary in zip(
     print("=============================")
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 Dialogue: b'Tony: Is the boss in?\r\nClaire: Not yet.\r\nTony: Could let me know when he comes, please? \r\nClaire: Of course.\r\nTony: Thank you.'

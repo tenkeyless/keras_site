@@ -7,10 +7,10 @@ type: docs
 
 {{< keras/original checkedAt="2024-11-24" >}}
 
-**Author:** [Frightera](https://github.com/Frightera)  
-**Date created:** 2023/05/05  
-**Last modified:** 2023/05/05  
-**Description:** Demonstration of random weight initialization and reproducibility in Keras models.
+**{{< t f_author >}}** [Frightera](https://github.com/Frightera)  
+**{{< t f_date_created >}}** 2023/05/05  
+**{{< t f_last_modified >}}** 2023/05/05  
+**{{< t f_description >}}** Demonstration of random weight initialization and reproducibility in Keras models.
 
 {{< keras/version v=3 >}}
 
@@ -78,7 +78,7 @@ for initializer in initializers_list:
     print("\n")
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 Running <class 'keras.src.initializers.random_initializers.RandomNormal'>
@@ -167,7 +167,7 @@ equal = np.allclose(result_1, result_2)
 print(f"Are the results equal? {equal}")
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 Are the results equal? True
@@ -191,7 +191,7 @@ equal = np.allclose(result_3, result_4)
 print(f"Are the results equal? {equal}")
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 Are the results equal? False
@@ -257,7 +257,7 @@ train_ds = tf.data.Dataset.from_tensor_slices((train_images, train_labels))
 test_ds = tf.data.Dataset.from_tensor_slices((test_images, test_labels))
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 Downloading data from https://storage.googleapis.com/tensorflow/tf-keras-datasets/mnist.npz
@@ -314,7 +314,7 @@ Train the model for the first time.
 history = train_model(train_data, test_data)
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 Epoch 1/2

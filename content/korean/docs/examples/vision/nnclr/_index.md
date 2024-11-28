@@ -7,10 +7,10 @@ type: docs
 
 {{< keras/original checkedAt="2024-11-21" >}}
 
-**Author:** [Rishit Dagli](https://twitter.com/rishit_dagli)  
-**Date created:** 2021/09/13  
-**Last modified:** 2024/01/22  
-**Description:** Implementation of NNCLR, a self-supervised learning method for computer vision.
+**{{< t f_author >}}** [Rishit Dagli](https://twitter.com/rishit_dagli)  
+**{{< t f_date_created >}}** 2021/09/13  
+**{{< t f_last_modified >}}** 2024/01/22  
+**{{< t f_description >}}** Implementation of NNCLR, a self-supervised learning method for computer vision.
 
 {{< keras/version v=3 >}}
 

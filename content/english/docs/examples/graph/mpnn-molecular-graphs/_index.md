@@ -7,10 +7,10 @@ type: docs
 
 {{< keras/original checkedAt="2024-11-24" >}}
 
-**Author:** [akensert](http://github.com/akensert)  
-**Date created:** 2021/08/16  
-**Last modified:** 2021/12/27  
-**Description:** Implementation of an MPNN to predict blood-brain barrier permeability.
+**{{< t f_author >}}** [akensert](http://github.com/akensert)  
+**{{< t f_date_created >}}** 2021/08/16  
+**{{< t f_last_modified >}}** 2021/12/27  
+**{{< t f_description >}}** Implementation of an MPNN to predict blood-brain barrier permeability.
 
 {{< keras/version v=2 >}}
 
@@ -293,7 +293,7 @@ print("Molecule:")
 molecule
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 Name:   acetylsalicylate
@@ -314,7 +314,7 @@ print("\tbond features\t", graph[1].shape)
 print("\tpair indices\t", graph[2].shape)
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 Graph (including self-loops):
@@ -593,7 +593,7 @@ plt.ylabel("AUC", fontsize=16)
 plt.legend(fontsize=16)
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 Epoch 1/40

@@ -8,10 +8,10 @@ math: true
 
 {{< keras/original checkedAt="2024-11-23" >}}
 
-**Author:** [Aritra Roy Gosthipaty](https://twitter.com/arig23498), [Ritwik Raha](https://twitter.com/ritwik_raha)  
-**Date created:** 2021/11/08  
-**Last modified:** 2021/11/08  
-**Description:** Neural Style Transfer with Adaptive Instance Normalization.
+**{{< t f_author >}}** [Aritra Roy Gosthipaty](https://twitter.com/arig23498), [Ritwik Raha](https://twitter.com/ritwik_raha)  
+**{{< t f_date_created >}}** 2021/11/08  
+**{{< t f_last_modified >}}** 2021/11/08  
+**{{< t f_description >}}** Neural Style Transfer with Adaptive Instance Normalization.
 
 {{< keras/version v=2 >}}
 
@@ -186,7 +186,7 @@ test_ds = (
 )
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 [1mDownloading and preparing dataset voc/2007/4.0.0 (download: 868.85 MiB, generated: Unknown size, total: 868.85 MiB) to /root/tensorflow_datasets/voc/2007/4.0.0...[0m
@@ -582,7 +582,7 @@ history = model.fit(
 )
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 Downloading data from https://storage.googleapis.com/tensorflow/keras-applications/vgg19/vgg19_weights_tf_dim_ordering_tf_kernels_notop.h5

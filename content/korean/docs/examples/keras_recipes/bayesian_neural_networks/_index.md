@@ -7,10 +7,10 @@ type: docs
 
 {{< keras/original checkedAt="2024-11-24" >}}
 
-**Author:** [Khalid Salama](https://www.linkedin.com/in/khalid-salama-24403144/)  
-**Date created:** 2021/01/15  
-**Last modified:** 2021/01/15  
-**Description:** Building probabilistic Bayesian neural network models with TensorFlow Probability.
+**{{< t f_author >}}** [Khalid Salama](https://www.linkedin.com/in/khalid-salama-24403144/)  
+**{{< t f_date_created >}}** 2021/01/15  
+**{{< t f_last_modified >}}** 2021/01/15  
+**{{< t f_description >}}** Building probabilistic Bayesian neural network models with TensorFlow Probability.
 
 {{< keras/version v=2 >}}
 
@@ -104,7 +104,6 @@ def run_experiment(model, loss, train_dataset, test_dataset):
 ## Create model inputs
 
 ```python
-
 FEATURE_NAMES = [
     "fixed acidity",
     "volatile acidity",
@@ -168,7 +167,7 @@ baseline_model = create_baseline_model()
 run_experiment(baseline_model, mse_loss, train_dataset, test_dataset)
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 Start training the model...
@@ -218,7 +217,7 @@ for idx in range(sample):
     print(f"Predicted: {round(float(predicted[idx][0]), 1)} - Actual: {targets[idx]}")
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 Predicted: 6.0 - Actual: 6.0
@@ -314,7 +313,7 @@ bnn_model_small = create_bnn_model(train_sample_size)
 run_experiment(bnn_model_small, mse_loss, small_train_dataset, test_dataset)
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 Start training the model...
@@ -378,7 +377,7 @@ def compute_predictions(model, iterations=100):
 compute_predictions(bnn_model_small)
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 Predictions mean: 5.63, min: 4.92, max: 6.15, range: 1.23 - Actual: 6.0
@@ -405,7 +404,7 @@ run_experiment(bnn_model_full, mse_loss, train_dataset, test_dataset)
 compute_predictions(bnn_model_full)
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 Start training the model...
@@ -498,7 +497,7 @@ prob_bnn_model = create_probablistic_bnn_model(train_size)
 run_experiment(prob_bnn_model, negative_loglikelihood, train_dataset, test_dataset)
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 Start training the model...
@@ -557,7 +556,7 @@ for idx in range(sample):
     )
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 Prediction mean: 5.29, stddev: 0.66, 95% CI: [6.58 - 4.0] - Actual: 6.0

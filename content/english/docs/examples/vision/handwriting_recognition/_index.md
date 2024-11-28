@@ -8,9 +8,9 @@ type: docs
 {{< keras/original checkedAt="2024-11-20" >}}
 
 **Authors:** [A_K_Nain](https://twitter.com/A_K_Nain), [Sayak Paul](https://twitter.com/RisingSayak)  
-**Date created:** 2021/08/16  
-**Last modified:** 2024/09/01  
-**Description:** Training a handwriting recognition model with variable-length sequences.
+**{{< t f_date_created >}}** 2021/08/16  
+**{{< t f_last_modified >}}** 2024/09/01  
+**{{< t f_description >}}** Training a handwriting recognition model with variable-length sequences.
 
 {{< keras/version v=3 >}}
 
@@ -41,7 +41,7 @@ Preview how the dataset is organized. Lines prepended by "#" are just metadata i
 !head -20 data/words.txt
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 #--- words.txt ---------------------------------------------------------------#
@@ -121,7 +121,7 @@ print(f"Total validation samples: {len(validation_samples)}")
 print(f"Total test samples: {len(test_samples)}")
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 Total training samples: 86810
@@ -191,7 +191,7 @@ print("Vocab size: ", len(characters))
 train_labels_cleaned[:10]
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 Maximum length:  21
@@ -342,7 +342,6 @@ test_ds = prepare_dataset(test_img_paths, test_labels_cleaned)
 ## Visualize a few samples
 
 ```python
-
 for data in train_ds.take(1):
     images, labels = data["image"], data["label"]
 
@@ -467,7 +466,7 @@ model = build_model()
 model.summary()
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 Model: "handwriting_recognizer"
@@ -593,7 +592,7 @@ history = model.fit(
 )
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 Epoch 1/10

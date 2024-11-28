@@ -7,10 +7,10 @@ type: docs
 
 {{< keras/original checkedAt="2024-11-21" >}}
 
-**Author:** [Khalid Salama](https://www.linkedin.com/in/khalid-salama-24403144/)  
-**Date created:** 2020/11/30  
-**Last modified:** 2020/11/30  
-**Description:** Using supervised contrastive learning for image classification.
+**{{< t f_author >}}** [Khalid Salama](https://www.linkedin.com/in/khalid-salama-24403144/)  
+**{{< t f_date_created >}}** 2020/11/30  
+**{{< t f_last_modified >}}** 2020/11/30  
+**{{< t f_description >}}** Using supervised contrastive learning for image classification.
 
 {{< keras/version v=2 >}}
 
@@ -58,7 +58,7 @@ print(f"x_train shape: {x_train.shape} - y_train shape: {y_train.shape}")
 print(f"x_test shape: {x_test.shape} - y_test shape: {y_test.shape}")
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 x_train shape: (50000, 32, 32, 3) - y_train shape: (50000, 1)
@@ -111,7 +111,7 @@ dropout_rate = 0.5
 temperature = 0.05
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 Model: "cifar10-encoder"
@@ -173,7 +173,7 @@ accuracy = classifier.evaluate(x_test, y_test)[1]
 print(f"Test accuracy: {round(accuracy * 100, 2)}%")
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 Model: "cifar10-classifier"
@@ -313,7 +313,7 @@ history = encoder_with_projection_head.fit(
 )
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 Model: "cifar-encoder_with_projection-head"
@@ -445,7 +445,7 @@ accuracy = classifier.evaluate(x_test, y_test)[1]
 print(f"Test accuracy: {round(accuracy * 100, 2)}%")
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 Epoch 1/50

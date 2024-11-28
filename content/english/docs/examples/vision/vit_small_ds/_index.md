@@ -8,10 +8,10 @@ math: true
 
 {{< keras/original checkedAt="2024-11-20" >}}
 
-**Author:** [Aritra Roy Gosthipaty](https://twitter.com/ariG23498)  
-**Date created:** 2022/01/07  
-**Last modified:** 2022/01/10  
-**Description:** Training a ViT from scratch on smaller datasets with shifted patch tokenization and locality self-attention.
+**{{< t f_author >}}** [Aritra Roy Gosthipaty](https://twitter.com/ariG23498)  
+**{{< t f_date_created >}}** 2022/01/07  
+**{{< t f_last_modified >}}** 2022/01/10  
+**{{< t f_description >}}** Training a ViT from scratch on smaller datasets with shifted patch tokenization and locality self-attention.
 
 {{< keras/version v=2 >}}
 
@@ -69,7 +69,7 @@ print(f"x_train shape: {x_train.shape} - y_train shape: {y_train.shape}")
 print(f"x_test shape: {x_test.shape} - y_test shape: {y_test.shape}")
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 Downloading data from https://www.cs.toronto.edu/~kriz/cifar-100-python.tar.gz
@@ -288,7 +288,7 @@ for index, name in enumerate(shifted_images):
     plt.show()
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 2022-01-12 04:50:54.960908: I tensorflow/stream_executor/cuda/cuda_blas.cc:1774] TensorFloat-32 will be used for the matrix multiplication. This will only be logged once.
@@ -525,7 +525,7 @@ vit_sl = create_vit_classifier(vanilla=False)
 history = run_experiment(vit_sl)
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 Epoch 1/50

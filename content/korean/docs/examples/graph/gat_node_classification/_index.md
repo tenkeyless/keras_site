@@ -7,10 +7,10 @@ type: docs
 
 {{< keras/original checkedAt="2024-11-24" >}}
 
-**Author:** [akensert](https://github.com/akensert)  
-**Date created:** 2021/09/13  
-**Last modified:** 2021/12/26  
-**Description:** An implementation of a Graph Attention Network (GAT) for node classification.
+**{{< t f_author >}}** [akensert](https://github.com/akensert)  
+**{{< t f_date_created >}}** 2021/09/13  
+**{{< t f_last_modified >}}** 2021/12/26  
+**{{< t f_description >}}** An implementation of a Graph Attention Network (GAT) for node classification.
 
 {{< keras/version v=2 >}}
 
@@ -87,7 +87,7 @@ print(citations)
 print(papers)
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
       target  source
@@ -147,7 +147,7 @@ print("Edges shape:\t\t", edges.shape)
 print("Node features shape:", node_states.shape)
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 Edges shape:         (5429, 2)
@@ -380,7 +380,7 @@ _, test_accuracy = gat_model.evaluate(x=test_indices, y=test_labels, verbose=0)
 print("--" * 38 + f"\nTest Accuracy {test_accuracy*100:.1f}%")
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 Epoch 1/100
@@ -425,7 +425,7 @@ for i, (probs, label) in enumerate(zip(test_probs[:10], test_labels[:10])):
     print("---" * 20)
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 Example 1: Probabilistic_Methods

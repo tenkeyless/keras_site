@@ -7,10 +7,10 @@ type: docs
 
 {{< keras/original checkedAt="2024-11-20" >}}
 
-**Author:** [Khalid Salama](https://www.linkedin.com/in/khalid-salama-24403144/)  
-**Date created:** 2021/01/30  
-**Last modified:** 2021/01/30  
-**Description:** Implementation of a dual encoder model for retrieving images that match natural language queries.
+**{{< t f_author >}}** [Khalid Salama](https://www.linkedin.com/in/khalid-salama-24403144/)  
+**{{< t f_date_created >}}** 2021/01/30  
+**{{< t f_last_modified >}}** 2021/01/30  
+**{{< t f_description >}}** Implementation of a dual encoder model for retrieving images that match natural language queries.
 
 {{< keras/version v=2 >}}
 
@@ -100,7 +100,7 @@ image_paths = list(image_path_to_caption.keys())
 print(f"Number of images: {len(image_paths)}")
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 Downloading data from http://images.cocodataset.org/annotations/annotations_trainval2014.zip
@@ -180,7 +180,7 @@ valid_example_count = write_data(valid_image_paths, num_valid_files, valid_files
 print(f"{valid_example_count} evaluation examples were written to tfrecord files.")
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 100%|███████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 15/15 [03:19<00:00, 13.27s/it]
@@ -314,7 +314,6 @@ def create_text_encoder(
 To calculate the loss, we compute the pairwise dot-product similarity between each `caption_i` and `images_j` in the batch as the predictions. The target similarity between `caption_i` and `image_j` is computed as the average of the (dot-product similarity between `caption_i` and `caption_j`) and (the dot-product similarity between `image_i` and `image_j`). Then, we use crossentropy to compute the loss between the targets and the predictions.
 
 ```python
-
 class DualEncoder(keras.Model):
     def __init__(self, text_encoder, image_encoder, temperature=1.0, **kwargs):
         super().__init__(**kwargs)
@@ -435,7 +434,7 @@ text_encoder.save("text_encoder")
 print("Models are saved.")
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 Number of GPUs: 2
@@ -507,7 +506,7 @@ image_embeddings = vision_encoder.predict(
 print(f"Image embeddings shape: {image_embeddings.shape}.")
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 Loading vision and text encoders...
@@ -589,7 +588,7 @@ eval_accuracy = compute_top_k_accuracy(image_paths[train_size:])
 print(f"Eval accuracy: {round(eval_accuracy * 100, 3)}%")
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
   0%|                                                                                                                                   | 0/118 [00:00<?, ?it/s]

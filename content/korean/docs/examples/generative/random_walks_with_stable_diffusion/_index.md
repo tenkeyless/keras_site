@@ -8,9 +8,9 @@ type: docs
 {{< keras/original checkedAt="2024-11-22" >}}
 
 **Authors:** Ian Stenbit, [fchollet](https://twitter.com/fchollet), [lukewood](https://twitter.com/luke_wood_ml)  
-**Date created:** 2022/09/28  
-**Last modified:** 2022/09/28  
-**Description:** Explore the latent manifold of Stable Diffusion.
+**{{< t f_date_created >}}** 2022/09/28  
+**{{< t f_last_modified >}}** 2022/09/28  
+**{{< t f_description >}}** Explore the latent manifold of Stable Diffusion.
 
 {{< keras/version v=3 >}}
 
@@ -63,7 +63,7 @@ keras.mixed_precision.set_global_policy("mixed_float16")
 model = keras_cv.models.StableDiffusion(jit_compile=True)
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 By using this model checkpoint, you acknowledge that its usage is subject to the terms of the CreativeML Open RAIL-M license at https://raw.githubusercontent.com/CompVis/stable-diffusion/main/LICENSE
@@ -91,7 +91,7 @@ interpolated_encodings = ops.linspace(encoding_1, encoding_2, interpolation_step
 print(f"Encoding shape: {encoding_1.shape}")
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 Downloading data from https://github.com/openai/CLIP/blob/main/clip/bpe_simple_vocab_16e6.txt.gz?raw=true
@@ -116,7 +116,7 @@ images = model.generate_image(
 )
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 Downloading data from https://huggingface.co/fchollet/stable-diffusion/resolve/main/kcv_diffusion_model.h5
@@ -189,7 +189,7 @@ for batch in range(batches):
 export_as_gif("doggo-and-fruit-150.gif", images, rubber_band=True)
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
  25/25 ━━━━━━━━━━━━━━━━━━━━ 77s 204ms/step
@@ -321,7 +321,7 @@ images = np.concatenate(images)
 plot_grid(images, "4-way-interpolation.jpg", interpolation_steps)
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
  50/50 ━━━━━━━━━━━━━━━━━━━━ 10s 209ms/step
@@ -353,7 +353,7 @@ images = np.concatenate(images)
 plot_grid(images, "4-way-interpolation-varying-noise.jpg", interpolation_steps)
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
  50/50 ━━━━━━━━━━━━━━━━━━━━ 11s 215ms/step
@@ -414,7 +414,7 @@ for batch in range(batches):
 export_as_gif("eiffel-tower-starry-night.gif", images, rubber_band=True)
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
  25/25 ━━━━━━━━━━━━━━━━━━━━ 6s 228ms/step
@@ -513,7 +513,7 @@ for batch in range(batches):
 export_as_gif("cows.gif", images)
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
  25/25 ━━━━━━━━━━━━━━━━━━━━ 35s 216ms/step

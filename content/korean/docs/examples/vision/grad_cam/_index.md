@@ -7,10 +7,10 @@ type: docs
 
 {{< keras/original checkedAt="2024-11-20" >}}
 
-**Author:** [fchollet](https://twitter.com/fchollet)  
-**Date created:** 2020/04/26  
-**Last modified:** 2021/03/07  
-**Description:** How to obtain a class activation heatmap for an image classification model.
+**{{< t f_author >}}** [fchollet](https://twitter.com/fchollet)  
+**{{< t f_date_created >}}** 2020/04/26  
+**{{< t f_last_modified >}}** 2021/03/07  
+**{{< t f_description >}}** How to obtain a class activation heatmap for an image classification model.
 
 {{< keras/version v=3 >}}
 
@@ -135,7 +135,7 @@ plt.matshow(heatmap)
 plt.show()
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
  1/1 ━━━━━━━━━━━━━━━━━━━━ 3s 3s/step
@@ -206,7 +206,7 @@ preds = model.predict(img_array)
 print("Predicted:", decode_predictions(preds, top=2)[0])
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ![jpeg](/images/examples/vision/grad_cam/grad_cam_12_0.jpg)
 

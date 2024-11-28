@@ -7,10 +7,10 @@ type: docs
 
 {{< keras/original checkedAt="2024-11-23" >}}
 
-**Author:** [Apoorv Nandan](https://twitter.com/NandanApoorv)  
-**Date created:** 2020/05/29  
-**Last modified:** 2020/05/29  
-**Description:** Implement a miniature version of GPT and train it to generate text.
+**{{< t f_author >}}** [Apoorv Nandan](https://twitter.com/NandanApoorv)  
+**{{< t f_date_created >}}** 2020/05/29  
+**{{< t f_last_modified >}}** 2020/05/29  
+**{{< t f_description >}}** Implement a miniature version of GPT and train it to generate text.
 
 {{< keras/version v=3 >}}
 
@@ -223,7 +223,7 @@ text_ds = text_ds.map(prepare_lm_inputs_labels, num_parallel_calls=tf_data.AUTOT
 text_ds = text_ds.prefetch(tf_data.AUTOTUNE)
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
   % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
@@ -320,7 +320,7 @@ model = create_model()
 model.fit(text_ds, verbose=2, epochs=25, callbacks=[text_gen_callback])
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 Epoch 1/25

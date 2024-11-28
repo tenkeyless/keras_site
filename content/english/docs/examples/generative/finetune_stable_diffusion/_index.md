@@ -7,10 +7,10 @@ type: docs
 
 {{< keras/original checkedAt="2024-11-23" >}}
 
-**Author:** [Sayak Paul](https://twitter.com/RisingSayak), [Chansung Park](https://twitter.com/algo_diver)  
-**Date created:** 2022/12/28  
-**Last modified:** 2023/01/13  
-**Description:** Fine-tuning Stable Diffusion using a custom image-caption dataset.
+**{{< t f_author >}}** [Sayak Paul](https://twitter.com/RisingSayak), [Chansung Park](https://twitter.com/algo_diver)  
+**{{< t f_date_created >}}** 2022/12/28  
+**{{< t f_last_modified >}}** 2023/01/13  
+**{{< t f_description >}}** Fine-tuning Stable Diffusion using a custom image-caption dataset.
 
 {{< keras/version v=2 >}}
 
@@ -215,7 +215,7 @@ for k in sample_batch:
     print(k, sample_batch[k].shape)
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 images (4, 256, 256, 3)
@@ -431,7 +431,7 @@ pokemon_model = keras_cv.models.StableDiffusion(
 pokemon_model.diffusion_model.load_weights(weights_path)
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 By using this model checkpoint, you acknowledge that its usage is subject to the terms of the CreativeML Open RAIL-M license at https://raw.githubusercontent.com/CompVis/stable-diffusion/main/LICENSE
@@ -453,7 +453,7 @@ for prompt in prompts:
     outputs.update({prompt: generated_images})
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 25/25 [==============================] - 17s 231ms/step

@@ -7,10 +7,10 @@ type: docs
 
 {{< keras/original checkedAt="2024-11-23" >}}
 
-**Author:** [Fadi Badine](https://twitter.com/fadibadine)  
-**Date created:** 2022/04/16  
-**Last modified:** 2022/04/16  
-**Description:** Training a model to classify UK & Ireland accents using feature extraction from Yamnet.
+**{{< t f_author >}}** [Fadi Badine](https://twitter.com/fadibadine)  
+**{{< t f_date_created >}}** 2022/04/16  
+**{{< t f_last_modified >}}** 2022/04/16  
+**{{< t f_description >}}** Training a model to classify UK & Ireland accents using feature extraction from Yamnet.
 
 {{< keras/version v=2 >}}
 
@@ -170,7 +170,7 @@ for i in zip_files:
     os.remove(zip_file)
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 Downloading data from https://www.openslr.org/resources/83/line_index_all.csv
@@ -292,7 +292,7 @@ print(
 )
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 We have 16089 training samples & 1788 validation ones
@@ -420,7 +420,7 @@ model = build_and_compile_model()
 model.summary()
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 Model: "accent_recognition"
@@ -480,7 +480,7 @@ class_weight = {
 print(class_weight)
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 {0: 50.430241233524, 1: 30.668481548699333, 2: 7.322956917409988, 3: 8.125175301518611, 4: 2.4034894333226657, 5: 6.4197296356095865, 6: 8.613175890922992}
@@ -525,7 +525,7 @@ history = model.fit(
 )
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 Epoch 1/100
@@ -765,7 +765,7 @@ train_loss, train_acc, train_auc = model.evaluate(train_ds)
 valid_loss, valid_acc, valid_auc = model.evaluate(valid_ds)
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 3169/3169 [==============================] - 10s 3ms/step - loss: 1.0117 - accuracy: 0.5423 - auc: 0.9079
@@ -791,7 +791,7 @@ print(
 )
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 train d-prime: 1.878, validation d-prime: 1.740
@@ -867,7 +867,7 @@ for i, label in enumerate(class_names):
     )
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 Irish           Precision:17.22%; Recall:63.36%
@@ -911,7 +911,7 @@ if os.path.exists(filename + ".wav") == False:
 filename = filename + ".wav"
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 Downloading audio-sample-Stuart.mp3 from https://www.thescottishvoice.org.uk/files/cm/files/
@@ -975,7 +975,7 @@ infered_class = class_names[predictions.mean(axis=0).argmax()]
 print(f"The main accent is: {infered_class} English")
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 Out of 66 samples, 0 are not speech

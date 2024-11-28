@@ -8,10 +8,10 @@ type: docs
 
 {{< keras/original checkedAt="2024-11-18" >}}
 
-**Author:** [fchollet](https://twitter.com/fchollet)  
-**Date created:** 2023/06/27  
-**Last modified:** 2024/08/01  
-**Description:** Overriding the training step of the Model class with PyTorch.
+**{{< t f_author >}}** [fchollet](https://twitter.com/fchollet)  
+**{{< t f_date_created >}}** 2023/06/27  
+**{{< t f_last_modified >}}** 2024/08/01  
+**{{< t f_description >}}** Overriding the training step of the Model class with PyTorch.
 
 {{< cards cols="2" >}}
 {{< card link="https://colab.research.google.com/github/keras-team/keras-io/blob/master/guides/ipynb/custom_train_step_in_torch.ipynb" title="Colab" tag="Colab" tagType="warning">}}
@@ -118,7 +118,7 @@ y = np.random.random((1000, 1))
 model.fit(x, y, epochs=3)
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 Epoch 1/3
@@ -203,7 +203,7 @@ y = np.random.random((1000, 1))
 model.fit(x, y, epochs=5)
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 Epoch 1/5
@@ -289,7 +289,7 @@ sw = np.random.random((1000, 1))
 model.fit(x, y, sample_weight=sw, epochs=3)
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 Epoch 1/3
@@ -340,7 +340,7 @@ y = np.random.random((1000, 1))
 model.evaluate(x, y)
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 
@@ -513,7 +513,7 @@ gan.compile(
 gan.fit(dataloader, epochs=1)
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
  1094/1094 ━━━━━━━━━━━━━━━━━━━━ 394s 360ms/step - d_loss: 0.2436 - g_loss: 4.7259

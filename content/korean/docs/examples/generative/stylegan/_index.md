@@ -7,10 +7,10 @@ type: docs
 
 {{< keras/original checkedAt="2024-11-23" >}}
 
-**Author:** [Soon-Yau Cheong](https://www.linkedin.com/in/soonyau/)  
-**Date created:** 2021/07/01  
-**Last modified:** 2021/12/20  
-**Description:** Implementation of StyleGAN for image generation.
+**{{< t f_author >}}** [Soon-Yau Cheong](https://www.linkedin.com/in/soonyau/)  
+**{{< t f_date_created >}}** 2021/07/01  
+**{{< t f_last_modified >}}** 2021/12/20  
+**{{< t f_description >}}** Implementation of StyleGAN for image generation.
 
 {{< keras/version v=2 >}}
 
@@ -705,7 +705,7 @@ StyleGAN can take a long time to train, in the code below, a small `steps_per_ep
 train(start_res=4, target_res=16, steps_per_epoch=1, display_images=False)
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 Model resolution:4x4
@@ -757,7 +757,7 @@ images = style_gan({"style_code": w, "noise": noise, "alpha": 1.0})
 plot_images(images, 5)
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 Downloading data from https://github.com/soon-yau/stylegan_keras/releases/download/keras_example_v1.0/stylegan_128x128.ckpt.zip
@@ -783,7 +783,7 @@ plt.imshow(image_row)
 plt.axis("off")
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 (-0.5, 383.5, 127.5, -0.5)

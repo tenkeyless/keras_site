@@ -7,10 +7,10 @@ type: docs
 
 {{< keras/original checkedAt="2024-11-19" >}}
 
-**Author:** [Khalid Salama](https://www.linkedin.com/in/khalid-salama-24403144/)  
-**Date created:** 2021/05/30  
-**Last modified:** 2023/08/03  
-**Description:** Implementing the MLP-Mixer, FNet, and gMLP models for CIFAR-100 image classification.
+**{{< t f_author >}}** [Khalid Salama](https://www.linkedin.com/in/khalid-salama-24403144/)  
+**{{< t f_date_created >}}** 2021/05/30  
+**{{< t f_last_modified >}}** 2023/08/03  
+**{{< t f_description >}}** Implementing the MLP-Mixer, FNet, and gMLP models for CIFAR-100 image classification.
 
 {{< keras/version v=3 >}}
 
@@ -49,7 +49,7 @@ print(f"x_train shape: {x_train.shape} - y_train shape: {y_train.shape}")
 print(f"x_test shape: {x_test.shape} - y_test shape: {y_test.shape}")
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 x_train shape: (50000, 32, 32, 3) - y_train shape: (50000, 1)
@@ -77,7 +77,7 @@ print(f"Patches per image: {num_patches}")
 print(f"Elements per patch (3 channels): {(patch_size ** 2) * 3}")
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 Image size: 64 X 64 = 4096
@@ -318,7 +318,7 @@ mlpmixer_classifier = build_classifier(mlpmixer_blocks)
 history = run_experiment(mlpmixer_classifier)
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 Test accuracy: 9.76%
@@ -386,7 +386,7 @@ fnet_classifier = build_classifier(fnet_blocks, positional_encoding=True)
 history = run_experiment(fnet_classifier)
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 Test accuracy: 13.82%
@@ -466,7 +466,7 @@ gmlp_classifier = build_classifier(gmlp_blocks)
 history = run_experiment(gmlp_classifier)
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 Test accuracy: 17.05%

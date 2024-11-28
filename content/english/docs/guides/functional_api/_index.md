@@ -7,10 +7,10 @@ type: docs
 
 {{< keras/original checkedAt="2024-11-18" >}}
 
-**Author:** [fchollet](https://twitter.com/fchollet)  
-**Date created:** 2019/03/01  
-**Last modified:** 2023/06/25  
-**Description:** Complete guide to the functional API.
+**{{< t f_author >}}** [fchollet](https://twitter.com/fchollet)  
+**{{< t f_date_created >}}** 2019/03/01  
+**{{< t f_last_modified >}}** 2023/06/25  
+**{{< t f_description >}}** Complete guide to the functional API.
 
 {{< cards cols="2" >}}
 {{< card link="https://colab.research.google.com/github/keras-team/keras-io/blob/master/guides/ipynb/functional_api.ipynb" title="Colab" tag="Colab" tagType="warning">}}
@@ -31,8 +31,6 @@ from keras import ops
 The Keras functional API is a way to create models that are more flexible than the [`keras.Sequential`]({{< relref "/docs/api/models/sequential#sequential-class" >}}) API. The functional API can handle models with non-linear topology, shared layers, and even multiple inputs or outputs.
 
 The main idea is that a deep learning model is usually a directed acyclic graph (DAG) of layers. So the functional API is a way to build graphs of layers.
-
-Consider the following model:
 
 ### Functional API Model
 
@@ -76,7 +74,7 @@ The `inputs` that is returned contains information about the shape and `dtype` o
 inputs.shape
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 (None, 784)
@@ -90,7 +88,7 @@ Here's the dtype:
 inputs.dtype
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 'float32'
@@ -141,7 +139,7 @@ model = keras.Model(inputs=inputs, outputs=outputs, name="mnist_model")
 model.summary()
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 Model: "mnist_model"
@@ -214,7 +212,7 @@ print("Test loss:", test_scores[0])
 print("Test accuracy:", test_scores[1])
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 Epoch 1/2
@@ -234,7 +232,12 @@ For further reading, see the [training and evaluation]({{< relref "/docs/guides/
 
 Saving the model and serialization work the same way for models built using the functional API as they do for `Sequential` models. The standard way to save a functional model is to call `model.save()` to save the entire model as a single file. You can later recreate the same model from this file, even if the code that built the model is no longer available.
 
-This saved file includes the: - model architecture - model weight values (that were learned during training) - model training config, if any (as passed to `compile()`) - optimizer and its state, if any (to restart training where you left off)
+This saved file includes the:
+
+- model architecture
+- model weight values (that were learned during training)
+- model training config, if any (as passed to `compile()`)
+- optimizer and its state, if any (to restart training where you left off)
 
 ```python
 model.save("my_model.keras")
@@ -274,7 +277,7 @@ autoencoder = keras.Model(encoder_input, decoder_output, name="autoencoder")
 autoencoder.summary()
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 Model: "encoder"
@@ -381,7 +384,7 @@ autoencoder = keras.Model(autoencoder_input, decoded_img, name="autoencoder")
 autoencoder.summary()
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 Model: "encoder"
@@ -489,7 +492,6 @@ This model will have two outputs:
 You can build this model in a few lines with the functional API:
 
 ```python
-
 num_tags = 12  # Number of unique issue tags
 num_words = 10000  # Size of vocabulary obtained when preprocessing text data
 num_departments = 4  # Number of departments for predictions
@@ -581,7 +583,7 @@ model.fit(
 )
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 Epoch 1/2
@@ -628,7 +630,7 @@ model = keras.Model(inputs, outputs, name="toy_resnet")
 model.summary()
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 Model: "toy_resnet"
@@ -712,7 +714,7 @@ model.fit(
 )
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
  13/13 ━━━━━━━━━━━━━━━━━━━━ 1s 60ms/step - acc: 0.1096 - loss: 2.3053 - val_acc: 0.1150 - val_loss: 2.2973
@@ -977,7 +979,7 @@ rnn_model = CustomRNN()
 _ = rnn_model(ops.zeros((1, timesteps, input_dim)))
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 (1, 10, 32)

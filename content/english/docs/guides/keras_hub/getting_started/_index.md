@@ -8,10 +8,10 @@ type: docs
 
 {{< keras/original checkedAt="2024-11-19" >}}
 
-**Author:** [Matthew Watson](https://github.com/mattdangerw/), [Jonathan Bischof](https://github.com/jbischof)  
-**Date created:** 2022/12/15  
-**Last modified:** 2024/10/17  
-**Description:** An introduction to the KerasHub API.
+**{{< t f_author >}}** [Matthew Watson](https://github.com/mattdangerw/), [Jonathan Bischof](https://github.com/jbischof)  
+**{{< t f_date_created >}}** 2022/12/15  
+**{{< t f_last_modified >}}** 2024/10/17  
+**{{< t f_description >}}** An introduction to the KerasHub API.
 
 {{< cards cols="2" >}}
 {{< card link="https://colab.research.google.com/github/keras-team/keras-io/blob/master/guides/ipynb/keras_hub/getting_started.ipynb" title="Colab" tag="Colab" tagType="warning">}}
@@ -124,7 +124,7 @@ preds = image_classifier.predict(batch)
 preds.shape
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
  1/1 ━━━━━━━━━━━━━━━━━━━━ 2s 2s/step
@@ -139,7 +139,7 @@ These ImageNet labels aren't a particularly "human readable," so we can use a bu
 keras_hub.utils.decode_imagenet_predictions(preds)
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 [[('quail', 0.9996534585952759),
@@ -177,7 +177,7 @@ hidden_states = image_classifier.backbone(resized_batch)
 print("Latent space shape:", hidden_states.shape)
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 Raw input shape: (1, 557, 707, 3)
@@ -197,7 +197,7 @@ If you are ever wondering the exact structure of the task you loaded, you can us
 image_classifier.summary()
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 Preprocessor: "res_net_image_classifier_preprocessor"
@@ -255,7 +255,7 @@ Just show the actual code."""
 print(causal_lm.generate(template.format(question=question), max_length=512))
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 <start_of_turn>user
@@ -291,7 +291,7 @@ question = "Share a very simple brownie recipe."
 print(causal_lm.generate(template.format(question=question), max_length=512))
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 <start_of_turn>user
@@ -340,7 +340,7 @@ As with our image classifier, we can use model summary to see the details of our
 causal_lm.summary()
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 Preprocessor: "gemma_causal_lm_preprocessor"
@@ -382,7 +382,7 @@ string = tokenizer.detokenize(tokens_ids)
 print(string)
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 [   651   4320   8426  25341  36271   1163    573  27894   5929 235265]
@@ -404,7 +404,7 @@ question = "Share a very simple brownie recipe."
 print(causal_lm.generate(template.format(question=question), max_length=512))
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 <start_of_turn>user
@@ -498,7 +498,7 @@ for path in data_dir.rglob("*.jpg"):
 print(f"Deleted {num_skipped} images.")
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 Deleted 1590 images.
@@ -521,7 +521,7 @@ train_ds, val_ds = keras.utils.image_dataset_from_directory(
 )
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 Found 23410 files belonging to 2 classes.
@@ -580,7 +580,7 @@ image_classifier.fit(
 )
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 Epoch 1/3
@@ -617,7 +617,7 @@ keras_hub.upload_preset(
 )
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 Uploading Model https://www.kaggle.com/models/matthewdwatson/resnet/keras/cats_vs_dogs ...
@@ -653,7 +653,7 @@ image_classifier = keras_hub.models.ImageClassifier.from_preset(
 print(image_classifier.predict(np.array([image])))
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
  1/1 ━━━━━━━━━━━━━━━━━━━━ 2s 2s/step
@@ -709,7 +709,7 @@ raw_val_ds = keras.utils.text_dataset_from_directory(
 )
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 Found 25000 files belonging to 2 classes.
@@ -771,7 +771,7 @@ val_ds = raw_val_ds.map(preprocess, num_parallel_calls=16)
 next(iter(train_ds))
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 ({'token_ids': <tf.Tensor: shape=(2, 256), dtype=int32, numpy=
@@ -833,7 +833,7 @@ text_classifier = keras.Model(inputs, outputs)
 text_classifier.summary()
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 Model: "functional"
@@ -877,7 +877,7 @@ backbone.enable_lora(4)
 text_classifier.summary()
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 Model: "functional"
@@ -928,7 +928,7 @@ text_classifier.fit(
 )
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
  1000/1000 ━━━━━━━━━━━━━━━━━━━━ 295s 285ms/step - accuracy: 0.7733 - loss: 0.6511 - val_accuracy: 0.9370 - val_loss: 0.2814

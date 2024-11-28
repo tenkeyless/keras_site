@@ -7,10 +7,10 @@ type: docs
 
 {{< keras/original checkedAt="2024-11-23" >}}
 
-**Author:** [fchollet](https://twitter.com/fchollet)  
-**Date created:** 2016/01/11  
-**Last modified:** 2020/05/02  
-**Description:** Transferring the style of a reference image to target image using gradient descent.
+**{{< t f_author >}}** [fchollet](https://twitter.com/fchollet)  
+**{{< t f_date_created >}}** 2016/01/11  
+**{{< t f_last_modified >}}** 2020/05/02  
+**{{< t f_description >}}** Transferring the style of a reference image to target image using gradient descent.
 
 {{< keras/version v=3 >}}
 
@@ -58,7 +58,7 @@ img_nrows = 400
 img_ncols = int(width * img_nrows / height)
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 Downloading data from https://i.imgur.com/F28w3Ac.jpg
@@ -179,7 +179,7 @@ outputs_dict = dict([(layer.name, layer.output) for layer in model.layers])
 feature_extractor = keras.Model(inputs=model.inputs, outputs=outputs_dict)
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 Downloading data from https://storage.googleapis.com/tensorflow/keras-applications/vgg19/vgg19_weights_tf_dim_ordering_tf_kernels_notop.h5
@@ -275,7 +275,7 @@ for i in range(1, iterations + 1):
         keras.utils.save_img(fname, img)
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 Iteration 100: loss=11021.63

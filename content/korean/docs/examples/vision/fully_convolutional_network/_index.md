@@ -7,10 +7,10 @@ type: docs
 
 {{< keras/original checkedAt="2024-11-20" >}}
 
-**Author:** [Suvaditya Mukherjee](https://twitter.com/halcyonrayes)  
-**Date created:** 2023/06/16  
-**Last modified:** 2023/12/25  
-**Description:** Using the Fully-Convolutional Network for Image Segmentation.
+**{{< t f_author >}}** [Suvaditya Mukherjee](https://twitter.com/halcyonrayes)  
+**{{< t f_date_created >}}** 2023/06/16  
+**{{< t f_last_modified >}}** 2023/12/25  
+**{{< t f_description >}}** Using the Fully-Convolutional Network for Image Segmentation.
 
 {{< keras/version v=3 >}}
 
@@ -71,7 +71,7 @@ if MIXED_PRECISION:
     keras.mixed_precision.set_global_policy(policy)
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 INFO:tensorflow:Mixed precision compatibility check (mixed_float16): OK
@@ -409,7 +409,7 @@ fcn32s_model.compile(
 fcn32s_history = fcn32s_model.fit(train_ds, epochs=EPOCHS, validation_data=valid_ds)
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 Epoch 1/20
@@ -558,7 +558,7 @@ fcn16s_model.compile(
 fcn16s_history = fcn16s_model.fit(train_ds, epochs=EPOCHS, validation_data=valid_ds)
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 Epoch 1/20
@@ -707,7 +707,7 @@ fcn8s_model.compile(
 fcn8s_history = fcn8s_model.fit(train_ds, epochs=EPOCHS, validation_data=valid_ds)
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 Epoch 1/20
@@ -933,7 +933,7 @@ ax[1, 2].imshow(pred_mask_8s, cmap="inferno", alpha=0.6)
 plt.show()
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 WARNING:matplotlib.image:Clipping input data to the valid range for imshow with RGB data ([0..1] for floats or [0..255] for integers).

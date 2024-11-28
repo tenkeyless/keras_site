@@ -7,10 +7,10 @@ type: docs
 
 {{< keras/original checkedAt="2024-11-23" >}}
 
-**Author:** [Sayak Paul](https://twitter.com/RisingSayak)  
-**Date created:** 2021/07/21  
-**Last modified:** 2021/06/27  
-**Description:** Training a VQ-VAE for image reconstruction and codebook sampling for generation.
+**{{< t f_author >}}** [Sayak Paul](https://twitter.com/RisingSayak)  
+**{{< t f_date_created >}}** 2021/07/21  
+**{{< t f_last_modified >}}** 2021/06/27  
+**{{< t f_description >}}** Training a VQ-VAE for image reconstruction and codebook sampling for generation.
 
 {{< keras/version v=2 >}}
 
@@ -161,7 +161,7 @@ def get_vqvae(latent_dim=16, num_embeddings=64):
 get_vqvae().summary()
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 Model: "vq_vae"
@@ -253,7 +253,7 @@ x_test_scaled = (x_test / 255.0) - 0.5
 data_variance = np.var(x_train / 255.0)
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 Downloading data from https://storage.googleapis.com/tensorflow/tf-keras-datasets/mnist.npz
@@ -270,7 +270,7 @@ vqvae_trainer.compile(optimizer=keras.optimizers.Adam())
 vqvae_trainer.fit(x_train_scaled, epochs=30, batch_size=128)
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 Epoch 1/30
@@ -442,7 +442,7 @@ pixelcnn_input_shape = encoded_outputs.shape[1:-1]
 print(f"Input shape of the PixelCNN: {pixelcnn_input_shape}")
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 Input shape of the PixelCNN: (7, 7)
@@ -540,7 +540,7 @@ pixel_cnn = keras.Model(pixelcnn_inputs, out, name="pixel_cnn")
 pixel_cnn.summary()
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 Model: "pixel_cnn"
@@ -585,7 +585,7 @@ codebook_indices = codebook_indices.numpy().reshape(encoded_outputs.shape[:-1])
 print(f"Shape of the training data for PixelCNN: {codebook_indices.shape}")
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 Shape of the training data for PixelCNN: (60000, 7, 7)
@@ -610,7 +610,7 @@ pixel_cnn.fit(
 )
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 Epoch 1/30
@@ -714,7 +714,7 @@ for row in range(rows):
 print(f"Prior shape: {priors.shape}")
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 Prior shape: (10, 7, 7)

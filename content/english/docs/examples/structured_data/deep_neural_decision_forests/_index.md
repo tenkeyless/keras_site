@@ -7,10 +7,10 @@ type: docs
 
 {{< keras/original checkedAt="2024-11-22" >}}
 
-**Author:** [Khalid Salama](https://www.linkedin.com/in/khalid-salama-24403144/)  
-**Date created:** 2021/01/15  
-**Last modified:** 2021/01/15  
-**Description:** How to train differentiable decision trees for end-to-end learning in deep neural networks.
+**{{< t f_author >}}** [Khalid Salama](https://www.linkedin.com/in/khalid-salama-24403144/)  
+**{{< t f_date_created >}}** 2021/01/15  
+**{{< t f_last_modified >}}** 2021/01/15  
+**{{< t f_description >}}** How to train differentiable decision trees for end-to-end learning in deep neural networks.
 
 {{< keras/version v=3 >}}
 
@@ -80,7 +80,7 @@ print(f"Train dataset shape: {train_data.shape}")
 print(f"Test dataset shape: {test_data.shape}")
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 Train dataset shape: (32561, 15)
@@ -408,7 +408,7 @@ tree_model = create_tree_model()
 run_experiment(tree_model)
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 Start training the model...
@@ -470,7 +470,7 @@ forest_model = create_forest_model()
 run_experiment(forest_model)
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 Start training the model...
