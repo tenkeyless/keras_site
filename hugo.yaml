@@ -15,18 +15,18 @@ markup:
 
 menu:
   main:
-    - identifier: about
+    - identifier: m_about
       name: About
       pageRef: /docs/about/
       weight: 1
     - name: API
       pageRef: /docs/api/
       weight: 2
-    - identifier: guides
+    - identifier: m_guides
       name: Guides
       pageRef: /docs/guides/
       weight: 3
-    - identifier: example
+    - identifier: m_example
       name: Examples
       pageRef: /docs/examples/
       weight: 4

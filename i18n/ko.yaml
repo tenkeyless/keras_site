@@ -1,7 +1,7 @@
 documentation: 문서
-about: Keras 정보
-guides: 가이드
-example: 예제
+m_about: Keras 정보
+m_guides: 가이드
+m_example: 예제
 f_author: "저자 :"
 f_date_created: "생성일 :"
 f_last_modified: "최종 편집일 :"
