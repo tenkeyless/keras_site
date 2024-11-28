@@ -762,46 +762,60 @@ model.fit(
 
 ## 공유 레이어 {#shared-layers}
 
-Another good use for the functional API are models that use _shared layers_. Shared layers are layer instances that are reused multiple times in the same model – they learn features that correspond to multiple paths in the graph-of-layers.
+함수형 API의 또 다른 좋은 용도는 _공유 레이어(shared layers)_ 를 사용하는 모델입니다.
+공유 레이어는 동일한 모델에서 여러 번 재사용되는 레이어 인스턴스입니다.
+레이어 그래프에서 여러 경로에 해당하는 특성을 학습합니다.
 
-Shared layers are often used to encode inputs from similar spaces (say, two different pieces of text that feature similar vocabulary). They enable sharing of information across these different inputs, and they make it possible to train such a model on less data. If a given word is seen in one of the inputs, that will benefit the processing of all inputs that pass through the shared layer.
+공유 레이어는 종종 유사한 공간의 입력을 인코딩하는 데 사용됩니다.
+(예: 유사한 어휘를 특성으로 하는 두 개의 서로 다른 텍스트)
+이러한 서로 다른 입력에서 정보를 공유할 수 있게 하며,
+이러한 모델을 더 적은 데이터로 트레이닝할 수 있게 합니다.
+주어진 단어가 입력 중 하나에서 발견되면,
+공유 레이어를 통과하는 모든 입력을 처리하는데 도움이 됩니다.
 
-To share a layer in the functional API, call the same layer instance multiple times. For instance, here's an `Embedding` layer shared across two different text inputs:
+함수형 API에서 레이어를 공유하려면,
+동일한 레이어 인스턴스를 여러 번 호출합니다.
+예를 들어, 두 개의 서로 다른 텍스트 입력에서 공유되는 `Embedding` 레이어는 다음과 같습니다.
 
 ```python
-# Embedding for 1000 unique words mapped to 128-dimensional vectors
+# 128차원 벡터에 매핑된 1000개의 고유한 단어 임베딩
 shared_embedding = layers.Embedding(1000, 128)
 
-# Variable-length sequence of integers
+# 가변 길이 정수 시퀀스
 text_input_a = keras.Input(shape=(None,), dtype="int32")
 
-# Variable-length sequence of integers
+# 가변 길이 정수 시퀀스
 text_input_b = keras.Input(shape=(None,), dtype="int32")
 
-# Reuse the same layer to encode both inputs
+# 동일한 레이어를 재사용하여, 두 입력을 모두 인코딩합니다.
 encoded_input_a = shared_embedding(text_input_a)
 encoded_input_b = shared_embedding(text_input_b)
 ```
 
-## Extract and reuse nodes in the graph of layers {#extract-and-reuse-nodes-in-the-graph-of-layers}
+## 그래프의 레이어에서 노드 추출 및 재사용 {#extract-and-reuse-nodes-in-the-graph-of-layers}
 
-Because the graph of layers you are manipulating is a static data structure, it can be accessed and inspected. And this is how you are able to plot functional models as images.
+조작하는 레이어의 그래프는 정적 데이터 구조이므로,
+액세스하고 검사할 수 있습니다.
+그리고 이렇게 해서 함수형 모델을 이미지로 플로팅할 수 있습니다.
 
-This also means that you can access the activations of intermediate layers ("nodes" in the graph) and reuse them elsewhere – which is very useful for something like feature extraction.
+이는 또한 중간 레이어(그래프의 "노드")의 활성화에 액세스하여,
+다른 곳에서 재사용할 수 있다는 것을 의미합니다.
+이는 특성 추출과 같은 작업에 매우 유용합니다.
 
-Let's look at an example. This is a VGG19 model with weights pretrained on ImageNet:
+예를 들어 보겠습니다.
+이는 ImageNet에 대해 사전 트레이닝된 가중치가 있는 VGG19 모델입니다.
 
 ```python
 vgg19 = keras.applications.VGG19()
 ```
 
-And these are the intermediate activations of the model, obtained by querying the graph data structure:
+그리고 이는, 그래프 데이터 구조를 쿼리하여 얻은, 모델의 중간 활성화입니다.
 
 ```python
 features_list = [layer.output for layer in vgg19.layers]
 ```
 
-Use these features to create a new feature-extraction model that returns the values of the intermediate layer activations:
+이러한 특성들을 사용하여, 중간 레이어 활성화 값을 반환하는, 새로운 특성 추출 모델을 만듭니다.
 
 ```python
 feat_extraction_model = keras.Model(inputs=vgg19.input, outputs=features_list)
@@ -810,25 +824,29 @@ img = np.random.random((1, 224, 224, 3)).astype("float32")
 extracted_features = feat_extraction_model(img)
 ```
 
-This comes in handy for tasks like [neural style transfer]({{< relref "/docs/examples/generative/neural_style_transfer" >}}), among other things.
+이 기능은 {{< titledRelref "/docs/examples/generative/neural_style_transfer" >}} 등의 작업에 유용합니다.
 
-## Extend the API using custom layers {#extend-the-api-using-custom-layers}
+## 커스텀 레이어를 사용하여 API 확장 {#extend-the-api-using-custom-layers}
 
-`keras` includes a wide range of built-in layers, for example:
+`keras`에는 다음과 같은 다양한 빌트인 레이어가 포함되어 있습니다.
 
-- Convolutional layers: `Conv1D`, `Conv2D`, `Conv3D`, `Conv2DTranspose`
-- Pooling layers: `MaxPooling1D`, `MaxPooling2D`, `MaxPooling3D`, `AveragePooling1D`
-- RNN layers: `GRU`, `LSTM`, `ConvLSTM2D`
-- `BatchNormalization`, `Dropout`, `Embedding`, etc.
+- 컨볼루션 레이어: `Conv1D`, `Conv2D`, `Conv3D`, `Conv2DTranspose`
+- 풀링 레이어: `MaxPooling1D`, `MaxPooling2D`, `MaxPooling3D`, `AveragePooling1D`
+- RNN 레이어: `GRU`, `LSTM`, `ConvLSTM2D`
+- `BatchNormalization`, `Dropout`, `Embedding` 등
 
-But if you don't find what you need, it's easy to extend the API by creating your own layers. All layers subclass the `Layer` class and implement:
+하지만, 필요한 것을 찾지 못하면, 자체 레이어를 만들어 API를 쉽게 확장할 수 있습니다.
+모든 레이어는 `Layer` 클래스를 서브클래싱하고, 다음을 구현합니다.
 
-- `call` method, that specifies the computation done by the layer.
-- `build` method, that creates the weights of the layer (this is just a style convention since you can create weights in `__init__`, as well).
+- `call` 메서드
+  - 레이어에서 수행되는 계산을 지정
+- `build` 메서드
+  - 레이어의 가중치를 생성(`__init__`에서도 가중치를 생성할 수 있으므로, 이는 스타일 규칙일 뿐입니다)
 
-To learn more about creating layers from scratch, read [custom layers and models]({{< relref "/docs/guides/making_new_layers_and_models_via_subclassing" >}}) guide.
+레이어를 처음부터 만드는 방법에 대해 자세히 알아보려면,
+{{< titledRelref "/docs/guides/making_new_layers_and_models_via_subclassing" >}} 가이드를 읽어보세요.
 
-The following is a basic implementation of [`keras.layers.Dense`]({{< relref "/docs/api/layers/core_layers/dense#dense-class" >}}):
+다음은 [`keras.layers.Dense`]({{< relref "/docs/api/layers/core_layers/dense#dense-class" >}})의 기본 구현입니다.
 
 ```python
 class CustomDense(layers.Layer):
@@ -856,7 +874,8 @@ outputs = CustomDense(10)(inputs)
 model = keras.Model(inputs, outputs)
 ```
 
-For serialization support in your custom layer, define a `get_config()` method that returns the constructor arguments of the layer instance:
+커스텀 레이어에서 직렬화를 지원하려면,
+레이어 인스턴스의 생성자 인수를 반환하는 `get_config()` 메서드를 정의합니다.
 
 ```python
 class CustomDense(layers.Layer):
@@ -890,30 +909,40 @@ config = model.get_config()
 new_model = keras.Model.from_config(config, custom_objects={"CustomDense": CustomDense})
 ```
 
-Optionally, implement the class method `from_config(cls, config)` which is used when recreating a layer instance given its config dictionary. The default implementation of `from_config` is:
+선택적으로, config 딕셔너리를 사용하여 레이어 인스턴스를 재생성할 때 사용되는,
+클래스 메서드 `from_config(cls, config)`를 구현합니다.
+`from_config`의 기본 구현은 다음과 같습니다.
 
 ```python
 def from_config(cls, config):
   return cls(**config)
 ```
 
-## When to use the functional API {#when-to-use-the-functional-api}
+## 함수형 API를 사용해야 하는 경우 {#when-to-use-the-functional-api}
 
-Should you use the Keras functional API to create a new model, or just subclass the `Model` class directly? In general, the functional API is higher-level, easier and safer, and has a number of features that subclassed models do not support.
+Keras 함수형 API를 사용하여 새 모델을 만들어야 할까요,
+아니면 `Model` 클래스를 직접 서브클래싱해야 할까요?
+일반적으로 함수형 API는 더 높은 레벨이고, 더 쉽고, 더 안전하며,
+서브클래싱된 모델에서 지원하지 않는 여러 기능이 있습니다.
 
-However, model subclassing provides greater flexibility when building models that are not easily expressible as directed acyclic graphs of layers. For example, you could not implement a Tree-RNN with the functional API and would have to subclass `Model` directly.
+그러나, 모델 서브클래싱은 레이어의 방향성있는 비순환 그래프로
+쉽게 표현할 수 없는 모델을 빌드할 때 더 큰 유연성을 제공합니다.
+예를 들어, 함수형 API로 Tree-RNN을 구현할 수 없고,
+`Model` 클래스를 직접 서브클래싱해야 합니다.
 
-For an in-depth look at the differences between the functional API and model subclassing, read [What are Symbolic and Imperative APIs in TensorFlow 2.0?](https://blog.tensorflow.org/2019/01/what-are-symbolic-and-imperative-apis.html).
+함수형 API와 모델 서브클래싱의 차이점을 자세히 알아보려면,
+[TensorFlow 2.0의 심볼릭 및 명령형 API는 무엇인가?](https://blog.tensorflow.org/2019/01/what-are-symbolic-and-imperative-apis.html)를 읽어보세요.
 
-### Functional API strengths: {#functional-api-strengths}
+### 함수형 API 강점: {#functional-api-strengths}
 
-The following properties are also true for Sequential models (which are also data structures), but are not true for subclassed models (which are Python bytecode, not data structures).
+다음 속성은 Sequential 모델(데이터 구조이기도 함)에도 해당하지만,
+서브클래스 모델(데이터 구조가 아닌, Python 바이트코드)에는 해당되지 않습니다.
 
-#### Less verbose {#less-verbose}
+#### 덜 장황합니다 {#less-verbose}
 
-There is no `super().__init__(...)`, no `def call(self, ...):`, etc.
+`super().__init__(...)`도 없고, `def call(self, ...):` 등도 없습니다.
 
-Compare:
+함수형 버전:
 
 ```python
 inputs = keras.Input(shape=(32,))
@@ -922,7 +951,7 @@ outputs = layers.Dense(10)(x)
 mlp = keras.Model(inputs, outputs)
 ```
 
-With the subclassed version:
+서브클래싱된 버전:
 
 ```python
 class MLP(keras.Model):
@@ -936,52 +965,67 @@ class MLP(keras.Model):
     x = self.dense_1(inputs)
     return self.dense_2(x)
 
-# Instantiate the model.
+# 모델을 인스턴스화합니다.
 mlp = MLP()
-# Necessary to create the model's state.
-# The model doesn't have a state until it's called at least once.
+# 모델의 상태를 만드는 데 필요합니다.
+# 모델은 적어도 한 번 호출될 때까지 상태가 없습니다.
 _ = mlp(ops.zeros((1, 32)))
 ```
 
-#### Model validation while defining its connectivity graph {#model-validation-while-defining-its-connectivity-graph}
+#### 연결성 그래프를 정의하는 동안 모델 검증 {#model-validation-while-defining-its-connectivity-graph}
 
-In the functional API, the input specification (shape and dtype) is created in advance (using `Input`). Every time you call a layer, the layer checks that the specification passed to it matches its assumptions, and it will raise a helpful error message if not.
+함수형 API에서, 입력 사양(shape 및 dtype)은 미리 생성됩니다. (`Input` 사용)
+레이어를 호출할 때마다, 레이어는 전달된 사양이 가정과 일치하는지 확인하고,
+일치하지 않으면 유용한 오류 메시지를 표시합니다.
 
-This guarantees that any model you can build with the functional API will run. All debugging – other than convergence-related debugging – happens statically during the model construction and not at execution time. This is similar to type checking in a compiler.
+이렇게 하면 함수형 API로 빌드할 수 있는 모든 모델이 실행됩니다.
+컨버전스 관련(convergence-related) 디버깅을 제외한 모든 디버깅은,
+실행 시간이 아닌 모델 생성 중에 정적으로 발생합니다.
+이는 컴파일러의 타입 검사와 유사합니다.
 
-#### A functional model is plottable and inspectable {#a-functional-model-is-plottable-and-inspectable}
+#### 함수형 모델은 플롯이 가능하고 검사가 가능합니다. {#a-functional-model-is-plottable-and-inspectable}
 
-You can plot the model as a graph, and you can easily access intermediate nodes in this graph. For example, to extract and reuse the activations of intermediate layers (as seen in a previous example):
+모델을 그래프로 플롯할 수 있으며,
+이 그래프에서 중간 노드에 쉽게 접근할 수 있습니다.
+예를 들어, 중간 레이어의 활성화를 추출하여 재사용할 수 있습니다. (이전 예에서 본 것처럼):
 
 ```python
 features_list = [layer.output for layer in vgg19.layers]
 feat_extraction_model = keras.Model(inputs=vgg19.input, outputs=features_list)
 ```
 
-#### A functional model can be serialized or cloned {#a-functional-model-can-be-serialized-or-cloned}
+#### 함수형 모델은 직렬화되거나 복제될 수 있습니다. {#a-functional-model-can-be-serialized-or-cloned}
 
-Because a functional model is a data structure rather than a piece of code, it is safely serializable and can be saved as a single file that allows you to recreate the exact same model without having access to any of the original code. See the [serialization & saving guide]({{< relref "/docs/guides/serialization_and_saving" >}}).
+함수형 모델은 코드 조각이 아니라 데이터 구조이기 때문에 안전하게 직렬화할 수 있으며,
+원본 코드에 액세스하지 않고도 정확히 동일한 모델을 다시 만들 수 있는 단일 파일로 저장할 수 있습니다.
+{{< titledRelref "/docs/guides/serialization_and_saving" >}}를 참조하세요.
 
-To serialize a subclassed model, it is necessary for the implementer to specify a `get_config()` and `from_config()` method at the model level.
+서브클래스된 모델을 직렬화하려면,
+구현자가 모델 레벨에서 `get_config()` 및 `from_config()` 메서드를 지정해야 합니다.
 
-### Functional API weakness: {#functional-api-weakness}
+### 함수형 API 약점: {#functional-api-weakness}
 
-#### It does not support dynamic architectures {#it-does-not-support-dynamic-architectures}
+#### 동적 아키텍처를 지원하지 않습니다. {#it-does-not-support-dynamic-architectures}
 
-The functional API treats models as DAGs of layers. This is true for most deep learning architectures, but not all – for example, recursive networks or Tree RNNs do not follow this assumption and cannot be implemented in the functional API.
+함수형 API는 모델을 레이어의 DAG로 취급합니다.
+이는 대부분의 딥러닝 아키텍처에 해당하지만, 모든 아키텍처에 해당하는 것은 아닙니다.
+예를 들어, 재귀적 네트워크나 Tree RNN은 이 가정을 따르지 않으며, 함수형 API에서 구현할 수 없습니다.
 
-## Mix-and-match API styles {#mix-and-match-api-styles}
+## API 스타일 혼합 및 매치 {#mix-and-match-api-styles}
 
-Choosing between the functional API or Model subclassing isn't a binary decision that restricts you into one category of models. All models in the `keras` API can interact with each other, whether they're `Sequential` models, functional models, or subclassed models that are written from scratch.
+함수형 API 또는 모델 서브클래싱 중에서 선택하는 것은,
+한 가지 모델 카테고리로 제한하는 이진 결정이 아닙니다.
+`keras` API의 모든 모델은 (`Sequential` 모델, 함수형 모델 또는 처음부터 작성된 서브클래싱 모델이든)
+서로 상호 작용할 수 있습니다.
 
-You can always use a functional model or `Sequential` model as part of a subclassed model or layer:
+항상 함수형 모델 또는 `Sequential` 모델을 서브클래싱 모델 또는 레이어의 일부로 사용할 수 있습니다.
 
 ```python
 units = 32
 timesteps = 10
 input_dim = 5
 
-# Define a Functional model
+# 함수형 모델 정의
 inputs = keras.Input((None, units))
 x = layers.GlobalAveragePooling1D()(inputs)
 outputs = layers.Dense(1)(x)
@@ -994,7 +1038,7 @@ class CustomRNN(layers.Layer):
         self.units = units
         self.projection_1 = layers.Dense(units=units, activation="tanh")
         self.projection_2 = layers.Dense(units=units, activation="tanh")
-        # Our previously-defined Functional model
+        # 이전에 정의된 함수형 모델
         self.classifier = model
 
     def call(self, inputs):
@@ -1024,16 +1068,23 @@ _ = rnn_model(ops.zeros((1, timesteps, input_dim)))
 
 {{% /details %}}
 
-You can use any subclassed layer or model in the functional API as long as it implements a `call` method that follows one of the following patterns:
+다음 패턴 중 하나를 따르는 `call` 메서드를 구현하는 한,
+함수형 API에서 모든 서브 클래스된 레이어 또는 모델을 사용할 수 있습니다.
 
-- `call(self, inputs, **kwargs)` – Where `inputs` is a tensor or a nested structure of tensors (e.g. a list of tensors), and where `**kwargs` are non-tensor arguments (non-inputs).
-- `call(self, inputs, training=None, **kwargs)` – Where `training` is a boolean indicating whether the layer should behave in training mode and inference mode.
-- `call(self, inputs, mask=None, **kwargs)` – Where `mask` is a boolean mask tensor (useful for RNNs, for instance).
-- `call(self, inputs, training=None, mask=None, **kwargs)` – Of course, you can have both masking and training-specific behavior at the same time.
+- `call(self, inputs, **kwargs)`
+  - `inputs`는 텐서 또는 텐서의 중첩 구조(예: 텐서 리스트)
+  - `**kwargs`는 텐서가 아닌 인수(입력이 아님)
+- `call(self, inputs, training=None, **kwargs)`
+  - `training`은 레이어가 트레이닝 모드와 추론 모드에서 동작해야 하는지 여부를 나타내는 boolean
+- `call(self, inputs, mask=None, **kwargs)`
+  - `mask`는 boolean 마스크 텐서(예를 들어, RNN에 유용함)
+- `call(self, inputs, training=None, mask=None, **kwargs)`
+  - 물론, 마스킹과 트레이닝 특정 동작을 동시에 가질 수 있습니다.
 
-Additionally, if you implement the `get_config` method on your custom Layer or model, the functional models you create will still be serializable and cloneable.
+또한, 커스텀 레이어나 모델에 `get_config` 메서드를 구현하는 경우,
+만든 함수형 모델은 여전히 ​​직렬화 및 복제가 가능합니다.
 
-Here's a quick example of a custom RNN, written from scratch, being used in a functional model:
+다음은 처음부터 작성된 커스텀 RNN을 함수형 모델에 사용하는 간단한 예입니다.
 
 ```python
 units = 32
@@ -1063,9 +1114,8 @@ class CustomRNN(layers.Layer):
         return self.classifier(features)
 
 
-# Note that you specify a static batch size for the inputs with the `batch_shape`
-# arg, because the inner computation of `CustomRNN` requires a static batch size
-# (when you create the `state` zeros tensor).
+# `CustomRNN`의 내부 계산에는 정적 배치 크기가 필요하므로(`state` 제로 텐서를 생성할 때),
+# `batch_shape` 인수를 사용하여 입력에 대한 정적 배치 크기를 지정해야 합니다.
 inputs = keras.Input(batch_shape=(batch_size, timesteps, input_dim))
 x = layers.Conv1D(32, 3)(inputs)
 outputs = CustomRNN()(x)
