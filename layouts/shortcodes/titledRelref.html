@@ -1,13 +1,11 @@
 {{ $path := .Get 0 }} <!-- 전달받은 경로 -->
 {{ $page := .Site.GetPage $path }} <!-- 경로에 해당하는 페이지 가져오기 -->
-{{ $currentLang := .Page.Language.Lang }} <!-- 현재 페이지 언어 -->
-{{ $baseURL := .Site.BaseURL }} <!-- 기본 baseURL 가져오기 -->
+{{ $path := trim $path "/" }}
+{{ $relreflink := relref . $path }}
 
 {{ if $page }} <!-- 페이지가 유효한 경우 -->
-  {{ $localizedPath := cond (eq $currentLang "en") $path (print "/" $currentLang $path) }} <!-- 언어별 경로 처리 -->
-  {{ $finalPath := print $baseURL $localizedPath }} <!-- baseURL을 포함한 최종 경로 생성 -->
   {{ $title := $page.Title }} <!-- 페이지 제목 가져오기 -->
-  <a href="{{ $finalPath }}">{{ $title | safeHTML }}</a>{{- "" -}}
+  <a href="{{ $relreflink }}">{{ $title | safeHTML }}</a>{{- "" -}}
 {{ else }} <!-- 페이지가 없을 경우 기본 출력 -->
   <a href="#">{{ $path }}</a>{{- "" -}}
 {{ end }}
