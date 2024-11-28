@@ -1,5 +1,5 @@
 ---
-title: The Sequential model
+title: Sequential 모델
 toc: true
 weight: 2
 type: docs
@@ -10,14 +10,14 @@ type: docs
 **{{< t f_author >}}** [fchollet](https://twitter.com/fchollet)  
 **{{< t f_date_created >}}** 2020/04/12  
 **{{< t f_last_modified >}}** 2023/06/25  
-**{{< t f_description >}}** Complete guide to the Sequential model.
+**{{< t f_description >}}** Sequential 모델에 대한 완벽 가이드.
 
 {{< cards cols="2" >}}
 {{< card link="https://colab.research.google.com/github/keras-team/keras-io/blob/master/guides/ipynb/sequential_model.ipynb" title="Colab" tag="Colab" tagType="warning">}}
 {{< card link="https://github.com/keras-team/keras-io/blob/master/guides/sequential_model.py" title="GitHub" tag="GitHub">}}
 {{< /cards >}}
 
-## Setup
+## Setup {#setup}
 
 ```python
 import keras
@@ -25,7 +25,7 @@ from keras import layers
 from keras import ops
 ```
 
-## When to use a Sequential model
+## When to use a Sequential model {#when-to-use-a-sequential-model}
 
 A `Sequential` model is appropriate for **a plain stack of layers** where each layer has **exactly one input tensor and one output tensor**.
 
@@ -65,7 +65,7 @@ A Sequential model is **not appropriate** when:
 - You need to do layer sharing
 - You want non-linear topology (e.g. a residual connection, a multi-branch model)
 
-## Creating a Sequential model
+## Creating a Sequential model {#creating-a-sequential-model}
 
 You can create a Sequential model by passing a list of layers to the Sequential constructor:
 
@@ -128,7 +128,7 @@ model.add(layers.Dense(3, activation="relu", name="layer2"))
 model.add(layers.Dense(4, name="layer3"))
 ```
 
-## Specifying the input shape in advance
+## Specifying the input shape in advance {#specifying-the-input-shape-in-advance}
 
 Generally, all layers in Keras need to know the shape of their inputs in order to be able to create their weights. So when you create a layer like this, initially, it has no weights:
 
@@ -264,7 +264,7 @@ Models built with a predefined input shape like this always have weights (even b
 
 In general, it's a recommended best practice to always specify the input shape of a Sequential model in advance if you know what it is.
 
-## A common debugging workflow: `add()` + `summary()`
+## A common debugging workflow: `add()` + `summary()` {#a-common-debugging-workflow-add-summary}
 
 When building a new Sequential architecture, it's useful to incrementally stack layers with `add()` and frequently print model summaries. For instance, this enables you to monitor how a stack of `Conv2D` and `MaxPooling2D` layers is downsampling image feature maps:
 
@@ -345,14 +345,14 @@ Model: "sequential_5"
 
 Very practical, right?
 
-## What to do once you have a model
+## What to do once you have a model {#what-to-do-once-you-have-a-model}
 
 Once your model architecture is ready, you will want to:
 
 - Train your model, evaluate it, and run inference. See our [guide to training & evaluation with the built-in loops]({{< relref "/docs/guides/training_with_built_in_methods" >}}).
 - Save your model to disk and restore it. See our [guide to serialization & saving]({{< relref "/docs/guides/serialization_and_saving" >}}).
 
-## Feature extraction with a Sequential model
+## Feature extraction with a Sequential model {#feature-extraction-with-a-sequential-model}
 
 Once a Sequential model has been built, it behaves like a [Functional API model]({{< relref "/docs/guides/functional_api" >}}). This means that every layer has an `input` and `output` attribute. These attributes can be used to do neat things, like quickly creating a model that extracts the outputs of all intermediate layers in a Sequential model:
 
@@ -395,7 +395,7 @@ x = ops.ones((1, 250, 250, 3))
 features = feature_extractor(x)
 ```
 
-## Transfer learning with a Sequential model
+## Transfer learning with a Sequential model {#transfer-learning-with-a-sequential-model}
 
 Transfer learning consists of freezing the bottom layers in a model and only training the top layers. If you aren't familiar with it, make sure to read our [guide to transfer learning]({{< relref "/docs/guides/transfer_learning" >}}).
 

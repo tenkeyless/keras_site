@@ -3,6 +3,23 @@
     // 시스템 테마 변경 감지 객체 생성
     const mediaQuery = window.matchMedia("(prefers-color-scheme: dark)");
 
+    // 시스템 테마에 따라 HTML 배경 설정
+    function applySystemTheme() {
+      const systemThemeIsDark = mediaQuery.matches;
+
+      // HTML 요소 가져오기
+      const htmlElement = document.documentElement;
+
+      // 테마에 따른 배경색 설정
+      if (systemThemeIsDark) {
+        htmlElement.style.backgroundColor = "#111"; // 어두운 배경
+        htmlElement.style.color = "#f3f4f6"; // 밝은 텍스트
+      } else {
+        htmlElement.style.backgroundColor = "#fff"; // 밝은 배경
+        htmlElement.style.color = "#111"; // 어두운 텍스트
+      }
+    }
+
     // 시스템 테마와 저장된 테마를 비교하여 필요하면 localStorage에서 항목 제거
     function checkAndRemoveStoredTheme() {
       const systemThemeIsDark = mediaQuery.matches;
@@ -18,10 +35,12 @@
 
     // 페이지 로드 시 초기 실행
     checkAndRemoveStoredTheme();
+    applySystemTheme();
 
     // 시스템 테마 변경 시 이벤트 리스너 등록
     mediaQuery.addEventListener("change", function () {
       checkAndRemoveStoredTheme();
+      applySystemTheme();
     });
   })();
 </script>
