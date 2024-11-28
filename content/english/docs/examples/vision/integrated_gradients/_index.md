@@ -42,7 +42,6 @@ To read in-depth about integrated gradients and why this method works, consider 
 ## Setup
 
 ```python
-
 import numpy as np
 import matplotlib.pyplot as plt
 from scipy import ndimage

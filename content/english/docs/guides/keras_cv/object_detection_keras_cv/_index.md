@@ -500,7 +500,6 @@ visualize_dataset(
 Finally, let's unpackage our inputs from the preprocessing dictionary, and prepare to feed the inputs into our model. In order to be TPU compatible, bounding box Tensors need to be `Dense` instead of `Ragged`.
 
 ```python
-
 def dict_to_tuple(inputs):
     return inputs["images"], bounding_box.to_dense(
         inputs["bounding_boxes"], max_boxes=32

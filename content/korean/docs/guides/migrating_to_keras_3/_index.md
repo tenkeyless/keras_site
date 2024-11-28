@@ -423,7 +423,6 @@ multi_output_model.evaluate(x_test, y_test)
 Setting a [`tf.Variable`](https://www.tensorflow.org/api_docs/python/tf/Variable) as an attribute of a Keras 3 layer or model will not automatically track the variable, unlike in Keras 2. The following snippet of code will show that the [`tf.Variables`](https://www.tensorflow.org/api_docs/python/tf/Variables) are not being tracked.
 
 ```python
-
 class MyCustomLayer(keras.layers.Layer):
     def __init__(self, units):
         super().__init__()

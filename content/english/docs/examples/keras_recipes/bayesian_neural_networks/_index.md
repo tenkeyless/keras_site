@@ -104,7 +104,6 @@ def run_experiment(model, loss, train_dataset, test_dataset):
 ## Create model inputs
 
 ```python
-
 FEATURE_NAMES = [
     "fixed acidity",
     "volatile acidity",

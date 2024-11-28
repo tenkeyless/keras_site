@@ -492,7 +492,6 @@ This model will have two outputs:
 You can build this model in a few lines with the functional API:
 
 ```python
-
 num_tags = 12  # Number of unique issue tags
 num_words = 10000  # Size of vocabulary obtained when preprocessing text data
 num_departments = 4  # Number of departments for predictions

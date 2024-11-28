@@ -188,17 +188,22 @@ keras.utils.plot_model(model, "my_first_model_with_shape_info.png", show_shapes=
 "레이어 그래프"는 딥러닝 모델에 대한 직관적인 정신적 이미지이며,
 함수형 API는 이를 밀접하게 반영하는 모델을 만드는 방법입니다.
 
-## Training, evaluation, and inference {#training-evaluation-and-inference}
+## 트레이닝, 평가 및 추론 {#training-evaluation-and-inference}
 
-Training, evaluation, and inference work exactly in the same way for models built using the functional API as for `Sequential` models.
+트레이닝, 평가 및 추론은 함수형 API를 사용하여 빌드된 모델에서,
+`Sequential` 모델과 정확히 동일한 방식으로 작동합니다.
 
-The `Model` class offers a built-in training loop (the `fit()` method) and a built-in evaluation loop (the `evaluate()` method). Note that you can easily customize these loops to implement your own training routines. See also the guides on customizing what happens in `fit()`:
+`Model` 클래스는 빌트인 트레이닝 루프(`fit()` 메서드)와 빌트인 평가 루프(`evaluate()` 메서드)를 제공합니다.
+이러한 루프를 쉽게 커스터마이즈하여, 당신만의 트레이닝 루틴을 구현할 수 있습니다.
+`fit()`에서 발생하는 작업을 커스터마이즈하는 방법에 대한 가이드도 참조하세요.
 
-- [Writing a custom train step with TensorFlow]({{< relref "/docs/guides/custom_train_step_in_tensorflow" >}})
-- [Writing a custom train step with JAX]({{< relref "/docs/guides/custom_train_step_in_jax" >}})
-- [Writing a custom train step with PyTorch]({{< relref "/docs/guides/custom_train_step_in_torch" >}})
+- [TensorFlow로 커스텀 트레이닝 단계 작성]({{< relref "/docs/guides/custom_train_step_in_tensorflow" >}})
+- [JAX로 커스텀 트레이닝 단계 작성]({{< relref "/docs/guides/custom_train_step_in_jax" >}})
+- [PyTorch로 커스텀 트레이닝 단계 작성]({{< relref "/docs/guides/custom_train_step_in_torch" >}})
 
-Here, load the MNIST image data, reshape it into vectors, fit the model on the data (while monitoring performance on a validation split), then evaluate the model on the test data:
+여기서, MNIST 이미지 데이터를 로드하고, 벡터로 reshape하고,
+(검증 분할에서 성능을 모니터링하면서) 데이터에 대해 fit한 다음,
+테스트 데이터에 대해 모델을 평가합니다.
 
 ```python
 (x_train, y_train), (x_test, y_test) = keras.datasets.mnist.load_data()
@@ -233,28 +238,42 @@ Test accuracy: 0.9613000154495239
 
 {{% /details %}}
 
-For further reading, see the [training and evaluation]({{< relref "/docs/guides/training_with_built_in_methods" >}}) guide.
+자세한 내용은 [트레이닝 및 평가]({{< relref "/docs/guides/training_with_built_in_methods" >}}) 가이드를 참조하세요.
 
-## Save and serialize {#save-and-serialize}
+## 저장 및 직렬화 {#save-and-serialize}
 
-Saving the model and serialization work the same way for models built using the functional API as they do for `Sequential` models. The standard way to save a functional model is to call `model.save()` to save the entire model as a single file. You can later recreate the same model from this file, even if the code that built the model is no longer available.
+모델 저장 및 직렬화는 `Sequential` 모델과 마찬가지로,
+함수형 API를 사용하여 빌드한 모델에 대해서도 동일한 방식으로 작동합니다.
+함수형 모델을 저장하는 표준 방법은 `model.save()`를 호출하여,
+전체 모델을 단일 파일로 저장하는 것입니다.
+심지어 나중에 모델을 빌드한 코드를 더 이상 사용할 수 없더라도,
+이 파일에서 동일한 모델을 다시 만들 수 있습니다.
 
-This saved file includes the: - model architecture - model weight values (that were learned during training) - model training config, if any (as passed to `compile()`) - optimizer and its state, if any (to restart training where you left off)
+이 저장된 파일에는 다음이 포함됩니다.
+
+- 모델 아키텍처
+- 모델 가중치 값(트레이닝 중에 학습한 값)
+- 모델 트레이닝 구성(있는 경우, `compile()`에 전달됨)
+- 옵티마이저 및 해당 상태(있는 경우, 중단한 지점에서 트레이닝을 다시 시작하기 위함)
 
 ```python
 model.save("my_model.keras")
 del model
-# Recreate the exact same model purely from the file:
+# 파일에서 정확히 동일한 모델을 재생성합니다.
 model = keras.models.load_model("my_model.keras")
 ```
 
-For details, read the model [serialization & saving]({{< relref "/docs/guides/serialization_and_saving" >}}) guide.
+자세한 내용은 모델 [직렬화 및 저장]({{< relref "/docs/guides/serialization_and_saving" >}}) 가이드를 읽어보세요.
 
-## Use the same graph of layers to define multiple models {#use-the-same-graph-of-layers-to-define-multiple-models}
+## 동일한 레이어 그래프를 사용하여 여러 모델 정의 {#use-the-same-graph-of-layers-to-define-multiple-models}
 
-In the functional API, models are created by specifying their inputs and outputs in a graph of layers. That means that a single graph of layers can be used to generate multiple models.
+함수형 API에서, 모델은 레이어 그래프에서 입력과 출력을 지정하여 생성됩니다.
+즉, 레이어의 단일 그래프를 사용하여 여러 모델을 생성할 수 있습니다.
 
-In the example below, you use the same stack of layers to instantiate two models: an `encoder` model that turns image inputs into 16-dimensional vectors, and an end-to-end `autoencoder` model for training.
+아래 예에서, 동일한 레이어 스택을 사용하여 두 모델을 인스턴스화합니다.
+
+- (1) 이미지 입력을 16차원 벡터로 변환하는 `encoder` 모델과
+- (2) 트레이닝을 위한 엔드투엔드 `autoencoder` 모델입니다.
 
 ```python
 encoder_input = keras.Input(shape=(28, 28, 1), name="img")
@@ -346,15 +365,19 @@ Model: "autoencoder"
 
 {{% /details %}}
 
-Here, the decoding architecture is strictly symmetrical to the encoding architecture, so the output shape is the same as the input shape `(28, 28, 1)`.
+여기서, 디코딩 아키텍처는 인코딩 아키텍처와 엄격히 대칭적이므로,
+출력 모양은 입력 모양 `(28, 28, 1)`과 동일합니다.
 
-The reverse of a `Conv2D` layer is a `Conv2DTranspose` layer, and the reverse of a `MaxPooling2D` layer is an `UpSampling2D` layer.
+`Conv2D` 레이어의 역은 `Conv2DTranspose` 레이어이고,
+`MaxPooling2D` 레이어의 역은 `UpSampling2D` 레이어입니다.
 
-## All models are callable, just like layers {#all-models-are-callable-just-like-layers}
+## 모든 모델은 (레이어와 마찬가지로) 호출 가능합니다. {#all-models-are-callable-just-like-layers}
 
-You can treat any model as if it were a layer by invoking it on an `Input` or on the output of another layer. By calling a model you aren't just reusing the architecture of the model, you're also reusing its weights.
+`Input` 또는 다른 레이어의 출력에서 ​​호출하여, 모든 모델을 레이어인 것처럼 취급할 수 있습니다.
+모델을 호출하면 모델의 아키텍처를 재사용하는 것뿐만 아니라, 가중치도 재사용하는 것입니다.
 
-To see this in action, here's a different take on the autoencoder example that creates an encoder model, a decoder model, and chains them in two calls to obtain the autoencoder model:
+이를 실제로 보려면, 인코더 모델, 디코더 모델을 만들고, 두 호출로 체인하여,
+오토인코더 모델을 얻는 오토인코더 예제에 대한 다른 방법이 있습니다.
 
 ```python
 encoder_input = keras.Input(shape=(28, 28, 1), name="original_img")
@@ -453,7 +476,10 @@ Model: "autoencoder"
 
 {{% /details %}}
 
-As you can see, the model can be nested: a model can contain sub-models (since a model is just like a layer). A common use case for model nesting is _ensembling_. For example, here's how to ensemble a set of models into a single model that averages their predictions:
+보시다시피, 모델은 중첩될 수 있습니다.
+모델은 하위 모델을 포함할 수 있습니다. (모델은 레이어와 같기 때문입니다)
+모델 중첩의 일반적인 사용 사례는 _앙상블_ 입니다.
+예를 들어, 다음은 여러 모델을 예측의 평균을 내는 단일 모델로 앙상블하는 방법입니다.
 
 ```python
 def get_model():
@@ -474,30 +500,31 @@ outputs = layers.average([y1, y2, y3])
 ensemble_model = keras.Model(inputs=inputs, outputs=outputs)
 ```
 
-## Manipulate complex graph topologies {#manipulate-complex-graph-topologies}
+## 복잡한 그래프 토폴로지 조작 {#manipulate-complex-graph-topologies}
 
-### Models with multiple inputs and outputs {#models-with-multiple-inputs-and-outputs}
+### 여러 입력 및 출력이 있는 모델 {#models-with-multiple-inputs-and-outputs}
 
-The functional API makes it easy to manipulate multiple inputs and outputs. This cannot be handled with the `Sequential` API.
+함수형 API를 사용하면, 여러 입력과 출력을 쉽게 조작할 수 있습니다.
+이는 `Sequential` API로는 처리할 수 없습니다.
 
-For example, if you're building a system for ranking customer issue tickets by priority and routing them to the correct department, then the model will have three inputs:
+예를 들어, 우선순위에 따라 고객 문제 티켓을 순위를 매기고,
+올바른 부서로 라우팅하는 시스템을 구축하는 경우, 모델에는 세 가지 입력이 있습니다.
 
-- the title of the ticket (text input),
-- the text body of the ticket (text input), and
-- any tags added by the user (categorical input)
+- 티켓 제목 (텍스트 입력),
+- 티켓 텍스트 본문 (텍스트 입력),
+- 사용자가 추가한 어떤 태그들 (카테고리형 입력)
 
-This model will have two outputs:
+이 모델에는 두 가지 출력이 있습니다.
 
-- the priority score between 0 and 1 (scalar sigmoid output), and
-- the department that should handle the ticket (softmax output over the set of departments).
+- 0~1 사이의 우선순위 점수(스칼라 sigmoid 출력),
+- 티켓을 처리해야 하는 부서(부서 집합에 대한 softmax 출력).
 
-You can build this model in a few lines with the functional API:
+함수형 API를 사용하면 몇 줄로 이 모델을 빌드할 수 있습니다.
 
 ```python
-
-num_tags = 12  # Number of unique issue tags
-num_words = 10000  # Size of vocabulary obtained when preprocessing text data
-num_departments = 4  # Number of departments for predictions
+num_tags = 12  # 고유한 이슈 태그 수
+num_words = 10000  # 텍스트 데이터를 전처리할 때, 얻은 어휘의 크기
+num_departments = 4  # 예측을 위한 부서 수
 
 title_input = keras.Input(
     shape=(None,), name="title"

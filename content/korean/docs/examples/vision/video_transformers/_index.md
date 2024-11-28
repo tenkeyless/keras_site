@@ -37,7 +37,6 @@ As done in the [predecessor]({{< relref "/docs/examples/vision/video_classificat
 ## Setup
 
 ```python
-
 import os
 import keras
 from keras import layers

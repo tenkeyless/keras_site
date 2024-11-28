@@ -342,7 +342,6 @@ test_ds = prepare_dataset(test_img_paths, test_labels_cleaned)
 ## Visualize a few samples
 
 ```python
-
 for data in train_ds.take(1):
     images, labels = data["image"], data["label"]
 

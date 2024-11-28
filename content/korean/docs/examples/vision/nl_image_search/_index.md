@@ -314,7 +314,6 @@ def create_text_encoder(
 To calculate the loss, we compute the pairwise dot-product similarity between each `caption_i` and `images_j` in the batch as the predictions. The target similarity between `caption_i` and `image_j` is computed as the average of the (dot-product similarity between `caption_i` and `caption_j`) and (the dot-product similarity between `image_i` and `image_j`). Then, we use crossentropy to compute the loss between the targets and the predictions.
 
 ```python
-
 class DualEncoder(keras.Model):
     def __init__(self, text_encoder, image_encoder, temperature=1.0, **kwargs):
         super().__init__(**kwargs)

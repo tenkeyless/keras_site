@@ -109,7 +109,6 @@ Downloading data from https://raw.githubusercontent.com/aspuru-guzik-group/chemi
 ## Hyperparameters
 
 ```python
-
 SMILE_CHARSET = '["C", "B", "F", "I", "H", "O", "N", "S", "P", "Cl", "Br"]'
 
 bond_mapping = {"SINGLE": 0, "DOUBLE": 1, "TRIPLE": 2, "AROMATIC": 3}

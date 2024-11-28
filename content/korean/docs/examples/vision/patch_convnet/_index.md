@@ -508,7 +508,6 @@ class TrainMonitor(keras.callbacks.Callback):
 ## Learning rate schedule
 
 ```python
-
 class WarmUpCosine(keras.optimizers.schedules.LearningRateSchedule):
     def __init__(
         self, learning_rate_base, total_steps, warmup_learning_rate, warmup_steps
@@ -565,7 +564,6 @@ scheduled_lrs = WarmUpCosine(
 We build the model, compile it, and train it.
 
 ```python
-
 train_augmentation_model = get_train_augmentation_model()
 preprocessing_model = get_preprocessing()
 conv_stem = build_convolutional_stem(dimensions=DIMENSIONS)

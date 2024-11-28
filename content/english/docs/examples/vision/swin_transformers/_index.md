@@ -442,7 +442,6 @@ class PatchMerging(keras.layers.Layer):
 We do all the steps, which do not have trainable weights with tf.data. Prepare the training, validation and testing sets.
 
 ```python
-
 def augment(x):
     x = tf.image.random_crop(x, size=(image_dimension, image_dimension, 3))
     x = tf.image.random_flip_left_right(x)

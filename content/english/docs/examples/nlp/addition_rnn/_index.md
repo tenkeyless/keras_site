@@ -160,7 +160,6 @@ Total questions: 50000
 ## Vectorize the data
 
 ```python
-
 print("Vectorization...")
 x = np.zeros((len(questions), MAXLEN, len(chars)), dtype=bool)
 y = np.zeros((len(questions), DIGITS + 1, len(chars)), dtype=bool)
@@ -264,7 +263,6 @@ Model: "sequential"
 ## Train the model
 
 ```python
-
 # Training parameters.
 epochs = 30
 batch_size = 32

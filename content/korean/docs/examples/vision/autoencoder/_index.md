@@ -26,7 +26,6 @@ This example demonstrates how to implement a deep convolutional autoencoder for 
 ## Setup
 
 ```python
-
 import numpy as np
 import matplotlib.pyplot as plt
 

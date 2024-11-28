@@ -533,7 +533,6 @@ class FocalModulationLayer(layers.Layer):
 Finally, we have all the components we need to build the Focal Modulation block. Here we take the MLP and Focal Modulation layer together and build the Focal Modulation block.
 
 ```python
-
 class FocalModulationBlock(layers.Layer):
     """Combine FFN and Focal Modulation Layer.
 

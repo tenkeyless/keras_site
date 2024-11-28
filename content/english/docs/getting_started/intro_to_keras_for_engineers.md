@@ -316,7 +316,6 @@ class MyModel(keras.Model):
 Let's compile it and fit it:
 
 ```python
-
 model = MyModel(num_classes=10)
 model.compile(
     loss=keras.losses.SparseCategoricalCrossentropy(),

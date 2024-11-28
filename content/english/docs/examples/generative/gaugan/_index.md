@@ -857,7 +857,6 @@ Epoch 15/15
 ## Inference
 
 ```python
-
 val_iterator = iter(val_dataset)
 
 for _ in range(5):

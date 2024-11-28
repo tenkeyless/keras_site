@@ -189,7 +189,6 @@ class Linear(keras.layers.Layer):
 The `__call__()` method of your layer will automatically run build the first time it is called. You now have a layer that's lazy and thus easier to use:
 
 ```python
-
 # At instantiation, we don't know on what inputs this is going to get called
 linear_layer = Linear(32)
 
@@ -359,7 +358,6 @@ These losses are meant to be taken into account when writing custom training loo
 They also work seamlessly with `fit()` (they get automatically summed and added to the main loss, if any):
 
 ```python
-
 inputs = keras.Input(shape=(3,))
 outputs = ActivityRegularizationLayer()(inputs)
 model = keras.Model(inputs, outputs)

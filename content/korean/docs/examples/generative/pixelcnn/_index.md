@@ -52,7 +52,6 @@ data = data.astype(np.float32)
 ## Create two classes for the requisite Layers for the model
 
 ```python
-
 # The first layer is the PixelCNN layer. This layer simply
 # builds on the 2D convolutional layer, but includes masking.
 class PixelConvLayer(layers.Layer):
