@@ -2,7 +2,7 @@
 {{ $page := .Site.GetPage $path }} <!-- 경로에 해당하는 페이지 가져오기 -->
 {{ $currentLang := .Page.Language.Lang }}
 {{ if $page }} <!-- 페이지가 유효한 경우 -->
-  {{ $localizedPath := (print "/" $currentLang $path) }}
+  {{ $localizedPath := cond (eq $currentLang "en") $path (print "/" $currentLang $path) }}
   {{ $title := $page.Title }} <!-- 페이지 제목 가져오기 -->
   <a href="{{ $localizedPath | relURL }}">{{ $title | safeHTML }}</a>{{- "" -}}
 {{ else }} <!-- 페이지가 없을 경우 기본 출력 -->
