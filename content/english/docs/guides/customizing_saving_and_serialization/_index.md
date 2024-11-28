@@ -8,10 +8,10 @@ type: docs
 
 {{< keras/original checkedAt="2024-11-18" >}}
 
-**Author:** Neel Kovelamudi  
-**Date created:** 2023/03/15  
-**Last modified:** 2023/03/15  
-**Description:** A more advanced guide on customizing saving for your layers and models.
+**{{< t f_author >}}** Neel Kovelamudi  
+**{{< t f_date_created >}}** 2023/03/15  
+**{{< t f_last_modified >}}** 2023/03/15  
+**{{< t f_description >}}** A more advanced guide on customizing saving for your layers and models.
 
 {{< cards cols="2" >}}
 {{< card link="https://colab.research.google.com/github/keras-team/keras-io/blob/master/guides/ipynb/customizing_saving_and_serialization.ipynb" title="Colab" tag="Colab" tagType="warning">}}
@@ -109,7 +109,7 @@ np.testing.assert_allclose(
 )
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
  1/1 ━━━━━━━━━━━━━━━━━━━━ 0s 101ms/step - loss: 0.2908
@@ -311,7 +311,7 @@ np.testing.assert_equal(model.loss_fn, restored_model.loss_fn)
 np.testing.assert_equal(model.loss_metrics, restored_model.loss_metrics)
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
  1/1 ━━━━━━━━━━━━━━━━━━━━ 0s 79ms/step - accuracy: 0.0000e+00 - loss: 0.0627 - mean_metric_wrapper: 0.2500

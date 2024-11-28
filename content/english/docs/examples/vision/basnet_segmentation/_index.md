@@ -7,10 +7,10 @@ type: docs
 
 {{< keras/original checkedAt="2024-11-20" >}}
 
-**Author:** [Hamid Ali](https://github.com/hamidriasat)  
-**Date created:** 2023/05/30  
-**Last modified:** 2023/07/13  
-**Description:** Boundaries aware segmentation model trained on the DUTS dataset.
+**{{< t f_author >}}** [Hamid Ali](https://github.com/hamidriasat)  
+**{{< t f_date_created >}}** 2023/05/30  
+**{{< t f_last_modified >}}** 2023/07/13  
+**{{< t f_description >}}** Boundaries aware segmentation model trained on the DUTS dataset.
 
 {{< keras/version v=2 >}}
 
@@ -38,7 +38,7 @@ We will use the [DUTS-TE](http://saliencydetection.net/duts/) dataset for traini
 !unzip -q DUTS-TE.zip
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 --2023-08-06 19:07:37--  http://saliencydetection.net/duts/download/DUTS-TE.zip
@@ -71,7 +71,7 @@ from tensorflow import keras
 from tensorflow.keras import layers, backend
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 Using TensorFlow backend
@@ -147,7 +147,7 @@ print(f"Train Dataset: {train_dataset}")
 print(f"Validation Dataset: {val_dataset}")
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 Train Dataset: <_PrefetchDataset element_spec=(TensorSpec(shape=(None, 288, 288, 3), dtype=tf.float32, name=None), TensorSpec(shape=(None, 288, 288, 1), dtype=tf.float32, name=None))>
@@ -186,7 +186,7 @@ print("Unique values:")
 print(np.unique((mask[0] * 255)).astype(int))
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 Unique values count: 245
@@ -452,7 +452,7 @@ basnet_model.compile(
 )
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 Model: "model_2"
@@ -963,7 +963,7 @@ ________________________________________________________________________________
 basnet_model.fit(train_dataset, validation_data=val_dataset, epochs=1)
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 32/32 [==============================] - 153s 2s/step - loss: 16.3507 - activation_46_loss: 2.1445 - activation_47_loss: 2.1512 - activation_48_loss: 2.0621 - activation_49_loss: 2.0755 - activation_50_loss: 2.1406 - activation_51_loss: 1.9035 - activation_52_loss: 1.8702 - activation_53_loss: 2.0031 - activation_46_mae: 0.2972 - activation_47_mae: 0.3126 - activation_48_mae: 0.2793 - activation_49_mae: 0.2887 - activation_50_mae: 0.3280 - activation_51_mae: 0.2548 - activation_52_mae: 0.2330 - activation_53_mae: 0.2564 - val_loss: 18.4498 - val_activation_46_loss: 2.3113 - val_activation_47_loss: 2.3143 - val_activation_48_loss: 2.3356 - val_activation_49_loss: 2.3093 - val_activation_50_loss: 2.3187 - val_activation_51_loss: 2.3943 - val_activation_52_loss: 2.2712 - val_activation_53_loss: 2.1952 - val_activation_46_mae: 0.2770 - val_activation_47_mae: 0.2681 - val_activation_48_mae: 0.2424 - val_activation_49_mae: 0.2691 - val_activation_50_mae: 0.2765 - val_activation_51_mae: 0.1907 - val_activation_52_mae: 0.1885 - val_activation_53_mae: 0.2938
@@ -994,7 +994,7 @@ def normalize_output(prediction):
 basnet_model.load_weights("./basnet_weights.h5")
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 ['Downloading...',
@@ -1048,7 +1048,7 @@ for image, mask in val_dataset.take(1):
     display([image[0], mask[0], normalize_output(pred_mask[0][0])])
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 1/1 [==============================] - 2s 2s/step

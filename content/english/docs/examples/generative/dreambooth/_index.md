@@ -7,10 +7,10 @@ type: docs
 
 {{< keras/original checkedAt="2024-11-22" >}}
 
-**Author:** [Sayak Paul](https://twitter.com/RisingSayak), [Chansung Park](https://twitter.com/algo_diver)  
-**Date created:** 2023/02/01  
-**Last modified:** 2023/02/05  
-**Description:** Implementing DreamBooth.
+**{{< t f_author >}}** [Sayak Paul](https://twitter.com/RisingSayak), [Chansung Park](https://twitter.com/algo_diver)  
+**{{< t f_date_created >}}** 2023/02/01  
+**{{< t f_last_modified >}}** 2023/02/05  
+**{{< t f_description >}}** Implementing DreamBooth.
 
 {{< keras/version v=2 >}}
 
@@ -328,7 +328,7 @@ for k in sample_batch[1]:
     print(k, sample_batch[1][k].shape)
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 dict_keys(['instance_images', 'instance_embedded_texts']) dict_keys(['class_images', 'class_embedded_texts'])
@@ -545,7 +545,7 @@ epochs = math.ceil(max_train_steps / num_update_steps_per_epoch)
 print(f"Training for {epochs} epochs.")
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 Training for 4 epochs.
@@ -566,7 +566,7 @@ ckpt_callback = tf.keras.callbacks.ModelCheckpoint(
 dreambooth_trainer.fit(train_dataset, epochs=epochs, callbacks=[ckpt_callback])
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 Epoch 1/4
@@ -604,7 +604,7 @@ images_dreamboothed = dreambooth_model.text_to_image(prompt, batch_size=num_imgs
 plot_images(images_dreamboothed, prompt)
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 By using this model checkpoint, you acknowledge that its usage is subject to the terms of the CreativeML Open RAIL-M license at https://raw.githubusercontent.com/CompVis/stable-diffusion/main/LICENSE
@@ -632,7 +632,7 @@ images_dreamboothed = dreambooth_model.text_to_image(prompt, batch_size=num_imgs
 plot_images(images_dreamboothed, prompt)
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 Downloading data from https://huggingface.co/chansung/dreambooth-dog/resolve/main/lr%409e-06-max_train_steps%40200-train_text_encoder%40True-unet.h5
@@ -655,7 +655,7 @@ images_dreamboothed = dreambooth_model.text_to_image(
 plot_images(images_dreamboothed, prompt)
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 100/100 [==============================] - 16s 159ms/step

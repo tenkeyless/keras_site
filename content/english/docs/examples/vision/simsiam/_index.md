@@ -7,10 +7,10 @@ type: docs
 
 {{< keras/original checkedAt="2024-11-21" >}}
 
-**Author:** [Sayak Paul](https://twitter.com/RisingSayak)  
-**Date created:** 2021/03/19  
-**Last modified:** 2023/12/29  
-**Description:** Implementation of a self-supervised learning method for computer vision.
+**{{< t f_author >}}** [Sayak Paul](https://twitter.com/RisingSayak)  
+**{{< t f_date_created >}}** 2021/03/19  
+**{{< t f_last_modified >}}** 2023/12/29  
+**{{< t f_description >}}** Implementation of a self-supervised learning method for computer vision.
 
 {{< keras/version v=2 >}}
 
@@ -65,7 +65,7 @@ print(f"Total training examples: {len(x_train)}")
 print(f"Total test examples: {len(x_test)}")
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 Total training examples: 50000
@@ -331,7 +331,7 @@ plt.title("Negative Cosine Similairty")
 plt.show()
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 Epoch 1/5
@@ -401,7 +401,7 @@ _, test_acc = linear_model.evaluate(test_ds)
 print("Test accuracy: {:.2f}%".format(test_acc * 100))
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 Epoch 1/5

@@ -7,10 +7,10 @@ type: docs
 
 {{< keras/original checkedAt="2024-11-20" >}}
 
-**Author:** [Santiago L. Valdarrama](https://twitter.com/svpino)  
-**Date created:** 2021/03/01  
-**Last modified:** 2021/03/01  
-**Description:** How to train a deep convolutional autoencoder for image denoising.
+**{{< t f_author >}}** [Santiago L. Valdarrama](https://twitter.com/svpino)  
+**{{< t f_date_created >}}** 2021/03/01  
+**{{< t f_last_modified >}}** 2021/03/01  
+**{{< t f_description >}}** How to train a deep convolutional autoencoder for image denoising.
 
 {{< keras/version v=3 >}}
 
@@ -26,7 +26,6 @@ This example demonstrates how to implement a deep convolutional autoencoder for 
 ## Setup
 
 ```python
-
 import numpy as np
 import matplotlib.pyplot as plt
 
@@ -95,7 +94,7 @@ noisy_test_data = noise(test_data)
 display(train_data, noisy_train_data)
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 Downloading data from https://storage.googleapis.com/tensorflow/tf-keras-datasets/mnist.npz
@@ -130,7 +129,7 @@ autoencoder.compile(optimizer="adam", loss="binary_crossentropy")
 autoencoder.summary()
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 Model: "functional_1"
@@ -175,7 +174,7 @@ autoencoder.fit(
 )
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 Epoch 1/50
@@ -293,7 +292,7 @@ predictions = autoencoder.predict(test_data)
 display(test_data, predictions)
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
  313/313 ━━━━━━━━━━━━━━━━━━━━ 1s 1ms/step
@@ -316,7 +315,7 @@ autoencoder.fit(
 )
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 Epoch 1/100
@@ -534,7 +533,7 @@ predictions = autoencoder.predict(noisy_test_data)
 display(noisy_test_data, predictions)
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
  313/313 ━━━━━━━━━━━━━━━━━━━━ 0s 523us/step

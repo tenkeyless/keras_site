@@ -7,10 +7,10 @@ type: docs
 
 {{< keras/original checkedAt="2024-11-20" >}}
 
-**Author:** [David Griffiths](https://dgriffiths3.github.io)  
-**Date created:** 2020/05/25  
-**Last modified:** 2024/01/09  
-**Description:** Implementation of PointNet for ModelNet10 classification.
+**{{< t f_author >}}** [David Griffiths](https://dgriffiths3.github.io)  
+**{{< t f_date_created >}}** 2020/05/25  
+**{{< t f_last_modified >}}** 2024/01/09  
+**{{< t f_description >}}** Implementation of PointNet for ModelNet10 classification.
 
 {{< keras/version v=3 >}}
 
@@ -54,7 +54,7 @@ DATA_DIR = keras.utils.get_file(
 DATA_DIR = os.path.join(os.path.dirname(DATA_DIR), "ModelNet10")
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 Downloading data from http://3dvision.princeton.edu/projects/2014/3DShapeNets/ModelNet10.zip
@@ -1381,7 +1381,7 @@ train_points, test_points, train_labels, test_labels, CLASS_MAP = parse_dataset(
 )
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 processing class: bathtub
@@ -1512,7 +1512,7 @@ model = keras.Model(inputs=inputs, outputs=outputs, name="pointnet")
 model.summary()
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 Model: "pointnet"
@@ -1708,7 +1708,7 @@ model.compile(
 model.fit(train_dataset, epochs=20, validation_data=validation_dataset)
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 Epoch 1/20
@@ -1897,7 +1897,7 @@ for i in range(8):
 plt.show()
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 1/1 ━━━━━━━━━━━━━━━━━━━━ 0s 404ms/step

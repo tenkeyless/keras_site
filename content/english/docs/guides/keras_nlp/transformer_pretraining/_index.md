@@ -8,10 +8,10 @@ type: docs
 
 {{< keras/original checkedAt="2024-11-19" >}}
 
-**Author:** [Matthew Watson](https://github.com/mattdangerw/)  
-**Date created:** 2022/04/18  
-**Last modified:** 2023/07/15  
-**Description:** Use KerasNLP to train a Transformer model from scratch.
+**{{< t f_author >}}** [Matthew Watson](https://github.com/mattdangerw/)  
+**{{< t f_date_created >}}** 2022/04/18  
+**{{< t f_last_modified >}}** 2023/07/15  
+**{{< t f_description >}}** Use KerasNLP to train a Transformer model from scratch.
 
 {{< cards cols="2" >}}
 {{< card link="https://colab.research.google.com/github/keras-team/keras-io/blob/master/guides/ipynb/keras_nlp/transformer_pretraining.ipynb" title="Colab" tag="Colab" tagType="warning">}}
@@ -128,7 +128,7 @@ wiki_val_ds = (
 print(sst_train_ds.unbatch().batch(4).take(1).get_single_element())
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 (<tf.Tensor: shape=(4,), dtype=string, numpy=
@@ -169,7 +169,7 @@ baseline_model.compile(loss="binary_crossentropy", metrics=["accuracy"])
 baseline_model.fit(multi_hot_ds, validation_data=multi_hot_val_ds, epochs=5)
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 Epoch 1/5
@@ -265,7 +265,7 @@ pretrain_val_ds = wiki_val_ds.map(
 print(pretrain_val_ds.take(1).get_single_element())
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 ({'token_ids': <tf.Tensor: shape=(128, 128), dtype=int32, numpy=
@@ -350,7 +350,7 @@ encoder_model = keras.Model(inputs, outputs)
 encoder_model.summary()
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 Model: "functional_3"
@@ -431,7 +431,7 @@ pretraining_model.fit(
 encoder_model.save("encoder_model.keras")
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 Epoch 1/8
@@ -479,7 +479,7 @@ finetune_val_ds = sst_val_ds.map(
 print(finetune_val_ds.take(1).get_single_element())
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 (<tf.Tensor: shape=(32, 128), dtype=int32, numpy=
@@ -530,7 +530,7 @@ finetuning_model.fit(
 )
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 Epoch 1/3

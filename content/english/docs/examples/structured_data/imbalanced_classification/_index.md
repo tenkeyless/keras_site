@@ -7,10 +7,10 @@ type: docs
 
 {{< keras/original checkedAt="2024-11-22" >}}
 
-**Author:** [fchollet](https://twitter.com/fchollet)  
-**Date created:** 2019/05/28  
-**Last modified:** 2020/04/17  
-**Description:** Demonstration of how to handle highly imbalanced classification problems.
+**{{< t f_author >}}** [fchollet](https://twitter.com/fchollet)  
+**{{< t f_date_created >}}** 2019/05/28  
+**{{< t f_last_modified >}}** 2020/04/17  
+**{{< t f_description >}}** Demonstration of how to handle highly imbalanced classification problems.
 
 {{< keras/version v=3 >}}
 
@@ -51,7 +51,7 @@ print("features.shape:", features.shape)
 print("targets.shape:", targets.shape)
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 HEADER: "Time","V1","V2","V3","V4","V5","V6","V7","V8","V9","V10","V11","V12","V13","V14","V15","V16","V17","V18","V19","V20","V21","V22","V23","V24","V25","V26","V27","V28","Amount","Class"
@@ -75,7 +75,7 @@ print("Number of training samples:", len(train_features))
 print("Number of validation samples:", len(val_features))
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 Number of training samples: 227846
@@ -98,7 +98,7 @@ weight_for_0 = 1.0 / counts[0]
 weight_for_1 = 1.0 / counts[1]
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 Number of positive samples in training data: 417 (0.18% of total)
@@ -136,7 +136,7 @@ model = keras.Sequential(
 model.summary()
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 Model: "sequential"
@@ -193,7 +193,7 @@ model.fit(
 )
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 Epoch 1/30

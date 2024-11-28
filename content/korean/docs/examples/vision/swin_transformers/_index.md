@@ -7,10 +7,10 @@ type: docs
 
 {{< keras/original checkedAt="2024-11-20" >}}
 
-**Author:** [Rishit Dagli](https://twitter.com/rishit_dagli)  
-**Date created:** 2021/09/08  
-**Last modified:** 2021/09/08  
-**Description:** Image classification using Swin Transformers, a general-purpose backbone for computer vision.
+**{{< t f_author >}}** [Rishit Dagli](https://twitter.com/rishit_dagli)  
+**{{< t f_date_created >}}** 2021/09/08  
+**{{< t f_last_modified >}}** 2021/09/08  
+**{{< t f_description >}}** Image classification using Swin Transformers, a general-purpose backbone for computer vision.
 
 {{< keras/version v=3 >}}
 
@@ -93,7 +93,7 @@ for i in range(25):
 plt.show()
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 x_train shape: (45000, 32, 32, 3) - y_train shape: (45000, 100)
@@ -442,7 +442,6 @@ class PatchMerging(keras.layers.Layer):
 We do all the steps, which do not have trainable weights with tf.data. Prepare the training, validation and testing sets.
 
 ```python
-
 def augment(x):
     x = tf.image.random_crop(x, size=(image_dimension, image_dimension, 3))
     x = tf.image.random_flip_left_right(x)
@@ -504,7 +503,7 @@ x = layers.GlobalAveragePooling1D()(x)
 output = layers.Dense(num_classes, activation="softmax")(x)
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 An NVIDIA GPU may be present on this machine, but a CUDA-enabled jaxlib is not installed. Falling back to cpu.
@@ -537,7 +536,7 @@ history = model.fit(
 )
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 Epoch 1/40
@@ -648,7 +647,7 @@ print(f"Test accuracy: {round(accuracy * 100, 2)}%")
 print(f"Test top 5 accuracy: {round(top_5_accuracy * 100, 2)}%")
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
  79/79 ━━━━━━━━━━━━━━━━━━━━ 26s 325ms/step - accuracy: 0.4474 - loss: 2.7119 - top-5-accuracy: 0.7556

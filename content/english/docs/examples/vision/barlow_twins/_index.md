@@ -7,10 +7,10 @@ type: docs
 
 {{< keras/original checkedAt="2024-11-21" >}}
 
-**Author:** [Abhiraam Eranti](https://github.com/dewball345)  
-**Date created:** 2021/11/04  
-**Last modified:** 2021/12/20  
-**Description:** A keras implementation of Barlow Twins (constrastive SSL with redundancy reduction).
+**{{< t f_author >}}** [Abhiraam Eranti](https://github.com/dewball345)  
+**{{< t f_date_created >}}** 2021/11/04  
+**{{< t f_last_modified >}}** 2021/12/20  
+**{{< t f_description >}}** A keras implementation of Barlow Twins (constrastive SSL with redundancy reduction).
 
 {{< keras/version v=2 >}}
 
@@ -104,7 +104,7 @@ import datetime  # tensorboard logs naming
 tf.config.optimizer.set_jit(True)
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 ['Requirement already satisfied: tensorflow-addons in /usr/local/lib/python3.7/dist-packages (0.15.0)',
@@ -900,7 +900,7 @@ plt.plot(history.history["loss"])
 plt.show()
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 Epoch 1/160
@@ -1273,7 +1273,7 @@ model.compile(
 model.fit(xy_ds, epochs=35, validation_data=test_ds)
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 Epoch 1/35

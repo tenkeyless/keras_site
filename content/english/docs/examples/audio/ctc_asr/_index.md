@@ -8,9 +8,9 @@ type: docs
 {{< keras/original checkedAt="2024-11-23" >}}
 
 **Authors:** [Mohamed Reda Bouadjenek](https://rbouadjenek.github.io/) and [Ngoc Dung Huynh](https://www.linkedin.com/in/parkerhuynh/)  
-**Date created:** 2021/09/26  
-**Last modified:** 2021/09/26  
-**Description:** Training a CTC-based model for automatic speech recognition.
+**{{< t f_date_created >}}** 2021/09/26  
+**{{< t f_last_modified >}}** 2021/09/26  
+**{{< t f_description >}}** Training a CTC-based model for automatic speech recognition.
 
 {{< keras/version v=2 >}}
 
@@ -97,7 +97,7 @@ print(f"Size of the training set: {len(df_train)}")
 print(f"Size of the training set: {len(df_val)}")
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 Size of the training set: 11790
@@ -126,7 +126,7 @@ print(
 )
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 The vocabulary is: ['', 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z', "'", '?', '!', ' '] (size =31)
@@ -331,7 +331,7 @@ model = build_model(
 model.summary(line_length=110)
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 Model: "DeepSpeech_2"
@@ -454,7 +454,7 @@ history = model.fit(
 )
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 369/369 [==============================] - ETA: 0s - loss: 302.4755----------------------------------------------------------------------------------------------------
@@ -495,7 +495,7 @@ for i in np.random.randint(0, len(predictions), 5):
     print("-" * 100)
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 ----------------------------------------------------------------------------------------------------

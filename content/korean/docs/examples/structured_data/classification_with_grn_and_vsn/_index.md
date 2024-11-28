@@ -7,10 +7,10 @@ type: docs
 
 {{< keras/original checkedAt="2024-11-22" >}}
 
-**Author:** [Khalid Salama](https://www.linkedin.com/in/khalid-salama-24403144/)  
-**Date created:** 2021/02/10  
-**Last modified:** 2021/02/10  
-**Description:** Using Gated Residual and Variable Selection Networks for income level prediction.
+**{{< t f_author >}}** [Khalid Salama](https://www.linkedin.com/in/khalid-salama-24403144/)  
+**{{< t f_date_created >}}** 2021/02/10  
+**{{< t f_last_modified >}}** 2021/02/10  
+**{{< t f_description >}}** Using Gated Residual and Variable Selection Networks for income level prediction.
 
 {{< keras/version v=2 >}}
 
@@ -105,7 +105,7 @@ print(f"Data shape: {data.shape}")
 print(f"Test data shape: {test_data.shape}")
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 Data shape: (199523, 42)
@@ -411,7 +411,7 @@ _, accuracy = model.evaluate(test_dataset)
 print(f"Test accuracy: {round(accuracy * 100, 2)}%")
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 Start training the model...

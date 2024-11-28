@@ -1,0 +1,8 @@
+{{ $allWords := slice (.Get 0) }}
+{{ range $i, $v := .Params }}
+    {{ if gt $i 0 }}
+        {{ $allWords = $allWords | append $v }}
+    {{ end }}
+{{ end }}
+{{ $fullString := delimit $allWords " " }}
+{{ T $fullString }}

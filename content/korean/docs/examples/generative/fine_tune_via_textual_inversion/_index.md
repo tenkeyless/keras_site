@@ -8,9 +8,9 @@ type: docs
 {{< keras/original checkedAt="2024-11-22" >}}
 
 **Authors:** Ian Stenbit, [lukewood](https://lukewood.xyz)  
-**Date created:** 2022/12/09  
-**Last modified:** 2022/12/09  
-**Description:** Learning new visual concepts with KerasCV's StableDiffusion implementation.
+**{{< t f_date_created >}}** 2022/12/09  
+**{{< t f_last_modified >}}** 2022/12/09  
+**{{< t f_description >}}** Learning new visual concepts with KerasCV's StableDiffusion implementation.
 
 {{< keras/version v=2 >}}
 
@@ -56,7 +56,7 @@ import matplotlib.pyplot as plt
 stable_diffusion = keras_cv.models.StableDiffusion()
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 By using this model checkpoint, you acknowledge that its usage is subject to the terms of the CreativeML Open RAIL-M license at https://raw.githubusercontent.com/CompVis/stable-diffusion/main/LICENSE
@@ -405,7 +405,7 @@ all_models = [
 print([[w.shape for w in model.trainable_weights] for model in all_models])
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 [[TensorShape([49409, 768])], [], []]
@@ -552,7 +552,7 @@ generated = stable_diffusion.text_to_image(
 plot_images(generated)
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 25/25 [==============================] - 19s 314ms/step
@@ -640,7 +640,7 @@ trainer.fit(
 )
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 Epoch 1/50
@@ -812,7 +812,7 @@ generated = stable_diffusion.text_to_image(
 plot_images(generated)
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 25/25 [==============================] - 8s 316ms/step
@@ -832,7 +832,7 @@ generated = stable_diffusion.text_to_image(
 plot_images(generated)
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 25/25 [==============================] - 8s 314ms/step
@@ -849,7 +849,7 @@ generated = stable_diffusion.text_to_image(
 plot_images(generated)
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 25/25 [==============================] - 8s 322ms/step
@@ -867,7 +867,7 @@ generated = stable_diffusion.text_to_image(
 plot_images(generated)
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 25/25 [==============================] - 8s 315ms/step

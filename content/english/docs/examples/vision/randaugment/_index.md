@@ -8,9 +8,9 @@ type: docs
 {{< keras/original checkedAt="2024-11-20" >}}
 
 **Authors:** [Sayak Paul](https://twitter.com/RisingSayak)[Sachin Prasad](https://github.com/sachinprasadhs)  
-**Date created:** 2021/03/13  
-**Last modified:** 2023/12/12  
-**Description:** RandAugment for training an image classification model with improved robustness.
+**{{< t f_date_created >}}** 2021/03/13  
+**{{< t f_last_modified >}}** 2023/12/12  
+**{{< t f_description >}}** RandAugment for training an image classification model with improved robustness.
 
 {{< keras/version v=3 >}}
 
@@ -58,7 +58,7 @@ print(f"Total training examples: {len(x_train)}")
 print(f"Total test examples: {len(x_test)}")
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 Total training examples: 50000
@@ -190,7 +190,7 @@ def get_training_model():
 get_training_model().summary()
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 Model: "sequential_1"
@@ -237,7 +237,7 @@ _, test_acc = rand_aug_model.evaluate(test_ds)
 print("Test accuracy: {:.2f}%".format(test_acc * 100))
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
  391/391 ━━━━━━━━━━━━━━━━━━━━ 1146s 3s/step - accuracy: 0.1677 - loss: 2.3232 - val_accuracy: 0.2818 - val_loss: 1.9966
@@ -260,7 +260,7 @@ _, test_acc = simple_aug_model.evaluate(test_ds)
 print("Test accuracy: {:.2f}%".format(test_acc * 100))
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
  391/391 ━━━━━━━━━━━━━━━━━━━━ 1132s 3s/step - accuracy: 0.3673 - loss: 1.7929 - val_accuracy: 0.4789 - val_loss: 1.4296
@@ -298,7 +298,7 @@ print(
 )
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
  Downloading and preparing dataset 2.72 GiB (download: 2.72 GiB, generated: Unknown size, total: 2.72 GiB) to /home/sachinprasad/tensorflow_datasets/cifar10_corrupted/saturate_5/1.0.0...

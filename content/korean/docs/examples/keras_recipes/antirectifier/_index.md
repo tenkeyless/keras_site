@@ -7,10 +7,10 @@ type: docs
 
 {{< keras/original checkedAt="2024-11-24" >}}
 
-**Author:** [fchollet](https://twitter.com/fchollet)  
-**Date created:** 2016/01/06  
-**Last modified:** 2023/11/20  
-**Description:** Demonstration of custom layer creation.
+**{{< t f_author >}}** [fchollet](https://twitter.com/fchollet)  
+**{{< t f_date_created >}}** 2016/01/06  
+**{{< t f_last_modified >}}** 2023/11/20  
+**{{< t f_description >}}** Demonstration of custom layer creation.
 
 {{< keras/version v=3 >}}
 
@@ -118,7 +118,7 @@ model.fit(x_train, y_train, batch_size=batch_size, epochs=epochs, validation_spl
 model.evaluate(x_test, y_test)
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 60000 train samples

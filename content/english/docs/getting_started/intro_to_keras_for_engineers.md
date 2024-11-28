@@ -8,10 +8,10 @@ type: docs
 
 {{< keras/original checkedAt="2024-11-18" >}}
 
-**Author:** [fchollet](https://twitter.com/fchollet)  
-**Date created:** 2023/07/10  
-**Last modified:** 2023/07/10  
-**Description:** First contact with Keras 3.
+**{{< t f_author >}}** [fchollet](https://twitter.com/fchollet)  
+**{{< t f_date_created >}}** 2023/07/10  
+**{{< t f_last_modified >}}** 2023/07/10  
+**{{< t f_description >}}** First contact with Keras 3.
 
 {{< cards cols="2" >}}
 {{< card link="https://colab.research.google.com/github/keras-team/keras-io/blob/master/guides/ipynb/intro_to_keras_for_engineers.ipynb" title="Colab" tag="Colab" tagType="warning">}}
@@ -60,7 +60,7 @@ print(x_train.shape[0], "train samples")
 print(x_test.shape[0], "test samples")
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 x_train shape: (60000, 28, 28, 1)
@@ -105,7 +105,7 @@ Here's our model summary:
 model.summary()
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 Model: "sequential"
@@ -170,7 +170,7 @@ model.fit(
 score = model.evaluate(x_test, y_test, verbose=0)
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 Epoch 1/20
@@ -221,7 +221,7 @@ Next, you can query predictions of class probabilities with `predict()`:
 predictions = model.predict(x_test)
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
  313/313 ━━━━━━━━━━━━━━━━━━━━ 3s 9ms/step
@@ -316,7 +316,6 @@ class MyModel(keras.Model):
 Let's compile it and fit it:
 
 ```python
-
 model = MyModel(num_classes=10)
 model.compile(
     loss=keras.losses.SparseCategoricalCrossentropy(),
@@ -335,7 +334,7 @@ model.fit(
 )
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
  399/399 ━━━━━━━━━━━━━━━━━━━━ 70s 174ms/step - acc: 0.5104 - loss: 1.3473 - val_acc: 0.9256 - val_loss: 0.2484
@@ -389,7 +388,7 @@ model.compile(
 model.fit(train_dataloader, epochs=1, validation_data=val_dataloader)
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
  469/469 ━━━━━━━━━━━━━━━━━━━━ 81s 172ms/step - acc: 0.5502 - loss: 1.2550 - val_acc: 0.9419 - val_loss: 0.1972
@@ -426,7 +425,7 @@ model.compile(
 model.fit(train_dataset, epochs=1, validation_data=test_dataset)
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
  469/469 ━━━━━━━━━━━━━━━━━━━━ 81s 172ms/step - acc: 0.5771 - loss: 1.1948 - val_acc: 0.9229 - val_loss: 0.2502

@@ -7,10 +7,10 @@ type: docs
 
 {{< keras/original checkedAt="2024-11-21" >}}
 
-**Author:** [Khalid Salama](https://www.linkedin.com/in/khalid-salama-24403144/)  
-**Date created:** 2021/02/28  
-**Last modified:** 2021/02/28  
-**Description:** Semantic Clustering by Adopting Nearest neighbors (SCAN) algorithm.
+**{{< t f_author >}}** [Khalid Salama](https://www.linkedin.com/in/khalid-salama-24403144/)  
+**{{< t f_date_created >}}** 2021/02/28  
+**{{< t f_last_modified >}}** 2021/02/28  
+**{{< t f_description >}}** Semantic Clustering by Adopting Nearest neighbors (SCAN) algorithm.
 
 {{< keras/version v=3 >}}
 
@@ -68,7 +68,7 @@ classes = [
 ]
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 x_data shape: (60000, 32, 32, 3) - y_data shape: (60000, 1)
@@ -285,7 +285,7 @@ history = representation_learner.fit(
 )
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 Epoch 1/50
@@ -415,7 +415,7 @@ feature_vectors = encoder.predict(x_data, batch_size=batch_size, verbose=1)
 feature_vectors = keras.utils.normalize(feature_vectors)
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
   19/120 ━━━[37m━━━━━━━━━━━━━━━━━  0s 9ms/step
@@ -447,7 +447,7 @@ for batch_idx in tqdm(range(num_batches)):
 neighbours = np.reshape(np.array(neighbours), (-1, k_neighbours))
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 100%|████████████████████████████████████████████████████████████████████████| 120/120 [00:17<00:00,  6.99it/s]
@@ -615,7 +615,7 @@ clustering_learner.compile(
 clustering_learner.fit(x=inputs, y=labels, batch_size=512, epochs=50)
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 Epoch 1/50
@@ -750,7 +750,7 @@ cluster_assignments = keras.ops.argmax(clustering_probs, axis=-1).numpy()
 cluster_confidence = keras.ops.max(clustering_probs, axis=-1).numpy()
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
  120/120 ━━━━━━━━━━━━━━━━━━━━ 5s 13ms/step
@@ -774,7 +774,7 @@ for c in range(num_clusters):
     print("cluster", c, ":", len(clusters[c]))
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 cluster 0 : 0
@@ -848,7 +848,7 @@ for c in range(num_clusters):
     print("cluster", c, "label is:", cluster_label, " -  accuracy:", accuracy, "%")
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 cluster 0 label is: airplane  -  accuracy: 0 %

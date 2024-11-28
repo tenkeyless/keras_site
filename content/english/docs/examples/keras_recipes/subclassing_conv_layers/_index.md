@@ -7,10 +7,10 @@ type: docs
 
 {{< keras/original checkedAt="2024-11-24" >}}
 
-**Author:** [lukewood](https://lukewood.xyz)  
-**Date created:** 2021/03/11  
-**Last modified:** 2021/03/11  
-**Description:** This example shows how to implement custom convolution layers using the `Conv.convolution_op()` API.
+**{{< t f_author >}}** [lukewood](https://lukewood.xyz)  
+**{{< t f_date_created >}}** 2021/03/11  
+**{{< t f_last_modified >}}** 2021/03/11  
+**{{< t f_description >}}** This example shows how to implement custom convolution layers using the `Conv.convolution_op()` API.
 
 {{< keras/version v=3 >}}
 
@@ -108,7 +108,7 @@ model = keras.Sequential(
 model.summary()
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 x_train shape: (60000, 28, 28, 1)
@@ -153,7 +153,7 @@ model.compile(loss="categorical_crossentropy", optimizer="adam", metrics=["accur
 model.fit(x_train, y_train, batch_size=batch_size, epochs=5, validation_split=0.1)
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 Epoch 1/5

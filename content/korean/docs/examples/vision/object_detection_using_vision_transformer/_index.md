@@ -7,10 +7,10 @@ type: docs
 
 {{< keras/original checkedAt="2024-11-20" >}}
 
-**Author:** [Karan V. Dave](https://www.linkedin.com/in/karan-dave-811413164/)  
-**Date created:** 2022/03/27  
-**Last modified:** 2023/11/20  
-**Description:** A simple Keras implementation of object detection using Vision Transformers.
+**{{< t f_author >}}** [Karan V. Dave](https://www.linkedin.com/in/karan-dave-811413164/)  
+**{{< t f_date_created >}}** 2022/03/27  
+**{{< t f_last_modified >}}** 2023/11/20  
+**{{< t f_description >}}** A simple Keras implementation of object detection using Vision Transformers.
 
 {{< keras/version v=3 >}}
 
@@ -195,7 +195,7 @@ for i, patch in enumerate(patches[0]):
     plt.axis("off")
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 Image size: 224 X 224
@@ -388,7 +388,7 @@ def plot_history(item):
 plot_history("loss")
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 Epoch 1/100
@@ -574,7 +574,7 @@ print("mean_iou: " + str(mean_iou / len(x_test[:10])))
 plt.show()
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
  1/1 ━━━━━━━━━━━━━━━━━━━━ 1s 1s/step

@@ -7,10 +7,10 @@ type: docs
 
 {{< keras/original checkedAt="2024-11-21" >}}
 
-**Author:** [Rishit Dagli](https://github.com/Rishit-dagli)  
-**Date created:** 2021/06/18  
-**Last modified:** 2023/07/25  
-**Description:** Implement Gradient Centralization to improve training performance of DNNs.
+**{{< t f_author >}}** [Rishit Dagli](https://github.com/Rishit-dagli)  
+**{{< t f_date_created >}}** 2021/06/18  
+**{{< t f_last_modified >}}** 2023/07/25  
+**{{< t f_description >}}** Implement Gradient Centralization to improve training performance of DNNs.
 
 {{< keras/version v=3 >}}
 
@@ -66,7 +66,7 @@ print(f"Training images: {metadata.splits['train'].num_examples}")
 print(f"Test images: {metadata.splits['test'].num_examples}")
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 Image shape: (300, 300, 3)
@@ -215,7 +215,7 @@ model.compile(
 model.summary()
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 Model: "sequential"
@@ -269,7 +269,7 @@ history_no_gc = model.fit(
 )
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 Epoch 1/10
@@ -309,7 +309,7 @@ model.summary()
 history_gc = model.fit(train_ds, epochs=10, verbose=1, callbacks=[time_callback_gc])
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 Model: "sequential"
@@ -392,7 +392,7 @@ print(f"Accuracy: {history_gc.history['accuracy'][-1]}")
 print(f"Training Time: {sum(time_callback_gc.times)}")
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 Not using Gradient Centralization

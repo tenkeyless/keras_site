@@ -8,10 +8,10 @@ type: docs
 
 {{< keras/original checkedAt="2024-11-18" >}}
 
-**Author:** [fchollet](https://twitter.com/fchollet)  
-**Date created:** 2019/03/01  
-**Last modified:** 2023/06/25  
-**Description:** Writing low-level training & evaluation loops in TensorFlow.
+**{{< t f_author >}}** [fchollet](https://twitter.com/fchollet)  
+**{{< t f_date_created >}}** 2019/03/01  
+**{{< t f_last_modified >}}** 2023/06/25  
+**{{< t f_description >}}** Writing low-level training & evaluation loops in TensorFlow.
 
 {{< cards cols="2" >}}
 {{< card link="https://colab.research.google.com/github/keras-team/keras-io/blob/master/guides/ipynb/writing_a_custom_training_loop_in_tensorflow.ipynb" title="Colab" tag="Colab" tagType="warning">}}
@@ -134,7 +134,7 @@ for epoch in range(epochs):
             print(f"Seen so far: {(step + 1) * batch_size} samples")
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 Start of epoch 0
@@ -317,7 +317,7 @@ for epoch in range(epochs):
     print(f"Time taken: {time.time() - start_time:.2f}s")
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 Start of epoch 0
@@ -464,7 +464,7 @@ for epoch in range(epochs):
     print(f"Time taken: {time.time() - start_time:.2f}s")
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 Start of epoch 0
@@ -630,7 +630,7 @@ discriminator = keras.Sequential(
 discriminator.summary()
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 Model: "discriminator"
@@ -768,7 +768,7 @@ for epoch in range(epochs):
             break
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 Start epoch 0

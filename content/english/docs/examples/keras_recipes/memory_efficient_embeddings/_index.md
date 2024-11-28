@@ -7,10 +7,10 @@ type: docs
 
 {{< keras/original checkedAt="2024-11-24" >}}
 
-**Author:** [Khalid Salama](https://www.linkedin.com/in/khalid-salama-24403144/)  
-**Date created:** 2021/02/15  
-**Last modified:** 2023/11/15  
-**Description:** Using compositional & mixed-dimension embeddings for memory-efficient recommendation models.
+**{{< t f_author >}}** [Khalid Salama](https://www.linkedin.com/in/khalid-salama-24403144/)  
+**{{< t f_date_created >}}** 2021/02/15  
+**{{< t f_last_modified >}}** 2023/11/15  
+**{{< t f_description >}}** Using compositional & mixed-dimension embeddings for memory-efficient recommendation models.
 
 {{< keras/version v=3 >}}
 
@@ -70,7 +70,7 @@ print(f"Number of movies: {len(ratings_data.movie_id.unique())}")
 print(f"Number of ratings: {len(ratings_data.index)}")
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 /var/folders/8n/8w8cqnvj01xd4ghznl11nyn000_93_/T/ipykernel_33554/2288473197.py:4: ParserWarning: Falling back to the 'python' engine because the 'c' engine does not support regex separators (separators > 1 char and different from '\s+' are interpreted as regex); you can avoid this warning by specifying engine='python'.
@@ -97,7 +97,7 @@ print(f"Eval data split: {len(eval_data.index)}")
 print("Train and eval data files are saved.")
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 Train data split: 850573
@@ -210,7 +210,7 @@ baseline_model = create_baseline_model()
 baseline_model.summary()
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 /Users/fchollet/Library/Python/3.10/lib/python/site-packages/numpy/core/numeric.py:2468: FutureWarning: elementwise comparison failed; returning scalar instead, but in the future will perform elementwise comparison
@@ -262,7 +262,7 @@ plt.legend(["train", "eval"], loc="upper left")
 plt.show()
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 Epoch 1/3
@@ -408,7 +408,7 @@ movie_frequencies = ratings_data["movie_id"].value_counts()
 movie_frequencies.hist(bins=10)
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 <Axes: >
@@ -472,7 +472,7 @@ memory_efficient_model = create_memory_efficient_model()
 memory_efficient_model.summary()
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 /Users/fchollet/Library/Python/3.10/lib/python/site-packages/numpy/core/numeric.py:2468: FutureWarning: elementwise comparison failed; returning scalar instead, but in the future will perform elementwise comparison
@@ -525,7 +525,7 @@ plt.legend(["train", "eval"], loc="upper left")
 plt.show()
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 Epoch 1/3

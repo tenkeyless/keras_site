@@ -7,10 +7,10 @@ type: docs
 
 {{< keras/original checkedAt="2024-11-22" >}}
 
-**Author:** [Khalid Salama](https://www.linkedin.com/in/khalid-salama-24403144/)  
-**Date created:** 2020/12/30  
-**Last modified:** 2020/12/30  
-**Description:** Rating rate prediction using the Behavior Sequence Transformer (BST) model on the Movielens.
+**{{< t f_author >}}** [Khalid Salama](https://www.linkedin.com/in/khalid-salama-24403144/)  
+**{{< t f_date_created >}}** 2020/12/30  
+**{{< t f_last_modified >}}** 2020/12/30  
+**{{< t f_description >}}** Rating rate prediction using the Behavior Sequence Transformer (BST) model on the Movielens.
 
 {{< keras/version v=3 >}}
 
@@ -510,7 +510,7 @@ _, rmse = model.evaluate(test_dataset, verbose=0)
 print(f"Test MAE: {round(rmse, 3)}")
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 Epoch 1/5

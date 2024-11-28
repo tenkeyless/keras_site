@@ -9,9 +9,9 @@ type: docs
 {{< keras/original checkedAt="2024-11-19" >}}
 
 **Authors:** Haifeng Jin  
-**Date created:** 2023/02/28  
-**Last modified:** 2023/02/28  
-**Description:** The basics of fault tolerance configurations in KerasTuner.
+**{{< t f_date_created >}}** 2023/02/28  
+**{{< t f_last_modified >}}** 2023/02/28  
+**{{< t f_description >}}** The basics of fault tolerance configurations in KerasTuner.
 
 {{< cards cols="2" >}}
 {{< card link="https://colab.research.google.com/github/keras-team/keras-io/blob/master/guides/ipynb/keras_tuner/failed_trials.ipynb" title="Colab" tag="Colab" tagType="warning">}}
@@ -107,7 +107,7 @@ tuner.search(
 tuner.results_summary()
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 Trial 12 Complete [00h 00m 00s]
@@ -306,7 +306,7 @@ tuner.search(
 tuner.results_summary()
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 Trial 12 Complete [00h 00m 00s]
@@ -503,7 +503,7 @@ except keras_tuner.errors.FatalError:
     print("The search is terminated.")
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 Trial 7 Complete [00h 00m 01s]

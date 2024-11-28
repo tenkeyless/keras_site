@@ -7,10 +7,10 @@ type: docs
 
 {{< keras/original checkedAt="2024-11-21" >}}
 
-**Author:** [Aritra Roy Gosthipaty](https://twitter.com/ariG23498), [Ayush Thakur](https://twitter.com/ayushthakur0) (equal contribution)  
-**Date created:** 2022/01/12  
-**Last modified:** 2024/01/15  
-**Description:** A Transformer-based architecture for video classification.
+**{{< t f_author >}}** [Aritra Roy Gosthipaty](https://twitter.com/ariG23498), [Ayush Thakur](https://twitter.com/ayushthakur0) (equal contribution)  
+**{{< t f_date_created >}}** 2022/01/12  
+**{{< t f_last_modified >}}** 2024/01/15  
+**{{< t f_description >}}** A Transformer-based architecture for video classification.
 
 {{< keras/version v=3 >}}
 
@@ -316,7 +316,7 @@ def run_experiment():
 model = run_experiment()
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 Test accuracy: 76.72%

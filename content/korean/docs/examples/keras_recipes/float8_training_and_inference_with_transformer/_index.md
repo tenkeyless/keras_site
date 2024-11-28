@@ -7,10 +7,10 @@ type: docs
 
 {{< keras/original checkedAt="2024-11-24" >}}
 
-**Author:** [Hongyu Chiu](https://github.com/james77777778)  
-**Date created:** 2024/05/14  
-**Last modified:** 2024/05/14  
-**Description:** Train a simple Transformer model with the float8 quantization.
+**{{< t f_author >}}** [Hongyu Chiu](https://github.com/james77777778)  
+**{{< t f_date_created >}}** 2024/05/14  
+**{{< t f_last_modified >}}** 2024/05/14  
+**{{< t f_description >}}** Train a simple Transformer model with the float8 quantization.
 
 {{< keras/version v=3 >}}
 
@@ -113,7 +113,7 @@ test_ds = keras.utils.text_dataset_from_directory(
 )
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 Found 25000 files belonging to 2 classes.
@@ -146,7 +146,7 @@ for text_batch, label_batch in train_ds.take(1):
         print(f"Label: {label_batch.numpy()[i]}")
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 Text: b'"pandemonium" is a horror movie spoof that comes off more stupid than funny. believe me when i tell you, i love comedies. especially comedy spoofs. "airplane", "the naked gun" trilogy, "blazing saddles", "high anxiety", and "spaceballs" are some of my favorite comedies that spoof a particular genre. "pandemonium" is not up there with those films. most of the scenes in this movie had me sitting there in stunned silence because the movie wasn\'t all that funny. there are a few laughs in the film, but when you watch a comedy, you expect to laugh a lot more than a few times and that\'s all this film has going for it. geez, "scream" had more laughs than this film and that was more of a horror film. how bizarre is that?<br /><br />*1/2 (out of four)'
@@ -193,7 +193,7 @@ Let's see some tokens!
 print("Tokens: ", vocab[100:110])
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 Tokens:  ['à', 'á', 'â', 'ã', 'ä', 'å', 'æ', 'ç', 'è', 'é']
@@ -222,7 +222,7 @@ print("Tokens: ", input_tokens_ex)
 print("Recovered text after detokenizing: ", tokenizer.detokenize(input_tokens_ex))
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 Sentence:  tf.Tensor(b'great movie - especially the music - etta james - "at last". this speaks volumes when you have finally found that special someone.', shape=(), dtype=string)
@@ -320,7 +320,7 @@ result = model.evaluate(test_ds)
 print(f"Accuracy (mixed_bfloat16): {result[1]:.2%}")
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 Model: "functional_1"
@@ -387,7 +387,7 @@ for layer in model._flatten_layers(recursive=True):
         print(f"{layer.name}: {layer.dtype_policy}")
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 feedforward_output_dense: <QuantizedFloat8DTypePolicy "float8_from_mixed_bfloat16">
@@ -420,7 +420,7 @@ for v in model.trainable_variables:
         print(keras.ops.convert_to_numpy(v.value))
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 Accuracy (float8): 74.16%

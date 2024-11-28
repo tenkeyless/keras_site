@@ -7,10 +7,10 @@ type: docs
 
 {{< keras/original checkedAt="2024-11-20" >}}
 
-**Author:** Md Awsafur Rahman  
-**Date created:** 2023/10/30  
-**Last modified:** 2023/10/30  
-**Description:** Implementation and fine-tuning of Global Context Vision Transformer for image classification.
+**{{< t f_author >}}** Md Awsafur Rahman  
+**{{< t f_date_created >}}** 2023/10/30  
+**{{< t f_last_modified >}}** 2023/10/30  
+**{{< t f_description >}}** Implementation and fine-tuning of Global Context Vision Transformer for image classification.
 
 {{< keras/version v=3 >}}
 
@@ -924,7 +924,7 @@ model.load_weights(ckpt_path)
 model.summary((224, 224, 3))
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 Downloading data from https://github.com/awsaf49/gcvit-tf/releases/download/v1.1.6/gcvitxxtiny.keras
@@ -984,7 +984,7 @@ for i in range(5):
     print("{:<12} : {:0.2f}".format(pred_dec[i][1], pred_dec[i][2]))
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 Downloading data from https://storage.googleapis.com/download.tensorflow.org/data/imagenet_class_index.json
@@ -1070,7 +1070,7 @@ train_dataset = make_dataset(train_dataset, True)
 val_dataset = make_dataset(val_dataset, False)
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 Downloading and preparing dataset 218.21 MiB (download: 218.21 MiB, generated: 221.83 MiB, total: 440.05 MiB) to /root/tensorflow_datasets/tf_flowers/3.0.1...
@@ -1099,7 +1099,7 @@ model.compile(
 )
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 /usr/local/lib/python3.10/dist-packages/keras/src/saving/saving_lib.py:269: UserWarning: A total of 1 objects could not be loaded. Example error message for object <Dense name=head, built=True>:
@@ -1125,7 +1125,7 @@ history = model.fit(
 )
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 Epoch 1/5

@@ -7,10 +7,10 @@ type: docs
 
 {{< keras/original checkedAt="2024-11-23" >}}
 
-**Author:** [ADMoreau](https://github.com/ADMoreau)  
-**Date created:** 2020/05/17  
-**Last modified:** 2020/05/23  
-**Description:** PixelCNN implemented in Keras.
+**{{< t f_author >}}** [ADMoreau](https://github.com/ADMoreau)  
+**{{< t f_date_created >}}** 2020/05/17  
+**{{< t f_last_modified >}}** 2020/05/23  
+**{{< t f_description >}}** PixelCNN implemented in Keras.
 
 {{< keras/version v=3 >}}
 
@@ -52,7 +52,6 @@ data = data.astype(np.float32)
 ## Create two classes for the requisite Layers for the model
 
 ```python
-
 # The first layer is the PixelCNN layer. This layer simply
 # builds on the 2D convolutional layer, but includes masking.
 class PixelConvLayer(layers.Layer):
@@ -138,7 +137,7 @@ pixel_cnn.fit(
 )
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 Model: "functional_1"
@@ -332,7 +331,7 @@ display(Image("generated_image_2.png"))
 display(Image("generated_image_3.png"))
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 100%|███████████████████████████████████████████████████████████████████████████| 28/28 [00:06<00:00,  4.51it/s]

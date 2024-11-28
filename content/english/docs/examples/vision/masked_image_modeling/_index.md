@@ -7,10 +7,10 @@ type: docs
 
 {{< keras/original checkedAt="2024-11-21" >}}
 
-**Author:** [Aritra Roy Gosthipaty](https://twitter.com/arig23498), [Sayak Paul](https://twitter.com/RisingSayak)  
-**Date created:** 2021/12/20  
-**Last modified:** 2021/12/21  
-**Description:** Implementing Masked Autoencoders for self-supervised pretraining.
+**{{< t f_author >}}** [Aritra Roy Gosthipaty](https://twitter.com/arig23498), [Sayak Paul](https://twitter.com/RisingSayak)  
+**{{< t f_date_created >}}** 2021/12/20  
+**{{< t f_last_modified >}}** 2021/12/21  
+**{{< t f_description >}}** Implementing Masked Autoencoders for self-supervised pretraining.
 
 {{< keras/version v=2 >}}
 
@@ -123,7 +123,7 @@ test_ds = tf.data.Dataset.from_tensor_slices(x_test)
 test_ds = test_ds.batch(BATCH_SIZE).prefetch(AUTO)
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 Training samples: 40000
@@ -263,7 +263,7 @@ plt.axis("off")
 plt.show()
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 Index selected: 102.
@@ -792,7 +792,7 @@ print(f"Loss: {loss:.2f}")
 print(f"MAE: {mae:.2f}")
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 Epoch 1/100
@@ -1180,7 +1180,7 @@ for layer in downstream_model.layers[:-1]:
 downstream_model.summary()
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 Model: "linear_probe_model"
@@ -1261,7 +1261,7 @@ accuracy = round(accuracy * 100, 2)
 print(f"Accuracy on the test set: {accuracy}%.")
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 Epoch 1/50

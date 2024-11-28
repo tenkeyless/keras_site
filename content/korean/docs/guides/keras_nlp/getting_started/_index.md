@@ -8,10 +8,10 @@ type: docs
 
 {{< keras/original checkedAt="2024-11-19" >}}
 
-**Author:** [Jonathan Bischof](https://github.com/jbischof)  
-**Date created:** 2022/12/15  
-**Last modified:** 2023/07/01  
-**Description:** An introduction to the KerasNLP API.
+**{{< t f_author >}}** [Jonathan Bischof](https://github.com/jbischof)  
+**{{< t f_date_created >}}** 2022/12/15  
+**{{< t f_last_modified >}}** 2023/07/01  
+**{{< t f_description >}}** An introduction to the KerasNLP API.
 
 {{< cards cols="2" >}}
 {{< card link="https://colab.research.google.com/github/keras-team/keras-io/blob/master/guides/ipynb/keras_nlp/getting_started.ipynb" title="Colab" tag="Colab" tagType="warning">}}
@@ -114,7 +114,7 @@ imdb_test = keras.utils.text_dataset_from_directory(
 print(imdb_train.unbatch().take(1).get_single_element())
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
   % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
@@ -142,7 +142,7 @@ classifier = keras_nlp.models.BertClassifier.from_preset("bert_tiny_en_uncased_s
 classifier.predict(["I love modular workflows in keras-nlp!"])
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
  1/1 ━━━━━━━━━━━━━━━━━━━━ 1s 689ms/step
@@ -164,7 +164,7 @@ The output below is \[loss, accuracy\],
 classifier.evaluate(imdb_test)
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
  1563/1563 ━━━━━━━━━━━━━━━━━━━━ 4s 2ms/step - loss: 0.4610 - sparse_categorical_accuracy: 0.7882
@@ -198,7 +198,7 @@ classifier.fit(
 )
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
  1563/1563 ━━━━━━━━━━━━━━━━━━━━ 16s 9ms/step - loss: 0.5202 - sparse_categorical_accuracy: 0.7281 - val_loss: 0.3254 - val_sparse_categorical_accuracy: 0.8621
@@ -256,7 +256,7 @@ classifier.fit(
 )
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 Epoch 1/3
@@ -317,7 +317,7 @@ imdb_test_preprocessed = imdb_test.map(preprocessor, tf.data.AUTOTUNE).prefetch(
 print(imdb_train_preprocessed.unbatch().take(1).get_single_element())
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 ({'token_ids': <tf.Tensor: shape=(64,), dtype=int32, numpy=
@@ -395,7 +395,7 @@ model.fit(
 )
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 Model: "functional_1"
@@ -509,7 +509,7 @@ pretrain_val_ds = imdb_test.map(
 print(pretrain_ds.unbatch().take(1).get_single_element())
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 ({'token_ids': <tf.Tensor: shape=(256,), dtype=int32, numpy=
@@ -654,7 +654,7 @@ pretraining_model.fit(
 )
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 Model: "functional_3"
@@ -753,7 +753,7 @@ imdb_preproc_val_ds = imdb_test.map(
 print(imdb_preproc_train_ds.unbatch().take(1).get_single_element())
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 (<tf.Tensor: shape=(512,), dtype=int32, numpy=
@@ -847,7 +847,7 @@ model = keras.Model(
 model.summary()
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 Model: "functional_5"
@@ -889,7 +889,7 @@ model.fit(
 )
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 Epoch 1/3

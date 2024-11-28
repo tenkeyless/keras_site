@@ -7,10 +7,10 @@ type: docs
 
 {{< keras/original checkedAt="2024-11-19" >}}
 
-**Author:** [Yixing Fu](https://github.com/yixingfu)  
-**Date created:** 2020/06/30  
-**Last modified:** 2023/07/10  
-**Description:** Use EfficientNet with weights pre-trained on imagenet for Stanford Dogs classification.
+**{{< t f_author >}}** [Yixing Fu](https://github.com/yixingfu)  
+**{{< t f_date_created >}}** 2020/06/30  
+**{{< t f_last_modified >}}** 2023/07/10  
+**{{< t f_description >}}** Use EfficientNet with weights pre-trained on imagenet for Stanford Dogs classification.
 
 {{< keras/version v=3 >}}
 
@@ -227,7 +227,7 @@ epochs = 40  # @param {type: "slider", min:10, max:100}
 hist = model.fit(ds_train, epochs=epochs, validation_data=ds_test)
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 Model: "efficientnetb0"
@@ -1112,7 +1112,7 @@ hist = model.fit(ds_train, epochs=epochs, validation_data=ds_test)
 plot_hist(hist)
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 Epoch 1/25
@@ -1199,7 +1199,7 @@ hist = model.fit(ds_train, epochs=epochs, validation_data=ds_test)
 plot_hist(hist)
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 Epoch 1/4

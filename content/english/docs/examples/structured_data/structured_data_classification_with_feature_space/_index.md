@@ -7,10 +7,10 @@ type: docs
 
 {{< keras/original checkedAt="2024-11-22" >}}
 
-**Author:** [fchollet](https://twitter.com/fchollet)  
-**Date created:** 2022/11/09  
-**Last modified:** 2022/11/09  
-**Description:** Classify tabular data in a few lines of code.
+**{{< t f_author >}}** [fchollet](https://twitter.com/fchollet)  
+**{{< t f_date_created >}}** 2022/11/09  
+**{{< t f_last_modified >}}** 2022/11/09  
+**{{< t f_description >}}** Classify tabular data in a few lines of code.
 
 {{< keras/version v=3 >}}
 
@@ -76,7 +76,7 @@ The dataset includes 303 samples with 14 columns per sample (13 features, plus t
 print(dataframe.shape)
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 (303, 14)
@@ -112,7 +112,7 @@ print(
 )
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 Using 242 samples for training and 61 for validation
@@ -143,7 +143,7 @@ for x, y in train_ds.take(1):
     print("Target:", y)
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 Input: {'age': <tf.Tensor: shape=(), dtype=int64, numpy=65>, 'sex': <tf.Tensor: shape=(), dtype=int64, numpy=1>, 'cp': <tf.Tensor: shape=(), dtype=int64, numpy=1>, 'trestbps': <tf.Tensor: shape=(), dtype=int64, numpy=138>, 'chol': <tf.Tensor: shape=(), dtype=int64, numpy=282>, 'fbs': <tf.Tensor: shape=(), dtype=int64, numpy=1>, 'restecg': <tf.Tensor: shape=(), dtype=int64, numpy=2>, 'thalach': <tf.Tensor: shape=(), dtype=int64, numpy=174>, 'exang': <tf.Tensor: shape=(), dtype=int64, numpy=0>, 'oldpeak': <tf.Tensor: shape=(), dtype=float64, numpy=1.4>, 'slope': <tf.Tensor: shape=(), dtype=int64, numpy=2>, 'ca': <tf.Tensor: shape=(), dtype=int64, numpy=1>, 'thal': <tf.Tensor: shape=(), dtype=string, numpy=b'normal'>}
@@ -265,7 +265,7 @@ for x, _ in train_ds.take(1):
     print("preprocessed_x.dtype:", preprocessed_x.dtype)
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 preprocessed_x.shape: (32, 138)
@@ -340,7 +340,7 @@ training_model.fit(
 )
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 Epoch 1/20
@@ -421,7 +421,7 @@ print(
 )
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
  1/1 ━━━━━━━━━━━━━━━━━━━━ 0s 273ms/step

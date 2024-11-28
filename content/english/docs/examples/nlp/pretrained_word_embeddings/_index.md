@@ -7,10 +7,10 @@ type: docs
 
 {{< keras/original checkedAt="2024-11-21" >}}
 
-**Author:** [fchollet](https://twitter.com/fchollet)  
-**Date created:** 2020/05/05  
-**Last modified:** 2020/05/05  
-**Description:** Text classification on the Newsgroup20 dataset using pre-trained GloVe word embeddings.
+**{{< t f_author >}}** [fchollet](https://twitter.com/fchollet)  
+**{{< t f_date_created >}}** 2020/05/05  
+**{{< t f_last_modified >}}** 2020/05/05  
+**{{< t f_description >}}** Text classification on the Newsgroup20 dataset using pre-trained GloVe word embeddings.
 
 {{< keras/version v=3 >}}
 
@@ -65,7 +65,7 @@ print("Number of files in comp.graphics:", len(fnames))
 print("Some example filenames:", fnames[:5])
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 Number of directories: 20
@@ -82,7 +82,7 @@ Here's a example of what one file contains:
 print(open(data_dir / "comp.graphics" / "38987").read())
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 Newsgroups: comp.graphics
@@ -140,7 +140,7 @@ print("Classes:", class_names)
 print("Number of samples:", len(samples))
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 Processing alt.atheism, 1000 files found
@@ -208,7 +208,7 @@ You can retrieve the computed vocabulary used via `vectorizer.get_vocabulary()`.
 vectorizer.get_vocabulary()[:5]
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 ['', '[UNK]', 'the', 'to', 'of']
@@ -223,7 +223,7 @@ output = vectorizer([["the cat sat on the mat"]])
 output.numpy()[0, :6]
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 array([   2, 3480, 1818,   15,    2, 5830])
@@ -247,7 +247,7 @@ test = ["the", "cat", "sat", "on", "the", "mat"]
 [word_index[w] for w in test]
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 [2, 3480, 1818, 15, 2, 5830]
@@ -266,7 +266,7 @@ You'll need to run the following commands:
 !unzip -q glove.6B.zip
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 --2023-11-19 22:45:27--  https://downloads.cs.stanford.edu/nlp/data/glove.6B.zip
@@ -298,7 +298,7 @@ with open(path_to_glove_file) as f:
 print("Found %s word vectors." % len(embeddings_index))
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 Found 400000 word vectors.
@@ -328,7 +328,7 @@ for word, i in word_index.items():
 print("Converted %d words (%d misses)" % (hits, misses))
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 Converted 18021 words (1979 misses)
@@ -372,7 +372,7 @@ model = keras.Model(int_sequences_input, preds)
 model.summary()
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 Model: "functional_1"
@@ -430,7 +430,7 @@ model.compile(
 model.fit(x_train, y_train, batch_size=128, epochs=20, validation_data=(x_val, y_val))
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 Epoch 1/20
@@ -505,7 +505,7 @@ probabilities = end_to_end_model(
 print(class_names[np.argmax(probabilities[0])])
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 comp.graphics

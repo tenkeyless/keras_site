@@ -8,10 +8,10 @@ type: docs
 
 {{< keras/original checkedAt="2024-11-18" >}}
 
-**Author:** [fchollet](https://twitter.com/fchollet)  
-**Date created:** 2023/07/11  
-**Last modified:** 2023/07/11  
-**Description:** Guide to multi-GPU/TPU training for Keras models with JAX.
+**{{< t f_author >}}** [fchollet](https://twitter.com/fchollet)  
+**{{< t f_date_created >}}** 2023/07/11  
+**{{< t f_last_modified >}}** 2023/07/11  
+**{{< t f_description >}}** Guide to multi-GPU/TPU training for Keras models with JAX.
 
 {{< cards cols="2" >}}
 {{< card link="https://colab.research.google.com/github/keras-team/keras-io/blob/master/guides/ipynb/distributed_training_with_jax.ipynb" title="Colab" tag="Colab" tagType="warning">}}
@@ -236,7 +236,7 @@ for variable, value in zip(model.non_trainable_variables, non_trainable_variable
     variable.assign(value)
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 x_train shape: (60000, 28, 28, 1)

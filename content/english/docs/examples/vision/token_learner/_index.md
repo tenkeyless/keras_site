@@ -8,9 +8,9 @@ type: docs
 {{< keras/original checkedAt="2024-11-21" >}}
 
 **Authors:** [Aritra Roy Gosthipaty](https://twitter.com/ariG23498), [Sayak Paul](https://twitter.com/RisingSayak) (equal contribution), converted to Keras 3 by [Muhammad Anas Raza](https://anasrz.com)  
-**Date created:** 2021/12/10  
-**Last modified:** 2023/08/14  
-**Description:** Adaptively generating a smaller number of tokens for Vision Transformers.
+**{{< t f_date_created >}}** 2021/12/10  
+**{{< t f_last_modified >}}** 2023/08/14  
+**{{< t f_description >}}** Adaptively generating a smaller number of tokens for Vision Transformers.
 
 {{< keras/version v=3 >}}
 
@@ -114,7 +114,7 @@ test_ds = tf_data.Dataset.from_tensor_slices((x_test, y_test))
 test_ds = test_ds.batch(BATCH_SIZE).prefetch(AUTO)
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 Training samples: 40000
@@ -400,7 +400,7 @@ vit_token_learner = create_vit_classifier()
 run_experiment(vit_token_learner)
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
  157/157 ━━━━━━━━━━━━━━━━━━━━ 303s 2s/step - accuracy: 0.1158 - loss: 2.4798 - top-5-accuracy: 0.5352 - val_accuracy: 0.2206 - val_loss: 2.0292 - val_top-5-accuracy: 0.7688

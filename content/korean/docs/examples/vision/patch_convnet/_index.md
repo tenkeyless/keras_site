@@ -7,10 +7,10 @@ type: docs
 
 {{< keras/original checkedAt="2024-11-21" >}}
 
-**Author:** [Aritra Roy Gosthipaty](https://twitter.com/ariG23498)  
-**Date created:** 2022/01/22  
-**Last modified:** 2022/01/22  
-**Description:** Building a patch-convnet architecture and visualizing its attention maps.
+**{{< t f_author >}}** [Aritra Roy Gosthipaty](https://twitter.com/ariG23498)  
+**{{< t f_date_created >}}** 2022/01/22  
+**{{< t f_last_modified >}}** 2022/01/22  
+**{{< t f_description >}}** Building a patch-convnet architecture and visualizing its attention maps.
 
 {{< keras/version v=3 >}}
 
@@ -102,7 +102,7 @@ test_ds = tf_data.Dataset.from_tensor_slices((x_test, y_test))
 test_ds = test_ds.batch(BATCH_SIZE).prefetch(AUTO)
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 Downloading data from https://www.cs.toronto.edu/~kriz/cifar-10-python.tar.gz
@@ -508,7 +508,6 @@ class TrainMonitor(keras.callbacks.Callback):
 ## Learning rate schedule
 
 ```python
-
 class WarmUpCosine(keras.optimizers.schedules.LearningRateSchedule):
     def __init__(
         self, learning_rate_base, total_steps, warmup_learning_rate, warmup_steps
@@ -565,7 +564,6 @@ scheduled_lrs = WarmUpCosine(
 We build the model, compile it, and train it.
 
 ```python
-
 train_augmentation_model = get_train_augmentation_model()
 preprocessing_model = get_preprocessing()
 conv_stem = build_convolutional_stem(dimensions=DIMENSIONS)
@@ -609,7 +607,7 @@ print(f"Top 1 test accuracy: {acc_top1*100:0.2f}%")
 print(f"Top 5 test accuracy: {acc_top5*100:0.2f}%")
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 Epoch 1/50

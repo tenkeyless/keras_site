@@ -8,10 +8,10 @@ math: true
 
 {{< keras/original checkedAt="2024-11-23" >}}
 
-**Author:** [akensert](https://github.com/akensert)  
-**Date created:** 2021/06/30  
-**Last modified:** 2021/06/30  
-**Description:** Complete implementation of WGAN-GP with R-GCN to generate novel molecules.
+**{{< t f_author >}}** [akensert](https://github.com/akensert)  
+**{{< t f_date_created >}}** 2021/06/30  
+**{{< t f_last_modified >}}** 2021/06/30  
+**{{< t f_description >}}** Complete implementation of WGAN-GP with R-GCN to generate novel molecules.
 
 {{< keras/version v=2 >}}
 
@@ -88,7 +88,7 @@ print("Num heavy atoms:", molecule.GetNumHeavyAtoms())
 molecule
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 SMILES: Cn1cncc1O
@@ -227,7 +227,7 @@ print("adjacency_tensor.shape =", adjacency_tensor.shape)
 print("feature_tensor.shape =", feature_tensor.shape)
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 adjacency_tensor.shape = (13389, 5, 9, 9)
@@ -282,7 +282,7 @@ generator = GraphGenerator(
 generator.summary()
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 Model: "Generator"
@@ -441,7 +441,7 @@ discriminator = GraphDiscriminator(
 discriminator.summary()
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 Model: "model"
@@ -608,7 +608,7 @@ wgan.compile(
 wgan.fit([adjacency_tensor, feature_tensor], epochs=10, batch_size=16)
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 Epoch 1/10

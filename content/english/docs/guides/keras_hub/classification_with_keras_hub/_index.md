@@ -8,10 +8,10 @@ type: docs
 
 {{< keras/original checkedAt="2024-11-19" >}}
 
-**Author:** [Gowtham Paimagam](https://github.com/gowthamkpr), [lukewood](https://lukewood.xyz)  
-**Date created:** 09/24/2024  
-**Last modified:** 10/22/2024  
-**Description:** Use KerasHub to train powerful image classifiers.
+**{{< t f_author >}}** [Gowtham Paimagam](https://github.com/gowthamkpr), [lukewood](https://lukewood.xyz)  
+**{{< t f_date_created >}}** 09/24/2024  
+**{{< t f_last_modified >}}** 10/22/2024  
+**{{< t f_description >}}** Use KerasHub to train powerful image classifiers.
 
 {{< cards cols="2" >}}
 {{< card link="https://colab.research.google.com/github/keras-team/keras-io/blob/master/guides/ipynb/keras_hub/classification_with_keras_hub.ipynb" title="Colab" tag="Colab" tagType="warning">}}
@@ -61,7 +61,7 @@ import tensorflow as tf
 import tensorflow_datasets as tfds
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 ['',
@@ -132,7 +132,7 @@ Next, let's get some predictions from our classifier:
 predictions = classifier.predict(image)
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 1/1 ━━━━━━━━━━━━━━━━━━━━ 0s 12s/step
@@ -149,7 +149,7 @@ Predictions come in the form of softmax-ed category rankings. We can use Keras' 
 print(f"Top two classes are:\n{decode_predictions(predictions, top=2)}")
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 Downloading data from https://storage.googleapis.com/download.tensorflow.org/data/imagenet_class_index.json
@@ -236,7 +236,7 @@ Here our classifier is just a simple [`keras.Sequential`]({{< relref "/docs/api/
 model.fit(train_dataset)
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 1/727 [37m━━━━━━━━━━━━━━━━━━━━ 4:54:54 24s/step - accuracy: 0.5312 - loss: 4.9475 2/727 [37m━━━━━━━━━━━━━━━━━━━━ 2:59 247ms/step - accuracy: 0.5469 - loss: 4.9475
@@ -260,7 +260,7 @@ classes = {0: "cat", 1: "dog"}
 print("Top class is:", classes[predictions[0].argmax()])
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 1/1 ━━━━━━━━━━━━━━━━━━━━ 0s 2s/step
@@ -585,7 +585,7 @@ model.fit(
 )
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 

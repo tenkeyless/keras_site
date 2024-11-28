@@ -9,9 +9,9 @@ type: docs
 {{< keras/original checkedAt="2024-11-18" >}}
 
 **Authors:** Rick Chao, Francois Chollet  
-**Date created:** 2019/03/20  
-**Last modified:** 2023/06/25  
-**Description:** Complete guide to writing new Keras callbacks.
+**{{< t f_date_created >}}** 2019/03/20  
+**{{< t f_last_modified >}}** 2023/06/25  
+**{{< t f_description >}}** Complete guide to writing new Keras callbacks.
 
 {{< cards cols="2" >}}
 {{< card link="https://colab.research.google.com/github/keras-team/keras-io/blob/master/guides/ipynb/writing_your_own_callbacks.ipynb" title="Colab" tag="Colab" tagType="warning">}}
@@ -193,7 +193,7 @@ res = model.evaluate(
 res = model.predict(x_test, batch_size=128, callbacks=[CustomCallback()])
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 Starting training; got log keys: []
@@ -303,7 +303,7 @@ res = model.evaluate(
 )
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 Up to batch 0, the average loss is   29.25.
@@ -413,7 +413,7 @@ model.fit(
 )
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 Up to batch 0, the average loss is   25.57.
@@ -540,7 +540,7 @@ model.fit(
 )
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 Epoch 0: Learning rate is 0.10000000149011612.

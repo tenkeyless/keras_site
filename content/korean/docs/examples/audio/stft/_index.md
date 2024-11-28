@@ -7,10 +7,10 @@ type: docs
 
 {{< keras/original checkedAt="2024-11-23" >}}
 
-**Author:** [Mostafa M. Amin](https://mostafa-amin.com)  
-**Date created:** 2024/10/04  
-**Last modified:** 2024/10/04  
-**Description:** Introducing the `STFTSpectrogram` layer to extract spectrograms for audio classification.
+**{{< t f_author >}}** [Mostafa M. Amin](https://mostafa-amin.com)  
+**{{< t f_date_created >}}** 2024/10/04  
+**{{< t f_last_modified >}}** 2024/10/04  
+**{{< t f_description >}}** Introducing the `STFTSpectrogram` layer to extract spectrograms for audio classification.
 
 {{< keras/version v=2 >}}
 
@@ -78,7 +78,7 @@ keras.utils.get_file(
 )
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 './datasets/esc-50_extracted'
@@ -277,7 +277,7 @@ model1d.compile(
 model1d.summary()
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 Model: "model_1d_non_trainble_stft"
@@ -343,7 +343,7 @@ history_model1d = model1d.fit(
 )
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 Epoch 1/200
@@ -792,7 +792,7 @@ model2d.compile(
 model2d.summary()
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 <ipython-input-16-bf7092b3c6d2>:17: UserWarning: `input_shape` is undefined or non-square, or `rows` is not in [128, 160, 192, 224]. Weights for input shape (224, 224) will be loaded as the default.
@@ -857,7 +857,7 @@ history_model2d = model2d.fit(
 )
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 Epoch 1/200
@@ -1331,7 +1331,7 @@ _, test_acc = model1d.evaluate(test_x, test_y)
 print(f"1D model wit non-trainable STFT -> Test Accuracy: {test_acc * 100:.2f}%")
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 [1m3/3[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m3s[0m 307ms/step - accuracy: 0.8148 - loss: 0.6244
@@ -1345,7 +1345,7 @@ _, test_acc = model2d.evaluate(test_x, test_y)
 print(f"2D model with trainable STFT -> Test Accuracy: {test_acc * 100:.2f}%")
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 [1m3/3[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m17s[0m 546ms/step - accuracy: 0.9195 - loss: 0.5271

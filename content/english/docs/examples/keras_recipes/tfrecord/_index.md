@@ -7,10 +7,10 @@ type: docs
 
 {{< keras/original checkedAt="2024-11-24" >}}
 
-**Author:** Amy MiHyun Jang  
-**Date created:** 2020/07/29  
-**Last modified:** 2020/08/07  
-**Description:** Loading TFRecords for computer vision models.
+**{{< t f_author >}}** Amy MiHyun Jang  
+**{{< t f_date_created >}}** 2020/07/29  
+**{{< t f_last_modified >}}** 2020/08/07  
+**{{< t f_description >}}** Loading TFRecords for computer vision models.
 
 {{< keras/version v=2 >}}
 
@@ -39,7 +39,7 @@ except:
 print("Number of replicas:", strategy.num_replicas_in_sync)
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 Number of replicas: 8
@@ -69,7 +69,7 @@ print("Validation TFRecord Files:", len(VALID_FILENAMES))
 print("Test TFRecord Files:", len(TEST_FILENAMES))
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 Train TFRecord Files: 14
@@ -242,7 +242,7 @@ history = model.fit(
 )
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 Downloading data from https://storage.googleapis.com/tensorflow/keras-applications/xception/xception_weights_tf_dim_ordering_tf_kernels_notop.h5

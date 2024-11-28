@@ -8,10 +8,10 @@ math: true
 
 {{< keras/original checkedAt="2024-11-21" >}}
 
-**Author:** [Aritra Roy Gosthipaty](https://twitter.com/ariG23498), [Suvaditya Mukherjee](https://twitter.com/halcyonrayes)  
-**Date created:** 2023/03/12  
-**Last modified:** 2024/11/12  
-**Description:** Image Classification with Temporal Latent Bottleneck Networks.
+**{{< t f_author >}}** [Aritra Roy Gosthipaty](https://twitter.com/ariG23498), [Suvaditya Mukherjee](https://twitter.com/halcyonrayes)  
+**{{< t f_date_created >}}** 2023/03/12  
+**{{< t f_last_modified >}}** 2024/11/12  
+**{{< t f_description >}}** Image Classification with Temporal Latent Bottleneck Networks.
 
 {{< keras/version v=2 >}}
 
@@ -676,7 +676,7 @@ history = model.fit(
 )
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ````plain
 Epoch 1/30

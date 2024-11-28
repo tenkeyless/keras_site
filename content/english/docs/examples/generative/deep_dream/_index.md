@@ -7,10 +7,10 @@ type: docs
 
 {{< keras/original checkedAt="2024-11-23" >}}
 
-**Author:** [fchollet](https://twitter.com/fchollet)  
-**Date created:** 2016/01/13  
-**Last modified:** 2020/05/02  
-**Description:** Generating Deep Dreams with Keras.
+**{{< t f_author >}}** [fchollet](https://twitter.com/fchollet)  
+**{{< t f_date_created >}}** 2016/01/13  
+**{{< t f_last_modified >}}** 2020/05/02  
+**{{< t f_description >}}** Generating Deep Dreams with Keras.
 
 {{< keras/version v=3 >}}
 
@@ -196,7 +196,7 @@ for i, shape in enumerate(successive_shapes):
 keras.utils.save_img(result_prefix + ".png", deprocess_image(img.numpy()))
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 Processing octave 0 with shape (326, 489)

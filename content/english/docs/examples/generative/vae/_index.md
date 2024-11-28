@@ -7,10 +7,10 @@ type: docs
 
 {{< keras/original checkedAt="2024-11-23" >}}
 
-**Author:** [fchollet](https://twitter.com/fchollet)  
-**Date created:** 2020/05/03  
-**Last modified:** 2024/04/24  
-**Description:** Convolutional Variational AutoEncoder (VAE) trained on MNIST digits.
+**{{< t f_author >}}** [fchollet](https://twitter.com/fchollet)  
+**{{< t f_date_created >}}** 2020/05/03  
+**{{< t f_last_modified >}}** 2024/04/24  
+**{{< t f_description >}}** Convolutional Variational AutoEncoder (VAE) trained on MNIST digits.
 
 {{< keras/version v=3 >}}
 
@@ -68,7 +68,7 @@ encoder = keras.Model(encoder_inputs, [z_mean, z_log_var, z], name="encoder")
 encoder.summary()
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 Model: "encoder"
@@ -114,7 +114,7 @@ decoder = keras.Model(latent_inputs, decoder_outputs, name="decoder")
 decoder.summary()
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 Model: "decoder"
@@ -202,7 +202,7 @@ vae.compile(optimizer=keras.optimizers.Adam())
 vae.fit(mnist_digits, epochs=30, batch_size=128)
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 Epoch 1/30
@@ -348,7 +348,7 @@ x_train = np.expand_dims(x_train, -1).astype("float32") / 255
 plot_label_clusters(vae, x_train, y_train)
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 W0000 00:00:1700704481.358429 3339856 graph_launch.cc:671] Fallback to op-by-op mode because memset node breaks graph update

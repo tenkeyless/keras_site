@@ -8,10 +8,10 @@ math: true
 
 {{< keras/original checkedAt="2024-11-21" >}}
 
-**Author:** [Aritra Roy Gosthipaty](https://twitter.com/ariG23498), [Ritwik Raha](https://twitter.com/ritwik_raha)  
-**Date created:** 2023/01/25  
-**Last modified:** 2023/02/15  
-**Description:** Image classification with Focal Modulation Networks.
+**{{< t f_author >}}** [Aritra Roy Gosthipaty](https://twitter.com/ariG23498), [Ritwik Raha](https://twitter.com/ritwik_raha)  
+**{{< t f_date_created >}}** 2023/01/25  
+**{{< t f_last_modified >}}** 2023/02/15  
+**{{< t f_description >}}** Image classification with Focal Modulation Networks.
 
 {{< keras/version v=2 >}}
 
@@ -111,7 +111,7 @@ EPOCHS = 25
 )
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 Downloading data from https://www.cs.toronto.edu/~kriz/cifar-10-python.tar.gz
@@ -174,7 +174,7 @@ test_ds = (
 )
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 WARNING:tensorflow:From /usr/local/lib/python3.8/dist-packages/tensorflow/python/autograph/pyct/static_analysis/liveness.py:83: Analyzer.lamba_check (from tensorflow.python.autograph.pyct.static_analysis.liveness) is deprecated and will be removed after 2023-09-23.
@@ -533,7 +533,6 @@ class FocalModulationLayer(layers.Layer):
 Finally, we have all the components we need to build the Focal Modulation block. Here we take the MLP and Focal Modulation layer together and build the Focal Modulation block.
 
 ```python
-
 class FocalModulationBlock(layers.Layer):
     """Combine FFN and Focal Modulation Layer.
 
@@ -958,7 +957,7 @@ history = focal_mod_net.fit(
 )
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 Epoch 1/25

@@ -8,10 +8,10 @@ math: true
 
 {{< keras/original checkedAt="2024-11-21" >}}
 
-**Author:** [Sayak Paul](https://twitter.com/RisingSayak)  
-**Date created:** 2022/09/19  
-**Last modified:** 2022/11/21  
-**Description:** Implementing an image transformer equipped with Class Attention and LayerScale.
+**{{< t f_author >}}** [Sayak Paul](https://twitter.com/RisingSayak)  
+**{{< t f_date_created >}}** 2022/09/19  
+**{{< t f_last_modified >}}** 2022/11/21  
+**{{< t f_description >}}** Implementing an image transformer equipped with Class Attention and LayerScale.
 
 {{< keras/version v=3 >}}
 
@@ -789,7 +789,7 @@ predicted_label = imagenet_labels[int(np.argmax(logits))]
 print(predicted_label)
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 
@@ -814,7 +814,7 @@ print("Shape of the attention scores from a class attention block:")
 print(ca_ffn_block_0_att.shape)
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 Shape of the attention scores from a class attention block:

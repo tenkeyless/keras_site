@@ -7,10 +7,10 @@ type: docs
 
 {{< keras/original checkedAt="2024-11-20" >}}
 
-**Author:** Gitesh Chawda  
-**Date created:** 2022/04/07  
-**Last modified:** 2024/08/27  
-**Description:** Training an EDSR model on the DIV2K Dataset.
+**{{< t f_author >}}** Gitesh Chawda  
+**{{< t f_date_created >}}** 2022/04/07  
+**{{< t f_last_modified >}}** 2024/08/27  
+**{{< t f_description >}}** Training an EDSR model on the DIV2K Dataset.
 
 {{< keras/version v=3 >}}
 
@@ -312,7 +312,7 @@ model.compile(optimizer=optim_edsr, loss="mae", metrics=[PSNR])
 model.fit(train_ds, epochs=100, steps_per_epoch=200, validation_data=val_ds)
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 Epoch 1/100

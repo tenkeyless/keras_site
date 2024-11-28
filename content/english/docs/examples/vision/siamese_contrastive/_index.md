@@ -7,10 +7,10 @@ type: docs
 
 {{< keras/original checkedAt="2024-11-21" >}}
 
-**Author:** Mehdi  
-**Date created:** 2021/05/06  
-**Last modified:** 2022/09/10  
-**Description:** Similarity learning using a siamese network trained with a contrastive loss.
+**{{< t f_author >}}** Mehdi  
+**{{< t f_date_created >}}** 2021/05/06  
+**{{< t f_last_modified >}}** 2022/09/10  
+**{{< t f_description >}}** Similarity learning using a siamese network trained with a contrastive loss.
 
 {{< keras/version v=3 >}}
 
@@ -334,7 +334,7 @@ siamese.compile(loss=loss(margin=margin), optimizer="RMSprop", metrics=["accurac
 siamese.summary()
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 Model: "functional_3"
@@ -377,7 +377,7 @@ history = siamese.fit(
 )
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 Epoch 1/10
@@ -447,7 +447,7 @@ results = siamese.evaluate([x_test_1, x_test_2], labels_test)
 print("test loss, test acc:", results)
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
  625/625 ━━━━━━━━━━━━━━━━━━━━ 1s 1ms/step - accuracy: 0.8068 - loss: 0.1439
@@ -464,7 +464,7 @@ predictions = siamese.predict([x_test_1, x_test_2])
 visualize(pairs_test, labels_test, to_show=3, predictions=predictions, test=True)
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
  625/625 ━━━━━━━━━━━━━━━━━━━━ 1s 619us/step

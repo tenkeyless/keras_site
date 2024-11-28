@@ -7,10 +7,10 @@ type: docs
 
 {{< keras/original checkedAt="2024-11-21" >}}
 
-**Author:** [fchollet](https://twitter.com/fchollet)  
-**Date created:** 2021/05/26  
-**Last modified:** 2023/02/25  
-**Description:** Implementing a sequence-to-sequence Transformer and training it on a machine translation task.
+**{{< t f_author >}}** [fchollet](https://twitter.com/fchollet)  
+**{{< t f_date_created >}}** 2021/05/26  
+**{{< t f_last_modified >}}** 2023/02/25  
+**{{< t f_description >}}** Implementing a sequence-to-sequence Transformer and training it on a machine translation task.
 
 {{< keras/version v=3 >}}
 
@@ -97,7 +97,7 @@ for _ in range(5):
     print(random.choice(text_pairs))
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 ("On Saturday nights, it's difficult to find parking around here.", '[start] Los sábados por la noche es difícil encontrar aparcamiento por aquí. [end]')
@@ -125,7 +125,7 @@ print(f"{len(val_pairs)} validation pairs")
 print(f"{len(test_pairs)} test pairs")
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 118964 total pairs
@@ -221,7 +221,7 @@ for inputs, targets in train_ds.take(1):
     print(f"targets.shape: {targets.shape}")
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 inputs["encoder_inputs"].shape: (64, 20)
@@ -439,7 +439,7 @@ transformer.compile(
 transformer.fit(train_ds, epochs=epochs, validation_data=val_ds)
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 Model: "transformer"

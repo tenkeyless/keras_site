@@ -7,10 +7,10 @@ type: docs
 
 {{< keras/original checkedAt="2024-11-23" >}}
 
-**Author:** [Apoorv Nandan](https://twitter.com/NandanApoorv)  
-**Date created:** 2021/01/13  
-**Last modified:** 2021/01/13  
-**Description:** Training a sequence-to-sequence Transformer for automatic speech recognition.
+**{{< t f_author >}}** [Apoorv Nandan](https://twitter.com/NandanApoorv)  
+**{{< t f_date_created >}}** 2021/01/13  
+**{{< t f_last_modified >}}** 2021/01/13  
+**{{< t f_description >}}** Training a sequence-to-sequence Transformer for automatic speech recognition.
 
 {{< keras/version v=3 >}}
 
@@ -309,7 +309,7 @@ def get_data(wavs, id_to_text, maxlen=50):
     return data
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 Downloading data from https://data.keithito.com/data/speech/LJSpeech-1.1.tar.bz2
@@ -400,7 +400,7 @@ ds = create_tf_dataset(train_data, bs=64)
 val_ds = create_tf_dataset(test_data, bs=4)
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 vocab size 34
@@ -528,7 +528,7 @@ model.compile(optimizer=optimizer, loss=loss_fn)
 history = model.fit(ds, validation_data=val_ds, callbacks=[display_cb], epochs=1)
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
    1/203 [37m━━━━━━━━━━━━━━━━━━━━  9:20:11 166s/step - loss: 2.2387
@@ -569,7 +569,7 @@ In practice, you should train for around 100 epochs or more.
 
 Some of the predicted text at or around epoch 35 may look as follows:
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 target:     <as they sat in the car, frazier asked oswald where his lunch was>

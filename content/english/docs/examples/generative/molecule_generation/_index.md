@@ -8,10 +8,10 @@ math: true
 
 {{< keras/original checkedAt="2024-11-23" >}}
 
-**Author:** [Victor Basu](https://www.linkedin.com/in/victor-basu-520958147)  
-**Date created:** 2022/03/10  
-**Last modified:** 2022/03/24  
-**Description:** Implementing a Convolutional Variational AutoEncoder (VAE) for Drug Discovery.
+**{{< t f_author >}}** [Victor Basu](https://www.linkedin.com/in/victor-basu-520958147)  
+**{{< t f_date_created >}}** 2022/03/10  
+**{{< t f_last_modified >}}** 2022/03/24  
+**{{< t f_description >}}** Implementing a Convolutional Variational AutoEncoder (VAE) for Drug Discovery.
 
 {{< keras/version v=2 >}}
 
@@ -64,7 +64,7 @@ from rdkit.Chem.Draw import MolsToGridImage
 RDLogger.DisableLog("rdApp.*")
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 [K     |████████████████████████████████| 20.6 MB 1.2 MB/s
@@ -89,7 +89,7 @@ df["smiles"] = df["smiles"].apply(lambda s: s.replace("\n", ""))
 df.head()
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 Downloading data from https://raw.githubusercontent.com/aspuru-guzik-group/chemical_vae/master/models/zinc_properties/250k_rndm_zinc_drugs_clean_3.csv
@@ -109,7 +109,6 @@ Downloading data from https://raw.githubusercontent.com/aspuru-guzik-group/chemi
 ## Hyperparameters
 
 ```python
-
 SMILE_CHARSET = '["C", "B", "F", "I", "H", "O", "N", "S", "P", "Cl", "Br"]'
 
 bond_mapping = {"SINGLE": 0, "DOUBLE": 1, "TRIPLE": 2, "AROMATIC": 3}
@@ -528,7 +527,7 @@ model.compile(vae_optimizer)
 history = model.fit([adjacency_tensor, feature_tensor, qed_tensor], epochs=EPOCHS)
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 Epoch 1/10

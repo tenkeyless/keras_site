@@ -7,10 +7,10 @@ type: docs
 
 {{< keras/original checkedAt="2024-11-24" >}}
 
-**Author:** [lukewood](https://lukewood.xyz)  
-**Date created:** 2021/08/28  
-**Last modified:** 2021/08/28  
-**Description:** Overview of how to use the TensorFlow NumPy API to write Keras models.
+**{{< t f_author >}}** [lukewood](https://lukewood.xyz)  
+**{{< t f_date_created >}}** 2021/08/28  
+**{{< t f_last_modified >}}** 2021/08/28  
+**{{< t f_description >}}** Overview of how to use the TensorFlow NumPy API to write Keras models.
 
 {{< keras/version v=3 >}}
 
@@ -59,7 +59,7 @@ def evaluate_model(model: keras.Model):
     print("Mean absolute percent error after training:", percent_error)
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 Downloading data from https://storage.googleapis.com/tensorflow/tf-keras-datasets/california_housing.npz
@@ -140,7 +140,7 @@ model.compile(
 evaluate_model(model)
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 WARNING: All log messages before absl::InitializeLog() is called are written to STDERR
@@ -171,7 +171,7 @@ model.compile(
 evaluate_model(model)
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 Mean absolute percent error before training:  99.99896240234375
@@ -238,7 +238,7 @@ model.summary()
 evaluate_model(model)
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 Model: "sequential"
@@ -290,7 +290,7 @@ model.summary()
 evaluate_model(model)
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 Model: "sequential_1"
@@ -342,7 +342,7 @@ with strategy.scope():
     evaluate_model(model)
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 INFO:tensorflow:Using MirroredStrategy with devices ('/job:localhost/replica:0/task:0/device:GPU:0',)
@@ -409,7 +409,7 @@ for model, model_name in models:
     )
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 /opt/conda/envs/keras-tensorflow/lib/python3.10/site-packages/keras/src/callbacks/tensorboard.py:676: UserWarning: Model failed to serialize as JSON. Ignoring... Invalid format specifier

@@ -7,10 +7,10 @@ type: docs
 
 {{< keras/original checkedAt="2024-11-22" >}}
 
-**Author:** [hfawaz](https://github.com/hfawaz/)  
-**Date created:** 2020/07/21  
-**Last modified:** 2023/11/10  
-**Description:** Training a timeseries classifier from scratch on the FordA dataset from the UCR/UEA archive.
+**{{< t f_author >}}** [hfawaz](https://github.com/hfawaz/)  
+**{{< t f_date_created >}}** 2020/07/21  
+**{{< t f_last_modified >}}** 2023/11/10  
+**{{< t f_description >}}** Training a timeseries classifier from scratch on the FordA dataset from the UCR/UEA archive.
 
 {{< keras/version v=3 >}}
 
@@ -169,7 +169,7 @@ history = model.fit(
 )
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 Epoch 1/500
@@ -770,7 +770,7 @@ print("Test accuracy", test_acc)
 print("Test loss", test_loss)
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
  42/42 ━━━━━━━━━━━━━━━━━━━━ 1s 13ms/step - loss: 0.0997 - sparse_categorical_accuracy: 0.9687

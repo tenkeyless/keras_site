@@ -7,10 +7,10 @@ type: docs
 
 {{< keras/original checkedAt="2024-11-21" >}}
 
-**Author:** [Sayak Paul](https://twitter.com/RisingSayak)  
-**Date created:** 2021/08/06  
-**Last modified:** 2023/07/22  
-**Description:** Training a video classifier with hybrid transformers.
+**{{< t f_author >}}** [Sayak Paul](https://twitter.com/RisingSayak)  
+**{{< t f_date_created >}}** 2021/08/06  
+**{{< t f_last_modified >}}** 2023/07/22  
+**{{< t f_description >}}** Training a video classifier with hybrid transformers.
 
 {{< keras/version v=3 >}}
 
@@ -37,7 +37,6 @@ As done in the [predecessor]({{< relref "/docs/examples/vision/video_classificat
 ## Setup
 
 ```python
-
 import os
 import keras
 from keras import layers
@@ -187,7 +186,7 @@ def prepare_all_videos(df, root_dir):
     return frame_features, labels
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 Total videos for training: 594
@@ -211,7 +210,7 @@ test_data, test_labels = np.load("test_data.npy"), np.load("test_labels.npy")
 print(f"Frame features in train set: {train_data.shape}")
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 []
@@ -333,7 +332,7 @@ def run_experiment():
 trained_model = run_experiment()
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 Epoch 1/5
@@ -426,7 +425,7 @@ test_frames = predict_action(test_video)
 to_gif(test_frames[:MAX_SEQ_LENGTH])
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 Test video path: v_ShavingBeard_g03_c02.avi

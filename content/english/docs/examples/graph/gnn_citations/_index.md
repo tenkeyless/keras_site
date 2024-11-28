@@ -7,10 +7,10 @@ type: docs
 
 {{< keras/original checkedAt="2024-11-24" >}}
 
-**Author:** [Khalid Salama](https://www.linkedin.com/in/khalid-salama-24403144/)  
-**Date created:** 2021/05/30  
-**Last modified:** 2021/05/30  
-**Description:** Implementing a graph neural network model for predicting the topic of a paper given its citations.
+**{{< t f_author >}}** [Khalid Salama](https://www.linkedin.com/in/khalid-salama-24403144/)  
+**{{< t f_date_created >}}** 2021/05/30  
+**{{< t f_last_modified >}}** 2021/05/30  
+**{{< t f_description >}}** Implementing a graph neural network model for predicting the topic of a paper given its citations.
 
 {{< keras/version v=2 >}}
 
@@ -76,7 +76,7 @@ citations = pd.read_csv(
 print("Citations shape:", citations.shape)
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 Citations shape: (5429, 2)
@@ -108,7 +108,7 @@ papers = pd.read_csv(
 print("Papers shape:", papers.shape)
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 Papers shape: (2708, 1435)
@@ -122,7 +122,7 @@ Now we display a sample of the `papers` DataFrame. The DataFrame includes the `p
 print(papers.sample(5).T)
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
                     1                133                    2425  \
@@ -163,7 +163,7 @@ Let's display the count of the papers in each subject.
 print(papers.subject.value_counts())
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 Neural_Networks           818
@@ -221,7 +221,7 @@ print("Train data shape:", train_data.shape)
 print("Test data shape:", test_data.shape)
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 Train data shape: (1360, 1435)
@@ -343,7 +343,7 @@ baseline_model = create_baseline_model(hidden_units, num_classes, dropout_rate)
 baseline_model.summary()
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 Model: "baseline"
@@ -390,7 +390,7 @@ ________________________________________________________________________________
 history = run_experiment(baseline_model, x_train, y_train)
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 Epoch 1/300
@@ -652,7 +652,7 @@ _, test_accuracy = baseline_model.evaluate(x=x_test, y=y_test, verbose=0)
 print(f"Test accuracy: {round(test_accuracy * 100, 2)}%")
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 Test accuracy: 73.52%
@@ -692,7 +692,7 @@ probabilities = keras.activations.softmax(tf.convert_to_tensor(logits)).numpy()
 display_class_probabilities(probabilities)
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 Instance 1:
@@ -783,7 +783,7 @@ print("Edges shape:", edges.shape)
 print("Nodes shape:", node_features.shape)
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 Edges shape: (2, 5429)
@@ -1018,7 +1018,7 @@ print("GNN output shape:", gnn_model([1, 10, 100]))
 gnn_model.summary()
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 GNN output shape: tf.Tensor(
@@ -1059,7 +1059,7 @@ x_train = train_data.paper_id.to_numpy()
 history = run_experiment(gnn_model, x_train, y_train)
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 Epoch 1/300
@@ -1600,7 +1600,7 @@ _, test_accuracy = gnn_model.evaluate(x=x_test, y=y_test, verbose=0)
 print(f"Test accuracy: {round(test_accuracy * 100, 2)}%")
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 Test accuracy: 80.19%
@@ -1656,7 +1656,7 @@ probabilities = keras.activations.softmax(tf.convert_to_tensor(logits)).numpy()
 display_class_probabilities(probabilities)
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 Original node_features shape: (2708, 1433)

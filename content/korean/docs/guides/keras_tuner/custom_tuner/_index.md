@@ -9,9 +9,9 @@ type: docs
 {{< keras/original checkedAt="2024-11-18" >}}
 
 **Authors:** Tom O'Malley, Haifeng Jin  
-**Date created:** 2019/10/28  
-**Last modified:** 2022/01/12  
-**Description:** Use `HyperModel.fit()` to tune training hyperparameters (such as batch size).
+**{{< t f_date_created >}}** 2019/10/28  
+**{{< t f_last_modified >}}** 2022/01/12  
+**{{< t f_description >}}** Use `HyperModel.fit()` to tune training hyperparameters (such as batch size).
 
 {{< cards cols="2" >}}
 {{< card link="https://colab.research.google.com/github/keras-team/keras-io/blob/master/guides/ipynb/keras_tuner/custom_tuner.ipynb" title="Colab" tag="Colab" tagType="warning">}}
@@ -177,7 +177,7 @@ We start the search by passing the arguments we defined in the signature of `MyH
 tuner.search(x=x_train, y=y_train, validation_data=(x_val, y_val))
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 Trial 2 Complete [00h 00m 02s]
@@ -201,7 +201,7 @@ best_model = tuner.get_best_models()[0]
 best_model.summary()
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 {'units': 128, 'batch_size': 32, 'learning_rate': 0.0034272591820215972}

@@ -7,10 +7,10 @@ type: docs
 
 {{< keras/original checkedAt="2024-11-24" >}}
 
-**Author:** Martin Görner  
-**Date created:** 2023/12/13  
-**Last modified:** 2023/12/13  
-**Description:** When sharing your deep learning models, package them using the Functional Subclassing pattern.
+**{{< t f_author >}}** Martin Görner  
+**{{< t f_date_created >}}** 2023/12/13  
+**{{< t f_last_modified >}}** 2023/12/13  
+**{{< t f_description >}}** When sharing your deep learning models, package them using the Functional Subclassing pattern.
 
 {{< keras/version v=3 >}}
 
@@ -44,7 +44,7 @@ print("Keras version", keras.version())
 print("Keras is running on", keras.config.backend())
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 Keras version 3.0.1
@@ -143,7 +143,7 @@ history = model.fit(
 )
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 Epoch 1/5
@@ -196,7 +196,7 @@ print("\nWalking model layers:\n")
 walk_layers(model)
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 Model: "mnist_model_1"
@@ -273,7 +273,7 @@ binary_model = keras.Model(input, output)
 binary_model.summary()
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 Model: "functional_1"
@@ -331,7 +331,7 @@ history = binary_model.fit(
 )
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 Epoch 1/5
@@ -415,7 +415,7 @@ history = model.fit(
 )
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 Epoch 1/5

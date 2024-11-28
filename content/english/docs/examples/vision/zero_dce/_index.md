@@ -7,10 +7,10 @@ type: docs
 
 {{< keras/original checkedAt="2024-11-20" >}}
 
-**Author:** [Soumik Rakshit](http://github.com/soumik12345)  
-**Date created:** 2021/09/18  
-**Last modified:** 2023/07/15  
-**Description:** Implementing Zero-Reference Deep Curve Estimation for low-light image enhancement.
+**{{< t f_author >}}** [Soumik Rakshit](http://github.com/soumik12345)  
+**{{< t f_date_created >}}** 2021/09/18  
+**{{< t f_last_modified >}}** 2023/07/15  
+**{{< t f_description >}}** Implementing Zero-Reference Deep Curve Estimation for low-light image enhancement.
 
 {{< keras/version v=3 >}}
 
@@ -58,7 +58,7 @@ import tensorflow as tf
 !unzip -q lol_dataset.zip && rm lol_dataset.zip
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 --2023-11-20 20:01:50--  https://huggingface.co/datasets/geekyrakshit/LoL-Dataset/resolve/main/lol_dataset.zip
@@ -121,7 +121,7 @@ print("Train Dataset:", train_dataset)
 print("Validation Dataset:", val_dataset)
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 Train Dataset: <_BatchDataset element_spec=TensorSpec(shape=(16, 256, 256, 3), dtype=tf.float32, name=None)>
@@ -482,7 +482,7 @@ plot_result("color_constancy_loss")
 plot_result("exposure_loss")
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 Epoch 1/100

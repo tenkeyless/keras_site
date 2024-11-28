@@ -7,10 +7,10 @@ type: docs
 
 {{< keras/original checkedAt="2024-11-21" >}}
 
-**Author:** [Sayak Paul](https://twitter.com/RisingSayak)  
-**Date created:** 2021/04/13  
-**Last modified:** 2021/04/19  
-**Description:** Training with consistency regularization for robustness against data distribution shifts.
+**{{< t f_author >}}** [Sayak Paul](https://twitter.com/RisingSayak)  
+**{{< t f_date_created >}}** 2021/04/13  
+**{{< t f_last_modified >}}** 2021/04/19  
+**{{< t f_description >}}** Training with consistency regularization for robustness against data distribution shifts.
 
 {{< keras/version v=2 >}}
 
@@ -222,7 +222,7 @@ _, acc = teacher_model.evaluate(test_ds, verbose=0)
 print(f"Test accuracy: {acc*100}%")
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 Epoch 1/5
@@ -352,7 +352,7 @@ acc = self_trainer.evaluate(test_ds, verbose=0)
 print(f"Test accuracy from student model: {acc*100}%")
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 Epoch 1/5

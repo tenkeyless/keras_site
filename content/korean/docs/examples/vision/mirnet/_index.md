@@ -7,10 +7,10 @@ type: docs
 
 {{< keras/original checkedAt="2024-11-20" >}}
 
-**Author:** [Soumik Rakshit](http://github.com/soumik12345)  
-**Date created:** 2021/09/11  
-**Last modified:** 2023/07/15  
-**Description:** Implementing the MIRNet architecture for low-light image enhancement.
+**{{< t f_author >}}** [Soumik Rakshit](http://github.com/soumik12345)  
+**{{< t f_date_created >}}** 2021/09/11  
+**{{< t f_last_modified >}}** 2023/07/15  
+**{{< t f_description >}}** Implementing the MIRNet architecture for low-light image enhancement.
 
 {{< keras/version v=3 >}}
 
@@ -55,7 +55,7 @@ import tensorflow as tf
 !unzip -q lol_dataset.zip && rm lol_dataset.zip
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 --2023-11-10 23:10:00--  https://huggingface.co/datasets/geekyrakshit/LoL-Dataset/resolve/main/lol_dataset.zip
@@ -153,7 +153,7 @@ print("Train Dataset:", train_dataset.element_spec)
 print("Val Dataset:", val_dataset.element_spec)
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 Train Dataset: (TensorSpec(shape=(4, 128, 128, 3), dtype=tf.float32, name=None), TensorSpec(shape=(4, 128, 128, 3), dtype=tf.float32, name=None))
@@ -429,7 +429,7 @@ plot_history("loss", "Loss")
 plot_history("peak_signal_noise_ratio", "PSNR")
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 Epoch 1/50

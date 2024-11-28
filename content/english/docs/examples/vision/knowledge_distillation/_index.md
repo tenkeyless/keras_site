@@ -7,10 +7,10 @@ type: docs
 
 {{< keras/original checkedAt="2024-11-21" >}}
 
-**Author:** [Kenneth Borup](https://twitter.com/Kennethborup)  
-**Date created:** 2020/09/01  
-**Last modified:** 2020/09/01  
-**Description:** Implementation of classical Knowledge Distillation.
+**{{< t f_author >}}** [Kenneth Borup](https://twitter.com/Kennethborup)  
+**{{< t f_date_created >}}** 2020/09/01  
+**{{< t f_last_modified >}}** 2020/09/01  
+**{{< t f_description >}}** Implementation of classical Knowledge Distillation.
 
 {{< keras/version v=3 >}}
 
@@ -177,7 +177,7 @@ teacher.fit(x_train, y_train, epochs=5)
 teacher.evaluate(x_test, y_test)
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 Epoch 1/5
@@ -220,7 +220,7 @@ distiller.fit(x_train, y_train, epochs=3)
 distiller.evaluate(x_test, y_test)
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 Epoch 1/3
@@ -253,7 +253,7 @@ student_scratch.fit(x_train, y_train, epochs=3)
 student_scratch.evaluate(x_test, y_test)
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 Epoch 1/3

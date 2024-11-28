@@ -7,10 +7,10 @@ type: docs
 
 {{< keras/original checkedAt="2024-11-21" >}}
 
-**Author:** [Smerity](https://twitter.com/Smerity) and others  
-**Date created:** 2015/08/17  
-**Last modified:** 2024/02/13  
-**Description:** A model that learns to add strings of numbers, e.g. "535+61" -> "596".
+**{{< t f_author >}}** [Smerity](https://twitter.com/Smerity) and others  
+**{{< t f_date_created >}}** 2015/08/17  
+**{{< t f_last_modified >}}** 2024/02/13  
+**{{< t f_description >}}** A model that learns to add strings of numbers, e.g. "535+61" -> "596".
 
 {{< keras/version v=3 >}}
 
@@ -148,7 +148,7 @@ while len(questions) < TRAINING_SIZE:
 print("Total questions:", len(questions))
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 Generating data...
@@ -160,7 +160,6 @@ Total questions: 50000
 ## Vectorize the data
 
 ```python
-
 print("Vectorization...")
 x = np.zeros((len(questions), MAXLEN, len(chars)), dtype=bool)
 y = np.zeros((len(questions), DIGITS + 1, len(chars)), dtype=bool)
@@ -190,7 +189,7 @@ print(x_val.shape)
 print(y_val.shape)
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 Vectorization...
@@ -235,7 +234,7 @@ model.compile(loss="categorical_crossentropy", optimizer="adam", metrics=["accur
 model.summary()
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 Build model...
@@ -264,7 +263,6 @@ Model: "sequential"
 ## Train the model
 
 ```python
-
 # Training parameters.
 epochs = 30
 batch_size = 32
@@ -303,7 +301,7 @@ for epoch in range(1, epochs):
             print(f"{red_color}☒ {guess}{end_char}")
 ```
 
-{{% details title="Result" closed="true" %}}
+{{% details title="{{< t f_result >}}" closed="true" %}}
 
 ```plain
 Iteration 1
