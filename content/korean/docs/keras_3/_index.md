@@ -10,9 +10,9 @@ type: docs
 {{< keras/original checkedAt="2024-11-18" >}}
 
 {{< cards >}}
-{{< card link="/ko/docs/getting_started" title="시작하기" icon="bookmark-alt" >}}
-{{< card link="/ko/docs/api" title="API 문서" icon="book-open" >}}
-{{< card link="/ko/docs/guides" title="가이드" icon="academic-cap" >}}
+{{< card link="../getting_started" title="시작하기" icon="bookmark-alt" >}}
+{{< card link="../api" title="API 문서" icon="book-open" >}}
+{{< card link="../guides" title="가이드" icon="academic-cap" >}}
 {{< card link="https://github.com/keras-team/keras/" title="GitHub" icon="color-swatch" >}}
 {{< /cards >}}
 
