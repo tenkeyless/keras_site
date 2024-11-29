@@ -1,22 +1,16 @@
-<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="theme-color" content="#000000">
 
 <script>
   (function () {
     // 시스템 테마 변경 감지 객체 생성
     const mediaQuery = window.matchMedia("(prefers-color-scheme: dark)");
 
-    // 시스템 테마에 따라 HTML 배경 설정
-    function applySystemTheme() {
-      const systemThemeIsDark = mediaQuery.matches;
-
-      // HTML 요소 가져오기
-      const htmlElement = document.documentElement;
-
-      // 테마에 따른 배경색 설정
-      if (systemThemeIsDark) {
-        htmlElement.style.backgroundColor = "#111"; // 어두운 배경
-      } else {
-        htmlElement.style.backgroundColor = "#fff"; // 밝은 배경
+    // 시스템 테마에 따라 Theme 색상 설정
+    function updateThemeColor() {
+      const isDarkMode = window.matchMedia("(prefers-color-scheme: dark)").matches;
+      const themeColorMeta = document.querySelector('meta[name="theme-color"]');
+      if (themeColorMeta) {
+        themeColorMeta.setAttribute("content", isDarkMode ? "#000000" : "#ffffff");
       }
     }
 
@@ -35,12 +29,15 @@
 
     // 페이지 로드 시 초기 실행
     checkAndRemoveStoredTheme();
-    applySystemTheme();
+    updateThemeColor();
 
     // 시스템 테마 변경 시 이벤트 리스너 등록
     mediaQuery.addEventListener("change", function () {
       checkAndRemoveStoredTheme();
-      applySystemTheme();
+      updateThemeColor();
     });
+
+    // 다크 모드 변경 감지
+    window.matchMedia("(prefers-color-scheme: dark)").addEventListener("change", updateThemeColor);
   })();
 </script>
