@@ -10,9 +10,9 @@ type: docs
 {{< keras/original checkedAt="2024-11-18" >}}
 
 {{< cards >}}
-{{< card link="/docs/getting_started" title="Get started" icon="bookmark-alt" >}}
-{{< card link="/docs/api" title="API docs" icon="book-open" >}}
-{{< card link="/docs/guides" title="Guides" icon="academic-cap" >}}
+{{< card link="../getting_started" title="Get started" icon="bookmark-alt" >}}
+{{< card link="../api" title="API docs" icon="book-open" >}}
+{{< card link="../guides" title="Guides" icon="academic-cap" >}}
 {{< card link="https://github.com/keras-team/keras/" title="GitHub" icon="color-swatch" >}}
 {{< /cards >}}
 
