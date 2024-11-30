@@ -1,5 +1,5 @@
 ---
-title: Customizing what happens in `fit()` with JAX
+title: JAX에서의 `fit()` 동작을 커스터마이즈
 linkTitle: Customizing fit() with Jax
 toc: true
 weight: 5
@@ -11,35 +11,47 @@ type: docs
 **{{< t f_author >}}** [fchollet](https://twitter.com/fchollet)  
 **{{< t f_date_created >}}** 2023/06/27  
 **{{< t f_last_modified >}}** 2023/06/27  
-**{{< t f_description >}}** Overriding the training step of the Model class with JAX.
+**{{< t f_description >}}** JAX를 사용하여 모델 클래스의 트레이닝 단계를 재정의.
 
 {{< cards cols="2" >}}
 {{< card link="https://colab.research.google.com/github/keras-team/keras-io/blob/master/guides/ipynb/custom_train_step_in_jax.ipynb" title="Colab" tag="Colab" tagType="warning">}}
 {{< card link="https://github.com/keras-team/keras-io/blob/master/guides/custom_train_step_in_jax.py" title="GitHub" tag="GitHub">}}
 {{< /cards >}}
 
-## Introduction
+## 소개 {#introduction}
 
-When you're doing supervised learning, you can use `fit()` and everything works smoothly.
+지도 학습을 할 때는 `fit()`을 사용하면, 모든 것이 매끄럽게 작동합니다.
 
-When you need to take control of every little detail, you can write your own training loop entirely from scratch.
+하지만 모든 세부 사항을 완전히 제어해야 할 경우,
+처음부터 끝까지 직접 당신만의 트레이닝 루프를 작성할 수 있습니다.
 
-But what if you need a custom training algorithm, but you still want to benefit from the convenient features of `fit()`, such as callbacks, built-in distribution support, or step fusing?
+그렇지만 커스텀 트레이닝 알고리즘이 필요하면서도,
+콜백, 빌트인 분산 지원, 스텝 퓨징(step fusing)과 같은,
+`fit()`의 편리한 기능을 그대로 활용하고 싶다면 어떻게 해야 할까요?
 
-A core principle of Keras is **progressive disclosure of complexity**. You should always be able to get into lower-level workflows in a gradual way. You shouldn't fall off a cliff if the high-level functionality doesn't exactly match your use case. You should be able to gain more control over the small details while retaining a commensurate amount of high-level convenience.
+Keras의 핵심 원칙 중 하나는 **점진적인 복잡성 공개**입니다.
+항상 점진적으로 더 낮은 레벨의 워크플로로 진입할 수 있어야 합니다.
+높은 레벨의 기능이 정확히 사용 사례에 맞지 않더라도, 갑작스럽게 어려움에 부딪혀서는 안 됩니다.
+높은 레벨의 편리함을 유지하면서, 작은 세부 사항에 대한 제어 권한을 더 많이 가질 수 있어야 합니다.
 
-When you need to customize what `fit()` does, you should **override the training step function of the `Model` class**. This is the function that is called by `fit()` for every batch of data. You will then be able to call `fit()` as usual – and it will be running your own learning algorithm.
+`fit()`이 수행하는 작업을 커스터마이즈해야 할 때는,
+**`Model` 클래스의 트레이닝 스텝 함수를 재정의해야** 합니다.
+이 함수는 `fit()`이 각 데이터 배치마다 호출하는 함수입니다.
+이렇게 하면, 평소와 같이 `fit()`을 호출할 수 있으며,
+그 안에서 사용자가 정의한 트레이닝 알고리즘이 실행됩니다.
 
-Note that this pattern does not prevent you from building models with the Functional API. You can do this whether you're building `Sequential` models, Functional API models, or subclassed models.
+이 패턴은 함수형 API로 모델을 만드는 것을 방해하지 않는다는 점에 주의하세요.
+`Sequential` 모델, Functional API 모델,
+또는 서브클래싱한 모델을 만들 때도 이 방법을 사용할 수 있습니다.
 
-Let's see how that works.
+이제 그 방법을 살펴보겠습니다.
 
-## Setup
+## 셋업 {#setup}
 
 ```python
 import os
 
-# This guide can only be run with the JAX backend.
+# 이 가이드는 JAX 백엔드에서만 실행할 수 있습니다.
 os.environ["KERAS_BACKEND"] = "jax"
 
 import jax
@@ -47,19 +59,22 @@ import keras
 import numpy as np
 ```
 
-## A first simple example
+## 첫 번째 간단한 예제 {#a-first-simple-example}
 
-Let's start from a simple example:
+간단한 예제부터 시작해봅시다:
 
-- We create a new class that subclasses [`keras.Model`]({{< relref "/docs/api/models/model#model-class" >}}).
-- We implement a fully-stateless `compute_loss_and_updates()` method to compute the loss as well as the updated values for the non-trainable variables of the model. Internally, it calls `stateless_call()` and the built-in `compute_loss()`.
-- We implement a fully-stateless `train_step()` method to compute current metric values (including the loss) as well as updated values for the trainable variables, the optimizer variables, and the metric variables.
+- [`keras.Model`]({{< relref "/docs/api/models/model#model-class" >}})을 서브클래싱하는 새로운 클래스를 만듭니다.
+- 손실을 계산하고 모델의 트레이닝 가능하지 않은 변수의 업데이트된 값을 계산하는,
+  완전히 상태가 없는(fully-stateless) `compute_loss_and_updates()` 메서드를 구현합니다.
+  내부적으로는, `stateless_call()`과 빌트인 `compute_loss()`를 호출합니다.
+- 현재의 메트릭 값(손실 포함)과 트레이닝 가능한 변수, 옵티마이저 변수, 메트릭 변수의 업데이트된 값을 계산하기 위한,
+  완전히 상태가 없는(fully-stateless) `train_step()` 메서드를 구현합니다.
 
-Note that you can also take into account the `sample_weight` argument by:
+또한 `sample_weight` 인자를 다음과 같은 방법으로 고려할 수 있습니다:
 
-- Unpacking the data as `x, y, sample_weight = data`
-- Passing `sample_weight` to `compute_loss()`
-- Passing `sample_weight` alongside `y` and `y_pred` to metrics in `stateless_update_state()`
+- 데이터를 `x, y, sample_weight = data`로 언패킹하기
+- `sample_weight`를 `compute_loss()`에 전달하기
+- `sample_weight`를 `y`와 `y_pred`와 함께 `stateless_update_state()`의 메트릭에 전달하기
 
 ```python
 class CustomModel(keras.Model):
@@ -89,10 +104,10 @@ class CustomModel(keras.Model):
         ) = state
         x, y = data
 
-        # Get the gradient function.
+        # 그래디언트 함수 가져오기
         grad_fn = jax.value_and_grad(self.compute_loss_and_updates, has_aux=True)
 
-        # Compute the gradients.
+        # 그래디언트를 계산합니다.
         (loss, (y_pred, non_trainable_variables)), grads = grad_fn(
             trainable_variables,
             non_trainable_variables,
@@ -101,7 +116,7 @@ class CustomModel(keras.Model):
             training=True,
         )
 
-        # Update trainable variables and optimizer variables.
+        # 트레이닝 가능한 변수와 옵티마이저 변수를 업데이트합니다.
         (
             trainable_variables,
             optimizer_variables,
@@ -109,7 +124,7 @@ class CustomModel(keras.Model):
             optimizer_variables, grads, trainable_variables
         )
 
-        # Update metrics.
+        # 메트릭을 업데이트합니다.
         new_metrics_vars = []
         logs = {}
         for metric in self.metrics:
@@ -125,7 +140,7 @@ class CustomModel(keras.Model):
             logs[metric.name] = metric.stateless_result(this_metric_vars)
             new_metrics_vars += this_metric_vars
 
-        # Return metric logs and updated state variables.
+        # 메트릭 로그와 업데이트된 상태 변수를 반환합니다.
         state = (
             trainable_variables,
             non_trainable_variables,
@@ -135,16 +150,16 @@ class CustomModel(keras.Model):
         return logs, state
 ```
 
-Let's try this out:
+이제 시도해봅시다:
 
 ```python
-# Construct and compile an instance of CustomModel
+# `CustomModel` 인스턴스를 생성하고 컴파일합니다.
 inputs = keras.Input(shape=(32,))
 outputs = keras.layers.Dense(1)(inputs)
 model = CustomModel(inputs, outputs)
 model.compile(optimizer="adam", loss="mse", metrics=["mae"])
 
-# Just use `fit` as usual
+# 평소처럼 `fit`을 사용하세요.
 x = np.random.random((1000, 32))
 y = np.random.random((1000, 1))
 model.fit(x, y, epochs=3)
@@ -165,11 +180,13 @@ Epoch 3/3
 
 {{% /details %}}
 
-## Going lower-level
+## 더 낮은 레벨로 내려가기 {#going-lower-level}
 
-Naturally, you could just skip passing a loss function in `compile()`, and instead do everything _manually_ in `train_step`. Likewise for metrics.
+물론, `compile()`에서 손실 함수를 전달하지 않고,
+대신 `train_step`에서 모든 작업을 _수동으로_ 수행할 수도 있습니다.
+메트릭도 마찬가지입니다.
 
-Here's a lower-level example, that only uses `compile()` to configure the optimizer:
+다음은 옵티마이저를 설정하기 위해서만 `compile()`을 사용하는, 더 낮은 레벨의 예제입니다:
 
 ```python
 class CustomModel(keras.Model):
@@ -205,10 +222,10 @@ class CustomModel(keras.Model):
         ) = state
         x, y = data
 
-        # Get the gradient function.
+        # 그래디언트 함수를 가져옵니다.
         grad_fn = jax.value_and_grad(self.compute_loss_and_updates, has_aux=True)
 
-        # Compute the gradients.
+        # 그래디언트를 계산합니다.
         (loss, (y_pred, non_trainable_variables)), grads = grad_fn(
             trainable_variables,
             non_trainable_variables,
@@ -217,7 +234,7 @@ class CustomModel(keras.Model):
             training=True,
         )
 
-        # Update trainable variables and optimizer variables.
+        # 트레이닝 가능한 변수와 옵티마이저 변수를 업데이트합니다.
         (
             trainable_variables,
             optimizer_variables,
@@ -225,7 +242,7 @@ class CustomModel(keras.Model):
             optimizer_variables, grads, trainable_variables
         )
 
-        # Update metrics.
+        # 메트릭을 업데이트합니다.
         loss_tracker_vars = metrics_variables[: len(self.loss_tracker.variables)]
         mae_metric_vars = metrics_variables[len(self.loss_tracker.variables) :]
 
@@ -244,7 +261,7 @@ class CustomModel(keras.Model):
 
         new_metrics_vars = loss_tracker_vars + mae_metric_vars
 
-        # Return metric logs and updated state variables.
+        # 메트릭 로그와 업데이트된 상태 변수를 반환합니다.
         state = (
             trainable_variables,
             non_trainable_variables,
@@ -255,21 +272,21 @@ class CustomModel(keras.Model):
 
     @property
     def metrics(self):
-        # We list our `Metric` objects here so that `reset_states()` can be
-        # called automatically at the start of each epoch
-        # or at the start of `evaluate()`.
+        # `Metric` 객체들을 여기에 나열하여,
+        # 각 에포크의 시작이나 `evaluate()`의 시작 시에,
+        # `reset_states()`가 자동으로 호출될 수 있도록 합니다.
         return [self.loss_tracker, self.mae_metric]
 
 
-# Construct an instance of CustomModel
+# `CustomModel` 인스턴스를 생성하고 컴파일합니다.
 inputs = keras.Input(shape=(32,))
 outputs = keras.layers.Dense(1)(inputs)
 model = CustomModel(inputs, outputs)
 
-# We don't pass a loss or metrics here.
+# 여기에서는 손실 함수나 메트릭을 전달하지 않습니다.
 model.compile(optimizer="adam")
 
-# Just use `fit` as usual -- you can use callbacks, etc.
+# 평소처럼 `fit`을 사용하세요 — 콜백 등을 사용할 수 있습니다.
 x = np.random.random((1000, 32))
 y = np.random.random((1000, 1))
 model.fit(x, y, epochs=5)
@@ -294,14 +311,16 @@ Epoch 5/5
 
 {{% /details %}}
 
-## Providing your own evaluation step
+## 당신만의 평가 스텝 제공 {#providing-your-own-evaluation-step}
 
-What if you want to do the same for calls to `model.evaluate()`? Then you would override `test_step` in exactly the same way. Here's what it looks like:
+`model.evaluate()` 호출에 대해서도 동일한 작업을 수행하고 싶다면 어떻게 해야 할까요?
+그러면 정확히 같은 방식으로 `test_step`을 재정의하면 됩니다.
+다음은 그 예시입니다:
 
 ```python
 class CustomModel(keras.Model):
     def test_step(self, state, data):
-        # Unpack the data.
+        # 데이터를 언패킹합니다.
         x, y = data
         (
             trainable_variables,
@@ -309,7 +328,7 @@ class CustomModel(keras.Model):
             metrics_variables,
         ) = state
 
-        # Compute predictions and loss.
+        # 예측값과 손실을 계산합니다.
         y_pred, non_trainable_variables = self.stateless_call(
             trainable_variables,
             non_trainable_variables,
@@ -318,7 +337,7 @@ class CustomModel(keras.Model):
         )
         loss = self.compute_loss(x, y, y_pred)
 
-        # Update metrics.
+        # 메트릭을 업데이트합니다.
         new_metrics_vars = []
         for metric in self.metrics:
             this_metric_vars = metrics_variables[
@@ -333,7 +352,7 @@ class CustomModel(keras.Model):
             logs = metric.stateless_result(this_metric_vars)
             new_metrics_vars += this_metric_vars
 
-        # Return metric logs and updated state variables.
+        # 메트릭 로그와 업데이트된 상태 변수를 반환합니다.
         state = (
             trainable_variables,
             non_trainable_variables,
@@ -342,13 +361,13 @@ class CustomModel(keras.Model):
         return logs, state
 
 
-# Construct an instance of CustomModel
+# `CustomModel` 인스턴스를 생성합니다.
 inputs = keras.Input(shape=(32,))
 outputs = keras.layers.Dense(1)(inputs)
 model = CustomModel(inputs, outputs)
 model.compile(loss="mse", metrics=["mae"])
 
-# Evaluate with our custom test_step
+# 커스텀 `test_step`으로 평가합니다.
 x = np.random.random((1000, 32))
 y = np.random.random((1000, 1))
 model.evaluate(x, y)
@@ -364,4 +383,4 @@ model.evaluate(x, y)
 
 {{% /details %}}
 
-That's it!
+이것으로 끝입니다!
