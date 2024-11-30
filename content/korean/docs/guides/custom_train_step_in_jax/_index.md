@@ -1,6 +1,6 @@
 ---
 title: JAX에서의 `fit()` 동작을 커스터마이즈
-linkTitle: Customizing fit() with Jax
+linkTitle: JAX에서 fit() 커스터마이즈
 toc: true
 weight: 5
 type: docs
