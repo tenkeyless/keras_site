@@ -8,7 +8,7 @@ type: docs
 
 {{< keras/original checkedAt="2024-11-18" >}}
 
-**Authors:** Neel Kovelamudi, Francois Chollet  
+**{{< t f_author >}}** Neel Kovelamudi, Francois Chollet  
 **{{< t f_date_created >}}** 2023/06/14  
 **{{< t f_last_modified >}}** 2023/06/30  
 **{{< t f_description >}}** Complete guide to saving, serializing, and exporting models.

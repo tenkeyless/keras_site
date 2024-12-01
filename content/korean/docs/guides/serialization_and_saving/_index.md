@@ -1,6 +1,6 @@
 ---
-title: Save, serialize, and export models
-linkTitle: Serialization & Saving
+title: 모델 저장, 직렬화 및 export
+linkTitle: 직렬화 & 저장
 toc: true
 weight: 11
 type: docs
@@ -8,53 +8,54 @@ type: docs
 
 {{< keras/original checkedAt="2024-11-18" >}}
 
-**Authors:** Neel Kovelamudi, Francois Chollet  
+**{{< t f_author >}}** Neel Kovelamudi, Francois Chollet  
 **{{< t f_date_created >}}** 2023/06/14  
 **{{< t f_last_modified >}}** 2023/06/30  
-**{{< t f_description >}}** Complete guide to saving, serializing, and exporting models.
+**{{< t f_description >}}** 모델 저장, 직렬화 및 export에 대한 완벽 가이드.
 
 {{< cards cols="2" >}}
 {{< card link="https://colab.research.google.com/github/keras-team/keras-io/blob/master/guides/ipynb/serialization_and_saving.ipynb" title="Colab" tag="Colab" tagType="warning">}}
 {{< card link="https://github.com/keras-team/keras-io/blob/master/guides/serialization_and_saving.py" title="GitHub" tag="GitHub">}}
 {{< /cards >}}
 
-## Introduction
+## 소개 {#introduction}
 
-A Keras model consists of multiple components:
+Keras 모델은 여러 구성 요소로 이루어져 있습니다:
 
-- The architecture, or configuration, which specifies what layers the model contain, and how they're connected.
-- A set of weights values (the "state of the model").
-- An optimizer (defined by compiling the model).
-- A set of losses and metrics (defined by compiling the model).
+- 아키텍처 또는 설정: 모델에 포함된 레이어와 이들이 어떻게 연결되는지를 정의합니다.
+- 가중치 값 세트 ("모델의 상태").
+- 옵티마이저 (모델을 컴파일할 때 정의됨).
+- 손실 함수 및 메트릭 세트 (모델을 컴파일할 때 정의됨).
 
-The Keras API saves all of these pieces together in a unified format, marked by the `.keras` extension. This is a zip archive consisting of the following:
+Keras API는 이러한 모든 요소를 하나의 통합된 형식으로 저장하며, `.keras` 확장자로 표시됩니다.
+이 형식은 다음을 포함하는 zip 아카이브입니다:
 
-- A JSON-based configuration file (config.json): Records of model, layer, and other trackables' configuration.
-- A H5-based state file, such as `model.weights.h5` (for the whole model), with directory keys for layers and their weights.
-- A metadata file in JSON, storing things such as the current Keras version.
+- JSON 기반 설정 파일 (`config.json`): 모델, 레이어 및 기타 추적 가능한 객체들의 설정을 기록합니다.
+- H5 기반 상태 파일 (예: `model.weights.h5`): 레이어와 그 가중치에 대한 디렉터리 키를 포함하는 전체 모델 상태 파일.
+- JSON 형식의 메타데이터 파일: 현재 Keras 버전과 같은 정보를 저장합니다.
 
-Let's take a look at how this works.
+이제 이것이 어떻게 작동하는지 살펴보겠습니다.
 
-## How to save and load a model
+## 모델 저장 및 로드 방법 {#how-to-save-and-load-a-model}
 
-If you only have 10 seconds to read this guide, here's what you need to know.
+이 가이드를 읽을 시간이 10초밖에 없다면, 다음 내용을 숙지하세요.
 
-**Saving a Keras model:**
+**Keras 모델 저장:**
 
 ```python
-model = ...  # Get model (Sequential, Functional Model, or Model subclass)
-model.save('path/to/location.keras')  # The file needs to end with the .keras extension
+model = ...  # 모델을 가져옵니다 (Sequential, Functional Model, 또는 Model 서브클래스)
+model.save('path/to/location.keras')  # 파일은 .keras 확장자로 끝나야 합니다.
 ```
 
-**Loading the model back:**
+**모델 다시 로드:**
 
 ```python
 model = keras.models.load_model('path/to/location.keras')
 ```
 
-Now, let's look at the details.
+이제 세부 사항을 살펴보겠습니다.
 
-## Setup
+## 셋업 {#setup}
 
 ```python
 import numpy as np
@@ -62,26 +63,28 @@ import keras
 from keras import ops
 ```
 
-## Saving
+## 저장 {#saving}
 
-This section is about saving an entire model to a single file. The file will include:
+이 섹션은 전체 모델을 하나의 파일로 저장하는 방법에 대한 내용입니다. 이 파일에는 다음이 포함됩니다:
 
-- The model's architecture/config
-- The model's weight values (which were learned during training)
-- The model's compilation information (if `compile()` was called)
-- The optimizer and its state, if any (this enables you to restart training where you left)
+- 모델의 아키텍처/구성
+- 모델의 가중치 값 (트레이닝 중 학습된 값)
+- 모델의 컴파일 정보 (만약 `compile()`이 호출되었다면)
+- 옵티마이저 및 그 상태(있을 경우, 트레이닝을 중단했던 지점에서 다시 시작할 수 있도록 해줌)
 
-#### APIs
+#### APIs {#apis}
 
-You can save a model with `model.save()` or `keras.models.save_model()` (which is equivalent). You can load it back with `keras.models.load_model()`.
+`model.save()` 또는 `keras.models.save_model()`을 사용해,
+모델을 저장할 수 있습니다. (둘은 동일합니다)
+`keras.models.load_model()`을 사용해 다시 로드할 수 있습니다.
 
-The only supported format in Keras 3 is the "Keras v3" format, which uses the `.keras` extension.
+Keras 3에서 지원되는 유일한 형식은 ".keras" 확장자를 사용하는 "Keras v3" 형식입니다.
 
-**Example:**
+**예제:**
 
 ```python
 def get_model():
-    # Create a simple model.
+    # 간단한 모델을 만듭니다.
     inputs = keras.Input(shape=(32,))
     outputs = keras.layers.Dense(1)(inputs)
     model = keras.Model(inputs, outputs)
@@ -91,18 +94,19 @@ def get_model():
 
 model = get_model()
 
-# Train the model.
+# 모델을 트레이닝합니다.
 test_input = np.random.random((128, 32))
 test_target = np.random.random((128, 1))
 model.fit(test_input, test_target)
 
-# Calling `save('my_model.keras')` creates a zip archive `my_model.keras`.
+# `save('my_model.keras')`를 호출하면,
+# `my_model.keras`라는 zip 아카이브가 생성됩니다.
 model.save("my_model.keras")
 
-# It can be used to reconstruct the model identically.
+# 동일하게 모델을 재구성할 수 있습니다.
 reconstructed_model = keras.models.load_model("my_model.keras")
 
-# Let's check:
+# 확인해봅시다:
 np.testing.assert_allclose(
     model.predict(test_input), reconstructed_model.predict(test_input)
 )
@@ -118,13 +122,17 @@ np.testing.assert_allclose(
 
 {{% /details %}}
 
-### Custom objects
+### 커스텀 객체 {#custom-objects}
 
-This section covers the basic workflows for handling custom layers, functions, and models in Keras saving and reloading.
+이 섹션에서는 Keras에서 커스텀 레이어, 함수, 모델을 저장하고 다시 불러오는 기본적인 워크플로를 다룹니다.
 
-When saving a model that includes custom objects, such as a subclassed Layer, you **must** define a `get_config()` method on the object class. If the arguments passed to the constructor (`__init__()` method) of the custom object aren't Python objects (anything other than base types like ints, strings, etc.), then you **must** also explicitly deserialize these arguments in the `from_config()` class method.
+커스텀 객체(서브클래스된 레이어 등)를 포함하는 모델을 저장할 때,
+객체 클래스에 `get_config()` 메서드를 **반드시** 정의해야 합니다.
+만약 커스텀 객체의 생성자(`__init__()` 메서드)에 전달된 인자가
+기본 타입(정수, 문자열 등)이 아닌 Python 객체라면,
+`from_config()` 클래스 메서드에서 이러한 인자들을 명시적으로 **반드시** 역직렬화해야 합니다.
 
-Like this:
+예시는 다음과 같습니다:
 
 ```python
 class CustomLayer(keras.layers.Layer):
@@ -149,32 +157,39 @@ class CustomLayer(keras.layers.Layer):
         return cls(sublayer, **config)
 ```
 
-Please see the [Defining the config methods section](#config_methods) for more details and examples.
+자세한 내용과 예시는 [config 메서드 정의 섹션](#config_methods)을 참조하세요.
 
-The saved `.keras` file is lightweight and does not store the Python code for custom objects. Therefore, to reload the model, `load_model` requires access to the definition of any custom objects used through one of the following methods:
+저장된 `.keras` 파일은 경량화되어 있으며,
+커스텀 객체에 대한 Python 코드를 저장하지 않습니다.
+따라서, 모델을 다시 로드하려면,
+`load_model`이 다음 중 하나의 방법을 통해 사용된,
+커스텀 객체의 정의에 접근할 수 있어야 합니다:
 
-1.  Registering custom objects **(preferred)**,
-2.  Passing custom objects directly when loading, or
-3.  Using a custom object scope
+1.  커스텀 객체를 등록 **(권장 방법)**,
+2.  로드할 때 커스텀 객체를 직접 전달, 또는
+3.  커스텀 객체 scope를 사용하는 방법
 
-Below are examples of each workflow:
+다음은 각각의 워크플로 예시입니다:
 
-#### Registering custom objects (**preferred**)
+#### 커스텀 객체 등록 (**권장 방법**) {#registering-custom-objects-preferred}
 
-This is the preferred method, as custom object registration greatly simplifies saving and loading code. Adding the `@keras.saving.register_keras_serializable` decorator to the class definition of a custom object registers the object globally in a master list, allowing Keras to recognize the object when loading the model.
+이 방법은 권장되는 방법입니다.
+커스텀 객체 등록은 저장 및 로드 코드를 크게 단순화합니다.
+커스텀 객체의 클래스 정의에 `@keras.saving.register_keras_serializable` 데코레이터를 추가하면,
+해당 객체가 전역적으로 마스터 리스트에 등록되어,
+Keras가 모델을 로드할 때 객체를 인식할 수 있습니다.
 
-Let's create a custom model involving both a custom layer and a custom activation function to demonstrate this.
+이를 설명하기 위해 커스텀 레이어와 커스텀 활성화 함수를 포함한, 커스텀 모델을 만들어보겠습니다.
 
-**Example:**
+**예제:**
 
 ```python
-# Clear all previously registered custom objects
+# 이전에 등록된 모든 커스텀 객체를 지웁니다.
 keras.saving.get_custom_objects().clear()
 
 
-# Upon registration, you can optionally specify a package or a name.
-# If left blank, the package defaults to `Custom` and the name defaults to
-# the class name.
+# 등록할 때 패키지나 이름을 선택적으로 지정할 수 있습니다.
+# 지정하지 않으면 패키지는 `Custom`, 이름은 클래스 이름으로 설정됩니다.
 @keras.saving.register_keras_serializable(package="MyLayers")
 class CustomLayer(keras.layers.Layer):
     def __init__(self, factor):
@@ -193,7 +208,7 @@ def custom_fn(x):
     return x**2
 
 
-# Create the model.
+# 모델을 만듭니다.
 def get_model():
     inputs = keras.Input(shape=(4,))
     mid = CustomLayer(0.5)(inputs)
@@ -203,7 +218,7 @@ def get_model():
     return model
 
 
-# Train the model.
+# 모델을 트레이닝합니다.
 def train_model(model):
     input = np.random.random((4, 4))
     target = np.random.random((4, 1))
@@ -218,10 +233,10 @@ model = get_model()
 model = train_model(model)
 model.save("custom_model.keras")
 
-# Now, we can simply load without worrying about our custom objects.
+# 이제, 커스텀 객체에 대해 걱정할 필요 없이 간단히 로드할 수 있습니다.
 reconstructed_model = keras.models.load_model("custom_model.keras")
 
-# Let's check:
+# 확인해봅시다:
 np.testing.assert_allclose(
     model.predict(test_input), reconstructed_model.predict(test_input)
 )
@@ -237,23 +252,23 @@ np.testing.assert_allclose(
 
 {{% /details %}}
 
-#### Passing custom objects to `load_model()`
+#### `load_model()`에 커스텀 객체 전달 {#passing-custom-objects-to-loadmodel}
 
 ```python
 model = get_model()
 model = train_model(model)
 
-# Calling `save('my_model.keras')` creates a zip archive `my_model.keras`.
+# `save('my_model.keras')`를 호출하면, `my_model.keras`라는 zip 아카이브가 생성됩니다.
 model.save("custom_model.keras")
 
-# Upon loading, pass a dict containing the custom objects used in the
-# `custom_objects` argument of `keras.models.load_model()`.
+# 로드할 때 `keras.models.load_model()`의 `custom_objects` 인자로
+# 사용된 커스텀 객체를 포함하는 딕셔너리를 전달합니다.
 reconstructed_model = keras.models.load_model(
     "custom_model.keras",
     custom_objects={"CustomLayer": CustomLayer, "custom_fn": custom_fn},
 )
 
-# Let's check:
+# 확인해봅시다:
 np.testing.assert_allclose(
     model.predict(test_input), reconstructed_model.predict(test_input)
 )
@@ -269,25 +284,26 @@ np.testing.assert_allclose(
 
 {{% /details %}}
 
-#### Using a custom object scope
+#### 커스텀 객체 scope를 사용 {#using-a-custom-object-scope}
 
-Any code within the custom object scope will be able to recognize the custom objects passed to the scope argument. Therefore, loading the model within the scope will allow the loading of our custom objects.
+커스텀 객체 scope 내의 코드는 scope 인자로 전달된 커스텀 객체를 인식할 수 있습니다.
+따라서, 모델을 해당 scope 내에서 로드하면 커스텀 객체도 함께 로드할 수 있습니다.
 
-**Example:**
+**예제:**
 
 ```python
 model = get_model()
 model = train_model(model)
 model.save("custom_model.keras")
 
-# Pass the custom objects dictionary to a custom object scope and place
-# the `keras.models.load_model()` call within the scope.
+# 커스텀 객체 딕셔너리를 커스텀 객체 scope에 전달하고,
+# `keras.models.load_model()` 호출을 해당 scope 내에 배치합니다.
 custom_objects = {"CustomLayer": CustomLayer, "custom_fn": custom_fn}
 
 with keras.saving.custom_object_scope(custom_objects):
     reconstructed_model = keras.models.load_model("custom_model.keras")
 
-# Let's check:
+# 확인해봅시다:
 np.testing.assert_allclose(
     model.predict(test_input), reconstructed_model.predict(test_input)
 )
@@ -303,35 +319,45 @@ np.testing.assert_allclose(
 
 {{% /details %}}
 
-### Model serialization
+### 모델 직렬화 {#model-serialization}
 
-This section is about saving only the model's configuration, without its state. The model's configuration (or architecture) specifies what layers the model contains, and how these layers are connected. If you have the configuration of a model, then the model can be created with a freshly initialized state (no weights or compilation information).
+이 섹션은 모델의 상태 없이 모델의 구성만 저장하는 방법에 대한 내용입니다.
+모델의 구성(또는 아키텍처)은 모델이 어떤 레이어를 포함하고 있으며,
+이 레이어들이 어떻게 연결되어 있는지를 명시합니다.
+모델의 구성을 가지고 있다면,
+가중치나 컴파일 정보 없이 새롭게 초기화된 상태로 모델을 생성할 수 있습니다.
 
-#### APIs
+#### APIs {#apis}
 
-The following serialization APIs are available:
+다음과 같은 직렬화 API를 사용할 수 있습니다:
 
-- `keras.models.clone_model(model)`: make a (randomly initialized) copy of a model.
-- `get_config()` and `cls.from_config()`: retrieve the configuration of a layer or model, and recreate a model instance from its config, respectively.
-- `keras.models.model_to_json()` and `keras.models.model_from_json()`: similar, but as JSON strings.
-- `keras.saving.serialize_keras_object()`: retrieve the configuration any arbitrary Keras object.
-- `keras.saving.deserialize_keras_object()`: recreate an object instance from its configuration.
+- `keras.models.clone_model(model)`: 모델의 (랜덤하게 초기화된) 복사본을 생성합니다.
+- `get_config()` 및 `cls.from_config()`: 레이어 또는 모델의 구성을 검색오고, 해당 구성으로 모델 인스턴스를 재생성합니다.
+- `keras.models.model_to_json()` 및 `keras.models.model_from_json()`: 유사하지만, JSON 문자열로 처리됩니다.
+- `keras.saving.serialize_keras_object()`: 임의의 Keras 객체 구성을 검색합니다.
+- `keras.saving.deserialize_keras_object()`: 객체의 구성으로부터 인스턴스를 재생성합니다.
 
-#### In-memory model cloning
+#### 메모리 내에서 모델 복제 {#in-memory-model-cloning}
 
-You can do in-memory cloning of a model via `keras.models.clone_model()`. This is equivalent to getting the config then recreating the model from its config (so it does not preserve compilation information or layer weights values).
+`keras.models.clone_model()`을 사용하여 메모리 내에서 모델을 복제할 수 있습니다.
+이는 config를 가져온 다음 해당 config에서 모델을 재생성하는 것과 동일하며,
+컴파일 정보나 레이어 가중치 값은 유지되지 않습니다.
 
-**Example:**
+**예제:**
 
 ```python
 new_model = keras.models.clone_model(model)
 ```
 
-#### `get_config()` and `from_config()`
+#### `get_config()` 및 `from_config()` {#getconfig-and-fromconfig}
 
-Calling `model.get_config()` or `layer.get_config()` will return a Python dict containing the configuration of the model or layer, respectively. You should define `get_config()` to contain arguments needed for the `__init__()` method of the model or layer. At loading time, the `from_config(config)` method will then call `__init__()` with these arguments to reconstruct the model or layer.
+`model.get_config()` 또는 `layer.get_config()`을 호출하면,
+각각 모델 또는 레이어의 구성을 포함한 Python 딕셔너리가 반환됩니다.
+모델이나 레이어의 `__init__()` 메서드에 필요한 인자를 `get_config()`에 정의해야 합니다.
+로딩 시, `from_config(config)` 메서드가 이러한 인자들과 함께,
+`__init__()`을 호출하여 모델 또는 레이어를 재구성합니다.
 
-**Layer example:**
+**레이어 예시:**
 
 ```python
 layer = keras.layers.Dense(3, activation="relu")
@@ -347,13 +373,13 @@ print(layer_config)
 
 {{% /details %}}
 
-Now let's reconstruct the layer using the `from_config()` method:
+이제 `from_config()` 메서드를 사용하여 레이어를 재구성해봅시다:
 
 ```python
 new_layer = keras.layers.Dense.from_config(layer_config)
 ```
 
-**Sequential model example:**
+**Sequential 모델 예시:**
 
 ```python
 model = keras.Sequential([keras.Input((32,)), keras.layers.Dense(1)])
@@ -361,7 +387,7 @@ config = model.get_config()
 new_model = keras.Sequential.from_config(config)
 ```
 
-**Functional model example:**
+**Functional 모델 예시:**
 
 ```python
 inputs = keras.Input((32,))
@@ -371,11 +397,13 @@ config = model.get_config()
 new_model = keras.Model.from_config(config)
 ```
 
-#### `to_json()` and `keras.models.model_from_json()`
+#### `to_json()` 및 `keras.models.model_from_json()` {#tojson-and-kerasmodelsmodelfromjson}
 
-This is similar to `get_config` / `from_config`, except it turns the model into a JSON string, which can then be loaded without the original model class. It is also specific to models, it isn't meant for layers.
+이것은 `get_config` / `from_config`과 유사하지만,
+모델을 JSON 문자열로 변환하여 원본 모델 클래스 없이도 로드할 수 있습니다.
+또한, 이는 모델에만 적용되며 레이어에는 사용되지 않습니다.
 
-**Example:**
+**예제:**
 
 ```python
 model = keras.Sequential([keras.Input((32,)), keras.layers.Dense(1)])
@@ -383,11 +411,14 @@ json_config = model.to_json()
 new_model = keras.models.model_from_json(json_config)
 ```
 
-#### Arbitrary object serialization and deserialization
+#### 임의 객체 직렬화 및 역직렬화 {#arbitrary-object-serialization-and-deserialization}
 
-The `keras.saving.serialize_keras_object()` and `keras.saving.deserialize_keras_object()` APIs are general-purpose APIs that can be used to serialize or deserialize any Keras object and any custom object. It is at the foundation of saving model architecture and is behind all `serialize()`/`deserialize()` calls in keras.
+`keras.saving.serialize_keras_object()` 및 `keras.saving.deserialize_keras_object()` API는
+Keras 객체와 커스텀 객체를 직렬화하거나 역직렬화할 수 있는 범용 API입니다.
+이는 모델 아키텍처 저장의 기반이 되며,
+Keras 내의 모든 `serialize()`/`deserialize()` 호출의 배경에 있습니다.
 
-**Example**:
+**예제**:
 
 ```python
 my_reg = keras.regularizers.L1(0.005)
@@ -403,36 +434,37 @@ print(config)
 
 {{% /details %}}
 
-Note the serialization format containing all the necessary information for proper reconstruction:
+올바르게 재구성하기 위한, 모든 필수 정보를 포함하는 직렬화 형식을 확인하세요:
 
-- `module` containing the name of the Keras module or other identifying module the object comes from
-- `class_name` containing the name of the object's class.
-- `config` with all the information needed to reconstruct the object
-- `registered_name` for custom objects. See [here](#custom_object_serialization).
+- `module`: 객체가 속한 Keras 모듈 또는 기타 식별 모듈의 이름을 포함
+- `class_name`: 객체 클래스의 이름을 포함
+- `config`: 객체를 재구성하는 데 필요한 모든 정보
+- `registered_name`: 커스텀 객체의 경우. [여기](#custom_object_serialization)를 참조하세요.
 
-Now we can reconstruct the regularizer.
+이제 정규화기(regularizer)를 재구성할 수 있습니다.
 
 ```python
 new_reg = keras.saving.deserialize_keras_object(config)
 ```
 
-### Model weights saving
+### 모델 가중치 저장 {#model-weights-saving}
 
-You can choose to only save & load a model's weights. This can be useful if:
+모델의 가중치만 저장하고 로드하는 것도 선택할 수 있습니다.
+이는 다음과 같은 경우에 유용할 수 있습니다:
 
-- You only need the model for inference: in this case you won't need to restart training, so you don't need the compilation information or optimizer state.
-- You are doing transfer learning: in this case you will be training a new model reusing the state of a prior model, so you don't need the compilation information of the prior model.
+- 모델을 추론에만 사용할 경우: 이 경우 트레이닝을 다시 시작할 필요가 없으므로, 컴파일 정보나 옵티마이저 상태가 필요하지 않습니다.
+- 전이 학습을 할 경우: 이전 모델의 상태를 재사용하여 새 모델을 트레이닝하려는 경우, 이전 모델의 컴파일 정보는 필요하지 않습니다.
 
-#### APIs for in-memory weight transfer
+#### 메모리 내에서 가중치 전송을 위한 API {#apis-for-in-memory-weight-transfer}
 
-Weights can be copied between different objects by using `get_weights()` and `set_weights()`:
+`get_weights()`와 `set_weights()`를 사용하여, 다른 객체 간에 가중치를 복사할 수 있습니다:
 
-- `keras.layers.Layer.get_weights()`: Returns a list of NumPy arrays of weight values.
-- `keras.layers.Layer.set_weights(weights)`: Sets the model weights to the values provided (as NumPy arrays).
+- `keras.layers.Layer.get_weights()`: 가중치 값을 NumPy 배열 목록으로 반환합니다.
+- `keras.layers.Layer.set_weights(weights)`: 제공된 NumPy 배열로 모델의 가중치를 설정합니다.
 
-Examples:
+예제:
 
-**_Transferring weights from one layer to another, in memory_**
+**_메모리 내에서, 한 레이어에서 다른 레이어로 가중치 전송_**
 
 ```python
 def create_layer():
@@ -444,14 +476,14 @@ def create_layer():
 layer_1 = create_layer()
 layer_2 = create_layer()
 
-# Copy weights from layer 1 to layer 2
+# 레이어 1에서 레이어 2로 가중치 복사
 layer_2.set_weights(layer_1.get_weights())
 ```
 
-**_Transferring weights from one model to another model with a compatible architecture, in memory_**
+**_메모리 내에서, 호환되는 아키텍처를 가진 두 모델 간에 가중치 전송_**
 
 ```python
-# Create a simple functional model
+# 간단한 Functional 모델 생성
 inputs = keras.Input(shape=(784,), name="digits")
 x = keras.layers.Dense(64, activation="relu", name="dense_1")(inputs)
 x = keras.layers.Dense(64, activation="relu", name="dense_2")(x)
@@ -459,7 +491,7 @@ outputs = keras.layers.Dense(10, name="predictions")(x)
 functional_model = keras.Model(inputs=inputs, outputs=outputs, name="3_layer_mlp")
 
 
-# Define a subclassed model with the same architecture
+# 동일한 아키텍처를 가진 서브클래스된 모델 정의
 class SubclassedModel(keras.Model):
     def __init__(self, output_dim, name=None):
         super().__init__(name=name)
@@ -479,10 +511,10 @@ class SubclassedModel(keras.Model):
 
 
 subclassed_model = SubclassedModel(10)
-# Call the subclassed model once to create the weights.
+# 서브클래스된 모델을 한 번 호출하여 가중치를 생성합니다.
 subclassed_model(np.ones((1, 784)))
 
-# Copy weights from functional_model to subclassed_model.
+# functional_model에서 subclassed_model로 가중치를 복사합니다.
 subclassed_model.set_weights(functional_model.get_weights())
 
 assert len(functional_model.weights) == len(subclassed_model.weights)
@@ -490,9 +522,10 @@ for a, b in zip(functional_model.weights, subclassed_model.weights):
     np.testing.assert_allclose(a.numpy(), b.numpy())
 ```
 
-**_The case of stateless layers_**
+**_stateless 레이어의 경우_**
 
-Because stateless layers do not change the order or number of weights, models can have compatible architectures even if there are extra/missing stateless layers.
+stateless 레이어는 가중치의 순서나 수를 변경하지 않기 때문에,
+stateless 레이어가 추가되거나 빠지더라도(extra/missing) 모델은 호환되는 아키텍처를 가질 수 있습니다.
 
 ```python
 inputs = keras.Input(shape=(784,), name="digits")
@@ -505,7 +538,7 @@ inputs = keras.Input(shape=(784,), name="digits")
 x = keras.layers.Dense(64, activation="relu", name="dense_1")(inputs)
 x = keras.layers.Dense(64, activation="relu", name="dense_2")(x)
 
-# Add a dropout layer, which does not contain any weights.
+# 가중치를 포함하지 않는, 드롭아웃 레이어를 추가합니다.
 x = keras.layers.Dropout(0.5)(x)
 outputs = keras.layers.Dense(10, name="predictions")(x)
 functional_model_with_dropout = keras.Model(
@@ -515,14 +548,15 @@ functional_model_with_dropout = keras.Model(
 functional_model_with_dropout.set_weights(functional_model.get_weights())
 ```
 
-#### APIs for saving weights to disk & loading them back
+#### 가중치를 디스크에 저장하고 다시 로드하는 API {#apis-for-saving-weights-to-disk-and-loading-them-back}
 
-Weights can be saved to disk by calling `model.save_weights(filepath)`. The filename should end in `.weights.h5`.
+`model.save_weights(filepath)`을 호출하여, 가중치를 디스크에 저장할 수 있습니다.
+파일 이름은 `.weights.h5`로 끝나야 합니다.
 
-**Example:**
+**예제:**
 
 ```python
-# Runnable example
+# 실행 가능한 예시
 sequential_model = keras.Sequential(
     [
         keras.Input(shape=(784,), name="digits"),
@@ -535,7 +569,8 @@ sequential_model.save_weights("my_model.weights.h5")
 sequential_model.load_weights("my_model.weights.h5")
 ```
 
-Note that changing `layer.trainable` may result in a different `layer.weights` ordering when the model contains nested layers.
+모델에 중첩된 레이어가 있을 경우,
+`layer.trainable`을 변경하면 `layer.weights`의 순서가 달라질 수 있습니다.
 
 ```python
 class NestedDenseLayer(keras.layers.Layer):
@@ -577,11 +612,13 @@ variable ordering changed: False
 
 {{% /details %}}
 
-##### **Transfer learning example**
+##### **전이 학습 예시** {#transfer-learning-example}
 
-When loading pretrained weights from a weights file, it is recommended to load the weights into the original checkpointed model, and then extract the desired weights/layers into a new model.
+사전 트레이닝된 가중치를 가중치 파일에서 로드할 때는,
+원래 체크포인트된 모델에 가중치를 로드한 후,
+원하는 가중치/레이어를 새로운 모델에 추출하는 것이 좋습니다.
 
-**Example:**
+**예제:**
 
 ```python
 def create_functional_model():
@@ -595,11 +632,11 @@ def create_functional_model():
 functional_model = create_functional_model()
 functional_model.save_weights("pretrained.weights.h5")
 
-# In a separate program:
+# 별도의 프로그램에서:
 pretrained_model = create_functional_model()
 pretrained_model.load_weights("pretrained.weights.h5")
 
-# Create a new model by extracting layers from the original model:
+# 원본 모델에서 레이어를 추출하여, 새로운 모델을 생성합니다:
 extracted_layers = pretrained_model.layers[:-1]
 extracted_layers.append(keras.layers.Dense(5, name="dense_3"))
 model = keras.Sequential(extracted_layers)
@@ -626,18 +663,24 @@ Model: "sequential_4"
 
 {{% /details %}}
 
-### Appendix: Handling custom objects
+### 부록: 커스텀 객체 다루기 {#appendix-handling-custom-objects}
 
-#### Defining the config methods {#config_methods}
+#### config 메서드 정의 {#config_methods}
 
-Specifications:
+명세:
 
-- `get_config()` should return a JSON-serializable dictionary in order to be compatible with the Keras architecture- and model-saving APIs.
-- `from_config(config)` (a `classmethod`) should return a new layer or model object that is created from the config. The default implementation returns `cls(**config)`.
+- `get_config()`은
+  Keras 아키텍처 및 모델 저장 API와 호환되기 위해, JSON 직렬화가 가능한 딕셔너리를 반환해야 합니다.
+- `from_config(config)` (`classmethod`)은
+  config에서 생성된 새로운 레이어 또는 모델 객체를 반환해야 합니다.
+  기본 구현은 `cls(**config)`을 반환합니다.
 
-**NOTE**: If all your constructor arguments are already serializable, e.g. strings and ints, or non-custom Keras objects, overriding `from_config` is not necessary. However, for more complex objects such as layers or models passed to `__init__`, deserialization must be handled explicitly either in `__init__` itself or overriding the `from_config()` method.
+**참고**: 모든 생성자 인자가 이미 직렬화 가능하다면, 예: 문자열, 정수, 또는 커스텀 Keras 객체가 아니라면,
+`from_config`를 재정의할 필요가 없습니다.
+그러나, `__init__`에 전달된 레이어 또는 모델과 같은 더 복잡한 객체에 대해서는,
+`__init__` 자체에서 역직렬화를 명시적으로 처리하거나 `from_config()` 메서드를 재정의해야 합니다.
 
-**Example:**
+**예제:**
 
 ```python
 @keras.saving.register_keras_serializable(package="MyLayers", name="KernelMult")
@@ -659,7 +702,7 @@ class MyDense(keras.layers.Layer):
 
     def get_config(self):
         config = super().get_config()
-        # Update the config with the custom layer's parameters
+        # 커스텀 레이어의 매개변수로 config를 업데이트합니다.
         config.update(
             {
                 "units": self.hidden_units,
@@ -704,13 +747,17 @@ print(new_layer)
 
 {{% /details %}}
 
-Note that overriding `from_config` is unnecessary above for `MyDense` because `hidden_units`, `kernel_initializer`, and `kernel_regularizer` are ints, strings, and a built-in Keras object, respectively. This means that the default `from_config` implementation of `cls(**config)` will work as intended.
+위의 `MyDense`에서는 `from_config`를 재정의할 필요가 없다는 점에 유의하세요.
+왜냐하면 `hidden_units`, `kernel_initializer`, 그리고 `kernel_regularizer`가
+각각 정수, 문자열, 그리고 빌트인 Keras 객체이기 때문입니다.
+이는 기본 `from_config` 구현인 `cls(**config)`가 의도한 대로 작동한다는 것을 의미합니다.
 
-For more complex objects, such as layers and models passed to `__init__`, for example, you must explicitly deserialize these objects. Let's take a look at an example of a model where a `from_config` override is necessary.
+`__init__`에 전달되는 레이어나 모델과 같은, 더 복잡한 객체에 대해서는 명시적으로 해당 객체를 역직렬화해야 합니다.
+`from_config` 재정의가 필요한 모델의 예시를 살펴보겠습니다.
 
-###### Registration example {#registration_example}
+<span id="registration_example"></span>
 
-**Example:**
+**예제:**
 
 ```python
 @keras.saving.register_keras_serializable(package="ComplexModels")
@@ -735,7 +782,8 @@ class CustomModel(keras.layers.Layer):
 
     @classmethod
     def from_config(cls, config):
-        # Note that you can also use [`keras.saving.deserialize_keras_object`](/api/models/model_saving_apis/serialization_utils#deserializekerasobject-function) here
+        # 여기서 [`keras.saving.deserialize_keras_object`](/api/models/model_saving_apis/serialization_utils#deserializekerasobject-function)
+        # 를 사용할 수도 있습니다.
         config["first_layer"] = keras.layers.deserialize(config["first_layer"])
         config["second_layer"] = keras.layers.deserialize(config["second_layer"])
         return cls(**config)
@@ -744,7 +792,7 @@ class CustomModel(keras.layers.Layer):
         return self.first_layer(self.second_layer(inputs))
 
 
-# Let's make our first layer the custom layer from the previous example (MyDense)
+# 첫 번째 레이어로 이전 예시에서 만든 커스텀 레이어 (MyDense)를 사용합니다.
 inputs = keras.Input((32,))
 outputs = CustomModel(first_layer=layer)(inputs)
 model = keras.Model(inputs, outputs)
@@ -753,13 +801,15 @@ config = model.get_config()
 new_model = keras.Model.from_config(config)
 ```
 
-#### How custom objects are serialized {#custom_object_serialization}
+#### 커스텀 객체가 직렬화되는 방식 {#custom_object_serialization}
 
-The serialization format has a special key for custom objects registered via `@keras.saving.register_keras_serializable`. This `registered_name` key allows for easy retrieval at loading/deserialization time while also allowing users to add custom naming.
+직렬화 형식에는 `@keras.saving.register_keras_serializable`로 등록된 커스텀 객체에 대한 특별한 키가 있습니다.
+이 `registered_name` 키는 로딩/역직렬화 시 Keras 마스터 리스트에서 쉽게 검색할 수 있도록 하며,
+사용자들이 커스텀 이름을 추가할 수 있도록 합니다.
 
-Let's take a look at the config from serializing the custom layer `MyDense` we defined above.
+위에서 정의한 커스텀 레이어 `MyDense`를 직렬화한 후의 구성을 살펴보겠습니다.
 
-**Example**:
+**예제**:
 
 ```python
 layer = MyDense(
@@ -779,8 +829,11 @@ print(config)
 
 {{% /details %}}
 
-As shown, the `registered_name` key contains the lookup information for the Keras master list, including the package `MyLayers` and the custom name `KernelMult` that we gave in the `@keras.saving.register_keras_serializable` decorator. Take a look again at the custom class definition/registration [here](#registration_example).
+보시다시피, `registered_name` 키에는 Keras 마스터 리스트의 조회 정보를 포함하고 있으며,
+`MyLayers`라는 패키지와 `@keras.saving.register_keras_serializable` 데코레이터에서 지정한 커스텀 이름 `KernelMult`가 포함되어 있습니다.
+커스텀 클래스 정의/등록에 대해서는 다시 [여기](#registration_example)를 참조하세요.
 
-Note that the `class_name` key contains the original name of the class, allowing for proper re-initialization in `from_config`.
+`class_name` 키는 클래스의 원본 이름을 포함하여, `from_config`에서 적절한 재초기화를 가능하게 합니다.
 
-Additionally, note that the `module` key is `None` since this is a custom object.
+또한, `module` 키가 `None`인 것을 주목하세요.
+이는 커스텀 객체이기 때문입니다.
