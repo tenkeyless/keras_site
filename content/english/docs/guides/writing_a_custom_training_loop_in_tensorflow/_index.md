@@ -399,7 +399,7 @@ Time taken: 43.49s
 
 {{% /details %}}
 
-## Speeding-up your training step with [`tf.function`](https://www.tensorflow.org/api_docs/python/tf/function)
+## Speeding-up your training step with [`tf.function`](https://www.tensorflow.org/api_docs/python/tf/function) {#tffunction}
 
 The default runtime in TensorFlow is eager execution. As such, our training loop above executes eagerly.
 
