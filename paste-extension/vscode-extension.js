@@ -130,8 +130,8 @@ function isInsideCodeBlock(lines, currentIndex) {
 function generateSlug(text) {
   return slugify(text, {
     lower: true,
-    remove: /[*+~.()'"!:@?/\\^`<>{}\[\]%&=]/g,
-    strict: true,
+    remove: /[^\w\s_-]/g, // `_`, `-`, 공백, 알파벳, 숫자만 허용
+    strict: false,
   });
 }
 
