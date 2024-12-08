@@ -231,7 +231,7 @@ Restoring from ./ckpt/ckpt-1.keras
 
 {{% /details %}}
 
-## [`tf.data`](https://www.tensorflow.org/api_docs/python/tf/data) performance tips
+## [`tf.data`](https://www.tensorflow.org/api_docs/python/tf/data) performance tips {#tfdata}
 
 When doing distributed training, the efficiency with which you load data can often become critical. Here are a few tips to make sure your [`tf.data`](https://www.tensorflow.org/api_docs/python/tf/data) pipelines run as fast as possible.
 
