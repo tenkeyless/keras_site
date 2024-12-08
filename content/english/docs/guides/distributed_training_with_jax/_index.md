@@ -123,7 +123,9 @@ In practice, the process of synchronously updating the weights of the model repl
 To do single-host, multi-device synchronous training with a Keras model, you would use the `jax.sharding` features. Here's how it works:
 
 - We first create a device mesh using `mesh_utils.create_device_mesh`.
-- We use `jax.sharding.Mesh`, `jax.sharding.NamedSharding` and `jax.sharding.PartitionSpec` to define how to partition JAX arrays. - We specify that we want to replicate the model and optimizer variables across all devices by using a spec with no axis. - We specify that we want to shard the data across devices by using a spec that splits along the batch dimension.
+- We use `jax.sharding.Mesh`, `jax.sharding.NamedSharding` and `jax.sharding.PartitionSpec` to define how to partition JAX arrays.
+  - We specify that we want to replicate the model and optimizer variables across all devices by using a spec with no axis.
+  - We specify that we want to shard the data across devices by using a spec that splits along the batch dimension.
 - We use `jax.device_put` to replicate the model and optimizer variables across devices. This happens once at the beginning.
 - In the training loop, for each batch that we process, we use `jax.device_put` to split the batch across devices before invoking the train step.
 
