@@ -1,6 +1,6 @@
 ---
-title: Migrating Keras 2 code to multi-backend Keras 3
-linkTitle: Migrating Keras 2 code to Keras 3
+title: Keras 2 코드를 멀티 백엔드 Keras 3로 마이그레이션
+linkTitle: Keras 3으로 마이그레이션
 toc: true
 weight: 19
 type: docs
@@ -11,27 +11,35 @@ type: docs
 **{{< t f_author >}}** [Divyashree Sreepathihalli](https://github.com/divyashreepathihalli)  
 **{{< t f_date_created >}}** 2023/10/23  
 **{{< t f_last_modified >}}** 2023/10/30  
-**{{< t f_description >}}** Instructions & troubleshooting for migrating your Keras 2 code to multi-backend Keras 3.
+**{{< t f_description >}}** Keras 2 코드를 멀티 백엔드 Keras 3로 마이그레이션하기 위한 지침 및 문제 해결.
 
 {{< cards cols="2" >}}
 {{< card link="https://colab.research.google.com/github/keras-team/keras-io/blob/master/guides/ipynb/migrating_to_keras_3.ipynb" title="Colab" tag="Colab" tagType="warning">}}
 {{< card link="https://github.com/keras-team/keras-io/blob/master/guides/migrating_to_keras_3.py" title="GitHub" tag="GitHub">}}
 {{< /cards >}}
 
-This guide will help you migrate TensorFlow-only Keras 2 code to multi-backend Keras 3 code. The overhead for the migration is minimal. Once you have migrated, you can run Keras workflows on top of either JAX, TensorFlow, or PyTorch.
+이 가이드는 TensorFlow 전용 Keras 2 코드를 멀티 백엔드 Keras 3 코드로 마이그레이션하는 데 도움이 됩니다.
+마이그레이션에 필요한 작업은 최소화되며,
+마이그레이션 후에는 Keras 워크플로를 JAX, TensorFlow 또는 PyTorch 위에서 실행할 수 있습니다.
 
-This guide has two parts:
+이 가이드는 두 부분으로 구성되어 있습니다:
 
-1.  Migrating your legacy Keras 2 code to Keras 3, running on top of the TensorFlow backend. This is generally very easy, though there are minor issues to be mindful of, that we will go over in detail.
-2.  Further migrating your Keras 3 + TensorFlow code to multi-backend Keras 3, so that it can run on JAX and PyTorch.
+1. TensorFlow 백엔드에서 실행되는 Keras 3로 기존 Keras 2 코드를 마이그레이션합니다.
+   이 과정은 대체로 매우 쉽지만, 주의해야 할 몇 가지 사소한 문제가 있습니다.
+   이를 자세히 설명하겠습니다.
+2. Keras 3 + TensorFlow 코드를 추가로 마이그레이션하여,
+   다중 백엔드 Keras 3로 전환해 JAX 및 PyTorch에서도 실행 가능하도록 합니다.
 
-Let's get started.
+시작해봅시다.
 
-## Setup
+## 셋업 {#setup}
 
-First, lets install `keras-nightly`.
+먼저, `keras-nightly`를 설치합시다.
 
-This example uses the TensorFlow backend (`os.environ["KERAS_BACKEND"] = "tensorflow"`). After you've migrated your code, you can change the `"tensorflow"` string to `"jax"` or `"torch"` and click "Restart runtime" in Colab, and your code will run on the JAX or PyTorch backend.
+이 예제는 TensorFlow 백엔드를 사용합니다.
+(`os.environ["KERAS_BACKEND"] = "tensorflow"`)
+코드를 마이그레이션한 후에는, `"tensorflow"` 문자열을 `"jax"` 또는 `"torch"`로 변경하고,
+Colab에서 "Restart runtime"을 클릭하면, 코드가 JAX 또는 PyTorch 백엔드에서 실행됩니다.
 
 ```python
 !pip install -q keras-nightly
@@ -56,30 +64,40 @@ import numpy as np
 
 {{% /details %}}
 
-## Going from Keras 2 to Keras 3 with the TensorFlow backend
+## Keras 2에서 TensorFlow 백엔드를 사용하는 Keras 3으로 마이그레이션 {#going-from-keras-2-to-keras-3-with-the-tensorflow-backend}
 
-First, replace your imports:
+먼저, import를 변경하세요:
 
-1.  Replace `from tensorflow import keras` to `import keras`
-2.  Replace `from tensorflow.keras import xyz` (e.g. `from tensorflow.keras import layers`) to `from keras import xyz` (e.g. `from keras import layers`)
-3.  Replace [`tf.keras.*`](https://www.tensorflow.org/api_docs/python/tf/keras/*) to `keras.*`
+1.  `from tensorflow import keras`를 `import keras`로 변경하세요.
+2.  `from tensorflow.keras import xyz` (예: `from tensorflow.keras import layers`)를
+    `from keras import xyz` (예: `from keras import layers`)로 변경하세요.
+3.  [`tf.keras.*`](https://www.tensorflow.org/api_docs/python/tf/keras/*)을 `keras.*`로 변경하세요.
 
-Next, start running your tests. Most of the time, your code will execute on Keras 3 just fine. All issues you might encounter are detailed below, with their fixes.
+이제 테스트를 실행해보세요.
+대부분의 경우, 코드는 Keras 3에서 잘 실행될 것입니다.
+만약 문제가 발생하면, 아래에 자세히 설명된 문제 해결 방법을 참고하세요.
 
-### `jit_compile` is set to `True` by default on GPU.
+### `jit_compile`이 GPU에서 기본적으로 `True`로 설정됩니다. {#jit_compile-is-set-to-true-by-default-on-gpu}
 
-The default value of the `jit_compile` argument to the `Model` constructor has been set to `True` on GPU in Keras 3. This means that models will be compiled with Just-In-Time (JIT) compilation by default on GPU.
+Keras 3에서 `Model` 생성자의 `jit_compile` 인수의 기본값이 GPU에서 `True`로 설정됩니다.
+이는 모델이 기본적으로 GPU에서 JIT(Just-In-Time) 컴파일로 컴파일된다는 의미입니다.
 
-JIT compilation can improve the performance of some models. However, it may not work with all TensorFlow operations. If you are using a custom model or layer and you see an XLA-related error, you may need to set the `jit_compile` argument to `False`. Here is a list of [known issues](https://www.tensorflow.org/xla/known_issues) encountered when using XLA with TensorFlow. In addition to these issues, there are some ops that are not supported by XLA.
+JIT 컴파일은 일부 모델의 성능을 향상시킬 수 있습니다.
+하지만 모든 TensorFlow 연산에서 작동하지 않을 수 있습니다.
+커스텀 모델이나 레이어를 사용 중이고 XLA 관련 오류가 발생하면,
+`jit_compile` 인수를 `False`로 설정해야 할 수 있습니다.
+TensorFlow에서 XLA를 사용할 때 발생할 수 있는
+[알려진 문제](https://www.tensorflow.org/xla/known_issues)를 참조하세요.
+또한 XLA에서 지원되지 않는 일부 연산도 있습니다.
 
-The error message you could encounter would be as follows:
+발생할 수 있는 오류 메시지는 다음과 같습니다:
 
 ```plain
 Detected unsupported operations when trying to compile graph
 __inference_one_step_on_data_125[] on XLA_GPU_JIT
 ```
 
-For example, the following snippet of code will reproduce the above error:
+예를 들어, 아래 코드 스니펫은 위 오류를 재현할 수 있습니다:
 
 ```python
 class MyModel(keras.Model):
@@ -97,7 +115,10 @@ subclass_model.compile(optimizer="sgd", loss="mse")
 subclass_model.predict(x_train)
 ```
 
-**How to fix it:** set `jit_compile=False` in `model.compile(..., jit_compile=False)`, or set the `jit_compile` attribute to `False`, like this:
+**해결 방법:**
+
+`model.compile(..., jit_compile=False)`에서 `jit_compile=False`로 설정하거나,
+`jit_compile` 속성을 다음과 같이 `False`로 설정하세요:
 
 ```python
 class MyModel(keras.Model):
@@ -105,7 +126,7 @@ class MyModel(keras.Model):
         super().__init__(*args, **kwargs)
 
     def call(self, inputs):
-        # tf.strings ops aren't support by XLA
+        # tf.strings 연산은 XLA에서 지원되지 않음
         string_input = tf.strings.as_string(inputs)
         return tf.strings.to_number(string_input)
 
@@ -127,11 +148,11 @@ array([[1., 2., 3.],
 
 {{% /details %}}
 
-### Saving a model in the TF SavedModel format
+### TF SavedModel 형식으로 모델 저장하기 {#saving-a-model-in-the-tf-savedmodel-format}
 
-Saving to the TF SavedModel format via `model.save()` is no longer supported in Keras 3.
+Keras 3에서는 `model.save()`를 통해 TF SavedModel 형식으로 저장하는 기능이 더 이상 지원되지 않습니다.
 
-The error message you could encounter would be as follows:
+발생할 수 있는 오류 메시지는 다음과 같습니다:
 
 ```console
 >>> model.save("mymodel")
@@ -141,7 +162,7 @@ for the native Keras format (recommended) or a `.h5` extension. Use
 TFLite/TFServing/etc. Received: filepath=saved_model.
 ```
 
-The following snippet of code will reproduce the above error:
+다음 코드 스니펫은 위 오류를 재현할 수 있습니다:
 
 ```python
 sequential_model = keras.Sequential([
@@ -150,7 +171,9 @@ sequential_model = keras.Sequential([
 sequential_model.save("saved_model")
 ```
 
-**How to fix it:** use `model.export(filepath)` instead of `model.save(filepath)`
+**해결 방법:**
+
+`model.save(filepath)` 대신 `model.export(filepath)`를 사용하세요.
 
 ```python
 sequential_model = keras.Sequential([keras.layers.Dense(2)])
@@ -180,9 +203,11 @@ Captures:
 
 {{% /details %}}
 
-### Loading a TF SavedModel
+### TF SavedModel 로드하기 {#loading-a-tf-savedmodel}
 
-Loading a TF SavedModel file via `keras.models.load_model()` is no longer supported If you try to use `keras.models.load_model()` with a TF SavedModel, you will get the following error:
+Keras 3에서는 `keras.models.load_model()`을 사용하여
+TF SavedModel 파일을 로드하는 기능이 더 이상 지원되지 않습니다.
+`keras.models.load_model()`을 사용하려고 하면 다음과 같은 오류가 발생합니다:
 
 ```plain
 ValueError: File format not supported: filepath=saved_model. Keras 3 only supports V3
@@ -193,13 +218,18 @@ TensorFlow SavedModel as an inference-only layer in Keras 3, use
 `call_endpoint` might have a different name).
 ```
 
-The following snippet of code will reproduce the above error:
+다음 코드 스니펫은 위 오류를 재현할 수 있습니다:
 
 ```python
 keras.models.load_model("saved_model")
 ```
 
-**How to fix it:** Use `keras.layers.TFSMLayer(filepath, call_endpoint="serving_default")` to reload a TF SavedModel as a Keras layer. This is not limited to SavedModels that originate from Keras – it will work with any SavedModel, e.g. TF-Hub models.
+**해결 방법:**
+
+TF SavedModel을 Keras 레이어로 다시 로드하려면,
+`keras.layers.TFSMLayer(filepath, call_endpoint="serving_default")`를 사용하세요.
+이는 Keras에서 생성된 SavedModel에만 국한되지 않으며,
+TF-Hub 모델을 포함한 모든 SavedModel에 대해 작동합니다.
 
 ```python
 keras.layers.TFSMLayer("saved_model", call_endpoint="serving_default")
@@ -213,11 +243,12 @@ keras.layers.TFSMLayer("saved_model", call_endpoint="serving_default")
 
 {{% /details %}}
 
-### Using deeply nested inputs in Functional Models
+### Functional 모델에서 깊게 중첩된 입력 사용하기 {#using-deeply-nested-inputs-in-functional-models}
 
-`Model()` can no longer be passed deeply nested inputs/outputs (nested more than 1 level deep, e.g. lists of lists of tensors).
+Keras 3에서는 `Model()`에 깊게 중첩된
+입력/출력(예: 텐서의 리스트 안에 리스트처럼, 1단계 이상 중첩된 구조)을 전달할 수 없습니다.
 
-You would encounter errors as follows:
+이를 시도하면 다음과 같은 오류가 발생할 수 있습니다:
 
 ```plain
 ValueError: When providing `inputs` as a dict, all values in the dict must be
@@ -227,7 +258,7 @@ sparse=None, name=bar>}} including invalid value {'baz': <KerasTensor shape=(Non
 dtype=float32, sparse=None, name=bar>} of type <class 'dict'>
 ```
 
-The following snippet of code will reproduce the above error:
+다음 코드 스니펫은 위 오류를 재현할 수 있습니다:
 
 ```python
 inputs = {
@@ -240,7 +271,9 @@ outputs = inputs["foo"] + inputs["bar"]["baz"]
 keras.Model(inputs, outputs)
 ```
 
-**How to fix it:** replace nested input with either dicts, lists, and tuples of input tensors.
+**해결 방법:**
+
+중첩된 입력을 사전(dict), 리스트(list), 또는 튜플(tuple) 형태의 입력 텐서로 교체하세요.
 
 ```python
 inputs = {
@@ -259,11 +292,14 @@ keras.Model(inputs, outputs)
 
 {{% /details %}}
 
-### TF autograph
+### TF 오토그래프 {#tf-autograph}
 
-In Keras 2, TF autograph is enabled by default on the `call()` method of custom layers. In Keras 3, it is not. This means you may have to use cond ops if you're using control flow, or alternatively you can decorate your `call()` method with `@tf.function`.
+Keras 2에서는, 커스텀 레이어의 `call()` 메서드에 대해 TF Autograph가 기본적으로 활성화되어 있었습니다.
+그러나 Keras 3에서는 활성화되지 않습니다.
+즉, 제어 흐름을 사용하는 경우 `cond` 연산을 사용해야 하거나,
+대안으로 `call()` 메서드를 `@tf.function`으로 데코레이트해야 합니다.
 
-You would encounter an error as follows:
+다음과 같은 오류가 발생할 수 있습니다:
 
 ```plain
 OperatorNotAllowedInGraphError: Exception encountered when calling MyCustomLayer.call().
@@ -277,7 +313,7 @@ Here is a [link for more information](https://github.com/tensorflow/tensorflow/b
 erence/limitations.md#access-to-source-code).
 ```
 
-The following snippet of code will reproduce the above error:
+다음 코드 스니펫은 위 오류를 재현할 수 있습니다:
 
 ```python
 class MyCustomLayer(keras.layers.Layer):
@@ -296,7 +332,9 @@ model.compile(optimizer="adam", loss="mse")
 model.predict(data)
 ```
 
-**How to fix it:** decorate your `call()` method with `@tf.function`
+**해결 방법:**
+
+`call()` 메서드를 `@tf.function`으로 데코레이트하세요.
 
 ```python
 class MyCustomLayer(keras.layers.Layer):
@@ -327,11 +365,14 @@ array([[0.59727275, 1.9986179 , 1.5514829 ],
 
 {{% /details %}}
 
-### Calling TF ops with a `KerasTensor`
+### `KerasTensor`로 TF 연산 호출 {#calling-tf-ops-with-a-kerastensor}
 
-Using a TF op on a Keras tensor during functional model construction is disallowed: "A KerasTensor cannot be used as input to a TensorFlow function".
+Functional 모델을 구성할 때,
+Keras 텐서에서 TF 연산을 사용하는 것은 허용되지 않습니다:
+"A KerasTensor cannot be used as input to a TensorFlow function"
+(KerasTensor는 TensorFlow 함수의 입력으로 사용할 수 없습니다).
 
-The error you would encounter would be as follows:
+다음과 같은 오류가 발생할 수 있습니다:
 
 ```plain
 ValueError: A KerasTensor cannot be used as input to a TensorFlow function. A KerasTensor
@@ -340,14 +381,16 @@ models or Keras Functions. You can only use it as input to a Keras layer or a Ke
 operation (from the namespaces `keras.layers` and `keras.operations`).
 ```
 
-The following snippet of code will reproduce the error:
+다음 코드 스니펫은 이 오류를 재현할 수 있습니다:
 
 ```python
 input = keras.layers.Input([2, 2, 1])
 tf.squeeze(input)
 ```
 
-**How to fix it:** use an equivalent op from `keras.ops`.
+**해결 방법:**
+
+`keras.ops`에서 동등한 연산을 사용하세요.
 
 ```python
 input = keras.layers.Input([2, 2, 1])
@@ -362,17 +405,24 @@ keras.ops.squeeze(input)
 
 {{% /details %}}
 
-### Multi-output model `evaluate()`
-
-The `evaluate()` method of a multi-output model no longer returns individual output losses separately. Instead, you should utilize the `metrics` argument in the `compile()` method to keep track of these losses.
-
-When dealing with multiple named outputs, such as output_a and output_b, the legacy [`tf.keras`](https://www.tensorflow.org/api_docs/python/tf/keras) would include \_loss, \_loss, and similar entries in metrics. However, in keras 3.0, these entries are not automatically added to metrics. They must be explicitly provided in the metrics list for each individual output.
+### 다중 출력 모델 `evaluate()` {#multi-output-model-evaluate}
 
 The following snippet of code will reproduce the above behavior:
 
+다중 출력 모델의 `evaluate()` 메서드는 더 이상 개별 출력 손실을 따로 반환하지 않습니다.
+대신, 각 손실을 추적하려면, `compile()` 메서드에서 `metrics` 인수를 명시적으로 사용해야 합니다.
+
+`output_a`와 `output_b`와 같은 여러 명명된 출력을 다룰 때,
+이전 [`tf.keras`](https://www.tensorflow.org/api_docs/python/tf/keras)에서는
+`_loss` 및 메트릭에서 유사한 항목이 자동으로 추가되었으나,
+Keras 3.0에서는, 이러한 항목이 자동으로 메트릭에 추가되지 않습니다.
+각 출력에 대해 개별적으로 메트릭 목록에 명시해야 합니다.
+
+다음 코드 스니펫은 이러한 동작을 재현합니다:
+
 ```python
 from keras import layers
-# A functional model with multiple outputs
+# 여러 출력이 있는 functional 모델
 inputs = layers.Input(shape=(10,))
 x1 = layers.Dense(5, activation='relu')(inputs)
 x2 = layers.Dense(5, activation='relu')(x1)
@@ -380,7 +430,7 @@ output_1 = layers.Dense(5, activation='softmax', name="output_1")(x1)
 output_2 = layers.Dense(5, activation='softmax', name="output_2")(x2)
 model = keras.Model(inputs=inputs, outputs=[output_1, output_2])
 model.compile(optimizer='adam', loss='categorical_crossentropy')
-# dummy data
+# 임의의 데이터
 x_test = np.random.uniform(size=[10, 10])
 y_test = np.random.uniform(size=[10, 5])
 
@@ -390,13 +440,13 @@ model.evaluate(x_test, y_test)
 ```python
 from keras import layers
 
-# A functional model with multiple outputs
+# 여러 출력이 있는 functional 모델
 inputs = layers.Input(shape=(10,))
 x1 = layers.Dense(5, activation="relu")(inputs)
 x2 = layers.Dense(5, activation="relu")(x1)
 output_1 = layers.Dense(5, activation="softmax", name="output_1")(x1)
 output_2 = layers.Dense(5, activation="softmax", name="output_2")(x2)
-# dummy data
+# 임의의 데이터
 x_test = np.random.uniform(size=[10, 10])
 y_test = np.random.uniform(size=[10, 5])
 multi_output_model = keras.Model(inputs=inputs, outputs=[output_1, output_2])
@@ -418,9 +468,13 @@ multi_output_model.evaluate(x_test, y_test)
 
 {{% /details %}}
 
-### TensorFlow variables tracking
+### TensorFlow 변수 추적 {#tensorflow-variables-tracking}
 
-Setting a [`tf.Variable`](https://www.tensorflow.org/api_docs/python/tf/Variable) as an attribute of a Keras 3 layer or model will not automatically track the variable, unlike in Keras 2. The following snippet of code will show that the [`tf.Variables`](https://www.tensorflow.org/api_docs/python/tf/Variables) are not being tracked.
+Keras 2와 달리, Keras 3 레이어나 모델의 속성으로
+[`tf.Variable`](https://www.tensorflow.org/api_docs/python/tf/Variable)을 설정해도
+변수가 자동으로 추적되지 않습니다.
+아래 코드 스니펫은 [`tf.Variables`](https://www.tensorflow.org/api_docs/python/tf/Variables)가
+추적되지 않는 예시를 보여줍니다.
 
 ```python
 class MyCustomLayer(keras.layers.Layer):
@@ -442,19 +496,23 @@ data = np.random.uniform(size=[3, 3])
 model = keras.models.Sequential([layer])
 model.compile(optimizer="adam", loss="mse")
 model.predict(data)
-# The model does not have any trainable variables
+# 모델에 트레이닝 가능한 변수가 없습니다.
 for layer in model.layers:
     print(layer.trainable_variables)
 ```
 
-You will see the following warning:
+다음과 같은 경고를 볼 수 있습니다:
 
 ```plain
 UserWarning: The model does not have any trainable weights.
   warnings.warn("The model does not have any trainable weights.")
 ```
 
-**How to fix it:** use `self.add_weight()` method or opt for a `keras.Variable` instead. If you are currently using [`tf.variable`](https://www.tensorflow.org/api_docs/python/tf/variable), you can switch to `keras.Variable`.
+**해결 방법:**
+
+`self.add_weight()` 메서드를 사용하거나, `keras.Variable`을 사용하는 것을 권장합니다.
+현재 [`tf.variable`](https://www.tensorflow.org/api_docs/python/tf/variable)을 사용하고 있다면,
+`keras.Variable`로 전환할 수 있습니다.
 
 ```python
 class MyCustomLayer(keras.layers.Layer):
@@ -484,7 +542,7 @@ data = np.random.uniform(size=[3, 3])
 model = keras.models.Sequential([layer])
 model.compile(optimizer="adam", loss="mse")
 model.predict(data)
-# Verify that the variables are now being tracked
+# 변수가 이제 추적되는지 확인하세요.
 for layer in model.layers:
     print(layer.trainable_variables)
 ```
@@ -498,13 +556,16 @@ for layer in model.layers:
 
 {{% /details %}}
 
-### `None` entries in nested `call()` arguments
+### 중첩된 `call()` 메서드의 인자에 있는 `None` 항목 {#none-entries-in-nested-call-arguments}
 
-`None` entries are not allowed as part of nested (e.g. list/tuples) tensor arguments in `Layer.call()`, nor as part of `call()`'s nested return values.
+`Layer.call()` 메서드의 중첩된 (예: 리스트/튜플) 텐서 인자에서 `None` 항목은 허용되지 않으며,
+`call()` 메서드의 중첩된 반환 값에서도 `None`이 허용되지 않습니다.
 
-If the `None` in the argument is intentional and serves a specific purpose, ensure that the argument is optional and structure it as a separate parameter. For example, consider defining the `call` method with optional argument.
+인자에 있는 `None`이 의도적이고 특정 목적을 가진 경우,
+해당 인자를 선택적 인자로 처리하고 별도의 매개변수로 구조화해야 합니다.
+예를 들어, `call` 메서드를 선택적 인자로 정의하는 것을 고려할 수 있습니다.
 
-The following snippet of code will reproduce the error.
+아래 코드 스니펫은 이 오류를 재현할 수 있습니다.
 
 ```python
 class CustomLayer(keras.layers.Layer):
@@ -528,9 +589,9 @@ inputs = {
 layer(inputs)
 ```
 
-**How to fix it:**
+**해결 방법:**
 
-**Solution 1:** Replace `None` with a value, like this:
+**해결책 1:** `None`을 값으로 대체합니다. 예를 들어:
 
 ```python
 class CustomLayer(keras.layers.Layer):
@@ -561,7 +622,9 @@ layer(inputs)
 
 {{% /details %}}
 
-**Solution 2:** Define the call method with an optional argument. Here is an example of this fix:
+**해결책 2:**
+
+선택적 인자를 사용하여 call 메서드를 정의합니다. 다음은 이 수정의 예시입니다:
 
 ```python
 class CustomLayer(keras.layers.Layer):
@@ -588,13 +651,21 @@ layer(foo, baz=baz)
 
 {{% /details %}}
 
-### State-building issues
+### 상태 생성 문제 {#state-building-issues}
 
-Keras 3 is significantly stricter than Keras 2 about when state (e.g. numerical weight variables) can be created. Keras 3 wants all state to be created before the model can be trained. This is a requirement for using JAX (whereas TensorFlow was very lenient about state creation timing).
+Keras 3는 상태(예: 수치 가중치 변수)가 생성되는 시점에 대해 Keras 2보다 훨씬 엄격합니다.
+Keras 3는 모델이 트레이닝되기 전에 모든 상태가 생성되기를 원합니다.
+이는 JAX를 사용하는 데 필수적인 요구 사항이며,
+TensorFlow는 상태 생성 시점에 대해 매우 관대했습니다.
 
-Keras layers should create their state either in their constructor (`__init__()` method) or in their `build()` method. They should avoid creating state in `call()`.
+Keras 레이어는 상태를 생성자(`__init__()` 메서드)나 `build()` 메서드에서 생성해야 합니다.
+`call()` 메서드에서 상태를 생성하는 것은 피해야 합니다.
 
-If you ignore this recommendation and create state in `call()` anyway (e.g. by calling a previously unbuilt layer), then Keras will attempt to build the layer automatically by calling the `call()` method on symbolic inputs before training. However, this attempt at automatic state creation may fail in certain cases. This will cause an error that looks like like this:
+이 권장 사항을 무시하고 `call()`에서 상태를 생성하는 경우(예: 아직 빌드되지 않은 레이어를 호출하는 경우),
+그러면 Keras는 트레이닝 전에 `call()` 메서드를 상징적 입력(symbolic inputs)에 대해 호출하여,
+레이어를 자동으로 빌드하려고 시도할 것입니다.
+그러나 이 자동 상태 생성 시도가 특정 경우에는 실패할 수 있으며,
+이로 인해 다음과 같은 오류가 발생할 수 있습니다:
 
 ```plain
 Layer 'frame_position_embedding' looks like it has unbuilt state,
@@ -609,7 +680,7 @@ It should create all variables used by the layer
 (e.g. by calling `layer.build()` on all its children layers).
 ```
 
-You could reproduce this error with the following layer, when used with the JAX backend:
+아래와 같은 레이어를, JAX 백엔드로 사용할 때, 이 오류를 재현할 수 있습니다:
 
 ```python
 class PositionalEmbedding(keras.layers.Layer):
@@ -629,7 +700,16 @@ class PositionalEmbedding(keras.layers.Layer):
         return inputs + embedded_positions
 ```
 
-**How to fix it:** Do exactly what the error message asks. First, try to run the layer eagerly to see if the `call()` method is in fact correct (note: if it was working in Keras 2, then it is correct and does not need to be changed). If it is indeed correct, then you should implement a `build(self, input_shape)` method that creates all of the layer's state, including the state of sublayers. Here's the fix as applied for the layer above (note the `build()` method):
+**해결 방법:**
+
+오류 메시지가 요청하는 대로 수행하세요.
+먼저, 레이어를 즉시 실행(eagerly) 모드로 실행하여,
+`call()` 메서드가 실제로 올바른지 확인하십시오.
+(참고: Keras 2에서 정상적으로 작동했다면, `call()` 메서드는 올바르며 수정할 필요가 없습니다)
+`call()` 메서드가 올바른 경우,
+`build(self, input_shape)` 메서드를 구현하여 모든 레이어의 상태를 생성해야 합니다.
+여기에는 하위 레이어의 상태도 포함됩니다.
+다음은 위 레이어에 적용된 수정 사항입니다(`build()` 메서드를 참고하세요):
 
 ```python
 class PositionalEmbedding(keras.layers.Layer):
@@ -652,38 +732,60 @@ class PositionalEmbedding(keras.layers.Layer):
         return inputs + embedded_positions
 ```
 
-### Removed features
+### 제거된 기능 {#removed-features}
 
-A small number of legacy features with very low usage were removed from Keras 3 as a cleanup measure:
+Keras 3에서 사용 빈도가 매우 낮은 몇 가지 레거시 기능이 정리 차원에서 제거되었습니다:
 
-- `keras.layers.ThresholdedReLU` is removed. Instead, you can simply use the `ReLU` layer with the argument `threshold`.
-- Symbolic `Layer.add_loss()`: Symbolic `add_loss()` is removed (you can still use `add_loss()` inside the `call()` method of a layer/model).
-- Locally connected layers (`LocallyConnected1D`, `LocallyConnected2D` are removed due to very low usage. To use locally connected layers, copy the layer implementation into your own codebase.
-- `keras.layers.experimental.RandomFourierFeatures` is removed due to very low usage. To use it, copy the layer implementation into your own codebase.
-- Removed layer attributes: Layer attributes `metrics`, `dynamic` are removed. `metrics` is still available on the `Model` class.
-- The `constants` and `time_major` arguments in RNN layers are removed. The `constants` argument was a remnant of Theano and had very low usage. The `time_major` argument also had very low usage.
-- `reset_metrics` argument: The `reset_metrics` argument is removed from `model.*_on_batch()` methods. This argument had very low usage.
-- The `keras.constraints.RadialConstraint` object is removed. This object had very low usage.
+- `keras.layers.ThresholdedReLU`가 제거되었습니다.
+  - 대신, `ReLU` 레이어에서 `threshold` 인수를 사용하면 됩니다.
+- Symbolic `Layer.add_loss()`.
+  - Symbolic `add_loss()`는 제거되었습니다.
+    (여전히 레이어/모델의 `call()` 메서드 내에서 `add_loss()`를 사용할 수 있습니다)
+- Locally connected 레이어 (`LocallyConnected1D`, `LocallyConnected2D`)는 매우 낮은 사용 빈도로 인해 제거되었습니다.
+  - 로컬로 연결된 레이어를 사용하려면, 레이어 구현을 코드베이스에 복사하여 사용하세요.
+- `keras.layers.experimental.RandomFourierFeatures`는 매우 낮은 사용 빈도로 인해 제거되었습니다.
+  - 이를 사용하려면, 레이어 구현을 코드베이스에 복사하여 사용하세요.
+- 제거된 레이어 속성:
+  - `metrics`, `dynamic` 속성이 제거되었습니다.
+  - `metrics`는 여전히 `Model` 클래스에서 사용할 수 있습니다.
+- RNN 레이어의 `constants` 및 `time_major` 인수가 제거되었습니다.
+  - `constants` 인수는 Theano의 유산이었으며 사용 빈도가 매우 낮았습니다.
+  - `time_major` 인수도 사용 빈도가 매우 낮았습니다.
+- `reset_metrics` 인수:
+  - `reset_metrics` 인수가 `model.*_on_batch()` 메서드에서 제거되었습니다.
+  - 이 인수는 사용 빈도가 매우 낮았습니다.
+- `keras.constraints.RadialConstraint` 객체가 제거되었습니다.
+  - 이 객체는 사용 빈도가 매우 낮았습니다.
 
-## Transitioning to backend-agnostic Keras 3
+## 백엔드에 독립적인 Keras 3로의 전환 {#transitioning-to-backend-agnostic-keras-3}
 
-Keras 3 code with the TensorFlow backend will work with native TensorFlow APIs. However, if you want your code to be backend-agnostic, you will need to:
+TensorFlow 백엔드를 사용하는 Keras 3 코드는 기본적으로 TensorFlow API와 함께 작동합니다.
+그러나 코드가 백엔드에 독립적이게 하려면, 다음을 수행해야 합니다:
 
-- Replace all of the [`tf.*`](https://www.tensorflow.org/api_docs/python/tf/*) API calls with their equivalent Keras APIs.
-- Convert your custom `train_step`/`test_step` methods to a multi-framework implementation.
-- Make sure you're using stateless `keras.random` ops correctly in your layers.
+- 모든 [`tf.*`](https://www.tensorflow.org/api_docs/python/tf/*) API 호출을,
+  해당하는 Keras API로 교체합니다.
+- 커스텀 `train_step`/`test_step` 메서드를 멀티 프레임워크 구현으로 변환합니다.
+- 레이어에서 stateless `keras.random` 연산자를 올바르게 사용하는지 확인합니다.
 
-Let's go over each point in detail.
+각 포인트를 자세히 살펴보겠습니다.
 
-### Switching to Keras ops
+### Keras 연산자로 전환하기 {#switching-to-keras-ops}
 
-In many cases, this is the only thing you need to do to start being able to run your custom layers and metrics with JAX and PyTorch: replace any [`tf.*`](https://www.tensorflow.org/api_docs/python/tf/*), [`tf.math*`](https://www.tensorflow.org/api_docs/python/tf/math*), [`tf.linalg.*`](https://www.tensorflow.org/api_docs/python/tf/linalg/*), etc. with `keras.ops.*`. Most TF ops should be consistent with Keras 3. If the names different, they will be highlighted in this guide.
+많은 경우, JAX와 PyTorch에서 커스텀 레이어와 메트릭을 실행할 수 있게 하려면 해야 할 유일한 일은
+[`tf.*`](https://www.tensorflow.org/api_docs/python/tf/*),
+[`tf.math*`](https://www.tensorflow.org/api_docs/python/tf/math*),
+[`tf.linalg.*`](https://www.tensorflow.org/api_docs/python/tf/linalg/*) 등의 호출을,
+`keras.ops.*`로 교체하는 것입니다.
+대부분의 TensorFlow 연산자는 Keras 3와 일치해야 합니다.
+이름이 다른 경우, 이 가이드에서 강조하여 설명할 것입니다.
 
-#### NumPy ops
+#### NumPy ops {#numpy-ops}
 
-Keras implements the NumPy API as part of `keras.ops`.
+Keras는 `keras.ops`의 일부로 NumPy API를 구현합니다.
 
-The table below only lists a small subset of TensorFlow and Keras ops; ops not listed are usually named the same in both frameworks (e.g. `reshape`, `matmul`, `cast`, etc.)
+아래 표는 TensorFlow와 Keras의 연산자 중 일부분만 나열한 것입니다.
+표에 나열되지 않은 연산자는, 두 프레임워크에서 동일한 이름을 사용하는 경우가 많습니다.
+(예: `reshape`, `matmul`, `cast` 등)
 
 | TensorFlow                                                                                      | Keras 3.0                                                                                       |
 | ----------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------- |
@@ -722,44 +824,60 @@ The table below only lists a small subset of TensorFlow and Keras ops; ops not l
 | [`tf.gather_nd`](https://www.tensorflow.org/api_docs/python/tf/gather_nd)                       | [`keras.ops.take_along_axis`]({{< relref "/docs/api/ops/numpy#take_along_axis-function" >}})    |
 | [`tf.math.reduce_variance`](https://www.tensorflow.org/api_docs/python/tf/math/reduce_variance) | [`keras.ops.var`]({{< relref "/docs/api/ops/numpy#var-function" >}})                            |
 
-#### Others ops
+#### 기타 ops {#others-ops}
 
-| TensorFlow                                                                                                                                                                                                                                                                                                                                                                             | Keras 3.0                                                                                                                                                          |
-| -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| [`tf.nn.sigmoid_cross_entropy_with_logits`](https://www.tensorflow.org/api_docs/python/tf/nn/sigmoid_cross_entropy_with_logits)                                                                                                                                                                                                                                                        | [`keras.ops.binary_crossentropy`]({{< relref "/docs/api/ops/nn#binary_crossentropy-function" >}}) (mind the `from_logits` argument)                                |
-| [`tf.nn.sparse_softmax_cross_entropy_with_logits`](https://www.tensorflow.org/api_docs/python/tf/nn/sparse_softmax_cross_entropy_with_logits)                                                                                                                                                                                                                                          | [`keras.ops.sparse_categorical_crossentropy`]({{< relref "/docs/api/ops/nn#sparse_categorical_crossentropy-function" >}}) (mind the `from_logits` argument)        |
-| [`tf.nn.sparse_softmax_cross_entropy_with_logits`](https://www.tensorflow.org/api_docs/python/tf/nn/sparse_softmax_cross_entropy_with_logits)                                                                                                                                                                                                                                          | `keras.ops.categorical_crossentropy(target, output, from_logits=False, axis=-1)`                                                                                   |
-| [`tf.nn.conv1d`](https://www.tensorflow.org/api_docs/python/tf/nn/conv1d), [`tf.nn.conv2d`](https://www.tensorflow.org/api_docs/python/tf/nn/conv2d), [`tf.nn.conv3d`](https://www.tensorflow.org/api_docs/python/tf/nn/conv3d), [`tf.nn.convolution`](https://www.tensorflow.org/api_docs/python/tf/nn/convolution)                                                                   | [`keras.ops.conv`]({{< relref "/docs/api/ops/nn#conv-function" >}})                                                                                                |
-| [`tf.nn.conv_transpose`](https://www.tensorflow.org/api_docs/python/tf/nn/conv_transpose), [`tf.nn.conv1d_transpose`](https://www.tensorflow.org/api_docs/python/tf/nn/conv1d_transpose), [`tf.nn.conv2d_transpose`](https://www.tensorflow.org/api_docs/python/tf/nn/conv2d_transpose), [`tf.nn.conv3d_transpose`](https://www.tensorflow.org/api_docs/python/tf/nn/conv3d_transpose) | [`keras.ops.conv_transpose`]({{< relref "/docs/api/ops/nn#conv_transpose-function" >}})                                                                            |
-| [`tf.nn.depthwise_conv2d`](https://www.tensorflow.org/api_docs/python/tf/nn/depthwise_conv2d)                                                                                                                                                                                                                                                                                          | [`keras.ops.depthwise_conv`]({{< relref "/docs/api/ops/nn#depthwise_conv-function" >}})                                                                            |
-| [`tf.nn.separable_conv2d`](https://www.tensorflow.org/api_docs/python/tf/nn/separable_conv2d)                                                                                                                                                                                                                                                                                          | [`keras.ops.separable_conv`]({{< relref "/docs/api/ops/nn#separable_conv-function" >}})                                                                            |
-| [`tf.nn.batch_normalization`](https://www.tensorflow.org/api_docs/python/tf/nn/batch_normalization)                                                                                                                                                                                                                                                                                    | No direct equivalent; use [`keras.layers.BatchNormalization`]({{< relref "/docs/api/layers/normalization_layers/batch_normalization#batchnormalization-class" >}}) |
-| [`tf.nn.dropout`](https://www.tensorflow.org/api_docs/python/tf/nn/dropout)                                                                                                                                                                                                                                                                                                            | [`keras.random.dropout`]({{< relref "/docs/api/random/random_ops#dropout-function" >}})                                                                            |
-| [`tf.nn.embedding_lookup`](https://www.tensorflow.org/api_docs/python/tf/nn/embedding_lookup)                                                                                                                                                                                                                                                                                          | [`keras.ops.take`]({{< relref "/docs/api/ops/numpy#take-function" >}})                                                                                             |
-| [`tf.nn.l2_normalize`](https://www.tensorflow.org/api_docs/python/tf/nn/l2_normalize)                                                                                                                                                                                                                                                                                                  | [`keras.utils.normalize`]({{< relref "/docs/api/utils/python_utils#normalize-function" >}}) (not an op)                                                            |
-| `x.numpy`                                                                                                                                                                                                                                                                                                                                                                              | [`keras.ops.convert_to_numpy`]({{< relref "/docs/api/ops/core#convert_to_numpy-function" >}})                                                                      |
-| [`tf.scatter_nd_update`](https://www.tensorflow.org/api_docs/python/tf/scatter_nd_update)                                                                                                                                                                                                                                                                                              | [`keras.ops.scatter_update`]({{< relref "/docs/api/ops/core#scatter_update-function" >}})                                                                          |
-| [`tf.tensor_scatter_nd_update`](https://www.tensorflow.org/api_docs/python/tf/tensor_scatter_nd_update)                                                                                                                                                                                                                                                                                | [`keras.ops.slice_update`]({{< relref "/docs/api/ops/core#slice_update-function" >}})                                                                              |
-| [`tf.signal.fft2d`](https://www.tensorflow.org/api_docs/python/tf/signal/fft2d)                                                                                                                                                                                                                                                                                                        | [`keras.ops.fft2`]({{< relref "/docs/api/ops/fft#fft2-function" >}})                                                                                               |
-| [`tf.signal.inverse_stft`](https://www.tensorflow.org/api_docs/python/tf/signal/inverse_stft)                                                                                                                                                                                                                                                                                          | [`keras.ops.istft`]({{< relref "/docs/api/ops/fft#istft-function" >}})                                                                                             |
-| [`tf.image.crop_to_bounding_box`](https://www.tensorflow.org/api_docs/python/tf/image/crop_to_bounding_box)                                                                                                                                                                                                                                                                            | [`keras.ops.image.crop_images`]({{< relref "/docs/api/ops/image#crop_images-function" >}})                                                                         |
-| [`tf.image.pad_to_bounding_box`](https://www.tensorflow.org/api_docs/python/tf/image/pad_to_bounding_box)                                                                                                                                                                                                                                                                              | [`keras.ops.image.pad_images`]({{< relref "/docs/api/ops/image#pad_images-function" >}})                                                                           |
+| TensorFlow                                                                                                                                                                                                                                                                                                                                                                             | Keras 3.0                                                                                                                                                                                    |
+| -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| [`tf.nn.sigmoid_cross_entropy_with_logits`](https://www.tensorflow.org/api_docs/python/tf/nn/sigmoid_cross_entropy_with_logits)                                                                                                                                                                                                                                                        | [`keras.ops.binary_crossentropy`]({{< relref "/docs/api/ops/nn#binary_crossentropy-function" >}}) (`from_logits` 인자에 유의하세요)                                                          |
+| [`tf.nn.sparse_softmax_cross_entropy_with_logits`](https://www.tensorflow.org/api_docs/python/tf/nn/sparse_softmax_cross_entropy_with_logits)                                                                                                                                                                                                                                          | [`keras.ops.sparse_categorical_crossentropy`]({{< relref "/docs/api/ops/nn#sparse_categorical_crossentropy-function" >}}) (`from_logits` 인자에 유의하세요)                                  |
+| [`tf.nn.sparse_softmax_cross_entropy_with_logits`](https://www.tensorflow.org/api_docs/python/tf/nn/sparse_softmax_cross_entropy_with_logits)                                                                                                                                                                                                                                          | `keras.ops.categorical_crossentropy(target, output, from_logits=False, axis=-1)`                                                                                                             |
+| [`tf.nn.conv1d`](https://www.tensorflow.org/api_docs/python/tf/nn/conv1d), [`tf.nn.conv2d`](https://www.tensorflow.org/api_docs/python/tf/nn/conv2d), [`tf.nn.conv3d`](https://www.tensorflow.org/api_docs/python/tf/nn/conv3d), [`tf.nn.convolution`](https://www.tensorflow.org/api_docs/python/tf/nn/convolution)                                                                   | [`keras.ops.conv`]({{< relref "/docs/api/ops/nn#conv-function" >}})                                                                                                                          |
+| [`tf.nn.conv_transpose`](https://www.tensorflow.org/api_docs/python/tf/nn/conv_transpose), [`tf.nn.conv1d_transpose`](https://www.tensorflow.org/api_docs/python/tf/nn/conv1d_transpose), [`tf.nn.conv2d_transpose`](https://www.tensorflow.org/api_docs/python/tf/nn/conv2d_transpose), [`tf.nn.conv3d_transpose`](https://www.tensorflow.org/api_docs/python/tf/nn/conv3d_transpose) | [`keras.ops.conv_transpose`]({{< relref "/docs/api/ops/nn#conv_transpose-function" >}})                                                                                                      |
+| [`tf.nn.depthwise_conv2d`](https://www.tensorflow.org/api_docs/python/tf/nn/depthwise_conv2d)                                                                                                                                                                                                                                                                                          | [`keras.ops.depthwise_conv`]({{< relref "/docs/api/ops/nn#depthwise_conv-function" >}})                                                                                                      |
+| [`tf.nn.separable_conv2d`](https://www.tensorflow.org/api_docs/python/tf/nn/separable_conv2d)                                                                                                                                                                                                                                                                                          | [`keras.ops.separable_conv`]({{< relref "/docs/api/ops/nn#separable_conv-function" >}})                                                                                                      |
+| [`tf.nn.batch_normalization`](https://www.tensorflow.org/api_docs/python/tf/nn/batch_normalization)                                                                                                                                                                                                                                                                                    | 직접적으로 동등한 것은 없습니다. 대신 [`keras.layers.BatchNormalization`]({{< relref "/docs/api/layers/normalization_layers/batch_normalization#batchnormalization-class" >}})를 사용하세요. |
+| [`tf.nn.dropout`](https://www.tensorflow.org/api_docs/python/tf/nn/dropout)                                                                                                                                                                                                                                                                                                            | [`keras.random.dropout`]({{< relref "/docs/api/random/random_ops#dropout-function" >}})                                                                                                      |
+| [`tf.nn.embedding_lookup`](https://www.tensorflow.org/api_docs/python/tf/nn/embedding_lookup)                                                                                                                                                                                                                                                                                          | [`keras.ops.take`]({{< relref "/docs/api/ops/numpy#take-function" >}})                                                                                                                       |
+| [`tf.nn.l2_normalize`](https://www.tensorflow.org/api_docs/python/tf/nn/l2_normalize)                                                                                                                                                                                                                                                                                                  | [`keras.utils.normalize`]({{< relref "/docs/api/utils/python_utils#normalize-function" >}}) (op 아님)                                                                                        |
+| `x.numpy`                                                                                                                                                                                                                                                                                                                                                                              | [`keras.ops.convert_to_numpy`]({{< relref "/docs/api/ops/core#convert_to_numpy-function" >}})                                                                                                |
+| [`tf.scatter_nd_update`](https://www.tensorflow.org/api_docs/python/tf/scatter_nd_update)                                                                                                                                                                                                                                                                                              | [`keras.ops.scatter_update`]({{< relref "/docs/api/ops/core#scatter_update-function" >}})                                                                                                    |
+| [`tf.tensor_scatter_nd_update`](https://www.tensorflow.org/api_docs/python/tf/tensor_scatter_nd_update)                                                                                                                                                                                                                                                                                | [`keras.ops.slice_update`]({{< relref "/docs/api/ops/core#slice_update-function" >}})                                                                                                        |
+| [`tf.signal.fft2d`](https://www.tensorflow.org/api_docs/python/tf/signal/fft2d)                                                                                                                                                                                                                                                                                                        | [`keras.ops.fft2`]({{< relref "/docs/api/ops/fft#fft2-function" >}})                                                                                                                         |
+| [`tf.signal.inverse_stft`](https://www.tensorflow.org/api_docs/python/tf/signal/inverse_stft)                                                                                                                                                                                                                                                                                          | [`keras.ops.istft`]({{< relref "/docs/api/ops/fft#istft-function" >}})                                                                                                                       |
+| [`tf.image.crop_to_bounding_box`](https://www.tensorflow.org/api_docs/python/tf/image/crop_to_bounding_box)                                                                                                                                                                                                                                                                            | [`keras.ops.image.crop_images`]({{< relref "/docs/api/ops/image#crop_images-function" >}})                                                                                                   |
+| [`tf.image.pad_to_bounding_box`](https://www.tensorflow.org/api_docs/python/tf/image/pad_to_bounding_box)                                                                                                                                                                                                                                                                              | [`keras.ops.image.pad_images`]({{< relref "/docs/api/ops/image#pad_images-function" >}})                                                                                                     |
 
-### Custom `train_step()` methods
+### 커스텀 `train_step()` 메서드 {#custom-train_step-methods}
 
-Your models may include a custom `train_step()` or `test_step()` method, which rely on TensorFlow-only APIs – for instance, your `train_step()` method may leverage TensorFlow's [`tf.GradientTape`](https://www.tensorflow.org/api_docs/python/tf/GradientTape). To convert such models to run on JAX or PyTorch, you will have a write a different `train_step()` implementation for each backend you want to support.
+당신의 모델에는 TensorFlow 전용 API를 사용하는
+커스텀 `train_step()` 또는 `test_step()` 메서드가 포함될 수 있습니다.
+예를 들어, `train_step()` 메서드는 TensorFlow의
+[`tf.GradientTape`](https://www.tensorflow.org/api_docs/python/tf/GradientTape)를 사용할 수 있습니다.
+이러한 모델을 JAX 또는 PyTorch에서 실행할 수 있도록 변환하려면,
+지원하려는 각 백엔드에 맞는 별도의 `train_step()` 구현을 작성해야 합니다.
 
-In some cases, you might be able to simply override the `Model.compute_loss()` method and make it fully backend-agnostic, instead of overriding `train_step()`. Here's an example of a layer with a custom `compute_loss()` method which works across JAX, TensorFlow, and PyTorch:
+일부 경우에는, `train_step()`을 재정의하는 대신, `Model.compute_loss()` 메서드를 재정의하여,
+백엔드에 구애받지 않는 방식으로 만들 수 있습니다.
+다음은 JAX, TensorFlow 및 PyTorch에서 작동하는,
+커스텀 `compute_loss()` 메서드를 포함한 레이어의 예입니다:
 
-`class MyModel(keras.Model):     def compute_loss(self, x=None, y=None, y_pred=None, sample_weight=None):         loss = keras.ops.sum(keras.losses.mean_squared_error(y, y_pred, sample_weight))         return loss`
+```python
+class MyModel(keras.Model):
+    def compute_loss(self, x=None, y=None, y_pred=None, sample_weight=None):
+        loss = keras.ops.sum(keras.losses.mean_squared_error(y, y_pred, sample_weight))
+        return loss
+```
 
-If you need to modify the optimization mechanism itself, beyond the loss computation, then you will need to override `train_step()`, and implement one `train_step` method per backend, like below.
+최적화 메커니즘 자체를 수정해야 한다면,
+손실 계산을 넘어 `train_step()`을 재정의해야 하며,
+백엔드마다 하나씩 `train_step` 메서드를 구현해야 합니다.
+아래 예시와 같이 구현할 수 있습니다.
 
-See the following guides for details on how each backend should be handled:
+각 백엔드를 처리하는 방법에 대한 자세한 내용은 다음 가이드를 참조하십시오:
 
-- [Customizing what happens in `fit()` with JAX]({{< relref "/docs/guides/custom_train_step_in_jax" >}})
-- [Customizing what happens in `fit()` with TensorFlow]({{< relref "/docs/guides/custom_train_step_in_tensorflow" >}})
-- [Customizing what happens in `fit()` with PyTorch]({{< relref "/docs/guides/custom_train_step_in_torch" >}})
+- {{< titledRelref "/docs/guides/custom_train_step_in_jax" >}}
+- {{< titledRelref "/docs/guides/custom_train_step_in_tensorflow" >}}
+- {{< titledRelref "/docs/guides/custom_train_step_in_torch" >}}
 
 ```python
 class MyModel(keras.Model):
@@ -772,25 +890,27 @@ class MyModel(keras.Model):
             return self._torch_train_step(*args, **kwargs)
 
     def _jax_train_step(self, state, data):
-        pass  # See guide: keras.io/guides/custom_train_step_in_jax/
+        pass  # 가이드를 참고하세요: keras.io/guides/custom_train_step_in_jax/
 
     def _tensorflow_train_step(self, data):
-        pass  # See guide: keras.io/guides/custom_train_step_in_tensorflow/
+        pass  # 가이드를 참고하세요: keras.io/guides/custom_train_step_in_tensorflow/
 
     def _torch_train_step(self, data):
-        pass  # See guide: keras.io/guides/custom_train_step_in_torch/
+        pass  # 가이드를 참고하세요: keras.io/guides/custom_train_step_in_torch/
 ```
 
-### RNG-using layers
+### RNG를 사용하는 레이어 {#rng-using-layers}
 
-Keras 3 has a new `keras.random` namespace, containing:
+Keras 3에는 새로운 `keras.random` 네임스페이스가 추가되었으며, 다음과 같은 기능들이 포함되어 있습니다:
 
 - [`keras.random.normal`]({{< relref "/docs/api/random/random_ops#normal-function" >}})
 - [`keras.random.uniform`]({{< relref "/docs/api/random/random_ops#uniform-function" >}})
 - [`keras.random.shuffle`]({{< relref "/docs/api/random/random_ops#shuffle-function" >}})
-- etc.
+- 등.
 
-These operations are **stateless**, which means that if you pass a `seed` argument, they will return the same result every time. Like this:
+이 연산들은 **stateless**하며, 이는 `seed` 인자를 전달하면,
+매번 동일한 결과를 반환한다는 것을 의미합니다.
+예를 들어:
 
 ```python
 print(keras.random.normal(shape=(), seed=123))
@@ -806,7 +926,7 @@ tf.Tensor(0.7832616, shape=(), dtype=float32)
 
 {{% /details %}}
 
-Crucially, this differs from the behavior of stateful [`tf.random`](https://www.tensorflow.org/api_docs/python/tf/random) ops:
+이 점은 stateful [`tf.random`](https://www.tensorflow.org/api_docs/python/tf/random) 연산과 다릅니다:
 
 ```python
 print(tf.random.normal(shape=(), seed=123))
@@ -822,9 +942,14 @@ tf.Tensor(-0.6386405, shape=(), dtype=float32)
 
 {{% /details %}}
 
-When you write a RNG-using layer, such as a custom dropout layer, you are going to want to use a different seed value at layer call. However, you cannot just increment a Python integer and pass it, because while this would work fine when executed eagerly, it would not work as expected when using compilation (which is available with JAX, TensorFlow, and PyTorch). When compiling the layer, the first Python integer seed value seen by the layer would be hardcoded into the compiled graph.
+RNG를 사용하는 레이어를 작성하는 경우, 호출 시마다 다른 시드 값을 사용하고 싶을 것입니다.
+그러나, Python 정수를 그냥 증가시켜 전달하는 것은 적절하지 않습니다.
+이는 eager 실행 시에는 문제가 없지만,
+JAX, TensorFlow, PyTorch에서 지원하는 컴파일을 사용할 경우, 예상대로 작동하지 않기 때문입니다.
+레이어가 처음으로 본 Python 정수 시드 값이 컴파일된 그래프에 하드코딩될 수 있습니다.
 
-To address this, you should pass as the `seed` argument an instance of a stateful [`keras.random.SeedGenerator`]({{< relref "/docs/api/random/seed_generator#seedgenerator-class" >}})object, like this:
+이를 해결하기 위해,
+seed 인자로 stateful [`keras.random.SeedGenerator`]({{< relref "/docs/api/random/seed_generator#seedgenerator-class" >}}) 객체를 전달해야 합니다. 예를 들어:
 
 ```python
 seed_generator = keras.random.SeedGenerator(1337)
@@ -841,7 +966,7 @@ tf.Tensor(0.8211102, shape=(), dtype=float32)
 
 {{% /details %}}
 
-So when writing a RNG using layer, you would use the following pattern:
+따라서 RNG를 사용하는 레이어를 작성할 때는, 다음 패턴을 사용해야 합니다:
 
 ```python
 class RandomNoiseLayer(keras.layers.Layer):
@@ -857,4 +982,5 @@ class RandomNoiseLayer(keras.layers.Layer):
         return inputs + noise
 ```
 
-Such a layer is safe to use in any setting – in eager execution or in a compiled model. Each layer call will be using a different seed value, as expected.
+이렇게 작성된 레이어는 eager 실행 또는 컴파일된 모델 어느 환경에서도 안전하게 사용할 수 있습니다.
+레이어 호출 시마다 예상대로 다른 시드 값을 사용하게 됩니다.
