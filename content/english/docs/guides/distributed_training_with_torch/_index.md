@@ -146,7 +146,11 @@ In practice, the process of synchronously updating the weights of the model repl
 To do single-host, multi-device synchronous training with a Keras model, you would use the `torch.nn.parallel.DistributedDataParallel` module wrapper. Here's how it works:
 
 - We use `torch.multiprocessing.start_processes` to start multiple Python processes, one per device. Each process will run the `per_device_launch_fn` function.
-- The `per_device_launch_fn` function does the following: - It uses `torch.distributed.init_process_group` and `torch.cuda.set_device` to configure the device to be used for that process. - It uses `torch.utils.data.distributed.DistributedSampler` and `torch.utils.data.DataLoader` to turn our data into a distributed data loader. - It also uses `torch.nn.parallel.DistributedDataParallel` to turn our model into a distributed PyTorch module. - It then calls the `train_model` function.
+- The `per_device_launch_fn` function does the following:
+  - It uses `torch.distributed.init_process_group` and `torch.cuda.set_device` to configure the device to be used for that process.
+  - It uses `torch.utils.data.distributed.DistributedSampler` and `torch.utils.data.DataLoader` to turn our data into a distributed data loader.
+  - It also uses `torch.nn.parallel.DistributedDataParallel` to turn our model into a distributed PyTorch module.
+  - It then calls the `train_model` function.
 - The `train_model` function will then run in each process, with the model using a separate device in each process.
 
 Here's the flow, where each step is split into its own utility function:
