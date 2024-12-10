@@ -1,6 +1,6 @@
 ---
-title: Tune hyperparameters in your custom training loop
-linkTitle: Tune hyperparameters in your custom training loop
+title: 당신의 커스텀 트레이닝 루프에서 하이퍼파라미터 튜닝
+linkTitle: 커스텀 트레이닝 하이퍼파라미터 튜닝
 toc: true
 weight: 3
 type: docs
@@ -8,10 +8,10 @@ type: docs
 
 {{< keras/original checkedAt="2024-11-18" >}}
 
-**Authors:** Tom O'Malley, Haifeng Jin  
+**{{< t f_author >}}** Tom O'Malley, Haifeng Jin  
 **{{< t f_date_created >}}** 2019/10/28  
 **{{< t f_last_modified >}}** 2022/01/12  
-**{{< t f_description >}}** Use `HyperModel.fit()` to tune training hyperparameters (such as batch size).
+**{{< t f_description >}}** `HyperModel.fit()`을 사용하여 트레이닝 하이퍼파라미터(예: 배치 크기)를 튜닝합니다.
 
 {{< cards cols="2" >}}
 {{< card link="https://colab.research.google.com/github/keras-team/keras-io/blob/master/guides/ipynb/keras_tuner/custom_tuner.ipynb" title="Colab" tag="Colab" tagType="warning">}}
@@ -22,20 +22,27 @@ type: docs
 !pip install keras-tuner -q
 ```
 
-## Introduction
+## 소개 {#introduction}
 
-The `HyperModel` class in KerasTuner provides a convenient way to define your search space in a reusable object. You can override `HyperModel.build()` to define and hypertune the model itself. To hypertune the training process (e.g. by selecting the proper batch size, number of training epochs, or data augmentation setup), you can override `HyperModel.fit()`, where you can access:
+KerasTuner의 `HyperModel` 클래스는 재사용 가능한 객체에서 검색 공간을 정의하는 편리한 방법을 제공합니다.
+`HyperModel.build()`를 재정의하여 모델 자체를 정의하고 하이퍼튜닝할 수 있습니다.
+트레이닝 과정에서 하이퍼튜닝을 하려면(예: 적절한 배치 크기, 트레이닝 에포크 수 또는 데이터 보강 설정을 선택하여),
+`HyperModel.fit()`을 재정의하여 다음에 접근할 수 있습니다.
 
-- The `hp` object, which is an instance of [`keras_tuner.HyperParameters`]({{< relref "/docs/api/keras_tuner/hyperparameters#hyperparameters-class" >}})
-- The model built by `HyperModel.build()`
+- `hp` 객체: [`keras_tuner.HyperParameters`]({{< relref "/docs/api/keras_tuner/hyperparameters#hyperparameters-class" >}})의 인스턴스
+- `HyperModel.build()`에 의해 빌드된 모델
 
-A basic example is shown in the "tune model training" section of [Getting Started with KerasTuner]({{< relref "/docs/guides/keras_tuner/getting_started/#tune-model-training" >}}).
+기본 예시는 [KerasTuner 시작하기의 "모델 트레이닝 튜닝하기" 섹션]({{< relref "/docs/guides/keras_tuner/getting_started/#tune-model-training" >}})에서 확인할 수 있습니다.
 
-## Tuning the custom training loop
+## 커스텀 트레이닝 루프 튜닝 {#tuning-the-custom-training-loop}
 
-In this guide, we will subclass the `HyperModel` class and write a custom training loop by overriding `HyperModel.fit()`. For how to write a custom training loop with Keras, you can refer to the guide [Writing a training loop from scratch]({{< relref "/docs/guides/writing_a_custom_training_loop_in_tensorflow" >}}).
+이 가이드에서는, `HyperModel` 클래스를 서브클래싱하고 `HyperModel.fit()`을 재정의하여,
+커스텀 트레이닝 루프를 작성합니다.
+Keras에서 커스텀 트레이닝 루프를 작성하는 방법은,
+{{< titledRelref "/docs/guides/writing_a_custom_training_loop_in_tensorflow" >}} 가이드를 참조하십시오.
 
-First, we import the libraries we need, and we create datasets for training and validation. Here, we just use some random data for demonstration purposes.
+먼저 필요한 라이브러리를 import 하고, 트레이닝 및 검증용 데이터셋을 생성합니다.
+여기서는 시연 목적으로 랜덤 데이터를 사용합니다.
 
 ```python
 import keras_tuner
@@ -50,34 +57,47 @@ x_val = np.random.rand(1000, 28, 28, 1)
 y_val = np.random.randint(0, 10, (1000, 1))
 ```
 
-Then, we subclass the `HyperModel` class as `MyHyperModel`. In `MyHyperModel.build()`, we build a simple Keras model to do image classification for 10 different classes. `MyHyperModel.fit()` accepts several arguments. Its signature is shown below:
+그런다음, `MyHyperModel`로 `HyperModel` 클래스를 서브클래싱합니다.
+`MyHyperModel.build()`에서는 10개의 다른 클래스를 분류하기 위한 간단한 Keras 모델을 빌드합니다.
+`MyHyperModel.fit()`은 여러 인수를 수락합니다. 그 시그니처는 아래와 같습니다.
 
 ```python
 def fit(self, hp, model, x, y, validation_data, callbacks=None, **kwargs):
 ```
 
-- The `hp` argument is for defining the hyperparameters.
-- The `model` argument is the model returned by `MyHyperModel.build()`.
-- `x`, `y`, and `validation_data` are all custom-defined arguments. We will pass our data to them by calling `tuner.search(x=x, y=y, validation_data=(x_val, y_val))` later. You can define any number of them and give custom names.
-- The `callbacks` argument was intended to be used with `model.fit()`. KerasTuner put some helpful Keras callbacks in it, for example, the callback for checkpointing the model at its best epoch.
+- `hp` 인수는 하이퍼파라미터를 정의하는 데 사용됩니다.
+- `model` 인수는 `MyHyperModel.build()`에서 반환된 모델입니다.
+- `x`, `y`, 및 `validation_data`는 모두 커스텀 정의된 인수입니다.
+  나중에 `tuner.search(x=x, y=y, validation_data=(x_val, y_val))`를 호출하여,
+  데이터를 이들에게 전달할 것입니다.
+  원하는 만큼 인수를 정의하고, 커스텀 이름을 부여할 수 있습니다.
+- `callbacks` 인수는 `model.fit()`과 함께 사용되도록 의도되었습니다.
+  KerasTuner는 체크포인팅(모델의 최상의 에포크에서 모델 저장)과 같은 유용한 Keras 콜백을 제공합니다.
 
-We will manually call the callbacks in the custom training loop. Before we can call them, we need to assign our model to them with the following code so that they have access to the model for checkpointing.
+우리는 커스텀 트레이닝 루프에서 콜백을 수동으로 호출할 것입니다.
+콜백을 호출하기 전에, 다음 코드를 통해 모델을 할당해야 체크포인팅을 위해 콜백에서 모델에 액세스할 수 있습니다.
 
 ```python
 for callback in callbacks:
     callback.model = model
 ```
 
-In this example, we only called the `on_epoch_end()` method of the callbacks to help us checkpoint the model. You may also call other callback methods if needed. If you don't need to save the model, you don't need to use the callbacks.
+이 예에서는, 모델을 체크포인팅하기 위해 콜백의 `on_epoch_end()` 메서드만 호출했습니다.
+필요에 따라, 다른 콜백 메서드도 호출할 수 있습니다.
+모델을 저장할 필요가 없다면, 콜백을 사용할 필요는 없습니다.
 
-In the custom training loop, we tune the batch size of the dataset as we wrap the NumPy data into a [`tf.data.Dataset`](https://www.tensorflow.org/api_docs/python/tf/data/Dataset). Note that you can tune any preprocessing steps here as well. We also tune the learning rate of the optimizer.
+커스텀 트레이닝 루프에서는, `tf.data.Dataset`으로 NumPy 데이터를 래핑할 때 데이터셋의 배치 크기를 튜닝합니다.
+이 단계에서 다른 전처리 단계를 튜닝할 수도 있습니다.
+또한 옵티마이저의 학습률도 튜닝합니다.
 
-We will use the validation loss as the evaluation metric for the model. To compute the mean validation loss, we will use `keras.metrics.Mean()`, which averages the validation loss across the batches. We need to return the validation loss for the tuner to make a record.
+우리는 검증 손실을 모델 평가 지표로 사용할 것입니다.
+배치마다 검증 손실을 평균화하기 위해, `keras.metrics.Mean()`을 사용합니다.
+튜너가 기록을 남기기 위해 검증 손실 값을 반환해야 합니다.
 
 ```python
 class MyHyperModel(keras_tuner.HyperModel):
     def build(self, hp):
-        """Builds a convolutional model."""
+        """컨볼루션 모델을 빌드합니다."""
         inputs = keras.Input(shape=(28, 28, 1))
         x = keras.layers.Flatten()(inputs)
         x = keras.layers.Dense(
@@ -87,7 +107,7 @@ class MyHyperModel(keras_tuner.HyperModel):
         return keras.Model(inputs=inputs, outputs=outputs)
 
     def fit(self, hp, model, x, y, validation_data, callbacks=None, **kwargs):
-        # Convert the datasets to tf.data.Dataset.
+        # 데이터셋을 tf.data.Dataset으로 변환합니다.
         batch_size = hp.Int("batch_size", 32, 128, step=32, default=64)
         train_ds = tf.data.Dataset.from_tensor_slices((x_train, y_train)).batch(
             batch_size
@@ -96,69 +116,72 @@ class MyHyperModel(keras_tuner.HyperModel):
             batch_size
         )
 
-        # Define the optimizer.
+        # 옵티마이저 정의.
         optimizer = keras.optimizers.Adam(
             hp.Float("learning_rate", 1e-4, 1e-2, sampling="log", default=1e-3)
         )
         loss_fn = keras.losses.SparseCategoricalCrossentropy(from_logits=True)
 
-        # The metric to track validation loss.
+        # 검증 손실을 추적할 메트릭.
         epoch_loss_metric = keras.metrics.Mean()
 
-        # Function to run the train step.
+        # 트레이닝 단계를 실행하는 함수.
         @tf.function
         def run_train_step(images, labels):
             with tf.GradientTape() as tape:
                 logits = model(images)
                 loss = loss_fn(labels, logits)
-                # Add any regularization losses.
+                # 정규화 손실 추가.
                 if model.losses:
                     loss += tf.math.add_n(model.losses)
             gradients = tape.gradient(loss, model.trainable_variables)
             optimizer.apply_gradients(zip(gradients, model.trainable_variables))
 
-        # Function to run the validation step.
+        # 검증 단계를 실행하는 함수.
         @tf.function
         def run_val_step(images, labels):
             logits = model(images)
             loss = loss_fn(labels, logits)
-            # Update the metric.
+            # 메트릭 업데이트.
             epoch_loss_metric.update_state(loss)
 
-        # Assign the model to the callbacks.
+        # 모델을 콜백에 할당합니다.
         for callback in callbacks:
             callback.set_model(model)
 
-        # Record the best validation loss value
+        # 최상의 검증 손실 값을 기록.
         best_epoch_loss = float("inf")
 
-        # The custom training loop.
+        # 커스텀 트레이닝 루프.
         for epoch in range(2):
             print(f"Epoch: {epoch}")
 
-            # Iterate the training data to run the training step.
+            # 트레이닝 데이터를 반복하면서, 트레이닝 단계를 실행.
             for images, labels in train_ds:
                 run_train_step(images, labels)
 
-            # Iterate the validation data to run the validation step.
+            # 검증 데이터를 반복하면서, 검증 단계를 실행.
             for images, labels in validation_data:
                 run_val_step(images, labels)
 
-            # Calling the callbacks after epoch.
+            # 에포크가 끝난 후 콜백 호출.
             epoch_loss = float(epoch_loss_metric.result().numpy())
             for callback in callbacks:
-                # The "my_metric" is the objective passed to the tuner.
+                # "my_metric"은 튜너에 전달된 objective 입니다.
                 callback.on_epoch_end(epoch, logs={"my_metric": epoch_loss})
             epoch_loss_metric.reset_state()
 
             print(f"Epoch loss: {epoch_loss}")
             best_epoch_loss = min(best_epoch_loss, epoch_loss)
 
-        # Return the evaluation metric value.
+        # 평가 메트릭 값을 반환.
         return best_epoch_loss
 ```
 
-Now, we can initialize the tuner. Here, we use `Objective("my_metric", "min")` as our metric to be minimized. The objective name should be consistent with the one you use as the key in the `logs` passed to the 'on_epoch_end()' method of the callbacks. The callbacks need to use this value in the `logs` to find the best epoch to checkpoint the model.
+이제 튜너를 초기화할 수 있습니다.
+여기에서는, 최소화할 메트릭으로 `Objective("my_metric", "min")`을 사용합니다.
+목표 이름은 콜백의 `on_epoch_end()` 메서드에 전달된 `logs`에서 사용하는 키와 일치해야 합니다.
+콜백은 `logs`의 이 값을 사용하여 최상의 에포크를 찾아 모델을 체크포인팅합니다.
 
 ```python
 tuner = keras_tuner.RandomSearch(
@@ -171,7 +194,7 @@ tuner = keras_tuner.RandomSearch(
 )
 ```
 
-We start the search by passing the arguments we defined in the signature of `MyHyperModel.fit()` to `tuner.search()`.
+`MyHyperModel.fit()`의 서명에서 정의한 인수를 `tuner.search()`에 전달하여 검색을 시작합니다.
 
 ```python
 tuner.search(x=x_train, y=y_train, validation_data=(x_val, y_val))
@@ -191,7 +214,7 @@ Total elapsed time: 00h 00m 04s
 
 {{% /details %}}
 
-Finally, we can retrieve the results.
+마지막으로, 결과를 검색할 수 있습니다.
 
 ```python
 best_hps = tuner.get_best_hyperparameters()[0]
@@ -227,6 +250,10 @@ Model: "functional_1"
 
 {{% /details %}}
 
-In summary, to tune the hyperparameters in your custom training loop, you just override `HyperModel.fit()` to train the model and return the evaluation results. With the provided callbacks, you can easily save the trained models at their best epochs and load the best models later.
+요약하자면, 커스텀 트레이닝 루프에서 하이퍼파라미터를 튜닝하려면,
+`HyperModel.fit()`을 오버라이드하여 모델을 트레이닝하고 평가 결과를 반환하면 됩니다.
+제공된 콜백을 사용하면, 최상의 에포크에서 트레이닝된 모델을 쉽게 저장하고,
+나중에 최상의 모델을 로드할 수 있습니다.
 
-To find out more about the basics of KerasTuner, please see [Getting Started with KerasTuner]({{< relref "/docs/guides/keras_tuner/getting_started" >}}).
+KerasTuner의 기본 사항에 대해 자세히 알아보려면,
+[KerasTuner로 시작하기]({{< relref "/docs/guides/keras_tuner/getting_started" >}})를 참조하세요.

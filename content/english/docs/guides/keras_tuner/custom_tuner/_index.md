@@ -8,7 +8,7 @@ type: docs
 
 {{< keras/original checkedAt="2024-11-18" >}}
 
-**Authors:** Tom O'Malley, Haifeng Jin  
+**{{< t f_author >}}** Tom O'Malley, Haifeng Jin  
 **{{< t f_date_created >}}** 2019/10/28  
 **{{< t f_last_modified >}}** 2022/01/12  
 **{{< t f_description >}}** Use `HyperModel.fit()` to tune training hyperparameters (such as batch size).
