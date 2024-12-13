@@ -8,10 +8,8 @@ type: docs
 
 {{< keras/original checkedAt="2024-11-19" >}}
 
-These guides cover the [KerasNLP]({{< relref "/docs/keras_nlp" >}}) library.
+이 가이드에서는 [KerasNLP]({{< relref "/docs/keras_nlp" >}}) 라이브러리에 대해 설명합니다.
 
-## Available guides
+## 모든 컨텐츠
 
-- [Getting Started with KerasNLP]({{< relref "/docs/guides/keras_nlp/getting_started" >}})
-- [Pretraining a Transformer from scratch with KerasNLP]({{< relref "/docs/guides/keras_nlp/transformer_pretraining" >}})
-- [Uploading Models with KerasNLP]({{< relref "/docs/guides/keras_nlp/upload" >}})
+{{< default-section-cards-list-recursive >}}
