@@ -1,6 +1,6 @@
 ---
-title: Hyperparameter Tuning
-linkTitle: Hyperparameter Tuning
+title: 하이퍼파라미터 튜닝
+linkTitle: 하이퍼파라미터 튜닝
 toc: true
 weight: 20
 type: docs
@@ -8,13 +8,8 @@ type: docs
 
 {{< keras/original checkedAt="2024-11-18" >}}
 
-These guides cover KerasTuner best practices.
+이 가이드들은 KerasTuner의 모범 사례를 다룹니다.
 
-## Available guides
+## 모든 컨텐츠
 
-- [Getting started with KerasTuner]({{< relref "/docs/guides/keras_tuner/getting_started" >}})
-- [Distributed hyperparameter tuning with KerasTuner]({{< relref "/docs/guides/keras_tuner/distributed_tuning" >}})
-- [Tune hyperparameters in your custom training loop]({{< relref "/docs/guides/keras_tuner/custom_tuner" >}})
-- [Visualize the hyperparameter tuning process]({{< relref "/docs/guides/keras_tuner/visualize_tuning" >}})
-- [Handling failed trials in KerasTuner]({{< relref "/docs/guides/keras_tuner/failed_trials" >}})
-- [Tailor the search space]({{< relref "/docs/guides/keras_tuner/tailor_the_search_space" >}})
+{{< default-section-cards-list-recursive >}}

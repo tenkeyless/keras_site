@@ -751,7 +751,12 @@ Your models may include a custom `train_step()` or `test_step()` method, which r
 
 In some cases, you might be able to simply override the `Model.compute_loss()` method and make it fully backend-agnostic, instead of overriding `train_step()`. Here's an example of a layer with a custom `compute_loss()` method which works across JAX, TensorFlow, and PyTorch:
 
-`class MyModel(keras.Model):     def compute_loss(self, x=None, y=None, y_pred=None, sample_weight=None):         loss = keras.ops.sum(keras.losses.mean_squared_error(y, y_pred, sample_weight))         return loss`
+```python
+class MyModel(keras.Model):
+    def compute_loss(self, x=None, y=None, y_pred=None, sample_weight=None):
+        loss = keras.ops.sum(keras.losses.mean_squared_error(y, y_pred, sample_weight))
+        return loss
+```
 
 If you need to modify the optimization mechanism itself, beyond the loss computation, then you will need to override `train_step()`, and implement one `train_step` method per backend, like below.
 

@@ -1,6 +1,6 @@
 ---
-title: Getting Started with KerasHub
-linkTitle: Getting Started with KerasHub
+title: KerasHub 시작하기
+linkTitle: KerasHub 시작하기
 toc: true
 weight: 1
 type: docs
@@ -11,7 +11,7 @@ type: docs
 **{{< t f_author >}}** [Matthew Watson](https://github.com/mattdangerw/), [Jonathan Bischof](https://github.com/jbischof)  
 **{{< t f_date_created >}}** 2022/12/15  
 **{{< t f_last_modified >}}** 2024/10/17  
-**{{< t f_description >}}** An introduction to the KerasHub API.
+**{{< t f_description >}}** KerasHub API에 대한 소개입니다.
 
 {{< cards cols="2" >}}
 {{< card link="https://colab.research.google.com/github/keras-team/keras-io/blob/master/guides/ipynb/keras_hub/getting_started.ipynb" title="Colab" tag="Colab" tagType="warning">}}
@@ -28,7 +28,7 @@ This guide is meant to be an accessible introduction to the entire library. We w
 
 As always, we'll keep our Keras guides focused on real-world code examples. You can play with the code here at any time by clicking the Colab link at the top of the guide.
 
-## Installation and Setup
+## Installation and Setup {#installation-and-setup}
 
 To begin, let's install keras-hub. The library is available on PyPI, so we can simply install it with pip.
 
@@ -53,7 +53,7 @@ Lastly, we need to do some extra setup to access the models used in this guide. 
 2.  Generate an Kaggle API key by going to [Kaggle settings](https://www.kaggle.com/settings) and clicking "Create New Token" button under the "API" section.
 3.  Inside your colab notebook, click on the key icon on the left hand toolbar. Add two secrets: `KAGGLE_USERNAME` with your username, and `KAGGLE_KEY` with the API key you just created. Make these secrets visible to the notebook you are running.
 
-## API Quickstart
+## API Quickstart {#api-quickstart}
 
 Before we begin, let's take a look at the key classes we will use in the KerasHub library.
 
@@ -90,7 +90,7 @@ The figure below shows how all these core classes interact. Arrow indicate compo
 
 ![png](/images/guides/keras_hub/getting_started/class-diagram.png.png)
 
-## Classify an image
+## Classify an image {#classify-an-image}
 
 ![png](/images/keras-hub/getting_started_guide/prof_keras_beginner.png)
 
@@ -228,7 +228,7 @@ Model: "res_net_image_classifier"
 
 {{% /details %}}
 
-## Generate text with an LLM
+## Generate text with an LLM {#generate-text-with-an-llm}
 
 ![png](/images/keras-hub/getting_started_guide/prof_keras_intermediate.png)
 
@@ -466,7 +466,7 @@ Let's free up the memory from our large Gemma model before we jump to the next s
 del causal_lm
 ```
 
-## Fine-tune and publish an image classifier
+## Fine-tune and publish an image classifier {#fine-tune-and-publish-an-image-classifier}
 
 ![png](/images/keras-hub/getting_started_guide/prof_keras_advanced.png)
 
@@ -671,7 +671,7 @@ Let's delete this model to free up memory before we move on to our final example
 del image_classifier
 ```
 
-## Building a custom text classifier
+## Building a custom text classifier {#building-a-custom-text-classifier}
 
 ![png](/images/keras-hub/getting_started_guide/prof_keras_expert.png)
 
@@ -942,7 +942,7 @@ We are able to achieve over ~93% accuracy on the movie review sentiment classifi
 
 Taken together, the `backbone` and `tokenizer` we created in this example allowed us access the full power of pretrained Gemma checkpoints, without restricting what we could do with them. This is a central aim of the KerasHub API. Simple workflows should be easy, and as you go deeper, you gain access to a deeply customizable set of building blocks.
 
-## Going further
+## Going further {#going-further}
 
 This is just scratching the surface of what you can do with the KerasHub.
 

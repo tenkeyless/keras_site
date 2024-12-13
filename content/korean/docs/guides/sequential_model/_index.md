@@ -17,7 +17,7 @@ type: docs
 {{< card link="https://github.com/keras-team/keras-io/blob/master/guides/sequential_model.py" title="GitHub" tag="GitHub">}}
 {{< /cards >}}
 
-## Setup {#setup}
+## 셋업 {#setup}
 
 ```python
 import keras
@@ -25,14 +25,16 @@ from keras import layers
 from keras import ops
 ```
 
-## When to use a Sequential model {#when-to-use-a-sequential-model}
+## Sequential 모델을 사용하는 경우 {#when-to-use-a-sequential-model}
 
-A `Sequential` model is appropriate for **a plain stack of layers** where each layer has **exactly one input tensor and one output tensor**.
+`Sequential` 모델은 각 레이어에
+**정확히 하나의 입력 텐서와 하나의 출력 텐서**가 있는
+**레이어들의 일반 스택**에 적합합니다.
 
-Schematically, the following `Sequential` model:
+개략적으로, 다음의 `Sequential` 모델을 봅시다.
 
 ```python
-# Define Sequential model with 3 layers
+# 3개의 레이어로 Sequential 모델 정의
 model = keras.Sequential(
     [
         layers.Dense(2, activation="relu", name="layer1"),
@@ -40,34 +42,34 @@ model = keras.Sequential(
         layers.Dense(4, name="layer3"),
     ]
 )
-# Call model on a test input
+# 테스트 입력에 대해 모델 호출
 x = ops.ones((3, 3))
 y = model(x)
 ```
 
-is equivalent to this function:
+이 함수형 모델과 동일합니다:
 
 ```python
-# Create 3 layers
+# 3개의 레이어를 만듭니다
 layer1 = layers.Dense(2, activation="relu", name="layer1")
 layer2 = layers.Dense(3, activation="relu", name="layer2")
 layer3 = layers.Dense(4, name="layer3")
 
-# Call layers on a test input
+# 테스트 입력에 대해 레이어 호출
 x = ops.ones((3, 3))
 y = layer3(layer2(layer1(x)))
 ```
 
-A Sequential model is **not appropriate** when:
+Sequential 모델은 다음과 같은 경우, **적절하지 않습니다**.
 
-- Your model has multiple inputs or multiple outputs
-- Any of your layers has multiple inputs or multiple outputs
-- You need to do layer sharing
-- You want non-linear topology (e.g. a residual connection, a multi-branch model)
+- 모델에 여러 입력 또는 여러 출력이 있는 경우
+- 레이어들 중 어떤 것에 여러 입력 또는 여러 출력이 있는 경우
+- 레이어 공유가 필요한 경우
+- 비선형 토폴로지(예: residual 연결, 다중 분기 모델)가 필요한 경우
 
-## Creating a Sequential model {#creating-a-sequential-model}
+## Sequential 모델 생성 {#creating-a-sequential-model}
 
-You can create a Sequential model by passing a list of layers to the Sequential constructor:
+Sequential 생성자에 레이어 리스트를 전달하여 Sequential 모델을 생성할 수 있습니다.
 
 ```python
 model = keras.Sequential(
@@ -79,7 +81,7 @@ model = keras.Sequential(
 )
 ```
 
-Its layers are accessible via the `layers` attribute:
+레이어는 `layers` 속성을 통해 접근할 수 있습니다.
 
 ```python
 model.layers
@@ -95,7 +97,7 @@ model.layers
 
 {{% /details %}}
 
-You can also create a Sequential model incrementally via the `add()` method:
+`add()` 메서드를 통해 Sequential 모델을 증분 방식(incrementally)으로 생성할 수도 있습니다.
 
 ```python
 model = keras.Sequential()
@@ -104,7 +106,8 @@ model.add(layers.Dense(3, activation="relu"))
 model.add(layers.Dense(4))
 ```
 
-Note that there's also a corresponding `pop()` method to remove layers: a Sequential model behaves very much like a list of layers.
+레이어를 제거하는 `pop()` 메서드도 있습니다.
+Sequential 모델은 레이어 리스트와 매우 비슷하게 동작합니다.
 
 ```python
 model.pop()
@@ -119,7 +122,8 @@ print(len(model.layers))  # 2
 
 {{% /details %}}
 
-Also note that the Sequential constructor accepts a `name` argument, just like any layer or model in Keras. This is useful to annotate TensorBoard graphs with semantically meaningful names.
+또한 Sequential 생성자는 (Keras의 모든 레이어나 모델과 마찬가지로) `name` 인수를 허용합니다.
+이는 의미적으로(semantically) 의미 있는(meaningful) 이름으로 TensorBoard 그래프에 어노테이션 하기에 유용합니다.
 
 ```python
 model = keras.Sequential(name="my_sequential")
@@ -128,13 +132,14 @@ model.add(layers.Dense(3, activation="relu", name="layer2"))
 model.add(layers.Dense(4, name="layer3"))
 ```
 
-## Specifying the input shape in advance {#specifying-the-input-shape-in-advance}
+## 입력 모양을 미리 지정 {#specifying-the-input-shape-in-advance}
 
-Generally, all layers in Keras need to know the shape of their inputs in order to be able to create their weights. So when you create a layer like this, initially, it has no weights:
+일반적으로, Keras의 모든 레이어는 가중치를 생성하기 위해 입력의 모양을 알아야 합니다.
+따라서 이와 같은 레이어를 만들면, 처음에는 가중치가 없습니다.
 
 ```python
 layer = layers.Dense(3)
-layer.weights  # Empty
+layer.weights  # 비어 있음
 ```
 
 {{% details title="{{< t f_result >}}" closed="true" %}}
@@ -145,13 +150,14 @@ layer.weights  # Empty
 
 {{% /details %}}
 
-It creates its weights the first time it is called on an input, since the shape of the weights depends on the shape of the inputs:
+입력에 대해 처음 호출될 때 가중치를 생성합니다.
+가중치의 모양은 입력의 모양에 따라 달라지기 때문입니다.
 
 ```python
-# Call layer on a test input
+# 테스트 입력에 대한 레이어 호출
 x = ops.ones((1, 4))
 y = layer(x)
-layer.weights  # Now it has weights, of shape (4, 3) and (3,)
+layer.weights  # 이제 (4, 3) 및 (3,) 모양의 가중치가 있습니다.
 ```
 
 {{% details title="{{< t f_result >}}" closed="true" %}}
@@ -163,7 +169,10 @@ layer.weights  # Now it has weights, of shape (4, 3) and (3,)
 
 {{% /details %}}
 
-Naturally, this also applies to Sequential models. When you instantiate a Sequential model without an input shape, it isn't "built": it has no weights (and calling `model.weights` results in an error stating just this). The weights are created when the model first sees some input data:
+당연히, 이는 Sequential 모델에도 적용됩니다.
+입력 모양 없이 Sequential 모델을 인스턴스화하면, "빌드"되지 않습니다.
+가중치가 없습니다. (그리고 `model.weights`를 호출하면 이 오류만 발생합니다)
+가중치는 모델이 처음 입력 데이터를 볼 때 생성됩니다.
 
 ```python
 model = keras.Sequential(
@@ -172,15 +181,15 @@ model = keras.Sequential(
         layers.Dense(3, activation="relu"),
         layers.Dense(4),
     ]
-)  # No weights at this stage!
+)  # 이 단계에서는 가중치가 없습니다!
 
-# At this point, you can't do this:
+# 이 시점에서는, 다음을 수행할 수 없습니다.
 # model.weights
 
-# You also can't do this:
+# 다음 역시도 할 수 없습니다.
 # model.summary()
 
-# Call the model on a test input
+# 테스트 입력에 대해 모델 호출
 x = ops.ones((1, 4))
 y = model(x)
 print("Number of weights after calling the model:", len(model.weights))  # 6
@@ -194,7 +203,7 @@ Number of weights after calling the model: 6
 
 {{% /details %}}
 
-Once a model is "built", you can call its `summary()` method to display its contents:
+모델이 "빌드"되면, `summary()` 메서드를 호출하여 내용을 표시할 수 있습니다.
 
 ```python
 model.summary()
@@ -220,7 +229,9 @@ Model: "sequential_3"
 
 {{% /details %}}
 
-However, it can be very useful when building a Sequential model incrementally to be able to display the summary of the model so far, including the current output shape. In this case, you should start your model by passing an `Input` object to your model, so that it knows its input shape from the start:
+그러나, Sequential 모델을 점진적으로(incrementally) 빌드할 때,
+지금까지의 모델 요약을 현재 출력 모양을 포함하여 표시할 수 있다면 매우 유용할 수 있습니다.
+이 경우, `Input` 객체를 모델에 전달하여 모델을 시작해야 하며, 이렇게 하면 처음부터 입력 모양을 알 수 있습니다.
 
 ```python
 model = keras.Sequential()
@@ -246,7 +257,7 @@ Model: "sequential_4"
 
 {{% /details %}}
 
-Note that the `Input` object is not displayed as part of `model.layers`, since it isn't a layer:
+`Input` 객체는 레이어가 아니기 때문에, `model.layers`의 일부로 표시되지 않습니다.
 
 ```python
 model.layers
@@ -260,26 +271,31 @@ model.layers
 
 {{% /details %}}
 
-Models built with a predefined input shape like this always have weights (even before seeing any data) and always have a defined output shape.
+이와 같이 미리 정의된 입력 모양으로 빌드된 모델은,
+항상 가중치를 갖고(데이터를 보기 전에도) 항상 정의된 출력 모양을 갖습니다.
 
-In general, it's a recommended best practice to always specify the input shape of a Sequential model in advance if you know what it is.
+일반적으로, Sequential 모델의 입력 모양을 알고 있다면,
+항상 미리 지정하는 것이 권장되는 모범 사례입니다.
 
-## A common debugging workflow: `add()` + `summary()` {#a-common-debugging-workflow-add-summary}
+## 일반적인 디버깅 워크플로: `add()` + `summary()` {#a-common-debugging-workflow-add-summary}
 
-When building a new Sequential architecture, it's useful to incrementally stack layers with `add()` and frequently print model summaries. For instance, this enables you to monitor how a stack of `Conv2D` and `MaxPooling2D` layers is downsampling image feature maps:
+새로운 Sequential 아키텍처를 빌드할 때,
+`add()`로 레이어를 점진적으로 쌓고(incrementally stack) 모델 요약을 자주 출력하는 것이 유용합니다.
+예를 들어, 이를 통해 `Conv2D` 및 `MaxPooling2D` 레이어의 스택이,
+이미지 특성 맵을 다운샘플링하는 방식을 모니터링할 수 있습니다.
 
 ```python
 model = keras.Sequential()
-model.add(keras.Input(shape=(250, 250, 3)))  # 250x250 RGB images
+model.add(keras.Input(shape=(250, 250, 3)))  # 250x250 RGB 이미지
 model.add(layers.Conv2D(32, 5, strides=2, activation="relu"))
 model.add(layers.Conv2D(32, 3, activation="relu"))
 model.add(layers.MaxPooling2D(3))
 
-# Can you guess what the current output shape is at this point? Probably not.
-# Let's just print it:
+# 이 시점에서 현재 출력 모양이 무엇인지 추측할 수 있나요? 아마도 아닐 겁니다.
+# 그냥 출력해 봅시다:
 model.summary()
 
-# The answer was: (40, 40, 32), so we can keep downsampling...
+# 답은 (40, 40, 32)입니다. 따라서 계속해서 다운샘플링할 수 있습니다.
 
 model.add(layers.Conv2D(32, 3, activation="relu"))
 model.add(layers.Conv2D(32, 3, activation="relu"))
@@ -288,13 +304,13 @@ model.add(layers.Conv2D(32, 3, activation="relu"))
 model.add(layers.Conv2D(32, 3, activation="relu"))
 model.add(layers.MaxPooling2D(2))
 
-# And now?
+# 그리고 지금은?
 model.summary()
 
-# Now that we have 4x4 feature maps, time to apply global max pooling.
+# 이제 4x4 특성 맵이 있으므로, 글로벌 최대 풀링을 적용할 시간입니다.
 model.add(layers.GlobalMaxPooling2D())
 
-# Finally, we add a classification layer.
+# 마지막으로, 분류 레이어를 추가합니다.
 model.add(layers.Dense(10))
 ```
 
@@ -343,18 +359,24 @@ Model: "sequential_5"
 
 {{% /details %}}
 
-Very practical, right?
+매우 실용적이죠?
 
-## What to do once you have a model {#what-to-do-once-you-have-a-model}
+## 모델이 생기면 무엇을 해야 하나요? {#what-to-do-once-you-have-a-model}
 
-Once your model architecture is ready, you will want to:
+모델 아키텍처가 준비되면 다음을 수행해야 합니다.
 
-- Train your model, evaluate it, and run inference. See our [guide to training & evaluation with the built-in loops]({{< relref "/docs/guides/training_with_built_in_methods" >}}).
-- Save your model to disk and restore it. See our [guide to serialization & saving]({{< relref "/docs/guides/serialization_and_saving" >}}).
+- 모델을 트레이닝하고, 평가하고, 추론을 실행합니다.
+  {{< titledRelref "/docs/guides/training_with_built_in_methods" >}} 가이드를 참조하세요.
+- 모델을 디스크에 저장하고 복원합니다.
+  {{< titledRelref "/docs/guides/serialization_and_saving" >}} 가이드를 참조하세요.
 
-## Feature extraction with a Sequential model {#feature-extraction-with-a-sequential-model}
+## Sequential 모델을 사용한 특성 추출 {#feature-extraction-with-a-sequential-model}
 
-Once a Sequential model has been built, it behaves like a [Functional API model]({{< relref "/docs/guides/functional_api" >}}). This means that every layer has an `input` and `output` attribute. These attributes can be used to do neat things, like quickly creating a model that extracts the outputs of all intermediate layers in a Sequential model:
+Sequential 모델이 빌드되면,
+{{< titledRelref "/docs/guides/functional_api" >}} 모델처럼 동작합니다.
+즉, 모든 레이어에 `input` 및 `output` 속성이 있습니다.
+이러한 속성을 사용하면, Sequential 모델에서 모든 중간 레이어의 출력을 추출하는 모델을 빠르게 만드는 것과 같은,
+멋진 작업을 수행할 수 있습니다.
 
 ```python
 initial_model = keras.Sequential(
@@ -370,12 +392,12 @@ feature_extractor = keras.Model(
     outputs=[layer.output for layer in initial_model.layers],
 )
 
-# Call feature extractor on test input.
+# 테스트 입력에 대해 feature_extractor를 호출합니다.
 x = ops.ones((1, 250, 250, 3))
 features = feature_extractor(x)
 ```
 
-Here's a similar example that only extract features from one layer:
+한 레이어에서만 특성을 추출하는 유사한 예는 다음과 같습니다.
 
 ```python
 initial_model = keras.Sequential(
@@ -390,18 +412,22 @@ feature_extractor = keras.Model(
     inputs=initial_model.inputs,
     outputs=initial_model.get_layer(name="my_intermediate_layer").output,
 )
-# Call feature extractor on test input.
+# 테스트 입력에 대해 feature_extractor를 호출합니다.
 x = ops.ones((1, 250, 250, 3))
 features = feature_extractor(x)
 ```
 
-## Transfer learning with a Sequential model {#transfer-learning-with-a-sequential-model}
+## Sequential 모델을 사용한 전이 학습 {#transfer-learning-with-a-sequential-model}
 
-Transfer learning consists of freezing the bottom layers in a model and only training the top layers. If you aren't familiar with it, make sure to read our [guide to transfer learning]({{< relref "/docs/guides/transfer_learning" >}}).
+전이 학습은 모델의 하위 레이어를 동결하고, 상위 레이어만 트레이닝하는 것으로 구성됩니다.
+익숙하지 않은 경우, {{< titledRelref "/docs/guides/transfer_learning" >}} 가이드를 읽어보세요.
 
-Here are two common transfer learning blueprint involving Sequential models.
+다음은 Sequential 모델과 관련된 두 가지 일반적인 전이 학습 청사진입니다.
 
-First, let's say that you have a Sequential model, and you want to freeze all layers except the last one. In this case, you would simply iterate over `model.layers` and set `layer.trainable = False` on each layer, except the last one. Like this:
+먼저, Sequential 모델이 있고, 마지막 레이어를 제외한 모든 레이어를 동결하려고 한다고 가정해 보겠습니다.
+이 경우, `model.layers`에 걸쳐 반복하고,
+마지막 레이어를 제외한 모든 레이어에 `layer.trainable = False`를 설정하면 됩니다.
+다음과 같습니다.
 
 ```python
 model = keras.Sequential([
@@ -412,46 +438,47 @@ model = keras.Sequential([
     layers.Dense(10),
 ])
 
-# Presumably you would want to first load pre-trained weights.
+# 아마도 먼저 사전 트레이닝된 가중치를 로드하고 싶을 것입니다.
 model.load_weights(...)
 
-# Freeze all layers except the last one.
+# 마지막 레이어를 제외한 모든 레이어를 동결합니다.
 for layer in model.layers[:-1]:
   layer.trainable = False
 
-# Recompile and train (this will only update the weights of the last layer).
+# 다시 컴파일하고 트레이닝시킵니다. (이렇게 하면 마지막 레이어의 가중치만 업데이트됩니다)
 model.compile(...)
 model.fit(...)
 ```
 
-Another common blueprint is to use a Sequential model to stack a pre-trained model and some freshly initialized classification layers. Like this:
+또다른 일반적인 청사진은 Sequential 모델을 사용하여,
+사전 트레이닝된 모델과 새로 초기화된 분류 레이어를 쌓는 것입니다. 다음과 같습니다.
 
 ```python
-# Load a convolutional base with pre-trained weights
+# 사전 트레이닝된 가중치를 사용하여, 컨볼루션 베이스 불러오기
 base_model = keras.applications.Xception(
     weights='imagenet',
     include_top=False,
     pooling='avg')
 
-# Freeze the base model
+# 베이스 모델 동결
 base_model.trainable = False
 
-# Use a Sequential model to add a trainable classifier on top
+# Sequential 모델을 사용하여, 상단에(on top) 트레이닝 가능한 분류기를 추가합니다.
 model = keras.Sequential([
     base_model,
     layers.Dense(1000),
 ])
 
-# Compile & train
+# 컴파일 & 트레이닝
 model.compile(...)
 model.fit(...)
 ```
 
-If you do transfer learning, you will probably find yourself frequently using these two patterns.
+전이 학습을 한다면, 아마도 이 두 패턴을 자주 사용하게 될 것입니다.
 
-That's about all you need to know about Sequential models!
+Sequential 모델에 대해 알아야 할 것은 이것뿐입니다!
 
-To find out more about building models in Keras, see:
+Keras에서 모델을 빌드하는 방법에 대한 자세한 내용은, 다음을 참조하세요.
 
-- [Guide to the Functional API]({{< relref "/docs/guides/functional_api" >}})
-- [Guide to making new Layers & Models via subclassing]({{< relref "/docs/guides/making_new_layers_and_models_via_subclassing" >}})
+- {{< titledRelref "/docs/guides/functional_api" >}} 가이드
+- {{< titledRelref "/docs/guides/making_new_layers_and_models_via_subclassing" >}} 가이드

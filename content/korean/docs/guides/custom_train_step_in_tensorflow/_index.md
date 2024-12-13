@@ -1,6 +1,6 @@
 ---
-title: Customizing what happens in `fit()` with TensorFlow
-linkTitle: Customizing fit() with TensorFlow
+title: TensorFlow에서의 `fit()` 동작을 커스터마이즈
+linkTitle: TensorFlow fit() 커스터마이즈
 toc: true
 weight: 6
 type: docs
@@ -11,35 +11,47 @@ type: docs
 **{{< t f_author >}}** [fchollet](https://twitter.com/fchollet)  
 **{{< t f_date_created >}}** 2020/04/15  
 **{{< t f_last_modified >}}** 2023/06/27  
-**{{< t f_description >}}** Overriding the training step of the Model class with TensorFlow.
+**{{< t f_description >}}** TensorFlow에서 `Model` 클래스의 트레이닝 스텝을 재정의.
 
 {{< cards cols="2" >}}
 {{< card link="https://colab.research.google.com/github/keras-team/keras-io/blob/master/guides/ipynb/custom_train_step_in_tensorflow.ipynb" title="Colab" tag="Colab" tagType="warning">}}
 {{< card link="https://github.com/keras-team/keras-io/blob/master/guides/custom_train_step_in_tensorflow.py" title="GitHub" tag="GitHub">}}
 {{< /cards >}}
 
-## Introduction
+## 소개 {#introduction}
 
-When you're doing supervised learning, you can use `fit()` and everything works smoothly.
+지도 학습을 할 때는 `fit()`을 사용하면, 모든 것이 매끄럽게 작동합니다.
 
-When you need to take control of every little detail, you can write your own training loop entirely from scratch.
+하지만 모든 세부 사항을 완전히 제어해야 할 경우,
+처음부터 끝까지 직접 당신만의 트레이닝 루프를 작성할 수 있습니다.
 
-But what if you need a custom training algorithm, but you still want to benefit from the convenient features of `fit()`, such as callbacks, built-in distribution support, or step fusing?
+그렇지만 커스텀 트레이닝 알고리즘이 필요하면서도,
+콜백, 빌트인 분산 지원, 스텝 퓨징(step fusing)과 같은,
+`fit()`의 편리한 기능을 그대로 활용하고 싶다면 어떻게 해야 할까요?
 
-A core principle of Keras is **progressive disclosure of complexity**. You should always be able to get into lower-level workflows in a gradual way. You shouldn't fall off a cliff if the high-level functionality doesn't exactly match your use case. You should be able to gain more control over the small details while retaining a commensurate amount of high-level convenience.
+Keras의 핵심 원칙 중 하나는 **점진적인 복잡성 공개**입니다.
+항상 점진적으로 더 낮은 레벨의 워크플로로 진입할 수 있어야 합니다.
+높은 레벨의 기능이 정확히 사용 사례에 맞지 않더라도, 갑작스럽게 어려움에 부딪혀서는 안 됩니다.
+높은 레벨의 편리함을 유지하면서, 작은 세부 사항에 대한 제어 권한을 더 많이 가질 수 있어야 합니다.
 
-When you need to customize what `fit()` does, you should **override the training step function of the `Model` class**. This is the function that is called by `fit()` for every batch of data. You will then be able to call `fit()` as usual – and it will be running your own learning algorithm.
+`fit()`이 수행하는 작업을 커스터마이즈해야 할 때는,
+**`Model` 클래스의 트레이닝 스텝 함수를 재정의해야** 합니다.
+이 함수는 `fit()`이 각 데이터 배치마다 호출하는 함수입니다.
+이렇게 하면, 평소와 같이 `fit()`을 호출할 수 있으며,
+그 안에서 사용자가 정의한 트레이닝 알고리즘이 실행됩니다.
 
-Note that this pattern does not prevent you from building models with the Functional API. You can do this whether you're building `Sequential` models, Functional API models, or subclassed models.
+이 패턴은 함수형 API로 모델을 만드는 것을 방해하지 않는다는 점에 주의하세요.
+`Sequential` 모델, Functional API 모델,
+또는 서브클래싱한 모델을 만들 때도 이 방법을 사용할 수 있습니다.
 
-Let's see how that works.
+이제 그 방법을 살펴보겠습니다.
 
-## Setup
+## 셋업 {#setup}
 
 ```python
 import os
 
-# This guide can only be run with the TF backend.
+# 이 가이드는 TF 백엔드에서만 실행할 수 있습니다.
 os.environ["KERAS_BACKEND"] = "tensorflow"
 
 import tensorflow as tf
@@ -48,64 +60,70 @@ from keras import layers
 import numpy as np
 ```
 
-## A first simple example
+## 첫 번째 간단한 예제 {#a-first-simple-example}
 
-Let's start from a simple example:
+간단한 예제부터 시작해봅시다:
 
-- We create a new class that subclasses [`keras.Model`]({{< relref "/docs/api/models/model#model-class" >}}).
-- We just override the method `train_step(self, data)`.
-- We return a dictionary mapping metric names (including the loss) to their current value.
+- [`keras.Model`]({{< relref "/docs/api/models/model#model-class" >}})을 서브클래싱하는 새로운 클래스를 만듭니다.
+- `train_step(self, data)` 메서드만 재정의합니다.
+- 메트릭 이름(손실을 포함한)과 현재 값의 매핑을 반환하는 딕셔너리를 리턴합니다.
 
-The input argument `data` is what gets passed to fit as training data:
+입력 인자 `data`는 `fit`에 트레이닝 데이터로 전달되는 것입니다:
 
-- If you pass NumPy arrays, by calling `fit(x, y, ...)`, then `data` will be the tuple `(x, y)`
-- If you pass a [`tf.data.Dataset`](https://www.tensorflow.org/api_docs/python/tf/data/Dataset), by calling `fit(dataset, ...)`, then `data` will be what gets yielded by `dataset` at each batch.
+- `fit(x, y, ...)`를 호출하면서 NumPy 배열을 전달하면, `data`는 튜플 `(x, y)`가 됩니다.
+- [`tf.data.Dataset`](https://www.tensorflow.org/api_docs/python/tf/data/Dataset)을 `fit(dataset, ...)`으로 호출하면서 전달하면,
+  `data`는 각 배치에서 `dataset`이 생성하는 값이 됩니다.
 
-In the body of the `train_step()` method, we implement a regular training update, similar to what you are already familiar with. Importantly, **we compute the loss via `self.compute_loss()`**, which wraps the loss(es) function(s) that were passed to `compile()`.
+`train_step()` 메서드의 본문에서는,
+이미 익숙한 일반적인 트레이닝 업데이트를 구현합니다.
+중요한 것은, **`self.compute_loss()`를 통해 손실을 계산**하는 것입니다.
+이 메서드는 `compile()`에 전달된 손실(들)의 함수(들)을 래핑합니다.
 
-Similarly, we call `metric.update_state(y, y_pred)` on metrics from `self.metrics`, to update the state of the metrics that were passed in `compile()`, and we query results from `self.metrics` at the end to retrieve their current value.
+마찬가지로, `self.metrics`에서 메트릭에 대해 `metric.update_state(y, y_pred)`를 호출하여,
+`compile()`에 전달된 메트릭의 상태를 업데이트하고,
+마지막에는 `self.metrics`에서 결과를 쿼리하여 현재 값을 가져옵니다.
 
 ```python
 class CustomModel(keras.Model):
     def train_step(self, data):
-        # Unpack the data. Its structure depends on your model and
-        # on what you pass to `fit()`.
+        # 데이터를 언패킹합니다.
+        # 데이터의 구조는 모델과 `fit()`에 전달하는 값에 따라 다릅니다.
         x, y = data
 
         with tf.GradientTape() as tape:
-            y_pred = self(x, training=True)  # Forward pass
-            # Compute the loss value
-            # (the loss function is configured in `compile()`)
+            y_pred = self(x, training=True)  # 순전파
+            # 손실 값을 계산합니다.
+            # (손실 함수는 `compile()`에서 설정됩니다)
             loss = self.compute_loss(y=y, y_pred=y_pred)
 
-        # Compute gradients
+        # 그래디언트를 계산합니다.
         trainable_vars = self.trainable_variables
         gradients = tape.gradient(loss, trainable_vars)
 
-        # Update weights
+        # 가중치를 업데이트합니다.
         self.optimizer.apply(gradients, trainable_vars)
 
-        # Update metrics (includes the metric that tracks the loss)
+        # 메트릭을 업데이트합니다. (손실을 추적하는 메트릭 포함)
         for metric in self.metrics:
             if metric.name == "loss":
                 metric.update_state(loss)
             else:
                 metric.update_state(y, y_pred)
 
-        # Return a dict mapping metric names to current value
+        # 메트릭 이름을 현재 값에 매핑하는 딕셔너리를 반환합니다.
         return {m.name: m.result() for m in self.metrics}
 ```
 
-Let's try this out:
+이제 이것을 시도해봅시다:
 
 ```python
-# Construct and compile an instance of CustomModel
+# `CustomModel` 인스턴스를 생성하고 컴파일합니다.
 inputs = keras.Input(shape=(32,))
 outputs = keras.layers.Dense(1)(inputs)
 model = CustomModel(inputs, outputs)
 model.compile(optimizer="adam", loss="mse", metrics=["mae"])
 
-# Just use `fit` as usual
+# 평소처럼 `fit`을 사용하세요.
 x = np.random.random((1000, 32))
 y = np.random.random((1000, 1))
 model.fit(x, y, epochs=3)
@@ -129,15 +147,27 @@ I0000 00:00:1699222602.443035       1 device_compiler.h:187] Compiled cluster us
 
 {{% /details %}}
 
-## Going lower-level
+## 더 낮은 레벨로 내려가기 {#going-lower-level}
 
-Naturally, you could just skip passing a loss function in `compile()`, and instead do everything _manually_ in `train_step`. Likewise for metrics.
+물론, `compile()`에서 손실 함수를 전달하지 않고,
+대신 모든 것을 `train_step`에서 _수동으로_ 수행할 수 있습니다.
+메트릭도 마찬가지입니다.
 
-Here's a lower-level example, that only uses `compile()` to configure the optimizer:
+다음은 옵티마이저를 설정하기 위해서만 `compile()`을 사용하는,
+더 낮은 레벨의 예제입니다:
 
-- We start by creating `Metric` instances to track our loss and a MAE score (in `__init__()`).
-- We implement a custom `train_step()` that updates the state of these metrics (by calling `update_state()` on them), then query them (via `result()`) to return their current average value, to be displayed by the progress bar and to be pass to any callback.
-- Note that we would need to call `reset_states()` on our metrics between each epoch! Otherwise calling `result()` would return an average since the start of training, whereas we usually work with per-epoch averages. Thankfully, the framework can do that for us: just list any metric you want to reset in the `metrics` property of the model. The model will call `reset_states()` on any object listed here at the beginning of each `fit()` epoch or at the beginning of a call to `evaluate()`.
+- 먼저, 손실과 MAE 점수를 추적하기 위해, `Metric` 인스턴스를 생성합니다. (`__init__()`에서)
+- 그런 다음, 이들 메트릭의 상태를 업데이트(그들에 대해 메트릭의 `update_state()` 호출함으로써)한 후,
+  현재 평균 값을 반환하기 위해 `result()`를 통해 이를 쿼리하는,
+  커스텀 `train_step()`을 구현합니다.
+  이렇게 반환된 값은 진행 표시줄에 표시되거나 콜백에 전달됩니다.
+- 각 에포크마다 메트릭의 `reset_states()`를 호출해야 한다는 점에 유의하세요!
+  그렇지 않으면, `result()`를 호출할 때,
+  에포크 시작 시점이 아닌 트레이닝 시작 이후의 평균을 반환하게 됩니다.
+  보통 우리는 에포크별 평균을 사용합니다.
+  다행히도, 프레임워크가 이를 처리해줍니다: 모델의 `metrics` 속성에 초기화하려는 메트릭을 나열하기만 하면 됩니다.
+  모델은 `fit()` 에포크의 시작 시점이나 `evaluate()` 호출의 시작 시점에,
+  여기에 나열된 모든 객체에 대해 `reset_states()`를 호출합니다.
 
 ```python
 class CustomModel(keras.Model):
@@ -151,18 +181,18 @@ class CustomModel(keras.Model):
         x, y = data
 
         with tf.GradientTape() as tape:
-            y_pred = self(x, training=True)  # Forward pass
-            # Compute our own loss
+            y_pred = self(x, training=True)  # 순전파
+            # 우리만의 손실을 계산합니다.
             loss = self.loss_fn(y, y_pred)
 
-        # Compute gradients
+        # 그래디언트를 계산합니다.
         trainable_vars = self.trainable_variables
         gradients = tape.gradient(loss, trainable_vars)
 
-        # Update weights
+        # 가중치를 업데이트합니다.
         self.optimizer.apply(gradients, trainable_vars)
 
-        # Compute our own metrics
+        # 우리만의 메트릭을 계산합니다.
         self.loss_tracker.update_state(loss)
         self.mae_metric.update_state(y, y_pred)
         return {
@@ -172,21 +202,21 @@ class CustomModel(keras.Model):
 
     @property
     def metrics(self):
-        # We list our `Metric` objects here so that `reset_states()` can be
-        # called automatically at the start of each epoch
-        # or at the start of `evaluate()`.
+        # 각 에포크의 시작 시점이나 `evaluate()`의 시작 시점에,
+        # `reset_states()`가 자동으로 호출될 수 있도록,
+        # `Metric` 객체를 여기에 나열합니다.
         return [self.loss_tracker, self.mae_metric]
 
 
-# Construct an instance of CustomModel
+# `CustomModel` 인스턴스를 생성하고 컴파일합니다.
 inputs = keras.Input(shape=(32,))
 outputs = keras.layers.Dense(1)(inputs)
 model = CustomModel(inputs, outputs)
 
-# We don't pass a loss or metrics here.
+# 여기에서는 손실 함수나 메트릭을 전달하지 않습니다.
 model.compile(optimizer="adam")
 
-# Just use `fit` as usual -- you can use callbacks, etc.
+# 평소처럼 `fit`을 사용하세요 — 콜백 등을 사용할 수 있습니다.
 x = np.random.random((1000, 32))
 y = np.random.random((1000, 1))
 model.fit(x, y, epochs=5)
@@ -211,19 +241,23 @@ Epoch 5/5
 
 {{% /details %}}
 
-## Supporting `sample_weight` & `class_weight`
+## `sample_weight` & `class_weight` 지원 {#supporting-sampleweight-and-classweight}
 
-You may have noticed that our first basic example didn't make any mention of sample weighting. If you want to support the `fit()` arguments `sample_weight` and `class_weight`, you'd simply do the following:
+첫 번째 기본 예제에서, 샘플 가중치에 대한 언급이 없었다는 것을 눈치채셨을 겁니다.
+`sample_weight`와 `class_weight` 같은 `fit()` 인자를 지원하고 싶다면,
+다음과 같이 간단히 할 수 있습니다:
 
-- Unpack `sample_weight` from the `data` argument
-- Pass it to `compute_loss` & `update_state` (of course, you could also just apply it manually if you don't rely on `compile()` for losses & metrics)
-- That's it.
+- `data` 인자에서 `sample_weight`를 언팩합니다.
+- `compute_loss`와 `update_state`에 이를 전달합니다.
+  (물론, 손실 및 메트릭에 대해 `compile()`을 사용하지 않는다면,
+  이를 수동으로 적용할 수도 있습니다)
+- 그게 전부입니다.
 
 ```python
 class CustomModel(keras.Model):
     def train_step(self, data):
-        # Unpack the data. Its structure depends on your model and
-        # on what you pass to `fit()`.
+        # 데이터를 언팩합니다.
+        # 데이터의 구조는 모델과 `fit()`에 전달하는 값에 따라 달라집니다.
         if len(data) == 3:
             x, y, sample_weight = data
         else:
@@ -231,42 +265,42 @@ class CustomModel(keras.Model):
             x, y = data
 
         with tf.GradientTape() as tape:
-            y_pred = self(x, training=True)  # Forward pass
-            # Compute the loss value.
-            # The loss function is configured in `compile()`.
+            y_pred = self(x, training=True)  # 순전파
+            # 손실 값을 계산합니다.
+            # (손실 함수는 `compile()`에서 설정됩니다)
             loss = self.compute_loss(
                 y=y,
                 y_pred=y_pred,
                 sample_weight=sample_weight,
             )
 
-        # Compute gradients
+        # 그래디언트를 계산합니다.
         trainable_vars = self.trainable_variables
         gradients = tape.gradient(loss, trainable_vars)
 
-        # Update weights
+        # 가중치를 업데이트합니다.
         self.optimizer.apply(gradients, trainable_vars)
 
-        # Update the metrics.
-        # Metrics are configured in `compile()`.
+        # 메트릭을 업데이트합니다.
+        # 메트릭은 `compile()`에서 설정됩니다.
         for metric in self.metrics:
             if metric.name == "loss":
                 metric.update_state(loss)
             else:
                 metric.update_state(y, y_pred, sample_weight=sample_weight)
 
-        # Return a dict mapping metric names to current value.
-        # Note that it will include the loss (tracked in self.metrics).
+        # 메트릭 이름을 현재 값에 매핑하는 딕셔너리를 반환합니다.
+        # 여기에는 손실(`self.metrics`에서 추적된)이 포함된다는 점에 유의하세요.
         return {m.name: m.result() for m in self.metrics}
 
 
-# Construct and compile an instance of CustomModel
+# `CustomModel` 인스턴스를 생성하고 컴파일합니다.
 inputs = keras.Input(shape=(32,))
 outputs = keras.layers.Dense(1)(inputs)
 model = CustomModel(inputs, outputs)
 model.compile(optimizer="adam", loss="mse", metrics=["mae"])
 
-# You can now use sample_weight argument
+# 이제 `sample_weight` 인자를 사용할 수 있습니다.
 x = np.random.random((1000, 32))
 y = np.random.random((1000, 1))
 sw = np.random.random((1000, 1))
@@ -288,37 +322,39 @@ Epoch 3/3
 
 {{% /details %}}
 
-## Providing your own evaluation step
+## 당신만의 평가 스텝 제공 {#providing-your-own-evaluation-step}
 
-What if you want to do the same for calls to `model.evaluate()`? Then you would override `test_step` in exactly the same way. Here's what it looks like:
+`model.evaluate()` 호출에 대해서도 동일한 작업을 수행하고 싶다면 어떻게 해야 할까요?
+그러면 정확히 같은 방식으로 `test_step`을 재정의하면 됩니다.
+예시는 다음과 같습니다:
 
 ```python
 class CustomModel(keras.Model):
     def test_step(self, data):
-        # Unpack the data
+        # 데이터를 언팩합니다.
         x, y = data
-        # Compute predictions
+        # 예측값을 계산합니다.
         y_pred = self(x, training=False)
-        # Updates the metrics tracking the loss
+        # 손실을 추적하는 메트릭을 업데이트합니다.
         loss = self.compute_loss(y=y, y_pred=y_pred)
-        # Update the metrics.
+        # 메트릭을 업데이트합니다.
         for metric in self.metrics:
             if metric.name == "loss":
                 metric.update_state(loss)
             else:
                 metric.update_state(y, y_pred)
-        # Return a dict mapping metric names to current value.
-        # Note that it will include the loss (tracked in self.metrics).
+        # 메트릭 이름을 현재 값에 매핑하는 딕셔너리를 반환합니다.
+        # 여기에는 손실(`self.metrics`에서 추적된)이 포함된다는 점에 유의하세요.
         return {m.name: m.result() for m in self.metrics}
 
 
-# Construct an instance of CustomModel
+# `CustomModel` 인스턴스를 생성하고 컴파일합니다.
 inputs = keras.Input(shape=(32,))
 outputs = keras.layers.Dense(1)(inputs)
 model = CustomModel(inputs, outputs)
 model.compile(loss="mse", metrics=["mae"])
 
-# Evaluate with our custom test_step
+# 커스텀 `test_step`으로 평가합니다.
 x = np.random.random((1000, 32))
 y = np.random.random((1000, 1))
 model.evaluate(x, y)
@@ -334,19 +370,19 @@ model.evaluate(x, y)
 
 {{% /details %}}
 
-## Wrapping up: an end-to-end GAN example
+## 마무리: 엔드투엔드 GAN 예제 {#wrapping-up-an-end-to-end-gan-example}
 
-Let's walk through an end-to-end example that leverages everything you just learned.
+방금 배운 모든 것을 활용하는 엔드 투 엔드 예제를 함께 살펴보겠습니다.
 
-Let's consider:
+다음의 경우를 고려해봅시다:
 
-- A generator network meant to generate 28x28x1 images.
-- A discriminator network meant to classify 28x28x1 images into two classes ("fake" and "real").
-- One optimizer for each.
-- A loss function to train the discriminator.
+- 28x28x1 이미지를 생성하는 생성자(generator) 네트워크.
+- 28x28x1 이미지를 두 개의 클래스("가짜"와 "진짜")로 분류하는 판별자(discriminator) 네트워크.
+- 각 네트워크에 대한 옵티마이저.
+- 판별자를 트레이닝하기 위한 손실 함수.
 
 ```python
-# Create the discriminator
+# 판별자를 생성합니다.
 discriminator = keras.Sequential(
     [
         keras.Input(shape=(28, 28, 1)),
@@ -360,12 +396,12 @@ discriminator = keras.Sequential(
     name="discriminator",
 )
 
-# Create the generator
+# 생성자를 생성합니다.
 latent_dim = 128
 generator = keras.Sequential(
     [
         keras.Input(shape=(latent_dim,)),
-        # We want to generate 128 coefficients to reshape into a 7x7x128 map
+        # 7x7x128 맵으로 reshape 할 128개의 계수를 생성하려고 합니다.
         layers.Dense(7 * 7 * 128),
         layers.LeakyReLU(negative_slope=0.2),
         layers.Reshape((7, 7, 128)),
@@ -379,7 +415,9 @@ generator = keras.Sequential(
 )
 ```
 
-Here's a feature-complete GAN class, overriding `compile()` to use its own signature, and implementing the entire GAN algorithm in 17 lines in `train_step`:
+여기 `compile()`을 자체 시그니처로 재정의하고,
+`train_step`에서 17줄로 전체 GAN 알고리즘을 구현한,
+기능 완성형(feature-complete) GAN 클래스가 있습니다:
 
 ```python
 class GAN(keras.Model):
@@ -405,51 +443,51 @@ class GAN(keras.Model):
     def train_step(self, real_images):
         if isinstance(real_images, tuple):
             real_images = real_images[0]
-        # Sample random points in the latent space
+        # 잠재 공간에서 랜덤 포인트를 샘플링합니다.
         batch_size = tf.shape(real_images)[0]
         random_latent_vectors = keras.random.normal(
             shape=(batch_size, self.latent_dim), seed=self.seed_generator
         )
 
-        # Decode them to fake images
+        # 그것들을 가짜 이미지로 디코딩합니다.
         generated_images = self.generator(random_latent_vectors)
 
-        # Combine them with real images
+        # 그것들을 진짜 이미지와 결합합니다.
         combined_images = tf.concat([generated_images, real_images], axis=0)
 
-        # Assemble labels discriminating real from fake images
+        # 진짜 이미지와 가짜 이미지를 구분하는 레이블을 구성합니다.
         labels = tf.concat(
             [tf.ones((batch_size, 1)), tf.zeros((batch_size, 1))], axis=0
         )
-        # Add random noise to the labels - important trick!
+        # 레이블에 랜덤 노이즈를 추가합니다 - 중요한 트릭입니다!
         labels += 0.05 * keras.random.uniform(
             tf.shape(labels), seed=self.seed_generator
         )
 
-        # Train the discriminator
+        # 판별자를 트레이닝합니다.
         with tf.GradientTape() as tape:
             predictions = self.discriminator(combined_images)
             d_loss = self.loss_fn(labels, predictions)
         grads = tape.gradient(d_loss, self.discriminator.trainable_weights)
         self.d_optimizer.apply(grads, self.discriminator.trainable_weights)
 
-        # Sample random points in the latent space
+        # 잠재 공간에서 랜덤 포인트를 샘플링합니다.
         random_latent_vectors = keras.random.normal(
             shape=(batch_size, self.latent_dim), seed=self.seed_generator
         )
 
-        # Assemble labels that say "all real images"
+        # '모두 진짜 이미지(all real images)'라는 레이블을 구성합니다.
         misleading_labels = tf.zeros((batch_size, 1))
 
-        # Train the generator (note that we should *not* update the weights
-        # of the discriminator)!
+        # 생성자를 트레이닝합니다!
+        # (판별자의 가중치는 *업데이트하지 않아야* 한다는 점에 유의하세요)
         with tf.GradientTape() as tape:
             predictions = self.discriminator(self.generator(random_latent_vectors))
             g_loss = self.loss_fn(misleading_labels, predictions)
         grads = tape.gradient(g_loss, self.generator.trainable_weights)
         self.g_optimizer.apply(grads, self.generator.trainable_weights)
 
-        # Update metrics and return their value.
+        # 메트릭을 업데이트하고 그 값을 반환합니다.
         self.d_loss_tracker.update_state(d_loss)
         self.g_loss_tracker.update_state(g_loss)
         return {
@@ -458,10 +496,10 @@ class GAN(keras.Model):
         }
 ```
 
-Let's test-drive it:
+시험해봅시다:
 
 ```python
-# Prepare the dataset. We use both the training & test MNIST digits.
+# 데이터셋을 준비합니다. 트레이닝 및 테스트 모두 MNIST 숫자 데이터를 사용합니다.
 batch_size = 64
 (x_train, _), (x_test, _) = keras.datasets.mnist.load_data()
 all_digits = np.concatenate([x_train, x_test])
@@ -477,8 +515,9 @@ gan.compile(
     loss_fn=keras.losses.BinaryCrossentropy(from_logits=True),
 )
 
-# To limit the execution time, we only train on 100 batches. You can train on
-# the entire dataset. You will need about 20 epochs to get nice results.
+# 실행 시간을 제한하기 위해 100개의 배치에서만 트레이닝합니다.
+# 전체 데이터셋으로 트레이닝할 수도 있습니다.
+# 좋은 결과를 얻으려면 약 20 에포크가 필요합니다.
 gan.fit(dataset.take(100), epochs=1)
 ```
 
@@ -492,4 +531,4 @@ gan.fit(dataset.take(100), epochs=1)
 
 {{% /details %}}
 
-The ideas behind deep learning are simple, so why should their implementation be painful?
+딥러닝의 아이디어는 간단한데, 왜 구현은 어려워야 할까요?

@@ -1,6 +1,6 @@
 ---
-title: Getting Started with KerasNLP
-linkTitle: Getting Started with KerasNLP
+title: KerasNLP 시작하기
+linkTitle: KerasNLP 시작하기
 toc: true
 weight: 1
 type: docs
@@ -11,90 +11,121 @@ type: docs
 **{{< t f_author >}}** [Jonathan Bischof](https://github.com/jbischof)  
 **{{< t f_date_created >}}** 2022/12/15  
 **{{< t f_last_modified >}}** 2023/07/01  
-**{{< t f_description >}}** An introduction to the KerasNLP API.
+**{{< t f_description >}}** KerasNLP API에 대한 소개입니다.
 
 {{< cards cols="2" >}}
 {{< card link="https://colab.research.google.com/github/keras-team/keras-io/blob/master/guides/ipynb/keras_nlp/getting_started.ipynb" title="Colab" tag="Colab" tagType="warning">}}
 {{< card link="https://github.com/keras-team/keras-io/blob/master/guides/keras_nlp/getting_started.py" title="GitHub" tag="GitHub">}}
 {{< /cards >}}
 
-## Introduction
+## 소개 {#introduction}
 
-KerasNLP is a natural language processing library that supports users through their entire development cycle. Our workflows are built from modular components that have state-of-the-art preset weights and architectures when used out-of-the-box and are easily customizable when more control is needed.
+KerasNLP는 전체 개발 주기를 지원하는 자연어 처리 라이브러리입니다.
+우리의 워크플로우는 모듈형 구성 요소로 이루어져 있으며,
+최첨단 사전 트레이닝된 가중치와 아키텍처를 제공하며,
+사용자 필요에 따라 쉽게 커스터마이즈할 수 있습니다.
 
-This library is an extension of the core Keras API; all high-level modules are [`Layers`]({{< relref "/docs/api/layers" >}}) or [`Models`]({{< relref "/docs/api/models" >}}). If you are familiar with Keras, congratulations! You already understand most of KerasNLP.
+이 라이브러리는 코어 Keras API의 확장입니다.
+모든 높은 레벨 모듈은 [`Layers`]({{< relref "/docs/api/layers" >}}) 또는 [`Models`]({{< relref "/docs/api/models" >}})입니다.
+Keras에 익숙하다면, 축하합니다! 이미 대부분의 KerasNLP를 이해하고 있는 것입니다.
 
-KerasNLP uses Keras 3 to work with any of TensorFlow, Pytorch and Jax. In the guide below, we will use the `jax` backend for training our models, and [tf.data](https://www.tensorflow.org/guide/data) for efficiently running our input preprocessing. But feel free to mix things up! This guide runs in TensorFlow or PyTorch backends with zero changes, simply update the `KERAS_BACKEND` below.
+KerasNLP는 Keras 3를 사용하여, TensorFlow, Pytorch, Jax와 함께 작동합니다.
+아래 가이드에서는, 모델 트레이닝을 위해 `jax` 백엔드를 사용하고,
+입력 전처리를 효율적으로 처리하기 위해, [tf.data](https://www.tensorflow.org/guide/data)를 사용합니다.
+하지만, 자유롭게 다른 것을 사용해도 됩니다!
+이 가이드는 백엔드를 TensorFlow 또는 PyTorch로 바꿔도 아무런 변경 없이 실행됩니다.
+아래 `KERAS_BACKEND`를 업데이트하기만 하면 됩니다.
 
-This guide demonstrates our modular approach using a sentiment analysis example at six levels of complexity:
+이 가이드는 감정 분석 예제를 통해, 모듈식 접근 방식을 여섯 가지 복잡도 레벨에서 보여줍니다:
 
-- Inference with a pretrained classifier
-- Fine tuning a pretrained backbone
-- Fine tuning with user-controlled preprocessing
-- Fine tuning a custom model
-- Pretraining a backbone model
-- Build and train your own transformer from scratch
+- 사전 트레이닝된 분류기를 사용한 추론
+- 사전 트레이닝된 백본을 미세 조정
+- 사용자 제어 전처리로 미세 조정
+- 커스텀 모델을 미세 조정
+- 백본 모델을 사전 트레이닝
+- 처음부터 직접 트랜스포머 모델 빌드 및 트레이닝
 
-Throughout our guide, we use Professor Keras, the official Keras mascot, as a visual reference for the complexity of the material:
+가이드 전체에서, 우리는 Keras 공식 마스코트인 Keras 교수(Professor Keras)를 시각적 참조로 사용하여 자료의 복잡성을 설명합니다:
 
 ![drawing](/images/keras-hub/getting_started_guide/prof_keras_evolution.png)
 
 ```python
 !pip install -q --upgrade keras-nlp
-!pip install -q --upgrade keras  # Upgrade to Keras 3.
+!pip install -q --upgrade keras  # Keras 3로 업그레이드.
 ```
 
 ```python
 import os
 
-os.environ["KERAS_BACKEND"] = "jax"  # or "tensorflow" or "torch"
+os.environ["KERAS_BACKEND"] = "jax"  # 또는 "tensorflow", "torch"
 
 import keras_nlp
 import keras
 
-# Use mixed precision to speed up all training in this guide.
+# 이 가이드에서 모든 트레이닝을 가속화하기 위해 혼합 정밀도 사용.
 keras.mixed_precision.set_global_policy("mixed_float16")
 ```
 
-## API quickstart
+## API 빠른 시작 {#api-quickstart}
 
-Our highest level API is `keras_nlp.models`. These symbols cover the complete user journey of converting strings to tokens, tokens to dense features, and dense features to task-specific output. For each `XX` architecture (e.g., `Bert`), we offer the following modules:
+가장 높은 레벨의 API는 `keras_nlp.models`입니다.
+이 심볼들은 문자열을 토큰으로, 토큰을 dense 특성으로,
+그리고 dense 특성을 작업별 출력으로 변환하는 전체 과정을 다룹니다.
+각 `XX` 아키텍처(예: `Bert`)에 대해, 다음 모듈을 제공합니다:
 
 - **Tokenizer**: `keras_nlp.models.XXTokenizer`
-  - **What it does**: Converts strings to sequences of token ids.
-  - **Why it's important**: The raw bytes of a string are too high dimensional to be useful features so we first map them to a small number of tokens, for example `"The quick brown fox"` to `["the", "qu", "##ick", "br", "##own", "fox"]`.
-  - **Inherits from**: [`keras.layers.Layer`]({{< relref "/docs/api/layers/base_layer#layer-class" >}}).
-- **Preprocessor**: `keras_nlp.models.XXPreprocessor`
-  - **What it does**: Converts strings to a dictionary of preprocessed tensors consumed by the backbone, starting with tokenization.
-  - **Why it's important**: Each model uses special tokens and extra tensors to understand the input such as delimiting input segments and identifying padding tokens. Padding each sequence to the same length improves computational efficiency.
-  - **Has a**: `XXTokenizer`.
-  - **Inherits from**: [`keras.layers.Layer`]({{< relref "/docs/api/layers/base_layer#layer-class" >}}).
-- **Backbone**: `keras_nlp.models.XXBackbone`
-  - **What it does**: Converts preprocessed tensors to dense features. _Does not handle strings; call the preprocessor first._
-  - **Why it's important**: The backbone distills the input tokens into dense features that can be used in downstream tasks. It is generally pretrained on a language modeling task using massive amounts of unlabeled data. Transferring this information to a new task is a major breakthrough in modern NLP.
-  - **Inherits from**: [`keras.Model`]({{< relref "/docs/api/models/model#model-class" >}}).
-- **Task**: e.g., `keras_nlp.models.XXClassifier`
-  - **What it does**: Converts strings to task-specific output (e.g., classification probabilities).
-  - **Why it's important**: Task models combine string preprocessing and the backbone model with task-specific `Layers` to solve a problem such as sentence classification, token classification, or text generation. The additional `Layers` must be fine-tuned on labeled data.
-  - **Has a**: `XXBackbone` and `XXPreprocessor`.
-  - **Inherits from**: [`keras.Model`]({{< relref "/docs/api/models/model#model-class" >}}).
 
-Here is the modular hierarchy for `BertClassifier` (all relationships are compositional):
+  - **기능**: 문자열을 토큰 ID 시퀀스로 변환합니다.
+  - **중요성**: 문자열의 raw 바이트는 유용한 특성으로 사용되기엔 차원이 너무 높으므로,
+    먼저 작은 수의 토큰으로 매핑합니다.
+    예를 들어, `"The quick brown fox"`는 `["the", "qu", "##ick", "br", "##own", "fox"]`로 변환됩니다.
+  - **상속받는 클래스**: [`keras.layers.Layer`]({{< relref "/docs/api/layers/base_layer#layer-class" >}}).
+
+- **Preprocessor**: `keras_nlp.models.XXPreprocessor`
+
+  - **기능**: 문자열을 토큰화로 시작하여, 백본이 사용할 수 있는 전처리된, 텐서 딕셔너리로 변환합니다.
+  - **중요성**: 각 모델은 입력을 이해하기 위해, 구분 기호 토큰과 같은 특수 토큰 및 추가 텐서를 사용합니다.
+    예를 들어 입력 세그먼트를 구분하거나, 패딩 토큰을 식별하는 기능이 포함됩니다.
+    모든 시퀀스를 동일한 길이로 패딩하면, 계산 효율성이 높아집니다.
+  - **구성 요소**: `XXTokenizer`.
+  - **상속받는 클래스**: [`keras.layers.Layer`]({{< relref "/docs/api/layers/base_layer#layer-class" >}}).
+
+- **Backbone**: `keras_nlp.models.XXBackbone`
+
+  - **기능**: 전처리된 텐서를 dense 특성으로 변환합니다. _문자열 처리는 하지 않으므로, 먼저 전처리기를 호출해야 합니다._
+  - **중요성**: 백본은 입력 토큰을 dense 특성으로 압축하여, 후속 작업에 사용할 수 있도록 합니다.
+    백본 모델은 일반적으로 대량의 비지도 학습 데이터를 사용하여, 언어 모델링 작업으로 사전 트레이닝된 것입니다.
+    이러한 정보를 새로운 작업에 전이하는 것은 현대 NLP에서 중요한 돌파구입니다.
+  - **상속받는 클래스**: [`keras.Model`]({{< relref "/docs/api/models/model#model-class" >}}).
+
+- **Task**: 예를 들어, `keras_nlp.models.XXClassifier`
+
+  - **기능**: 문자열을 작업별 출력(예: 분류 확률)으로 변환합니다.
+  - **중요성**: 작업 모델은 문자열 전처리와 백본 모델을 작업별 `Layers`와 결합하여,
+    문장 분류, 토큰 분류, 텍스트 생성 등의 문제를 해결합니다.
+    추가된 `Layers`는 라벨이 지정된 데이터를 사용하여 미세 조정해야 합니다.
+  - **구성 요소**: `XXBackbone`과 `XXPreprocessor`.
+  - **상속받는 클래스**: [`keras.Model`]({{< relref "/docs/api/models/model#model-class" >}}).
+
+다음은 `BertClassifier`의 모듈 계층 구조입니다(모든 관계는 구성적 관계입니다):
 
 ![drawing](/images/guides/keras_nlp/getting_started/class_diagram.png)
 
-All modules can be used independently and have a `from_preset()` method in addition to the standard constructor that instantiates the class with **preset** architecture and weights (see examples below).
+모든 모듈은 독립적으로 사용할 수 있으며, **사전 설정**된 아키텍처와 가중치로 클래스를 인스턴스화하는,
+`from_preset()` 메서드를 갖고 있습니다. (아래 예 참조)
 
-## Data
+## 데이터 {#data}
 
-We will use a running example of sentiment analysis of IMDB movie reviews. In this task, we use the text to predict whether the review was positive (`label = 1`) or negative (`label = 0`).
+우리는 IMDB 영화 리뷰의 감정 분석 예시를 사용합니다.
+이 작업에서는 텍스트를 사용하여 리뷰가 긍정적(`label = 1`)인지 부정적(`label = 0`)인지를 예측합니다.
 
-We load the data using [`keras.utils.text_dataset_from_directory`]({{< relref "/docs/api/data_loading/text#text_dataset_from_directory-function" >}}), which utilizes the powerful [`tf.data.Dataset`](https://www.tensorflow.org/api_docs/python/tf/data/Dataset) format for examples.
+데이터는 [`keras.utils.text_dataset_from_directory`]({{< relref "/docs/api/data_loading/text#text_dataset_from_directory-function" >}})를 사용하여 로드되며,
+이는 강력한 [`tf.data.Dataset`](https://www.tensorflow.org/api_docs/python/tf/data/Dataset) 형식을 이용합니다.
 
 ```python
 !curl -O https://ai.stanford.edu/~amaas/data/sentiment/aclImdb_v1.tar.gz
 !tar -xf aclImdb_v1.tar.gz
-!# Remove unsupervised examples
+!# 비지도 학습 예제 제거
 !rm -r aclImdb/train/unsup
 ```
 
@@ -109,8 +140,8 @@ imdb_test = keras.utils.text_dataset_from_directory(
     batch_size=BATCH_SIZE,
 )
 
-# Inspect first review
-# Format is (review text tensor, label tensor)
+# 첫 번째 리뷰 확인
+# 형식은 (리뷰 텍스트 텐서, 라벨 텐서)
 print(imdb_train.unbatch().take(1).get_single_element())
 ```
 
@@ -128,17 +159,23 @@ Found 25000 files belonging to 2 classes.
 
 {{% /details %}}
 
-## Inference with a pretrained classifier
+## 사전 트레이닝된 분류기로 추론하기 {#inference-with-a-pretrained-classifier}
 
 ![drawing](/images/keras-hub/getting_started_guide/prof_keras_beginner.png)
 
-The highest level module in KerasNLP is a **task**. A **task** is a [`keras.Model`]({{< relref "/docs/api/models/model#model-class" >}}) consisting of a (generally pretrained) **backbone** model and task-specific layers. Here's an example using `keras_nlp.models.BertClassifier`.
+KerasNLP에서 가장 높은 레벨의 모듈은 **태스크**입니다.
+**태스크**는 (일반적으로 사전 트레이닝된) **백본** 모델과
+태스크 특화 레이어들로 구성된
+[`keras.Model`]({{< relref "/docs/api/models/model#model-class" >}})입니다.
+다음은 `keras_nlp.models.BertClassifier`를 사용하는 예시입니다.
 
-**Note**: Outputs are the logits per class (e.g., `[0, 0]` is 50% chance of positive). The output is \[negative, positive\] for binary classification.
+**참고**: 출력은 클래스별 로짓입니다.
+(예: `[0, 0]`은 긍정일 확률이 50%임을 나타냅니다)
+출력은 이진 분류의 경우 \[negative, positive\]입니다.
 
 ```python
 classifier = keras_nlp.models.BertClassifier.from_preset("bert_tiny_en_uncased_sst2")
-# Note: batched inputs expected so must wrap string in iterable
+# 참고: 배치 입력이 필요하므로, 문자열을 iterable로 래핑해야 합니다.
 classifier.predict(["I love modular workflows in keras-nlp!"])
 ```
 
@@ -152,13 +189,24 @@ array([[-1.539,  1.543]], dtype=float16)
 
 {{% /details %}}
 
-All **tasks** have a `from_preset` method that constructs a [`keras.Model`]({{< relref "/docs/api/models/model#model-class" >}}) instance with preset preprocessing, architecture and weights. This means that we can pass raw strings in any format accepted by a [`keras.Model`]({{< relref "/docs/api/models/model#model-class" >}}) and get output specific to our task.
+모든 **태스크**에는 사전 설정된 전처리, 아키텍처 및 가중치로
+[`keras.Model`]({{< relref "/docs/api/models/model#model-class" >}})
+인스턴스를 생성하는 `from_preset` 메서드가 있습니다.
+이는 우리가 [`keras.Model`]({{< relref "/docs/api/models/model#model-class" >}})에서 허용하는 모든 형식의 raw 문자열을 전달하고, 태스크에 맞는 출력 값을 받을 수 있음을 의미합니다.
 
-This particular **preset** is a `"bert_tiny_uncased_en"` **backbone** fine-tuned on `sst2`, another movie review sentiment analysis (this time from Rotten Tomatoes). We use the `tiny` architecture for demo purposes, but larger models are recommended for SoTA performance. For all the task-specific presets available for `BertClassifier`, see our keras.io [models page]({{< relref "/docs/api/keras_nlp/models" >}}).
+이 특정 **프리셋**은 `"bert_tiny_uncased_en"` **백본**을 `sst2`로 파인 튜닝한 모델로,
+이는 Rotten Tomatoes 영화 리뷰 감성 분석을 수행한 모델입니다.
+데모에서는 `tiny` 아키텍처를 사용하지만, 더 큰 모델을 사용하면 최신 성능(SoTA)을 얻을 수 있습니다.
+`BertClassifier`에 사용 가능한 모든 태스크별 프리셋은,
+[models 페이지]({{< relref "/docs/api/keras_nlp/models" >}})에서 확인할 수 있습니다.
 
-Let's evaluate our classifier on the IMDB dataset. You will note we don't need to call [`keras.Model.compile`]({{< relref "/docs/api/models/model_training_apis#compile-method" >}}) here. All **task** models like `BertClassifier` ship with compilation defaults, meaning we can just call [`keras.Model.evaluate`]({{< relref "/docs/api/models/model_training_apis#evaluate-method" >}}) directly. You can always call compile as normal to override these defaults (e.g. to add new metrics).
+이제 IMDB 데이터셋에서 분류기를 평가해 봅시다.
+여기서 [`keras.Model.compile`]({{< relref "/docs/api/models/model_training_apis#compile-method" >}})를 호출할 필요는 없습니다.
+`BertClassifier`와 같은 모든 **태스크** 모델은 기본적으로 컴파일된 상태로 제공되므로,
+[`keras.Model.evaluate`]({{< relref "/docs/api/models/model_training_apis#evaluate-method" >}})를 바로 호출할 수 있습니다.
+물론, 원한다면 새로운 메트릭을 추가하기 위해, 일반적인 컴파일 방식을 사용할 수 있습니다.
 
-The output below is \[loss, accuracy\],
+출력 값은 \[loss, accuracy\]입니다.
 
 ```python
 classifier.evaluate(imdb_test)
@@ -174,17 +222,27 @@ classifier.evaluate(imdb_test)
 
 {{% /details %}}
 
-Our result is 78% accuracy without training anything. Not bad!
+결과는 78%의 정확도로, 아무런 트레이닝 없이 이 정도 성능을 얻었습니다. 나쁘지 않네요!
 
-## Fine tuning a pretrained BERT backbone
+## 사전 트레이닝된 BERT 백본 파인 튜닝 {#fine-tuning-a-pretrained-bert-backbone}
 
 ![drawing](/images/keras-hub/getting_started_guide/prof_keras_intermediate.png)
 
-When labeled text specific to our task is available, fine-tuning a custom classifier can improve performance. If we want to predict IMDB review sentiment, using IMDB data should perform better than Rotten Tomatoes data! And for many tasks, no relevant pretrained model will be available (e.g., categorizing customer reviews).
+태스크에 맞는 라벨링된 텍스트가 있으면, 커스텀 분류기를 파인 튜닝하여 성능을 향상시킬 수 있습니다.
+IMDB 리뷰 감성을 예측하려면,
+Rotten Tomatoes 데이터보다 IMDB 데이터를 사용하는 것이 더 나은 성능을 낼 것입니다.
+또한, 많은 태스크에서 관련 사전 트레이닝된 모델이 없을 수도 있습니다. (예: 고객 리뷰 분류(categorizing))
 
-The workflow for fine-tuning is almost identical to above, except that we request a **preset** for the **backbone**\-only model rather than the entire classifier. When passed a **backbone** **preset**, a **task** `Model` will randomly initialize all task-specific layers in preparation for training. For all the **backbone** presets available for `BertClassifier`, see our keras.io [models page]({{< relref "/docs/api/keras_nlp/models" >}}).
+파인 튜닝의 워크플로우는 위와 거의 동일하지만,
+전체 분류기 대신 **백본** 전용 **프리셋**을 요청하는 차이만 있습니다.
+**백본** **프리셋**이 전달되면,
+**태스크** `Model`은 태스크에 맞는 레이어들을 무작위로 초기화하고 트레이닝 준비를 합니다.
+`BertClassifier`에 사용 가능한 모든 **백본** 프리셋은,
+[models 페이지]({{< relref "/docs/api/keras_nlp/models" >}})에서 확인할 수 있습니다.
 
-To train your classifier, use [`keras.Model.fit`]({{< relref "/docs/api/models/model_training_apis#fit-method" >}}) as with any other [`keras.Model`]({{< relref "/docs/api/models/model#model-class" >}}). As with our inference example, we can rely on the compilation defaults for the **task** and skip [`keras.Model.compile`]({{< relref "/docs/api/models/model_training_apis#compile-method" >}}). As preprocessing is included, we again pass the raw data.
+분류기를 트레이닝하려면, 다른 [`keras.Model`]({{< relref "/docs/api/models/model#model-class" >}})처럼 [`keras.Model.fit`]({{< relref "/docs/api/models/model_training_apis#fit-method" >}})를 사용하면 됩니다.
+위에서와 마찬가지로 **태스크**에 대해, [`keras.Model.compile`]({{< relref "/docs/api/models/model_training_apis#compile-method" >}})을 스킵하고, 컴파일 기본값을 사용할 수 있습니다.
+전처리가 포함되어 있으므로, raw 데이터를 바로 전달할 수 있습니다.
 
 ```python
 classifier = keras_nlp.models.BertClassifier.from_preset(
@@ -208,23 +266,36 @@ classifier.fit(
 
 {{% /details %}}
 
-Here we see a significant lift in validation accuracy (0.78 -> 0.87) with a single epoch of training even though the IMDB dataset is much smaller than `sst2`.
+여기서는 한 번의 트레이닝만으로 검증 정확도가 0.78에서 0.87로 크게 상승하는 것을 볼 수 있습니다.
+IMDB 데이터셋이 `sst2`보다 훨씬 작음에도 불구하고 말이죠.
 
-## Fine tuning with user-controlled preprocessing
+## 사용자 제어 전처리로 파인 튜닝 {#fine-tuning-with-user-controlled-preprocessing}
 
 ![drawing](/images/keras-hub/getting_started_guide/prof_keras_advanced.png)
 
-For some advanced training scenarios, users might prefer direct control over preprocessing. For large datasets, examples can be preprocessed in advance and saved to disk or preprocessed by a separate worker pool using [`tf.data.experimental.service`](https://www.tensorflow.org/api_docs/python/tf/data/experimental/service). In other cases, custom preprocessing is needed to handle the inputs.
+일부 고급 트레이닝 시나리오에서는, 사용자가 전처리를 직접 제어하기를 원할 수 있습니다.
+대규모 데이터셋의 경우, 예제를 미리 전처리하여 디스크에 저장하거나,
+[`tf.data.experimental.service`](https://www.tensorflow.org/api_docs/python/tf/data/experimental/service)를 사용하여 별도의 작업자 풀에서 전처리할 수 있습니다.
+또는, 입력을 다루기 위해 커스텀 전처리가 필요한 경우도 있습니다.
 
-Pass `preprocessor=None` to the constructor of a **task** `Model` to skip automatic preprocessing or pass a custom `BertPreprocessor` instead.
+**태스크** `Model` 생성자에 `preprocessor=None`을 전달하여 자동 전처리를 건너뛰거나,
+대신 커스텀 `BertPreprocessor`를 전달할 수 있습니다.
 
-### Separate preprocessing from the same preset
+### 동일한 프리셋에서 전처리 분리하기 {#separate-preprocessing-from-the-same-preset}
 
-Each model architecture has a parallel **preprocessor** `Layer` with its own `from_preset` constructor. Using the same **preset** for this `Layer` will return the matching **preprocessor** as the **task**.
+각 모델 아키텍처에는 자체 `from_preset` 생성자가 있는, 병렬 **전처리** `Layer`가 있습니다.
+이 `Layer`에 대해 동일한 **프리셋**을 사용하면, **태스크**와 일치하는 **전처리**를 반환합니다.
 
-In this workflow we train the model over three epochs using `tf.data.Dataset.cache()`, which computes the preprocessing once and caches the result before fitting begins.
+이 워크플로우에서는 `tf.data.Dataset.cache()`를 사용하여,
+fit 시작 전에 전처리를 한 번만 계산하고 그 결과를 캐시한 다음,
+3번의 에포크 동안 모델을 트레이닝합니다.
 
-**Note:** we can use [`tf.data`](https://www.tensorflow.org/api_docs/python/tf/data) for preprocessing while running on the Jax or PyTorch backend. The input dataset will automatically be converted to backend native tensor types during fit. In fact, given the efficiency of [`tf.data`](https://www.tensorflow.org/api_docs/python/tf/data) for running preprocessing, this is good practice on all backends.
+**참고:** [`tf.data`](https://www.tensorflow.org/api_docs/python/tf/data)를 사용하여,
+Jax 또는 PyTorch 백엔드에서 전처리를 실행할 수 있습니다.
+입력 데이터셋은 트레이닝 중에 백엔드 네이티브 텐서 타입으로 자동 변환됩니다.
+실제로 [`tf.data`](https://www.tensorflow.org/api_docs/python/tf/data)의
+전처리 효율성을 고려할 때,
+모든 백엔드에서 이를 사용하는 것이 좋은 관행입니다.
 
 ```python
 import tensorflow as tf
@@ -234,11 +305,12 @@ preprocessor = keras_nlp.models.BertPreprocessor.from_preset(
     sequence_length=512,
 )
 
-# Apply the preprocessor to every sample of train and test data using `map()`.
-# [`tf.data.AUTOTUNE`](https://www.tensorflow.org/api_docs/python/tf/data/AUTOTUNE) and `prefetch()` are options to tune performance, see
-# https://www.tensorflow.org/guide/data_performance for details.
+# 전처리를 `map()`을 사용해, 트레이닝 및 테스트 데이터의 각 샘플에 적용합니다.
+# 성능을 조정하려면 [`tf.data.AUTOTUNE`](https://www.tensorflow.org/api_docs/python/tf/data/AUTOTUNE)과
+# `prefetch()` 옵션을 사용할 수 있습니다.
+# 성능 세부 사항은 https://www.tensorflow.org/guide/data_performance에서 확인하세요.
 
-# Note: only call `cache()` if you training data fits in CPU memory!
+# 참고: `cache()`는 트레이닝 데이터가 CPU 메모리에 맞는 경우에만 호출하세요!
 imdb_train_cached = (
     imdb_train.map(preprocessor, tf.data.AUTOTUNE).cache().prefetch(tf.data.AUTOTUNE)
 )
@@ -271,31 +343,39 @@ Epoch 3/3
 
 {{% /details %}}
 
-After three epochs, our validation accuracy has only increased to 0.88. This is both a function of the small size of our dataset and our model. To exceed 90% accuracy, try larger **presets** such as `"bert_base_en_uncased"`. For all the **backbone** presets available for `BertClassifier`, see our keras.io [models page]({{< relref "/docs/api/keras_nlp/models" >}}).
+세 번의 에포크 후, 우리의 검증 정확도는 0.88로 증가했습니다.
+이는 데이터셋의 크기와 모델의 크기에 의해 결정됩니다.
+90% 이상의 정확도를 달성하려면, `"bert_base_en_uncased"`와 같은 더 큰 **프리셋**을 시도해 보세요.
+사용 가능한 모든 **백본** 프리셋은,
+keras.io [모델 페이지]({{< relref "/docs/api/keras_nlp/models" >}})에서 확인할 수 있습니다.
 
-### Custom preprocessing
+### 커스텀 전처리 {#custom-preprocessing}
 
-In cases where custom preprocessing is required, we offer direct access to the `Tokenizer` class that maps raw strings to tokens. It also has a `from_preset()` constructor to get the vocabulary matching pretraining.
+커스텀 전처리가 필요한 경우, raw 문자열을 토큰으로 매핑하는 `Tokenizer` 클래스를 직접 사용할 수 있습니다.
+이 클래스에는 사전 트레이닝과 일치하는 어휘를 얻기 위한, `from_preset()` 생성자가 있습니다.
 
-**Note:** `BertTokenizer` does not pad sequences by default, so the output is ragged (each sequence has varying length). The `MultiSegmentPacker` below handles padding these ragged sequences to dense tensor types (e.g. [`tf.Tensor`](https://www.tensorflow.org/api_docs/python/tf/Tensor) or `torch.Tensor`).
+**참고:** `BertTokenizer`는 기본적으로 시퀀스를 패딩하지 않으므로,
+출력은 길이가 가변적인 형식으로 나타납니다.
+아래의 `MultiSegmentPacker`는 이러한 가변 길이 시퀀스를
+dense 텐서 타입([`tf.Tensor`](https://www.tensorflow.org/api_docs/python/tf/Tensor)
+또는 `torch.Tensor`)으로 패딩 처리합니다.
 
 ```python
 tokenizer = keras_nlp.models.BertTokenizer.from_preset("bert_tiny_en_uncased")
 tokenizer(["I love modular workflows!", "Libraries over frameworks!"])
 
-# Write your own packer or use one of our `Layers`
+# 직접 패커를 작성하거나 `Layers` 중 하나를 사용할 수 있습니다.
 packer = keras_nlp.layers.MultiSegmentPacker(
     start_value=tokenizer.cls_token_id,
     end_value=tokenizer.sep_token_id,
-    # Note: This cannot be longer than the preset's `sequence_length`, and there
-    # is no check for a custom preprocessor!
+    # 참고: 이 값은 프리셋의 `sequence_length`보다 길 수 없으며,
+    # 커스텀 전처리기에는 이를 확인하는 과정이 없습니다!
     sequence_length=64,
 )
 
 
-# This function that takes a text sample `x` and its
-# corresponding label `y` as input and converts the
-# text into a format suitable for input into a BERT model.
+# 이 함수는 텍스트 샘플 `x`와 해당 레이블 `y`를 입력받아,
+# 텍스트를 BERT 모델에 적합한 형식으로 변환합니다.
 def preprocessor(x, y):
     token_ids, segment_ids = packer(tokenizer(x))
     x = {
@@ -313,7 +393,7 @@ imdb_test_preprocessed = imdb_test.map(preprocessor, tf.data.AUTOTUNE).prefetch(
     tf.data.AUTOTUNE
 )
 
-# Preprocessed example
+# 전처리된 예시 출력
 print(imdb_train_preprocessed.unbatch().take(1).get_single_element())
 ```
 
@@ -345,17 +425,24 @@ array([ True,  True,  True,  True,  True,  True,  True,  True,  True,
 
 {{% /details %}}
 
-## Fine tuning with a custom model
+## 커스텀 모델을 사용한 파인 튜닝 {#fine-tuning-with-a-custom-model}
 
 ![drawing](/images/keras-hub/getting_started_guide/prof_keras_advanced.png)
 
-For more advanced applications, an appropriate **task** `Model` may not be available. In this case, we provide direct access to the **backbone** `Model`, which has its own `from_preset` constructor and can be composed with custom `Layer`s. Detailed examples can be found at our [transfer learning guide]({{< relref "/docs/guides/transfer_learning" >}}).
+더 고급 응용 프로그램의 경우, 적절한 **태스크** `Model`이 제공되지 않을 수 있습니다.
+이 경우, 커스텀 `Layer`와 함께 사용할 수 있는 **백본** `Model`에 직접 액세스할 수 있으며,
+이는 자체 `from_preset` 생성자를 가지고 있습니다.
+자세한 예시는 [전이 학습 가이드]({{< relref "/docs/guides/transfer_learning" >}})에서 확인할 수 있습니다.
 
-A **backbone** `Model` does not include automatic preprocessing but can be paired with a matching **preprocessor** using the same **preset** as shown in the previous workflow.
+**백본** `Model`은 자동 전처리를 포함하지 않지만,
+이전 워크플로우에서 보여준 것처럼,
+동일한 **프리셋**을 사용하는 일치하는 **전처리기**와 함께 사용할 수 있습니다.
 
-In this workflow, we experiment with freezing our backbone model and adding two trainable transformer layers to adapt to the new input.
+이번 워크플로우에서는, 백본 모델을 동결하고, 새로운 입력에 맞게,
+두 개의 트레이닝 가능한 트랜스포머 레이어를 추가하여 실험합니다.
 
-**Note**: We can ignore the warning about gradients for the `pooled_dense` layer because we are using BERT's sequence output.
+**참고**: 우리는 BERT의 시퀀스 출력을 사용하고 있으므로,
+`pooled_dense` 레이어에 대한 경고를 무시할 수 있습니다.
 
 ```python
 preprocessor = keras_nlp.models.BertPreprocessor.from_preset("bert_tiny_en_uncased")
@@ -377,7 +464,7 @@ for _ in range(2):
         intermediate_dim=512,
         dropout=0.1,
     )(sequence)
-# Use [CLS] token output to classify
+# [CLS] 토큰 출력을 사용하여 분류
 outputs = keras.layers.Dense(2)(sequence[:, backbone.cls_token_index, :])
 
 model = keras.Model(inputs, outputs)
@@ -444,25 +531,38 @@ Epoch 3/3
 
 {{% /details %}}
 
-This model achieves reasonable accuracy despite having only 10% of the trainable parameters of our `BertClassifier` model. Each training step takes about 1/3 of the time—even accounting for cached preprocessing.
+이 모델은 `BertClassifier` 모델에 비해 트레이닝 가능한 파라미터 수가 10%밖에 되지 않지만,
+상당히 좋은 정확도를 달성합니다.
+캐시된 전처리를 감안해도, 각 트레이닝 단계가 약 1/3의 시간을 소요합니다.
 
-## Pretraining a backbone model
+## 백본 모델 사전 트레이닝 {#pretraining-a-backbone-model}
 
 ![drawing](/images/keras-hub/getting_started_guide/prof_keras_expert.png)
 
-Do you have access to large unlabeled datasets in your domain? Are they around the same size as used to train popular backbones such as BERT, RoBERTa, or GPT2 (XX+ GiB)? If so, you might benefit from domain-specific pretraining of your own backbone models.
+당신의 도메인에서, 대규모 라벨이 없는 데이터셋에 접근할 수 있나요?
+이러한 데이터셋의 크기가 BERT, RoBERTa 또는 GPT2와 같은
+유명한 백본 모델을 트레이닝시키는 데 사용된 데이터와 유사한 크기(XX+ GiB)인가요?
+만약 그렇다면, 도메인에 특화된 사전 트레이닝을 통해 자체 백본 모델을 학습하는 것이 도움이 될 수 있습니다.
 
-NLP models are generally pretrained on a language modeling task, predicting masked words given the visible words in an input sentence. For example, given the input `"The fox [MASK] over the [MASK] dog"`, the model might be asked to predict `["jumped", "lazy"]`. The lower layers of this model are then packaged as a **backbone** to be combined with layers relating to a new task.
+NLP 모델은 일반적으로 언어 모델링 작업을 통해 사전 트레이닝되며,
+이는 입력 문장에 보이는 단어를 기준으로 가려진 단어를 예측하는 방식입니다.
+예를 들어, `"The fox [MASK] over the [MASK] dog"`라는 입력에서,
+모델은 `["jumped", "lazy"]`를 예측해야 합니다.
+이 모델의 하위 레이어는 **백본**으로 패키징되어, 새로운 작업과 관련된 레이어와 결합됩니다.
 
-The KerasNLP library offers SoTA **backbones** and **tokenizers** to be trained from scratch without presets.
+KerasNLP 라이브러리는 SoTA **백본**과 **토크나이저**를 프리셋 없이 처음부터 트레이닝할 수 있도록 지원합니다.
 
-In this workflow, we pretrain a BERT **backbone** using our IMDB review text. We skip the "next sentence prediction" (NSP) loss because it adds significant complexity to the data processing and was dropped by later models like RoBERTa. See our e2e [Transformer pretraining]({{< relref "/docs/guides/keras_nlp/transformer_pretraining/#pretraining" >}}) for step-by-step details on how to replicate the original paper.
+이번 워크플로우에서는, IMDB 리뷰 텍스트를 사용하여 BERT **백본**을 사전 학습합니다.
+데이터 처리 복잡성을 줄이기 위해, "next sentence prediction" (NSP) 손실을 생략하였으며,
+이는 RoBERTa와 같은 이후 모델에서도 제외되었습니다.
+자세한 내용은 원본 논문을 복제하는 단계별 가이드를 제공하는,
+[Transformer 사전 트레이닝]({{< relref "/docs/guides/keras_nlp/transformer_pretraining/#pretraining" >}})을 참조하세요.
 
-### Preprocessing
+### 전처리 {#preprocessing}
 
 ```python
-# All BERT `en` models have the same vocabulary, so reuse preprocessor from
-# "bert_tiny_en_uncased"
+# 모든 BERT `en` 모델들은 동일한 어휘집을 사용하므로,
+# "bert_tiny_en_uncased"의 전처리기를 재사용합니다.
 preprocessor = keras_nlp.models.BertPreprocessor.from_preset(
     "bert_tiny_en_uncased",
     sequence_length=256,
@@ -470,7 +570,7 @@ preprocessor = keras_nlp.models.BertPreprocessor.from_preset(
 packer = preprocessor.packer
 tokenizer = preprocessor.tokenizer
 
-# keras.Layer to replace some input tokens with the "[MASK]" token
+# 일부 입력 토큰을 "[MASK]" 토큰으로 교체하는 keras.Layer
 masker = keras_nlp.layers.MaskedLMMaskGenerator(
     vocabulary_size=tokenizer.vocabulary_size(),
     mask_selection_rate=0.25,
@@ -485,8 +585,8 @@ masker = keras_nlp.layers.MaskedLMMaskGenerator(
 def preprocess(inputs, label):
     inputs = preprocessor(inputs)
     masked_inputs = masker(inputs["token_ids"])
-    # Split the masking layer outputs into a (features, labels, and weights)
-    # tuple that we can use with keras.Model.fit().
+    # 마스킹 레이어 출력을 (features, labels, weights)로 분리하여
+    # keras.Model.fit()에서 사용할 수 있도록 합니다.
     features = {
         "token_ids": masked_inputs["token_ids"],
         "segment_ids": inputs["segment_ids"],
@@ -505,7 +605,7 @@ pretrain_val_ds = imdb_test.map(
     preprocess, num_parallel_calls=tf.data.AUTOTUNE
 ).prefetch(tf.data.AUTOTUNE)
 
-# Tokens with ID 103 are "masked"
+# ID 103은 "masked"된 토큰입니다.
 print(pretrain_ds.unbatch().take(1).get_single_element())
 ```
 
@@ -604,10 +704,10 @@ array([1., 1., 1., 1., 1., 1., 1., 1., 1., 1., 1., 1., 1., 1., 1., 1., 1.,
 
 {{% /details %}}
 
-### Pretraining model
+### 사전 트레이닝 모델 {#pretraining-model}
 
 ```python
-# BERT backbone
+# BERT 백본 모델
 backbone = keras_nlp.models.BertBackbone(
     vocabulary_size=tokenizer.vocabulary_size(),
     num_layers=2,
@@ -616,7 +716,7 @@ backbone = keras_nlp.models.BertBackbone(
     intermediate_dim=512,
 )
 
-# Language modeling head
+# 언어 모델링 헤드
 mlm_head = keras_nlp.layers.MaskedLMHead(
     token_embedding=backbone.token_embedding,
 )
@@ -628,15 +728,15 @@ inputs = {
     "mask_positions": keras.Input(shape=(None,), dtype=tf.int32, name="mask_positions"),
 }
 
-# Encoded token sequence
+# 인코딩된 토큰 시퀀스
 sequence = backbone(inputs)["sequence_output"]
 
-# Predict an output word for each masked input token.
-# We use the input token embedding to project from our encoded vectors to
-# vocabulary logits, which has been shown to improve training efficiency.
+# 각 마스킹된 입력 토큰에 대해 출력 단어 예측.
+# 입력 토큰 임베딩을 사용해 인코딩된 벡터에서 어휘 로짓으로 프로젝션합니다.
+# 이는 트레이닝 효율성을 향상시키는 것으로 알려져 있습니다.
 outputs = mlm_head(sequence, mask_positions=inputs["mask_positions"])
 
-# Define and compile our pretraining model.
+# 사전 트레이닝 모델 정의 및 컴파일
 pretraining_model = keras.Model(inputs, outputs)
 pretraining_model.summary()
 pretraining_model.compile(
@@ -646,11 +746,11 @@ pretraining_model.compile(
     jit_compile=True,
 )
 
-# Pretrain on IMDB dataset
+# IMDB 데이터셋으로 사전 트레이닝 진행
 pretraining_model.fit(
     pretrain_ds,
     validation_data=pretrain_val_ds,
-    epochs=3,  # Increase to 6 for higher accuracy
+    epochs=3,  # 더 높은 정확도를 위해 6으로 증가 가능
 )
 ```
 
@@ -699,17 +799,27 @@ Epoch 3/3
 
 {{% /details %}}
 
-After pretraining save your `backbone` submodel to use in a new task!
+사전 트레이닝 후, `backbone` 서브모델을 저장하여 새로운 작업에 사용하세요!
 
-## Build and train your own transformer from scratch
+## 처음부터 직접 트랜스포머 빌드 및 트레이닝 {#build-and-train-your-own-transformer-from-scratch}
 
 ![drawing](/images/keras-hub/getting_started_guide/prof_keras_expert.png)
 
-Want to implement a novel transformer architecture? The KerasNLP library offers all the low-level modules used to build SoTA architectures in our `models` API. This includes the `keras_nlp.tokenizers` API which allows you to train your own subword tokenizer using `WordPieceTokenizer`, `BytePairTokenizer`, or `SentencePieceTokenizer`.
+새로운 트랜스포머 아키텍처를 구현하고 싶으신가요?
+KerasNLP 라이브러리는 SoTA(최첨단) 아키텍처를 구축하는 데 사용되는,
+모든 낮은 레벨 모듈을 `models` API에 제공합니다.
+여기에는 `keras_nlp.tokenizers` API가 포함되어 있어,
+`WordPieceTokenizer`, `BytePairTokenizer`, 또는 `SentencePieceTokenizer`를 사용하여,
+직접 서브워드 토크나이저를 트레이닝할 수 있습니다.
 
-In this workflow, we train a custom tokenizer on the IMDB data and design a backbone with custom transformer architecture. For simplicity, we then train directly on the classification task. Interested in more details? We wrote an entire guide to pretraining and finetuning a custom transformer on [keras.io]({{< relref "/docs/guides/keras_nlp/transformer_pretraining" >}}),
+이 워크플로우에서는, IMDB 데이터에 대해 커스텀 토크나이저를 트레이닝하고,
+커스텀 트랜스포머 아키텍처로 백본을 설계합니다.
+간단하게 하기 위해, 바로 분류 작업에 대해 트레이닝을 진행합니다.
+더 자세한 내용이 궁금하신가요?
+커스텀 트랜스포머를 프리트레이닝하고 파인튜닝하는 전체 가이드를,
+[keras.io]({{< relref "/docs/guides/keras_nlp/transformer_pretraining" >}})에 작성했습니다.
 
-### Train custom vocabulary from IMDB data
+### IMDB 데이터에서 커스텀 어휘 트레이닝 {#train-custom-vocabulary-from-imdb-data}
 
 ```python
 vocab = keras_nlp.tokenizers.compute_word_piece_vocabulary(
@@ -727,7 +837,7 @@ tokenizer = keras_nlp.tokenizers.WordPieceTokenizer(
 )
 ```
 
-### Preprocess data with a custom tokenizer
+### 커스텀 토크나이저로 데이터 전처리 {#preprocess-data-with-a-custom-tokenizer}
 
 ```python
 packer = keras_nlp.layers.StartEndPacker(
@@ -819,7 +929,7 @@ array([    1,   102,    11,    61,    43,   771,    16,   340,   916,
 
 {{% /details %}}
 
-### Design a tiny transformer
+### 작은 트랜스포머 설계 {#design-a-tiny-transformer}
 
 ```python
 token_id_input = keras.Input(
@@ -837,7 +947,7 @@ outputs = keras_nlp.layers.TransformerEncoder(
     intermediate_dim=128,
     dropout=0.1,
 )(outputs)
-# Use "[START]" token to classify
+# "[START]" 토큰을 사용하여 분류
 outputs = keras.layers.Dense(2)(outputs[:, 0, :])
 model = keras.Model(
     inputs=token_id_input,
@@ -873,7 +983,7 @@ Model: "functional_5"
 
 {{% /details %}}
 
-### Train the transformer directly on the classification objective
+### 트랜스포머를 직접 분류 목표(objective)에 맞춰 트레이닝 {#train-the-transformer-directly-on-the-classification-objective}
 
 ```python
 model.compile(
@@ -904,4 +1014,7 @@ Epoch 3/3
 
 {{% /details %}}
 
-Excitingly, our custom classifier is similar to the performance of fine-tuning `"bert_tiny_en_uncased"`! To see the advantages of pretraining and exceed 90% accuracy we would need to use larger **presets** such as `"bert_base_en_uncased"`.
+흥미롭게도, 우리가 설계한 커스텀 분류기는 `"bert_tiny_en_uncased"`를 미세 조정한 성능과 비슷합니다!
+90% 이상의 정확도를 달성하고,
+사전 트레이닝의 장점을 보기 위해서는 `"bert_base_en_uncased"`와 같은,
+더 큰 **프리셋**을 사용해야 합니다.

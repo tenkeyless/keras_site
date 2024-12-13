@@ -1,6 +1,6 @@
 ---
-title: Handling failed trials in KerasTuner
-linkTitle: Handling failed trials in KerasTuner
+title: KerasTuner에서 실패한 시도 처리
+linkTitle: 실패한 시도 처리
 toc: true
 weight: 5
 type: docs
@@ -8,27 +8,29 @@ type: docs
 
 {{< keras/original checkedAt="2024-11-19" >}}
 
-**Authors:** Haifeng Jin  
+**{{< t f_author >}}** Haifeng Jin  
 **{{< t f_date_created >}}** 2023/02/28  
 **{{< t f_last_modified >}}** 2023/02/28  
-**{{< t f_description >}}** The basics of fault tolerance configurations in KerasTuner.
+**{{< t f_description >}}** KerasTuner의 장애 허용(fault tolerance) 구성의 기본 사항.
 
 {{< cards cols="2" >}}
 {{< card link="https://colab.research.google.com/github/keras-team/keras-io/blob/master/guides/ipynb/keras_tuner/failed_trials.ipynb" title="Colab" tag="Colab" tagType="warning">}}
 {{< card link="https://github.com/keras-team/keras-io/blob/master/guides/keras_tuner/failed_trials.py" title="GitHub" tag="GitHub">}}
 {{< /cards >}}
 
-## Introduction
+## 소개 {#introduction}
 
-A KerasTuner program may take a long time to run since each model may take a long time to train. We do not want the program to fail just because some trials failed randomly.
+KerasTuner 프로그램은 각 모델의 트레이닝 시간이 오래 걸릴 수 있기 때문에,
+실행 시간이 길어질 수 있습니다.
+일부 시도가 랜덤하게 실패한다고 해서, 프로그램이 중단되지 않도록 처리해야 합니다.
 
-In this guide, we will show how to handle the failed trials in KerasTuner, including:
+이 가이드에서는 KerasTuner에서 실패한 시도를 처리하는 방법을 설명합니다. 다음 내용을 포함합니다:
 
-- How to tolerate the failed trials during the search
-- How to mark a trial as failed during building and evaluating the model
-- How to terminate the search by raising a `FatalError`
+- 탐색 중 실패한 시도를 허용(tolerate)하는 방법
+- 모델을 빌드하고 평가하는 동안, 시도를 실패로 표시하는 방법
+- `FatalError`를 발생시켜 탐색을 중단하는 방법
 
-## Setup
+## 셋업 {#setup}
 
 ```python
 !pip install keras-tuner -q
@@ -41,26 +43,37 @@ import keras_tuner
 import numpy as np
 ```
 
-## Tolerate failed trials
+## 실패한 시도 허용하기(Tolerate) {#tolerate-failed-trials}
 
-We will use the `max_retries_per_trial` and `max_consecutive_failed_trials` arguments when initializing the tuners.
+우리는 튜너를 초기화할 때 `max_retries_per_trial` 및
+`max_consecutive_failed_trials` 인수를 사용할 것입니다.
 
-`max_retries_per_trial` controls the maximum number of retries to run if a trial keeps failing. For example, if it is set to 3, the trial may run 4 times (1 failed run + 3 failed retries) before it is finally marked as failed. The default value of `max_retries_per_trial` is 0.
+`max_retries_per_trial`은 시도가 계속 실패할 때,
+최대 몇 번 다시 시도할지를 제어합니다.
+예를 들어, 값이 3으로 설정되면,
+시도는 총 4번(1번 실패한 실행 + 3번의 재시도)이 실행된 후에,
+최종적으로 실패로 표시됩니다. 기본 값은 0입니다.
 
-`max_consecutive_failed_trials` controls how many consecutive failed trials (failed trial here refers to a trial that failed all of its retries) occur before terminating the search. For example, if it is set to 3 and Trial 2, Trial 3, and Trial 4 all failed, the search would be terminated. However, if it is set to 3 and only Trial 2, Trial 3, Trial 5, and Trial 6 fail, the search would not be terminated since the failed trials are not consecutive. The default value of `max_consecutive_failed_trials` is 3.
+`max_consecutive_failed_trials`은 연속해서 실패한 시도가 몇 번 발생해야,
+탐색이 중단될지를 제어합니다.
+예를 들어, 값이 3으로 설정되어 있고,
+시도 2, 3, 4가 모두 실패하면 탐색이 중단됩니다.
+그러나 값이 3으로 설정되어 있고, 시도 2, 3, 5, 6이 실패하더라도,
+연속적으로 실패한 것이 아니기 때문에 탐색이 중단되지 않습니다.
+`max_consecutive_failed_trials`의 기본 값은 3입니다.
 
-The following code shows how these two arguments work in action.
+다음 코드는 이 두 가지 인수가 실제로 어떻게 작동하는지를 보여줍니다.
 
-- We define a search space with 2 hyperparameters for the number of units in the 2 dense layers.
-- When their product is larger than 800, we raise a `ValueError` for the model too large.
+- 2개의 dense 레이어에서 유닛 수에 대한 2개의 하이퍼파라미터로 탐색 공간을 정의합니다.
+- 두 레이어의 유닛 곱이 800을 초과하면, 모델이 너무 크다는 `ValueError`를 발생시킵니다.
 
 ```python
 def build_model(hp):
-    # Define the 2 hyperparameters for the units in dense layers
+    # Dense 레이어의 유닛에 대한 2개의 하이퍼파라미터 정의
     units_1 = hp.Int("units_1", 10, 40, step=10)
     units_2 = hp.Int("units_2", 10, 30, step=10)
 
-    # Define the model
+    # 모델 정의
     model = keras.Sequential(
         [
             layers.Dense(units=units_1, input_shape=(20,)),
@@ -70,18 +83,18 @@ def build_model(hp):
     )
     model.compile(loss="mse")
 
-    # Raise an error when the model is too large
+    # 모델이 너무 클 경우 오류 발생
     num_params = model.count_params()
     if num_params > 1200:
         raise ValueError(f"Model too large! It contains {num_params} params.")
     return model
 ```
 
-We set up the tuner as follows.
+튜너를 다음과 같이 설정합니다.
 
-- We set `max_retries_per_trial=3`.
-- We set `max_consecutive_failed_trials=8`.
-- We use `GridSearch` to enumerate all hyperparameter value combinations.
+- `max_retries_per_trial=3`으로 설정합니다.
+- `max_consecutive_failed_trials=8`로 설정합니다.
+- 모든 하이퍼파라미터 값 조합을 열거하기 위해, `GridSearch`를 사용합니다.
 
 ```python
 tuner = keras_tuner.GridSearch(
@@ -92,7 +105,7 @@ tuner = keras_tuner.GridSearch(
     max_consecutive_failed_trials=8,
 )
 
-# Use random data to train the model.
+# 랜덤 데이터를 사용하여 모델을 트레이닝합니다.
 tuner.search(
     x=np.random.rand(100, 20),
     y=np.random.rand(100, 1),
@@ -103,7 +116,7 @@ tuner.search(
     epochs=10,
 )
 
-# Print the results.
+# 결과를 출력합니다.
 tuner.results_summary()
 ```
 
@@ -249,21 +262,27 @@ ValueError: Model too large! It contains 1261 params.
 
 {{% /details %}}
 
-## Mark a trial as failed
+## 실패한 시도로 표시하기 {#mark-a-trial-as-failed}
 
-When the model is too large, we do not need to retry it. No matter how many times we try with the same hyperparameters, it is always too large.
+모델이 너무 클 때는 재시도할 필요가 없습니다.
+같은 하이퍼파라미터로 몇 번을 시도하더라도, 항상 너무 큰 모델이 될 것입니다.
 
-We can set `max_retries_per_trial=0` to do it. However, it will not retry no matter what errors are raised while we may still want to retry for other unexpected errors. Is there a way to better handle this situation?
+이를 처리하기 위해 `max_retries_per_trial=0`으로 설정할 수 있지만,
+이 경우 어떤 오류가 발생하더라도 재시도를 하지 않습니다.
+우리는 여전히 예기치 않은 오류에 대해서는 재시도를 원할 수도 있습니다.
+이 상황을 더 잘 처리할 방법이 있을까요?
 
-We can raise the `FailedTrialError` to skip the retries. Whenever, this error is raised, the trial would not be retried. The retries will still run when other errors occur. An example is shown as follows.
+우리는 `FailedTrialError`를 발생시켜 재시도를 건너뛸 수 있습니다.
+이 오류가 발생하면 해당 시도는 재시도되지 않습니다.
+다른 오류가 발생할 경우에는 여전히 재시도가 실행됩니다. 다음은 그 예시입니다.
 
 ```python
 def build_model(hp):
-    # Define the 2 hyperparameters for the units in dense layers
+    # Dense 레이어에서 사용할 유닛 수에 대한 2개의 하이퍼파라미터 정의
     units_1 = hp.Int("units_1", 10, 40, step=10)
     units_2 = hp.Int("units_2", 10, 30, step=10)
 
-    # Define the model
+    # 모델 정의
     model = keras.Sequential(
         [
             layers.Dense(units=units_1, input_shape=(20,)),
@@ -273,16 +292,16 @@ def build_model(hp):
     )
     model.compile(loss="mse")
 
-    # Raise an error when the model is too large
+    # 모델이 너무 클 경우 오류 발생
     num_params = model.count_params()
     if num_params > 1200:
-        # When this error is raised, it skips the retries.
+        # 이 오류가 발생하면 재시도를 건너뜁니다.
         raise keras_tuner.errors.FailedTrialError(
             f"Model too large! It contains {num_params} params."
         )
     return model
 
-
+# 튜너 설정
 tuner = keras_tuner.GridSearch(
     hypermodel=build_model,
     objective="val_loss",
@@ -291,7 +310,7 @@ tuner = keras_tuner.GridSearch(
     max_consecutive_failed_trials=8,
 )
 
-# Use random data to train the model.
+# 랜덤 데이터를 사용하여 모델을 트레이닝합니다.
 tuner.search(
     x=np.random.rand(100, 20),
     y=np.random.rand(100, 1),
@@ -302,7 +321,7 @@ tuner.search(
     epochs=10,
 )
 
-# Print the results.
+# 결과를 출력합니다.
 tuner.results_summary()
 ```
 
@@ -448,19 +467,22 @@ keras_tuner.src.errors.FailedTrialError: Model too large! It contains 1261 param
 
 {{% /details %}}
 
-## Terminate the search programmatically
+## 검색을 프로그래밍 방식으로 중단하기 {#terminate-the-search-programmatically}
 
-When there is a bug in the code we should terminate the search immediately and fix the bug. You can terminate the search programmatically when your defined conditions are met. Raising a `FatalError` (or its subclasses `FatalValueError`, `FatalTypeError`, or `FatalRuntimeError`) will terminate the search regardless of the `max_consecutive_failed_trials` argument.
+코드에 버그가 있을 경우 즉시 검색을 중단하고 버그를 수정해야 합니다.
+정의된 조건이 충족되었을 때, 검색을 프로그래밍 방식으로 중단할 수 있습니다.
+`FatalError` (또는 그 하위 클래스인 `FatalValueError`, `FatalTypeError`, `FatalRuntimeError`)를 발생시키면,
+`max_consecutive_failed_trials` 인수와 상관없이 검색이 중단됩니다.
 
-Following is an example to terminate the search when the model is too large.
+다음은 모델이 너무 클 때 검색을 중단하는 예시입니다.
 
 ```python
 def build_model(hp):
-    # Define the 2 hyperparameters for the units in dense layers
+    # Dense 레이어에서 사용할 유닛 수에 대한 2개의 하이퍼파라미터 정의
     units_1 = hp.Int("units_1", 10, 40, step=10)
     units_2 = hp.Int("units_2", 10, 30, step=10)
 
-    # Define the model
+    # 모델 정의
     model = keras.Sequential(
         [
             layers.Dense(units=units_1, input_shape=(20,)),
@@ -470,10 +492,10 @@ def build_model(hp):
     )
     model.compile(loss="mse")
 
-    # Raise an error when the model is too large
+    # 모델이 너무 클 경우 오류 발생
     num_params = model.count_params()
     if num_params > 1200:
-        # When this error is raised, the search is terminated.
+        # 이 오류가 발생하면 검색이 중단됩니다.
         raise keras_tuner.errors.FatalError(
             f"Model too large! It contains {num_params} params."
         )
@@ -489,7 +511,7 @@ tuner = keras_tuner.GridSearch(
 )
 
 try:
-    # Use random data to train the model.
+    # 랜덤 데이터를 사용하여 모델을 트레이닝합니다.
     tuner.search(
         x=np.random.rand(100, 20),
         y=np.random.rand(100, 1),
@@ -531,11 +553,11 @@ The search is terminated.
 
 {{% /details %}}
 
-## Takeaways
+## 주요 내용 정리 {#takeaways}
 
-In this guide, you learn how to handle failed trials in KerasTuner:
+이 가이드에서는, KerasTuner에서 실패한 실험을 처리하는 방법을 배웠습니다:
 
-- Use `max_retries_per_trial` to specify the number of retries for a failed trial.
-- Use `max_consecutive_failed_trials` to specify the maximum consecutive failed trials to tolerate.
-- Raise `FailedTrialError` to directly mark a trial as failed and skip the retries.
-- Raise `FatalError`, `FatalValueError`, `FatalTypeError`, `FatalRuntimeError` to terminate the search immediately.
+- `max_retries_per_trial`을 사용하여, 실패한 실험에 대한 재시도 횟수를 지정합니다.
+- `max_consecutive_failed_trials`을 사용하여, 허용할 수 있는 최대 연속 실패 실험 횟수를 지정합니다.
+- `FailedTrialError`를 발생시켜, 실험을 실패로 바로 표시하고, 재시도를 건너뜁니다.
+- `FatalError`, `FatalValueError`, `FatalTypeError`, `FatalRuntimeError`를 발생시켜, 검색을 즉시 종료합니다.

@@ -8,7 +8,7 @@ type: docs
 
 {{< keras/original checkedAt="2024-11-19" >}}
 
-**Authors:** Luca Invernizzi, James Long, Francois Chollet, Tom O'Malley, Haifeng Jin  
+**{{< t f_author >}}** Luca Invernizzi, James Long, Francois Chollet, Tom O'Malley, Haifeng Jin  
 **{{< t f_date_created >}}** 2019/05/31  
 **{{< t f_last_modified >}}** 2021/10/27  
 **{{< t f_description >}}** Tune a subset of the hyperparameters without changing the hypermodel.

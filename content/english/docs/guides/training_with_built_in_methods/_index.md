@@ -502,7 +502,7 @@ model.fit(x_train, y_train, batch_size=64, validation_split=0.2, epochs=1)
 
 {{% /details %}}
 
-## Training & evaluation using [`tf.data`](https://www.tensorflow.org/api_docs/python/tf/data) Datasets
+## Training & evaluation using [`tf.data`](https://www.tensorflow.org/api_docs/python/tf/data) Datasets {#tfdata}
 
 In the past few paragraphs, you've seen how to handle losses, metrics, and optimizers, and you've seen how to use the `validation_data` and `validation_split` arguments in `fit()`, when your data is passed as NumPy arrays.
 
