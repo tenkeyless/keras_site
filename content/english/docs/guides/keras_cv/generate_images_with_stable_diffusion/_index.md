@@ -8,7 +8,7 @@ type: docs
 
 {{< keras/original checkedAt="2024-11-19" >}}
 
-**Authors:** [fchollet](https://twitter.com/fchollet), [lukewood](https://twitter.com/luke_wood_ml), [divamgupta](https://github.com/divamgupta)  
+**{{< t f_author >}}** [fchollet](https://twitter.com/fchollet), [lukewood](https://twitter.com/luke_wood_ml), [divamgupta](https://github.com/divamgupta)  
 **{{< t f_date_created >}}** 2022/09/25  
 **{{< t f_last_modified >}}** 2022/09/25  
 **{{< t f_description >}}** Generate new images using KerasCV's Stable Diffusion model.
