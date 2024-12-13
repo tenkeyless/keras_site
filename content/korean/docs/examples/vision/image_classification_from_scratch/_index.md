@@ -1,5 +1,6 @@
 ---
-title: Image classification from scratch
+title: 처음부터 이미지 분류
+linkTitle: 처음부터 이미지 분류
 toc: true
 weight: 1
 type: docs
@@ -10,7 +11,7 @@ type: docs
 **{{< t f_author >}}** [fchollet](https://twitter.com/fchollet)  
 **{{< t f_date_created >}}** 2020/04/27  
 **{{< t f_last_modified >}}** 2023/11/09  
-**{{< t f_description >}}** Training an image classifier from scratch on the Kaggle Cats vs Dogs dataset.
+**{{< t f_description >}}** Kaggle Cats vs Dogs 데이터세트를 사용하여 이미지 분류기를 처음부터 트레이닝합니다.
 
 {{< keras/version v=3 >}}
 
@@ -19,13 +20,16 @@ type: docs
 {{< card link="https://github.com/keras-team/keras-io/blob/master/examples/vision/image_classification_from_scratch.py" title="GitHub" tag="GitHub">}}
 {{< /cards >}}
 
-## Introduction
+## 소개 {#introduction}
 
-This example shows how to do image classification from scratch, starting from JPEG image files on disk, without leveraging pre-trained weights or a pre-made Keras Application model. We demonstrate the workflow on the Kaggle Cats vs Dogs binary classification dataset.
+이 예는 사전 트레이닝된 가중치나 미리 만들어진 Keras 애플리케이션 모델을 활용하지 않고,
+디스크의 JPEG 이미지 파일에서 시작하여, 처음부터 이미지 분류를 수행하는 방법을 보여줍니다.
+Kaggle Cats vs Dogs 이진 분류 데이터 세트에 대한 워크플로우를 보여드립니다.
 
-We use the `image_dataset_from_directory` utility to generate the datasets, and we use Keras image preprocessing layers for image standardization and data augmentation.
+`image_dataset_from_directory` 유틸리티를 사용해 데이터 세트를 생성하고,
+이미지 표준화 및 데이터 보강을 위해 Keras 이미지 전처리 레이어를 사용합니다.
 
-## Setup
+## 셋업 {#setup}
 
 ```python
 import os
@@ -36,11 +40,11 @@ from tensorflow import data as tf_data
 import matplotlib.pyplot as plt
 ```
 
-## Load the data: the Cats vs Dogs dataset
+## 데이터 로드: Cats vs Dogs 데이터 세트 {#load-the-data-the-cats-vs-dogs-dataset}
 
-### Raw data download
+### Raw 데이터 다운로드 {#raw-data-download}
 
-First, let's download the 786M ZIP archive of the raw data:
+먼저, raw 데이터의 786M ZIP 아카이브를 다운로드해 보겠습니다:
 
 ```python
 !curl -O https://download.microsoft.com/download/3/E/1/3E1C3F21-ECDB-4869-8368-6DEBA77B919F/kagglecatsanddogs_5340.zip
@@ -65,7 +69,8 @@ First, let's download the 786M ZIP archive of the raw data:
 
 {{% /details %}}
 
-Now we have a `PetImages` folder which contain two subfolders, `Cat` and `Dog`. Each subfolder contains image files for each category.
+이제 `Cat`과 `Dog`라는 두 개의 하위 폴더가 있는 `PetImages` 폴더가 생겼습니다.
+각 하위 폴더에는 각 카테고리에 대한 이미지 파일이 들어 있습니다.
 
 ```python
 !ls PetImages
@@ -79,9 +84,10 @@ Cat  Dog
 
 {{% /details %}}
 
-### Filter out corrupted images
+### 손상된 이미지 필터링 {#filter-out-corrupted-images}
 
-When working with lots of real-world image data, corrupted images are a common occurence. Let's filter out badly-encoded images that do not feature the string "JFIF" in their header.
+많은 실제 이미지 데이터로 작업할 때, 손상된 이미지가 흔히 발생합니다.
+헤더에 "JFIF" 문자열이 없는 잘못 인코딩된 이미지를 필터링해 보겠습니다.
 
 ```python
 num_skipped = 0
@@ -97,7 +103,7 @@ for folder_name in ("Cat", "Dog"):
 
         if not is_jfif:
             num_skipped += 1
-            # Delete corrupted image
+            # 손상된 이미지 삭제
             os.remove(fpath)
 
 print(f"Deleted {num_skipped} images.")
@@ -111,7 +117,7 @@ Deleted 1590 images.
 
 {{% /details %}}
 
-## Generate a `Dataset`
+## `Dataset` 생성 {#generate-a-dataset}
 
 ```python
 image_size = (180, 180)
@@ -137,9 +143,9 @@ Using 4682 files for validation.
 
 {{% /details %}}
 
-## Visualize the data
+## 데이터 시각화 {#visualize-the-data}
 
-Here are the first 9 images in the training dataset.
+다음은 트레이닝 데이터 세트의 처음 9개 이미지입니다.
 
 ```python
 plt.figure(figsize=(10, 10))
@@ -153,9 +159,13 @@ for images, labels in train_ds.take(1):
 
 ![png](/images/examples/vision/image_classification_from_scratch/image_classification_from_scratch_14_1.png)
 
-## Using image data augmentation
+## 이미지 데이터 보강 사용 {#using-image-data-augmentation}
 
-When you don't have a large image dataset, it's a good practice to artificially introduce sample diversity by applying random yet realistic transformations to the training images, such as random horizontal flipping or small random rotations. This helps expose the model to different aspects of the training data while slowing down overfitting.
+이미지 데이터 세트가 크지 않은 경우,
+무작위 수평 뒤집기나 작은 무작위 회전 등 트레이닝 이미지에 무작위적이지만
+사실적인 변형을 적용하여 샘플 다양성을 인위적으로 도입하는 것이 좋습니다.
+이렇게 하면 모델이 트레이닝 데이터의 다양한 측면에 노출되는 동시에,
+과적합 속도를 늦추는 데 도움이 됩니다.
 
 ```python
 data_augmentation_layers = [
@@ -170,7 +180,8 @@ def data_augmentation(images):
     return images
 ```
 
-Let's visualize what the augmented samples look like, by applying `data_augmentation` repeatedly to the first few images in the dataset:
+데이터 세트의 처음 몇 개의 이미지에 `data_augmentation`을 반복적으로 적용하여,
+보강된 샘플이 어떻게 보이는지 시각화해 보겠습니다:
 
 ```python
 plt.figure(figsize=(10, 10))
@@ -184,77 +195,94 @@ for images, _ in train_ds.take(1):
 
 ![png](/images/examples/vision/image_classification_from_scratch/image_classification_from_scratch_18_1.png)
 
-## Standardizing the data
+## 데이터 표준화 {#standardizing-the-data}
 
-Our image are already in a standard size (180x180), as they are being yielded as contiguous `float32` batches by our dataset. However, their RGB channel values are in the `[0, 255]` range. This is not ideal for a neural network; in general you should seek to make your input values small. Here, we will standardize values to be in the `[0, 1]` by using a `Rescaling` layer at the start of our model.
+이미지는 데이터 세트에 의해 연속적인 `float32` 배치로 산출되기 때문에,
+이미 표준 크기(180x180)로 되어 있습니다.
+그러나, RGB 채널 값은 `[0, 255]` 범위에 있습니다.
+이는 신경망에 이상적이지 않으며, 일반적으로 입력 값을 작게 만드는 것이 좋습니다.
+여기서는 모델을 시작할 때 `Rescaling` 레이어를 사용하여,
+값을 `[0, 1]` 범위로 표준화하겠습니다.
 
-## Two options to preprocess the data
+## 데이터 전처리를 위한 두 가지 옵션 {#two-options-to-preprocess-the-data}
 
-There are two ways you could be using the `data_augmentation` preprocessor:
+`data_augmentation` 전처리기를 사용하는 방법에는 두 가지가 있습니다:
 
-**Option 1: Make it part of the model**, like this:
+**옵션 1: 모델의 일부로 만들기**. 다음과 같습니다.:
 
 ```python
 inputs = keras.Input(shape=input_shape)
 x = data_augmentation(inputs)
 x = layers.Rescaling(1./255)(x)
-...  # Rest of the model
+...  # 나머지 모델
 ```
 
-With this option, your data augmentation will happen _on device_, synchronously with the rest of the model execution, meaning that it will benefit from GPU acceleration.
+이 옵션을 사용하면, 데이터 보강이 나머지 모델 실행과 동시에 _장치에서_ 발생하므로,
+GPU 가속의 이점을 누릴 수 있습니다.
 
-Note that data augmentation is inactive at test time, so the input samples will only be augmented during `fit()`, not when calling `evaluate()` or `predict()`.
+데이터 보강은 테스트 시에는 비활성 상태이므로,
+입력 샘플은 `evaluate()` 또는 `predict()`을 호출할 때가 아니라,
+`fit()` 중에만 보강된다는 점에 유의하세요.
 
-If you're training on GPU, this may be a good option.
+GPU에서 트레이닝하는 경우, 이 옵션이 좋은 옵션일 수 있습니다.
 
-**Option 2: apply it to the dataset**, so as to obtain a dataset that yields batches of augmented images, like this:
+**옵션 2: 데이터 세트에 적용**. 다음과 같이 보강된 이미지의 배치를 생성하는 데이터 세트를 얻습니다:
 
 ```python
 augmented_train_ds = train_ds.map(
     lambda x, y: (data_augmentation(x, training=True), y))
 ```
 
-With this option, your data augmentation will happen **on CPU**, asynchronously, and will be buffered before going into the model.
+이 옵션을 사용하면, 데이터 보강이 비동기적으로 **CPU**에서 이루어지며,
+모델에 들어가기 전에 버퍼링됩니다.
 
-If you're training on CPU, this is the better option, since it makes data augmentation asynchronous and non-blocking.
+CPU에서 트레이닝하는 경우,
+이 옵션이 데이터 보강을 비동기식(asynchronous)으로 비차단적(non-blocking)으로 수행하므로,
+더 나은 옵션입니다.
 
-In our case, we'll go with the second option. If you're not sure which one to pick, this second option (asynchronous preprocessing) is always a solid choice.
+저희의 경우 두 번째 옵션을 사용하겠습니다.
+어떤 것을 선택해야 할지 잘 모르겠다면,
+두 번째 옵션(비동기 전처리)이 항상 확실한 선택입니다.
 
-## Configure the dataset for performance
+## 성능을 위한 데이터 세트 구성 {#configure-the-dataset-for-performance}
 
-Let's apply data augmentation to our training dataset, and let's make sure to use buffered prefetching so we can yield data from disk without having I/O becoming blocking:
+트레이닝 데이터 세트에 데이터 보강을 적용하고,
+버퍼링된 프리페칭(prefetching)을 사용하여 I/O가 차단(blocking)되지 않고,
+디스크에서 데이터를 가져올 수 있도록 해 보겠습니다:
 
 ```python
-# Apply `data_augmentation` to the training images.
+# 트레이닝 이미지에 `data_augmentation`을 적용
 train_ds = train_ds.map(
     lambda img, label: (data_augmentation(img), label),
     num_parallel_calls=tf_data.AUTOTUNE,
 )
-# Prefetching samples in GPU memory helps maximize GPU utilization.
+# GPU 메모리에 샘플을 프리페칭(Prefetching)하면, GPU 활용도를 극대화할 수 있음.
 train_ds = train_ds.prefetch(tf_data.AUTOTUNE)
 val_ds = val_ds.prefetch(tf_data.AUTOTUNE)
 ```
 
-## Build a model
+## 모델 빌드 {#build-a-model}
 
-We'll build a small version of the Xception network. We haven't particularly tried to optimize the architecture; if you want to do a systematic search for the best model configuration, consider using [KerasTuner](https://github.com/keras-team/keras-tuner).
+Xception 네트워크의 작은 버전을 구축하겠습니다. 아키텍처 최적화를 특별히 시도하지 않았으므로,
+최적의 모델 구성을 체계적으로 검색하려면
+[KerasTuner](https://github.com/keras-team/keras-tuner)를 사용하는 것이 좋습니다.
 
-Note that:
+참고하세요:
 
-- We start the model with the `data_augmentation` preprocessor, followed by a `Rescaling` layer.
-- We include a `Dropout` layer before the final classification layer.
+- `data_augmentation` 전처리기로 모델을 시작한 다음, `Rescaling` 레이어를 추가합니다.
+- 최종 분류 레이어 앞에 `Dropout` 레이어를 포함합니다.
 
 ```python
 def make_model(input_shape, num_classes):
     inputs = keras.Input(shape=input_shape)
 
-    # Entry block
+    # 엔트리 블록
     x = layers.Rescaling(1.0 / 255)(inputs)
     x = layers.Conv2D(128, 3, strides=2, padding="same")(x)
     x = layers.BatchNormalization()(x)
     x = layers.Activation("relu")(x)
 
-    previous_block_activation = x  # Set aside residual
+    previous_block_activation = x  # 옆의 Residual을 설정
 
     for size in [256, 512, 728]:
         x = layers.Activation("relu")(x)
@@ -267,12 +295,12 @@ def make_model(input_shape, num_classes):
 
         x = layers.MaxPooling2D(3, strides=2, padding="same")(x)
 
-        # Project residual
+        # Residual을 프로젝션
         residual = layers.Conv2D(size, 1, strides=2, padding="same")(
             previous_block_activation
         )
-        x = layers.add([x, residual])  # Add back residual
-        previous_block_activation = x  # Set aside next residual
+        x = layers.add([x, residual])  # Residual을 다시 더함
+        previous_block_activation = x  # 다음 번의 옆의 Residual을 설정
 
     x = layers.SeparableConv2D(1024, 3, padding="same")(x)
     x = layers.BatchNormalization()(x)
@@ -285,7 +313,7 @@ def make_model(input_shape, num_classes):
         units = num_classes
 
     x = layers.Dropout(0.25)(x)
-    # We specify activation=None so as to return logits
+    # logits를 반환하도록, `activation=None`으로 지정합니다.
     outputs = layers.Dense(units, activation=None)(x)
     return keras.Model(inputs, outputs)
 
@@ -296,7 +324,7 @@ keras.utils.plot_model(model, show_shapes=True)
 
 ![png](/images/examples/vision/image_classification_from_scratch/image_classification_from_scratch_24_0.png)
 
-## Train the model
+## 모델 트레이닝 {#train-the-model}
 
 ```python
 epochs = 25
@@ -330,18 +358,19 @@ Epoch 25/25
 
 {{% /details %}}
 
-We get to >90% validation accuracy after training for 25 epochs on the full dataset (in practice, you can train for 50+ epochs before validation performance starts degrading).
+전체 데이터 세트에서 25 에포크에 대해 트레이닝한 후, 90% 이상의 검증 정확도를 달성했습니다.
+(실제로는 검증 성능이 저하되기 전에 50개 이상의 에포크에 대해 트레이닝할 수 있습니다)
 
-## Run inference on new data
+## 새 데이터에 대한 추론 실행 {#run-inference-on-new-data}
 
-Note that data augmentation and dropout are inactive at inference time.
+추론 시에는 데이터 보강 및 드롭아웃이 비활성 상태입니다.
 
 ```python
 img = keras.utils.load_img("PetImages/Cat/6779.jpg", target_size=image_size)
 plt.imshow(img)
 
 img_array = keras.utils.img_to_array(img)
-img_array = keras.ops.expand_dims(img_array, 0)  # Create batch axis
+img_array = keras.ops.expand_dims(img_array, 0)  # 배치 축 생성
 
 predictions = model.predict(img_array)
 score = float(keras.ops.sigmoid(predictions[0][0]))
