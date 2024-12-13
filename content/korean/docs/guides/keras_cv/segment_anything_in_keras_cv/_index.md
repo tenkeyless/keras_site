@@ -1,6 +1,6 @@
 ---
-title: Segment Anything in KerasCV!
-linkTitle: Segment Anything in KerasCV
+title: KerasCV의 Segment Anything
+linkTitle: KerasCV의 Segment Anything
 toc: true
 weight: 7
 type: docs
@@ -11,20 +11,27 @@ type: docs
 **{{< t f_author >}}** Tirth Patel, Ian Stenbit  
 **{{< t f_date_created >}}** 2023/12/04  
 **{{< t f_last_modified >}}** 2023/12/19  
-**{{< t f_description >}}** Segment anything using text, box, and points prompts in KerasCV.
+**{{< t f_description >}}** KerasCV에서, 텍스트, 상자, 포인트 프롬프트를 사용한 Segment Anything.
 
 {{< cards cols="2" >}}
 {{< card link="https://colab.research.google.com/github/keras-team/keras-io/blob/master/guides/ipynb/keras_cv/segment_anything_in_keras_cv.ipynb" title="Colab" tag="Colab" tagType="warning">}}
 {{< card link="https://github.com/keras-team/keras-io/blob/master/guides/keras_cv/segment_anything_in_keras_cv.py" title="GitHub" tag="GitHub">}}
 {{< /cards >}}
 
-## Overview
+## 개요 {#overview}
 
-The Segment Anything Model (SAM) produces high quality object masks from input prompts such as points or boxes, and it can be used to generate masks for all objects in an image. It has been trained on a [dataset](https://segment-anything.com/dataset/index.html) of 11 million images and 1.1 billion masks, and has strong zero-shot performance on a variety of segmentation tasks.
+Segment Anything Model(SAM)은 점이나 상자와 같은 입력 프롬프트에서 고품질 객체 마스크를 생성하며,
+이미지의 모든 객체에 대한 마스크를 생성하는 데 사용할 수 있습니다.
+1,100만 개의 이미지와 11억 개의 마스크로 구성된
+[데이터 세트](https://segment-anything.com/dataset/index.html)에 대해 트레이닝되었으며,
+다양한 세그멘테이션 작업에서 강력한 제로샷 성능을 보입니다.
 
-In this guide, we will show how to use KerasCV's implementation of the [Segment Anything Model](https://github.com/facebookresearch/segment-anything) and show how powerful TensorFlow's and JAX's performance boost is.
+이 가이드에서는, KerasCV의
+[Segment Anything Model](https://github.com/facebookresearch/segment-anything)
+구현을 사용하는 방법과,
+TensorFlow와 JAX의 성능 향상이 얼마나 강력한지 보여드리겠습니다.
 
-First, let's get all our dependencies and images for our demo.
+먼저 데모를 위한 모든 종속성과 이미지를 가져오겠습니다.
 
 ```python
 !pip install -Uq keras-cv
@@ -35,9 +42,9 @@ First, let's get all our dependencies and images for our demo.
 !wget -q https://raw.githubusercontent.com/facebookresearch/segment-anything/main/notebooks/images/truck.jpg
 ```
 
-## Choose your backend
+## 백엔드 선택 {#choose-your-backend}
 
-With Keras 3, you can choose to use your favorite backend!
+Keras 3를 사용하면, 원하는 백엔드를 선택할 수 있습니다!
 
 ```python
 import os
@@ -52,9 +59,9 @@ from keras import ops
 import keras_cv
 ```
 
-## Helper functions
+## 헬퍼 함수 {#helper-functions}
 
-Let's define some helper functions for visulazing the images, prompts, and the segmentation results.
+이미지, 프롬프트, 세그멘테이션 결과를 시각화하기 위한, 몇 가지 헬퍼 함수를 정의해 보겠습니다.
 
 ```python
 def show_mask(mask, ax, random_color=False):
@@ -100,7 +107,7 @@ def show_box(box, ax):
 
 
 def inference_resizing(image, pad=True):
-    # Compute Preprocess Shape
+    # 전처리 모양 계산
     image = ops.cast(image, dtype="float32")
     old_h, old_w = image.shape[0], image.shape[1]
     scale = 1024 * 1.0 / max(old_h, old_w)
@@ -108,10 +115,10 @@ def inference_resizing(image, pad=True):
     new_w = old_w * scale
     preprocess_shape = int(new_h + 0.5), int(new_w + 0.5)
 
-    # Resize the image
+    # 이미지 크기 조절
     image = ops.image.resize(image[None, ...], preprocess_shape)[0]
 
-    # Pad the shorter side
+    # 짧은 쪽을 패딩합니다.
     if pad:
         pixel_mean = ops.array([123.675, 116.28, 103.53])
         pixel_std = ops.array([58.395, 57.12, 57.375])
@@ -120,47 +127,79 @@ def inference_resizing(image, pad=True):
         pad_h = 1024 - h
         pad_w = 1024 - w
         image = ops.pad(image, [(0, pad_h), (0, pad_w), (0, 0)])
-        # KerasCV now rescales the images and normalizes them.
-        # Just unnormalize such that when KerasCV normalizes them
-        # again, the padded values map to 0.
+        # KerasCV는 이제 이미지를 재조정(rescales)하고 정규화합니다.
+        # KerasCV가 다시 정규화(normalizes)할 때,
+        # 패딩된 값이 0으로 매핑되도록, 정규화를 해제(unnormalize)합니다.
         image = image * pixel_std + pixel_mean
     return image
 ```
 
-## Get the pretrained SAM model
+## 사전 트레이닝된 SAM 모델 얻기 {#get-the-pretrained-sam-model}
 
-We can initialize a trained SAM model using KerasCV's `from_preset` factory method. Here, we use the huge ViT backbone trained on the SA-1B dataset (`sam_huge_sa1b`) for high-quality segmentation masks. You can also use one of the `sam_large_sa1b` or `sam_base_sa1b` for better performance (at the cost of decreasing quality of segmentation masks).
+KerasCV의 `from_preset` 팩토리 메서드를 사용하여,
+트레이닝된 SAM 모델을 초기화할 수 있습니다.
+여기서는 고품질 세그먼테이션 마스크를 위해,
+SA-1B 데이터 세트(`sam_huge_sa1b`)에 대해 트레이닝된 거대한 ViT 백본을 사용합니다.
+더 나은 성능을 위해,
+`sam_large_sa1b` 또는 `sam_base_sa1b` 중 하나를 사용할 수도 있습니다.
+(세그먼테이션 마스크의 품질이 떨어지는 대가로)
 
 ```python
 model = keras_cv.models.SegmentAnythingModel.from_preset("sam_huge_sa1b")
 ```
 
-## Understanding Prompts
+## 프롬프트 이해하기 {#understanding-prompts}
 
-Segment Anything allows prompting an image using points, boxes, and masks:
+Segment Anything은 포인트, 상자, 마스크를 사용하여 이미지를 프롬프트할 수 있습니다.
 
-1.  Point prompts are the most basic of all: the model tries to guess the object given a point on an image. The point can either be a foreground point (i.e. the desired segmentation mask contains the point in it) or a backround point (i.e. the point lies outside the desired mask).
-2.  Another way to prompt the model is using boxes. Given a bounding box, the model tries to segment the object contained in it.
-3.  Finally, the model can also be prompted using a mask itself. This is useful, for instance, to refine the borders of a previously predicted or known segmentation mask.
+1. 포인트 프롬프트는 가장 기본적인 프롬프트입니다.
+   모델은 이미지의 포인트가 주어졌을 때 객체를 추측하려고 합니다.
+   포인트는 전경 포인트(즉, 원하는 세그멘테이션 마스크에 포인트가 포함됨)이거나,
+   배경 포인트(즉, 포인트가 원하는 마스크 밖에 있음)일 수 있습니다.
+2. 모델을 프롬프트하는 또다른 방법은 상자를 사용하는 것입니다.
+   경계 상자가 주어졌을 때, 모델은 그 안에 포함된 객체를 세그멘테이션하려고 합니다.
+3. 마지막으로, 마스크 자체를 사용하여 모델을 프롬프트할 수도 있습니다.
+   예를 들어, 이는 이전에 예측되거나 알려진 세그멘테이션 마스크의 테두리를 정제하는 데 유용합니다.
 
-What makes the model incredibly powerful is the ability to combine the prompts above. Point, box, and mask prompts can be combined in several different ways to achieve the best result.
+모델을 엄청나게 강력하게 만드는 것은, 위의 프롬프트를 결합할 수 있는 기능입니다.
+포인트, 상자, 마스크 프롬프트는 여러 가지 다른 방법으로 결합하여, 최상의 결과를 얻을 수 있습니다.
 
-Let's see the semantics of passing these prompts to the Segment Anything model in KerasCV. Input to the SAM model is a dictionary with keys:
+KerasCV에서 Segment Anything 모델에 이러한 프롬프트를 전달하는 시맨틱을 살펴보겠습니다.
+SAM 모델의 입력은 키가 있는 딕셔너리입니다.
 
-1.  `"images"`: A batch of images to segment. Must be of shape `(B, 1024, 1024, 3)`.
-2.  `"points"`: A batch of point prompts. Each point is an `(x, y)` coordinate originating from the top-left corner of the image. In other works, each point is of the form `(r, c)` where `r` and `c` are the row and column of the pixel in the image. Must be of shape `(B, N, 2)`.
-3.  `"labels"`: A batch of labels for the given points. `1` represents foreground points and `0` represents background points. Must be of shape `(B, N)`.
-4.  `"boxes"`: A batch of boxes. Note that the model only accepts one box per batch. Hence, the expected shape is `(B, 1, 2, 2)`. Each box is a collection of 2 points: the top left corner and the bottom right corner of the box. The points here follow the same semantics as the point prompts. Here the `1` in the second dimension represents the presence of box prompts. If the box prompts are missing, a placeholder input of shape `(B, 0, 2, 2)` must be passed.
-5.  `"masks"`: A batch of masks. Just like box prompts, only one mask prompt per image is allowed. The shape of the input mask must be `(B, 1, 256, 256, 1)` if they are present and `(B, 0, 256, 256, 1)` for missing mask prompt.
+1.  `"images"`: 세그멘테이션할 이미지 배치입니다.
+    - `(B, 1024, 1024, 3)` 모양이어야 합니다.
+2.  `"points"`: 포인트 프롬프트 배치입니다.
+    - 각 포인트는 이미지의 왼쪽 상단 모서리에서 시작하는 `(x, y)` 좌표입니다.
+    - 다른 작업에서, 각 포인트는 `(r, c)` 형태이며, 여기서 `r`과 `c`는 이미지의 픽셀의 행과 열입니다.
+    - `(B, N, 2)` 모양이어야 합니다.
+3.  `"labels"`: 주어진 포인트에 대한 레이블 배치입니다.
+    - `1`은 전경 포인트를 나타내고, `0`은 배경 포인트를 나타냅니다.
+    - `(B, N)` 모양이어야 합니다.
+4.  `"boxes"`: 상자 배치입니다.
+    - 모델은 배치당 하나의 상자만 허용합니다.
+    - 따라서, 예상되는 모양은 `(B, 1, 2, 2)`입니다.
+      - 각 상자는 상자의 왼쪽 상단 모서리와 오른쪽 하단 모서리인 2개의 포인트의 모음입니다.
+        - 여기의 포인트는 포인트 프롬프트와 동일한 의미를 따릅니다.
+      - 여기서 2차원의 `1`은 상자 프롬프트의 존재를 나타냅니다.
+        - 상자 프롬프트가 없는 경우, `(B, 0, 2, 2)` 모양의 플레이스홀더 입력을 전달해야 합니다.
+5.  `"masks"`: 마스크 배치입니다.
+    - 상자 프롬프트와 마찬가지로, 이미지당 마스크 프롬프트는 하나만 허용됩니다.
+    - 입력 마스크의 모양은 있는 경우, `(B, 1, 256, 256, 1)`이고
+    - 마스크 프롬프트가 없는 경우, `(B, 0, 256, 256, 1)`이어야 합니다.
 
-Placeholder prompts are only required when calling the model directly (i.e. `model(...)`). When calling the `predict` method, missing prompts can be omitted from the input dictionary.
+플레이스홀더 프롬프트는 모델을 직접 호출할 때만 필요합니다. (예: `model(...)`)
+`predict` 메서드를 호출할 때, 누락된 프롬프트를 입력 딕셔너리에서 생략할 수 있습니다.
 
-## Point prompts
+## 포인트 프롬프트 {#point-prompts}
 
-First, let's segment an image using point prompts. We load the image and resize it to shape `(1024, 1024)`, the image size the pretrained SAM model expects.
+먼저, 포인트 프롬프트를 사용하여 이미지를 세그멘테이션해 보겠습니다.
+이미지를 로드하고 크기를 조정하여,
+사전 트레이닝된 SAM 모델이 예상하는 이미지 크기인,
+`(1024, 1024)` 모양으로 만듭니다.
 
 ```python
-# Load our image
+# 이미지를 로드합니다.
 image = np.array(keras.utils.load_img("truck.jpg"))
 image = inference_resizing(image)
 
@@ -172,10 +211,11 @@ plt.show()
 
 ![png](/images/guides/keras_cv/segment_anything_in_keras_cv/segment_anything_in_keras_cv_11_0.png)
 
-Next, we will define the point on the object we want to segment. Let's try to segment the truck's window pane at coordinates `(284, 213)`.
+다음으로, 세그멘테이션하고자 하는 객체의 포인트를 정의합니다.
+트럭의 창문 유리창을 좌표 `(284, 213)`에서 세그멘테이션해 보겠습니다.
 
 ```python
-# Define the input point prompt
+# 입력 포인트 프롬프트 정의
 input_point = np.array([[284, 213.5]])
 input_label = np.array([1])
 
@@ -188,9 +228,13 @@ plt.show()
 
 ![png](/images/guides/keras_cv/segment_anything_in_keras_cv/segment_anything_in_keras_cv_13_0.png)
 
-Now let's call the `predict` method of our model to get the segmentation masks.
+이제, 모델의 `predict` 메서드를 호출하여, 세그멘테이션 마스크를 구해 보겠습니다.
 
-**Note**: We don't call the model directly (`model(...)`) since placeholder prompts are required to do so. Missing prompts are handled automatically by the predict method so we call it instead. Also, when no box prompts are present, the points and labels need to be padded with a zero point prompt and `-1` label prompt respectively. The cell below demonstrates how this works.
+**참고**: 플레이스홀더 프롬프트가 필요하기 때문에, 모델을 직접 호출하지 않습니다. (`model(...)`)
+누락된 프롬프트는 predict 메서드에서 자동으로 처리하므로, 대신 호출합니다.
+또한, 상자 프롬프트가 없는 경우,
+포인트와 레이블은 각각 ​​0 포인트 프롬프트와 `-1` 레이블 프롬프트로 패딩해야 합니다.
+아래 셀은 이것이 어떻게 작동하는지 보여줍니다.
 
 ```python
 outputs = model.predict(
@@ -214,15 +258,24 @@ outputs = model.predict(
 
 {{% /details %}}
 
-`SegmentAnythingModel.predict` returns two outputs. First are logits (segmentation masks) of shape `(1, 4, 256, 256)` and the other are the IoU confidence scores (of shape `(1, 4)`) for each mask predicted. The pretrained SAM model predicts four masks: the first is the best mask the model could come up with for the given prompts, and the other 3 are the alternative masks which can be used in case the best prediction doesn't contain the desired object. The user can choose whichever mask they prefer.
+`SegmentAnythingModel.predict`는 두 개의 출력을 반환합니다.
 
-Let's visualize the masks returned by the model!
+- 첫 번째는 `(1, 4, 256, 256)` 모양의 로짓(세그멘테이션 마스크)이고,
+- 다른 하나는 예측된 각 마스크에 대한 IoU 신뢰도 점수(IoU confidence scores, `(1, 4)` 모양)입니다.
+
+사전 트레이닝된 SAM 모델은 네 개의 마스크를 예측합니다.
+
+- 첫 번째는 모델이 주어진 프롬프트에 대해 생각해 낼 수 있는 최상의 마스크이고,
+- 다른 세 개는 최상의 예측에 원하는 개체가 포함되지 않은 경우, 사용할 수 있는 대체 마스크입니다.
+
+사용자는 원하는 마스크를 선택할 수 있습니다.
+
+모델에서 반환된 마스크를 시각화해 보겠습니다!
 
 ```python
-# Resize the mask to our image shape i.e. (1024, 1024)
+# 마스크 크기를 이미지 모양(1024, 1024)으로 조정합니다.
 mask = inference_resizing(outputs["masks"][0][0][..., None], pad=False)[..., 0]
-# Convert the logits to a numpy array
-# and convert the logits to a boolean mask
+# 로짓을 numpy 배열로 변환하고, 로짓을 boolean 마스크로 변환합니다.
 mask = ops.convert_to_numpy(mask) > 0.0
 iou_score = ops.convert_to_numpy(outputs["iou_pred"][0][0])
 
@@ -237,9 +290,11 @@ plt.show()
 
 ![png](/images/guides/keras_cv/segment_anything_in_keras_cv/segment_anything_in_keras_cv_17_0.png)
 
-As expected, the model returns a segmentation mask for the truck's window pane. But, our point prompt can also mean a range of other things. For example, another possible mask that contains our point is just the right side of the window pane or the whole truck.
+예상대로, 모델은 트럭의 창 유리창에 대한 세그멘테이션 마스크를 반환합니다.
+하지만, 우리의 포인트 프롬프트는 다른 여러 가지를 의미할 수도 있습니다.
+예를 들어, 우리의 포인트를 포함하는 또다른 가능한 마스크는 창 유리창의 오른쪽 또는 전체 트럭입니다.
 
-Let's also visualize the other masks the model has predicted.
+모델이 예측한 다른 마스크도 시각화해 보겠습니다.
 
 ```python
 fig, ax = plt.subplots(1, 3, figsize=(20, 60))
@@ -258,14 +313,18 @@ plt.show()
 
 ![png](/images/guides/keras_cv/segment_anything_in_keras_cv/segment_anything_in_keras_cv_20_0.png)
 
-Nice! SAM was able to capture the ambiguity of our point prompt and also returned other possible segmentation masks.
+훌륭합니다!
+SAM은 우리의 포인트 프롬프트의 모호성을 포착할 수 있었고,
+다른 가능한 세그먼테이션 마스크도 반환했습니다.
 
-## Box Prompts
+## 상자 프롬프트 {#box-prompts}
 
-Now, let's see how we can prompt the model using boxes. The box is specified using two points, the top-left corner and the bottom-right corner of the bounding box in xyxy format. Let's prompt the model using a bounding box around the left front tyre of the truck.
+이제 상자를 사용하여, 모델을 프롬프트하는 방법을 살펴보겠습니다.
+상자는 두 점, 즉 xyxy 형식의 경계 상자의 왼쪽 상단 모서리와 오른쪽 하단 모서리를 사용하여 지정합니다.
+트럭의 왼쪽 앞 타이어 주위에 경계 상자를 사용하여, 모델을 프롬프트해 보겠습니다.
 
 ```python
-# Let's specify the box
+# 상자를 지정해 봅시다.
 input_box = np.array([[240, 340], [400, 500]])
 
 outputs = model.predict(
@@ -292,16 +351,16 @@ plt.show()
 
 ![png](/images/guides/keras_cv/segment_anything_in_keras_cv/segment_anything_in_keras_cv_23_1.png)
 
-Boom! The model perfectly segments out the left front tyre in our bounding box.
+붐! 이 모델은 경계 상자에서 왼쪽 앞 타이어를 완벽하게 세그멘테이션합니다.
 
-## Combining prompts
+## 프롬프트 결합 {#combining-prompts}
 
-To get the true potential of the model out, let's combine box and point prompts and see what the model does.
+모델의 진정한 잠재력을 끌어내기 위해, 상자와 포인트의 프롬프트를 결합하고, 모델의 기능을 살펴보겠습니다.
 
 ```python
-# Let's specify the box
+# 상자를 지정해 봅시다.
 input_box = np.array([[240, 340], [400, 500]])
-# Let's specify the point and mark it background
+# 포인트를 지정하고, 배경으로 표시해 보겠습니다.
 input_point = np.array([[325, 425]])
 input_label = np.array([0])
 
@@ -335,21 +394,24 @@ plt.show()
 
 ![png](/images/guides/keras_cv/segment_anything_in_keras_cv/segment_anything_in_keras_cv_25_1.png)
 
-Voila! The model understood that the object we wanted to exclude from our mask was the rim of the tyre.
+짠! 모델은 우리가 마스크에서 제외하려는 대상이 타이어의 림이라는 것을 이해했습니다.
 
-## Text prompts
+## 텍스트 프롬프트 {#text-prompts}
 
-Finally, let's see how text prompts can be used along with KerasCV's `SegmentAnythingModel`.
+마지막으로, KerasCV의 `SegmentAnythingModel`과 함께 텍스트 프롬프트를 사용하는 방법을 살펴보겠습니다.
 
-For this demo, we will use the [offical Grounding DINO model](https://github.com/IDEA-Research/GroundingDINO). Grounding DINO is a model that takes as input a `(image, text)` pair and generates a bounding box around the object in the `image` described by the `text`. You can refer to the [paper](https://arxiv.org/abs/2303.05499) for more details on the implementation of the model.
+이 데모에서는 [공식 Grounding DINO 모델](https://github.com/IDEA-Research/GroundingDINO)을 사용합니다.
+Grounding DINO는 `(image, text)` 쌍을 입력으로 받고,
+`text`로 설명된 `image`의 객체 주위에 경계 상자를 생성하는 모델입니다.
+모델 구현에 대한 자세한 내용은 [논문](https://arxiv.org/abs/2303.05499)을 참조하세요.
 
-For this part of the demo, we will need to install the `groundingdino` package from source:
+이 데모의 이 부분에서는, 소스에서 `groundingdino` 패키지를 설치해야 합니다.
 
 ```shell
 pip install -U git+https://github.com/IDEA-Research/GroundingDINO.git
 ```
 
-Then, we can install the pretrained model's weights and config:
+그런 다음, 사전 트레이닝된 모델의 가중치와 구성을 설치할 수 있습니다.
 
 ```python
 !wget -q https://github.com/IDEA-Research/GroundingDINO/releases/download/v0.1.0-alpha/groundingdino_swint_ogc.pth
@@ -376,7 +438,7 @@ final text_encoder_type: bert-base-uncased
 
 {{% /details %}}
 
-Let's load an image of a dog for this part!
+이 부분에서는 개 이미지를 불러오겠습니다!
 
 ```python
 filepath = keras.utils.get_file(
@@ -401,12 +463,16 @@ Clipping input data to the valid range for imshow with RGB data ([0..1] for floa
 
 ![png](/images/guides/keras_cv/segment_anything_in_keras_cv/segment_anything_in_keras_cv_30_1.png)
 
-We first predict the bounding box of the object we want to segment using the Grounding DINO model. Then, we prompt the SAM model using the bounding box to get the segmentation mask.
+먼저 Grounding DINO 모델을 사용하여,
+세그멘테이션하려는 객체의 바운딩 박스를 예측합니다.
+그런 다음, 바운딩 박스를 사용하여 SAM 모델을 프롬프트하여,
+세그멘테이션 마스크를 얻습니다.
 
-Let's try to segment out the harness of the dog. Change the image and text below to segment whatever you want using text from your image!
+개의 하네스를 세그멘테이션해 보겠습니다.
+아래의 이미지와 텍스트를 변경하여, 이미지의 텍스트를 사용하여 원하는 대로 세그멘테이션하세요!
 
 ```python
-# Let's predict the bounding box for the harness of the dog
+# 개의 하네스에 대한 경계 상자를 예측해 봅시다.
 boxes = grounding_dino.predict_with_caption(image.astype(np.uint8), "harness")
 boxes = np.array(boxes[0].xyxy)
 
@@ -434,9 +500,12 @@ outputs = model.predict(
 
 {{% /details %}}
 
-And that's it! We got a segmentation mask for our text prompt using the combination of Gounding DINO + SAM! This is a very powerful technique to combine different models to expand the applications!
+그리고 그게 전부입니다!
+Gounding DINO + SAM의 조합을 사용하여,
+텍스트 프롬프트에 대한 세그멘테이션 마스크를 얻었습니다!
+이것은 다양한 모델을 결합하여 응용 프로그램을 확장하는 매우 강력한 기술입니다!
 
-Let's visualize the results.
+결과를 시각화해 보겠습니다.
 
 ```python
 plt.figure(figsize=(10, 10))
@@ -462,19 +531,20 @@ Clipping input data to the valid range for imshow with RGB data ([0..1] for floa
 
 ![png](/images/guides/keras_cv/segment_anything_in_keras_cv/segment_anything_in_keras_cv_34_1.png)
 
-## Optimizing SAM
+## SAM 최적화 {#optimizing-sam}
 
-You can use `mixed_float16` or `bfloat16` dtype policies to gain huge speedups and memory optimizations at releatively low precision loss.
+`mixed_float16` 또는 `bfloat16` dtype 정책을 사용하면,
+상대적으로 낮은 정밀도 손실로 엄청난 속도 향상과 메모리 최적화를 얻을 수 있습니다.
 
 ```python
-# Load our image
+# 이미지를 로드합니다.
 image = np.array(keras.utils.load_img("truck.jpg"))
 image = inference_resizing(image)
 
-# Specify the prompt
+# 프롬프트를 지정합니다.
 input_box = np.array([[240, 340], [400, 500]])
 
-# Let's first see how fast the model is with float32 dtype
+# 먼저 float32 dtype을 사용할 때, 모델이 얼마나 빠른지 살펴보겠습니다.
 time_taken = timeit.repeat(
     'model.predict({"images": image[np.newaxis, ...], "boxes": input_box[np.newaxis, np.newaxis, ...]}, verbose=False)',
     repeat=3,
@@ -483,7 +553,7 @@ time_taken = timeit.repeat(
 )
 print(f"Time taken with float32 dtype: {min(time_taken) / 3:.10f}s")
 
-# Set the dtype policy in Keras
+# Keras에서 dtype 정책 설정
 keras.mixed_precision.set_global_policy("mixed_float16")
 
 model = keras_cv.models.SegmentAnythingModel.from_preset("sam_huge_sa1b")
@@ -506,14 +576,18 @@ Time taken with float16 dtype: 0.1586400040s
 
 {{% /details %}}
 
-Here's a comparison of KerasCV's implementation with the original PyTorch implementation!
+KerasCV 구현과 원본 PyTorch 구현을 비교한 것은 다음과 같습니다!
 
 ![benchmark](/images/guides/keras_cv/segment_anything_in_keras_cv/benchmark.png)
 
-The script used to generate the benchmarks is present [here](https://github.com/tirthasheshpatel/segment_anything_keras/blob/main/Segment_Anything_Benchmarks.ipynb).
+벤치마크를 생성하는데 사용된 스크립트는 [여기](https://github.com/tirthasheshpatel/segment_anything_keras/blob/main/Segment_Anything_Benchmarks.ipynb)에 있습니다.
 
-## Conclusion
+## 결론 {#conclusion}
 
-KerasCV's `SegmentAnythingModel` supports a variety of applications and, with the help of Keras 3, enables running the model on TensorFlow, JAX, and PyTorch! With the help of XLA in JAX and TensorFlow, the model runs several times faster than the original implementation. Moreover, using Keras's mixed precision support helps optimize memory use and computation time with just one line of code!
+KerasCV의 `SegmentAnythingModel`은 다양한 애플리케이션을 지원하고,
+Keras 3의 도움으로 TensorFlow, JAX, PyTorch에서 모델을 실행할 수 있습니다!
+JAX와 TensorFlow의 XLA의 도움으로, 모델은 원래 구현보다 몇 배 더 빠르게 실행됩니다.
+게다가 Keras의 혼합 정밀도 지원을 사용하면,
+단 한 줄의 코드로 메모리 사용과 계산 시간을 최적화하는 데 도움이 됩니다!
 
-For more advanced uses, check out the [Automatic Mask Generator demo](https://github.com/tirthasheshpatel/segment_anything_keras/blob/main/Segment_Anything_Automatic_Mask_Generator_Demo.ipynb).
+더 고급 사용 사례는 [자동 마스크 생성기 데모](https://github.com/tirthasheshpatel/segment_anything_keras/blob/main/Segment_Anything_Automatic_Mask_Generator_Demo.ipynb)를 확인하세요.
