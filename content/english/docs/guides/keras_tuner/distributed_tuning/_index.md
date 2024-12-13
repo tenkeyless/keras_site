@@ -8,7 +8,7 @@ type: docs
 
 {{< keras/original checkedAt="2024-11-18" >}}
 
-**Authors:** Tom O'Malley, Haifeng Jin  
+**{{< t f_author >}}** Tom O'Malley, Haifeng Jin  
 **{{< t f_date_created >}}** 2019/10/24  
 **{{< t f_last_modified >}}** 2021/06/02  
 **{{< t f_description >}}** Tuning the hyperparameters of the models with multiple GPUs and multiple machines.
@@ -60,7 +60,7 @@ export KERASTUNER_ORACLE_PORT="8000"
 python run_tuning.py
 ```
 
-### Data parallelism with [`tf.distribute`](https://www.tensorflow.org/api_docs/python/tf/distribute)
+### Data parallelism with [`tf.distribute`](https://www.tensorflow.org/api_docs/python/tf/distribute) {#tfdistribute}
 
 KerasTuner also supports data parallelism via [tf.distribute](https://www.tensorflow.org/tutorials/distribute/keras). Data parallelism and distributed tuning can be combined. For example, if you have 10 workers with 4 GPUs on each worker, you can run 10 parallel trials with each trial training on 4 GPUs by using [tf.distribute.MirroredStrategy](https://www.tensorflow.org/api_docs/python/tf/distribute/MirroredStrategy). You can also run each trial on TPUs via [tf.distribute.TPUStrategy](https://www.tensorflow.org/api_docs/python/tf/distribute/experimental/TPUStrategy). Currently [tf.distribute.MultiWorkerMirroredStrategy](https://www.tensorflow.org/api_docs/python/tf/distribute/experimental/MultiWorkerMirroredStrategy) is not supported, but support for this is on the roadmap.
 

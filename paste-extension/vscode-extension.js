@@ -128,10 +128,14 @@ function isInsideCodeBlock(lines, currentIndex) {
 }
 
 function generateSlug(text) {
+  // 1. 특정 기호를 우선적으로 제거 또는 변환
+  text = text.replace(/\|/g, ""); // `|`를 제거
+  text = text.replace(/&/g, ""); // `&`를 제거
+
   return slugify(text, {
     lower: true,
-    remove: /[*+~.()'"!:@?/\\^`<>{}\[\]%&=]/g,
-    strict: true,
+    remove: /[^\w\s_-]/g, // `_`, `-`, 공백, 알파벳, 숫자만 허용
+    strict: false,
   });
 }
 

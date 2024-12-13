@@ -1,6 +1,6 @@
 ---
-title: Classification with KerasCV
-linkTitle: Use KerasCV to train powerful image classifiers.
+title: KerasCV를 사용하여 강력한 이미지 분류기를 트레이닝
+linkTitle: KerasCV로 분류
 toc: true
 weight: 2
 type: docs
@@ -11,30 +11,37 @@ type: docs
 **{{< t f_author >}}** [lukewood](https://lukewood.xyz)  
 **{{< t f_date_created >}}** 03/28/2023  
 **{{< t f_last_modified >}}** 03/28/2023  
-**{{< t f_description >}}** Use KerasCV to train powerful image classifiers.
+**{{< t f_description >}}** KerasCV를 사용하여 강력한 이미지 분류기를 트레이닝하세요.
 
 {{< cards cols="2" >}}
 {{< card link="https://colab.research.google.com/github/keras-team/keras-io/blob/master/guides/ipynb/keras_cv/classification_with_keras_cv.ipynb" title="Colab" tag="Colab" tagType="warning">}}
 {{< card link="https://github.com/keras-team/keras-io/blob/master/guides/keras_cv/classification_with_keras_cv.py" title="GitHub" tag="GitHub">}}
 {{< /cards >}}
 
-Classification is the process of predicting a categorical label for a given input image. While classification is a relatively straightforward computer vision task, modern approaches still are built of several complex components. Luckily, KerasCV provides APIs to construct commonly used components.
+분류는 주어진 입력 이미지에 대한 카테고리형 레이블을 예측하는 프로세스입니다.
+분류는 비교적 간단한 컴퓨터 비전 작업이지만,
+최신 접근 방식은 여전히 ​​여러 복잡한 구성 요소로 구성되어 있습니다.
+다행히도, KerasCV는 일반적으로 사용되는 구성 요소를 구성하는 API를 제공합니다.
 
-This guide demonstrates KerasCV's modular approach to solving image classification problems at three levels of complexity:
+이 가이드는 세 가지 레벨의 복잡성에서,
+이미지 분류 문제를 해결하는 KerasCV의 모듈식 접근 방식을 보여줍니다.
 
-- Inference with a pretrained classifier
-- Fine-tuning a pretrained backbone
-- Training a image classifier from scratch
+- 사전 트레이닝된 분류기를 사용한 추론
+- 사전 트레이닝된 백본 미세 조정
+- 처음부터 이미지 분류기 트레이닝
 
-KerasCV uses Keras 3 to work with any of TensorFlow, PyTorch or Jax. In the guide below, we will use the `jax` backend. This guide runs in TensorFlow or PyTorch backends with zero changes, simply update the `KERAS_BACKEND` below.
+KerasCV는 Keras 3를 사용하여 TensorFlow, PyTorch 또는 Jax로 작동합니다.
+아래 가이드에서는 `jax` 백엔드를 사용합니다.
+이 가이드는 변경 사항 없이 TensorFlow 또는 PyTorch 백엔드에서 실행되므로,
+아래의 `KERAS_BACKEND`를 업데이트하기만 하면 됩니다.
 
-We use Professor Keras, the official Keras mascot, as a visual reference for the complexity of the material:
+공식 Keras 마스코트인 Professor Keras를 자료의 복잡성에 대한 시각적 참조로 사용합니다.
 
 ![png](/images/keras-hub/getting_started_guide/prof_keras_evolution.png)
 
 ```python
 !pip install -q --upgrade keras-cv
-!pip install -q --upgrade keras  # Upgrade to Keras 3.
+!pip install -q --upgrade keras  # Keras 3으로 업그레이드하세요.
 ```
 
 ```python
@@ -55,20 +62,29 @@ from keras import metrics
 
 import keras_cv
 
-# Import tensorflow for [`tf.data`](https://www.tensorflow.org/api_docs/python/tf/data) and its preprocessing functions
+# [`tf.data`](https://www.tensorflow.org/api_docs/python/tf/data) 및
+# 해당 전처리 함수를 위해 tensorflow를 import 합니다.
 import tensorflow as tf
 import tensorflow_datasets as tfds
 ```
 
-## Inference with a pretrained classifier
+## 사전 트레이닝된 분류기를 사용한 추론 {#inference-with-a-pretrained-classifier}
 
 ![png](/images/keras-hub/getting_started_guide/prof_keras_beginner.png)
 
-Let's get started with the simplest KerasCV API: a pretrained classifier. In this example, we will construct a classifier that was pretrained on the ImageNet dataset. We'll use this model to solve the age old "Cat or Dog" problem.
+가장 간단한 KerasCV API인 사전 트레이닝된 분류기로 시작해 보겠습니다.
+이 예에서는, ImageNet 데이터 세트에 대해 사전 트레이닝된 분류기를 구성합니다.
+이 모델을 사용하여 오래된 "Cat or Dog" 문제를 해결합니다.
 
-The highest level module in KerasCV is a _task_. A _task_ is a [`keras.Model`]({{< relref "/docs/api/models/model#model-class" >}}) consisting of a (generally pretrained) backbone model and task-specific layers. Here's an example using [`keras_cv.models.ImageClassifier`]({{< relref "/docs/api/keras_cv/models/tasks/image_classifier#imageclassifier-class" >}}) with an EfficientNetV2B0 Backbone.
+KerasCV의 가장 높은 레벨의 모듈은 _task_ 입니다.
+_task_ 는 (일반적으로 사전 트레이닝된) 백본 모델과 작업별 레이어로 구성된
+[`keras.Model`]({{< relref "/docs/api/models/model#model-class" >}})입니다.
+다음은 EfficientNetV2B0 백본과 함께 [`keras_cv.models.ImageClassifier`]({{< relref "/docs/api/keras_cv/models/tasks/image_classifier#imageclassifier-class" >}})를 사용하는 예입니다.
 
-EfficientNetV2B0 is a great starting model when constructing an image classification pipeline. This architecture manages to achieve high accuracy, while using a parameter count of 7M. If an EfficientNetV2B0 is not powerful enough for the task you are hoping to solve, be sure to check out [KerasCV's other available Backbones](https://github.com/keras-team/keras-cv/tree/master/keras_cv/models/backbones)!
+EfficientNetV2B0은 이미지 분류 파이프라인을 구성할 때 좋은 시작 모델입니다.
+이 아키텍처는 7M의 매개변수 수를 사용하면서도 높은 정확도를 달성합니다.
+EfficientNetV2B0가 해결하고자 하는 작업에 충분히 강력하지 않다면,
+[KerasCV의 다른 사용 가능한 백본](https://github.com/keras-team/keras-cv/tree/master/keras_cv/models/backbones)을 확인하세요!
 
 ```python
 classifier = keras_cv.models.ImageClassifier.from_preset(
@@ -76,9 +92,12 @@ classifier = keras_cv.models.ImageClassifier.from_preset(
 )
 ```
 
-You may notice a small deviation from the old `keras.applications` API; where you would construct the class with `EfficientNetV2B0(weights="imagenet")`. While the old API was great for classification, it did not scale effectively to other use cases that required complex architectures, like object detection and semantic segmentation.
+이전 `keras.applications` API에서 약간 차이가 있음을 알 수 있습니다.
+이전 API에서는 `EfficientNetV2B0(weights="imagenet")`로 클래스를 구성했습니다.
+이전 API는 분류에 매우 좋았지만, 객체 감지 및 시맨틱 세그멘테이션과 같이,
+복잡한 아키텍처가 필요한 다른 사용 사례에는 효과적으로 확장되지 않았습니다.
 
-Now that our classifier is built, let's apply it to this cute cat picture!
+이제 분류기가 구축되었으니, 이 귀여운 고양이 사진에 적용해 보겠습니다!
 
 ```python
 filepath = keras.utils.get_file(origin="https://i.imgur.com/9i63gLN.jpg")
@@ -91,7 +110,7 @@ keras_cv.visualization.plot_image_gallery(
 
 ![png](/images/guides/keras_cv/classification_with_keras_cv/classification_with_keras_cv_7_0.png)
 
-Next, let's get some predictions from our classifier:
+다음으로, 분류기로부터 몇 가지 예측을 얻어 보겠습니다.
 
 ```python
 predictions = classifier.predict(np.expand_dims(image, axis=0))
@@ -105,13 +124,17 @@ predictions = classifier.predict(np.expand_dims(image, axis=0))
 
 {{% /details %}}
 
-Predictions come in the form of softmax-ed category rankings. We can find the index of the top classes using a simple argsort function:
+예측은 소프트맥스된 카테고리 순위의 형태로 제공됩니다.
+간단한 argsort 함수를 사용하여, 상위 클래스의 인덱스를 찾을 수 있습니다.
 
 ```python
 top_classes = predictions[0].argsort(axis=-1)
 ```
 
-In order to decode the class mappings, we can construct a mapping from category indices to ImageNet class names. For convenience, I've stored the ImageNet class mapping in a GitHub gist. Let's download and load it now.
+클래스 매핑을 디코딩하기 위해,
+카테고리 인덱스에서 ImageNet 클래스 이름으로 매핑을 구성할 수 있습니다.
+편의상, ImageNet 클래스 매핑을 GitHub gist에 저장했습니다.
+지금 다운로드하여 로드해 보겠습니다.
 
 ```python
 classes = keras.utils.get_file(
@@ -130,7 +153,7 @@ Downloading data from https://gist.githubusercontent.com/LukeWood/62eebcd5c5c4a4
 
 {{% /details %}}
 
-Now we can simply look up the class names via index:
+이제 우리는 인덱스를 통해 간단히 클래스 이름을 조회할 수 있습니다.
 
 ```python
 top_two = [classes[str(i)] for i in top_classes[-2:]]
@@ -145,17 +168,28 @@ Top two classes are: ['Egyptian cat', 'velvet']
 
 {{% /details %}}
 
-Great! Both of these appear to be correct! However, one of the classes is "Velvet". We're trying to classify Cats VS Dogs. We don't care about the velvet blanket!
+좋습니다! 둘 다 맞는 것 같습니다!
+하지만 클래스 중 하나는 "Velvet"입니다.
+우리는 Cats VS Dogs를 분류하려고 합니다.
+벨벳 담요는 신경 쓰지 않습니다!
 
-Ideally, we'd have a classifier that only performs computation to determine if an image is a cat or a dog, and has all of its resources dedicated to this task. This can be solved by fine tuning our own classifier.
+이상적으로는, 이미지가 고양이인지 개인지 판별하기 위한 계산만 수행하고,
+모든 리소스를 이 작업에 전념하는 분류기를 갖게 될 것입니다.
+이는 우리 자신의 분류기를 미세 조정하여 해결할 수 있습니다.
 
-## Fine tuning a pretrained classifier
+## 사전 트레이닝된 분류기 미세 조정 {#fine-tuning-a-pretrained-classifier}
 
 ![png](/images/keras-hub/getting_started_guide/prof_keras_intermediate.png)
 
-When labeled images specific to our task are available, fine-tuning a custom classifier can improve performance. If we want to train a Cats vs Dogs Classifier, using explicitly labeled Cat vs Dog data should perform better than the generic classifier! For many tasks, no relevant pretrained model will be available (e.g., categorizing images specific to your application).
+작업에 특화된 레이블이 지정된 이미지가 있는 경우,
+커스텀 분류기를 미세 조정하면 성능이 향상될 수 있습니다.
+Cats vs Dogs 분류기를 트레이닝하려면,
+명시적으로 레이블이 지정된 Cat vs Dog 데이터를 사용하면,
+일반 분류기보다 성능이 더 좋아야 합니다!
+많은 작업의 경우, 관련 사전 트레이닝된 모델을 사용할 수 없습니다.
+(예: 당신의 애플리케이션에 특화된 이미지 분류)
 
-First, let's get started by loading some data:
+먼저 데이터를 로드하여 시작해 보겠습니다.
 
 ```python
 BATCH_SIZE = 32
@@ -176,13 +210,12 @@ resizing = keras_cv.layers.Resizing(
 
 def preprocess_inputs(image, label):
     image = tf.cast(image, tf.float32)
-    # Staticly resize images as we only iterate the dataset once.
+    # 데이터 세트를 한 번만 반복하므로 이미지 크기를 정적으로 조정합니다.
     return resizing(image), tf.one_hot(label, num_classes)
 
 
-# Shuffle the dataset to increase diversity of batches.
-# 10*BATCH_SIZE follows the assumption that bigger machines can handle bigger
-# shuffle buffers.
+# 배치의 다양성을 높이기 위해 데이터 세트를 셔플합니다.
+# 10*BATCH_SIZE는 더 큰 머신이 더 큰 셔플 버퍼를 처리할 수 있다는 가정을 따릅니다.
 train_dataset = train_dataset.shuffle(
     10 * BATCH_SIZE, reshuffle_each_iteration=True
 ).map(preprocess_inputs, num_parallel_calls=AUTOTUNE)
@@ -196,11 +229,15 @@ keras_cv.visualization.plot_image_gallery(images, value_range=(0, 255))
 
 ![png](/images/guides/keras_cv/classification_with_keras_cv/classification_with_keras_cv_17_1.png)
 
-Meow!
+야옹!
 
-Next let's construct our model. The use of imagenet in the preset name indicates that the backbone was pretrained on the ImageNet dataset. Pretrained backbones extract more information from our labeled examples by leveraging patterns extracted from potentially much larger datasets.
+다음으로 모델을 구성해 보겠습니다.
+사전 설정 이름에 imagenet을 사용한 것은,
+백본이 ImageNet 데이터 세트에 대해 사전 트레이닝되었음을 나타냅니다.
+사전 트레이닝된 백본은 잠재적으로 훨씬 더 큰 데이터 세트에서 추출한 패턴을 활용하여,
+레이블이 지정된 예제에서 더 많은 정보를 추출합니다.
 
-Next lets put together our classifier:
+다음으로 분류기를 구성해 보겠습니다.
 
 ```python
 model = keras_cv.models.ImageClassifier.from_preset(
@@ -222,7 +259,8 @@ Downloading data from https://storage.googleapis.com/keras-cv/models/efficientne
 
 {{% /details %}}
 
-Here our classifier is just a simple [`keras.Sequential`]({{< relref "/docs/api/models/sequential#sequential-class" >}}). All that is left to do is call `model.fit()`:
+여기서 우리의 분류기는 단순한 [`keras.Sequential`]({{< relref "/docs/api/models/sequential#sequential-class" >}})입니다.
+남은 것은 `model.fit()`를 호출하는 것뿐입니다.
 
 ```python
 model.fit(train_dataset)
@@ -287,7 +325,7 @@ Corrupt JPEG data: 228 extraneous bytes before marker 0xd9
 
 {{% /details %}}
 
-Let's look at how our model performs after the fine tuning:
+미세 조정 후 모델이 어떻게 수행되는지 살펴보겠습니다.
 
 ```python
 predictions = model.predict(np.expand_dims(image, axis=0))
@@ -305,19 +343,24 @@ Top class is: cat
 
 {{% /details %}}
 
-Awesome - looks like the model correctly classified the image.
+훌륭하네요. 모델이 이미지를 올바르게 분류한 것 같습니다.
 
-## Train a Classifier from Scratch
+## 처음부터 분류기 트레이닝 {#train-a-classifier-from-scratch}
 
 ![png](/images/keras-hub/getting_started_guide/prof_keras_advanced.png)
 
-Now that we've gotten our hands dirty with classification, let's take on one last task: training a classification model from scratch! A standard benchmark for image classification is the ImageNet dataset, however due to licensing constraints we will use the CalTech 101 image classification dataset in this tutorial. While we use the simpler CalTech 101 dataset in this guide, the same training template may be used on ImageNet to achieve near state-of-the-art scores.
+이제 분류에 대해 자세히 알아보았으니, 마지막 과제를 하나 해보겠습니다.
+분류 모델을 처음부터 트레이닝하는 것입니다!
+이미지 분류의 표준 벤치마크는 ImageNet 데이터 세트이지만,
+라이선스 제약으로 인해 이 튜토리얼에서는 CalTech 101 이미지 분류 데이터 세트를 사용합니다.
+이 가이드에서는 더 간단한 CalTech 101 데이터 세트를 사용하지만,
+ImageNet에서는 동일한 트레이닝 템플릿을 사용하여 최신 수준에 가까운 점수를 얻을 수 있습니다.
 
-Let's start out by tackling data loading:
+데이터 로딩부터 시작해 보겠습니다.
 
 ```python
 NUM_CLASSES = 101
-# Change epochs to 100~ to fully train.
+# 완전히 트레이닝하려면 에포크를 100~로 변경하세요.
 EPOCHS = 1
 
 
@@ -343,7 +386,8 @@ train_ds = train_ds.shuffle(BATCH_SIZE * 16)
 
 {{% /details %}}
 
-The CalTech101 dataset has different sizes for every image, so we use the `ragged_batch()` API to batch them together while maintaining each individual image's shape information.
+CalTech101 데이터 세트는 각 이미지의 크기가 다르기 때문에,
+`ragged_batch()` API를 사용하여 각 개별 이미지의 모양 정보를 유지하면서 이를 배치 처리합니다.
 
 ```python
 train_ds = train_ds.ragged_batch(BATCH_SIZE)
@@ -364,15 +408,29 @@ keras_cv.visualization.plot_image_gallery(
 
 ![png](/images/guides/keras_cv/classification_with_keras_cv/classification_with_keras_cv_28_0.png)
 
-### Data Augmentation
+### 데이터 보강 {#data-augmentation}
 
-In our previous finetuning example, we performed a static resizing operation and did not utilize any image augmentation. This is because a single pass over the training set was sufficient to achieve decent results. When training to solve a more difficult task, you'll want to include data augmentation in your data pipeline.
+이전 미세 조정 예제에서, 정적 크기 조정 작업을 수행했으며 이미지 보강을 활용하지 않았습니다.
+그 이유는 트레이닝 세트에 대한 단일 패스로 적절한 결과를 얻기에 충분했기 때문입니다.
+더 어려운 작업을 해결하기 위해, 트레이닝할 때는 데이터 파이프라인에 데이터 보강을 포함해야 합니다.
 
-Data augmentation is a technique to make your model robust to changes in input data such as lighting, cropping, and orientation. KerasCV includes some of the most useful augmentations in the `keras_cv.layers` API. Creating an optimal pipeline of augmentations is an art, but in this section of the guide we'll offer some tips on best practices for classification.
+데이터 보강은 조명(lighting), 자르기(cropping), 방향(orientation)과 같은,
+입력 데이터의 변경에 대해 모델을 견고하게 만드는 기술입니다.
+KerasCV에는 `keras_cv.layers` API에서 가장 유용한 보강 중 일부가 포함되어 있습니다.
+보강의 최적 파이프라인을 만드는 것은 예술이지만,
+이 가이드의 이 섹션에서는 분류에 대한 모범 사례에 대한 몇 가지 팁을 제공합니다.
 
-One caveat to be aware of with image data augmentation is that you must be careful to not shift your augmented data distribution too far from the original data distribution. The goal is to prevent overfitting and increase generalization, but samples that lie completely out of the data distribution simply add noise to the training process.
+이미지 데이터 보강에 주의해야 할 한 가지 주의 사항은,
+보강된 데이터 분포를 원래 데이터 분포에서 너무 멀리 옮기지 않도록 주의해야 한다는 것입니다.
+목표는 과적합을 방지하고 일반화를 증가시키는 것이지만,
+데이터 분포에서 완전히 벗어난 샘플은 단순히 트레이닝 과정에 노이즈를 추가합니다.
 
-The first augmentation we'll use is `RandomFlip`. This augmentation behaves more or less how you'd expect: it either flips the image or not. While this augmentation is useful in CalTech101 and ImageNet, it should be noted that it should not be used on tasks where the data distribution is not vertical mirror invariant. An example of a dataset where this occurs is MNIST hand written digits. Flipping a `6` over the vertical axis will make the digit appear more like a `7` than a `6`, but the label will still show a `6`.
+사용할 첫 번째 보강은 `RandomFlip`입니다. 이 보강은 예상한 대로 동작합니다.
+즉, 이미지를 뒤집거나 뒤집지 않습니다.
+이 보강은 CalTech101 및 ImageNet에서 유용하지만,
+데이터 분포가 수직 거울 불변이 아닌 작업에는 사용해서는 안 됩니다.
+이런 일이 발생하는 데이터 세트의 예로는 MNIST 손으로 쓴 숫자가 있습니다.
+수직 축에서 `6`을 뒤집으면, 숫자가 `6`보다는 `7`처럼 보이지만, 레이블에는 여전히 `6`이 표시됩니다.
 
 ```python
 random_flip = keras_cv.layers.RandomFlip()
@@ -390,13 +448,24 @@ keras_cv.visualization.plot_image_gallery(
 
 ![png](/images/guides/keras_cv/classification_with_keras_cv/classification_with_keras_cv_30_0.png)
 
-Half of the images have been flipped!
+이미지의 절반이 뒤집혔습니다!
 
-The next augmentation we'll use is `RandomCropAndResize`. This operation selects a random subset of the image, then resizes it to the provided target size. By using this augmentation, we force our classifier to become spatially invariant. Additionally, this layer accepts an `aspect_ratio_factor` which can be used to distort the aspect ratio of the image. While this can improve model performance, it should be used with caution. It is very easy for an aspect ratio distortion to shift a sample too far from the original training set's data distribution. Remember - the goal of data augmentation is to produce more training samples that align with the data distribution of your training set!
+우리가 사용할 다음 보강은 `RandomCropAndResize`입니다.
+이 작업은 이미지의 무작위 하위 집합을 선택한 다음, 제공된 대상 크기로 크기를 조정합니다.
+이 보강을 사용하면, 분류기가 공간적으로 불변이 되도록 강제합니다.
+또한 이 레이어는 이미지의 종횡비를 왜곡하는 데 사용할 수 있는 `aspect_ratio_factor`를 허용합니다.
+이렇게 하면, 모델 성능이 향상될 수 있지만 주의해서 사용해야 합니다.
+종횡비 왜곡으로 인해 샘플이 원래 트레이닝 세트의 데이터 분포에서 너무 멀리 이동하기 쉽습니다. 기억하세요.
+데이터 보강의 목표는 트레이닝 세트의 데이터 분포와 일치하는 더 많은 트레이닝 샘플을 생성하는 것입니다!
 
-`RandomCropAndResize` also can handle [`tf.RaggedTensor`](https://www.tensorflow.org/api_docs/python/tf/RaggedTensor) inputs. In the CalTech101 image dataset images come in a wide variety of sizes. As such they cannot easily be batched together into a dense training batch. Luckily, `RandomCropAndResize` handles the Ragged -> Dense conversion process for you!
+`RandomCropAndResize`는 또한
+[`tf.RaggedTensor`](https://www.tensorflow.org/api_docs/python/tf/RaggedTensor)
+입력을 처리할 수 있습니다.
+CalTech101 이미지 데이터 세트에서 이미지는 다양한 크기로 제공됩니다.
+따라서, 밀집된 트레이닝 배치로 쉽게 배치할 수 없습니다.
+다행히도 `RandomCropAndResize`가 Ragged -> Dense 변환 프로세스를 처리합니다!
 
-Let's add a `RandomCropAndResize` to our set of augmentations:
+보강 세트에 `RandomCropAndResize`를 추가해 보겠습니다.
 
 ```python
 crop_and_resize = keras_cv.layers.RandomCropAndResize(
@@ -418,11 +487,21 @@ keras_cv.visualization.plot_image_gallery(
 
 ![png](/images/guides/keras_cv/classification_with_keras_cv/classification_with_keras_cv_32_0.png)
 
-Great! We are now working with a batch of dense images. Next up, lets include some spatial and color-based jitter to our training set. This will allow us to produce a classifier that is robust to lighting flickers, shadows, and more.
+좋습니다! 이제 dense 이미지 배치로 작업합니다.
+다음으로, 트레이닝 세트에 공간(spatial) 및 색상 기반 지터(color-based jitter)를 포함하겠습니다.
+그러면, 조명 깜빡임, 그림자 등에 견고한 분류기를 생성할 수 있습니다.
 
-There are limitless ways to augment an image by altering color and spatial features, but perhaps the most battle tested technique is [`RandAugment`](https://arxiv.org/abs/1909.13719). `RandAugment` is actually a set of 10 different augmentations: `AutoContrast`, `Equalize`, `Solarize`, `RandomColorJitter`, `RandomContrast`, `RandomBrightness`, `ShearX`, `ShearY`, `TranslateX` and `TranslateY`. At inference time, `num_augmentations` augmenters are sampled for each image, and random magnitude factors are sampled for each. These augmentations are then applied sequentially.
+색상과 공간적 특징을 변경하여 이미지를 보강하는 방법은 무한하지만,
+아마도 가장 실전에서 검증된 기술은 [`RandAugment`](https://arxiv.org/abs/1909.13719)일 것입니다.
+`RandAugment`는 실제로 10가지 다른 보강 세트입니다.
+`AutoContrast`, `Equalize`, `Solarize`, `RandomColorJitter`, `RandomContrast`, `RandomBrightness`, `ShearX`, `ShearY`, `TranslateX` 및 `TranslateY`.
+추론 시에 각 이미지에 대해 `num_augmentations` 보강기를 샘플링하고,
+각 이미지에 대해 무작위 크기 요소를 샘플링합니다.
+그런 다음, 이러한 보강을 순차적으로 적용합니다.
 
-KerasCV makes tuning these parameters easy using the `augmentations_per_image` and `magnitude` parameters! Let's take it for a spin:
+KerasCV는 `augmentations_per_image` 및 `magnitude` 매개변수를 사용하여,
+이러한 매개변수를 쉽게 조정할 수 있도록 합니다!
+한 번 돌려봅시다:
 
 ```python
 rand_augment = keras_cv.layers.RandAugment(
@@ -446,9 +525,13 @@ keras_cv.visualization.plot_image_gallery(
 
 ![png](/images/guides/keras_cv/classification_with_keras_cv/classification_with_keras_cv_34_0.png)
 
-Looks great; but we're not done yet! What if an image is missing one critical feature of a class? For example, what if a leaf is blocking the view of a cat's ear, but our classifier learned to classify cats simply by observing their ears?
+훌륭해 보이지만 아직 끝나지 않았습니다!
+이미지에 클래스의 중요한 특징 하나가 없다면 어떨까요?
+예를 들어, 잎이 고양이 귀를 가리고 있지만,
+분류기가 고양이의 귀를 관찰하여 고양이를 분류하는 법을 배웠다면 어떨까요?
 
-One easy approach to tackling this is to use `RandomCutout`, which randomly strips out a sub-section of the image:
+이 문제를 해결하는 쉬운 방법 중 하나는 `RandomCutout`을 사용하는 것입니다.
+이 방법은 이미지의 하위 섹션을 무작위로 제거합니다.
 
 ```python
 random_cutout = keras_cv.layers.RandomCutout(width_factor=0.4, height_factor=0.4)
@@ -463,15 +546,20 @@ keras_cv.visualization.plot_image_gallery(
 
 ![png](/images/guides/keras_cv/classification_with_keras_cv/classification_with_keras_cv_36_16.png)
 
-While this tackles the problem reasonably well, it can cause the classifier to develop responses to borders between features and black pixel areas caused by the cutout.
+이 방법은 문제를 비교적 잘 해결하지만,
+분류기가 잘린 부분에 의해 발생한 특징과 검은색 픽셀 영역 사이의 경계에 대한 반응을 개발하게 할 수 있습니다.
 
-[`CutMix`](https://arxiv.org/abs/1905.04899) solves the same issue by using a more complex (and more effective) technique. Instead of replacing the cut-out areas with black pixels, `CutMix` replaces these regions with regions of other images sampled from within your training set! Following this replacement, the image's classification label is updated to be a blend of the original and mixed image's class label.
+[`CutMix`](https://arxiv.org/abs/1905.04899)는
+더 복잡하고 효과적인 기술을 사용하여 같은 문제를 해결합니다.
+잘린 부분을 검은색 픽셀로 대체하는 대신,
+`CutMix`는 이러한 영역을 트레이닝 세트 내에서 샘플링한 다른 이미지의 영역으로 대체합니다!
+이 대체에 따라, 이미지의 분류 레이블이 원본과 혼합된 이미지의 클래스 레이블을 혼합하여 업데이트됩니다.
 
-What does this look like in practice? Let's check it out:
+실제로는 어떻게 보일까요? 확인해 보겠습니다.
 
 ```python
 cut_mix = keras_cv.layers.CutMix()
-# CutMix needs to modify both images and labels
+# CutMix는 이미지와 레이블을 모두 수정해야 합니다.
 inputs = {"images": image_batch, "labels": label_batch}
 
 keras_cv.visualization.plot_image_gallery(
@@ -485,17 +573,21 @@ keras_cv.visualization.plot_image_gallery(
 
 ![png](/images/guides/keras_cv/classification_with_keras_cv/classification_with_keras_cv_38_0.png)
 
-Let's hold off from adding it to our augmenter for a minute - more on that soon!
+보강기에 추가하는 것을 잠시 미룹시다. 곧 자세히 설명하겠습니다!
 
-Next, let's look into `MixUp()`. Unfortunately, while `MixUp()` has been empirically shown to _substantially_ improve both the robustness and the generalization of the trained model, it is not well-understood why such improvement occurs... but a little alchemy never hurt anyone!
+다음으로, `MixUp()`을 살펴보겠습니다.
+안타깝게도, `MixUp()`은 경험적으로 트레이닝된 모델의 견고성과 일반화를 _상당히_ 개선하는 것으로 나타났지만,
+왜 이런 개선이 일어나는지는 잘 이해되지 않았습니다...
+하지만 약간의 연금술은 누구에게도 해가 되지 않았습니다!
 
-`MixUp()` works by sampling two images from a batch, then proceeding to literally blend together their pixel intensities as well as their classification labels.
+`MixUp()`은 배치에서 두 개의 이미지를 샘플링한 다음,
+문자 그대로 픽셀 강도와 분류 레이블을 함께 혼합하여 작동합니다.
 
-Let's see it in action:
+실제로 작동하는 모습을 살펴보겠습니다.
 
 ```python
 mix_up = keras_cv.layers.MixUp()
-# MixUp needs to modify both images and labels
+# MixUp은 이미지와 레이블을 모두 수정해야 합니다.
 inputs = {"images": image_batch, "labels": label_batch}
 
 keras_cv.visualization.plot_image_gallery(
@@ -509,16 +601,18 @@ keras_cv.visualization.plot_image_gallery(
 
 ![png](/images/guides/keras_cv/classification_with_keras_cv/classification_with_keras_cv_40_0.png)
 
-If you look closely, you'll see that the images have been blended together.
+자세히 보면, 이미지가 혼합된 것을 볼 수 있습니다.
 
-Instead of applying `CutMix()` and `MixUp()` to every image, we instead pick one or the other to apply to each batch. This can be expressed using `keras_cv.layers.RandomChoice()`
+모든 이미지에 `CutMix()`와 `MixUp()`을 적용하는 대신,
+각 배치에 적용할 하나를 선택합니다.
+이는 `keras_cv.layers.RandomChoice()`를 사용하여 표현할 수 있습니다.
 
 ```python
 cut_mix_or_mix_up = keras_cv.layers.RandomChoice([cut_mix, mix_up], batchwise=True)
 augmenters += [cut_mix_or_mix_up]
 ```
 
-Now let's apply our final augmenter to the training data:
+이제 최종 보강기를 트레이닝 데이터에 적용해 보겠습니다.
 
 ```python
 def create_augmenter_fn(augmenters):
@@ -545,7 +639,9 @@ keras_cv.visualization.plot_image_gallery(
 
 ![png](/images/guides/keras_cv/classification_with_keras_cv/classification_with_keras_cv_44_0.png)
 
-We also need to resize our evaluation set to get dense batches of the image size expected by our model. We use the deterministic [`keras_cv.layers.Resizing`]({{< relref "/docs/api/keras_cv/layers/preprocessing/resizing#resizing-class" >}}) in this case to avoid adding noise to our evaluation metric.
+또한 모델에서 기대하는 이미지 크기의 dense 배치를 얻기 위해, 평가 세트의 크기를 조정해야 합니다.
+이 경우 결정론적(deterministic) [`keras_cv.layers.Resizing`]({{< relref "/docs/api/keras_cv/layers/preprocessing/resizing#resizing-class" >}})을 사용하여,
+평가 메트릭에 노이즈를 추가하는 것을 방지합니다.
 
 ```python
 inference_resizing = keras_cv.layers.Resizing(
@@ -565,7 +661,8 @@ keras_cv.visualization.plot_image_gallery(
 
 ![png](/images/guides/keras_cv/classification_with_keras_cv/classification_with_keras_cv_46_0.png)
 
-Finally, lets unpackage our datasets and prepare to pass them to `model.fit()`, which accepts a tuple of `(images, labels)`.
+마지막으로, 데이터세트를 언팩하고,
+이를 `(images, labels)` 튜플을 받는 `model.fit()`에 전달할 준비를 합시다.
 
 ```python
 def unpackage_dict(inputs):
@@ -576,11 +673,13 @@ train_ds = train_ds.map(unpackage_dict, num_parallel_calls=tf.data.AUTOTUNE)
 eval_ds = eval_ds.map(unpackage_dict, num_parallel_calls=tf.data.AUTOTUNE)
 ```
 
-Data augmentation is by far the hardest piece of training a modern classifier. Congratulations on making it this far!
+데이터 보강은 현대 분류기를 트레이닝하는 데 가장 어려운 부분입니다. 여기까지 온 것을 축하합니다!
 
-### Optimizer Tuning
+### 옵티마이저 튜닝 {#optimizer-tuning}
 
-To achieve optimal performance, we need to use a learning rate schedule instead of a single learning rate. While we won't go into detail on the Cosine decay with warmup schedule used here, [you can read more about it here](https://scorrea92.medium.com/cosine-learning-rate-decay-e8b50aa455b).
+최적의 성능을 달성하려면, 단일 학습률 대신 학습률 스케쥴을 사용해야 합니다.
+여기서 사용된 워밍업 스케쥴을 사용한 코사인 감쇠에 대해서는 자세히 설명하지 않겠지만,
+[여기에서 자세히 읽을 수 있습니다](https://scorrea92.medium.com/cosine-learning-rate-decay-e8b50aa455b).
 
 ```python
 def lr_warmup_cosine_decay(
@@ -591,7 +690,7 @@ def lr_warmup_cosine_decay(
     start_lr=0.0,
     target_lr=1e-2,
 ):
-    # Cosine decay
+    # 코사인 감쇠
     learning_rate = (
         0.5
         * target_lr
@@ -644,9 +743,9 @@ class WarmUpCosineDecay(schedules.LearningRateSchedule):
 
 ![WarmUpCosineDecay schedule](/images/guides/keras_cv/classification_with_keras_cv/YCr5pII.png)
 
-The schedule looks a as we expect.
+스케쥴은 예상대로 보입니다.
 
-Next let's construct this optimizer:
+다음으로 이 옵티마이저를 구성해 보겠습니다.
 
 ```python
 total_images = 9000
@@ -667,7 +766,10 @@ optimizer = optimizers.SGD(
 )
 ```
 
-At long last, we can now build our model and call `fit()`! `keras_cv.models.EfficientNetV2B0Backbone()` is a convenience alias for `keras_cv.models.EfficientNetV2Backbone.from_preset('efficientnetv2_b0')`. Note that this preset does not come with any pretrained weights.
+마침내, 우리는 이제 모델을 빌드하고 `fit()`를 호출할 수 있습니다!
+`keras_cv.models.EfficientNetV2B0Backbone()`은
+`keras_cv.models.EfficientNetV2Backbone.from_preset('efficientnetv2_b0')`의 편의 별칭(convenience alias)입니다.
+이 사전 설정에는 사전 트레이닝된 가중치가 제공되지 않습니다.
 
 ```python
 backbone = keras_cv.models.EfficientNetV2B0Backbone()
@@ -681,13 +783,15 @@ model = keras.Sequential(
 )
 ```
 
-Since the labels produced by MixUp() and CutMix() are somewhat artificial, we employ label smoothing to prevent the model from overfitting to artifacts of this augmentation process.
+MixUp()과 CutMix()로 생성된 레이블은 어느 정도 인위적이기 때문에,
+이 보강 과정의 아티팩트로 인해 모델이 과적합되는 것을 방지하기 위해,
+레이블 평활화(label smoothing)를 사용합니다.
 
 ```python
 loss = losses.CategoricalCrossentropy(label_smoothing=0.1)
 ```
 
-Let's compile our model:
+모델을 컴파일해 보겠습니다.
 
 ```python
 model.compile(
@@ -700,7 +804,7 @@ model.compile(
 )
 ```
 
-and finally call fit().
+마지막으로 fit()을 호출합니다.
 
 ```python
 model.fit(
@@ -720,14 +824,24 @@ model.fit(
 
 {{% /details %}}
 
-Congratulations! You now know how to train a powerful image classifier from scratch in KerasCV. Depending on the availability of labeled data for your application, training from scratch may or may not be more powerful than using transfer learning in addition to the data augmentations discussed above. For smaller datasets, pretrained models generally produce high accuracy and faster convergence.
+축하합니다! 이제 KerasCV에서 강력한 이미지 분류기를 처음부터 트레이닝하는 방법을 알게 되었습니다.
+애플리케이션에 레이블이 지정된 데이터의 가용성에 따라,
+처음부터 트레이닝하는 것이 위에서 설명한 데이터 보강 외에도 전이 학습을 사용하는 것보다
+더 강력할 수도 있고 그렇지 않을 수도 있습니다.
+더 작은 데이터 세트의 경우, 사전 트레이닝된 모델은 일반적으로 높은 정확도와 더 빠른 수렴을 생성합니다.
 
-## Conclusions
+## 결론 {#conclusions}
 
-While image classification is perhaps the simplest problem in computer vision, the modern landscape has numerous complex components. Luckily, KerasCV offers robust, production-grade APIs to make assembling most of these components possible in one line of code. Through the use of KerasCV's `ImageClassifier` API, pretrained weights, and KerasCV data augmentations you can assemble everything you need to train a powerful classifier in a few hundred lines of code!
+이미지 분류는 아마도 컴퓨터 비전에서 가장 간단한 문제일지 몰라도,
+현대적 환경에는 복잡한 구성 요소가 많이 있습니다.
+다행히도, KerasCV는 이러한 구성 요소의 대부분을,
+한 줄의 코드로 조립할 수 있는 강력한 프로덕션 등급 API를 제공합니다.
+KerasCV의 `ImageClassifier` API, 사전 트레이닝된 가중치,
+KerasCV 데이터 보강을 사용하면,
+몇 백 줄의 코드로 강력한 분류기를 트레이닝하는 데 필요한 모든 것을 조립할 수 있습니다!
 
-As a follow up exercise, give the following a try:
+후속 연습으로 다음을 시도해 보세요.
 
-- Fine tune a KerasCV classifier on your own dataset
-- Learn more about [KerasCV's data augmentations]({{< relref "/docs/guides/keras_cv/cut_mix_mix_up_and_rand_augment" >}})
-- Check out how we train our models on [ImageNet](https://github.com/keras-team/keras-cv/blob/master/examples/training/classification/imagenet/basic_training.py)
+- 자신의 데이터 세트에 대해 KerasCV 분류기를 미세 조정합니다.
+- [KerasCV의 데이터 보강]({{< relref "/docs/guides/keras_cv/cut_mix_mix_up_and_rand_augment" >}})에 대해 자세히 알아보세요.
+- [ImageNet](https://github.com/keras-team/keras-cv/blob/master/examples/training/classification/imagenet/basic_training.py)에서 모델을 트레이닝하는 방법을 확인하세요.

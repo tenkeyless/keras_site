@@ -1,6 +1,6 @@
 ---
-title: Customizing Saving and Serialization
-linkTitle: Customizing saving & serialization
+title: 저장 및 직렬화 커스터마이징
+linkTitle: 커스텀 저장 및 직렬화
 toc: true
 weight: 12
 type: docs
@@ -11,34 +11,36 @@ type: docs
 **{{< t f_author >}}** Neel Kovelamudi  
 **{{< t f_date_created >}}** 2023/03/15  
 **{{< t f_last_modified >}}** 2023/03/15  
-**{{< t f_description >}}** A more advanced guide on customizing saving for your layers and models.
+**{{< t f_description >}}** 레이어와 모델을 위한 저장 커스터마이징에 대한 고급 가이드.
 
 {{< cards cols="2" >}}
 {{< card link="https://colab.research.google.com/github/keras-team/keras-io/blob/master/guides/ipynb/customizing_saving_and_serialization.ipynb" title="Colab" tag="Colab" tagType="warning">}}
 {{< card link="https://github.com/keras-team/keras-io/blob/master/guides/customizing_saving_and_serialization.py" title="GitHub" tag="GitHub">}}
 {{< /cards >}}
 
-## Introduction
+## 소개 {#introduction}
 
-This guide covers advanced methods that can be customized in Keras saving. For most users, the methods outlined in the primary [Serialize, save, and export guide]({{< relref "/docs/guides/serialization_and_saving" >}}) are sufficient.
+이 가이드는 Keras 저장 방식에서 커스터마이징할 수 있는 고급 방법을 다룹니다.
+대부분의 사용자에게는, 기본 ({{< titledRelref "/docs/guides/serialization_and_saving" >}}) 가이드에서
+설명된 방법으로 충분할 것입니다.
 
-### APIs
+### APIs {#apis}
 
-We will cover the following APIs:
+우리는 다음 API들을 다룰 것입니다:
 
-- `save_assets()` and `load_assets()`
-- `save_own_variables()` and `load_own_variables()`
-- `get_build_config()` and `build_from_config()`
-- `get_compile_config()` and `compile_from_config()`
+- `save_assets()` 및 `load_assets()`
+- `save_own_variables()` 및 `load_own_variables()`
+- `get_build_config()` 및 `build_from_config()`
+- `get_compile_config()` 및 `compile_from_config()`
 
-When restoring a model, these get executed in the following order:
+모델을 복원할 때, 다음 순서로 실행됩니다:
 
 - `build_from_config()`
 - `compile_from_config()`
 - `load_own_variables()`
 - `load_assets()`
 
-## Setup
+## 셋업 {#setup}
 
 ```python
 import os
@@ -46,13 +48,17 @@ import numpy as np
 import keras
 ```
 
-## State saving customization
+## 상태 저장 커스터마이즈 {#state-saving-customization}
 
-These methods determine how the state of your model's layers is saved when calling `model.save()`. You can override them to take full control of the state saving process.
+이 메서드들은 `model.save()`를 호출할 때 모델 레이어의 상태가 어떻게 저장되는지를 결정합니다.
+이 메서드들을 재정의하여 상태 저장 프로세스를 완전히 제어할 수 있습니다.
 
-### `save_own_variables()` and `load_own_variables()`
+### `save_own_variables()` 및 `load_own_variables()` {#save_own_variables-and-load_own_variables}
 
-These methods save and load the state variables of the layer when `model.save()` and `keras.models.load_model()` are called, respectively. By default, the state variables saved and loaded are the weights of the layer (both trainable and non-trainable). Here is the default implementation of `save_own_variables()`:
+이 메서드들은 각각 `model.save()` 및 `keras.models.load_model()`가 호출될 때,
+레이어의 상태 변수를 저장하고 로드합니다.
+기본적으로, 저장 및 로드되는 상태 변수는 레이어의 가중치(트레이닝 가능한 것과 트레이닝 불가능한 것 모두)입니다.
+다음은 `save_own_variables()`의 기본 구현입니다:
 
 ```python
 def save_own_variables(self, store):
@@ -61,9 +67,10 @@ def save_own_variables(self, store):
         store[f"{i}"] = v.numpy()
 ```
 
-The store used by these methods is a dictionary that can be populated with the layer variables. Let's take a look at an example customizing this.
+이 메서드에서 사용되는 저장소는 레이어 변수로 채울 수 있는 딕셔너리입니다.
+커스터마이징한 예시를 살펴보겠습니다.
 
-**Example:**
+**예시:**
 
 ```python
 @keras.utils.register_keras_serializable(package="my_custom_package")
@@ -76,17 +83,17 @@ class LayerWithCustomVariable(keras.layers.Dense):
 
     def save_own_variables(self, store):
         super().save_own_variables(store)
-        # Stores the value of the variable upon saving
+        # 저장 시 변수 값을 저장합니다.
         store["variables"] = self.my_variable.numpy()
 
     def load_own_variables(self, store):
-        # Assigns the value of the variable upon loading
+        # 로드 시 변수 값을 할당합니다.
         self.my_variable.assign(store["variables"])
-        # Load the remaining weights
+        # 나머지 가중치를 로드합니다.
         for i, v in enumerate(self.weights):
             v.assign(store[f"{i}"])
-        # Note: You must specify how all variables (including layer weights)
-        # are loaded in `load_own_variables.`
+        # 참고: `load_own_variables`에서는 모든 변수(레이어 가중치 포함)를
+        # 어떻게 로드할지 명시해야 합니다.
 
     def call(self, inputs):
         dense_out = super().call(inputs)
@@ -117,15 +124,16 @@ np.testing.assert_allclose(
 
 {{% /details %}}
 
-### `save_assets()` and `load_assets()`
+### `save_assets()` 및 `load_assets()` {#save_assets-and-load_assets}
 
-These methods can be added to your model class definition to store and load any additional information that your model needs.
+이 메서드들은 모델 클래스 정의에 추가하여, 모델이 필요한 추가 정보를 저장하고 로드할 수 있게 합니다.
 
-For example, NLP domain layers such as TextVectorization layers and IndexLookup layers may need to store their associated vocabulary (or lookup table) in a text file upon saving.
+예를 들어, NLP 도메인의 레이어인 `TextVectorization` 레이어나
+`IndexLookup` 레이어는 저장 시 연관된 어휘(또는 조회 테이블)를 텍스트 파일에 저장할 필요가 있습니다.
 
-Let's take at the basics of this workflow with a simple file `assets.txt`.
+이 워크플로의 기본 개념을 간단한 파일 `assets.txt`를 사용하여 살펴보겠습니다.
 
-**Example:**
+**예시:**
 
 ```python
 @keras.saving.register_keras_serializable(package="my_custom_package")
@@ -135,12 +143,12 @@ class LayerWithCustomAssets(keras.layers.Dense):
         self.vocab = vocab
 
     def save_assets(self, inner_path):
-        # Writes the vocab (sentence) to text file at save time.
+        # 저장 시 어휘(문장)를 텍스트 파일에 작성합니다.
         with open(os.path.join(inner_path, "vocabulary.txt"), "w") as f:
             f.write(self.vocab)
 
     def load_assets(self, inner_path):
-        # Reads the vocab (sentence) from text file at load time.
+        # 로드 시 어휘(문장)를 텍스트 파일에서 읽어옵니다.
         with open(os.path.join(inner_path, "vocabulary.txt"), "r") as f:
             text = f.read()
         self.vocab = text.replace("<unk>", "little")
@@ -161,15 +169,17 @@ np.testing.assert_string_equal(
 )
 ```
 
-## `build` and `compile` saving customization
+## `build` 및 `compile` 저장 커스터마이즈 {#build-and-compile-saving-customization}
 
-### `get_build_config()` and `build_from_config()`
+### `get_build_config()` 및 `build_from_config()` {#get_build_config-and-build_from_config}
 
-These methods work together to save the layer's built states and restore them upon loading.
+이 메서드들은 레이어의 빌드 상태를 저장하고, 로드할 때 이를 복원하기 위해 함께 작동합니다.
 
-By default, this only includes a build config dictionary with the layer's input shape, but overriding these methods can be used to include further Variables and Lookup Tables that can be useful to restore for your built model.
+기본적으로는 레이어의 입력 형태를 포함하는 빌드 구성 딕셔너리만 포함되지만,
+이 메서드들을 재정의하여 추가 변수 및 조회 테이블을 포함시킬 수 있으며,
+이는 빌드된 모델을 복원하는 데 유용할 수 있습니다.
 
-**Example:**
+**예시:**
 
 ```python
 @keras.saving.register_keras_serializable(package="my_custom_package")
@@ -185,9 +195,9 @@ class LayerWithCustomBuild(keras.layers.Layer):
         return dict(units=self.units, **super().get_config())
 
     def build(self, input_shape, layer_init):
-        # Note the overriding of `build()` to add an extra argument.
-        # Therefore, we will need to manually call build with `layer_init` argument
-        # before the first execution of `call()`.
+        # `build()`를 재정의하여 추가 인자를 받습니다.
+        # 따라서, `call()`을 처음 실행하기 전에
+        # `layer_init` 인자로 수동으로 `build()`를 호출해야 합니다.
         super().build(input_shape)
         self._input_shape = input_shape
         self.w = self.add_weight(
@@ -206,11 +216,11 @@ class LayerWithCustomBuild(keras.layers.Layer):
         build_config = {
             "layer_init": self.layer_init,
             "input_shape": self._input_shape,
-        }  # Stores our initializer for `build()`
+        }  # `build()`의 이니셜라이저 값을 저장합니다.
         return build_config
 
     def build_from_config(self, config):
-        # Calls `build()` with the parameters at loading time
+        # 로드 시 `build()`를 해당 매개변수로 호출합니다.
         self.build(config["input_shape"], config["layer_init"])
 
 
@@ -234,15 +244,17 @@ np.testing.assert_equal(restored_model.layers[0].layer_init, "random_normal")
 np.testing.assert_equal(restored_model.built, True)
 ```
 
-### `get_compile_config()` and `compile_from_config()`
+### `get_compile_config()` 및 `compile_from_config()` {#get_compile_config-and-compile_from_config}
 
-These methods work together to save the information with which the model was compiled (optimizers, losses, etc.) and restore and re-compile the model with this information.
+이 메서드들은 모델이 컴파일된 정보(옵티마이저, 손실 함수 등)를 저장하고,
+이를 복원하여 다시 컴파일할 때 함께 작동합니다.
 
-Overriding these methods can be useful for compiling the restored model with custom optimizers, custom losses, etc., as these will need to be deserialized prior to calling `model.compile` in `compile_from_config()`.
+이 메서드를 재정의하면, 커스텀 옵티마이저나 커스텀 손실 함수 등을 사용하여 복원된 모델을 컴파일할 수 있습니다.
+이러한 커스텀 항목들은 `compile_from_config()`에서 `model.compile`을 호출하기 전에 역직렬화가 필요합니다.
 
-Let's take a look at an example of this.
+예시를 살펴보겠습니다.
 
-**Example:**
+**예시:**
 
 ```python
 @keras.saving.register_keras_serializable(package="my_custom_package")
@@ -276,7 +288,7 @@ class ModelWithCustomCompile(keras.Model):
         self.loss_metrics = metrics
 
     def get_compile_config(self):
-        # These parameters will be serialized at saving time.
+        # 이러한 매개변수는 저장 시 직렬화됩니다.
         return {
             "model_optimizer": self.model_optimizer,
             "loss_fn": self.loss_fn,
@@ -284,12 +296,12 @@ class ModelWithCustomCompile(keras.Model):
         }
 
     def compile_from_config(self, config):
-        # Deserializes the compile parameters (important, since many are custom)
+        # 컴파일 매개변수의 역직렬화 (중요: 커스텀 항목이 많기 때문)
         optimizer = keras.utils.deserialize_keras_object(config["model_optimizer"])
         loss_fn = keras.utils.deserialize_keras_object(config["loss_fn"])
         metrics = keras.utils.deserialize_keras_object(config["metric"])
 
-        # Calls compile with the deserialized parameters
+        # 역직렬화된 매개변수로 컴파일을 호출합니다.
         self.compile(optimizer=optimizer, loss_fn=loss_fn, metrics=metrics)
 
 
@@ -320,11 +332,12 @@ np.testing.assert_equal(model.loss_metrics, restored_model.loss_metrics)
 
 {{% /details %}}
 
-## Conclusion
+## 결론 {#conclusion}
 
-Using the methods learned in this tutorial allows for a wide variety of use cases, allowing the saving and loading of complex models with exotic assets and state elements. To recap:
+이 튜토리얼에서 배운 메서드를 사용하면 다양한 사용 사례에 적용할 수 있으며,
+복잡한 모델을 포함한 특이한 자산 및 상태 요소를 저장하고 로드할 수 있습니다. 요약하자면:
 
-- `save_own_variables` and `load_own_variables` determine how your states are saved and loaded.
-- `save_assets` and `load_assets` can be added to store and load any additional information your model needs.
-- `get_build_config` and `build_from_config` save and restore the model's built states.
-- `get_compile_config` and `compile_from_config` save and restore the model's compiled states.
+- `save_own_variables`와 `load_own_variables`는 상태가 어떻게 저장되고 로드되는지를 결정합니다.
+- `save_assets`와 `load_assets`는 모델이 필요로 하는 추가 정보를 저장하고 로드하는 데 사용할 수 있습니다.
+- `get_build_config`와 `build_from_config`는 모델의 빌드 상태를 저장하고 복원합니다.
+- `get_compile_config`와 `compile_from_config`는 모델의 컴파일된 상태를 저장하고 복원합니다.

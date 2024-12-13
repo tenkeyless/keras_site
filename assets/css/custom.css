@@ -12,8 +12,8 @@ body:is(html[class~="dark"] *) {
 }
 
 .dark .highlight {
-    /* Background .bg { color:#cdd6f4;background-color:#1e1e2e; }
-    /* PreWrapper .chroma { color:#cdd6f4;background-color:#1e1e2e; } */
+    /* Background */ .bg { color:#cdd6f4;background-color:#1e1e2e; }
+    /* PreWrapper */ .chroma { color:#cdd6f4;background-color:#1e1e2e; }
     /* Other */ .chroma .x {  }
     /* Error */ .chroma .err { color:#f38ba8 }
     /* CodeLine */ .chroma .cl {  }
@@ -101,8 +101,8 @@ body:is(html[class~="dark"] *) {
 }
 
 .highlight {
-    /* Background  .bg { color:#272822;background-color:#fafafa; }
-    /* PreWrapper  .chroma { color:#272822;background-color:#fafafa; }
+    /* Background */ .bg { color:#272822;background-color:#f3f3f3; }
+    /* PreWrapper */ .chroma { color:#272822;background-color:#f3f3f3; }
     /* Other  .chroma .x {  } */
     /* Error */ .chroma .err { color:#960050;background-color:#1e0010 }
     /* CodeLine  .chroma .cl {  } */

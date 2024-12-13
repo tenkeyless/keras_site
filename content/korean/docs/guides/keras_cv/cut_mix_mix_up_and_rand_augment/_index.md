@@ -1,6 +1,6 @@
 ---
-title: CutMix, MixUp, and RandAugment image augmentation with KerasCV
-linkTitle: CutMix, MixUp, and RandAugment image augmentation with KerasCV
+title: KerasCV로 CutMix, MixUp 및 RandAugment 이미지 보강
+linkTitle: KerasCV로 이미지 보강
 toc: true
 weight: 3
 type: docs
@@ -11,31 +11,42 @@ type: docs
 **{{< t f_author >}}** [lukewood](https://twitter.com/luke_wood_ml)  
 **{{< t f_date_created >}}** 2022/04/08  
 **{{< t f_last_modified >}}** 2022/04/08  
-**{{< t f_description >}}** Use KerasCV to augment images with CutMix, MixUp, RandAugment, and more.
+**{{< t f_description >}}** KerasCV를 사용하여 CutMix, MixUp, RandAugment 등을 통해 이미지를 보강합니다.
 
 {{< cards cols="2" >}}
 {{< card link="https://colab.research.google.com/github/keras-team/keras-io/blob/master/guides/ipynb/keras_cv/cut_mix_mix_up_and_rand_augment.ipynb" title="Colab" tag="Colab" tagType="warning">}}
 {{< card link="https://github.com/keras-team/keras-io/blob/master/guides/keras_cv/cut_mix_mix_up_and_rand_augment.py" title="GitHub" tag="GitHub">}}
 {{< /cards >}}
 
-## Overview
+## 개요 {#overview}
 
-KerasCV makes it easy to assemble state-of-the-art, industry-grade data augmentation pipelines for image classification and object detection tasks. KerasCV offers a wide suite of preprocessing layers implementing common data augmentation techniques.
+KerasCV를 사용하면, 이미지 분류 및 객체 감지 작업을 위한,
+최첨단 산업 등급 데이터 보강 파이프라인을 쉽게 조립할 수 있습니다.
+KerasCV는 일반적인 데이터 보강 기술을 구현하는 광범위한 전처리 레이어를 제공합니다.
 
-Perhaps three of the most useful layers are [`keras_cv.layers.CutMix`]({{< relref "/docs/api/keras_cv/layers/augmentation/cut_mix#cutmix-class" >}}), [`keras_cv.layers.MixUp`]({{< relref "/docs/api/keras_cv/layers/augmentation/mix_up#mixup-class" >}}), and [`keras_cv.layers.RandAugment`]({{< relref "/docs/api/keras_cv/layers/augmentation/rand_augment#randaugment-class" >}}). These layers are used in nearly all state-of-the-art image classification pipelines.
+아마도 가장 유용한 레이어 중 세 가지는
+[`keras_cv.layers.CutMix`]({{< relref "/docs/api/keras_cv/layers/augmentation/cut_mix#cutmix-class" >}}),
+[`keras_cv.layers.MixUp`]({{< relref "/docs/api/keras_cv/layers/augmentation/mix_up#mixup-class" >}}),
+[`keras_cv.layers.RandAugment`]({{< relref "/docs/api/keras_cv/layers/augmentation/rand_augment#randaugment-class" >}})일 것입니다.
+이러한 레이어는 거의 모든 최첨단 이미지 분류 파이프라인에서 사용됩니다.
 
-This guide will show you how to compose these layers into your own data augmentation pipeline for image classification tasks. This guide will also walk you through the process of customizing a KerasCV data augmentation pipeline.
+이 가이드에서는 이미지 분류 작업을 위한,
+자체 데이터 보강 파이프라인으로 이러한 레이어를 구성하는 방법을 보여줍니다.
+이 가이드에서는 KerasCV 데이터 보강 파이프라인을 커스터마이즈하는 프로세스도 안내합니다.
 
-## Imports & setup
+## Imports & 셋업 {#imports-setup}
 
-KerasCV uses Keras 3 to work with any of TensorFlow, PyTorch or Jax. In the guide below, we will use the `jax` backend. This guide runs in TensorFlow or PyTorch backends with zero changes, simply update the `KERAS_BACKEND` below.
+KerasCV는 Keras 3을 사용하여 TensorFlow, PyTorch 또는 Jax 중 하나와 함께 작업합니다.
+아래 가이드에서는 `jax` 백엔드를 사용합니다.
+이 가이드는 변경 사항 없이 TensorFlow 또는 PyTorch 백엔드에서 실행되므로,
+아래의 `KERAS_BACKEND`를 업데이트하기만 하면 됩니다.
 
 ```python
 !pip install -q --upgrade keras-cv
-!pip install -q --upgrade keras  # Upgrade to Keras 3.
+!pip install -q --upgrade keras  # Keras 3으로 업그레이드하세요.
 ```
 
-We begin by importing all required packages:
+먼저 필요한 모든 패키지를 import 합니다.
 
 ```python
 import os
@@ -44,18 +55,20 @@ os.environ["KERAS_BACKEND"] = "jax"  # @param ["tensorflow", "jax", "torch"]
 
 import matplotlib.pyplot as plt
 
-# Import tensorflow for [`tf.data`](https://www.tensorflow.org/api_docs/python/tf/data) and its preprocessing map functions
+# [`tf.data`](https://www.tensorflow.org/api_docs/python/tf/data) 및
+# 해당 전처리 맵 함수에 대한 tensorflow import
 import tensorflow as tf
 import tensorflow_datasets as tfds
 import keras
 import keras_cv
 ```
 
-## Data loading
+## 데이터 로딩 {#data-loading}
 
-This guide uses the [102 Category Flower Dataset](https://www.robots.ox.ac.uk/~vgg/data/flowers/102/) for demonstration purposes.
+이 가이드에서는 데모 목적으로,
+[102 Category Flower Dataset](https://www.robots.ox.ac.uk/~vgg/data/flowers/102/)을 사용합니다.
 
-To get started, we first load the dataset:
+시작하려면, 먼저 데이터 세트를 로드합니다.
 
 ```python
 BATCH_SIZE = 32
@@ -75,7 +88,9 @@ val_steps_per_epoch = dataset_info.splits["test"].num_examples // BATCH_SIZE
 
 {{% /details %}}
 
-Next, we resize the images to a constant size, `(224, 224)`, and one-hot encode the labels. Please note that [`keras_cv.layers.CutMix`]({{< relref "/docs/api/keras_cv/layers/augmentation/cut_mix#cutmix-class" >}}) and [`keras_cv.layers.MixUp`]({{< relref "/docs/api/keras_cv/layers/augmentation/mix_up#mixup-class" >}}) expect targets to be one-hot encoded. This is because they modify the values of the targets in a way that is not possible with a sparse label representation.
+다음으로, 이미지를 constant 크기인 `(224, 224)`로 조정하고, 레이블을 원핫 인코딩합니다.
+[`keras_cv.layers.CutMix`]({{< relref "/docs/api/keras_cv/layers/augmentation/cut_mix#cutmix-class" >}})와 [`keras_cv.layers.MixUp`]({{< relref "/docs/api/keras_cv/layers/augmentation/mix_up#mixup-class" >}})은 대상이 원핫 인코딩되기를 기대합니다.
+이는 희소(sparse) 레이블 표현으로는 불가능한 방식으로, 대상의 값을 수정하기 때문입니다.
 
 ```python
 IMAGE_SIZE = (224, 224)
@@ -108,7 +123,7 @@ def load_dataset(split="train"):
 train_dataset = load_dataset()
 ```
 
-Let's inspect some samples from our dataset:
+데이터 세트에서 몇 가지 샘플을 살펴보겠습니다.
 
 ```python
 def visualize_dataset(dataset, title):
@@ -126,23 +141,27 @@ visualize_dataset(train_dataset, title="Before Augmentation")
 
 ![png](/images/guides/keras_cv/cut_mix_mix_up_and_rand_augment/cut_mix_mix_up_and_rand_augment_11_0.png)
 
-Great! Now we can move onto the augmentation step.
+좋아요! 이제 보강 단계로 넘어갈 수 있습니다.
 
-## RandAugment
+## RandAugment {#randaugment}
 
-[RandAugment](https://arxiv.org/abs/1909.13719) has been shown to provide improved image classification results across numerous datasets. It performs a standard set of augmentations on an image.
+[RandAugment](https://arxiv.org/abs/1909.13719)는 수많은 데이터 세트에서,
+향상된 이미지 분류 결과를 제공하는 것으로 나타났습니다.
+이미지에 표준 보강 세트를 수행합니다.
 
-To use RandAugment in KerasCV, you need to provide a few values:
+KerasCV에서 RandAugment를 사용하려면, 몇 가지 값을 제공해야 합니다.
 
-- `value_range` describes the range of values covered in your images
-- `magnitude` is a value between 0 and 1, describing the strength of the perturbations applied
-- `augmentations_per_image` is an integer telling the layer how many augmentations to apply to each individual image
-- (Optional) `magnitude_stddev` allows `magnitude` to be randomly sampled from a distribution with a standard deviation of `magnitude_stddev`
-- (Optional) `rate` indicates the probability to apply the augmentation applied at each layer.
+- `value_range`는 이미지에서 다루는 값의 범위를 설명합니다.
+- `magnitude`는 0과 1 사이의 값으로, 적용되는 섭동(perturbations)의 강도를 설명합니다.
+- `augmentations_per_image`는 각 개별 이미지에 적용할 보강 수를 레이어에 알려주는 정수입니다.
+- (선택 사항) `magnitude_stddev`는 표준 편차가 `magnitude_stddev`인 분포에서,
+  `magnitude`를 무작위로 샘플링할 수 있도록 합니다.
+- (선택 사항) `rate`는 각 레이어에, 적용된 보강을 적용할 확률을 나타냅니다.
 
-You can read more about these parameters in the [`RandAugment` API documentation]({{< relref "/docs/api/keras_cv/layers/augmentation/rand_augment" >}}).
+이러한 매개변수에 대한 자세한 내용은,
+[`RandAugment` API 문서]({{< relref "/docs/api/keras_cv/layers/augmentation/rand_augment" >}})에서 확인할 수 있습니다.
 
-Let's use KerasCV's RandAugment implementation.
+KerasCV의 RandAugment 구현을 사용해 보겠습니다.
 
 ```python
 rand_augment = keras_cv.layers.RandAugment(
@@ -162,7 +181,7 @@ def apply_rand_augment(inputs):
 train_dataset = load_dataset().map(apply_rand_augment, num_parallel_calls=AUTOTUNE)
 ```
 
-Finally, let's inspect some of the results:
+마지막으로, 몇 가지 결과를 살펴보겠습니다.
 
 ```python
 visualize_dataset(train_dataset, title="After RandAugment")
@@ -170,16 +189,25 @@ visualize_dataset(train_dataset, title="After RandAugment")
 
 ![png](/images/guides/keras_cv/cut_mix_mix_up_and_rand_augment/cut_mix_mix_up_and_rand_augment_17_0.png)
 
-Try tweaking the magnitude settings to see a wider variety of results.
+더 다양한 결과를 보려면, `magnitude` 설정을 조정해 보세요.
 
-## CutMix and MixUp: generate high-quality inter-class examples
+## CutMix 및 MixUp: 고품질 클래스(inter-class) 간 예제 생성 {#cutmix-and-mixup-generate-high-quality-inter-class-examples}
 
-`CutMix` and `MixUp` allow us to produce inter-class examples. `CutMix` randomly cuts out portions of one image and places them over another, and `MixUp` interpolates the pixel values between two images. Both of these prevent the model from overfitting the training distribution and improve the likelihood that the model can generalize to out of distribution examples. Additionally, `CutMix` prevents your model from over-relying on any particular feature to perform its classifications. You can read more about these techniques in their respective papers:
+`CutMix`와 `MixUp`을 사용하면 클래스 간(inter-class) 예제를 생성할 수 있습니다.
+`CutMix`는 한 이미지의 일부를 무작위로 잘라내어 다른 이미지 위에 놓고,
+`MixUp`은 두 이미지 사이의 픽셀 값을 보간합니다.
+이 두 가지 모두 모델이 트레이닝 분포에 과적합되는 것을 방지하고,
+모델이 분포 밖 예제로 일반화할 가능성을 높입니다.
+또한 `CutMix`는 모델이 분류를 수행하기 위해,
+특정 기능에 지나치게 의존하는 것을 방지합니다.
+이러한 기술에 대한 자세한 내용은 해당 논문에서 확인할 수 있습니다.
 
-- [CutMix: Train Strong Classifiers](https://arxiv.org/abs/1905.04899)
-- [MixUp: Beyond Empirical Risk Minimization](https://arxiv.org/abs/1710.09412)
+- [CutMix: 강력한 분류기 트레이닝](https://arxiv.org/abs/1905.04899)
+- [MixUp: 경험적 위험 최소화를 넘어](https://arxiv.org/abs/1710.09412)
 
-In this example, we will use `CutMix` and `MixUp` independently in a manually created preprocessing pipeline. In most state of the art pipelines images are randomly augmented by either `CutMix`, `MixUp`, or neither. The function below implements both.
+이 예에서는, 수동으로 만든 전처리 파이프라인에서, `CutMix`와 `MixUp`을 독립적으로 사용합니다.
+대부분 최신 파이프라인에서 이미지는 `CutMix`, `MixUp` 또는 둘 다 아닌 것으로 무작위로 보강됩니다.
+아래 함수는 둘 다 구현합니다.
 
 ```python
 cut_mix = keras_cv.layers.CutMix()
@@ -199,17 +227,26 @@ visualize_dataset(train_dataset, title="After CutMix and MixUp")
 
 ![png](/images/guides/keras_cv/cut_mix_mix_up_and_rand_augment/cut_mix_mix_up_and_rand_augment_20_0.png)
 
-Great! Looks like we have successfully added `CutMix` and `MixUp` to our preprocessing pipeline.
+좋습니다! `CutMix`와 `MixUp`을 전처리 파이프라인에 성공적으로 추가한 것 같습니다.
 
-## Customizing your augmentation pipeline
+## 보강 파이프라인 커스터마이즈 {#customizing-your-augmentation-pipeline}
 
-Perhaps you want to exclude an augmentation from `RandAugment`, or perhaps you want to include the [`keras_cv.layers.GridMask`]({{< relref "/docs/api/keras_cv/layers/augmentation/grid_mask#gridmask-class" >}}) as an option alongside the default `RandAugment` augmentations.
+아마도 `RandAugment`에서 보강을 제외하거나,
+기본 `RandAugment` 보강과 함께 옵션으로
+[`keras_cv.layers.GridMask`]({{< relref "/docs/api/keras_cv/layers/augmentation/grid_mask#gridmask-class" >}})를 포함하고 싶을 것입니다.
 
-KerasCV allows you to construct production grade custom data augmentation pipelines using the [`keras_cv.layers.RandomAugmentationPipeline`]({{< relref "/docs/api/keras_cv/layers/augmentation/random_augmentation_pipeline#randomaugmentationpipeline-class" >}}) layer. This class operates similarly to `RandAugment`; selecting a random layer to apply to each image `augmentations_per_image` times. `RandAugment` can be thought of as a specific case of `RandomAugmentationPipeline`. In fact, our `RandAugment` implementation inherits from `RandomAugmentationPipeline` internally.
+KerasCV를 사용하면, [`keras_cv.layers.RandomAugmentationPipeline`]({{< relref "/docs/api/keras_cv/layers/augmentation/random_augmentation_pipeline#randomaugmentationpipeline-class" >}}) 레이어를 사용하여, 프로덕션 등급의 커스텀 데이터 보강 파이프라인을 구성할 수 있습니다.
+이 클래스는 `RandAugment`와 유사하게 작동합니다.
+각 이미지에 적용할 임의의 레이어를 `augmentations_per_image` 번 선택합니다.
+`RandAugment`는 `RandomAugmentationPipeline`의 특수 케이스로 생각할 수 있습니다.
+사실, 우리의 `RandAugment` 구현은 내부적으로 `RandomAugmentationPipeline`을 상속합니다.
 
-In this example, we will create a custom `RandomAugmentationPipeline` by removing `RandomRotation` layers from the standard `RandAugment` policy, and substitute a `GridMask` layer in its place.
+이 예에서, 우리는 표준 `RandAugment` 정책에서 `RandomRotation` 레이어를 제거하고,
+그 자리에 `GridMask` 레이어를 대체하여,
+커스텀 `RandomAugmentationPipeline`을 만들 것입니다.
 
-As a first step, let's use the helper method `RandAugment.get_standard_policy()` to create a base pipeline.
+첫 번째 단계로, 헬퍼 메서드 `RandAugment.get_standard_policy()`를 사용하여,
+베이스 파이프라인을 만들어 보겠습니다.
 
 ```python
 layers = keras_cv.layers.RandAugment.get_standard_policy(
@@ -217,7 +254,7 @@ layers = keras_cv.layers.RandAugment.get_standard_policy(
 )
 ```
 
-First, let's filter out `RandomRotation` layers
+먼저 `RandomRotation` 레이어를 필터링해 보겠습니다.
 
 ```python
 layers = [
@@ -225,13 +262,13 @@ layers = [
 ]
 ```
 
-Next, let's add [`keras_cv.layers.GridMask`]({{< relref "/docs/api/keras_cv/layers/augmentation/grid_mask#gridmask-class" >}}) to our layers:
+다음으로, 레이어에 [`keras_cv.layers.GridMask`]({{< relref "/docs/api/keras_cv/layers/augmentation/grid_mask#gridmask-class" >}})를 추가해 보겠습니다.
 
 ```python
 layers = layers + [keras_cv.layers.GridMask()]
 ```
 
-Finally, we can put together our pipeline
+마지막으로, 우리는 파이프라인을 구성할 수 있습니다.
 
 ```python
 pipeline = keras_cv.layers.RandomAugmentationPipeline(
@@ -244,7 +281,7 @@ def apply_pipeline(inputs):
     return inputs
 ```
 
-Let's check out the results!
+결과를 확인해보죠!
 
 ```python
 train_dataset = load_dataset().map(apply_pipeline, num_parallel_calls=AUTOTUNE)
@@ -253,7 +290,8 @@ visualize_dataset(train_dataset, title="After custom pipeline")
 
 ![png](/images/guides/keras_cv/cut_mix_mix_up_and_rand_augment/cut_mix_mix_up_and_rand_augment_32_0.png)
 
-Awesome! As you can see, no images were randomly rotated. You can customize the pipeline however you like:
+굉장하네요! 보시다시피, 이미지는 무작위로 회전되지 않았습니다.
+파이프라인을 원하는 대로 커스터마이즈할 수 있습니다.
 
 ```python
 pipeline = keras_cv.layers.RandomAugmentationPipeline(
@@ -262,7 +300,7 @@ pipeline = keras_cv.layers.RandomAugmentationPipeline(
 )
 ```
 
-This pipeline will either apply `GrayScale` or GridMask:
+이 파이프라인은 `GrayScale` 또는 GridMask를 적용합니다.
 
 ```python
 train_dataset = load_dataset().map(apply_pipeline, num_parallel_calls=AUTOTUNE)
@@ -271,11 +309,13 @@ visualize_dataset(train_dataset, title="After custom pipeline")
 
 ![png](/images/guides/keras_cv/cut_mix_mix_up_and_rand_augment/cut_mix_mix_up_and_rand_augment_36_0.png)
 
-Looks great! You can use `RandomAugmentationPipeline` however you want.
+멋지네요! `RandomAugmentationPipeline`을 원하는 대로 사용할 수 있습니다.
 
-## Training a CNN
+## CNN 트레이닝 {#training-a-cnn}
 
-As a final exercise, let's take some of these layers for a spin. In this section, we will use `CutMix`, `MixUp`, and `RandAugment` to train a state of the art `ResNet50` image classifier on the Oxford flowers dataset.
+마지막 연습으로, 이러한 레이어 중 일부를 돌려보겠습니다.
+이 섹션에서는 `CutMix`, `MixUp`, `RandAugment`를 사용하여,
+Oxford flowers 데이터세트에 대해 최첨단 `ResNet50` 이미지 분류기를 학습합니다.
 
 ```python
 def preprocess_for_model(inputs):
@@ -303,7 +343,9 @@ test_dataset = test_dataset.prefetch(AUTOTUNE)
 
 ![png](/images/guides/keras_cv/cut_mix_mix_up_and_rand_augment/cut_mix_mix_up_and_rand_augment_39_0.png)
 
-Next we should create a the model itself. Notice that we use `label_smoothing=0.1` in the loss function. When using `MixUp`, label smoothing is _highly_ recommended.
+다음으로 모델 자체를 만들어야 합니다.
+손실 함수에서 `label_smoothing=0.1`을 사용한다는 점에 유의하세요.
+`MixUp`을 사용할 때는 레이블 스무딩(label smoothing)을 _강력히_ 권장합니다.
 
 ```python
 input_shape = IMAGE_SIZE + (3,)
@@ -321,7 +363,7 @@ def get_model():
     return model
 ```
 
-Finally we train the model:
+마지막으로 모델을 트레이닝합니다.
 
 ```python
 model = get_model()
@@ -342,14 +384,18 @@ model.fit(
 
 {{% /details %}}
 
-## Conclusion & next steps
+## 결론 및 다음 단계 {#conclusion-next-steps}
 
-That's all it takes to assemble state of the art image augmentation pipeliens with KerasCV!
+이것이 KerasCV로 최첨단 이미지 보강 파이프라인을 조립하는 데 필요한 모든 것입니다!
 
-As an additional exercise for readers, you can:
+독자를 위한 추가 연습으로 다음을 수행할 수 있습니다.
 
-- Perform a hyper parameter search over the RandAugment parameters to improve the classifier accuracy
-- Substitute the Oxford Flowers dataset with your own dataset
-- Experiment with custom `RandomAugmentationPipeline` objects.
+- RandAugment 매개변수에 대한 하이퍼파라미터 검색을 수행하여, 분류기 정확도를 개선합니다.
+- Oxford Flowers 데이터 세트를 당신의 고유 데이터 세트로 대체합니다.
+- 커스텀 `RandomAugmentationPipeline` 객체로 실험합니다.
 
-Currently, between Keras core and KerasCV there are [_28 image augmentation layers_]({{< relref "/docs/api/keras_cv/layers/preprocessing" >}})! Each of these can be used independently, or in a pipeline. Check them out, and if you find an augmentation techniques you need is missing please file a [GitHub issue on KerasCV](https://github.com/keras-team/keras-cv/issues).
+현재, Keras 코어와 KerasCV 사이에는
+[_28개의 이미지 보강 레이어_]({{< relref "/docs/api/keras_cv/layers/preprocessing" >}})가 있습니다!
+각각은 독립적으로 또는 파이프라인에서 사용할 수 있습니다.
+확인하고 필요한 보강 기술이 누락된 경우,
+[KerasCV의 GitHub 이슈](https://github.com/keras-team/keras-cv/issues)를 제출하세요.

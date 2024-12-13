@@ -8,7 +8,7 @@ type: docs
 
 {{< keras/original checkedAt="2024-11-19" >}}
 
-**Authors:** Haifeng Jin  
+**{{< t f_author >}}** Haifeng Jin  
 **{{< t f_date_created >}}** 2023/02/28  
 **{{< t f_last_modified >}}** 2023/02/28  
 **{{< t f_description >}}** The basics of fault tolerance configurations in KerasTuner.

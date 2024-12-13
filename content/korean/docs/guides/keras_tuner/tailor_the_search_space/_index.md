@@ -1,6 +1,6 @@
 ---
-title: Tailor the search space
-linkTitle: Tailor the search space
+title: 검색 공간 맞춤 설정
+linkTitle: 검색 공간 맞춤 설정
 toc: true
 weight: 6
 type: docs
@@ -8,10 +8,10 @@ type: docs
 
 {{< keras/original checkedAt="2024-11-19" >}}
 
-**Authors:** Luca Invernizzi, James Long, Francois Chollet, Tom O'Malley, Haifeng Jin  
+**{{< t f_author >}}** Luca Invernizzi, James Long, Francois Chollet, Tom O'Malley, Haifeng Jin  
 **{{< t f_date_created >}}** 2019/05/31  
 **{{< t f_last_modified >}}** 2021/10/27  
-**{{< t f_description >}}** Tune a subset of the hyperparameters without changing the hypermodel.
+**{{< t f_description >}}** 하이퍼모델을 변경하지 않고, 하이퍼파라미터의 일부만 튜닝하기.
 
 {{< cards cols="2" >}}
 {{< card link="https://colab.research.google.com/github/keras-team/keras-io/blob/master/guides/ipynb/keras_tuner/tailor_the_search_space.ipynb" title="Colab" tag="Colab" tagType="warning">}}
@@ -22,21 +22,27 @@ type: docs
 !pip install keras-tuner -q
 ```
 
-In this guide, we will show how to tailor the search space without changing the `HyperModel` code directly. For example, you can only tune some of the hyperparameters and keep the rest fixed, or you can override the compile arguments, like `optimizer`, `loss`, and `metrics`.
+이 가이드에서는, `HyperModel` 코드를 직접 변경하지 않고, 검색 공간을 맞춤 설정하는 방법을 보여줍니다.
+예를 들어, 일부 하이퍼파라미터만 튜닝하고 나머지는 고정하거나,
+`optimizer`, `loss`, `metrics`와 같은 컴파일 인수를 재정의할 수 있습니다.
 
-## The default value of a hyperparameter
+## 하이퍼파라미터의 기본값 {#the-default-value-of-a-hyperparameter}
 
-Before we tailor the search space, it is important to know that every hyperparameter has a default value. This default value is used as the hyperparameter value when not tuning it during our tailoring the search space.
+검색 공간을 맞춤 설정하기 전에,
+모든 하이퍼파라미터에는 기본값이 있다는 것을 알아야 합니다.
+이 기본값은 검색 공간을 맞춤 설정할 때,
+해당 하이퍼파라미터를 튜닝하지 않는 경우에 사용됩니다.
 
-Whenever you register a hyperparameter, you can use the `default` argument to specify a default value:
+하이퍼파라미터를 등록할 때 `default` 인수를 사용하여, 기본값을 지정할 수 있습니다.
 
 ```python
 hp.Int("units", min_value=32, max_value=128, step=32, default=64)
 ```
 
-If you don't, hyperparameters always have a default default (for `Int`, it is equal to `min_value`).
+기본값을 지정하지 않으면, 하이퍼파라미터에는 기본값이 자동으로 지정됩니다.
+(`Int`의 경우 `min_value`와 동일한 값)
 
-In the following model-building function, we specified the default value for the `units` hyperparameter as 64.
+다음 모델 빌딩 함수에서, `units` 하이퍼파라미터의 기본값을 64로 지정했습니다.
 
 ```python
 import keras
@@ -66,25 +72,30 @@ def build_model(hp):
     return model
 ```
 
-We will reuse this search space in the rest of the tutorial by overriding the hyperparameters without defining a new search space.
+우리는 튜토리얼의 나머지 부분에서 새로운 검색 공간을 정의하지 않고,
+하이퍼파라미터를 재정의하여 이 검색 공간을 재사용할 것입니다.
 
-## Search a few and fix the rest
+## 일부만 검색하고 나머지는 고정 {#search-a-few-and-fix-the-rest}
 
-If you have an existing hypermodel, and you want to search over only a few hyperparameters, and keep the rest fixed, you don't have to change the code in the model-building function or the `HyperModel`. You can pass a `HyperParameters` to the `hyperparameters` argument to the tuner constructor with all the hyperparameters you want to tune. Specify `tune_new_entries=False` to prevent it from tuning other hyperparameters, the default value of which would be used.
+기존의 하이퍼모델이 있고, 일부 하이퍼파라미터만 검색하고 나머지는 고정하고 싶다면,
+모델 빌딩 함수나 `HyperModel` 코드에서 변경할 필요가 없습니다.
+튜너 생성자에서 `hyperparameters` 인수로 검색하려는 모든 하이퍼파라미터를 포함한,
+`HyperParameters` 객체를 전달할 수 있습니다.
+다른 하이퍼파라미터의 튜닝을 방지하려면, `tune_new_entries=False`를 지정하여,
+나머지 하이퍼파라미터는 기본값을 사용하도록 설정합니다.
 
-In the following example, we only tune the `learning_rate` hyperparameter, and changed its type and value ranges.
+다음 예시에서 우리는 `learning_rate` 하이퍼파라미터만 튜닝하며, 그 타입과 값 범위를 변경했습니다.
 
 ```python
 hp = keras_tuner.HyperParameters()
 
-# This will override the `learning_rate` parameter with your
-# own selection of choices
+# `learning_rate` 파라미터를 사용자가 선택한 값으로 재정의
 hp.Float("learning_rate", min_value=1e-4, max_value=1e-2, sampling="log")
 
 tuner = keras_tuner.RandomSearch(
     hypermodel=build_model,
     hyperparameters=hp,
-    # Prevents unlisted parameters from being tuned
+    # 나열되지 않은 파라미터는 튜닝하지 않음
     tune_new_entries=False,
     objective="val_accuracy",
     max_trials=3,
@@ -93,13 +104,13 @@ tuner = keras_tuner.RandomSearch(
     project_name="search_a_few",
 )
 
-# Generate random data
+# 랜덤 데이터 생성
 x_train = np.random.rand(100, 28, 28, 1)
 y_train = np.random.randint(0, 10, (100, 1))
 x_val = np.random.rand(20, 28, 28, 1)
 y_val = np.random.randint(0, 10, (20, 1))
 
-# Run the search
+# 검색 실행
 tuner.search(x_train, y_train, epochs=1, validation_data=(x_val, y_val))
 ```
 
@@ -117,7 +128,7 @@ Total elapsed time: 00h 00m 03s
 
 {{% /details %}}
 
-If you summarize the search space, you will see only one hyperparameter.
+하이퍼파라미터 검색 공간을 요약하면, 단 하나의 하이퍼파라미터만 볼 수 있습니다.
 
 ```python
 tuner.search_space_summary()
@@ -134,11 +145,14 @@ learning_rate (Float)
 
 {{% /details %}}
 
-## Fix a few and tune the rest
+## 일부를 고정하고 나머지를 튜닝 {#fix-a-few-and-tune-the-rest}
 
-In the example above we showed how to tune only a few hyperparameters and keep the rest fixed. You can also do the reverse: only fix a few hyperparameters and tune all the rest.
+위 예시에서는 일부 하이퍼파라미터만 튜닝하고 나머지는 고정하는 방법을 보여주었습니다.
+반대로, 일부 하이퍼파라미터만 고정하고 나머지를 모두 튜닝할 수도 있습니다.
 
-In the following example, we fixed the value of the `learning_rate` hyperparameter. Pass a `hyperparameters` argument with a `Fixed` entry (or any number of `Fixed` entries). Also remember to specify `tune_new_entries=True`, which allows us to tune the rest of the hyperparameters.
+다음 예시에서는 `learning_rate` 하이퍼파라미터의 값을 고정했습니다.
+`Fixed` 항목을 포함한 `hyperparameters` 인수를 전달하고,
+`tune_new_entries=True`로 설정하여 나머지 하이퍼파라미터를 튜닝할 수 있습니다.
 
 ```python
 hp = keras_tuner.HyperParameters()
@@ -172,7 +186,8 @@ Total elapsed time: 00h 00m 03s
 
 {{% /details %}}
 
-If you summarize the search space, you will see the `learning_rate` is marked as fixed, and the rest of the hyperparameters are being tuned.
+검색 공간을 요약하면, `learning_rate`는 고정된 것으로 표시되고,
+나머지 하이퍼파라미터는 튜닝되고 있음을 확인할 수 있습니다.
 
 ```python
 tuner.search_space_summary()
@@ -193,9 +208,10 @@ dropout (Boolean)
 
 {{% /details %}}
 
-## Overriding compilation arguments
+## 컴파일 인수 재정의 {#overriding-compilation-arguments}
 
-If you have a hypermodel for which you want to change the existing optimizer, loss, or metrics, you can do so by passing these arguments to the tuner constructor:
+기존 하이퍼모델에서 옵티마이저, 손실 함수, 또는 메트릭스를 변경하고 싶다면,
+이러한 인수를 튜너 생성자에 전달하여 변경할 수 있습니다.
 
 ```python
 tuner = keras_tuner.RandomSearch(
@@ -229,7 +245,7 @@ Total elapsed time: 00h 00m 04s
 
 {{% /details %}}
 
-If you get the best model, you can see the loss function has changed to MSE.
+최상의 모델을 얻으면, 손실 함수가 MSE로 변경된 것을 확인할 수 있습니다.
 
 ```python
 tuner.get_best_models()[0].loss
@@ -246,27 +262,34 @@ tuner.get_best_models()[0].loss
 
 {{% /details %}}
 
-## Tailor the search space of pre-build HyperModels
+## 미리 빌드된 하이퍼모델의 검색 공간 맞춤 설정 {#tailor-the-search-space-of-pre-build-hypermodels}
 
-You can also use these techniques with the pre-build models in KerasTuner, like `HyperResNet` or `HyperXception`. However, to see what hyperparameters are in these pre-build `HyperModel`s, you will have to read the source code.
+이 기술은 KerasTuner의 `HyperResNet`이나 `HyperXception`과 같은
+미리 빌드된 모델에서도 사용할 수 있습니다.
+그러나, 이러한 미리 빌드된 `HyperModel`에서
+어떤 하이퍼파라미터가 있는지 확인하려면, 소스 코드를 읽어야 합니다.
 
-In the following example, we only tune the `learning_rate` of `HyperXception` and fixed all the rest of the hyperparameters. Because the default loss of `HyperXception` is `categorical_crossentropy`, which expect the labels to be one-hot encoded, which doesn't match our raw integer label data, we need to change it by overriding the `loss` in the compile args to `sparse_categorical_crossentropy`.
+다음 예시에서는, `HyperXception`의 `learning_rate`만 튜닝하고,
+나머지 하이퍼파라미터는 모두 고정했습니다.
+`HyperXception`의 기본 손실 함수는 `categorical_crossentropy`인데,
+이는 라벨이 원-핫 인코딩된 데이터를 기대합니다.
+우리의 정수형 라벨 데이터와 맞지 않으므로,
+컴파일 인수에서 `loss`를 `sparse_categorical_crossentropy`로 재정의해야 합니다.
 
 ```python
 hypermodel = keras_tuner.applications.HyperXception(input_shape=(28, 28, 1), classes=10)
 
 hp = keras_tuner.HyperParameters()
 
-# This will override the `learning_rate` parameter with your
-# own selection of choices
+# `learning_rate` 파라미터를 사용자가 선택한 값으로 재정의
 hp.Choice("learning_rate", values=[1e-2, 1e-3, 1e-4])
 
 tuner = keras_tuner.RandomSearch(
     hypermodel,
     hyperparameters=hp,
-    # Prevents unlisted parameters from being tuned
+    # 나열되지 않은 파라미터는 튜닝하지 않음
     tune_new_entries=False,
-    # Override the loss.
+    # 손실 함수 재정의
     loss="sparse_categorical_crossentropy",
     metrics=["accuracy"],
     objective="val_accuracy",
@@ -276,7 +299,7 @@ tuner = keras_tuner.RandomSearch(
     project_name="helloworld",
 )
 
-# Run the search
+# 검색 실행
 tuner.search(x_train, y_train, epochs=1, validation_data=(x_val, y_val))
 tuner.search_space_summary()
 ```

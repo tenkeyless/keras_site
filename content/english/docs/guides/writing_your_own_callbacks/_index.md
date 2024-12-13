@@ -8,7 +8,7 @@ type: docs
 
 {{< keras/original checkedAt="2024-11-18" >}}
 
-**Authors:** Rick Chao, Francois Chollet  
+**{{< t f_author >}}** Rick Chao, Francois Chollet  
 **{{< t f_date_created >}}** 2019/03/20  
 **{{< t f_last_modified >}}** 2023/06/25  
 **{{< t f_description >}}** Complete guide to writing new Keras callbacks.
