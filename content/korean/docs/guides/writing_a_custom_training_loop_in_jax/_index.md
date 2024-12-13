@@ -1,6 +1,6 @@
 ---
 title: JAX에서 처음부터 트레이닝 루프 작성하기
-linkTitle: JAX 커스텀 트레이닝 루프
+linkTitle: JAX 트레이닝 루프
 toc: true
 weight: 8
 type: docs

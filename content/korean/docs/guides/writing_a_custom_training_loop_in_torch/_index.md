@@ -1,6 +1,6 @@
 ---
 title: PyTorch에서 처음부터 트레이닝 루프 작성하기
-linkTitle: PyTorch 커스텀 트레이닝 루프
+linkTitle: PyTorch 트레이닝 루프
 toc: true
 weight: 10
 type: docs

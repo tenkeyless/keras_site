@@ -1,6 +1,6 @@
 ---
 title: TensorFlow에서의 `fit()` 동작을 커스터마이즈
-linkTitle: TensorFlow에서 fit() 커스터마이즈
+linkTitle: TensorFlow fit() 커스터마이즈
 toc: true
 weight: 6
 type: docs

@@ -1,5 +1,6 @@
 ---
 title: 서브클래싱을 통해 새로운 레이어와 모델 만들기
+linkTitle: 서브클래싱 레이어 및 모델
 toc: true
 weight: 3
 type: docs

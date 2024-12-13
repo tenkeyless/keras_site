@@ -1,5 +1,6 @@
 ---
 title: 빌트인 메서드를 사용한 트레이닝 및 평가
+linkTitle: 빌트인 메서드로 트레이닝 및 평가
 toc: true
 weight: 4
 type: docs

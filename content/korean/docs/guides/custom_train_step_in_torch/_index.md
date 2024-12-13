@@ -1,6 +1,6 @@
 ---
 title: PyTorch에서의 `fit()` 동작을 커스터마이즈
-linkTitle: PyTorch에서 fit() 커스터마이즈
+linkTitle: PyTorch fit() 커스터마이즈
 toc: true
 weight: 7
 type: docs

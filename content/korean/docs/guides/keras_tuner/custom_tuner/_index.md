@@ -1,6 +1,6 @@
 ---
 title: 당신의 커스텀 트레이닝 루프에서 하이퍼파라미터 튜닝
-linkTitle: 커스텀 트레이닝 하이퍼파라미터 튜닝
+linkTitle: 트레이닝 하이퍼파라미터 튜닝
 toc: true
 weight: 3
 type: docs

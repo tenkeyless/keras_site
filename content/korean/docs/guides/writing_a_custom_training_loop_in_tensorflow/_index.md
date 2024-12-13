@@ -1,6 +1,6 @@
 ---
 title: TensorFlow에서 처음부터 트레이닝 루프 작성하기
-linkTitle: TensorFlow 커스텀 트레이닝 루프
+linkTitle: TensorFlow 트레이닝 루프
 toc: true
 weight: 9
 type: docs
