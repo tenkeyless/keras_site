@@ -1,6 +1,6 @@
 ---
-title: Semantic Segmentation with KerasCV
-linkTitle: Semantic Segmentation with KerasCV
+title: KerasCV로 시맨틱 세그멘테이션
+linkTitle: KerasCV로 시맨틱 세그멘테이션
 toc: true
 weight: 6
 type: docs
@@ -11,7 +11,7 @@ type: docs
 **{{< t f_author >}}** [Divyashree Sreepathihalli](https://github.com/divyashreepathihalli), [Ian Stenbit](https://github.com/ianstenbit)  
 **{{< t f_date_created >}}** 2023/08/22  
 **{{< t f_last_modified >}}** 2023/08/24  
-**{{< t f_description >}}** Train and use DeepLabv3+ segmentation model with KerasCV.
+**{{< t f_description >}}** KerasCV를 사용하여 DeepLabv3+ 세그멘테이션 모델을 트레이닝하고 사용합니다.
 
 {{< cards cols="2" >}}
 {{< card link="https://colab.research.google.com/github/keras-team/keras-io/blob/master/guides/ipynb/keras_cv/semantic_segmentation_deeplab_v3_plus.ipynb" title="Colab" tag="Colab" tagType="warning">}}
@@ -20,34 +20,43 @@ type: docs
 
 ![png](/images/keras-hub/getting_started_guide/prof_keras_intermediate.png)
 
-## Background
+## 배경 {#background}
 
-Semantic segmentation is a type of computer vision task that involves assigning a class label such as person, bike, or background to each individual pixel of an image, effectively dividing the image into regions that correspond to different fobject classes or categories.
+시맨틱 세그멘테이션은 사람, 자전거 또는 배경과 같은 클래스 레이블을 이미지의 각 픽셀에 할당하여,
+이미지를 서로 다른 객체 클래스나 범주에 해당하는 영역으로,
+효과적으로 분할하는 일종의 컴퓨터 비전 작업입니다.
 
 ![png](/images/guides/keras_cv/semantic_segmentation_deeplab_v3_plus/1*z6ch-2BliDGLIHpOPFY_Sw.png)
 
-KerasCV offers the DeepLabv3+ model developed by Google for semantic segmentation. This guide demonstrates how to finetune and use DeepLabv3+ model for image semantic segmentaion with KerasCV. Its architecture that combines atrous convolutions, contextual information aggregation, and powerful backbones to achieve accurate and detailed semantic segmentation. The DeepLabv3+ model has been shown to achieve state-of-the-art results on a variety of image segmentation benchmarks.
+KerasCV는 시맨틱 세그멘테이션을 위해 Google에서 개발한 DeepLabv3+ 모델을 제공합니다.
+이 가이드는 KerasCV를 사용하여 이미지 시맨틱 세그멘테이션을 위해,
+DeepLabv3+ 모델을 미세 조정하고 사용하는 방법을 보여줍니다.
+아트러스(atrous) 컨볼루션, 문맥 정보 집계(contextual information aggregation) 및
+강력한 백본을 결합하여 정확하고 자세한 시맨틱 세그멘테이션을 달성하는 아키텍처입니다.
+DeepLabv3+ 모델은 다양한 이미지 세그멘테이션 벤치마크에서 최첨단 결과를 달성하는 것으로 나타났습니다.
 
-### References
+### 참조 {#references}
 
-[Encoder-Decoder with Atrous Separable Convolution for Semantic Image Segmentation](https://arxiv.org/abs/1802.02611)  
-[Rethinking Atrous Convolution for Semantic Image Segmentation](https://arxiv.org/abs/1706.05587)
+- [시맨틱 이미지 세그멘테이션을 위한, Atrous Separable 컨볼루션을 갖춘 인코더-디코더](https://arxiv.org/abs/1802.02611)
+- [시맨틱 이미지 세그멘테이션을 위한, Atrous 컨볼루션 재고](https://arxiv.org/abs/1706.05587)
 
-## Setup and Imports
+## 셋업 및 import {#setup-and-imports}
 
-Let's install the dependencies and import the necessary modules.
+종속성을 설치하고 필요한 모듈을 import 해 보겠습니다.
 
-To run this tutorial, you will need to install the following packages:
+이 튜토리얼을 실행하려면, 다음 패키지를 설치해야 합니다.
 
 - `keras-cv`
 - `keras-core`
 
 ```python
 !pip install -q --upgrade keras-cv
-!pip install -q --upgrade keras # Upgrade to Keras 3.
+!pip install -q --upgrade keras # Keras 3로 업그레이드.
 ```
 
-After installing `keras-core` and `keras-cv`, set the backend for `keras-core`. This guide can be run with any backend (Tensorflow, JAX, PyTorch).
+`keras-core`와 `keras-cv`를 설치한 후,
+`keras-core`에 대한 백엔드를 설정합니다.
+이 가이드는 모든 백엔드(Tensorflow, JAX, PyTorch)에서 실행할 수 있습니다.
 
 ```python
 import os
@@ -65,11 +74,14 @@ import numpy as np
 from keras_cv.datasets.pascal_voc.segmentation import load as load_voc
 ```
 
-## Perform semantic segmentation with a pretrained DeepLabv3+ model
+## 사전 트레이닝된 DeepLabv3+ 모델을 사용하여 시맨틱 세그멘테이션 수행 {#perform-semantic-segmentation-with-a-pretrained-deeplabv3-model}
 
-The highest level API in the KerasCV semantic segmentation API is the `keras_cv.models` API. This API includes fully pretrained semantic segmentation models, such as [`keras_cv.models.DeepLabV3Plus`]({{< relref "/docs/api/keras_cv/models/tasks/deeplab_v3_segmentation#deeplabv3plus-class" >}}).
+KerasCV 시맨틱 세그멘테이션 API에서 가장 높은 레벨의 API는 `keras_cv.models` API입니다.
+이 API에는,
+[`keras_cv.models.DeepLabV3Plus`]({{< relref "/docs/api/keras_cv/models/tasks/deeplab_v3_segmentation#deeplabv3plus-class" >}})와 같은,
+완전히 사전 트레이닝된된 시맨틱 세그멘테이션 모델이 포함됩니다.
 
-Let's get started by constructing a DeepLabv3+ pretrained on the pascalvoc dataset.
+pascalvoc 데이터 세트에 대해 사전 트레이닝된 DeepLabv3+를 구성하여 시작해 보겠습니다.
 
 ```python
 model = keras_cv.models.DeepLabV3Plus.from_preset(
@@ -79,7 +91,7 @@ model = keras_cv.models.DeepLabV3Plus.from_preset(
 )
 ```
 
-Let us visualize the results of this pretrained model
+이 사전 트레이닝된 모델의 결과를 시각화해 보겠습니다.
 
 ```python
 filepath = keras.utils.get_file(origin="https://i.imgur.com/gCNcJJI.jpg")
@@ -103,24 +115,31 @@ keras_cv.visualization.plot_segmentation_mask_gallery(
 
 ![png](/images/guides/keras_cv/semantic_segmentation_deeplab_v3_plus/semantic_segmentation_deeplab_v3_plus_9_0.png)
 
-## Train a custom semantic segmentation model
+## 커스텀 시맨틱 세그멘테이션 모델 트레이닝 {#train-a-custom-semantic-segmentation-model}
 
-In this guide, we'll assemble a full training pipeline for a KerasCV DeepLabV3 semantic segmentation model. This includes data loading, augmentation, training, metric evaluation, and inference!
+이 가이드에서는, KerasCV DeepLabV3 시맨틱 세그멘테이션 모델을 위한,
+전체 트레이닝 파이프라인을 조립합니다.
+여기에는 데이터 로딩, 보강, 트레이닝, 메트릭 평가 및 추론이 포함됩니다!
 
-## Download the data
+## 데이터 다운로드 {#download-the-data}
 
-We download [Pascal VOC dataset](https://www.eecs.berkeley.edu/Research/Projects/CS/vision/grouping/semantic_contours/benchmark.tgz) with KerasCV datasets and split them into train dataset `train_ds` and `eval_ds`.
+KerasCV 데이터세트와 함께 [Pascal VOC 데이터세트](https://www.eecs.berkeley.edu/Research/Projects/CS/vision/grouping/semantic_contours/benchmark.tgz)를 다운로드하고,
+이를 트레이닝 데이터세트 `train_ds`와 `eval_ds`로 분할합니다.
 
 ```python
 train_ds = load_voc(split="sbd_train")
 eval_ds = load_voc(split="sbd_eval")
 ```
 
-## Preprocess the data
+## 데이터 전처리 {#preprocess-the-data}
 
-The `preprocess_tfds_inputs` utility function preprocesses the inputs to a dictionary of `images` and `segmentation_masks`. The images and segmentation masks are resized to 512x512. The resulting dataset is then batched into groups of 4 image and segmentation mask pairs.
+`preprocess_tfds_inputs` 유틸리티 함수는,
+`images`와 `segmentation_masks` 딕셔너리에 대한 입력을 전처리합니다.
+이미지와 세그먼테이션 마스크는 512x512로 크기가 조정됩니다.
+그런 다음, 결과 데이터 세트는 4개의 이미지와 세그먼테이션 마스크 쌍으로 구성된 그룹으로 배치됩니다.
 
-A batch of this preprocessed input training data can be visualized using the `keras_cv.visualization.plot_segmentation_mask_gallery` function. This function takes a batch of images and segmentation masks as input and displays them in a grid.
+이 전처리된 입력 트레이닝 데이터의 배치는 `keras_cv.visualization.plot_segmentation_mask_gallery` 함수를 사용하여 시각화할 수 있습니다.
+이 함수는 이미지와 세그먼테이션 마스크의 배치를 입력으로 사용하여 그리드에 표시합니다.
 
 ```python
 def preprocess_tfds_inputs(inputs):
@@ -141,7 +160,7 @@ batch = train_ds.take(1).get_single_element()
 keras_cv.visualization.plot_segmentation_mask_gallery(
     batch["images"],
     value_range=(0, 255),
-    num_classes=21,  # The number of classes for the oxford iiit pet dataset. The VOC dataset also includes 1 class for the background.
+    num_classes=21,  # Oxford iiit pet 데이터세트의 클래스 수. VOC 데이터세트에는 배경에 대한 클래스 1개도 포함됩니다.
     y_true=batch["segmentation_masks"],
     scale=3,
     rows=2,
@@ -151,15 +170,18 @@ keras_cv.visualization.plot_segmentation_mask_gallery(
 
 ![png](/images/guides/keras_cv/semantic_segmentation_deeplab_v3_plus/semantic_segmentation_deeplab_v3_plus_14_0.png)
 
-The preprocessing is applied to the evaluation dataset `eval_ds`.
+전처리는 평가 데이터 세트 `eval_ds`에 적용됩니다.
 
 ```python
 eval_ds = preprocess_tfds_inputs(eval_ds)
 ```
 
-## Data Augmentation
+## 데이터 보강 {#data-augmentation}
 
-KerasCV provides a variety of image augmentation options. In this example, we will use the `RandomFlip` augmentation to augment the training dataset. The `RandomFlip` augmentation randomly flips the images in the training dataset horizontally or vertically. This can help to improve the model's robustness to changes in the orientation of the objects in the images.
+KerasCV는 다양한 이미지 보강 옵션을 제공합니다.
+이 예에서는 `RandomFlip` 보강을 사용하여, 트레이닝 데이터 세트를 보강합니다.
+`RandomFlip` 보강은 트레이닝 데이터 세트의 이미지를 수평 또는 수직으로 랜덤으로 뒤집습니다.
+이는 이미지의 객체 방향 변화에 대한 모델의 견고성을 개선하는 데 도움이 될 수 있습니다.
 
 ```python
 train_ds = train_ds.map(keras_cv.layers.RandomFlip())
@@ -178,11 +200,20 @@ keras_cv.visualization.plot_segmentation_mask_gallery(
 
 ![png](/images/guides/keras_cv/semantic_segmentation_deeplab_v3_plus/semantic_segmentation_deeplab_v3_plus_18_0.png)
 
-## Model Configuration
+## 모델 구성 {#model-configuration}
 
-Please feel free to modify the configurations for model training and note how the training results changes. This is an great exercise to get a better understanding of the training pipeline.
+모델 트레이닝을 위한 구성을 자유롭게 수정하고, 트레이닝 결과가 어떻게 변경되는지 확인하세요.
+이것은 트레이닝 파이프라인을 더 잘 이해하는 데 좋은 연습입니다.
 
-The learning rate schedule is used by the optimizer to calculate the learning rate for each epoch. The optimizer then uses the learning rate to update the weights of the model. In this case, the learning rate schedule uses a cosine decay function. A cosine decay function starts high and then decreases over time, eventually reaching zero. The cardinality of the VOC dataset is 2124 with a batch size of 4. The dataset cardinality is important for learning rate decay because it determines how many steps the model will train for. The initial learning rate is proportional to 0.007 and the decay steps are 2124. This means that the learning rate will start at `INITIAL_LR` and then decrease to zero over 2124 steps.
+학습률 스케쥴은 옵티마이저에서 각 에포크에 대한 학습률을 계산하는 데 사용됩니다.
+그런 다음, 옵티마이저에서 학습률을 사용하여 모델의 가중치를 업데이트합니다.
+이 경우, 학습률 스케쥴은 코사인 감쇠(cosine decay) 함수를 사용합니다.
+코사인 감쇠 함수는 높은 곳에서 시작한 다음, 시간이 지남에 따라 감소하여 결국 0에 도달합니다.
+VOC 데이터 세트의 cardinality는 2124이고 배치 크기는 4입니다.
+데이터 세트 cardinality는 모델이 학습할 단계 수를 결정하기 때문에,
+학습률 감쇠(learning rate decay)에 중요합니다.
+초기 학습률은 0.007에 비례하고, 감소 단계는 2124입니다.
+즉, 학습률은 `INITIAL_LR`에서 시작한 다음, 2124단계에 걸쳐 0으로 감소합니다.
 
 ![png](/images/guides/keras_cv/semantic_segmentation_deeplab_v3_plus/learning_rate_schedule.png)
 
@@ -197,7 +228,11 @@ learning_rate = keras.optimizers.schedules.CosineDecay(
 )
 ```
 
-We instantiate a DeepLabV3+ model with a ResNet50 backbone pretrained on ImageNet classification: `resnet50_v2_imagenet` pre-trained weights will be used as the backbone feature extractor for the DeepLabV3Plus model. The `num_classes` parameter specifies the number of classes that the model will be trained to segment.
+ImageNet 분류에 대해 사전 트레이닝된 ResNet50 백본을 사용하여,
+DeepLabV3+ 모델을 인스턴스화합니다.
+사전 트레이닝된 가중치 `resnet50_v2_imagenet`은
+DeepLabV3Plus 모델의 백본 특성 추출기로 사용됩니다.
+`num_classes` 매개변수는 모델이 세그멘테이션하도록 트레이닝될 클래스 수를 지정합니다.
 
 ```python
 model = keras_cv.models.DeepLabV3Plus.from_preset(
@@ -214,17 +249,31 @@ Downloading data from https://storage.googleapis.com/keras-cv/models/resnet50v2/
 
 {{% /details %}}
 
-## Compile the model
+## 모델 컴파일 {#compile-the-model}
 
-The model.compile() function sets up the training process for the model. It defines the - optimization algorithm - Stochastic Gradient Descent (SGD) - the loss function - categorical cross-entropy - the evaluation metrics - Mean IoU and categorical accuracy
+`model.compile()` 함수는 모델의 트레이닝 프로세스를 설정합니다.
 
-Semantic segmentation evaluation metrics:
+이는 다음을 정의합니다.
 
-Mean Intersection over Union (MeanIoU): MeanIoU measures how well a semantic segmentation model accurately identifies and delineates different objects or regions in an image. It calculates the overlap between predicted and actual object boundaries, providing a score between 0 and 1, where 1 represents a perfect match.
+- 옵티마이저 알고리즘
+- 확률적 경사 하강법(SGD)
+- 손실 함수
+- 카테고리 교차 엔트로피
+- 평가 지표
+- 평균 IoU 및 카테고리 정확도
 
-Categorical Accuracy: Categorical Accuracy measures the proportion of correctly classified pixels in an image. It gives a simple percentage indicating how accurately the model predicts the categories of pixels in the entire image.
+시맨틱 세그멘테이션 평가 지표:
 
-In essence, MeanIoU emphasizes the accuracy of identifying specific object boundaries, while Categorical Accuracy gives a broad overview of overall pixel-level correctness.
+- 평균 교집합(MeanIoU, Mean Intersection over Union):
+  MeanIoU는 시맨틱 세그멘테이션 모델이 이미지에서,
+  다른 객체나 영역을 얼마나 정확하게 식별하고 구분하는지 측정합니다.
+  예측된 객체 경계와 실제 객체 경계 사이의 중첩을 계산하여,
+  0~1 사이의 점수를 제공하며, 1은 완벽한 일치를 나타냅니다.
+- 카테고리 정확도: 카테고리 정확도는 이미지에서 올바르게 분류된 픽셀의 비율을 측정합니다.
+  모델이 전체 이미지에서 픽셀 카테고리를 얼마나 정확하게 예측하는지를 나타내는 간단한 백분율을 제공합니다.
+
+본질적으로 MeanIoU는 특정 객체 경계를 식별하는 정확도를 강조하는 반면,
+카테고리 정확도는 전반적인 픽셀 레벨의 정확성에 대한 광범위한 개요를 제공합니다.
 
 ```python
 model.compile(
@@ -280,7 +329,9 @@ Model: "deep_lab_v3_plus_1"
 
 {{% /details %}}
 
-The utility function `dict_to_tuple` effectively transforms the dictionaries of training and validation datasets into tuples of images and one-hot encoded segmentation masks, which is used during training and evaluation of the DeepLabv3+ model.
+유틸리티 함수 `dict_to_tuple`은 트레이닝 및 검증 데이터 세트의 딕셔너리를,
+이미지와 원핫 인코딩된 세그멘테이션 마스크의 튜플로 효과적으로 변환합니다.
+이 변환은 DeepLabv3+ 모델의 트레이닝 및 평가 중에 사용됩니다.
 
 ```python
 def dict_to_tuple(x):
@@ -312,9 +363,10 @@ model.fit(train_ds, validation_data=eval_ds, epochs=EPOCHS)
 
 {{% /details %}}
 
-## Predictions with trained model
+## 트레이닝된 모델을 사용한 예측 {#predictions-with-trained-model}
 
-Now that the model training of DeepLabv3+ has completed, let's test it by making predications on a few sample images.
+이제 DeepLabv3+의 모델 트레이닝이 완료되었으므로,
+몇 개의 샘플 이미지에 대한 예측을 통해 테스트해 보겠습니다.
 
 ```python
 test_ds = load_voc(split="sbd_eval")
@@ -340,9 +392,14 @@ keras_cv.visualization.plot_segmentation_mask_gallery(
 
 ![png](/images/guides/keras_cv/semantic_segmentation_deeplab_v3_plus/semantic_segmentation_deeplab_v3_plus_28_0.png)
 
-Here are some additional tips for using the KerasCV DeepLabv3+ model:
+KerasCV DeepLabv3+ 모델을 사용하기 위한 몇 가지 추가 팁은 다음과 같습니다.
 
-- The model can be trained on a variety of datasets, including the COCO dataset, the PASCAL VOC dataset, and the Cityscapes dataset.
-- The model can be fine-tuned on a custom dataset to improve its performance on a specific task.
-- The model can be used to perform real-time inference on images.
-- Also, try out KerasCV's SegFormer model `keras_cv.models.segmentation.SegFormer`. The SegFormer model is a newer model that has been shown to achieve state-of-the-art results on a variety of image segmentation benchmarks. It is based on the Swin Transformer architecture, and it is more efficient and accurate than previous image segmentation models.
+- 모델은 COCO 데이터 세트, PASCAL VOC 데이터 세트, Cityscapes 데이터 세트를 포함한,
+  다양한 데이터 세트에 대해 트레이닝될 수 있습니다.
+- 모델은 커스텀 데이터 세트에 대해 미세 조정하여, 특정 작업에서 성능을 개선할 수 있습니다.
+- 모델은 이미지에 대해 실시간 추론을 수행하는 데 사용할 수 있습니다.
+- 또한 KerasCV의 SegFormer 모델 `keras_cv.models.segmentation.SegFormer`를 사용해 보세요.
+  SegFormer 모델은 다양한 이미지 세그멘테이션 벤치마크에서,
+  최첨단 결과를 달성하는 것으로 나타난 새로운 모델입니다.
+  Swin Transformer 아키텍처를 기반으로 하며,
+  이전 이미지 세그멘테이션 모델보다 효율적이고 정확합니다.
