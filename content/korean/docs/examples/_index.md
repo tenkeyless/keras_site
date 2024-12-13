@@ -1,5 +1,5 @@
 ---
-title: Code examples
+title: 코드 예제
 toc: true
 weight: 6
 ---
@@ -11,9 +11,9 @@ Our code examples are short (less than 300 lines of code), focused demonstration
 All of our examples are written as Jupyter notebooks and can be run in one click in [Google Colab](https://colab.research.google.com/notebooks/welcome.ipynb),
 a hosted notebook environment that requires no setup and runs in the cloud. Google Colab includes GPU and TPU runtimes.
 
-## [Computer Vision]({{< relref "/docs/examples/vision/" >}})
+## [Computer Vision]({{< relref "/docs/examples/vision/" >}}) {#computer-vision}
 
-### Image classification
+### Image classification {#image-classification}
 
 | Starter | Keras Version                                                                                                                      | Title                                                                                                                                                               | Date Created | Last Modified |
 | ------- | ---------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------ | ------------- |
@@ -61,7 +61,7 @@ a hosted notebook environment that requires no setup and runs in the cloud. Goog
 |         | {{< hextra/hero-button text="V3" style="background: rgb(23, 132, 133);pointer-events: none; padding: 0.1em 1em;" >}}               | [Image classification with Vision Transformer]({{< relref "/docs/examples/vision/image_classification_with_vision_transformer" >}})                                 | 2021/01/18   | 2021/01/18      |
 | ★       | {{< hextra/hero-button text="V3" style="background: rgb(23, 132, 133);pointer-events: none; padding: 0.1em 1em;" >}}               | [Simple MNIST convnet]({{< relref "/docs/examples/vision/mnist_convnet" >}})                                                                                        | 2015/06/19   | 2020/04/21      |
 
-### Image segmentation
+### Image segmentation {#image-segmentation}
 
 | Starter | Keras Version                                                                                                                      | Title                                                                                                                                  | Date Created | Last Modified |
 | ------- | ---------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------- | ------------ | ------------- |
@@ -77,7 +77,7 @@ a hosted notebook environment that requires no setup and runs in the cloud. Goog
 |         | {{< hextra/hero-button text="V2" style="background: rgb(255 237 183); color: black; pointer-events: none; padding: 0.1em 1em;" >}} | [Highly accurate boundaries segmentation using BASNet]({{< relref "/docs/examples/vision/basnet_segmentation" >}})                     | 2023/05/30   | 2023/07/13      |
 | ★       | {{< hextra/hero-button text="V3" style="background: rgb(23, 132, 133);pointer-events: none; padding: 0.1em 1em;" >}}               | [Image segmentation with a U-Net-like architecture]({{< relref "/docs/examples/vision/oxford_pets_image_segmentation" >}})             | 2019/03/20   | 2020/04/20      |
 
-### Object detection
+### Object detection {#object-detection}
 
 | Starter | Keras Version                                                                                                                      | Title                                                                                                                         | Date Created | Last Modified |
 | ------- | ---------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------- | ------------ | ------------- |
@@ -91,7 +91,7 @@ a hosted notebook environment that requires no setup and runs in the cloud. Goog
 |         | {{< hextra/hero-button text="V3" style="background: rgb(23, 132, 133);pointer-events: none; padding: 0.1em 1em;" >}}               | [Keypoint Detection with Transfer Learning]({{< relref "/docs/examples/vision/keypoint_detection" >}})                        | 2021/05/02   | 2023/07/19      |
 |         | {{< hextra/hero-button text="V2" style="background: rgb(255 237 183); color: black; pointer-events: none; padding: 0.1em 1em;" >}} | [Object Detection with RetinaNet]({{< relref "/docs/examples/vision/retinanet" >}})                                           | 2020/05/17   | 2023/07/10      |
 
-### 3D
+### 3D {#3d}
 
 | Starter | Keras Version                                                                                                        | Title                                                                                                   | Date Created | Last Modified |
 | ------- | -------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------- | ------------ | ------------- |
@@ -109,7 +109,7 @@ a hosted notebook environment that requires no setup and runs in the cloud. Goog
 | ★       | {{< hextra/hero-button text="V3" style="background: rgb(23, 132, 133);pointer-events: none; padding: 0.1em 1em;" >}} | [3D volumetric rendering with NeRF]({{< relref "/docs/examples/vision/nerf" >}})                        | 2021/08/09   | 2023/11/13      |
 |         | {{< hextra/hero-button text="V3" style="background: rgb(23, 132, 133);pointer-events: none; padding: 0.1em 1em;" >}} | [Point cloud segmentation with PointNet]({{< relref "/docs/examples/vision/pointnet_segmentation" >}})  | 2020/10/23   | 2020/10/24      |
 
-### OCR
+### OCR {#ocr}
 
 | Starter | Keras Version                                                                                                        | Title                                                                                     | Date Created | Last Modified |
 | ------- | -------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------- | ------------ | ------------- |
@@ -121,7 +121,7 @@ a hosted notebook environment that requires no setup and runs in the cloud. Goog
 |         | {{< hextra/hero-button text="V3" style="background: rgb(23, 132, 133);pointer-events: none; padding: 0.1em 1em;" >}} | [Handwriting recognition]({{< relref "/docs/examples/vision/handwriting_recognition" >}}) | 2021/08/16   | 2024/09/01      |
 |         | {{< hextra/hero-button text="V3" style="background: rgb(23, 132, 133);pointer-events: none; padding: 0.1em 1em;" >}} | [OCR model for reading Captchas]({{< relref "/docs/examples/vision/captcha_ocr" >}})      | 2020/06/14   | 2024/03/13      |
 
-### Image enhancement
+### Image enhancement {#image-enhancement}
 
 | Starter | Keras Version                                                                                                        | Title                                                                                                                        | Date Created | Last Modified |
 | ------- | -------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------- | ------------ | ------------- |
@@ -139,7 +139,7 @@ a hosted notebook environment that requires no setup and runs in the cloud. Goog
 |         | {{< hextra/hero-button text="V3" style="background: rgb(23, 132, 133);pointer-events: none; padding: 0.1em 1em;" >}} | [Convolutional autoencoder for image denoising]({{< relref "/docs/examples/vision/autoencoder" >}})                          | 2021/03/01   | 2021/03/01      |
 |         | {{< hextra/hero-button text="V3" style="background: rgb(23, 132, 133);pointer-events: none; padding: 0.1em 1em;" >}} | [Image Super-Resolution using an Efficient Sub-Pixel CNN]({{< relref "/docs/examples/vision/super_resolution_sub_pixel" >}}) | 2020/07/28   | 2020/08/27      |
 
-### Data augmentation
+### Data augmentation {#data-augmentation}
 
 | Starter | Keras Version                                                                                                        | Title                                                                                                              | Date Created | Last Modified |
 | ------- | -------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------ | ------------ | ------------- |
@@ -153,7 +153,7 @@ a hosted notebook environment that requires no setup and runs in the cloud. Goog
 |         | {{< hextra/hero-button text="V3" style="background: rgb(23, 132, 133);pointer-events: none; padding: 0.1em 1em;" >}} | [CutMix data augmentation for image classification]({{< relref "/docs/examples/vision/cutmix" >}})                 | 2021/06/08   | 2023/11/14      |
 |         | {{< hextra/hero-button text="V3" style="background: rgb(23, 132, 133);pointer-events: none; padding: 0.1em 1em;" >}} | [MixUp augmentation for image classification]({{< relref "/docs/examples/vision/mixup" >}})                        | 2021/03/06   | 2023/07/24      |
 
-### Image & Text
+### Image & Text {#image-text}
 
 | Starter | Keras Version                                                                                                                      | Title                                                                                                       | Date Created | Last Modified |
 | ------- | ---------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------- | ------------ | ------------- |
@@ -165,7 +165,7 @@ a hosted notebook environment that requires no setup and runs in the cloud. Goog
 | ★       | {{< hextra/hero-button text="V3" style="background: rgb(23, 132, 133);pointer-events: none; padding: 0.1em 1em;" >}}               | [Image captioning]({{< relref "/docs/examples/vision/image_captioning" >}})                                 | 2021/05/29   | 2021/10/31      |
 |         | {{< hextra/hero-button text="V2" style="background: rgb(255 237 183); color: black; pointer-events: none; padding: 0.1em 1em;" >}} | [Natural language image search with a Dual Encoder]({{< relref "/docs/examples/vision/nl_image_search" >}}) | 2021/01/30   | 2021/01/30      |
 
-### Vision models interpretability
+### Vision models interpretability {#vision-models-interpretability}
 
 | Starter | Keras Version                                                                                                        | Title                                                                                                           | Date Created | Last Modified |
 | ------- | -------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------- | ------------ | ------------- |
@@ -181,7 +181,7 @@ a hosted notebook environment that requires no setup and runs in the cloud. Goog
 |         | {{< hextra/hero-button text="V3" style="background: rgb(23, 132, 133);pointer-events: none; padding: 0.1em 1em;" >}} | [Model interpretability with Integrated Gradients]({{< relref "/docs/examples/vision/integrated_gradients" >}}) | 2020/06/02   | 2020/06/02      |
 |         | {{< hextra/hero-button text="V3" style="background: rgb(23, 132, 133);pointer-events: none; padding: 0.1em 1em;" >}} | [Visualizing what convnets learn]({{< relref "/docs/examples/vision/visualizing_what_convnets_learn" >}})       | 2020/05/29   | 2020/05/29      |
 
-### Image similarity search
+### Image similarity search {#image-similarity-search}
 
 | Starter | Keras Version                                                                                                                      | Title                                                                                                                                           | Date Created | Last Modified |
 | ------- | ---------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------- | ------------ | ------------- |
@@ -203,7 +203,7 @@ a hosted notebook environment that requires no setup and runs in the cloud. Goog
 |         | {{< hextra/hero-button text="V3" style="background: rgb(23, 132, 133);pointer-events: none; padding: 0.1em 1em;" >}}               | [Semantic Image Clustering]({{< relref "/docs/examples/vision/semantic_image_clustering" >}})                                                   | 2021/02/28   | 2021/02/28      |
 |         | {{< hextra/hero-button text="V3" style="background: rgb(23, 132, 133);pointer-events: none; padding: 0.1em 1em;" >}}               | [Metric learning for image similarity search]({{< relref "/docs/examples/vision/metric_learning" >}})                                           | 2020/06/05   | 2020/06/09      |
 
-### Video
+### Video {#video}
 
 | Starter | Keras Version                                                                                                        | Title                                                                                                           | Date Created | Last Modified |
 | ------- | -------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------- | ------------ | ------------- |
@@ -219,7 +219,7 @@ a hosted notebook environment that requires no setup and runs in the cloud. Goog
 |         | {{< hextra/hero-button text="V3" style="background: rgb(23, 132, 133);pointer-events: none; padding: 0.1em 1em;" >}} | [Next-Frame Video Prediction with Convolutional LSTMs]({{< relref "/docs/examples/vision/conv_lstm" >}})        | 2021/06/02   | 2023/11/10      |
 |         | {{< hextra/hero-button text="V3" style="background: rgb(23, 132, 133);pointer-events: none; padding: 0.1em 1em;" >}} | [Video Classification with Transformers]({{< relref "/docs/examples/vision/video_transformers" >}})             | 2021/08/06   | 2023/07/22      |
 
-### Performance recipes
+### Performance recipes {#performance-recipes}
 
 | Starter | Keras Version                                                                                                        | Title                                                                                                                     | Date Created | Last Modified |
 | ------- | -------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------- | ------------ | ------------- |
@@ -241,7 +241,7 @@ a hosted notebook environment that requires no setup and runs in the cloud. Goog
 |         | {{< hextra/hero-button text="V3" style="background: rgb(23, 132, 133);pointer-events: none; padding: 0.1em 1em;" >}} | [FixRes: Fixing train-test resolution discrepancy]({{< relref "/docs/examples/vision/fixres" >}})                         | 2021/10/08   | 2021/10/10      |
 |         | {{< hextra/hero-button text="V3" style="background: rgb(23, 132, 133);pointer-events: none; padding: 0.1em 1em;" >}} | [Knowledge Distillation]({{< relref "/docs/examples/vision/knowledge_distillation" >}})                                   | 2020/09/01   | 2020/09/01      |
 
-### Other
+### Other {#other}
 
 | Starter | Keras Version                                                                                                                      | Title                                                                                                                  | Date Created | Last Modified |
 | ------- | ---------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------- | ------------ | ------------- |
@@ -275,9 +275,9 @@ a hosted notebook environment that requires no setup and runs in the cloud. Goog
 |         | {{< hextra/hero-button text="V2" style="background: rgb(255 237 183); color: black; pointer-events: none; padding: 0.1em 1em;" >}} | [Consistency training with supervision]({{< relref "/docs/examples/vision/consistency_training" >}})                   | 2021/04/13   | 2021/04/19      |
 |         | {{< hextra/hero-button text="V2" style="background: rgb(255 237 183); color: black; pointer-events: none; padding: 0.1em 1em;" >}} | [Supervised Contrastive Learning]({{< relref "/docs/examples/vision/supervised-contrastive-learning" >}})              | 2020/11/30   | 2020/11/30      |
 
-## [Natural Language Processing]({{< relref "/docs/examples/nlp/" >}})
+## [Natural Language Processing]({{< relref "/docs/examples/nlp/" >}}) {#natural-language-processing}
 
-### Text classification
+### Text classification {#text-classification}
 
 | Starter | Keras Version                                                                                                                      | Title                                                                                                                                       | Date Created | Last Modified |
 | ------- | ---------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------- | ------------ | ------------- |
@@ -305,7 +305,7 @@ a hosted notebook environment that requires no setup and runs in the cloud. Goog
 |         | {{< hextra/hero-button text="V3" style="background: rgb(23, 132, 133);pointer-events: none; padding: 0.1em 1em;" >}}               | [Using pre-trained word embeddings]({{< relref "/docs/examples/nlp/pretrained_word_embeddings" >}})                                         | 2020/05/05   | 2020/05/05      |
 |         | {{< hextra/hero-button text="V3" style="background: rgb(23, 132, 133);pointer-events: none; padding: 0.1em 1em;" >}}               | [Bidirectional LSTM on IMDB]({{< relref "/docs/examples/nlp/bidirectional_lstm_imdb" >}})                                                   | 2020/05/03   | 2020/05/03      |
 
-### Machine translation
+### Machine translation {#machine-translation}
 
 | Starter | Keras Version                                                                                                        | Title                                                                                                                                                     | Date Created | Last Modified |
 | ------- | -------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------ | ------------- |
@@ -319,7 +319,7 @@ a hosted notebook environment that requires no setup and runs in the cloud. Goog
 |         | {{< hextra/hero-button text="V3" style="background: rgb(23, 132, 133);pointer-events: none; padding: 0.1em 1em;" >}} | [Character-level recurrent sequence-to-sequence model]({{< relref "/docs/examples/nlp/lstm_seq2seq" >}})                                                  | 2017/09/29   | 2023/11/22      |
 | ★       | {{< hextra/hero-button text="V3" style="background: rgb(23, 132, 133);pointer-events: none; padding: 0.1em 1em;" >}} | [English-to-Spanish translation with a sequence-to-sequence Transformer]({{< relref "/docs/examples/nlp/neural_machine_translation_with_transformer" >}}) | 2021/05/26   | 2023/02/25      |
 
-### Entailment prediction
+### Entailment prediction {#entailment-prediction}
 
 | Starter | Keras Version                                                                                                                      | Title                                                                              | Date Created | Last Modified |
 | ------- | ---------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------- | ------------ | ------------- |
@@ -329,7 +329,7 @@ a hosted notebook environment that requires no setup and runs in the cloud. Goog
 | ------- | ---------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------- | ------------ | --------------- |
 |         | {{< hextra/hero-button text="V2" style="background: rgb(255 237 183); color: black; pointer-events: none; padding: 0.1em 1em;" >}} | [Multimodal entailment]({{< relref "/docs/examples/nlp/multimodal_entailment" >}}) | 2021/08/08   | 2021/08/15      |
 
-### Named entity recognition
+### Named entity recognition {#named-entity-recognition}
 
 | Starter | Keras Version                                                                                                        | Title                                                                                               | Date Created | Last Modified |
 | ------- | -------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------- | ------------ | ------------- |
@@ -339,7 +339,7 @@ a hosted notebook environment that requires no setup and runs in the cloud. Goog
 | ------- | -------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------- | ------------ | --------------- |
 |         | {{< hextra/hero-button text="V3" style="background: rgb(23, 132, 133);pointer-events: none; padding: 0.1em 1em;" >}} | [Named Entity Recognition using Transformers]({{< relref "/docs/examples/nlp/ner_transformers" >}}) | 2021/06/23   | 2024/04/05      |
 
-### Sequence-to-sequence
+### Sequence-to-sequence {#sequence-to-sequence}
 
 | Starter | Keras Version                                                                                                                      | Title                                                                                                            | Date Created | Last Modified |
 | ------- | ---------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------- | ------------ | ------------- |
@@ -351,7 +351,7 @@ a hosted notebook environment that requires no setup and runs in the cloud. Goog
 |         | {{< hextra/hero-button text="V3" style="background: rgb(23, 132, 133);pointer-events: none; padding: 0.1em 1em;" >}}               | [Sequence to sequence learning for performing number addition]({{< relref "/docs/examples/nlp/addition_rnn" >}}) | 2015/08/17   | 2024/02/13      |
 |         | {{< hextra/hero-button text="V2" style="background: rgb(255 237 183); color: black; pointer-events: none; padding: 0.1em 1em;" >}} | [Text Extraction with BERT]({{< relref "/docs/examples/nlp/text_extraction_with_bert" >}})                       | 2020/05/23   | 2020/05/23      |
 
-### Text similarity search
+### Text similarity search {#text-similarity-search}
 
 | Starter | Keras Version                                                                                                        | Title                                                                                                                    | Date Created | Last Modified |
 | ------- | -------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------ | ------------ | ------------- |
@@ -365,7 +365,7 @@ a hosted notebook environment that requires no setup and runs in the cloud. Goog
 |         | {{< hextra/hero-button text="V3" style="background: rgb(23, 132, 133);pointer-events: none; padding: 0.1em 1em;" >}} | [Semantic Similarity with KerasHub]({{< relref "/docs/examples/nlp/semantic_similarity_with_keras_hub" >}})              | 2023/02/25   | 2023/02/25      |
 |         | {{< hextra/hero-button text="V3" style="background: rgb(23, 132, 133);pointer-events: none; padding: 0.1em 1em;" >}} | [Semantic Similarity with BERT]({{< relref "/docs/examples/nlp/semantic_similarity_with_bert" >}})                       | 2020/08/15   | 2020/08/29      |
 
-### Language modeling
+### Language modeling {#language-modeling}
 
 | Starter | Keras Version                                                                                                                      | Title                                                                                                               | Date Created | Last Modified |
 | ------- | ---------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------- | ------------ | ------------- |
@@ -379,7 +379,7 @@ a hosted notebook environment that requires no setup and runs in the cloud. Goog
 |         | {{< hextra/hero-button text="V3" style="background: rgb(23, 132, 133);pointer-events: none; padding: 0.1em 1em;" >}}               | [Abstractive Text Summarization with BART]({{< relref "/docs/examples/nlp/abstractive_summarization_with_bart" >}}) | 2023/07/08   | 2024/03/20      |
 |         | {{< hextra/hero-button text="V2" style="background: rgb(255 237 183); color: black; pointer-events: none; padding: 0.1em 1em;" >}} | [Pretraining BERT with Hugging Face Transformers]({{< relref "/docs/examples/nlp/pretraining_BERT" >}})             | 2022/07/01   | 2022/08/27      |
 
-### Parameter efficient fine-tuning
+### Parameter efficient fine-tuning {#parameter-efficient-fine-tuning}
 
 | Starter | Keras Version                                                                                                        | Title                                                                                                                                      | Date Created | Last Modified |
 | ------- | -------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------ | ------------ | ------------- |
@@ -389,7 +389,7 @@ a hosted notebook environment that requires no setup and runs in the cloud. Goog
 | ------- | -------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------ | ------------ | --------------- |
 |         | {{< hextra/hero-button text="V3" style="background: rgb(23, 132, 133);pointer-events: none; padding: 0.1em 1em;" >}} | [Parameter-efficient fine-tuning of GPT-2 with LoRA]({{< relref "/docs/examples/nlp/parameter_efficient_finetuning_of_gpt2_with_lora" >}}) | 2023/05/27   | 2023/05/27      |
 
-### Other
+### Other {#other}
 
 | Starter | Keras Version                                                                                                                      | Title                                                                                                                         | Date Created | Last Modified |
 | ------- | ---------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------- | ------------ | ------------- |
@@ -405,9 +405,9 @@ a hosted notebook environment that requires no setup and runs in the cloud. Goog
 |         | {{< hextra/hero-button text="V2" style="background: rgb(255 237 183); color: black; pointer-events: none; padding: 0.1em 1em;" >}} | [Abstractive Summarization with Hugging Face Transformers]({{< relref "/docs/examples/nlp/t5_hf_summarization" >}})           | 2022/07/04   | 2022/08/28      |
 |         | {{< hextra/hero-button text="V2" style="background: rgb(255 237 183); color: black; pointer-events: none; padding: 0.1em 1em;" >}} | [Question Answering with Hugging Face Transformers]({{< relref "/docs/examples/nlp/question_answering" >}})                   | 2022/01/13   | 2022/01/13      |
 
-## [Structured Data]({{< relref "/docs/examples/structured_data/" >}})
+## [Structured Data]({{< relref "/docs/examples/structured_data/" >}}) {#structured-data}
 
-### Structured data classification
+### Structured data classification {#structured-data-classification}
 
 | Starter | Keras Version                                                                                                                      | Title                                                                                                                                                 | Date Created | Last Modified |
 | ------- | ---------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------- | ------------ | ------------- |
@@ -433,7 +433,7 @@ a hosted notebook environment that requires no setup and runs in the cloud. Goog
 |         | {{< hextra/hero-button text="V3" style="background: rgb(23, 132, 133);pointer-events: none; padding: 0.1em 1em;" >}}               | [Structured data classification from scratch]({{< relref "/docs/examples/structured_data/structured_data_classification_from_scratch" >}})            | 2020/06/09   | 2020/06/09      |
 | ★       | {{< hextra/hero-button text="V3" style="background: rgb(23, 132, 133);pointer-events: none; padding: 0.1em 1em;" >}}               | [Imbalanced classification: credit card fraud detection]({{< relref "/docs/examples/structured_data/imbalanced_classification" >}})                   | 2019/05/28   | 2020/04/17      |
 
-### Recommendation
+### Recommendation {#recommendation}
 
 | Starter | Keras Version                                                                                                        | Title                                                                                                                                  | Date Created | Last Modified |
 | ------- | -------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------- | ------------ | ------------- |
@@ -445,9 +445,9 @@ a hosted notebook environment that requires no setup and runs in the cloud. Goog
 |         | {{< hextra/hero-button text="V3" style="background: rgb(23, 132, 133);pointer-events: none; padding: 0.1em 1em;" >}} | [A Transformer-based recommendation system]({{< relref "/docs/examples/structured_data/movielens_recommendations_transformers" >}})    | 2020/12/30   | 2020/12/30      |
 |         | {{< hextra/hero-button text="V3" style="background: rgb(23, 132, 133);pointer-events: none; padding: 0.1em 1em;" >}} | [Collaborative Filtering for Movie Recommendations]({{< relref "/docs/examples/structured_data/collaborative_filtering_movielens" >}}) | 2020/05/24   | 2020/05/24      |
 
-## [Timeseries]({{< relref "/docs/examples/timeseries/" >}})
+## [Timeseries]({{< relref "/docs/examples/timeseries/" >}}) {#timeseries}
 
-### Timeseries classification
+### Timeseries classification {#timeseries-classification}
 
 | Starter | Keras Version                                                                                                        | Title                                                                                                                                                     | Date Created | Last Modified |
 | ------- | -------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------ | ------------- |
@@ -463,7 +463,7 @@ a hosted notebook environment that requires no setup and runs in the cloud. Goog
 |         | {{< hextra/hero-button text="V3" style="background: rgb(23, 132, 133);pointer-events: none; padding: 0.1em 1em;" >}} | [Electroencephalogram Signal Classification for action identification]({{< relref "/docs/examples/timeseries/eeg_signal_classification" >}})              | 2022/11/03   | 2022/11/05      |
 |         | {{< hextra/hero-button text="V3" style="background: rgb(23, 132, 133);pointer-events: none; padding: 0.1em 1em;" >}} | [Timeseries classification with a Transformer model]({{< relref "/docs/examples/timeseries/timeseries_classification_transformer" >}})                    | 2021/06/25   | 2021/08/05      |
 
-### Anomaly detection
+### Anomaly detection {#anomaly-detection}
 
 | Starter | Keras Version                                                                                                        | Title                                                                                                                        | Date Created | Last Modified |
 | ------- | -------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------- | ------------ | ------------- |
@@ -473,7 +473,7 @@ a hosted notebook environment that requires no setup and runs in the cloud. Goog
 | ------- | -------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------- | ------------ | --------------- |
 |         | {{< hextra/hero-button text="V3" style="background: rgb(23, 132, 133);pointer-events: none; padding: 0.1em 1em;" >}} | [Timeseries anomaly detection using an Autoencoder]({{< relref "/docs/examples/timeseries/timeseries_anomaly_detection" >}}) | 2020/05/31   | 2020/05/31      |
 
-### Timeseries forecasting
+### Timeseries forecasting {#timeseries-forecasting}
 
 | Starter | Keras Version                                                                                                        | Title                                                                                                                                 | Date Created | Last Modified |
 | ------- | -------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------- | ------------ | ------------- |
@@ -485,9 +485,9 @@ a hosted notebook environment that requires no setup and runs in the cloud. Goog
 |         | {{< hextra/hero-button text="V3" style="background: rgb(23, 132, 133);pointer-events: none; padding: 0.1em 1em;" >}} | [Traffic forecasting using graph neural networks and LSTM]({{< relref "/docs/examples/timeseries/timeseries_traffic_forecasting" >}}) | 2021/12/28   | 2023/11/22      |
 |         | {{< hextra/hero-button text="V3" style="background: rgb(23, 132, 133);pointer-events: none; padding: 0.1em 1em;" >}} | [Timeseries forecasting for weather prediction]({{< relref "/docs/examples/timeseries/timeseries_weather_forecasting" >}})            | 2020/06/23   | 2023/11/22      |
 
-## [Generative Deep Learning]({{< relref "/docs/examples/generative/" >}})
+## [Generative Deep Learning]({{< relref "/docs/examples/generative/" >}}) {#generative-deep-learning}
 
-### Image generation
+### Image generation {#image-generation}
 
 | Starter | Keras Version                                                                                                                      | Title                                                                                                                                  | Date Created | Last Modified |
 | ------- | ---------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------- | ------------ | ------------- |
@@ -529,7 +529,7 @@ a hosted notebook environment that requires no setup and runs in the cloud. Goog
 |         | {{< hextra/hero-button text="V3" style="background: rgb(23, 132, 133);pointer-events: none; padding: 0.1em 1em;" >}}               | [PixelCNN]({{< relref "/docs/examples/generative/pixelcnn" >}})                                                                        | 2020/05/17   | 2020/05/23      |
 |         | {{< hextra/hero-button text="V3" style="background: rgb(23, 132, 133);pointer-events: none; padding: 0.1em 1em;" >}}               | [Deep Dream]({{< relref "/docs/examples/generative/deep_dream" >}})                                                                    | 2016/01/13   | 2020/05/02      |
 
-### Style transfer
+### Style transfer {#style-transfer}
 
 | Starter | Keras Version                                                                                                                      | Title                                                                                     | Date Created | Last Modified |
 | ------- | ---------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------- | ------------ | ------------- |
@@ -541,7 +541,7 @@ a hosted notebook environment that requires no setup and runs in the cloud. Goog
 |         | {{< hextra/hero-button text="V2" style="background: rgb(255 237 183); color: black; pointer-events: none; padding: 0.1em 1em;" >}} | [Neural Style Transfer with AdaIN]({{< relref "/docs/examples/generative/adain" >}})      | 2021/11/08   | 2021/11/08      |
 |         | {{< hextra/hero-button text="V3" style="background: rgb(23, 132, 133);pointer-events: none; padding: 0.1em 1em;" >}}               | [Neural style transfer]({{< relref "/docs/examples/generative/neural_style_transfer" >}}) | 2016/01/11   | 2020/05/02      |
 
-### Text generation
+### Text generation {#text-generation}
 
 | Starter | Keras Version                                                                                                                      | Title                                                                                                                        | Date Created | Last Modified |
 | ------- | ---------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------- | ------------ | ------------- |
@@ -559,7 +559,7 @@ a hosted notebook environment that requires no setup and runs in the cloud. Goog
 |         | {{< hextra/hero-button text="V3" style="background: rgb(23, 132, 133);pointer-events: none; padding: 0.1em 1em;" >}}               | [Text generation with a miniature GPT]({{< relref "/docs/examples/generative/text_generation_with_miniature_gpt" >}})        | 2020/05/29   | 2020/05/29      |
 |         | {{< hextra/hero-button text="V3" style="background: rgb(23, 132, 133);pointer-events: none; padding: 0.1em 1em;" >}}               | [Character-level text generation with LSTM]({{< relref "/docs/examples/generative/lstm_character_level_text_generation" >}}) | 2015/06/15   | 2020/04/30      |
 
-### Graph generation
+### Graph generation {#graph-generation}
 
 | Starter | Keras Version                                                                                                                      | Title                                                                                                                     | Date Created | Last Modified |
 | ------- | ---------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------- | ------------ | ------------- |
@@ -571,7 +571,7 @@ a hosted notebook environment that requires no setup and runs in the cloud. Goog
 |         | {{< hextra/hero-button text="V2" style="background: rgb(255 237 183); color: black; pointer-events: none; padding: 0.1em 1em;" >}} | [Drug Molecule Generation with VAE]({{< relref "/docs/examples/generative/molecule_generation" >}})                       | 2022/03/10   | 2022/03/24      |
 |         | {{< hextra/hero-button text="V2" style="background: rgb(255 237 183); color: black; pointer-events: none; padding: 0.1em 1em;" >}} | [WGAN-GP with R-GCN for the generation of small molecular graphs]({{< relref "/docs/examples/generative/wgan-graphs" >}}) | 2021/06/30   | 2021/06/30      |
 
-### Other
+### Other {#other}
 
 | Starter | Keras Version                                                                                                                      | Title                                                                                                                                  | Date Created | Last Modified |
 | ------- | ---------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------- | ------------ | ------------- |
@@ -583,9 +583,9 @@ a hosted notebook environment that requires no setup and runs in the cloud. Goog
 |         | {{< hextra/hero-button text="V2" style="background: rgb(255 237 183); color: black; pointer-events: none; padding: 0.1em 1em;" >}} | [A walk through latent space with Stable Diffusion 3]({{< relref "/docs/examples/generative/random_walks_with_stable_diffusion_3" >}}) | 2024/11/11   | 2024/11/11      |
 |         | {{< hextra/hero-button text="V2" style="background: rgb(255 237 183); color: black; pointer-events: none; padding: 0.1em 1em;" >}} | [Density estimation using Real NVP]({{< relref "/docs/examples/generative/real_nvp" >}})                                               | 2020/08/10   | 2020/08/10      |
 
-## [Audio Data]({{< relref "/docs/examples/audio/" >}})
+## [Audio Data]({{< relref "/docs/examples/audio/" >}}) {#audio-data}
 
-### Speech recognition
+### Speech recognition {#speech-recognition}
 
 | Starter | Keras Version                                                                                                        | Title                                                                                                  | Date Created | Last Modified |
 | ------- | -------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------ | ------------ | ------------- |
@@ -595,7 +595,7 @@ a hosted notebook environment that requires no setup and runs in the cloud. Goog
 | ------- | -------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------ | ------------ | --------------- |
 |         | {{< hextra/hero-button text="V3" style="background: rgb(23, 132, 133);pointer-events: none; padding: 0.1em 1em;" >}} | [Automatic Speech Recognition with Transformer]({{< relref "/docs/examples/audio/transformer_asr" >}}) | 2021/01/13   | 2021/01/13      |
 
-### Other
+### Other {#other}
 
 | Starter | Keras Version                                                                                                                      | Title                                                                                                                             | Date Created | Last Modified |
 | ------- | ---------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------- | ------------ | ------------- |
@@ -615,7 +615,7 @@ a hosted notebook environment that requires no setup and runs in the cloud. Goog
 |         | {{< hextra/hero-button text="V2" style="background: rgb(255 237 183); color: black; pointer-events: none; padding: 0.1em 1em;" >}} | [Automatic Speech Recognition using CTC]({{< relref "/docs/examples/audio/ctc_asr" >}})                                           | 2021/09/26   | 2021/09/26      |
 |         | {{< hextra/hero-button text="V2" style="background: rgb(255 237 183); color: black; pointer-events: none; padding: 0.1em 1em;" >}} | [MelGAN-based spectrogram inversion using feature matching]({{< relref "/docs/examples/audio/melgan_spectrogram_inversion" >}})   | 2021/09/02   | 2021/09/15      |
 
-## [Reinforcement Learning]({{< relref "/docs/examples/rl/" >}})
+## [Reinforcement Learning]({{< relref "/docs/examples/rl/" >}}) {#reinforcement-learning}
 
 | Starter | Keras Version                                                                                                        | Title                                                                                            | Date Created | Last Modified |
 | ------- | -------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------ | ------------ | ------------- |
@@ -631,7 +631,7 @@ a hosted notebook environment that requires no setup and runs in the cloud. Goog
 |         | {{< hextra/hero-button text="V3" style="background: rgb(23, 132, 133);pointer-events: none; padding: 0.1em 1em;" >}} | [Proximal Policy Optimization]({{< relref "/docs/examples/rl/ppo_cartpole" >}})                  | 2021/06/24   | 2024/03/12      |
 |         | {{< hextra/hero-button text="V3" style="background: rgb(23, 132, 133);pointer-events: none; padding: 0.1em 1em;" >}} | [Actor Critic Method]({{< relref "/docs/examples/rl/actor_critic_cartpole" >}})                  | 2020/05/13   | 2024/02/22      |
 
-## [Graph Data]({{< relref "/docs/examples/graph/" >}})
+## [Graph Data]({{< relref "/docs/examples/graph/" >}}) {#graph-data}
 
 | Starter | Keras Version                                                                                                                      | Title                                                                                                                                  | Date Created | Last Modified |
 | ------- | ---------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------- | ------------ | ------------- |
@@ -647,9 +647,9 @@ a hosted notebook environment that requires no setup and runs in the cloud. Goog
 |         | {{< hextra/hero-button text="V2" style="background: rgb(255 237 183); color: black; pointer-events: none; padding: 0.1em 1em;" >}} | [Node Classification with Graph Neural Networks]({{< relref "/docs/examples/graph/gnn_citations" >}})                                  | 2021/05/30   | 2021/05/30      |
 |         | {{< hextra/hero-button text="V2" style="background: rgb(255 237 183); color: black; pointer-events: none; padding: 0.1em 1em;" >}} | [Graph representation learning with node2vec]({{< relref "/docs/examples/graph/node2vec_movielens" >}})                                | 2021/05/15   | 2021/05/15      |
 
-## [Quick Keras Recipes]({{< relref "/docs/examples/keras_recipes/" >}})
+## [Quick Keras Recipes]({{< relref "/docs/examples/keras_recipes/" >}}) {#quick-keras-recipes}
 
-### Keras usage tips
+### Keras usage tips {#keras-usage-tips}
 
 | Starter | Keras Version                                                                                                        | Title                                                                                                                                                                     | Date Created | Last Modified |
 | ------- | -------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------ | ------------- |
@@ -677,7 +677,7 @@ a hosted notebook environment that requires no setup and runs in the cloud. Goog
 |         | {{< hextra/hero-button text="V3" style="background: rgb(23, 132, 133);pointer-events: none; padding: 0.1em 1em;" >}} | [Writing Keras Models With TensorFlow NumPy]({{< relref "/docs/examples/keras_recipes/tensorflow_numpy_models" >}})                                                       | 2021/08/28   | 2021/08/28      |
 |         | {{< hextra/hero-button text="V3" style="background: rgb(23, 132, 133);pointer-events: none; padding: 0.1em 1em;" >}} | [Customizing the convolution operation of a Conv2D layer]({{< relref "/docs/examples/keras_recipes/subclassing_conv_layers" >}})                                          | 2021/03/11   | 2021/03/11      |
 
-### Serving
+### Serving {#serving}
 
 | Starter | Keras Version                                                                                                        | Title                                                                                                | Date Created | Last Modified |
 | ------- | -------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------- | ------------ | ------------- |
@@ -687,7 +687,7 @@ a hosted notebook environment that requires no setup and runs in the cloud. Goog
 | ------- | -------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------- | ------------ | --------------- |
 |         | {{< hextra/hero-button text="V3" style="background: rgb(23, 132, 133);pointer-events: none; padding: 0.1em 1em;" >}} | [Serving TensorFlow models with TFServing]({{< relref "/docs/examples/keras_recipes/tf_serving" >}}) | 2023/01/02   | 2023/01/02      |
 
-### ML best practices
+### ML best practices {#ml-best-practices}
 
 | Starter | Keras Version                                                                                                        | Title                                                                                                                               | Date Created | Last Modified |
 | ------- | -------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------- | ------------ | ------------- |
@@ -701,7 +701,7 @@ a hosted notebook environment that requires no setup and runs in the cloud. Goog
 |         | {{< hextra/hero-button text="V3" style="background: rgb(23, 132, 133);pointer-events: none; padding: 0.1em 1em;" >}} | [Memory-efficient embeddings for recommendation systems]({{< relref "/docs/examples/keras_recipes/memory_efficient_embeddings" >}}) | 2021/02/15   | 2023/11/15      |
 |         | {{< hextra/hero-button text="V3" style="background: rgb(23, 132, 133);pointer-events: none; padding: 0.1em 1em;" >}} | [Estimating required sample size for model training]({{< relref "/docs/examples/keras_recipes/sample_size_estimate" >}})            | 2021/05/20   | 2021/06/06      |
 
-### Other
+### Other {#other}
 
 | Starter | Keras Version                                                                                                                      | Title                                                                                                                                                  | Date Created | Last Modified |
 | ------- | ---------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------ | ------------- |
@@ -719,7 +719,7 @@ a hosted notebook environment that requires no setup and runs in the cloud. Goog
 |         | {{< hextra/hero-button text="V2" style="background: rgb(255 237 183); color: black; pointer-events: none; padding: 0.1em 1em;" >}} | [Probabilistic Bayesian Neural Networks]({{< relref "/docs/examples/keras_recipes/bayesian_neural_networks" >}})                                       | 2021/01/15   | 2021/01/15      |
 |         | {{< hextra/hero-button text="V2" style="background: rgb(255 237 183); color: black; pointer-events: none; padding: 0.1em 1em;" >}} | [How to train a Keras model on TFRecord files]({{< relref "/docs/examples/keras_recipes/tfrecord" >}})                                                 | 2020/07/29   | 2020/08/07      |
 
-## Adding a new code example
+## Adding a new code example {#adding-a-new-code-example}
 
 We welcome new code examples! Here are our rules:
 
@@ -733,3 +733,7 @@ They must be submitted as a `.py` file that follows a specific format. They are 
 See the [`tutobooks` documentation](https://github.com/keras-team/keras-io/blob/master/README.md) for more details.
 
 If you would like to convert a Keras 2 example to Keras 3, please open a Pull Request to the [keras.io repository](https://github.com/keras-team/keras-io).
+
+## 모든 컨텐츠
+
+{{< default-section-cards-list-recursive >}}
