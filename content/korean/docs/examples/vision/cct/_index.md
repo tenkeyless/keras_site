@@ -1,5 +1,6 @@
 ---
-title: Compact Convolutional Transformers
+title: 컴팩트 컨볼루션 트랜스포머 (Compact Convolutional Transformers)
+linkTitle: 컴팩트 컨볼루션 트랜스포머
 toc: true
 weight: 9
 type: docs
@@ -10,7 +11,7 @@ type: docs
 **{{< t f_author >}}** [Sayak Paul](https://twitter.com/RisingSayak)  
 **{{< t f_date_created >}}** 2021/06/30  
 **{{< t f_last_modified >}}** 2023/08/07  
-**{{< t f_description >}}** Compact Convolutional Transformers for efficient image classification.
+**{{< t f_description >}}** 효율적인 이미지 분류를 위한 컴팩트 컨볼루션 트랜스포머.
 
 {{< keras/version v=3 >}}
 
@@ -19,13 +20,26 @@ type: docs
 {{< card link="https://github.com/keras-team/keras-io/blob/master/examples/vision/cct.py" title="GitHub" tag="GitHub">}}
 {{< /cards >}}
 
-As discussed in the [Vision Transformers (ViT)](https://arxiv.org/abs/2010.11929) paper, a Transformer-based architecture for vision typically requires a larger dataset than usual, as well as a longer pre-training schedule. [ImageNet-1k](http://imagenet.org/) (which has about a million images) is considered to fall under the medium-sized data regime with respect to ViTs. This is primarily because, unlike CNNs, ViTs (or a typical Transformer-based architecture) do not have well-informed inductive biases (such as convolutions for processing images). This begs the question: can't we combine the benefits of convolution and the benefits of Transformers in a single network architecture? These benefits include parameter-efficiency, and self-attention to process long-range and global dependencies (interactions between different regions in an image).
+[비전 트랜스포머(ViT)](https://arxiv.org/abs/2010.11929) 논문에서 설명한 대로,
+비전을 위한 트랜스포머 기반 아키텍처는 일반적으로 평소보다 더 큰 데이터세트와 더 긴 사전 트레이닝 스케쥴이 필요합니다.
+약 백만 개의 이미지가 있는 [ImageNet-1k](http://imagenet.org/)는
+ViT와 관련하여 중간 크기의 데이터 체제에 속하는 것으로 간주됩니다.
+이는 주로 CNN과 달리, ViT(또는 일반적인 Transformer 기반 아키텍처)에는 (이미지 처리를 위한 컨볼루션과 같은)
+귀납적 편향이 잘 알려져 있지 않기 때문입니다. 그렇다면 다음과 같은 질문이 생깁니다.
+컨볼루션의 장점과 트랜스포머의 장점을 단일 네트워크 아키텍처에 결합할 수 없을까요?
+이러한 이점에는 매개변수 효율성과 장거리 및
+전역 종속성(이미지 내 여러 영역 간의 상호 작용)을 처리하기 위한 셀프 어텐션이 포함됩니다.
 
-In [Escaping the Big Data Paradigm with Compact Transformers](https://arxiv.org/abs/2104.05704), Hassani et al. present an approach for doing exactly this. They proposed the **Compact Convolutional Transformer** (CCT) architecture. In this example, we will work on an implementation of CCT and we will see how well it performs on the CIFAR-10 dataset.
+[컴팩트 트랜스포머로 빅데이터 패러다임 탈출하기](https://arxiv.org/abs/2104.05704)에서
+Hassani et al.은 이를 위한 접근 방식을 제시합니다.
+그들은 **컴팩트 컨볼루션 트랜스포머**(CCT) 아키텍처를 제안했습니다.
+이 예제에서는, CCT를 구현하여 CIFAR-10 데이터 세트에 대해 얼마나 잘 작동하는지 살펴보겠습니다.
 
-If you are unfamiliar with the concept of self-attention or Transformers, you can read [this chapter](https://livebook.manning.com/book/deep-learning-with-python-second-edition/chapter-11/r-3/312) from François Chollet's book _Deep Learning with Python_. This example uses code snippets from another example, [Image classification with Vision Transformer]({{< relref "/docs/examples/vision/image_classification_with_vision_transformer" >}}).
+셀프 어텐션이나 트랜스포머의 개념이 생소하다면, François Chollet의 저서
+_파이썬으로 딥러닝하기(Deep Learning with Python)_ 에서 [이 챕터](https://livebook.manning.com/book/deep-learning-with-python-second-edition/chapter-11/r-3/312)을 읽어보실 수 있습니다.
+이 예제에서는 다른 예제인 {{< titledRelref "/docs/examples/vision/image_classification_with_vision_transformer" >}}의 코드 스니펫을 사용합니다.
 
-## Imports
+## Imports {#imports}
 
 ```python
 from keras import layers
@@ -35,7 +49,7 @@ import matplotlib.pyplot as plt
 import numpy as np
 ```
 
-## Hyperparameters and constants
+## 하이퍼파라미터 및 상수 {#hyperparameters-and-constants}
 
 ```python
 positional_emb = True
@@ -57,7 +71,7 @@ num_epochs = 30
 image_size = 32
 ```
 
-## Load CIFAR-10 dataset
+## CIFAR-10 데이터세트 불러오기 {#load-cifar-10-dataset}
 
 ```python
 num_classes = 10
@@ -81,13 +95,18 @@ x_test shape: (10000, 32, 32, 3) - y_test shape: (10000, 10)
 
 {{% /details %}}
 
-## The CCT tokenizer
+## CCT 토큰나이저 {#the-cct-tokenizer}
 
-The first recipe introduced by the CCT authors is the tokenizer for processing the images. In a standard ViT, images are organized into uniform _non-overlapping_ patches. This eliminates the boundary-level information present in between different patches. This is important for a neural network to effectively exploit the locality information. The figure below presents an illustration of how images are organized into patches.
+CCT 저자가 소개한 첫 번째 레시피는 이미지 처리를 위한 토큰화 도구(tokenizer)입니다.
+표준 ViT에서는, 이미지가 균일한 _중첩되지 않는_ 패치로 구성됩니다.
+이렇게 하면 서로 다른 패치 사이에 존재하는 경계 레벨 정보가 제거됩니다.
+이는 신경망이 지역 정보를 효과적으로 활용하기 위해 중요합니다.
+아래 그림은 이미지를 패치로 구성하는 방법을 보여주는 그림입니다.
 
 ![png](/images/examples/vision/cct/IkBK9oY.png)
 
-We already know that convolutions are quite good at exploiting locality information. So, based on this, the authors introduce an all-convolution mini-network to produce image patches.
+우리는 컨볼루션이 지역 정보를 활용하는데 매우 효과적이라는 것을 이미 알고 있습니다.
+따라서, 저자는 이를 기반으로, 이미지 패치를 생성하기 위해 모든 컨볼루션 미니 네트워크를 도입합니다.
 
 ```python
 class CCTTokenizer(layers.Layer):
@@ -105,7 +124,7 @@ class CCTTokenizer(layers.Layer):
     ):
         super().__init__(**kwargs)
 
-        # This is our tokenizer.
+        # 이것이 우리의 토큰나이저입니다.
         self.conv_model = keras.Sequential()
         for i in range(num_conv_layers):
             self.conv_model.add(
@@ -128,8 +147,7 @@ class CCTTokenizer(layers.Layer):
 
     def call(self, images):
         outputs = self.conv_model(images)
-        # After passing the images through our mini-network the spatial dimensions
-        # are flattened to form sequences.
+        # 이미지를 미니 네트워크에 통과시킨 후, 공간 차원을 flatten 하여 시퀀스를 형성합니다.
         reshaped = keras.ops.reshape(
             outputs,
             (
@@ -141,7 +159,7 @@ class CCTTokenizer(layers.Layer):
         return reshaped
 ```
 
-Positional embeddings are optional in CCT. If we want to use them, we can use the Layer defined below.
+위치 임베딩은 CCT에서 선택 사항입니다. 위치 임베딩을 사용하려면, 아래에 정의된 레이어를 사용하면 됩니다.
 
 ```python
 class PositionEmbedding(keras.layers.Layer):
@@ -182,8 +200,8 @@ class PositionEmbedding(keras.layers.Layer):
         shape = keras.ops.shape(inputs)
         feature_length = shape[-1]
         sequence_length = shape[-2]
-        # trim to match the length of the input sequence, which might be less
-        # than the sequence_length of the layer.
+        # trim을 사용하여 입력 시퀀스의 길이와 일치하도록 길이를 조정할 수 있으며,
+        # 이는 레이어의 sequence_length보다 작을 수 있습니다.
         position_embeddings = keras.ops.convert_to_tensor(self.position_embeddings)
         position_embeddings = keras.ops.slice(
             position_embeddings,
@@ -196,9 +214,11 @@ class PositionEmbedding(keras.layers.Layer):
         return input_shape
 ```
 
-## Sequence Pooling
+## 시퀀스 풀링 {#sequence-pooling}
 
-Another recipe introduced in CCT is attention pooling or sequence pooling. In ViT, only the feature map corresponding to the class token is pooled and is then used for the subsequent classification task (or any other downstream task).
+CCT에 도입된 또 다른 방법은 어텐션 풀링 또는 시퀀스 풀링입니다.
+ViT에서는, 클래스 토큰에 해당하는 특성 맵만 풀링된 다음,
+후속 분류 작업(또는 다른 다운스트림 작업)에 사용됩니다.
 
 ```python
 class SequencePooling(layers.Layer):
@@ -213,9 +233,12 @@ class SequencePooling(layers.Layer):
         return keras.ops.squeeze(weighted_representation, -2)
 ```
 
-## Stochastic depth for regularization
+## 정규화를 위한 확률적 깊이(Stochastic depth) {#stochastic-depth-for-regularization}
 
-[Stochastic depth](https://arxiv.org/abs/1603.09382) is a regularization technique that randomly drops a set of layers. During inference, the layers are kept as they are. It is very much similar to [Dropout](https://jmlr.org/papers/v15/srivastava14a.html) but only that it operates on a block of layers rather than individual nodes present inside a layer. In CCT, stochastic depth is used just before the residual blocks of a Transformers encoder.
+[확률적 깊이](https://arxiv.org/abs/1603.09382)는 레이어 세트를 무작위로 드롭하는 정규화 기법입니다.
+추론 시에는 레이어가 그대로 유지됩니다. [드롭아웃](https://jmlr.org/papers/v15/srivastava14a.html)과 매우 유사하지만,
+레이어 내부에 존재하는 개별 노드가 아닌 레이어 블록에서 작동한다는 점만 다릅니다.
+CCT에서, 확률적 깊이는 트랜스포머 인코더의 residual 블록 바로 직전에 사용됩니다.
 
 ```python
 # Referred from: github.com:rwightman/pytorch-image-models.
@@ -237,7 +260,7 @@ class StochasticDepth(layers.Layer):
         return x
 ```
 
-## MLP for the Transformers encoder
+## 트랜스포머 인코더를 위한 MLP {#mlp-for-the-transformers-encoder}
 
 ```python
 def mlp(x, hidden_units, dropout_rate):
@@ -247,12 +270,14 @@ def mlp(x, hidden_units, dropout_rate):
     return x
 ```
 
-## Data augmentation
+## 데이터 보강 {#data-augmentation}
 
-In the [original paper](https://arxiv.org/abs/2104.05704), the authors use [AutoAugment](https://arxiv.org/abs/1805.09501) to induce stronger regularization. For this example, we will be using the standard geometric augmentations like random cropping and flipping.
+[원본 논문](https://arxiv.org/abs/2104.05704)에서,
+저자는 [AutoAugment](https://arxiv.org/abs/1805.09501)을 사용하여 더 강력한 정규화를 유도합니다.
+이 예제에서는, 랜덤 자르기(random cropping) 및 뒤집기와 같은 표준 기하학적 보강을 사용합니다.
 
 ```python
-# Note the rescaling layer. These layers have pre-defined inference behavior.
+# 리스케일링 레이어에 주목하세요. 이러한 레이어에는 사전 정의된 추론 동작이 있습니다.
 data_augmentation = keras.Sequential(
     [
         layers.Rescaling(scale=1.0 / 255),
@@ -263,9 +288,10 @@ data_augmentation = keras.Sequential(
 )
 ```
 
-## The final CCT model
+## 최종 CCT 모델 {#the-final-cct-model}
 
-In CCT, outputs from the Transformers encoder are weighted and then passed on to the final task-specific layer (in this example, we do classification).
+CCT에서는, 트랜스포머 인코더의 출력에 가중치를 부여한 다음,
+최종 작업별 레이어로 전달합니다. (이 예에서는 분류를 수행합니다)
 
 ```python
 def create_cct_model(
@@ -277,59 +303,59 @@ def create_cct_model(
 ):
     inputs = layers.Input(input_shape)
 
-    # Augment data.
+    # 데이터 보강.
     augmented = data_augmentation(inputs)
 
-    # Encode patches.
+    # 패치 인코딩.
     cct_tokenizer = CCTTokenizer()
     encoded_patches = cct_tokenizer(augmented)
 
-    # Apply positional embedding.
+    # 위치 임베딩 적용.
     if positional_emb:
         sequence_length = encoded_patches.shape[1]
         encoded_patches += PositionEmbedding(sequence_length=sequence_length)(
             encoded_patches
         )
 
-    # Calculate Stochastic Depth probabilities.
+    # 확률적 깊이 확률 계산하기.
     dpr = [x for x in np.linspace(0, stochastic_depth_rate, transformer_layers)]
 
-    # Create multiple layers of the Transformer block.
+    # 트랜스포머 블록의 여러 레이어 만들기.
     for i in range(transformer_layers):
-        # Layer normalization 1.
+        # 레이어 정규화 1.
         x1 = layers.LayerNormalization(epsilon=1e-5)(encoded_patches)
 
-        # Create a multi-head attention layer.
+        # 멀티 헤드 어텐션 레이어 생성.
         attention_output = layers.MultiHeadAttention(
             num_heads=num_heads, key_dim=projection_dim, dropout=0.1
         )(x1, x1)
 
-        # Skip connection 1.
+        # 스킵 연결 1.
         attention_output = StochasticDepth(dpr[i])(attention_output)
         x2 = layers.Add()([attention_output, encoded_patches])
 
-        # Layer normalization 2.
+        # 레이어 정규화 2.
         x3 = layers.LayerNormalization(epsilon=1e-5)(x2)
 
         # MLP.
         x3 = mlp(x3, hidden_units=transformer_units, dropout_rate=0.1)
 
-        # Skip connection 2.
+        # 스킵 연결 2.
         x3 = StochasticDepth(dpr[i])(x3)
         encoded_patches = layers.Add()([x3, x2])
 
-    # Apply sequence pooling.
+    # 시퀀스 풀링 적용.
     representation = layers.LayerNormalization(epsilon=1e-5)(encoded_patches)
     weighted_representation = SequencePooling()(representation)
 
-    # Classify outputs.
+    # 출력 분류.
     logits = layers.Dense(num_classes)(weighted_representation)
-    # Create the Keras model.
+    # Keras 모델 생성.
     model = keras.Model(inputs=inputs, outputs=logits)
     return model
 ```
 
-## Model training and evaluation
+## 모델 트레이닝 및 평가 {#model-training-and-evaluation}
 
 ```python
 def run_experiment(model):
@@ -460,8 +486,18 @@ plt.show()
 
 ![png](/images/examples/vision/cct/cct_25_0.png)
 
-The CCT model we just trained has just **0.4 million** parameters, and it gets us to ~79% top-1 accuracy within 30 epochs. The plot above shows no signs of overfitting as well. This means we can train this network for longer (perhaps with a bit more regularization) and may obtain even better performance. This performance can further be improved by additional recipes like cosine decay learning rate schedule, other data augmentation techniques like [AutoAugment](https://arxiv.org/abs/1805.09501), [MixUp](https://arxiv.org/abs/1710.09412) or [Cutmix](https://arxiv.org/abs/1905.04899). With these modifications, the authors present 95.1% top-1 accuracy on the CIFAR-10 dataset. The authors also present a number of experiments to study how the number of convolution blocks, Transformers layers, etc. affect the final performance of CCTs.
+방금 트레이닝한 CCT 모델은 **0.4백만**개의 파라미터로,
+30 에포크 안에 ~79%의 top-1 정확도에 도달했습니다.
+위의 그래프에서도 과적합의 징후는 보이지 않습니다.
+즉, 이 네트워크를 더 오래 트레이닝할 수 있으며(아마도 정규화를 통해 조금 더) 더 나은 성능을 얻을 수 있습니다.
+이 성능은 코사인 감쇠 학습률 스케줄, [AutoAugment](https://arxiv.org/abs/1805.09501),
+[MixUp](https://arxiv.org/abs/1710.09412), [Cutmix](https://arxiv.org/abs/1905.04899)와 같은
+다른 데이터 보강 기법과 같은 추가 레시피로 더욱 향상될 수 있습니다.
+이러한 수정을 통해, 저자는 CIFAR-10 데이터 세트에 대해 95.1%의 top-1 정확도를 달성했음을 보여줍니다.
+또한 저자는 컨볼루션 블록 수, 트랜스포머 레이어 등이 CCT의 최종 성능에 어떤 영향을 미치는지 연구하기 위해 여러 실험을 제시합니다.
 
-For a comparison, a ViT model takes about **4.7 million** parameters and **100 epochs** of training to reach a top-1 accuracy of 78.22% on the CIFAR-10 dataset. You can refer to [this notebook](https://colab.research.google.com/gist/sayakpaul/1a80d9f582b044354a1a26c5cb3d69e5/image_classification_with_vision_transformer.ipynb) to know about the experimental setup.
+비교를 위해, ViT 모델이 CIFAR-10 데이터 세트에 대해 78.22%의 top-1 정확도에 도달하려면
+약 **470만**개의 파라미터와 **100 에포크**의 트레이닝이 필요합니다.
+실험 설정에 대한 자세한 내용은 [이 노트북](https://colab.research.google.com/gist/sayakpaul/1a80d9f582b044354a1a26c5cb3d69e5/image_classification_with_vision_transformer.ipynb)을 참조하세요.
 
-The authors also demonstrate the performance of Compact Convolutional Transformers on NLP tasks and they report competitive results there.
+또한 저자들은 NLP 작업에서 콤팩트 컨볼루션 트랜스포머의 성능을 시연하고 경쟁력 있는 결과를 보고합니다.
