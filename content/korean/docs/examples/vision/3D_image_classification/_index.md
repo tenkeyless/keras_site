@@ -1,5 +1,6 @@
 ---
-title: 3D image classification from CT scans
+title: CT 스캔의 3D 이미지 분류
+linkTitle: CT 스캔 3D 이미지 분류
 toc: true
 weight: 27
 type: docs
@@ -19,18 +20,18 @@ type: docs
 {{< card link="https://github.com/keras-team/keras-io/blob/master/examples/vision/3D_image_classification.py" title="GitHub" tag="GitHub">}}
 {{< /cards >}}
 
-## Introduction
+## Introduction {#introduction}
 
 This example will show the steps needed to build a 3D convolutional neural network (CNN) to predict the presence of viral pneumonia in computer tomography (CT) scans. 2D CNNs are commonly used to process RGB images (3 channels). A 3D CNN is simply the 3D equivalent: it takes as input a 3D volume or a sequence of 2D frames (e.g. slices in a CT scan), 3D CNNs are a powerful model for learning representations for volumetric data.
 
-## References
+## References {#references}
 
 - [A survey on Deep Learning Advances on Different 3D DataRepresentations](https://arxiv.org/abs/1808.01462)
 - [VoxNet: A 3D Convolutional Neural Network for Real-Time Object Recognition](https://www.ri.cmu.edu/pub_files/2015/9/voxnet_maturana_scherer_iros15.pdf)
 - [FusionNet: 3D Object Classification Using MultipleData Representations](https://arxiv.org/abs/1607.05695)
 - [Uniformizing Techniques to Process CT scans with 3D CNNs for Tuberculosis Prediction](https://arxiv.org/abs/2007.13224)
 
-## Setup
+## Setup {#setup}
 
 ```python
 import os
@@ -42,7 +43,7 @@ import keras
 from keras import layers
 ```
 
-## Downloading the MosMedData: Chest CT Scans with COVID-19 Related Findings
+## Downloading the MosMedData: Chest CT Scans with COVID-19 Related Findings {#downloading-the-mosmeddata-chest-ct-scans-with-covid-19-related-findings}
 
 In this example, we use a subset of the [MosMedData: Chest CT Scans with COVID-19 Related Findings](https://www.medrxiv.org/content/10.1101/2020.05.20.20100362v1). This dataset consists of lung CT scans with COVID-19 related findings, as well as without such findings.
 
@@ -80,7 +81,7 @@ Downloading data from https://github.com/hasibzunair/3D-image-classification-tut
 
 {{% /details %}}
 
-## Loading data and preprocessing
+## Loading data and preprocessing {#loading-data-and-preprocessing}
 
 The files are provided in Nifti format with the extension .nii. To read the scans, we use the `nibabel` package. You can install the package via `pip install nibabel`. CT scans store raw voxel intensity in Hounsfield units (HU). They range from -1024 to above 2000 in this dataset. Above 400 are bones with different radiointensity, so this is used as a higher bound. A threshold between -1000 and 400 is commonly used to normalize CT scans.
 
@@ -182,7 +183,7 @@ CT scans with abnormal lung tissue: 100
 
 {{% /details %}}
 
-## Build train and validation datasets
+## Build train and validation datasets {#build-train-and-validation-datasets}
 
 Read the scans from the class directories and assign labels. Downsample the scans to have shape of 128x128x64. Rescale the raw HU values to the range 0 to 1. Lastly, split the dataset into train and validation subsets.
 
@@ -216,7 +217,7 @@ Number of samples in train and validation are 140 and 60.
 
 {{% /details %}}
 
-## Data augmentation
+## Data augmentation {#data-augmentation}
 
 The CT scans also augmented by rotating at random angles during training. Since the data is stored in rank-3 tensors of shape `(samples, height, width, depth)`, we add a dimension of size 1 at axis 4 to be able to perform 3D convolutions on the data. The new shape is thus `(samples, height, width, depth, 1)`. There are different kinds of preprocessing and augmentation techniques out there, this example shows a few simple ones to get started.
 
@@ -341,7 +342,7 @@ plot_slices(4, 10, 128, 128, image[:, :, :40])
 
 ![png](/images/examples/vision/3D_image_classification/3D_image_classification_19_0.png)
 
-## Define a 3D convolutional neural network
+## Define a 3D convolutional neural network {#define-a-3d-convolutional-neural-network}
 
 To make the model easier to understand, we structure it into blocks. The architecture of the 3D CNN used in this example is based on [this paper](https://arxiv.org/abs/2007.13224).
 
@@ -436,7 +437,7 @@ Model: "3dcnn"
 
 {{% /details %}}
 
-## Train model
+## Train model {#train-model}
 
 ```python
 # Compile model.
@@ -591,7 +592,7 @@ Epoch 28/100
 
 It is important to note that the number of samples is very small (only 200) and we don't specify a random seed. As such, you can expect significant variance in the results. The full dataset which consists of over 1000 CT scans can be found [here](https://www.medrxiv.org/content/10.1101/2020.05.20.20100362v1). Using the full dataset, an accuracy of 83% was achieved. A variability of 6-7% in the classification performance is observed in both cases.
 
-## Visualizing model performance
+## Visualizing model performance {#visualizing-model-performance}
 
 Here the model accuracy and loss for the training and the validation sets are plotted. Since the validation set is class-balanced, accuracy provides an unbiased representation of the model's performance.
 
@@ -610,7 +611,7 @@ for i, metric in enumerate(["acc", "loss"]):
 
 ![png](/images/examples/vision/3D_image_classification/3D_image_classification_26_0.png)
 
-## Make predictions on a single CT scan
+## Make predictions on a single CT scan {#make-predictions-on-a-single-ct-scan}
 
 ```python
 # Load best weights.

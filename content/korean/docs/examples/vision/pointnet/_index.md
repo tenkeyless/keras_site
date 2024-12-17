@@ -1,5 +1,6 @@
 ---
-title: Point cloud classification with PointNet
+title: PointNet을 사용한 포인트 클라우드 분류
+linkTitle: PointNet 포인트 클라우드 분류
 toc: true
 weight: 31
 type: docs
@@ -19,11 +20,11 @@ type: docs
 {{< card link="https://github.com/keras-team/keras-io/blob/master/examples/vision/pointnet.py" title="GitHub" tag="GitHub">}}
 {{< /cards >}}
 
-## Introduction
+## Introduction {#introduction}
 
 Classification, detection and segmentation of unordered 3D point sets i.e. point clouds is a core problem in computer vision. This example implements the seminal point cloud deep learning paper [PointNet (Qi et al., 2017)](https://arxiv.org/abs/1612.00593). For a detailed intoduction on PointNet see [this blog post](https://medium.com/@luis_gonzales/an-in-depth-look-at-pointnet-111d7efdaa1a).
 
-## Setup
+## Setup {#setup}
 
 If using colab first install trimesh with `!pip install trimesh`.
 
@@ -41,7 +42,7 @@ from matplotlib import pyplot as plt
 keras.utils.set_random_seed(seed=42)
 ```
 
-## Load dataset
+## Load dataset {#load-dataset}
 
 We use the ModelNet10 model dataset, the smaller 10 class version of the ModelNet40 dataset. First download the data:
 
@@ -1430,7 +1431,7 @@ train_dataset = dataset.take(train_dataset_size).batch(BATCH_SIZE)
 validation_dataset = dataset.skip(train_dataset_size).batch(BATCH_SIZE)
 ```
 
-### Build a model
+### Build a model {#build-a-model}
 
 Each convolution and fully-connected layer (with exception for end layers) consists of Convolution / Dense -> Batch Normalization -> ReLU Activation.
 
@@ -1694,7 +1695,7 @@ Model: "pointnet"
 
 {{% /details %}}
 
-### Train model
+### Train model {#train-model}
 
 Once the model is defined it can be trained like any other standard classification model using `.compile()` and `.fit()`.
 
@@ -1866,7 +1867,7 @@ Epoch 20/20
 
 {{% /details %}}
 
-## Visualize predictions
+## Visualize predictions {#visualize-predictions}
 
 We can use matplotlib to visualize our trained model performance.
 

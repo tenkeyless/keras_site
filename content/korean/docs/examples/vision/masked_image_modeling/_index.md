@@ -1,5 +1,6 @@
 ---
-title: Masked image modeling with Autoencoders
+title: 자동 인코더를 사용한 마스크 이미지 모델링
+linkTitle: 자동 인코더 마스크 이미지 모델링
 toc: true
 weight: 73
 type: docs
@@ -19,7 +20,7 @@ type: docs
 {{< card link="https://github.com/keras-team/keras-io/blob/master/examples/vision/masked_image_modeling.py" title="GitHub" tag="GitHub">}}
 {{< /cards >}}
 
-## Introduction
+## Introduction {#introduction}
 
 In deep learning, models with growing **capacity** and **capability** can easily overfit on large datasets (ImageNet-1K). In the field of natural language processing, the appetite for data has been **successfully addressed** by self-supervised pretraining.
 
@@ -36,7 +37,7 @@ This implementation covers (MAE refers to Masked Autoencoder):
 
 As a reference, we reuse some of the code presented in [this example]({{< relref "/docs/examples/vision/image_classification_with_vision_transformer" >}}).
 
-## Imports
+## Imports {#imports}
 
 ```python
 import os
@@ -56,7 +57,7 @@ SEED = 42
 keras.utils.set_random_seed(SEED)
 ```
 
-## Hyperparameters for pretraining
+## Hyperparameters for pretraining {#hyperparameters-for-pretraining}
 
 Please feel free to change the hyperparameters and check your results. The best way to get an intuition about the architecture is to experiment with it. Our hyperparameters are heavily inspired by the design guidelines laid out by the authors in [the original paper](https://arxiv.org/abs/2111.06377).
 
@@ -101,7 +102,7 @@ DEC_TRANSFORMER_UNITS = [
 ]
 ```
 
-## Load and prepare the CIFAR-10 dataset
+## Load and prepare the CIFAR-10 dataset {#load-and-prepare-the-cifar-10-dataset}
 
 ```python
 (x_train, y_train), (x_test, y_test) = keras.datasets.cifar10.load_data()
@@ -133,7 +134,7 @@ Testing samples: 10000
 
 {{% /details %}}
 
-## Data augmentation
+## Data augmentation {#data-augmentation}
 
 In previous self-supervised pretraining methodologies ([SimCLR](https://arxiv.org/abs/2002.05709) alike), we have noticed that the data augmentation pipeline plays an important role. On the other hand the authors of this paper point out that Masked Autoencoders **do not** rely on augmentations. They propose a simple augmentation pipeline of:
 
@@ -166,7 +167,7 @@ def get_test_augmentation_model():
     return model
 ```
 
-## A layer for extracting patches from images
+## A layer for extracting patches from images {#a-layer-for-extracting-patches-from-images}
 
 This layer takes images as input and divides them into patches. The layer also includes two utility method:
 
@@ -277,7 +278,7 @@ Index selected: 102.
 
 ![png](/images/examples/vision/masked_image_modeling/masked_image_modeling_13_3.png)
 
-## Patch encoding with masking
+## Patch encoding with masking {#patch-encoding-with-masking}
 
 Quoting the paper
 
@@ -437,7 +438,7 @@ plt.show()
 
 ![png](/images/examples/vision/masked_image_modeling/masked_image_modeling_17_0.png)
 
-## MLP
+## MLP {#mlp}
 
 This serves as the fully connected feed forward network of the transformer architecture.
 
@@ -449,7 +450,7 @@ def mlp(x, dropout_rate, hidden_units):
     return x
 ```
 
-## MAE encoder
+## MAE encoder {#mae-encoder}
 
 The MAE encoder is ViT. The only point to note here is that the encoder outputs a layer normalized output.
 
@@ -483,7 +484,7 @@ def create_encoder(num_heads=ENC_NUM_HEADS, num_layers=ENC_LAYERS):
     return keras.Model(inputs, outputs, name="mae_encoder")
 ```
 
-## MAE decoder
+## MAE decoder {#mae-decoder}
 
 The authors point out that they use an **asymmetric** autoencoder model. They use a lightweight decoder that takes "<10% computation per token vs. the encoder". We are not specific with the "<10% computation" in our implementation but have used a smaller decoder (both in terms of depth and projection dimensions).
 
@@ -523,7 +524,7 @@ def create_decoder(
     return keras.Model(inputs, outputs, name="mae_decoder")
 ```
 
-## MAE trainer
+## MAE trainer {#mae-trainer}
 
 This is the trainer module. We wrap the encoder and decoder inside of a [`tf.keras.Model`]({{< relref "/docs/api/models/model#model-class" >}}) subclass. This allows us to customize what happens in the `model.fit()` loop.
 
@@ -622,7 +623,7 @@ class MaskedAutoencoder(keras.Model):
         return results
 ```
 
-## Model initialization
+## Model initialization {#model-initialization}
 
 ```python
 train_augmentation_model = get_train_augmentation_model()
@@ -642,9 +643,9 @@ mae_model = MaskedAutoencoder(
 )
 ```
 
-## Training callbacks
+## Training callbacks {#training-callbacks}
 
-### Visualization callback
+### Visualization callback {#visualization-callback}
 
 ```python
 # Taking a batch of test inputs to measure model's progress.
@@ -698,7 +699,7 @@ class TrainMonitor(keras.callbacks.Callback):
             plt.close()
 ```
 
-### Learning rate scheduler
+### Learning rate scheduler {#learning-rate-scheduler}
 
 ```python
 # Some code is taken from:
@@ -768,7 +769,7 @@ train_callbacks = [TrainMonitor(epoch_interval=5)]
 
 ![png](/images/examples/vision/masked_image_modeling/masked_image_modeling_32_0.png)
 
-## Model compilation and training
+## Model compilation and training {#model-compilation-and-training}
 
 ```python
 optimizer = keras.optimizers.AdamW(
@@ -1142,9 +1143,9 @@ MAE: 0.10
 
 {{% /details %}}
 
-## Evaluation with linear probing
+## Evaluation with linear probing {#evaluation-with-linear-probing}
 
-### Extract the encoder model along with other layers
+### Extract the encoder model along with other layers {#extract-the-encoder-model-along-with-other-layers}
 
 ```python
 # Extract the augmentation layers.
@@ -1210,7 +1211,7 @@ Model: "linear_probe_model"
 
 We are using average pooling to extract learned representations from the MAE encoder. Another approach would be to use a learnable dummy token inside the encoder during pretraining (resembling the \[CLS\] token). Then we can extract representations from that token during the downstream tasks.
 
-### Prepare datasets for linear probing
+### Prepare datasets for linear probing {#prepare-datasets-for-linear-probing}
 
 ```python
 def prepare_data(images, labels, is_train=True):
@@ -1234,7 +1235,7 @@ val_ds = prepare_data(x_train, y_train, is_train=False)
 test_ds = prepare_data(x_test, y_test, is_train=False)
 ```
 
-### Perform linear probing
+### Perform linear probing {#perform-linear-probing}
 
 ```python
 linear_probe_epochs = 50
@@ -1377,7 +1378,7 @@ Accuracy on the test set: 44.66%.
 
 We believe that with a more sophisticated hyperparameter tuning process and a longer pretraining it is possible to improve this performance further. For comparison, we took the encoder architecture and [trained it from scratch](https://github.com/ariG23498/mae-scalable-vision-learners/blob/master/regular-classification.ipynb) in a fully supervised manner. This gave us ~76% test top-1 accuracy. The authors of MAE demonstrates strong performance on the ImageNet-1k dataset as well as other downstream tasks like object detection and semantic segmentation.
 
-## Final notes
+## Final notes {#final-notes}
 
 We refer the interested readers to other examples on self-supervised learning present on keras.io:
 

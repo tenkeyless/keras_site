@@ -1,5 +1,6 @@
 ---
-title: When Recurrence meets Transformers
+title: Recurrence와 트랜스포머의 만남
+linkTitle: Recurrence와 트랜스포머의 만남
 toc: true
 weight: 78
 type: docs
@@ -20,7 +21,7 @@ math: true
 {{< card link="https://github.com/keras-team/keras-io/blob/master/examples/vision/temporal_latent_bottleneck.py" title="GitHub" tag="GitHub">}}
 {{< /cards >}}
 
-## Introduction
+## Introduction {#introduction}
 
 A simple Recurrent Neural Network (RNN) displays a strong inductive bias towards learning **temporally compressed representations**. **Equation 1** shows the recurrence formula, where `h_t` is the compressed representation (a single vector) of the entire input sequence `x`.
 
@@ -38,7 +39,7 @@ The authors propose a solution that divides computation into **two streams**. A 
 
 The following example explores how we can make use of the new Temporal Latent Bottleneck mechanism to perform image classification on the CIFAR-10 dataset. We implement this model by making a custom `RNNCell` implementation in order to make a **performant** and **vectorized** design.
 
-## Setup imports
+## Setup imports {#setup-imports}
 
 ```python
 import os
@@ -54,7 +55,7 @@ from matplotlib import pyplot as plt
 keras.utils.set_random_seed(42)
 ```
 
-## Setting required configuration
+## Setting required configuration {#setting-required-configuration}
 
 We set a few configuration parameters that are needed within the pipeline we have designed. The current parameters are for use with the [CIFAR10 dataset](https://www.cs.toronto.edu/~kriz/cifar.html).
 
@@ -88,7 +89,7 @@ if config["mixed_precision"]:
     mixed_precision.set_global_policy(policy)
 ```
 
-## Loading the CIFAR-10 dataset
+## Loading the CIFAR-10 dataset {#loading-the-cifar-10-dataset}
 
 We are going to use the CIFAR10 dataset for running our experiments. This dataset contains a training set of `50,000` images for `10` classes with the standard image size of `(32, 32, 3)`.
 
@@ -102,7 +103,7 @@ It also has a separate set of `10,000` images with similar characteristics. More
 )
 ```
 
-## Define data augmentation for the training and validation/test pipelines
+## Define data augmentation for the training and validation/test pipelines {#define-data-augmentation-for-the-training-and-validationtest-pipelines}
 
 We define separate pipelines for performing image augmentation on our data. This step is important to make the model more robust to changes, helping it generalize better. The preprocessing and augmentation steps we perform are as follows:
 
@@ -152,7 +153,7 @@ def test_map_fn(image, label):
     return test_augmentation(image), label
 ```
 
-## Load dataset into `PyDataset` object
+## Load dataset into `PyDataset` object {#load-dataset-into-pydataset-object}
 
 - We take the `np.ndarray` instance of the datasets and wrap a class around it, wrapping a [`keras.utils.PyDataset`]({{< relref "/docs/api/utils/python_utils#pydataset-class" >}}) and apply augmentations with keras preprocessing layers.
 
@@ -194,7 +195,7 @@ val_ds = Dataset(x_val, y_val, config["batch_size"], preprocess_fn=test_map_fn)
 test_ds = Dataset(x_test, y_test, config["batch_size"], preprocess_fn=test_map_fn)
 ```
 
-## Temporal Latent Bottleneck
+## Temporal Latent Bottleneck {#temporal-latent-bottleneck}
 
 An excerpt from the paper:
 
@@ -217,7 +218,7 @@ A PyTorch-style pseudocode is also proposed by the authors as shown in **Algorit
 
 ![Pseudocode of the model](/images/examples/vision/temporal_latent_bottleneck/s8a5Vz9.png "Algorithm 1: PyTorch style pseudocode. (Source: https://arxiv.org/abs/2205.14794)")
 
-### `PatchEmbedding` layer
+### `PatchEmbedding` layer {#patchembedding-layer}
 
 This custom [`keras.layers.Layer`]({{< relref "/docs/api/layers/base_layer#layer-class" >}}) is useful for generating patches from the image and transform them into a higher-dimensional embedding space using [`keras.layers.Embedding`]({{< relref "/docs/api/layers/core_layers/embedding#embedding-class" >}}). The patching operation is done using a [`keras.layers.Conv2D`]({{< relref "/docs/api/layers/convolution_layers/convolution2d#conv2d-class" >}}) instance.
 
@@ -303,7 +304,7 @@ class PatchEmbedding(layers.Layer):
         return x
 ```
 
-### `FeedForwardNetwork` Layer
+### `FeedForwardNetwork` Layer {#feedforwardnetwork-layer}
 
 This custom [`keras.layers.Layer`]({{< relref "/docs/api/layers/base_layer#layer-class" >}}) instance allows us to define a generic FFN along with a dropout.
 
@@ -339,7 +340,7 @@ class FeedForwardNetwork(layers.Layer):
         return x
 ```
 
-### `BaseAttention` layer
+### `BaseAttention` layer {#baseattention-layer}
 
 This custom [`keras.layers.Layer`]({{< relref "/docs/api/layers/base_layer#layer-class" >}}) instance is a `super`/`base` class that wraps a [`keras.layers.MultiHeadAttention`]({{< relref "/docs/api/layers/attention_layers/multi_head_attention#multiheadattention-class" >}}) layer along with some other components. This gives us basic common denominator functionality for all the Attention layers/modules in our model.
 
@@ -395,7 +396,7 @@ class BaseAttention(layers.Layer):
         return x
 ```
 
-### `Attention` with `FeedForwardNetwork` layer
+### `Attention` with `FeedForwardNetwork` layer {#attention-with-feedforwardnetwork-layer}
 
 This custom [`keras.layers.Layer`]({{< relref "/docs/api/layers/base_layer#layer-class" >}}) implementation combines the `BaseAttention` and `FeedForwardNetwork` components to develop one block which will be used repeatedly within the model. This module is highly customizable and flexible, allowing for changes within the internal layers.
 
@@ -466,7 +467,7 @@ class AttentionWithFFN(layers.Layer):
         return x
 ```
 
-### Custom RNN Cell for **Temporal Latent Bottleneck** and **Perceptual Module**
+### Custom RNN Cell for **Temporal Latent Bottleneck** and **Perceptual Module** {#custom-rnn-cell-for-temporal-latent-bottleneck-and-perceptual-module}
 
 **Algorithm 1** (the pseudocode) depicts recurrence with the help of for loops. Looping does make the implementation simpler, harming the training time. In this section we wrap the custom recurrence logic inside of the `CustomRecurrentCell`. This custom cell will then be wrapped with the [Keras RNN API]({{< relref "/docs/api/layers/recurrent_layers/rnn" >}}) that makes the entire code vectorizable.
 
@@ -592,7 +593,7 @@ class CustomRecurrentCell(layers.Layer):
         ]
 ```
 
-### `TemporalLatentBottleneckModel` to encapsulate full model
+### `TemporalLatentBottleneckModel` to encapsulate full model {#temporallatentbottleneckmodel-to-encapsulate-full-model}
 
 Here, we just wrap the full model as to expose it for training.
 
@@ -619,7 +620,7 @@ class TemporalLatentBottleneckModel(keras.Model):
         return outputs
 ```
 
-## Build the model
+## Build the model {#build-the-model}
 
 To begin training, we now define the components individually and pass them as arguments to our wrapper class, which will prepare the final model for training. We define a `PatchEmbed` layer, and the `CustomCell`\-based RNN.
 
@@ -647,7 +648,7 @@ model = TemporalLatentBottleneckModel(
 )
 ```
 
-## Metrics and Callbacks
+## Metrics and Callbacks {#metrics-and-callbacks}
 
 We use the `AdamW` optimizer since it has been shown to perform very well on several benchmark tasks from an optimization perspective. It is a version of the [`keras.optimizers.Adam`]({{< relref "/docs/api/optimizers/adam#adam-class" >}}) optimizer, along with Weight Decay in place.
 
@@ -664,7 +665,7 @@ model.compile(
 )
 ```
 
-## Train the model with `model.fit()`
+## Train the model with `model.fit()` {#train-the-model-with-modelfit}
 
 We pass the training dataset and run training.
 
@@ -810,11 +811,11 @@ def score_to_viz(chunk_score):
     return chunk_viz
 
 
-# Get a batch of images and labels from the testing dataset
+# Get a batch of images and labels from the testing dataset {#get-a-batch-of-images-and-labels-from-the-testing-dataset}
 images, labels = next(iter(test_ds))
 
-# Create a new model instance that is executed eagerly to allow saving
-# attention scores. This also requires unrolling loops
+# Create a new model instance that is executed eagerly to allow saving {#create-a-new-model-instance-that-is-executed-eagerly-to-allow-saving}
+# attention scores. This also requires unrolling loops {#attention-scores-this-also-requires-unrolling-loops}
 eager_model = TemporalLatentBottleneckModel(
     patch_layer=patch_layer, custom_cell=custom_rnn_cell, unroll_loops=True
 )
@@ -822,15 +823,15 @@ eager_model.compile(run_eagerly=True, jit_compile=False)
 model.save("weights.keras")
 eager_model.load_weights("weights.keras")
 
-# Set the get_attn_scores flag to True
+# Set the get_attn_scores flag to True {#set-the-get_attn_scores-flag-to-true}
 eager_model.rnn.cell.get_attention_scores = True
 
-# Run the model with the testing images and grab the
-# attention scores.
+# Run the model with the testing images and grab the {#run-the-model-with-the-testing-images-and-grab-the}
+# attention scores. {#attention-scores}
 outputs = eager_model(images)
 list_chunk_scores = eager_model.rnn.cell.attention_scores
 
-# Process the attention scores in order to visualize them
+# Process the attention scores in order to visualize them {#process-the-attention-scores-in-order-to-visualize-them}
 num_chunks = (config["image_size"] // config["patch_size"]) ** 2 // config["chunk_size"]
 list_chunk_viz = [score_to_viz(x) for x in list_chunk_scores[-num_chunks:]]
 chunk_viz = ops.concatenate(list_chunk_viz, axis=-1)
@@ -851,7 +852,7 @@ upsampled_heat_map = layers.UpSampling2D(
 Run the following code snippet to get different images and their attention maps.
 
 ```python
-# Sample a random image
+# Sample a random image {#sample-a-random-image}
 index = random.randint(0, config["batch_size"])
 orig_image = images[index]
 overlay_image = upsampled_heat_map[index, ..., 0]
@@ -862,7 +863,7 @@ if keras.backend.backend() == "torch":
     orig_image = orig_image.cpu().detach().numpy()
     overlay_image = overlay_image.cpu().detach().numpy()
 
-# Plot the visualization
+# Plot the visualization {#plot-the-visualization}
 fig, ax = plt.subplots(nrows=1, ncols=2, figsize=(10, 5))
 
 ax[0].imshow(orig_image)

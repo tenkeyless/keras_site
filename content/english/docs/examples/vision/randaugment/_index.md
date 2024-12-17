@@ -7,7 +7,7 @@ type: docs
 
 {{< keras/original checkedAt="2024-11-20" >}}
 
-**Authors:** [Sayak Paul](https://twitter.com/RisingSayak)[Sachin Prasad](https://github.com/sachinprasadhs)  
+**{{< t f_author >}}** [Sayak Paul](https://twitter.com/RisingSayak)[Sachin Prasad](https://github.com/sachinprasadhs)  
 **{{< t f_date_created >}}** 2021/03/13  
 **{{< t f_last_modified >}}** 2023/12/12  
 **{{< t f_description >}}** RandAugment for training an image classification model with improved robustness.

@@ -1,5 +1,6 @@
 ---
-title: Grad-CAM class activation visualization
+title: Grad-CAM 클래스 활성화 시각화
+linkTitle: Grad-CAM 활성화 시각화
 toc: true
 weight: 47
 type: docs
@@ -21,7 +22,7 @@ type: docs
 
 Adapted from Deep Learning with Python (2017).
 
-## Setup
+## Setup {#setup}
 
 ```python
 import os
@@ -38,7 +39,7 @@ import matplotlib as mpl
 import matplotlib.pyplot as plt
 ```
 
-## Configurable parameters
+## Configurable parameters {#configurable-parameters}
 
 You can change these to another model.
 
@@ -62,7 +63,7 @@ display(Image(img_path))
 
 ![jpeg](/images/examples/vision/grad_cam/grad_cam_4_0.jpg)
 
-## The Grad-CAM algorithm
+## The Grad-CAM algorithm {#the-grad-cam-algorithm}
 
 ```python
 def get_img_array(img_path, size):
@@ -111,7 +112,7 @@ def make_gradcam_heatmap(img_array, model, last_conv_layer_name, pred_index=None
     return heatmap.numpy()
 ```
 
-## Let's test-drive it
+## Let's test-drive it {#lets-test-drive-it}
 
 ```python
 # Prepare image
@@ -147,7 +148,7 @@ Predicted: [('n02504458', 'African_elephant', 9.860664)]
 
 ![png](/images/examples/vision/grad_cam/grad_cam_8_3.png)
 
-## Create a superimposed visualization
+## Create a superimposed visualization {#create-a-superimposed-visualization}
 
 ```python
 def save_and_display_gradcam(img_path, heatmap, cam_path="cam.jpg", alpha=0.4):
@@ -186,7 +187,7 @@ save_and_display_gradcam(img_path, heatmap)
 
 ![jpeg](/images/examples/vision/grad_cam/grad_cam_10_0.jpg)
 
-## Let's try another image
+## Let's try another image {#lets-try-another-image}
 
 We will see how the grad cam explains the model's outputs for a multi-label image. Let's try an image with a cat and a dog together, and see how the grad cam behaves.
 

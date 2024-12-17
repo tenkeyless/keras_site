@@ -1,5 +1,6 @@
 ---
-title: Class Attention Image Transformers with LayerScale
+title: LayerScale을 사용한 클래스 어텐션 이미지 트랜스포머
+linkTitle: LayerScale 클래스 어텐션 이미지 트랜스포머
 toc: true
 weight: 64
 type: docs
@@ -20,7 +21,7 @@ math: true
 {{< card link="https://github.com/keras-team/keras-io/blob/master/examples/vision/cait.py" title="GitHub" tag="GitHub">}}
 {{< /cards >}}
 
-## Introduction
+## Introduction {#introduction}
 
 In this tutorial, we implement the CaiT (Class-Attention in Image Transformers) proposed in [Going deeper with Image Transformers](https://arxiv.org/abs/2103.17239) by Touvron et al. Depth scaling, i.e. increasing the model depth for obtaining better performance and generalization has been quite successful for convolutional neural networks ([Tan et al.](https://arxiv.org/abs/1905.11946), [Dollár et al.](https://arxiv.org/abs/2103.06877), for example). But applying the same model scaling principles to Vision Transformers ([Dosovitskiy et al.](https://arxiv.org/abs/2010.11929)) doesn't translate equally well – their performance gets saturated quickly with depth scaling. Note that one assumption here is that the underlying pre-training dataset is always kept fixed when performing model scaling.
 
@@ -36,7 +37,7 @@ The tutorial is structured like so:
 
 The readers are assumed to be familiar with Vision Transformers already. Here is an implementation of Vision Transformers in Keras: [Image classification with Vision Transformer]({{< relref "/docs/examples/vision/image_classification_with_vision_transformer" >}}).
 
-## Imports
+## Imports {#imports}
 
 ```python
 import os
@@ -55,7 +56,7 @@ from keras import layers
 from keras import ops
 ```
 
-## The LayerScale layer
+## The LayerScale layer {#the-layerscale-layer}
 
 We begin by implementing a **LayerScale** layer which is one of the two modifications proposed in the CaiT paper.
 
@@ -109,7 +110,7 @@ class LayerScale(layers.Layer):
         return x * self.gamma
 ```
 
-## Stochastic depth layer
+## Stochastic depth layer {#stochastic-depth-layer}
 
 Since its introduction ([Huang et al.](https://arxiv.org/abs/1603.09382)), Stochastic Depth has become a favorite component in almost all modern neural network architectures. CaiT is no exception. Discussing Stochastic Depth is out of scope for this notebook. You can refer to [this resource](https://paperswithcode.com/method/stochastic-depth) in case you need a refresher.
 
@@ -138,7 +139,7 @@ class StochasticDepth(layers.Layer):
         return x
 ```
 
-## Class attention
+## Class attention {#class-attention}
 
 The vanilla ViT uses self-attention (SA) layers for modelling how the image patches and the _learnable_ CLS token interact with each other. The CaiT authors propose to decouple the attention layers responsible for attending to the image patches and the CLS tokens.
 
@@ -231,7 +232,7 @@ class ClassAttention(layers.Layer):
         return x_cls, attn
 ```
 
-## Talking Head Attention
+## Talking Head Attention {#talking-head-attention}
 
 The CaiT authors use the Talking Head attention ([Shazeer et al.](https://arxiv.org/abs/2003.02436)) instead of the vanilla scaled dot-product multi-head attention used in the original Transformer paper ([Vaswani et al.](https://papers.nips.cc/paper/7181-attention-is-all-you-need)). They introduce two linear projections before and after the softmax operations for obtaining better results.
 
@@ -312,7 +313,7 @@ class TalkingHeadAttention(layers.Layer):
         return x, attn
 ```
 
-## Feed-forward Network
+## Feed-forward Network {#feed-forward-network}
 
 Next, we implement the feed-forward network which is one of the components within a Transformer block.
 
@@ -329,7 +330,7 @@ def mlp(x, dropout_rate: float, hidden_units: typing.List[int]):
     return x
 ```
 
-## Other blocks
+## Other blocks {#other-blocks}
 
 In the next two cells, we implement the remaining blocks as standalone functions:
 
@@ -453,7 +454,7 @@ def LayerScaleBlock(
 
 Given all these blocks, we are now ready to collate them into the final CaiT model.
 
-## Putting the pieces together: The CaiT model
+## Putting the pieces together: The CaiT model {#putting-the-pieces-together-the-cait-model}
 
 ```python
 class CaiT(keras.Model):
@@ -627,7 +628,7 @@ Having the SA and CA layers segregated this way helps the model to focus on unde
 
 Now that we have defined the CaiT model, it's time to test it. We will start by defining a model configuration that will be passed to our `CaiT` class for initialization.
 
-## Defining Model Configuration
+## Defining Model Configuration {#defining-model-configuration}
 
 ```python
 def get_config(
@@ -687,7 +688,7 @@ def get_config(
 
 Most of the configuration variables should sound familiar to you if you already know the ViT architecture. Point of focus is given to `sa_ffn_layers` and `ca_ffn_layers` that control the number of SA-Transformer blocks and CA-Transformer blocks. You can easily amend this `get_config()` method to instantiate a CaiT model for your own dataset.
 
-## Model Instantiation
+## Model Instantiation {#model-instantiation}
 
 ```python
 image_size = 224
@@ -708,7 +709,7 @@ We can successfully perform inference with the model. But what about implementat
 
 In order to verify that, we will load another instance of the same model that has been already populated with the pre-trained parameters. Please refer to [this repository](https://github.com/sayakpaul/cait-tf) (developed by the author of this notebook) for more details. Additionally, the repository provides code to verify model performance on the [ImageNet-1k validation set](https://github.com/sayakpaul/cait-tf/tree/main/i1k_eval) as well as [fine-tuning](https://github.com/sayakpaul/cait-tf/blob/main/notebooks/finetune.ipynb).
 
-## Load a pretrained model
+## Load a pretrained model {#load-a-pretrained-model}
 
 ```python
 model_gcs_path = "gs://kaggle-tfhub-models-uncompressed/tfhub-modules/sayakpaul/cait_xxs24_224/1/uncompressed"
@@ -717,7 +718,7 @@ pretrained_model = keras.Sequential(
 )
 ```
 
-## Inference utilities
+## Inference utilities {#inference-utilities}
 
 In the next couple of cells, we develop preprocessing utilities needed to run inference with the pretrained model.
 
@@ -763,7 +764,7 @@ with open(label_path, "r") as f:
 imagenet_labels = [line.rstrip() for line in lines]
 ```
 
-## Load an Image
+## Load an Image {#load-an-image}
 
 ```python
 img_url = "https://i.imgur.com/ErgfLTn.jpg"
@@ -777,7 +778,7 @@ plt.show()
 
 ![png](/images/examples/vision/cait/cait_33_0.png)
 
-## Obtain Predictions
+## Obtain Predictions {#obtain-predictions}
 
 ```python
 outputs = pretrained_model.predict(preprocessed_image)
@@ -804,7 +805,7 @@ I0000 00:00:1700601113.319904  361514 device_compiler.h:187] Compiled cluster us
 
 Now that we have obtained the predictions (which appear to be as expected), we can further extend our investigation. Following the CaiT authors, we can investigate the attention scores from the attention layers. This helps us to get deeper insights into the modifications introduced in the CaiT paper.
 
-## Visualizing the Attention Layers
+## Visualizing the Attention Layers {#visualizing-the-attention-layers}
 
 We start by inspecting the shape of the attention weights returned by a Class Attention layer.
 
@@ -949,10 +950,10 @@ plt.show()
 
 ![png](/images/examples/vision/cait/cait_46_0.png)
 
-## Conclusion
+## Conclusion {#conclusion}
 
 In this notebook, we implemented the CaiT model. It shows how to mitigate the issues in ViTs when trying scale their depth while keeping the pretraining dataset fixed. I hope the additional visualizations provided in the notebook spark excitement in the community and people develop interesting methods to probe what models like ViT learn.
 
-## Acknowledgement
+## Acknowledgement {#acknowledgement}
 
 Thanks to the ML Developer Programs team at Google providing Google Cloud Platform support.

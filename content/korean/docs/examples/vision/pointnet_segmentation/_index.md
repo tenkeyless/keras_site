@@ -1,5 +1,6 @@
 ---
-title: Point cloud segmentation with PointNet
+title: PointNet을 사용한 포인트 클라우드 세그멘테이션
+linkTitle: PointNet 포인트 클라우드 세그멘테이션
 toc: true
 weight: 30
 type: docs
@@ -19,19 +20,19 @@ type: docs
 {{< card link="https://github.com/keras-team/keras-io/blob/master/examples/vision/pointnet_segmentation.py" title="GitHub" tag="GitHub">}}
 {{< /cards >}}
 
-## Introduction
+## Introduction {#introduction}
 
 A "point cloud" is an important type of data structure for storing geometric shape data. Due to its irregular format, it's often transformed into regular 3D voxel grids or collections of images before being used in deep learning applications, a step which makes the data unnecessarily large. The PointNet family of models solves this problem by directly consuming point clouds, respecting the permutation-invariance property of the point data. The PointNet family of models provides a simple, unified architecture for applications ranging from **object classification**, **part segmentation**, to **scene semantic parsing**.
 
 In this example, we demonstrate the implementation of the PointNet architecture for shape segmentation.
 
-### References
+### References {#references}
 
 - [PointNet: Deep Learning on Point Sets for 3D Classification and Segmentation](https://arxiv.org/abs/1612.00593)
 - [Point cloud classification with PointNet]({{< relref "/docs/examples/vision/pointnet" >}})
 - [Spatial Transformer Networks](https://arxiv.org/abs/1506.02025)
 
-## Imports
+## Imports {#imports}
 
 ```python
 import os
@@ -49,7 +50,7 @@ from keras import layers
 import matplotlib.pyplot as plt
 ```
 
-## Downloading Dataset
+## Downloading Dataset {#downloading-dataset}
 
 The [ShapeNet dataset](https://shapenet.org/) is an ongoing effort to establish a richly-annotated, large-scale dataset of 3D shapes. **ShapeNetCore** is a subset of the full ShapeNet dataset with clean single 3D models and manually verified category and alignment annotations. It covers 55 common object categories, with about 51,300 unique 3D models.
 
@@ -69,7 +70,7 @@ dataset_path = keras.utils.get_file(
 )
 ```
 
-## Loading the dataset
+## Loading the dataset {#loading-the-dataset}
 
 We parse the dataset metadata in order to easily map model categories to their respective directories and segmentation classes to colors for the purpose of visualization.
 
@@ -107,7 +108,7 @@ EPOCHS = 60
 INITIAL_LR = 1e-3
 ```
 
-## Structuring the dataset
+## Structuring the dataset {#structuring-the-dataset}
 
 We generate the following in-memory data structures from the Airplane point clouds and their labels:
 
@@ -329,7 +330,7 @@ visualize_data(point_clouds[300], all_labels[300])
 
 ![png](/images/examples/vision/pointnet_segmentation/pointnet_segmentation_15_1.png)
 
-### Preprocessing
+### Preprocessing {#preprocessing}
 
 Note that all the point clouds that we have loaded consist of a variable number of points, which makes it difficult for us to batch them together. In order to overcome this problem, we randomly sample a fixed number of points from each point cloud. We also normalize the point clouds in order to make the data scale-invariant.
 
@@ -374,7 +375,7 @@ visualize_data(point_clouds[300], all_labels[300])
 
 ![png](/images/examples/vision/pointnet_segmentation/pointnet_segmentation_19_1.png)
 
-### Creating TensorFlow datasets
+### Creating TensorFlow datasets {#creating-tensorflow-datasets}
 
 We create [`tf.data.Dataset`](https://www.tensorflow.org/api_docs/python/tf/data/Dataset) objects for the training and validation data. We also augment the training point clouds by applying random jitter to them.
 
@@ -439,7 +440,7 @@ Validation Dataset: <_BatchDataset element_spec=(TensorSpec(shape=(None, 1024, 3
 
 {{% /details %}}
 
-## PointNet model
+## PointNet model {#pointnet-model}
 
 The figure below depicts the internals of the PointNet model family:
 
@@ -447,13 +448,13 @@ The figure below depicts the internals of the PointNet model family:
 
 Given that PointNet is meant to consume an **_unordered set_** of coordinates as its input data, its architecture needs to match the following characteristic properties of point cloud data:
 
-### Permutation invariance
+### Permutation invariance {#permutation-invariance}
 
 Given the unstructured nature of point cloud data, a scan made up of `n` points has `n!` permutations. The subsequent data processing must be invariant to the different representations. In order to make PointNet invariant to input permutations, we use a symmetric function (such as max-pooling) once the `n` input points are mapped to higher-dimensional space. The result is a **global feature vector** that aims to capture an aggregate signature of the `n` input points. The global feature vector is used alongside local point features for segmentation.
 
 ![png](/images/examples/vision/pointnet_segmentation/0mrvvjb.png)
 
-### Transformation invariance
+### Transformation invariance {#transformation-invariance}
 
 Segmentation outputs should be unchanged if the object undergoes certain transformations, such as translation or scaling. For a given input point cloud, we apply an appropriate rigid or affine transformation to achieve pose normalization. Because each of the `n` input points are represented as a vector and are mapped to the embedding spaces independently, applying a geometric transformation simply amounts to matrix multiplying each point with a transformation matrix. This is motivated by the concept of [Spatial Transformer Networks](https://arxiv.org/abs/1506.02025).
 
@@ -461,7 +462,7 @@ The operations comprising the T-Net are motivated by the higher-level architectu
 
 ![png](/images/examples/vision/pointnet_segmentation/aEj3GYi.png)
 
-### Point interactions
+### Point interactions {#point-interactions}
 
 The interaction between neighboring points often carries useful information (i.e., a single point should not be treated in isolation). Whereas classification need only make use of global features, segmentation must be able to leverage local point features along with global point features.
 
@@ -581,7 +582,7 @@ def get_shape_segmentation_model(num_points, num_classes):
     return keras.Model(input_points, outputs)
 ```
 
-## Instantiate the model
+## Instantiate the model {#instantiate-the-model}
 
 ```python
 x, y = next(iter(train_dataset))
@@ -792,7 +793,7 @@ Model: "functional_1"
 
 {{% /details %}}
 
-## Training
+## Training {#training}
 
 For the training the authors recommend using a learning rate schedule that decays the initial learning rate by half every 20 epochs. In this example, we use 5 epochs.
 
@@ -994,7 +995,7 @@ Epoch 60/60
 
 {{% /details %}}
 
-## Visualize the training landscape
+## Visualize the training landscape {#visualize-the-training-landscape}
 
 ```python
 def plot_result(item):
@@ -1016,7 +1017,7 @@ plot_result("accuracy")
 
 ![png](/images/examples/vision/pointnet_segmentation/pointnet_segmentation_38_1.png)
 
-## Inference
+## Inference {#inference}
 
 ```python
 validation_batch = next(iter(val_dataset))
@@ -1055,6 +1056,6 @@ Index selected: 26
 
 ![png](/images/examples/vision/pointnet_segmentation/pointnet_segmentation_40_2.png)
 
-## Final notes
+## Final notes {#final-notes}
 
 If you are interested in learning more about this topic, you may find [this repository](https://github.com/soumik12345/point-cloud-segmentation) useful.

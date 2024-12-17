@@ -1,5 +1,6 @@
 ---
-title: Model interpretability with Integrated Gradients
+title: 통합 그래디언트를 통한 모델 해석 가능성
+linkTitle: 통합 그래디언트 모델 해석
 toc: true
 weight: 45
 type: docs
@@ -19,7 +20,7 @@ type: docs
 {{< card link="https://github.com/keras-team/keras-io/blob/master/examples/vision/integrated_gradients.py" title="GitHub" tag="GitHub">}}
 {{< /cards >}}
 
-## Integrated Gradients
+## Integrated Gradients {#integrated-gradients}
 
 [Integrated Gradients](https://arxiv.org/abs/1703.01365) is a technique for attributing a classification model's prediction to its input features. It is a model interpretability technique: you can use it to visualize the relationship between input features and model predictions.
 
@@ -39,7 +40,7 @@ To read in-depth about integrated gradients and why this method works, consider 
 - Integrated Gradients original [paper](https://arxiv.org/abs/1703.01365)
 - [Original implementation](https://github.com/ankurtaly/Integrated-Gradients)
 
-## Setup
+## Setup {#setup}
 
 ```python
 import numpy as np
@@ -66,7 +67,7 @@ display(Image(img_path))
 
 ![jpeg](/images/examples/vision/integrated_gradients/integrated_gradients_3_0.jpg)
 
-## Integrated Gradients algorithm
+## Integrated Gradients algorithm {#integrated-gradients-algorithm}
 
 ```python
 def get_img_array(img_path, size=(299, 299)):
@@ -187,7 +188,7 @@ def random_baseline_integrated_gradients(
     return tf.reduce_mean(integrated_grads, axis=0)
 ```
 
-## Helper class for visualizing gradients and integrated gradients
+## Helper class for visualizing gradients and integrated gradients {#helper-class-for-visualizing-gradients-and-integrated-gradients}
 
 ```python
 class GradVisualizer:
@@ -440,7 +441,7 @@ class GradVisualizer:
         plt.show()
 ```
 
-## Let's test-drive it
+## Let's test-drive it {#lets-test-drive-it}
 
 ```python
 # 1. Convert the image to numpy array

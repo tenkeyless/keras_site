@@ -7,7 +7,7 @@ type: docs
 
 {{< keras/original checkedAt="2024-11-21" >}}
 
-**Authors:** [Merve Noyan](https://twitter.com/mervenoyann) & [Sayak Paul](https://twitter.com/RisingSayak)  
+**{{< t f_author >}}** [Merve Noyan](https://twitter.com/mervenoyann) & [Sayak Paul](https://twitter.com/RisingSayak)  
 **{{< t f_date_created >}}** 2023/07/11  
 **{{< t f_last_modified >}}** 2023/07/11  
 **{{< t f_description >}}** Fine-tuning Segment Anything Model using Keras and 🤗 Transformers.

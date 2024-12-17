@@ -1,5 +1,6 @@
 ---
-title: CutMix data augmentation for image classification
+title: 이미지 분류를 위한 CutMix 데이터 보강
+linkTitle: CutMix 데이터 보강
 toc: true
 weight: 39
 type: docs
@@ -20,7 +21,7 @@ math: true
 {{< card link="https://github.com/keras-team/keras-io/blob/master/examples/vision/cutmix.py" title="GitHub" tag="GitHub">}}
 {{< /cards >}}
 
-## Introduction
+## Introduction {#introduction}
 
 _CutMix_ is a data augmentation technique that addresses the issue of information loss and inefficiency present in regional dropout strategies. Instead of removing pixels and filling them with black or grey pixels or Gaussian noise, you replace the removed regions with a patch from another image, while the ground truth labels are mixed proportionally to the number of pixels of combined images. CutMix was proposed in [CutMix: Regularization Strategy to Train Strong Classifiers with Localizable Features](https://arxiv.org/abs/1905.04899) (Yun et al., 2019)
 
@@ -54,7 +55,7 @@ $$
 
 where `rx, ry` are randomly drawn from a uniform distribution with upper bound.
 
-## Setup
+## Setup {#setup}
 
 ```python
 import numpy as np
@@ -72,7 +73,7 @@ from tensorflow import random as tf_random
 keras.utils.set_random_seed(42)
 ```
 
-## Load the CIFAR-10 dataset
+## Load the CIFAR-10 dataset {#load-the-cifar-10-dataset}
 
 In this example, we will use the [CIFAR-10 image classification dataset](https://www.cs.toronto.edu/~kriz/cifar.html).
 
@@ -111,7 +112,7 @@ class_names = [
 
 {{% /details %}}
 
-## Define hyperparameters
+## Define hyperparameters {#define-hyperparameters}
 
 ```python
 AUTO = tf_data.AUTOTUNE
@@ -119,7 +120,7 @@ BATCH_SIZE = 32
 IMG_SIZE = 32
 ```
 
-## Define the image preprocessing function
+## Define the image preprocessing function {#define-the-image-preprocessing-function}
 
 ```python
 def preprocess_image(image, label):
@@ -129,7 +130,7 @@ def preprocess_image(image, label):
     return image, label
 ```
 
-## Convert the data into TensorFlow `Dataset` objects
+## Convert the data into TensorFlow `Dataset` objects {#convert-the-data-into-tensorflow-dataset-objects}
 
 ```python
 train_ds_one = (
@@ -163,7 +164,7 @@ test_ds = (
 )
 ```
 
-## Define the CutMix data augmentation function
+## Define the CutMix data augmentation function {#define-the-cutmix-data-augmentation-function}
 
 The CutMix function takes two `image` and `label` pairs to perform the augmentation. It samples `λ(l)` from the [Beta distribution](https://en.wikipedia.org/wiki/Beta_distribution) and returns a bounding box from `get_box` function. We then crop the second image (`image2`) and pad this image in the final padded image at the same location.
 
@@ -253,7 +254,7 @@ def cutmix(train_ds_one, train_ds_two):
 
 **Note**: we are combining two images to create a single one.
 
-## Visualize the new dataset after applying the CutMix augmentation
+## Visualize the new dataset after applying the CutMix augmentation {#visualize-the-new-dataset-after-applying-the-cutmix-augmentation}
 
 ```python
 # Create the new dataset using our `cutmix` utility
@@ -276,7 +277,7 @@ for i in range(9):
 
 ![png](/images/examples/vision/cutmix/cutmix_16_0.png)
 
-## Define a ResNet-20 model
+## Define a ResNet-20 model {#define-a-resnet-20-model}
 
 ```python
 def resnet_layer(
@@ -365,7 +366,7 @@ initial_model = training_model()
 initial_model.save_weights("initial_weights.weights.h5")
 ```
 
-## Train the model with the dataset augmented by CutMix
+## Train the model with the dataset augmented by CutMix {#train-the-model-with-the-dataset-augmented-by-cutmix}
 
 ```python
 model = training_model()
@@ -422,7 +423,7 @@ Test accuracy: 71.08%
 
 {{% /details %}}
 
-## Train the model using the original non-augmented dataset
+## Train the model using the original non-augmented dataset {#train-the-model-using-the-original-non-augmented-dataset}
 
 ```python
 model = training_model()
@@ -473,7 +474,7 @@ Test accuracy: 10.00%
 
 {{% /details %}}
 
-## Notes
+## Notes {#notes}
 
 In this example, we trained our model for 15 epochs. In our experiment, the model with CutMix achieves a better accuracy on the CIFAR-10 dataset (77.34% in our experiment) compared to the model that doesn't use the augmentation (66.90%). You may notice it takes less time to train the model with the CutMix augmentation.
 

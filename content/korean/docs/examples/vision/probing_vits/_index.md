@@ -1,5 +1,6 @@
 ---
-title: Investigating Vision Transformer representations
+title: 비전 트랜스포머 표현 조사
+linkTitle: 비전 트랜스포머 표현 조사
 toc: true
 weight: 46
 type: docs
@@ -7,7 +8,7 @@ type: docs
 
 {{< keras/original checkedAt="2024-11-20" >}}
 
-**Authors:** [Aritra Roy Gosthipaty](https://twitter.com/ariG23498), [Sayak Paul](https://twitter.com/RisingSayak) (equal contribution)  
+**{{< t f_author >}}** [Aritra Roy Gosthipaty](https://twitter.com/ariG23498), [Sayak Paul](https://twitter.com/RisingSayak) (equal contribution)  
 **{{< t f_date_created >}}** 2022/04/12  
 **{{< t f_last_modified >}}** 2023/11/20  
 **{{< t f_description >}}** Looking into the representations learned by different Vision Transformers variants.
@@ -19,13 +20,13 @@ type: docs
 {{< card link="https://github.com/keras-team/keras-io/blob/master/examples/vision/probing_vits.py" title="GitHub" tag="GitHub">}}
 {{< /cards >}}
 
-## Introduction
+## Introduction {#introduction}
 
 In this example, we look into the representations learned by different Vision Transformer (ViT) models. Our main goal with this example is to provide insights into what empowers ViTs to learn from image data. In particular, the example discusses implementations of a few different ViT analysis tools.
 
 **Note:** when we say "Vision Transformer", we refer to a computer vision architecture that involves Transformer blocks ([Vaswani et al.](https://arxiv.org/abs/1706.03762)) and not necessarily the original Vision Transformer model ([Dosovitskiy et al.](https://arxiv.org/abs/2010.11929)).
 
-## Models considered
+## Models considered {#models-considered}
 
 Since the inception of the original Vision Transformer, the computer vision community has seen a number of different ViT variants improving upon the original in various ways: training improvements, architecture improvements, and so on. In this example, we consider the following ViT model families:
 
@@ -43,7 +44,7 @@ To run this example on Google Colab, we need to update the `gdown` library like 
 pip install -U gdown -q
 ```
 
-## Imports
+## Imports {#imports}
 
 ```python
 import os
@@ -64,7 +65,7 @@ import keras
 from keras import ops
 ```
 
-## Constants
+## Constants {#constants}
 
 ```python
 RESOLUTION = 224
@@ -78,7 +79,7 @@ MODELS_ZIP = {
 }
 ```
 
-## Data utilities
+## Data utilities {#data-utilities}
 
 For the original ViT models, the input images need to be scaled to the range `[-1, 1]`. For the other model families mentioned at the beginning, we need to normalize the images with channel-wise mean and standard deviation of the ImageNet-1k training set.
 
@@ -122,7 +123,7 @@ def load_image_from_url(url, model_type):
     return image, preprocessed_image
 ```
 
-## Load a test image and display it
+## Load a test image and display it {#load-a-test-image-and-display-it}
 
 ```python
 # ImageNet-1k label mapping file and load it.
@@ -145,7 +146,7 @@ plt.show()
 
 ![png](/images/examples/vision/probing_vits/probing_vits_9_0.png)
 
-## Load a model
+## Load a model {#load-a-model}
 
 ```python
 zip_path = keras.utils.get_file(
@@ -187,7 +188,7 @@ Model loaded.
 
 This model was pretrained on the ImageNet-21k dataset and was then fine-tuned on the ImageNet-1k dataset. To learn more about how we developed this model in TensorFlow (with pretrained weights from [this source](https://github.com/google-research/vision_transformer/)) refer to [this notebook](https://github.com/sayakpaul/probing-vits/blob/main/notebooks/load-jax-weights-vitb16.ipynb).
 
-## Running regular inference with the model
+## Running regular inference with the model {#running-regular-inference-with-the-model}
 
 We now run inference with the loaded model on our test image.
 
@@ -222,7 +223,7 @@ I0000 00:00:1700526824.965785   75784 device_compiler.h:187] Compiled cluster us
 
 `attention_score_dict` contains the attention scores (softmaxed outputs) from each attention head of each Transformer block.
 
-## Method I: Mean attention distance
+## Method I: Mean attention distance {#method-i-mean-attention-distance}
 
 [Dosovitskiy et al.](https://arxiv.org/abs/2010.11929) and [Raghu et al.](https://arxiv.org/abs/2108.08810) use a measure called "mean attention distance" from each attention head of different Transformer blocks to understand how local and global information flows into Vision Transformers.
 
@@ -328,7 +329,7 @@ Num Heads: 12.
 
 ![png](/images/examples/vision/probing_vits/probing_vits_19_1.png)
 
-### Inspecting the plots
+### Inspecting the plots {#inspecting-the-plots}
 
 **How does self-attention span across the input space? Do they attend input regions locally or globally?**
 
@@ -350,7 +351,7 @@ Inspired by [Raghu et al.](https://arxiv.org/abs/2108.08810) we computed mean at
 
 To reproduce these plots, please refer to [this notebook](https://github.com/sayakpaul/probing-vits/blob/main/notebooks/mean-attention-distance-1k.ipynb).
 
-## Method II: Attention Rollout
+## Method II: Attention Rollout {#method-ii-attention-rollout}
 
 [Abnar et al.](https://arxiv.org/abs/2005.00928) introduce "Attention rollout" for quantifying how information flow through self-attention layers of Transformer blocks. Original ViT authors use this method to investigate the learned representations, stating:
 
@@ -421,13 +422,13 @@ fig.show()
 
 ![png](/images/examples/vision/probing_vits/probing_vits_24_0.png)
 
-### Inspecting the plots
+### Inspecting the plots {#inspecting-the-plots}
 
 **How can we quanitfy the information flow that propagates through the attention layers?**
 
 We notice that the model is able to focus its attention on the salient parts of the input image. We encourage you to apply this method to the other models we mentioned and compare the results. The attention rollout plots will differ according to the tasks and augmentation the model was trained with. We observe that DeiT has the best rollout plot, likely due to its augmentation regime.
 
-## Method III: Attention heatmaps
+## Method III: Attention heatmaps {#method-iii-attention-heatmaps}
 
 A simple yet useful way to probe into the representation of a Vision Transformer is to visualise the attention maps overlayed on the input images. This helps form an intuition about what the model attends to. We use the DINO model for this purpose, because it yields better attention heatmaps.
 
@@ -519,7 +520,7 @@ for i in range(3):
 
 ![png](/images/examples/vision/probing_vits/probing_vits_31_0.png)
 
-### Inspecting the plots
+### Inspecting the plots {#inspecting-the-plots}
 
 **How can we qualitatively evaluate the attention weights?**
 
@@ -527,7 +528,7 @@ The attention weights of a Transformer block are computed between the key and th
 
 Plotting the attention weigths overlayed on the image gives us a great intuition about the parts of the image that are important to the Transformer. This plot qualitatively evaluates the purpose of the attention weights.
 
-## Method IV: Visualizing the learned projection filters
+## Method IV: Visualizing the learned projection filters {#method-iv-visualizing-the-learned-projection-filters}
 
 After extracting non-overlapping patches, ViTs flatten those patches across their saptial dimensions, and then linearly project them. One might wonder, how do these projections look like? Below, we take the ViT B-16 model and visualize its learned projections.
 
@@ -583,13 +584,13 @@ WARNING:matplotlib.image:Clipping input data to the valid range for imshow with 
 
 ![png](/images/examples/vision/probing_vits/probing_vits_34_1.png)
 
-### Inspecting the plots
+### Inspecting the plots {#inspecting-the-plots}
 
 **What do the projection filters learn?**
 
 [When visualized](https://distill.pub/2017/feature-visualization/), the kernels of a convolutional neural network show the pattern that they look for in an image. This could be circles, sometimes lines – when combined together (in later stage of a ConvNet), the filters transform into more complex shapes. We have found a stark similarity between such ConvNet kernels and the projection filters of a ViT.
 
-## Method V: Visualizing the positional emebddings
+## Method V: Visualizing the positional emebddings {#method-v-visualizing-the-positional-emebddings}
 
 Transformers are permutation-invariant. This means that do not take into account the spatial position of the input tokens. To overcome this limitation, we add positional information to the input tokens.
 
@@ -611,13 +612,13 @@ plt.show()
 
 ![png](/images/examples/vision/probing_vits/probing_vits_37_0.png)
 
-### Inspecting the plots
+### Inspecting the plots {#inspecting-the-plots}
 
 **What do the positional embeddings tell us?**
 
 The plot has a distinctive diagonal pattern. The main diagonal is the brightest signifying that a position is the most similar to itself. An interesting pattern to look out for is the repeating diagonals. The repeating pattern portrays a sinusoidal function which is close in essence to what was proposed by [Vaswani et. al.](https://arxiv.org/abs/1706.03762) as a hand-crafted feature.
 
-## Notes
+## Notes {#notes}
 
 - DINO extended the attention heatmap generation process to videos. We also [applied](https://github.com/sayakpaul/probing-vits/blob/main/notebooks/dino-attention-map
   s-video.ipynb) our DINO implementation on a series of videos and obtained similar results. Here's one such video of attention heatmaps:
@@ -636,7 +637,7 @@ The plot has a distinctive diagonal pattern. The main diagonal is the brightest 
 | -------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | [![Generic badge](https://img.shields.io/badge/🤗%20Spaces-Attention%20Heat%20Maps-black.svg)](https://huggingface.co/spaces/probing-vits/attention-heat-maps) | [![Generic badge](https://img.shields.io/badge/🤗%20Spaces-Attention%20Rollout-black.svg)](https://huggingface.co/spaces/probing-vits/attention-rollout) |
 
-## Acknowledgements
+## Acknowledgements {#acknowledgements}
 
 - [PyImageSearch](https://pyimagesearch.com)
 - [Jarvislabs.ai](https://jarvislabs.ai/)

@@ -1,5 +1,6 @@
 ---
-title: Next-Frame Video Prediction with Convolutional LSTMs
+title: 컨볼루션 LSTM을 사용한 다음 프레임 비디오 예측
+linkTitle: 컨볼루션 LSTM 다음 프레임 비디오 예측
 toc: true
 weight: 56
 type: docs
@@ -19,11 +20,11 @@ type: docs
 {{< card link="https://github.com/keras-team/keras-io/blob/master/examples/vision/conv_lstm.py" title="GitHub" tag="GitHub">}}
 {{< /cards >}}
 
-## Introduction
+## Introduction {#introduction}
 
 The [Convolutional LSTM](https://papers.nips.cc/paper/2015/file/07563a3fe3bbe7e3ba84431ad9d055af-Paper.pdf) architectures bring together time series processing and computer vision by introducing a convolutional recurrent cell in a LSTM layer. In this example, we will explore the Convolutional LSTM model in an application to next-frame prediction, the process of predicting what video frames come next given a series of past frames.
 
-## Setup
+## Setup {#setup}
 
 ```python
 import numpy as np
@@ -38,7 +39,7 @@ from IPython.display import Image, display
 from ipywidgets import widgets, Layout, HBox
 ```
 
-## Dataset Construction
+## Dataset Construction {#dataset-construction}
 
 For this example, we will be using the [Moving MNIST](http://www.cs.toronto.edu/~nitish/unsupervised_video/) dataset.
 
@@ -102,7 +103,7 @@ Validation Dataset Shapes: (100, 19, 64, 64, 1), (100, 19, 64, 64, 1)
 
 {{% /details %}}
 
-## Data Visualization
+## Data Visualization {#data-visualization}
 
 Our data consists of sequences of frames, each of which are used to predict the upcoming frame. Let's take a look at some of these sequential frames.
 
@@ -132,7 +133,7 @@ Displaying frames for example 95.
 
 ![png](/images/examples/vision/conv_lstm/conv_lstm_7_1.png)
 
-## Model Construction
+## Model Construction {#model-construction}
 
 To build a Convolutional LSTM model, we will use the `ConvLSTM2D` layer, which will accept inputs of shape `(batch_size, num_frames, width, height, channels)`, and return a prediction movie of the same shape.
 
@@ -177,7 +178,7 @@ model.compile(
 )
 ```
 
-## Model Training
+## Model Training {#model-training}
 
 With our model and data constructed, we can now train the model.
 
@@ -250,7 +251,7 @@ Epoch 20/20
 
 {{% /details %}}
 
-## Frame Prediction Visualizations
+## Frame Prediction Visualizations {#frame-prediction-visualizations}
 
 With our model now constructed and trained, we can generate some example frame predictions based on a new video.
 
@@ -313,7 +314,7 @@ plt.show()
 
 ![png](/images/examples/vision/conv_lstm/conv_lstm_13_1.png)
 
-## Predicted Videos
+## Predicted Videos {#predicted-videos}
 
 Finally, we'll pick a few examples from the validation set and construct some GIFs with them to see the model's predicted videos.
 

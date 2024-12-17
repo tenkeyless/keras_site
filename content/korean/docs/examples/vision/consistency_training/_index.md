@@ -1,5 +1,6 @@
 ---
-title: Consistency training with supervision
+title: 지도를 통한 일관성 트레이닝
+linkTitle: 지도로 일관성 트레이닝
 toc: true
 weight: 69
 type: docs
@@ -36,7 +37,7 @@ This example requires TensorFlow 2.4 or higher, as well as TensorFlow Hub and Te
 !pip install -q tf-models-official tensorflow-addons
 ```
 
-## Imports and setup
+## Imports and setup {#imports-and-setup}
 
 ```python
 from official.vision.image_classification.augment import RandAugment
@@ -49,7 +50,7 @@ import matplotlib.pyplot as plt
 tf.random.set_seed(42)
 ```
 
-## Define hyperparameters
+## Define hyperparameters {#define-hyperparameters}
 
 ```python
 AUTO = tf.data.AUTOTUNE
@@ -60,7 +61,7 @@ CROP_TO = 72
 RESIZE_TO = 96
 ```
 
-## Load the CIFAR-10 dataset
+## Load the CIFAR-10 dataset {#load-the-cifar-10-dataset}
 
 ```python
 (x_train, y_train), (x_test, y_test) = tf.keras.datasets.cifar10.load_data()
@@ -70,7 +71,7 @@ new_train_x, new_y_train = x_train[: val_samples + 1], y_train[: val_samples + 1
 val_x, val_y = x_train[val_samples:], y_train[val_samples:]
 ```
 
-## Create TensorFlow `Dataset` objects
+## Create TensorFlow `Dataset` objects {#create-tensorflow-dataset-objects}
 
 ```python
 # Initialize `RandAugment` object with 2 layers of
@@ -137,7 +138,7 @@ test_ds = (
 consistency_training_ds = tf.data.Dataset.zip((train_clean_ds, train_noisy_ds))
 ```
 
-## Visualize the datasets
+## Visualize the datasets {#visualize-the-datasets}
 
 ```python
 sample_images, sample_labels = next(iter(train_clean_ds))
@@ -159,7 +160,7 @@ for i, image in enumerate(sample_images[:9]):
 
 ![png](/images/examples/vision/consistency_training/consistency_training_16_1.png)
 
-## Define a model building utility function
+## Define a model building utility function {#define-a-model-building-utility-function}
 
 We now define our model building utility. Our model is based on the [ResNet50V2 architecture](https://arxiv.org/abs/1603.05027).
 
@@ -187,7 +188,7 @@ initial_teacher_model = get_training_model()
 initial_teacher_model.save_weights("initial_teacher_model.h5")
 ```
 
-## Train the teacher model
+## Train the teacher model {#train-the-teacher-model}
 
 As noted in Noisy Student Training, if the teacher model is trained with _geometric ensembling_ and when the student model is forced to mimic that, it leads to better performance. The original work uses [Stochastic Depth](https://arxiv.org/abs/1603.09382) and [Dropout](https://jmlr.org/papers/v15/srivastava14a.html) to bring in the ensembling part but for this example, we will use [Stochastic Weight Averaging](https://arxiv.org/abs/1803.05407) (SWA) which also resembles geometric ensembling.
 
@@ -240,7 +241,7 @@ Test accuracy: 65.83999991416931%
 
 {{% /details %}}
 
-## Define a self-training utility
+## Define a self-training utility {#define-a-self-training-utility}
 
 For this part, we will borrow the `Distiller` class from [this Keras Example]({{< relref "/docs/examples/vision/knowledge_distillation" >}}).
 
@@ -318,7 +319,7 @@ class SelfTrainer(tf.keras.Model):
 
 The only difference in this implementation is the way loss is being calculated. **Instead of weighted the distillation loss and student loss differently we are taking their average following Noisy Student Training**.
 
-## Train the student model
+## Train the student model {#train-the-student-model}
 
 ```python
 # Define the callbacks.
@@ -370,7 +371,7 @@ Test accuracy from student model: 58.490002155303955%
 
 {{% /details %}}
 
-## Assess the robustness of the models
+## Assess the robustness of the models {#assess-the-robustness-of-the-models}
 
 A standard benchmark of assessing the robustness of vision models is to record their performance on corrupted datasets like ImageNet-C and CIFAR-10-C both of which were proposed in [Benchmarking Neural Network Robustness to Common Corruptions and Perturbations](https://arxiv.org/abs/1903.12261). For this example, we will be using the CIFAR-10-C dataset which has 19 different corruptions on 5 different severity levels. To assess the robustness of the models on this dataset, we will do the following:
 

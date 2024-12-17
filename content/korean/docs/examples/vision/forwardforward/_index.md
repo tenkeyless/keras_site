@@ -1,5 +1,6 @@
 ---
-title: Using the Forward-Forward Algorithm for Image Classification
+title: 이미지 분류를 위한 Forward-Forward 알고리즘 사용
+linkTitle: Forward-Forward 이미지 분류
 toc: true
 weight: 72
 type: docs
@@ -19,7 +20,7 @@ type: docs
 {{< card link="https://github.com/keras-team/keras-io/blob/master/examples/vision/forwardforward.py" title="GitHub" tag="GitHub">}}
 {{< /cards >}}
 
-## Introduction
+## Introduction {#introduction}
 
 The following example explores how to use the Forward-Forward algorithm to perform training instead of the traditionally-used method of backpropagation, as proposed by Hinton in [The Forward-Forward Algorithm: Some Preliminary Investigations](https://www.cs.toronto.edu/~hinton/FFA13.pdf) (2022).
 
@@ -46,7 +47,7 @@ As this example requires the customization of certain core functions with [`kera
 - [Customizing what happens in `model.fit()`]({{< relref "/docs/guides/custom_train_step_in_tensorflow" >}})
 - [Making new Layers and Models via subclassing]({{< relref "/docs/guides/making_new_layers_and_models_via_subclassing" >}})
 
-## Setup imports
+## Setup imports {#setup-imports}
 
 ```python
 import os
@@ -63,7 +64,7 @@ import random
 from tensorflow.compiler.tf2xla.python import xla
 ```
 
-## Load the dataset and visualize the data
+## Load the dataset and visualize the data {#load-the-dataset-and-visualize-the-data}
 
 We use the `keras.datasets.mnist.load_data()` utility to directly pull the MNIST dataset in the form of `NumPy` arrays. We then arrange it in the form of the train and test splits.
 
@@ -102,7 +103,7 @@ plt.show()
 
 ![png](/images/examples/vision/forwardforward/forwardforward_5_1.png)
 
-## Define `FFDense` custom layer
+## Define `FFDense` custom layer {#define-ffdense-custom-layer}
 
 In this custom layer, we have a base [`keras.layers.Dense`]({{< relref "/docs/api/layers/core_layers/dense#dense-class" >}}) object which acts as the base `Dense` layer within. Since weight updates will happen within the layer itself, we add an [`keras.optimizers.Optimizer`]({{< relref "/docs/api/optimizers#optimizer-class" >}}) object that is accepted from the user. Here, we use `Adam` as our optimizer with a rather higher learning rate of `0.03`.
 
@@ -198,7 +199,7 @@ class FFDense(keras.layers.Layer):
         )
 ```
 
-## Define the `FFNetwork` Custom Model
+## Define the `FFNetwork` Custom Model {#define-the-ffnetwork-custom-model}
 
 With our custom layer defined, we also need to override the `train_step` method and define a custom `keras.models.Model` that works with our `FFDense` layer.
 
@@ -335,7 +336,7 @@ class FFNetwork(keras.Model):
         return {"FinalLoss": mean_res}
 ```
 
-## Convert MNIST `NumPy` arrays to [`tf.data.Dataset`](https://www.tensorflow.org/api_docs/python/tf/data/Dataset)
+## Convert MNIST `NumPy` arrays to [`tf.data.Dataset`](https://www.tensorflow.org/api_docs/python/tf/data/Dataset) {#convert-mnist-numpy-arrays-to-tfdatadatasethttpswwwtensorfloworgapi_docspythontfdatadataset}
 
 We now perform some preliminary processing on the `NumPy` arrays and then convert them into the [`tf.data.Dataset`](https://www.tensorflow.org/api_docs/python/tf/data/Dataset) format which allows for optimized loading.
 
@@ -352,7 +353,7 @@ train_dataset = train_dataset.batch(60000)
 test_dataset = test_dataset.batch(10000)
 ```
 
-## Fit the network and visualize results
+## Fit the network and visualize results {#fit-the-network-and-visualize-results}
 
 Having performed all previous set-up, we are now going to run `model.fit()` and run 250 model epochs, which will perform 50\*250 epochs on each layer. We get to see the plotted loss curve as each layer is trained.
 
@@ -1134,7 +1135,7 @@ Epoch 250/250
 
 {{% /details %}}
 
-## Perform inference and testing
+## Perform inference and testing {#perform-inference-and-testing}
 
 Having trained the model to a large extent, we now see how it performs on the test set. We calculate the Accuracy Score to understand the results closely.
 
@@ -1162,7 +1163,7 @@ Test Accuracy score : 97.56%
 
 ![png](/images/examples/vision/forwardforward/forwardforward_15_1.png)
 
-## Conclusion
+## Conclusion {#conclusion}
 
 This example has hereby demonstrated how the Forward-Forward algorithm works using the TensorFlow and Keras packages. While the investigation results presented by Prof. Hinton in their paper are currently still limited to smaller models and datasets like MNIST and Fashion-MNIST, subsequent results on larger models like LLMs are expected in future papers.
 

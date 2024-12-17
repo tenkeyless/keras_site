@@ -1,5 +1,6 @@
 ---
-title: Zero-DCE for low-light image enhancement
+title: 저조도 이미지 향상을 위한 Zero-DCE
+linkTitle: Zero-DCE 저조도 이미지 향상
 toc: true
 weight: 38
 type: docs
@@ -19,7 +20,7 @@ type: docs
 {{< card link="https://github.com/keras-team/keras-io/blob/master/examples/vision/zero_dce.py" title="GitHub" tag="GitHub">}}
 {{< /cards >}}
 
-## Introduction
+## Introduction {#introduction}
 
 **Zero-Reference Deep Curve Estimation** or **Zero-DCE** formulates low-light image enhancement as the task of estimating an image-specific [_tonal curve_](<https://en.wikipedia.org/wiki/Curve_(tonality)>) with a deep neural network. In this example, we train a lightweight deep network, **DCE-Net**, to estimate pixel-wise and high-order tonal curves for dynamic range adjustment of a given image.
 
@@ -27,12 +28,12 @@ Zero-DCE takes a low-light image as input and produces high-order tonal curves a
 
 Zero-DCE is appealing because of its relaxed assumptions with regard to reference images: it does not require any input/output image pairs during training. This is achieved through a set of carefully formulated non-reference loss functions, which implicitly measure the enhancement quality and guide the training of the network.
 
-### References
+### References {#references}
 
 - [Zero-Reference Deep Curve Estimation for Low-Light Image Enhancement](https://arxiv.org/abs/2001.06826)
 - [Curves adjustment in Adobe Photoshop](https://helpx.adobe.com/photoshop/using/curves-adjustment.html)
 
-## Downloading LOLDataset
+## Downloading LOLDataset {#downloading-loldataset}
 
 The **LoL Dataset** has been created for low-light image enhancement. It provides 485 images for training and 15 for testing. Each image pair in the dataset consists of a low-light input image and its corresponding well-exposed reference image.
 
@@ -84,7 +85,7 @@ lol_dataset.zip     100%[===================>] 331.09M  37.4MB/s    in 9.5s
 
 {{% /details %}}
 
-## Creating a TensorFlow Dataset
+## Creating a TensorFlow Dataset {#creating-a-tensorflow-dataset}
 
 We use 300 low-light images from the LoL Dataset training set for training, and we use the remaining 185 low-light images for validation. We resize the images to size `256 x 256` to be used for both training and validation. Note that in order to train the DCE-Net, we will not require the corresponding enhanced images.
 
@@ -130,11 +131,11 @@ Validation Dataset: <_BatchDataset element_spec=TensorSpec(shape=(16, 256, 256, 
 
 {{% /details %}}
 
-## The Zero-DCE Framework
+## The Zero-DCE Framework {#the-zero-dce-framework}
 
 The goal of DCE-Net is to estimate a set of best-fitting light-enhancement curves (LE-curves) given an input image. The framework then maps all pixels of the input’s RGB channels by applying the curves iteratively to obtain the final enhanced image.
 
-### Understanding light-enhancement curves
+### Understanding light-enhancement curves {#understanding-light-enhancement-curves}
 
 A ligh-enhancement curve is a kind of curve that can map a low-light image to its enhanced version automatically, where the self-adaptive curve parameters are solely dependent on the input image. When designing such a curve, three objectives should be taken into account:
 
@@ -146,7 +147,7 @@ The light-enhancement curve is separately applied to three RGB channels instead 
 
 ![png](/images/examples/vision/zero_dce/framework.png)
 
-### DCE-Net
+### DCE-Net {#dce-net}
 
 The DCE-Net is a lightweight deep neural network that learns the mapping between an input image and its best-fitting curve parameter maps. The input to the DCE-Net is a low-light image while the outputs are a set of pixel-wise curve parameter maps for corresponding higher-order curves. It is a plain CNN of seven convolutional layers with symmetrical concatenation. Each layer consists of 32 convolutional kernels of size 3×3 and stride 1 followed by the ReLU activation function. The last convolutional layer is followed by the Tanh activation function, which produces 24 parameter maps for 8 iterations, where each iteration requires three curve parameter maps for the three channels.
 
@@ -182,11 +183,11 @@ def build_dce_net():
     return keras.Model(inputs=input_img, outputs=x_r)
 ```
 
-## Loss functions
+## Loss functions {#loss-functions}
 
 To enable zero-reference learning in DCE-Net, we use a set of differentiable zero-reference losses that allow us to evaluate the quality of enhanced images.
 
-### Color constancy loss
+### Color constancy loss {#color-constancy-loss}
 
 The _color constancy loss_ is used to correct the potential color deviations in the enhanced image.
 
@@ -204,7 +205,7 @@ def color_constancy_loss(x):
     return tf.sqrt(tf.square(d_rg) + tf.square(d_rb) + tf.square(d_gb))
 ```
 
-### Exposure loss
+### Exposure loss {#exposure-loss}
 
 To restrain under-/over-exposed regions, we use the _exposure control loss_. It measures the distance between the average intensity value of a local region and a preset well-exposedness level (set to `0.6`).
 
@@ -215,7 +216,7 @@ def exposure_loss(x, mean_val=0.6):
     return tf.reduce_mean(tf.square(mean - mean_val))
 ```
 
-### Illumination smoothness loss
+### Illumination smoothness loss {#illumination-smoothness-loss}
 
 To preserve the monotonicity relations between neighboring pixels, the _illumination smoothness loss_ is added to each curve parameter map.
 
@@ -234,7 +235,7 @@ def illumination_smoothness_loss(x):
     return 2 * (h_tv / count_h + w_tv / count_w) / batch_size
 ```
 
-### Spatial consistency loss
+### Spatial consistency loss {#spatial-consistency-loss}
 
 The _spatial consistency loss_ encourages spatial coherence of the enhanced image by preserving the contrast between neighboring regions across the input image and its enhanced version.
 
@@ -317,7 +318,7 @@ class SpatialConsistencyLoss(keras.losses.Loss):
         return d_left + d_right + d_up + d_down
 ```
 
-### Deep curve estimation model
+### Deep curve estimation model {#deep-curve-estimation-model}
 
 We implement the Zero-DCE framework as a Keras subclassed model.
 
@@ -456,7 +457,7 @@ class ZeroDCE(keras.Model):
         )
 ```
 
-## Training
+## Training {#training}
 
 ```python
 zero_dce_model = ZeroDCE()
@@ -704,7 +705,7 @@ Epoch 100/100
 
 ![png](/images/examples/vision/zero_dce/zero_dce_21_7.png)
 
-## Inference
+## Inference {#inference}
 
 ```python
 def plot_results(images, titles, figure_size=(12, 12)):
@@ -726,7 +727,7 @@ def infer(original_image):
     return output_image
 ```
 
-### Inference on test images
+### Inference on test images {#inference-on-test-images}
 
 We compare the test images from LOLDataset enhanced by MIRNet with images enhanced via the `PIL.ImageOps.autocontrast()` function.
 

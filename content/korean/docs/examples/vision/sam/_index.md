@@ -1,5 +1,6 @@
 ---
-title: Segment Anything Model with 🤗Transformers
+title: 🤗 트랜스포머가 있는 Segment Anything 모델
+linkTitle: 🤗 트랜스포머 Segment Anything 모델
 toc: true
 weight: 74
 type: docs
@@ -7,7 +8,7 @@ type: docs
 
 {{< keras/original checkedAt="2024-11-21" >}}
 
-**Authors:** [Merve Noyan](https://twitter.com/mervenoyann) & [Sayak Paul](https://twitter.com/RisingSayak)  
+**{{< t f_author >}}** [Merve Noyan](https://twitter.com/mervenoyann) & [Sayak Paul](https://twitter.com/RisingSayak)  
 **{{< t f_date_created >}}** 2023/07/11  
 **{{< t f_last_modified >}}** 2023/07/11  
 **{{< t f_description >}}** Fine-tuning Segment Anything Model using Keras and 🤗 Transformers.
@@ -19,7 +20,7 @@ type: docs
 {{< card link="https://github.com/keras-team/keras-io/blob/master/examples/vision/sam.py" title="GitHub" tag="GitHub">}}
 {{< /cards >}}
 
-## Introduction
+## Introduction {#introduction}
 
 Large language models (LLMs) make it easy for the end users to apply them to various applications through "prompting". For example if we wanted an LLM to predict the sentiment of the following sentence – "That movie was amazing, I thoroughly enjoyed it" – we'd do prompt the LLM with something like:
 
@@ -33,7 +34,7 @@ In the [Segment Anything Model](https://segment-anything.com/) (dubbed as SAM), 
 
 In this example, we'll learn how to use the SAM model from 🤗 Transformers for performing inference and fine-tuning.
 
-## Installation
+## Installation {#installation}
 
 ```python
 !!pip install -q git+https://github.com/huggingface/transformers
@@ -71,7 +72,7 @@ import os
 
 {{% /details %}}
 
-## SAM in a few words
+## SAM in a few words {#sam-in-a-few-words}
 
 SAM has the following components:
 
@@ -87,7 +88,7 @@ SAM was pre-trained to predict a _valid_ mask for any acceptable prompt. This re
 
 We highly encourage you to check out the [SAM paper](https://arxiv.org/abs/2304.02643) and the [blog post](https://ai.facebook.com/blog/segment-anything-foundation-model-image-segmentation/) to learn more about the additional details of SAM and the dataset used to pre-trained it.
 
-## Running inference with SAM
+## Running inference with SAM {#running-inference-with-sam}
 
 There are three checkpoints for SAM:
 
@@ -292,11 +293,11 @@ As can be noticed, all the masks are _valid_ masks for the point prompt we provi
 
 SAM is flexible enough to support different visual prompts and we encourage you to check out [this notebook](https://github.com/huggingface/notebooks/blob/main/examples/segment_anything.ipynb) to know more about them!
 
-## Fine-tuning
+## Fine-tuning {#fine-tuning}
 
 We'll use [this dataset](https://huggingface.co/datasets/nielsr/breast-cancer) consisting of breast cancer scans. In the medical imaging domain, being able to segment the cells containing malignancy is an important task.
 
-### Data preparation
+### Data preparation {#data-preparation}
 
 Let's first get the dataset.
 
@@ -354,7 +355,7 @@ tf.shape(ground_truth_seg)
 
 {{% /details %}}
 
-### Preparing [`tf.data.Dataset`](https://www.tensorflow.org/api_docs/python/tf/data/Dataset)
+### Preparing [`tf.data.Dataset`](https://www.tensorflow.org/api_docs/python/tf/data/Dataset) {#preparing-tfdatadatasethttpswwwtensorfloworgapi_docspythontfdatadataset}
 
 We now write a generator class to prepare the images and the segmentation masks using the `processor` utilized above. We will leverage this generator class to create a [`tf.data.Dataset`](https://www.tensorflow.org/api_docs/python/tf/data/Dataset) object for our training set by using `tf.data.Dataset.from_generator()`. Utilities of this class have been adapted from [this notebook](<https://github.com/NielsRogge/Transformers-Tutorials/blob/master/SAM/Fine_tune_SAM_(segment_anything)_on_a_custom_dataset.ipynb>).
 
@@ -470,7 +471,7 @@ ground_truth_mask (2, 256, 256) <dtype: 'int32'> True
 
 {{% /details %}}
 
-### Training
+### Training {#training}
 
 We will now write DICE loss. This implementation is based on [MONAI DICE loss](https://docs.monai.io/en/stable/losses.html#diceloss).
 
@@ -495,7 +496,7 @@ def dice_loss(y_true, y_pred, smooth=1e-5):
     return loss
 ```
 
-## Fine-tuning SAM
+## Fine-tuning SAM {#fine-tuning-sam}
 
 We will now fine-tune SAM's decoder part. We will freeze the vision encoder and prompt encoder layers.
 
@@ -583,7 +584,7 @@ Epoch 3: Loss = 0.07764029502868652
 
 {{% /details %}}
 
-### Serialize the model
+### Serialize the model {#serialize-the-model}
 
 We serialized the model and pushed for you below. `push_to_hub` method serializes model, generates a model card and pushes it to Hugging Face Hub, so that other people can load the model using `from_pretrained` method to infer or further fine-tune. We also need to push the same preprocessor in the repository. Find the model and the preprocessor [here](https://huggingface.co/merve/sam-finetuned).
 

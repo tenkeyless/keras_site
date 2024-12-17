@@ -1,5 +1,6 @@
 ---
-title: Image similarity estimation using a Siamese Network with a triplet loss
+title: triplet 손실이 있는 Siamese 네트워크를 사용한 이미지 유사도 추정
+linkTitle: Siamese 이미지 유사도 추정
 toc: true
 weight: 51
 type: docs
@@ -7,7 +8,7 @@ type: docs
 
 {{< keras/original checkedAt="2024-11-21" >}}
 
-**Authors:** [Hazem Essam](https://twitter.com/hazemessamm) and [Santiago L. Valdarrama](https://twitter.com/svpino)  
+**{{< t f_author >}}** [Hazem Essam](https://twitter.com/hazemessamm) and [Santiago L. Valdarrama](https://twitter.com/svpino)  
 **{{< t f_date_created >}}** 2021/03/25  
 **{{< t f_last_modified >}}** 2021/03/25  
 **{{< t f_description >}}** Training a Siamese Network to compare the similarity of images using a triplet loss function.
@@ -19,7 +20,7 @@ type: docs
 {{< card link="https://github.com/keras-team/keras-io/blob/master/examples/vision/siamese_network.py" title="GitHub" tag="GitHub">}}
 {{< /cards >}}
 
-## Introduction
+## Introduction {#introduction}
 
 A [Siamese Network](https://en.wikipedia.org/wiki/Siamese_neural_network) is a type of network architecture that contains two or more identical subnetworks used to generate feature vectors for each input and compare them.
 
@@ -33,7 +34,7 @@ For the network to learn, we use a triplet loss function. You can find an introd
 
 This example uses the [Totally Looks Like dataset](https://sites.google.com/view/totally-looks-like-dataset) by [Rosenfeld et al., 2018](https://arxiv.org/abs/1803.01485v3).
 
-## Setup
+## Setup {#setup}
 
 ```python
 import matplotlib.pyplot as plt
@@ -55,7 +56,7 @@ from keras.applications import resnet
 target_shape = (200, 200)
 ```
 
-## Load the dataset
+## Load the dataset {#load-the-dataset}
 
 We are going to load the _Totally Looks Like_ dataset and unzip it inside the `~/.keras` directory in the local environment.
 
@@ -95,7 +96,7 @@ To: /home/scottzhu/keras-io/scripts/tmp_9629511/right.zip
 
 {{% /details %}}
 
-## Preparing the data
+## Preparing the data {#preparing-the-data}
 
 We are going to use a [`tf.data`](https://www.tensorflow.org/api_docs/python/tf/data) pipeline to load the data and generate the triplets that we need to train the Siamese network.
 
@@ -198,7 +199,7 @@ visualize(*list(train_dataset.take(1).as_numpy_iterator())[0])
 
 ![png](/images/examples/vision/siamese_network/siamese_network_12_0.png)
 
-## Setting up the embedding generator model
+## Setting up the embedding generator model {#setting-up-the-embedding-generator-model}
 
 Our Siamese Network will generate embeddings for each of the images of the triplet. To do this, we will use a ResNet50 model pretrained on ImageNet and connect a few `Dense` layers to it so we can learn to separate these embeddings.
 
@@ -225,7 +226,7 @@ for layer in base_cnn.layers:
     layer.trainable = trainable
 ```
 
-## Setting up the Siamese Network model
+## Setting up the Siamese Network model {#setting-up-the-siamese-network-model}
 
 The Siamese network will receive each of the triplet images as an input, generate the embeddings, and output the distance between the anchor and the positive embedding, as well as the distance between the anchor and the negative embedding.
 
@@ -263,7 +264,7 @@ siamese_network = Model(
 )
 ```
 
-## Putting everything together
+## Putting everything together {#putting-everything-together}
 
 We now need to implement a model with custom training loop so we can compute the triplet loss using the three embeddings produced by the Siamese network.
 
@@ -336,7 +337,7 @@ class SiameseModel(Model):
         return [self.loss_tracker]
 ```
 
-## Training
+## Training {#training}
 
 We are now ready to train our model.
 
@@ -380,7 +381,7 @@ Epoch 10/10
 
 {{% /details %}}
 
-## Inspecting what the network has learned
+## Inspecting what the network has learned {#inspecting-what-the-network-has-learned}
 
 At this point, we can check how the network learned to separate the embeddings depending on whether they belong to similar images.
 
@@ -425,7 +426,7 @@ Negative similarity 0.9941576
 
 {{% /details %}}
 
-## Summary
+## Summary {#summary}
 
 1.  The [`tf.data`](https://www.tensorflow.org/api_docs/python/tf/data) API enables you to build efficient input pipelines for your model. It is particularly useful if you have a large dataset. You can learn more about [`tf.data`](https://www.tensorflow.org/api_docs/python/tf/data) pipelines in [tf.data: Build TensorFlow input pipelines](https://www.tensorflow.org/guide/data).
 2.  In this example, we use a pre-trained ResNet50 as part of the subnetwork that generates the feature embeddings. By using [transfer learning]({{< relref "/docs/guides/transfer_learning" >}}), we can significantly reduce the training time and size of the dataset.

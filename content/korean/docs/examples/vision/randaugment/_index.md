@@ -1,5 +1,6 @@
 ---
-title: RandAugment for Image Classification for Improved Robustness
+title: 견고성 향상을 위한 이미지 분류를 위한 RandAugment
+linkTitle: RandAugment 견고성 향상
 toc: true
 weight: 41
 type: docs
@@ -7,7 +8,7 @@ type: docs
 
 {{< keras/original checkedAt="2024-11-20" >}}
 
-**Authors:** [Sayak Paul](https://twitter.com/RisingSayak)[Sachin Prasad](https://github.com/sachinprasadhs)  
+**{{< t f_author >}}** [Sayak Paul](https://twitter.com/RisingSayak)[Sachin Prasad](https://github.com/sachinprasadhs)  
 **{{< t f_date_created >}}** 2021/03/13  
 **{{< t f_last_modified >}}** 2023/12/12  
 **{{< t f_description >}}** RandAugment for training an image classification model with improved robustness.
@@ -29,7 +30,7 @@ Recently, it has been a key component of works like [Noisy Student Training](htt
 pip install keras-cv
 ```
 
-## Imports & setup
+## Imports & setup {#imports-setup}
 
 ```python
 import os
@@ -48,7 +49,7 @@ tfds.disable_progress_bar()
 keras.utils.set_random_seed(42)
 ```
 
-## Load the CIFAR10 dataset
+## Load the CIFAR10 dataset {#load-the-cifar10-dataset}
 
 For this example, we will be using the [CIFAR10 dataset](https://www.cs.toronto.edu/~kriz/cifar.html).
 
@@ -67,7 +68,7 @@ Total test examples: 10000
 
 {{% /details %}}
 
-## Define hyperparameters
+## Define hyperparameters {#define-hyperparameters}
 
 ```python
 AUTO = tf.data.AUTOTUNE
@@ -76,7 +77,7 @@ EPOCHS = 1
 IMAGE_SIZE = 72
 ```
 
-## Initialize `RandAugment` object
+## Initialize `RandAugment` object {#initialize-randaugment-object}
 
 Now, we will initialize a `RandAugment` object from the `imgaug.augmenters` module with the parameters suggested by the RandAugment authors.
 
@@ -86,7 +87,7 @@ rand_augment = keras_cv.layers.RandAugment(
 )
 ```
 
-## Create TensorFlow `Dataset` objects
+## Create TensorFlow `Dataset` objects {#create-tensorflow-dataset-objects}
 
 ```python
 train_ds_rand = (
@@ -137,7 +138,7 @@ train_ds_simple = (
 )
 ```
 
-## Visualize the dataset augmented with RandAugment
+## Visualize the dataset augmented with RandAugment {#visualize-the-dataset-augmented-with-randaugment}
 
 ```python
 sample_images, _ = next(iter(train_ds_rand))
@@ -152,7 +153,7 @@ for i, image in enumerate(sample_images[:9]):
 
 You are encouraged to run the above code block a couple of times to see different variations.
 
-## Visualize the dataset augmented with `simple_aug`
+## Visualize the dataset augmented with `simple_aug` {#visualize-the-dataset-augmented-with-simple_aug}
 
 ```python
 sample_images, _ = next(iter(train_ds_simple))
@@ -165,7 +166,7 @@ for i, image in enumerate(sample_images[:9]):
 
 ![png](/images/examples/vision/randaugment/randaugment_18_0.png)
 
-## Define a model building utility function
+## Define a model building utility function {#define-a-model-building-utility-function}
 
 Now, we define a CNN model that is based on the [ResNet50V2 architecture](https://arxiv.org/abs/1603.05027). Also, notice that the network already has a rescaling layer inside it. This eliminates the need to do any separate preprocessing on our dataset and is specifically very useful for deployment purposes.
 
@@ -224,7 +225,7 @@ initial_model = get_training_model()
 initial_model.save_weights("initial.weights.h5")
 ```
 
-## Train model with RandAugment
+## Train model with RandAugment {#train-model-with-randaugment}
 
 ```python
 rand_aug_model = get_training_model()
@@ -247,7 +248,7 @@ Test accuracy: 28.18%
 
 {{% /details %}}
 
-## Train model with `simple_aug`
+## Train model with `simple_aug` {#train-model-with-simple_aug}
 
 ```python
 simple_aug_model = get_training_model()
@@ -270,7 +271,7 @@ Test accuracy: 47.89%
 
 {{% /details %}}
 
-## Load the CIFAR-10-C dataset and evaluate performance
+## Load the CIFAR-10-C dataset and evaluate performance {#load-the-cifar-10-c-dataset-and-evaluate-performance}
 
 ```python
 # Load and prepare the CIFAR-10-C dataset

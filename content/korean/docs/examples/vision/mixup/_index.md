@@ -1,5 +1,6 @@
 ---
-title: MixUp augmentation for image classification
+title: 이미지 분류를 위한 MixUp 보강
+linkTitle: MixUp 데이터 보강
 toc: true
 weight: 40
 type: docs
@@ -20,7 +21,7 @@ math: true
 {{< card link="https://github.com/keras-team/keras-io/blob/master/examples/vision/mixup.py" title="GitHub" tag="GitHub">}}
 {{< /cards >}}
 
-## Introduction
+## Introduction {#introduction}
 
 _mixup_ is a _domain-agnostic_ data augmentation technique proposed in [mixup: Beyond Empirical Risk Minimization](https://arxiv.org/abs/1710.09412) by Zhang et al. It's implemented with the following formulas:
 
@@ -49,7 +50,7 @@ The technique is quite systematically named. We are literally mixing up the feat
 
 mixup is specifically useful when we are not sure about selecting a set of augmentation transforms for a given dataset, medical imaging datasets, for example. mixup can be extended to a variety of data modalities such as computer vision, naturallanguage processing, speech, and so on.
 
-## Setup
+## Setup {#setup}
 
 ```python
 import os
@@ -68,7 +69,7 @@ from tensorflow import image as tf_image
 from tensorflow.random import gamma as tf_random_gamma
 ```
 
-## Prepare the dataset
+## Prepare the dataset {#prepare-the-dataset}
 
 In this example, we will be using the [FashionMNIST](https://github.com/zalandoresearch/fashion-mnist) dataset. But this same recipe can be used for other classification datasets as well.
 
@@ -84,7 +85,7 @@ x_test = np.reshape(x_test, (-1, 28, 28, 1))
 y_test = keras.ops.one_hot(y_test, 10)
 ```
 
-## Define hyperparameters
+## Define hyperparameters {#define-hyperparameters}
 
 ```python
 AUTO = tf_data.AUTOTUNE
@@ -92,7 +93,7 @@ BATCH_SIZE = 64
 EPOCHS = 10
 ```
 
-## Convert the data into TensorFlow `Dataset` objects
+## Convert the data into TensorFlow `Dataset` objects {#convert-the-data-into-tensorflow-dataset-objects}
 
 ```python
 # Put aside a few samples to create our validation set
@@ -119,7 +120,7 @@ val_ds = tf_data.Dataset.from_tensor_slices((x_val, y_val)).batch(BATCH_SIZE)
 test_ds = tf_data.Dataset.from_tensor_slices((x_test, y_test)).batch(BATCH_SIZE)
 ```
 
-## Define the mixup technique function
+## Define the mixup technique function {#define-the-mixup-technique-function}
 
 To perform the mixup routine, we create new virtual datasets using the training data from the same dataset, and apply a lambda value within the \[0, 1\] range sampled from a [Beta distribution](https://en.wikipedia.org/wiki/Beta_distribution) — such that, for example, `new_x = lambda * x1 + (1 - lambda) * x2` (where `x1` and `x2` are images) and the same equation is applied to the labels as well.
 
@@ -150,7 +151,7 @@ def mix_up(ds_one, ds_two, alpha=0.2):
 
 **Note** that here , we are combining two images to create a single one. Theoretically, we can combine as many we want but that comes at an increased computation cost. In certain cases, it may not help improve the performance as well.
 
-## Visualize the new augmented dataset
+## Visualize the new augmented dataset {#visualize-the-new-augmented-dataset}
 
 ```python
 # First create the new dataset using our `mix_up` utility
@@ -187,7 +188,7 @@ for i, (image, label) in enumerate(zip(sample_images[:9], sample_labels[:9])):
 
 ![png](/images/examples/vision/mixup/mixup_15_1.png)
 
-## Model building
+## Model building {#model-building}
 
 ```python
 def get_training_model():
@@ -214,7 +215,7 @@ initial_model = get_training_model()
 initial_model.save_weights("initial_weights.weights.h5")
 ```
 
-## 1. Train the model with the mixed up dataset
+## 1. Train the model with the mixed up dataset {#1-train-the-model-with-the-mixed-up-dataset}
 
 ```python
 model = get_training_model()
@@ -259,7 +260,7 @@ Test accuracy: 85.82%
 
 {{% /details %}}
 
-## 2. Train the model _without_ the mixed up dataset
+## 2. Train the model _without_ the mixed up dataset {#2-train-the-model-_without_-the-mixed-up-dataset}
 
 ```python
 model = get_training_model()
@@ -302,7 +303,7 @@ Test accuracy: 86.92%
 
 Readers are encouraged to try out mixup on different datasets from different domains and experiment with the lambda parameter. You are strongly advised to check out the [original paper](https://arxiv.org/abs/1710.09412) as well - the authors present several ablation studies on mixup showing how it can improve generalization, as well as show their results of combining more than two images to create a single one.
 
-## Notes
+## Notes {#notes}
 
 - With mixup, you can create synthetic examples — especially when you lack a large dataset - without incurring high computational costs.
 - [Label smoothing](https://www.pyimagesearch.com/2019/12/30/label-smoothing-with-keras-tensorflow-and-deep-learning/) and mixup usually do not work well together because label smoothing already modifies the hard labels by some factor.

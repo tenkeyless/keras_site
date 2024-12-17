@@ -7,7 +7,7 @@ type: docs
 
 {{< keras/original checkedAt="2024-11-21" >}}
 
-**Authors:** [Matthew Carrigan](https://twitter.com/carrigmat), [Sayak Paul](https://twitter.com/RisingSayak)  
+**{{< t f_author >}}** [Matthew Carrigan](https://twitter.com/carrigmat), [Sayak Paul](https://twitter.com/RisingSayak)  
 **{{< t f_date_created >}}** 2023/05/21  
 **{{< t f_last_modified >}}** 2023/05/21  
 **{{< t f_description >}}** Train a masked language model on TPUs using 🤗 Transformers.

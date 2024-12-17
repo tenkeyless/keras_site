@@ -1,5 +1,6 @@
 ---
-title: Keypoint Detection with Transfer Learning
+title: 전이 학습을 통한 키포인트 감지
+linkTitle: 전이 학습 키포인트 감지
 toc: true
 weight: 25
 type: docs
@@ -27,7 +28,7 @@ In this example, we will build a keypoint detector using the [StanfordExtra data
 !pip install -q -U imgaug
 ```
 
-## Data collection
+## Data collection {#data-collection}
 
 The StanfordExtra dataset contains 12,000 images of dogs together with keypoints and segmentation maps. It is developed from the [Stanford dogs dataset](http://vision.stanford.edu/aditya86/ImageNetDogs/). It can be downloaded with the command below:
 
@@ -46,7 +47,7 @@ After the files are downloaded, we can extract the archives.
 !unzip -qq ~/stanfordextra_v12.zip
 ```
 
-## Imports
+## Imports {#imports}
 
 ```python
 from keras import layers
@@ -65,7 +66,7 @@ import json
 import os
 ```
 
-## Define hyperparameters
+## Define hyperparameters {#define-hyperparameters}
 
 ```python
 IMG_SIZE = 224
@@ -74,7 +75,7 @@ EPOCHS = 5
 NUM_KEYPOINTS = 24 * 2  # 24 pairs each having x and y coordinates
 ```
 
-## Load data
+## Load data {#load-data}
 
 The authors also provide a metadata file that specifies additional information about the keypoints, like color information, animal pose name, etc. We will load this file in a `pandas` dataframe to extract information for visualization purposes.
 
@@ -168,7 +169,7 @@ def get_dog(name):
     return data
 ```
 
-## Visualize data
+## Visualize data {#visualize-data}
 
 Now, we write a utility function to visualize the images and their keypoints.
 
@@ -228,7 +229,7 @@ visualize_keypoints(images, keypoints)
 
 The plots show that we have images of non-uniform sizes, which is expected in most real-world scenarios. However, if we resize these images to have a uniform shape (for instance (224 x 224)) their ground-truth annotations will also be affected. The same applies if we apply any geometric transformation (horizontal flip, for e.g.) to an image. Fortunately, `imgaug` provides utilities that can handle this issue. In the next section, we will write a data generator inheriting the [`keras.utils.Sequence`]({{< relref "/docs/api/utils/python_utils/#sequence-class" >}}) class that applies data augmentation on batches of data using `imgaug`.
 
-## Prepare data generator
+## Prepare data generator {#prepare-data-generator}
 
 ```python
 class KeyPointsDataset(keras.utils.PyDataset):
@@ -296,7 +297,7 @@ class KeyPointsDataset(keras.utils.PyDataset):
 
 To know more about how to operate with keypoints in `imgaug` check out [this document](https://imgaug.readthedocs.io/en/latest/source/examples_keypoints.html).
 
-## Define augmentation transforms
+## Define augmentation transforms {#define-augmentation-transforms}
 
 ```python
 train_aug = iaa.Sequential(
@@ -312,7 +313,7 @@ train_aug = iaa.Sequential(
 test_aug = iaa.Sequential([iaa.Resize(IMG_SIZE, interpolation="linear")])
 ```
 
-## Create training and validation splits
+## Create training and validation splits {#create-training-and-validation-splits}
 
 ```python
 np.random.shuffle(samples)
@@ -322,7 +323,7 @@ train_keys, validation_keys = (
 )
 ```
 
-## Data generator investigation
+## Data generator investigation {#data-generator-investigation}
 
 ```python
 train_dataset = KeyPointsDataset(
@@ -354,7 +355,7 @@ Total batches in validation set: 29
 
 ![png](/images/examples/vision/keypoint_detection/keypoint_detection_28_1.png)
 
-## Model building
+## Model building {#model-building}
 
 The [Stanford dogs dataset](http://vision.stanford.edu/aditya86/ImageNetDogs/) (on which the StanfordExtra dataset is based) was built using the [ImageNet-1k dataset](http://image-net.org/). So, it is likely that the models pretrained on the ImageNet-1k dataset would be useful for this task. We will use a MobileNetV2 pre-trained on this dataset as a backbone to extract meaningful features from the images and then pass those to a custom regression head for predicting coordinates.
 
@@ -426,7 +427,7 @@ Model: "keypoint_detector"
 
 Notice the output shape of the network: `(None, 1, 1, 48)`. This is why we have reshaped the coordinates as: `batch_keypoints[i, :] = np.array(kp_temp).reshape(1, 1, 24 * 2)`.
 
-## Model compilation and training
+## Model compilation and training {#model-compilation-and-training}
 
 For this example, we will train the network only for five epochs.
 
@@ -455,7 +456,7 @@ Epoch 5/5
 
 {{% /details %}}
 
-## Make predictions and visualize them
+## Make predictions and visualize them {#make-predictions-and-visualize-them}
 
 ```python
 sample_val_images, sample_val_keypoints = next(iter(validation_dataset))
@@ -484,7 +485,7 @@ visualize_keypoints(sample_val_images, predictions)
 
 Predictions will likely improve with more training.
 
-## Going further
+## Going further {#going-further}
 
 - Try using other augmentation transforms from `imgaug` to investigate how that changes the results.
 - Here, we transferred the features from the pre-trained network linearly that is we did not [fine-tune]({{< relref "/docs/guides/transfer_learning" >}}) it. You are encouraged to fine-tune it on this task and see if that improves the performance. You can also try different architectures and see how they affect the final performance.

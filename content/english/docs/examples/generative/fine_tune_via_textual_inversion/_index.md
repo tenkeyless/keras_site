@@ -7,7 +7,7 @@ type: docs
 
 {{< keras/original checkedAt="2024-11-22" >}}
 
-**Authors:** Ian Stenbit, [lukewood](https://lukewood.xyz)  
+**{{< t f_author >}}** Ian Stenbit, [lukewood](https://lukewood.xyz)  
 **{{< t f_date_created >}}** 2022/12/09  
 **{{< t f_last_modified >}}** 2022/12/09  
 **{{< t f_description >}}** Learning new visual concepts with KerasCV's StableDiffusion implementation.
