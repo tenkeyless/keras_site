@@ -1,5 +1,6 @@
 ---
-title: Image classification with modern MLP models
+title: 최신 MLP 모델을 사용한 이미지 분류
+linkTitle: 최신 MLP 모델 이미지 분류
 toc: true
 weight: 6
 type: docs
@@ -10,7 +11,7 @@ type: docs
 **{{< t f_author >}}** [Khalid Salama](https://www.linkedin.com/in/khalid-salama-24403144/)  
 **{{< t f_date_created >}}** 2021/05/30  
 **{{< t f_last_modified >}}** 2023/08/03  
-**{{< t f_description >}}** Implementing the MLP-Mixer, FNet, and gMLP models for CIFAR-100 image classification.
+**{{< t f_description >}}** CIFAR-100 이미지 분류를 위한 MLP-Mixer, FNet 및 gMLP 모델 구현하기.
 
 {{< keras/version v=3 >}}
 
@@ -19,17 +20,19 @@ type: docs
 {{< card link="https://github.com/keras-team/keras-io/blob/master/examples/vision/mlp_image_classification.py" title="GitHub" tag="GitHub">}}
 {{< /cards >}}
 
-## Introduction
+## 소개 {#introduction}
 
-This example implements three modern attention-free, multi-layer perceptron (MLP) based models for image classification, demonstrated on the CIFAR-100 dataset:
+이 예는 이미지 분류를 위한 세 가지 최신 어텐션 프리, 다층 퍼셉트론(MLP) 기반 모델을 구현하며, CIFAR-100 데이터 세트에 대해 시연합니다:
 
-1.  The [MLP-Mixer](https://arxiv.org/abs/2105.01601) model, by Ilya Tolstikhin et al., based on two types of MLPs.
-2.  The [FNet](https://arxiv.org/abs/2105.03824) model, by James Lee-Thorp et al., based on unparameterized Fourier Transform.
-3.  The [gMLP](https://arxiv.org/abs/2105.08050) model, by Hanxiao Liu et al., based on MLP with gating.
+1.  [MLP-Mixer](https://arxiv.org/abs/2105.01601) 모델 - Ilya Tolstikhin et al.가 만든, 두 가지 유형의 MLP를 기반으로 하는 모델
+2.  [FNet](https://arxiv.org/abs/2105.03824) 모델 - James Lee-Thorp et al.가 만든, 파라미터화되지 않은 푸리에 변환을 기반으로 하는 모델
+3.  [gMLP](https://arxiv.org/abs/2105.08050) 모델 - Hanxiao Liu et al. 등이 만든, 게이팅이 있는 MLP를 기반으로 하는 모델
 
-The purpose of the example is not to compare between these models, as they might perform differently on different datasets with well-tuned hyperparameters. Rather, it is to show simple implementations of their main building blocks.
+이 예제의 목적은 하이퍼파라미터가 잘 조정된 데이터 세트에 따라 성능이 달라질 수 있으므로,
+이 모델들을 비교하는 것이 아닙니다.
+그보다는, 주요 빌딩 블록의 간단한 구현을 보여주기 위한 것입니다.
 
-## Setup
+## 셋업 {#setup}
 
 ```python
 import numpy as np
@@ -37,7 +40,7 @@ import keras
 from keras import layers
 ```
 
-## Prepare the data
+## 데이터 준비 {#prepare-the-data}
 
 ```python
 num_classes = 100
@@ -58,18 +61,18 @@ x_test shape: (10000, 32, 32, 3) - y_test shape: (10000, 1)
 
 {{% /details %}}
 
-## Configure the hyperparameters
+## 하이퍼파라미터 구성 {#configure-the-hyperparameters}
 
 ```python
 weight_decay = 0.0001
 batch_size = 128
-num_epochs = 1  # Recommended num_epochs = 50
+num_epochs = 1  # 추천 num_epochs = 50
 dropout_rate = 0.2
-image_size = 64  # We'll resize input images to this size.
-patch_size = 8  # Size of the patches to be extracted from the input images.
-num_patches = (image_size // patch_size) ** 2  # Size of the data array.
-embedding_dim = 256  # Number of hidden units.
-num_blocks = 4  # Number of blocks.
+image_size = 64  # 입력 이미지의 크기를 이 크기로 조정합니다.
+patch_size = 8  # 입력 이미지에서 추출할 패치의 크기입니다.
+num_patches = (image_size // patch_size) ** 2  # 데이터 배열의 크기입니다.
+embedding_dim = 256  # 숨겨진 유닛 수입니다.
+num_blocks = 4  # 블록 수입니다.
 
 print(f"Image size: {image_size} X {image_size} = {image_size ** 2}")
 print(f"Patch size: {patch_size} X {patch_size} = {patch_size ** 2} ")
@@ -88,45 +91,45 @@ Elements per patch (3 channels): 192
 
 {{% /details %}}
 
-## Build a classification model
+## 분류 모델 빌드 {#build-a-classification-model}
 
-We implement a method that builds a classifier given the processing blocks.
+주어진 처리 블록에 대해 분류기를 빌드하는 메서드를 구현합니다.
 
 ```python
 def build_classifier(blocks, positional_encoding=False):
     inputs = layers.Input(shape=input_shape)
-    # Augment data.
+    # 데이터 보강.
     augmented = data_augmentation(inputs)
-    # Create patches.
+    # 패치 생성.
     patches = Patches(patch_size)(augmented)
-    # Encode patches to generate a [batch_size, num_patches, embedding_dim] tensor.
+    # 패치를 인코딩하여 [batch_size, num_patches, embedding_dim] 텐서를 생성.
     x = layers.Dense(units=embedding_dim)(patches)
     if positional_encoding:
         x = x + PositionEmbedding(sequence_length=num_patches)(x)
-    # Process x using the module blocks.
+    # 모듈 블록을 사용하여 x를 처리.
     x = blocks(x)
-    # Apply global average pooling to generate a [batch_size, embedding_dim] representation tensor.
+    # 글로벌 평균 풀링을 적용하여, [batch_size, embedding_dim] 표현 텐서를 생성.
     representation = layers.GlobalAveragePooling1D()(x)
-    # Apply dropout.
+    # 드롭아웃 적용.
     representation = layers.Dropout(rate=dropout_rate)(representation)
-    # Compute logits outputs.
+    # 로그 출력 계산.
     logits = layers.Dense(num_classes)(representation)
-    # Create the Keras model.
+    # Keras 모델 생성.
     return keras.Model(inputs=inputs, outputs=logits)
 ```
 
-## Define an experiment
+## 실험 정의하기 {#define-an-experiment}
 
-We implement a utility function to compile, train, and evaluate a given model.
+주어진 모델을 컴파일, 트레이닝 및 평가하는 유틸리티 함수를 구현합니다.
 
 ```python
 def run_experiment(model):
-    # Create Adam optimizer with weight decay.
+    # 가중치 감쇠가 있는 Adam 옵티마이저를 생성.
     optimizer = keras.optimizers.AdamW(
         learning_rate=learning_rate,
         weight_decay=weight_decay,
     )
-    # Compile the model.
+    # 모델 컴파일.
     model.compile(
         optimizer=optimizer,
         loss=keras.losses.SparseCategoricalCrossentropy(from_logits=True),
@@ -135,15 +138,15 @@ def run_experiment(model):
             keras.metrics.SparseTopKCategoricalAccuracy(5, name="top5-acc"),
         ],
     )
-    # Create a learning rate scheduler callback.
+    # 학습률 스케줄러 콜백 생성.
     reduce_lr = keras.callbacks.ReduceLROnPlateau(
         monitor="val_loss", factor=0.5, patience=5
     )
-    # Create an early stopping callback.
+    # 조기 중지 콜백 생성.
     early_stopping = keras.callbacks.EarlyStopping(
         monitor="val_loss", patience=10, restore_best_weights=True
     )
-    # Fit the model.
+    # 모델 Fit.
     history = model.fit(
         x=x_train,
         y=y_train,
@@ -158,11 +161,11 @@ def run_experiment(model):
     print(f"Test accuracy: {round(accuracy * 100, 2)}%")
     print(f"Test top 5 accuracy: {round(top_5_accuracy * 100, 2)}%")
 
-    # Return history to plot learning curves.
+    # 학습 곡선을 그리기 위해 히스토리를 반환.
     return history
 ```
 
-## Use data augmentation
+## 데이터 보강 사용 {#use-data-augmentation}
 
 ```python
 data_augmentation = keras.Sequential(
@@ -174,11 +177,11 @@ data_augmentation = keras.Sequential(
     ],
     name="data_augmentation",
 )
-# Compute the mean and the variance of the training data for normalization.
+# 정규화를 위해 트레이닝 데이터의 평균과 분산을 계산.
 data_augmentation.layers[0].adapt(x_train)
 ```
 
-## Implement patch extraction as a layer
+## 패치 추출을 레이어로서 구현하기 {#implement-patch-extraction-as-a-layer}
 
 ```python
 class Patches(layers.Layer):
@@ -195,7 +198,7 @@ class Patches(layers.Layer):
         return out
 ```
 
-## Implement position embedding as a layer
+## 위치 임베딩을 레이어로서 구현하기 {#implement-position-embedding-as-a-layer}
 
 ```python
 class PositionEmbedding(keras.layers.Layer):
@@ -236,8 +239,8 @@ class PositionEmbedding(keras.layers.Layer):
         shape = keras.ops.shape(inputs)
         feature_length = shape[-1]
         sequence_length = shape[-2]
-        # trim to match the length of the input sequence, which might be less
-        # than the sequence_length of the layer.
+        # trim을 사용하여 입력 시퀀스의 길이와 일치하도록 길이를 조정할 수 있으며,
+        # 이는 레이어의 sequence_length보다 작을 수도 있습니다.
         position_embeddings = keras.ops.convert_to_tensor(self.position_embeddings)
         position_embeddings = keras.ops.slice(
             position_embeddings,
@@ -250,16 +253,18 @@ class PositionEmbedding(keras.layers.Layer):
         return input_shape
 ```
 
-## The MLP-Mixer model
+## MLP-Mixer 모델 {#the-mlp-mixer-model}
 
-The MLP-Mixer is an architecture based exclusively on multi-layer perceptrons (MLPs), that contains two types of MLP layers:
+MLP-Mixer는 MLP(다층 퍼셉트론)에만 기반한 아키텍처로, 두 가지 유형의 MLP 레이어가 포함되어 있습니다:
 
-1.  One applied independently to image patches, which mixes the per-location features.
-2.  The other applied across patches (along channels), which mixes spatial information.
+1.  하나는 이미지 패치에 독립적으로 적용되어, 위치별 특성을 혼합(mix)합니다.
+2.  다른 하나는 패치에 걸쳐(채널을 따라) 적용되어, 공간 정보를 혼합(mix)합니다.
 
-This is similar to a [depthwise separable convolution based model](https://arxiv.org/abs/1610.02357) such as the Xception model, but with two chained dense transforms, no max pooling, and layer normalization instead of batch normalization.
+이는 Xception 모델과 같은
+[깊이 분리형 컨볼루션 기반 모델](https://arxiv.org/abs/1610.02357)과 유사하지만,
+두 개의 체인된 Dense 변환, 최대 풀링 없음, 배치 정규화 대신 레이어 정규화라는 차이점이 있습니다.
 
-### Implement the MLP-Mixer module
+### MLP-Mixer 모듈 구현하기 {#implement-the-mlp-mixer-module}
 
 ```python
 class MLPMixerLayer(layers.Layer):
@@ -286,28 +291,28 @@ class MLPMixerLayer(layers.Layer):
         return super().build(input_shape)
 
     def call(self, inputs):
-        # Apply layer normalization.
+        # 레이어 정규화 적용.
         x = self.normalize(inputs)
-        # Transpose inputs from [num_batches, num_patches, hidden_units] to [num_batches, hidden_units, num_patches].
+        # 입력을 [num_batches, num_patches, hidden_units]에서 [num_batches, hidden_units, num_patches]로 Transpose.
         x_channels = keras.ops.transpose(x, axes=(0, 2, 1))
-        # Apply mlp1 on each channel independently.
+        # 각 채널에 mlp1을 독립적으로 적용.
         mlp1_outputs = self.mlp1(x_channels)
-        # Transpose mlp1_outputs from [num_batches, hidden_dim, num_patches] to [num_batches, num_patches, hidden_units].
+        # mlp1_outputs을 [num_batches, hidden_dim, num_patches]에서 [num_batches, num_patches, hidden_units]로 Transpose.
         mlp1_outputs = keras.ops.transpose(mlp1_outputs, axes=(0, 2, 1))
-        # Add skip connection.
+        # 스킵 연결 추가.
         x = mlp1_outputs + inputs
-        # Apply layer normalization.
+        # 레이어 정규화 적용.
         x_patches = self.normalize(x)
-        # Apply mlp2 on each patch independtenly.
+        # 각 패치에 mlp2를 독립적으로 적용.
         mlp2_outputs = self.mlp2(x_patches)
-        # Add skip connection.
+        # 스킵 연결 추가.
         x = x + mlp2_outputs
         return x
 ```
 
-### Build, train, and evaluate the MLP-Mixer model
+### MLP-Mixer 모델 빌드, 트레이닝 및 평가하기 {#build-train-and-evaluate-the-mlp-mixer-model}
 
-Note that training the model with the current settings on a V100 GPUs takes around 8 seconds per epoch.
+V100 GPU에서 현재 설정으로 모델을 트레이닝하는 데는 에포크 당 약 8초가 소요됩니다.
 
 ```python
 mlpmixer_blocks = keras.Sequential(
@@ -327,18 +332,26 @@ Test top 5 accuracy: 30.8%
 
 {{% /details %}}
 
-The MLP-Mixer model tends to have much less number of parameters compared to convolutional and transformer-based models, which leads to less training and serving computational cost.
+MLP-Mixer 모델은 컨볼루션 및 트랜스포머 기반 모델에 비해 파라미터 수가 훨씬 적기 때문에,
+트레이닝 및 서버 계산 비용이 적게 듭니다.
 
-As mentioned in the [MLP-Mixer](https://arxiv.org/abs/2105.01601) paper, when pre-trained on large datasets, or with modern regularization schemes, the MLP-Mixer attains competitive scores to state-of-the-art models. You can obtain better results by increasing the embedding dimensions, increasing the number of mixer blocks, and training the model for longer. You may also try to increase the size of the input images and use different patch sizes.
+[MLP-Mixer](https://arxiv.org/abs/2105.01601) 논문에서 언급했듯이,
+대규모 데이터 세트에 대해 사전 트레이닝할 때 또는 최신 정규화 체계를 사용할 때,
+MLP-Mixer는 최신 모델과 경쟁할 수 있는 점수를 얻을 수 있습니다.
+임베딩 차원을 늘리고, 믹서 블록 수를 늘리고,
+모델을 더 오래 트레이닝하면 더 나은 결과를 얻을 수 있습니다.
+입력 이미지의 크기를 늘리고 다른 패치 크기를 사용해 볼 수도 있습니다.
 
-## The FNet model
+## FNet 모델 {#the-fnet-model}
 
-The FNet uses a similar block to the Transformer block. However, FNet replaces the self-attention layer in the Transformer block with a parameter-free 2D Fourier transformation layer:
+FNet은 트랜스포머 블록과 유사한 블록을 사용합니다.
+하지만, FNet은 트랜스포머 블록의 셀프 어텐션 레이어를
+파라미터가 없는 2D 푸리에 변환 레이어로 대체합니다:
 
-1.  One 1D Fourier Transform is applied along the patches.
-2.  One 1D Fourier Transform is applied along the channels.
+1.  패치를 따라 하나의 1D 푸리에 변환이 적용됩니다.
+2.  채널을 따라 하나의 1D 푸리에 변환이 적용됩니다.
 
-### Implement the FNet module
+### FNet 모듈 구현 {#implement-the-fnet-module}
 
 ```python
 class FNetLayer(layers.Layer):
@@ -357,25 +370,25 @@ class FNetLayer(layers.Layer):
         self.normalize2 = layers.LayerNormalization(epsilon=1e-6)
 
     def call(self, inputs):
-        # Apply fourier transformations.
+        # 푸리에 변환 적용.
         real_part = inputs
         im_part = keras.ops.zeros_like(inputs)
         x = keras.ops.fft2((real_part, im_part))[0]
-        # Add skip connection.
+        # 스킵 연결 추가.
         x = x + inputs
-        # Apply layer normalization.
+        # 레이어 정규화 적용.
         x = self.normalize1(x)
-        # Apply Feedfowrad network.
+        # Feedfowrad 네트워크 적용.
         x_ffn = self.ffn(x)
-        # Add skip connection.
+        # 스킵 연결 추가.
         x = x + x_ffn
-        # Apply layer normalization.
+        # 레이어 정규화 적용.
         return self.normalize2(x)
 ```
 
-### Build, train, and evaluate the FNet model
+### FNet 모델 빌드, 트레이닝 및 평가하기 {#build-train-and-evaluate-the-fnet-model}
 
-Note that training the model with the current settings on a V100 GPUs takes around 8 seconds per epoch.
+V100 GPU에서 현재 설정으로 모델을 트레이닝하는 데는 에포크 당 약 8초가 소요됩니다.
 
 ```python
 fnet_blocks = keras.Sequential(
@@ -395,16 +408,23 @@ Test top 5 accuracy: 36.15%
 
 {{% /details %}}
 
-As shown in the [FNet](https://arxiv.org/abs/2105.03824) paper, better results can be achieved by increasing the embedding dimensions, increasing the number of FNet blocks, and training the model for longer. You may also try to increase the size of the input images and use different patch sizes. The FNet scales very efficiently to long inputs, runs much faster than attention-based Transformer models, and produces competitive accuracy results.
+[FNet](https://arxiv.org/abs/2105.03824) 논문에서 볼 수 있듯이,
+임베딩 차원을 늘리고, FNet 블록 수를 늘리고,
+모델을 더 오래 트레이닝하면 더 나은 결과를 얻을 수 있습니다.
+또한 입력 이미지의 크기를 늘리고 다른 패치 크기를 사용해 볼 수도 있습니다.
+FNet은 긴 입력에 매우 효율적으로 확장되고,
+어텐션 기반 Transformer 모델보다 훨씬 빠르게 실행되며,
+경쟁력 있는 정확도 결과를 생성합니다.
 
-## The gMLP model
+## gMLP 모델 {#the-gmlp-model}
 
-The gMLP is a MLP architecture that features a Spatial Gating Unit (SGU). The SGU enables cross-patch interactions across the spatial (channel) dimension, by:
+gMLP는 공간 게이팅 유닛(SGU, Spatial Gating Unit)이 특징인 MLP 아키텍처입니다.
+SGU는 다음과 같이 공간(채널) 차원에 걸쳐 교차 패치 상호 작용을 가능하게 합니다:
 
-1.  Transforming the input spatially by applying linear projection across patches (along channels).
-2.  Applying element-wise multiplication of the input and its spatial transformation.
+1.  패치에 걸쳐(채널을 따라) 선형 투영을 적용하여, 입력을 공간적으로 변환합니다.
+2.  입력의 요소별 곱셈과 공간 변환(spatial transformation)을 적용합니다.
 
-### Implement the gMLP module
+### gMLP 모듈 구현 {#implement-the-gmlp-module}
 
 ```python
 class gMLPLayer(layers.Layer):
@@ -428,34 +448,34 @@ class gMLPLayer(layers.Layer):
         self.normalize2 = layers.LayerNormalization(epsilon=1e-6)
 
     def spatial_gating_unit(self, x):
-        # Split x along the channel dimensions.
-        # Tensors u and v will in the shape of [batch_size, num_patchs, embedding_dim].
+        # 채널 차원을 따라 x를 분할.
+        # 텐서 u와 v는 [batch_size, num_patchs, embedding_dim] 모양이 됩니다.
         u, v = keras.ops.split(x, indices_or_sections=2, axis=2)
-        # Apply layer normalization.
+        # 레이어 정규화 적용.
         v = self.normalize2(v)
-        # Apply spatial projection.
+        # spatial 프로젝션 적용.
         v_channels = keras.ops.transpose(v, axes=(0, 2, 1))
         v_projected = self.spatial_projection(v_channels)
         v_projected = keras.ops.transpose(v_projected, axes=(0, 2, 1))
-        # Apply element-wise multiplication.
+        # 요소 별 곱 적용.
         return u * v_projected
 
     def call(self, inputs):
-        # Apply layer normalization.
+        # 레이어 정규화 적용.
         x = self.normalize1(inputs)
-        # Apply the first channel projection. x_projected shape: [batch_size, num_patches, embedding_dim * 2].
+        # 첫 번째 채널 프로젝션 적용. x_projected 모양: [batch_size, num_patches, embedding_dim * 2].
         x_projected = self.channel_projection1(x)
-        # Apply the spatial gating unit. x_spatial shape: [batch_size, num_patches, embedding_dim].
+        # 공간 게이팅 유닛(spatial gating unit)을 적용. x_spatial 모양: [batch_size, num_patches, embedding_dim].
         x_spatial = self.spatial_gating_unit(x_projected)
-        # Apply the second channel projection. x_projected shape: [batch_size, num_patches, embedding_dim].
+        # 두 번째 채널 프로젝션 적용. x_projected 모양: [batch_size, num_patches, embedding_dim].
         x_projected = self.channel_projection2(x_spatial)
-        # Add skip connection.
+        # 스킵 연결 추가.
         return x + x_projected
 ```
 
-### Build, train, and evaluate the gMLP model
+### gMLP 모델 빌드, 트레이닝 및 평가하기 {#build-train-and-evaluate-the-gmlp-model}
 
-Note that training the model with the current settings on a V100 GPUs takes around 9 seconds per epoch.
+V100 GPU에서 현재 설정으로 모델을 트레이닝하는 데는 에포크 당 약 9초가 소요됩니다.
 
 ```python
 gmlp_blocks = keras.Sequential(
@@ -475,4 +495,9 @@ Test top 5 accuracy: 42.57%
 
 {{% /details %}}
 
-As shown in the [gMLP](https://arxiv.org/abs/2105.08050) paper, better results can be achieved by increasing the embedding dimensions, increasing the number of gMLP blocks, and training the model for longer. You may also try to increase the size of the input images and use different patch sizes. Note that, the paper used advanced regularization strategies, such as MixUp and CutMix, as well as AutoAugment.
+[gMLP](https://arxiv.org/abs/2105.08050) 논문에서 볼 수 있듯이,
+임베딩 크기를 늘리고, gMLP 블록의 수를 늘리고,
+모델을 더 오래 트레이닝하면 더 나은 결과를 얻을 수 있습니다.
+또한 입력 이미지의 크기를 늘리고 다른 패치 크기를 사용해 볼 수도 있습니다.
+이 논문에서는 AutoAugment뿐만 아니라,
+MixUp 및 CutMix와 같은 고급 정규화 전략을 사용했다는 점에 유의하세요.

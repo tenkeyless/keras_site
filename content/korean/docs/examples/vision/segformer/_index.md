@@ -1,5 +1,6 @@
 ---
-title: Semantic segmentation with SegFormer and Hugging Face Transformers
+title: SegFormer와 Hugging Face 트랜스포머를 사용한 시맨틱 세그멘테이션
+linkTitle: SegFormer, Hugging Face 트랜스포머의 시맨틱 세그멘테이션
 toc: true
 weight: 75
 type: docs

@@ -1,5 +1,6 @@
 ---
-title: Natural language image search with a Dual Encoder
+title: 듀얼 인코더를 이용한 자연어 이미지 검색
+linkTitle: 듀얼 인코더 자연어 이미지 검색
 toc: true
 weight: 43
 type: docs
@@ -19,7 +20,7 @@ type: docs
 {{< card link="https://github.com/keras-team/keras-io/blob/master/examples/vision/nl_image_search.py" title="GitHub" tag="GitHub">}}
 {{< /cards >}}
 
-## Introduction
+## Introduction {#introduction}
 
 The example demonstrates how to build a dual encoder (also known as two-tower) neural network model to search for images using natural language. The model is inspired by the [CLIP](https://openai.com/blog/clip/) approach, introduced by Alec Radford et al. The idea is to train a vision encoder and a text encoder jointly to project the representation of images and their captions into the same embedding space, such that the caption embeddings are located near the embeddings of the images they describe.
 
@@ -29,7 +30,7 @@ This example requires TensorFlow 2.4 or higher. In addition, [TensorFlow Hub](ht
 pip install -q -U tensorflow-hub tensorflow-text tensorflow-addons
 ```
 
-## Setup
+## Setup {#setup}
 
 ```python
 import os
@@ -50,7 +51,7 @@ from tqdm import tqdm
 tf.get_logger().setLevel("ERROR")
 ```
 
-## Prepare the data
+## Prepare the data {#prepare-the-data}
 
 We will use the [MS-COCO](https://cocodataset.org/#home) dataset to train our dual encoder model. MS-COCO contains over 82,000 images, each of which has at least 5 different caption annotations. The dataset is usually used for [image captioning](https://www.tensorflow.org/tutorials/text/image_captioning) tasks, but we can repurpose the image-caption pairs to train our dual encoder model for image search.
 
@@ -113,7 +114,7 @@ Number of images: 82783
 
 {{% /details %}}
 
-### Process and save the data to TFRecord files
+### Process and save the data to TFRecord files {#process-and-save-the-data-to-tfrecord-files}
 
 You can change the `sample_size` parameter to control many image-caption pairs will be used for training the dual encoder model. In this example we set `train_size` to 30,000 images, which is about 35% of the dataset. We use 2 captions for each image, thus producing 60,000 image-caption pairs. The size of the training set affects the quality of the produced encoders, but more examples would lead to longer training time.
 
@@ -195,7 +196,7 @@ print(f"{valid_example_count} evaluation examples were written to tfrecord files
 
 {{% /details %}}
 
-### Create [`tf.data.Dataset`](https://www.tensorflow.org/api_docs/python/tf/data/Dataset) for training and evaluation
+### Create [`tf.data.Dataset`](https://www.tensorflow.org/api_docs/python/tf/data/Dataset) for training and evaluation {#create-tfdatadatasethttpswwwtensorfloworgapi_docspythontfdatadataset-for-training-and-evaluation}
 
 ```python
 feature_description = {
@@ -228,7 +229,7 @@ def get_dataset(file_pattern, batch_size):
     )
 ```
 
-## Implement the projection head
+## Implement the projection head {#implement-the-projection-head}
 
 The projection head is used to transform the image and the text embeddings to the same embedding space with the same dimensionality.
 
@@ -246,7 +247,7 @@ def project_embeddings(
     return projected_embeddings
 ```
 
-## Implement the vision encoder
+## Implement the vision encoder {#implement-the-vision-encoder}
 
 In this example, we use [Xception]({{< relref "/docs/api/applications/xception" >}}) from [Keras Applications]({{< relref "/docs/api/applications" >}}) as the base for the vision encoder.
 
@@ -275,7 +276,7 @@ def create_vision_encoder(
     return keras.Model(inputs, outputs, name="vision_encoder")
 ```
 
-## Implement the text encoder
+## Implement the text encoder {#implement-the-text-encoder}
 
 We use [BERT](https://tfhub.dev/tensorflow/small_bert/bert_en_uncased_L-12_H-256_A-4/1) from [TensorFlow Hub](https://tfhub.dev) as the text encoder
 
@@ -309,7 +310,7 @@ def create_text_encoder(
     return keras.Model(inputs, outputs, name="text_encoder")
 ```
 
-## Implement the dual encoder
+## Implement the dual encoder {#implement-the-dual-encoder}
 
 To calculate the loss, we compute the pairwise dot-product similarity between each `caption_i` and `images_j` in the batch as the predictions. The target similarity between `caption_i` and `image_j` is computed as the average of the (dot-product similarity between `caption_i` and `caption_j`) and (the dot-product similarity between `image_i` and `image_j`). Then, we use crossentropy to compute the loss between the targets and the predictions.
 
@@ -385,7 +386,7 @@ class DualEncoder(keras.Model):
         return {"loss": self.loss_tracker.result()}
 ```
 
-## Train the dual encoder model
+## Train the dual encoder model {#train-the-dual-encoder-model}
 
 In this experiment, we freeze the base encoders for text and images, and make only the projection head trainable.
 
@@ -471,7 +472,7 @@ plt.show()
 
 ![png](/images/examples/vision/nl_image_search/nl_image_search_23_0.png)
 
-## Search for images using natural language queries
+## Search for images using natural language queries {#search-for-images-using-natural-language-queries}
 
 We can then retrieve images corresponding to natural language queries via the following steps:
 
@@ -482,7 +483,7 @@ We can then retrieve images corresponding to natural language queries via the fo
 
 Note that, after training the `dual encoder`, only the fine-tuned `vision_encoder` and `text_encoder` models will be used, while the `dual_encoder` model will be discarded.
 
-### Generate embeddings for the images
+### Generate embeddings for the images {#generate-embeddings-for-the-images}
 
 We load the images and feed them into the `vision_encoder` to generate their embeddings. In large scale systems, this step is performed using a parallel data processing framework, such as [Apache Spark](https://spark.apache.org) or [Apache Beam](https://beam.apache.org). Generating the image embeddings may take several minutes.
 
@@ -518,7 +519,7 @@ Image embeddings shape: (82783, 256).
 
 {{% /details %}}
 
-### Retrieve relevant images
+### Retrieve relevant images {#retrieve-relevant-images}
 
 In this example, we use exact matching by computing the dot product similarity between the input query embedding and the image embeddings, and retrieve the top k matches. However, _approximate_ similarity matching, using frameworks like [ScaNN](https://github.com/google-research/google-research/tree/master/scann), [Annoy](https://github.com/spotify/annoy), or [Faiss](https://github.com/facebookresearch/faiss) is preferred in real-time use cases to scale with a large number of images.
 
@@ -553,7 +554,7 @@ for i in range(9):
 
 ![png](/images/examples/vision/nl_image_search/nl_image_search_30_0.png)
 
-## Evaluate the retrieval quality
+## Evaluate the retrieval quality {#evaluate-the-retrieval-quality}
 
 To evaluate the dual encoder model, we use the captions as queries. We use the out-of-training-sample images and captions to evaluate the retrieval quality, using top k accuracy. A true prediction is counted if, for a given caption, its associated image is retrieved within the top k matches.
 
@@ -608,7 +609,7 @@ Eval accuracy: 6.235%
 
 {{% /details %}}
 
-## Final remarks
+## Final remarks {#final-remarks}
 
 You can obtain better results by increasing the size of the training sample, train for more epochs, explore other base encoders for images and text, set the base encoders to be trainable, and tune the hyperparameters, especially the `temperature` for the softmax in the loss computation.
 

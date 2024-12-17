@@ -1,5 +1,6 @@
 ---
-title: Gradient Centralization for Better Training Performance
+title: 트레이닝 성능 향상을 위한 그래디언트 중앙화
+linkTitle: 그래디언트 중앙화
 toc: true
 weight: 60
 type: docs
@@ -19,7 +20,7 @@ type: docs
 {{< card link="https://github.com/keras-team/keras-io/blob/master/examples/vision/gradient_centralization.py" title="GitHub" tag="GitHub">}}
 {{< /cards >}}
 
-## Introduction
+## Introduction {#introduction}
 
 This example implements [Gradient Centralization](https://arxiv.org/abs/2004.01461), a new optimization technique for Deep Neural Networks by Yong et al., and demonstrates it on Laurence Moroney's [Horses or Humans Dataset](https://www.tensorflow.org/datasets/catalog/horses_or_humans). Gradient Centralization can both speedup training process and improve the final generalization performance of DNNs. It operates directly on gradients by centralizing the gradient vectors to have zero mean. Gradient Centralization morever improves the Lipschitzness of the loss function and its gradient so that the training process becomes more efficient and stable.
 
@@ -29,7 +30,7 @@ This example requires `tensorflow_datasets` which can be installed with this com
 pip install tensorflow-datasets
 ```
 
-## Setup
+## Setup {#setup}
 
 ```python
 from time import time
@@ -43,7 +44,7 @@ from tensorflow import data as tf_data
 import tensorflow_datasets as tfds
 ```
 
-## Prepare the data
+## Prepare the data {#prepare-the-data}
 
 For this example, we will be using the [Horses or Humans dataset](https://www.tensorflow.org/datasets/catalog/horses_or_humans).
 
@@ -76,7 +77,7 @@ Test images: 256
 
 {{% /details %}}
 
-## Use Data Augmentation
+## Use Data Augmentation {#use-data-augmentation}
 
 We will rescale the data to `[0, 1]` and perform simple augmentations to our data.
 
@@ -125,7 +126,7 @@ train_ds = prepare(train_ds, shuffle=True, augment=True)
 test_ds = prepare(test_ds)
 ```
 
-## Define a model
+## Define a model {#define-a-model}
 
 In this section we will define a Convolutional neural network.
 
@@ -153,7 +154,7 @@ model = keras.Sequential(
 )
 ```
 
-## Implement Gradient Centralization
+## Implement Gradient Centralization {#implement-gradient-centralization}
 
 We will now subclass the `RMSProp` optimizer class modifying the `keras.optimizers.Optimizer.get_gradients()` method where we now implement Gradient Centralization. On a high level the idea is that let us say we obtain our gradients through back propogation for a Dense or Convolution layer we then compute the mean of the column vectors of the weight matrix, and then remove the mean from each column vector.
 
@@ -184,7 +185,7 @@ class GCRMSprop(RMSprop):
 optimizer = GCRMSprop(learning_rate=1e-4)
 ```
 
-## Training utilities
+## Training utilities {#training-utilities}
 
 We will also create a callback which allows us to easily measure the total training time and the time taken for each epoch since we are interested in comparing the effect of Gradient Centralization on the model we built above.
 
@@ -200,7 +201,7 @@ class TimeHistory(keras.callbacks.Callback):
         self.times.append(time() - self.epoch_time_start)
 ```
 
-## Train the model without GC
+## Train the model without GC {#train-the-model-without-gc}
 
 We now train the model we built earlier without Gradient Centralization which we can compare to the training performance of the model trained with Gradient Centralization.
 
@@ -296,7 +297,7 @@ Epoch 10/10
 
 {{% /details %}}
 
-## Train the model with GC
+## Train the model with GC {#train-the-model-with-gc}
 
 We will now train the same model, this time using Gradient Centralization, notice our optimizer is the one using Gradient Centralization this time.
 
@@ -378,7 +379,7 @@ Epoch 10/10
 
 {{% /details %}}
 
-## Comparing performance
+## Comparing performance {#comparing-performance}
 
 ```python
 print("Not using Gradient Centralization")

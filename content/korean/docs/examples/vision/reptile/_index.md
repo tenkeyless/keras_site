@@ -1,5 +1,6 @@
 ---
-title: Few-Shot learning with Reptile
+title: Reptile을 사용한 Few-Shot 학습
+linkTitle: Reptile Few-Shot 학습
 toc: true
 weight: 14
 type: docs
@@ -10,7 +11,7 @@ type: docs
 **{{< t f_author >}}** [ADMoreau](https://github.com/ADMoreau)  
 **{{< t f_date_created >}}** 2020/05/21  
 **{{< t f_last_modified >}}** 2023/07/20  
-**{{< t f_description >}}** Few-shot classification on the Omniglot dataset using Reptile.
+**{{< t f_description >}}** Reptile를 사용한 Omniglot 데이터 세트의 Few-shot 분류.
 
 {{< keras/version v=3 >}}
 
@@ -19,9 +20,16 @@ type: docs
 {{< card link="https://github.com/keras-team/keras-io/blob/master/examples/vision/reptile.py" title="GitHub" tag="GitHub">}}
 {{< /cards >}}
 
-## Introduction
+## 소개 {#introduction}
 
-The [Reptile](https://arxiv.org/abs/1803.02999) algorithm was developed by OpenAI to perform model-agnostic meta-learning. Specifically, this algorithm was designed to quickly learn to perform new tasks with minimal training (few-shot learning). The algorithm works by performing Stochastic Gradient Descent using the difference between weights trained on a mini-batch of never-seen-before data and the model weights prior to training over a fixed number of meta-iterations.
+[Reptile](https://arxiv.org/abs/1803.02999) 알고리즘은
+모델에 구애받지 않는 메타 학습(model-agnostic meta-learning)을 수행하기 위해
+OpenAI에서 개발했습니다.
+특히, 이 알고리즘은 최소한의 트레이닝(few-shot 학습)으로 새로운 작업을 수행하는 방법을
+빠르게 학습하도록 설계되었습니다.
+이 알고리즘은, 이전에 본 적 없는 데이터의 미니 배치에 대해 트레이닝된 가중치와
+고정된 수의 메타 반복에 대한 트레이닝 전 모델 가중치 간의 차이를 사용하여,
+확률적 경사 하강(Stochastic Gradient Descent)을 수행하는 방식으로 작동합니다.
 
 ```python
 import os
@@ -38,7 +46,7 @@ import tensorflow as tf
 import tensorflow_datasets as tfds
 ```
 
-## Define the Hyperparameters
+## 하이퍼파라미터 정의 {#define-the-hyperparameters}
 
 ```python
 learning_rate = 0.003
@@ -57,27 +65,33 @@ shots = 5
 classes = 5
 ```
 
-## Prepare the data
+## 데이터 준비 {#prepare-the-data}
 
-The [Omniglot dataset](https://github.com/brendenlake/omniglot/) is a dataset of 1,623 characters taken from 50 different alphabets, with 20 examples for each character. The 20 samples for each character were drawn online via Amazon's Mechanical Turk. For the few-shot learning task, `k` samples (or "shots") are drawn randomly from `n` randomly-chosen classes. These `n` numerical values are used to create a new set of temporary labels to use to test the model's ability to learn a new task given few examples. In other words, if you are training on 5 classes, your new class labels will be either 0, 1, 2, 3, or 4. Omniglot is a great dataset for this task since there are many different classes to draw from, with a reasonable number of samples for each class.
+[Omniglot 데이터 세트](https://github.com/brendenlake/omniglot/)는
+50개의 다른 알파벳에서 가져온 1,623개의 문자로 구성된 데이터 세트로,
+각 문자에 대해 20개의 예시가 있습니다.
+각 문자에 대한 20개의 샘플은 Amazon의 Mechanical Turk를 통해 온라인으로 추출했습니다.
+few-shot 학습 과제의 경우, 무작위로 선택된 `n`개의 클래스에서 `k`개의 샘플(또는 "shots")이
+무작위로 추출됩니다. 이 `n`개의 숫자 값은 몇 개의 예제가 주어졌을 때
+새로운 작업을 학습하는 모델의 능력을 테스트하는 데 사용할 새로운 임시 레이블 세트를 만드는 데 사용됩니다.
+즉, 5개의 클래스를 트레이닝하는 경우, 새 클래스 레이블은 0, 1, 2, 3 또는 4가 됩니다.
+Omniglot은 각 클래스에 대해 적절한 수의 샘플과 함께 다양한 클래스를 추출할 수 있기 때문에,
+이 작업에 훌륭한 데이터 세트입니다.
 
 ```python
 class Dataset:
-    # This class will facilitate the creation of a few-shot dataset
-    # from the Omniglot dataset that can be sampled from quickly while also
-    # allowing to create new labels at the same time.
+    # 이 클래스는 Omniglot 데이터세트에서 신속하게 샘플링할 수 있는 few-shot 데이터세트를 생성하는
+    # 동시에 새로운 라벨을 생성할 수 있게 해줍니다.
     def __init__(self, training):
-        # Download the tfrecord files containing the omniglot data and convert to a
-        # dataset.
+        # omniglot 데이터가 포함된 tfrecord 파일을 다운로드하고 데이터세트로 변환합니다.
         split = "train" if training else "test"
         ds = tfds.load("omniglot", split=split, as_supervised=True, shuffle_files=False)
-        # Iterate over the dataset to get each individual image and its class,
-        # and put that data into a dictionary.
+        # 데이터 세트에 걸쳐 반복하여, 각 개별 이미지와 해당 클래스를 가져오고, 해당 데이터를 딕셔너리에 넣습니다.
         self.data = {}
 
         def extraction(image, label):
-            # This function will shrink the Omniglot images to the desired size,
-            # scale pixel values and convert the RGB image to grayscale
+            # 이 함수는 Omniglot 이미지를 원하는 크기로 축소하고,
+            # 픽셀 값의 크기를 조정하며, RGB 이미지를 회색조로 변환합니다.
             image = tf.image.convert_image_dtype(image, tf.float32)
             image = tf.image.rgb_to_grayscale(image)
             image = tf.image.resize(image, [28, 28])
@@ -100,14 +114,12 @@ class Dataset:
             test_labels = np.zeros(shape=(num_classes))
             test_images = np.zeros(shape=(num_classes, 28, 28, 1))
 
-        # Get a random subset of labels from the entire label set.
+        # 전체 라벨 세트에서 라벨의 무작위 하위 세트(subset)를 가져옵니다.
         label_subset = random.choices(self.labels, k=num_classes)
         for class_idx, class_obj in enumerate(label_subset):
-            # Use enumerated index value as a temporary label for mini-batch in
-            # few shot learning.
+            # few shot 학습에서 열거된 인덱스 값을 미니 배치의 임시 레이블로 사용합니다.
             temp_labels[class_idx * shots : (class_idx + 1) * shots] = class_idx
-            # If creating a split dataset for testing, select an extra sample from each
-            # label to create the test dataset.
+            # 테스트용 분할 데이터 세트를 생성하는 경우, 각 라벨에서 추가 샘플을 선택하여 테스트 데이터 세트를 생성합니다.
             if split:
                 test_labels[class_idx] = class_idx
                 images_to_split = random.choices(
@@ -118,8 +130,7 @@ class Dataset:
                     class_idx * shots : (class_idx + 1) * shots
                 ] = images_to_split[:-1]
             else:
-                # For each index in the randomly selected label_subset, sample the
-                # necessary number of images.
+                # 무작위로 선택된 label_subset의 각 인덱스에 대해, 필요한 수의 이미지를 샘플링합니다.
                 temp_images[
                     class_idx * shots : (class_idx + 1) * shots
                 ] = random.choices(self.data[label_subset[class_idx]], k=shots)
@@ -135,7 +146,7 @@ class Dataset:
 
 import urllib3
 
-urllib3.disable_warnings()  # Disable SSL warnings that may happen during download.
+urllib3.disable_warnings()  # 다운로드 중에 발생할 수 있는 SSL 경고를 비활성화합니다.
 train_dataset = Dataset(training=True)
 test_dataset = Dataset(training=False)
 ```
@@ -174,7 +185,7 @@ Shuffling /home/fchollet/tensorflow_datasets/omniglot/3.0.0.incomplete1MPXME/omn
 
 {{% /details %}}
 
-## Visualize some examples from the dataset
+## 데이터 세트의 몇 가지 예를 시각화 {#visualize-some-examples-from-the-dataset}
 
 ```python
 _, axarr = plt.subplots(nrows=5, ncols=5, figsize=(20, 20))
@@ -197,7 +208,7 @@ plt.show()
 
 ![png](/images/examples/vision/reptile/reptile_8_0.png)
 
-## Build the model
+## 모델 빌드 {#build-the-model}
 
 ```python
 def conv_bn(x):
@@ -218,7 +229,7 @@ model.compile()
 optimizer = keras.optimizers.SGD(learning_rate=learning_rate)
 ```
 
-## Train the model
+## 모델 트레이닝 {#train-the-model}
 
 ```python
 training = []
@@ -226,9 +237,9 @@ testing = []
 for meta_iter in range(meta_iters):
     frac_done = meta_iter / meta_iters
     cur_meta_step_size = (1 - frac_done) * meta_step_size
-    # Temporarily save the weights from the model.
+    # 모델의 가중치를 임시로 저장합니다.
     old_vars = model.get_weights()
-    # Get a sample from the full dataset.
+    # 전체 데이터 세트에서 샘플을 가져옵니다.
     mini_dataset = train_dataset.get_mini_dataset(
         inner_batch_size, inner_iters, train_shots, classes
     )
@@ -239,23 +250,23 @@ for meta_iter in range(meta_iters):
         grads = tape.gradient(loss, model.trainable_weights)
         optimizer.apply_gradients(zip(grads, model.trainable_weights))
     new_vars = model.get_weights()
-    # Perform SGD for the meta step.
+    # 메타 단계에 대해 SGD를 수행합니다.
     for var in range(len(new_vars)):
         new_vars[var] = old_vars[var] + (
             (new_vars[var] - old_vars[var]) * cur_meta_step_size
         )
-    # After the meta-learning step, reload the newly-trained weights into the model.
+    # 메타 학습 단계 후에, 새로 트레이닝된 가중치를 모델에 다시 로드합니다.
     model.set_weights(new_vars)
-    # Evaluation loop
+    # 평가 루프
     if meta_iter % eval_interval == 0:
         accuracies = []
         for dataset in (train_dataset, test_dataset):
-            # Sample a mini dataset from the full dataset.
+            # 전체 데이터세트에서 미니 데이터세트를 샘플링합니다.
             train_set, test_images, test_labels = dataset.get_mini_dataset(
                 eval_batch_size, eval_iters, shots, classes, split=True
             )
             old_vars = model.get_weights()
-            # Train on the samples and get the resulting accuracies.
+            # 샘플을 트레이닝하고 결과 정확도를 얻습니다.
             for images, labels in train_set:
                 with tf.GradientTape() as tape:
                     preds = model(images)
@@ -265,7 +276,7 @@ for meta_iter in range(meta_iters):
             test_preds = model.predict(test_images)
             test_preds = tf.argmax(test_preds).numpy()
             num_correct = (test_preds == test_labels).sum()
-            # Reset the weights after getting the evaluation accuracies.
+            # 평가 정확도를 얻은 후 가중치를 재설정합니다.
             model.set_weights(old_vars)
             accuracies.append(num_correct / classes)
         training.append(accuracies[0])
@@ -303,10 +314,10 @@ batch 1900: train=1.000000 test=1.000000
 
 {{% /details %}}
 
-## Visualize Results
+## 결과 시각화 {#visualize-results}
 
 ```python
-# First, some preprocessing to smooth the training and testing arrays for display.
+# 첫째, 표시할 트레이닝 및 테스트 배열을 원활(smooth)하게 하기 위한 일부 전처리입니다.
 window_length = 100
 train_s = np.r_[
     training[window_length - 1 : 0 : -1],
@@ -320,7 +331,7 @@ w = np.hamming(window_length)
 train_y = np.convolve(w / w.sum(), train_s, mode="valid")
 test_y = np.convolve(w / w.sum(), test_s, mode="valid")
 
-# Display the training accuracies.
+# 트레이닝 정확도를 표시합니다.
 x = np.arange(0, len(test_y), 1)
 plt.plot(x, test_y, x, train_y)
 plt.legend(["test", "train"])

@@ -1,5 +1,6 @@
 ---
-title: Distilling Vision Transformers
+title: 증류식 비전 트랜스포머
+linkTitle: 증류식 비전 트랜스포머
 toc: true
 weight: 70
 type: docs
@@ -20,7 +21,7 @@ math: true
 {{< card link="https://github.com/keras-team/keras-io/blob/master/examples/vision/deit.py" title="GitHub" tag="GitHub">}}
 {{< /cards >}}
 
-## Introduction
+## Introduction {#introduction}
 
 In the original _Vision Transformers_ (ViT) paper ([Dosovitskiy et al.](https://arxiv.org/abs/2010.11929)), the authors concluded that to perform on par with Convolutional Neural Networks (CNNs), ViTs need to be pre-trained on larger datasets. The larger the better. This is mainly due to the lack of inductive biases in the ViT architecture – unlike CNNs, they don't have layers that exploit locality. In a follow-up paper ([Steiner et al.](https://arxiv.org/abs/2106.10270)), the authors show that it is possible to substantially improve the performance of ViTs with stronger regularization and longer training.
 
@@ -39,7 +40,7 @@ To comfortably navigate through this example, you'll be expected to know how a V
 - [ViT on keras.io]({{< relref "/docs/examples/vision/image_classification_with_vision_transformer" >}})
 - [Knowledge distillation on keras.io]({{< relref "/docs/examples/vision/knowledge_distillation" >}})
 
-## Imports
+## Imports {#imports}
 
 ```python
 from typing import List
@@ -55,7 +56,7 @@ tfds.disable_progress_bar()
 tf.keras.utils.set_random_seed(42)
 ```
 
-## Constants
+## Constants {#constants}
 
 ```python
 # Model
@@ -87,7 +88,7 @@ NUM_CLASSES = 5
 
 You probably noticed that `DROPOUT_RATE` has been set 0.0. Dropout has been used in the implementation to keep it complete. For smaller models (like the one used in this example), you don't need it, but for bigger models, using dropout helps.
 
-## Load the `tf_flowers` dataset and prepare preprocessing utilities
+## Load the `tf_flowers` dataset and prepare preprocessing utilities {#load-the-tf_flowers-dataset-and-prepare-preprocessing-utilities}
 
 The authors use an array of different augmentation techniques, including MixUp ([Zhang et al.](https://arxiv.org/abs/1710.09412)), RandAugment ([Cubuk et al.](https://arxiv.org/abs/1909.13719)), and so on. However, to keep the example simple to work through, we'll discard them.
 
@@ -136,7 +137,7 @@ Number of validation examples: 367
 
 {{% /details %}}
 
-## Implementing the DeiT variants of ViT
+## Implementing the DeiT variants of ViT {#implementing-the-deit-variants-of-vit}
 
 Since DeiT is an extension of ViT it'd make sense to first implement ViT and then extend it to support DeiT's components.
 
@@ -403,7 +404,7 @@ print(outputs.shape)
 
 {{% /details %}}
 
-## Implementing the trainer
+## Implementing the trainer {#implementing-the-trainer}
 
 Unlike what happens in standard knowledge distillation ([Hinton et al.](https://arxiv.org/abs/1503.02531)), where a temperature-scaled softmax is used as well as KL divergence, DeiT authors use the following loss function:
 
@@ -509,7 +510,7 @@ class DeiT(keras.Model):
         return self.student(inputs / 255.0, training=False)
 ```
 
-## Load the teacher model
+## Load the teacher model {#load-the-teacher-model}
 
 This model is based on the BiT family of ResNets ([Kolesnikov et al.](https://arxiv.org/abs/1912.11370)) fine-tuned on the `tf_flowers` dataset. You can refer to [this notebook](https://github.com/sayakpaul/deit-tf/blob/main/notebooks/bit-teacher.ipynb) to know how the training was performed. The teacher model has about 212 Million parameters which is about **40x more** than the student.
 
@@ -522,7 +523,7 @@ This model is based on the BiT family of ResNets ([Kolesnikov et al.](https://ar
 bit_teacher_flowers = keras.models.load_model("bit_teacher_flowers")
 ```
 
-## Training through distillation
+## Training through distillation {#training-through-distillation}
 
 ```python
 deit_tiny = ViTDistilled()
@@ -601,7 +602,7 @@ model.compile(...)
 model.fit(...)
 ```
 
-## Notes
+## Notes {#notes}
 
 - Through the use of distillation, we're effectively transferring the inductive biases of a CNN-based teacher model.
 - Interestingly enough, this distillation strategy works better with a CNN as the teacher model rather than a Transformer as shown in the paper.
@@ -609,7 +610,7 @@ model.fit(...)
 - ViT models are initialized with a combination of different initializers including truncated normal, random normal, Glorot uniform, etc. If you're looking for end-to-end reproduction of the original results, don't forget to initialize the ViTs well.
 - If you want to explore the pre-trained DeiT models in TensorFlow and Keras with code for fine-tuning, [check out these models on TF-Hub](https://tfhub.dev/sayakpaul/collections/deit/1).
 
-## Acknowledgements
+## Acknowledgements {#acknowledgements}
 
 - Ross Wightman for keeping [`timm`](https://github.com/rwightman/pytorch-image-models) updated with readable implementations. I referred to the implementations of ViT and DeiT a lot during implementing them in TensorFlow.
 - [Aritra Roy Gosthipaty](https://github.com/ariG23498) who implemented some portions of the `ViTClassifier` in another project.

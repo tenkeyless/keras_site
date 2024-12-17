@@ -1,5 +1,6 @@
 ---
-title: Semi-supervised image classification using contrastive pretraining with SimCLR
+title: SimCLR을 사용한 대조 사전 트레이닝을 사용한 반지도 이미지 분류
+linkTitle: SimCLR 이미지 분류
 toc: true
 weight: 15
 type: docs
@@ -10,7 +11,7 @@ type: docs
 **{{< t f_author >}}** [András Béres](https://www.linkedin.com/in/andras-beres-789190210)  
 **{{< t f_date_created >}}** 2021/04/24  
 **{{< t f_last_modified >}}** 2024/03/04  
-**{{< t f_description >}}** Contrastive pretraining with SimCLR for semi-supervised image classification on the STL-10 dataset.
+**{{< t f_description >}}** STL-10 데이터세트에 대한 반지도(semi-supervised) 이미지 분류를 위한 SimCLR을 사용한 대조(Contrastive) 사전 트레이닝.
 
 {{< keras/version v=3 >}}
 
@@ -19,29 +20,56 @@ type: docs
 {{< card link="https://github.com/keras-team/keras-io/blob/master/examples/vision/semisupervised_simclr.py" title="GitHub" tag="GitHub">}}
 {{< /cards >}}
 
-## Introduction
+## 소개 {#introduction}
 
-### Semi-supervised learning
+### 반지도 학습 (Semi-supervised learning) {#semi-supervised-learning}
 
-Semi-supervised learning is a machine learning paradigm that deals with **partially labeled datasets**. When applying deep learning in the real world, one usually has to gather a large dataset to make it work well. However, while the cost of labeling scales linearly with the dataset size (labeling each example takes a constant time), model performance only scales [sublinearly](https://arxiv.org/abs/2001.08361) with it. This means that labeling more and more samples becomes less and less cost-efficient, while gathering unlabeled data is generally cheap, as it is usually readily available in large quantities.
+반지도 학습은 **부분적으로 레이블이 지정된 데이터 세트**를 다루는 기계 학습 패러다임입니다.
+딥러닝을 현실 세계에 적용할 때, 일반적으로 제대로 작동하려면 대규모 데이터 세트를 수집해야 합니다.
+그러나, 라벨링 비용은 데이터세트 크기에 따라 선형적으로 확장되지만(각 예시에 라벨링하는 데 일정한 시간이 소요됨),
+모델 성능은 이에 따라 [하선형적(sublinearly)](https://arxiv.org/abs/2001.08361)으로 확장됩니다.
+이는 점점 더 많은 샘플에 라벨을 붙이는 것이 비용 효율성이 떨어지는 반면,
+라벨이 없는 데이터를 수집하는 것은 일반적으로 대량으로 쉽게 사용할 수 있으므로
+일반적으로 저렴하다는 것을 의미합니다.
 
-Semi-supervised learning offers to solve this problem by only requiring a partially labeled dataset, and by being label-efficient by utilizing the unlabeled examples for learning as well.
+반지도 학습은 부분적으로 레이블이 지정된 데이터세트만 필요로 하고,
+레이블이 지정되지 않은 예제도 학습에 활용하여 레이블 효율성을 높임으로써 이 문제를 해결합니다.
 
-In this example, we will pretrain an encoder with contrastive learning on the [STL-10](https://ai.stanford.edu/~acoates/stl10/) semi-supervised dataset using no labels at all, and then fine-tune it using only its labeled subset.
+이 예에서는, 레이블을 전혀 사용하지 않고
+[STL-10](https://ai.stanford.edu/~acoates/stl10/) 반지도 데이터 세트에 대한
+대조(contrastive) 학습을 통해 인코더를 사전 트레이닝한 다음,
+레이블이 지정된 하위 집합만 사용하여 미세 조정합니다.
 
-### Contrastive learning
+### 대조 학습(Contrastive learning) {#contrastive-learning}
 
-On the highest level, the main idea behind contrastive learning is to **learn representations that are invariant to image augmentations** in a self-supervised manner. One problem with this objective is that it has a trivial degenerate solution: the case where the representations are constant, and do not depend at all on the input images.
+가장 높은 레벨에서, 대조 학습의 기본 아이디어는
+자기 지도(self-supervised) 방식으로 **이미지 보강에 불변(invariant)하는 표현**을 학습하는 것입니다.
+이 목표의 한 가지 문제점은 사소한 퇴화(degenerate) 솔루션이 있다는 것입니다.
+즉, 표현이 일정(constant)하고, 입력 이미지에 전혀 의존하지 않는 경우입니다.
 
-Contrastive learning avoids this trap by modifying the objective in the following way: it pulls representations of augmented versions/views of the same image closer to each other (contracting positives), while simultaneously pushing different images away from each other (contrasting negatives) in representation space.
+대조 학습은 다음과 같은 방식으로 목표를 수정하여 이 함정을 피합니다.
+동일한 이미지의 보강된 버전/뷰의 표현을
+서로 더 가깝게 가져오는 동시에(대조적 양성 - contracting positives),
+서로 다른 이미지들은 표현 공간에서 서로 멀리 밀어냅니다. (대조적 음성 - contrasting negatives).
 
-One such contrastive approach is [SimCLR](https://arxiv.org/abs/2002.05709), which essentially identifies the core components needed to optimize this objective, and can achieve high performance by scaling this simple approach.
+이러한 대조 접근 방식 중 하나는 [SimCLR](https://arxiv.org/abs/2002.05709)입니다.
+이는 이 목표를 최적화하는 데 필요한 핵심 구성 요소를 본질적으로 식별하고,
+이 간단한 접근 방식을 확장하여 높은 성능을 달성할 수 있습니다.
 
-Another approach is [SimSiam](https://arxiv.org/abs/2011.10566) ([Keras example]({{< relref "/docs/examples/vision/simsiam" >}})), whose main difference from SimCLR is that the former does not use any negatives in its loss. Therefore, it does not explicitly prevent the trivial solution, and, instead, avoids it implicitly by architecture design (asymmetric encoding paths using a predictor network and batch normalization (BatchNorm) are applied in the final layers).
+또다른 접근 방식은 [SimSiam](https://arxiv.org/abs/2011.10566)([Keras 예제]({{< relref "/docs/examples/vision/simsiam" >}}))입니다.
+SimCLR과의 주요 차이점은 전자는 손실에
+부정적인 요소를 사용하지 않는다(not use any negatives)는 것입니다.
+따라서, 사소한 솔루션을 명시적으로 방지하지 않고,
+대신, 아키텍처 설계를 통해 암시적으로 방지합니다.
+(예측 네트워크 및 배치 정규화(BatchNorm)를 사용하는
+비대칭 인코딩 경로가 최종 레이어에 적용됨)
 
-For further reading about SimCLR, check out [the official Google AI blog post](https://ai.googleblog.com/2020/04/advancing-self-supervised-and-semi.html), and for an overview of self-supervised learning across both vision and language check out [this blog post](https://ai.facebook.com/blog/self-supervised-learning-the-dark-matter-of-intelligence/).
+SimCLR에 대한 자세한 내용은
+[공식 Google AI 블로그 게시물](https://ai.googleblog.com/2020/04/advancing-self-supervised-and-semi.html)을 확인하고,
+비전과 언어 전반에 걸친 자기 지도 학습에 대한 개요는
+[이 블로그 게시물](https://ai.facebook.com/blog/self-supervised-learning-the-dark-matter-of-intelligence/)을 확인하세요.
 
-## Setup
+## 셋업 {#setup}
 
 ```python
 import os
@@ -49,7 +77,7 @@ import os
 os.environ["KERAS_BACKEND"] = "tensorflow"
 
 
-# Make sure we are able to handle large datasets
+# 대규모 데이터세트를 처리할 수 있는지 확인하세요.
 import resource
 
 low, high = resource.getrlimit(resource.RLIMIT_NOFILE)
@@ -65,20 +93,21 @@ from keras import ops
 from keras import layers
 ```
 
-## Hyperparameter setup
+## 하이퍼파라미터 셋업 {#hyperparameter-setup}
 
 ```python
-# Dataset hyperparameters
+# 데이터세트 하이퍼파라미터
 unlabeled_dataset_size = 100000
 labeled_dataset_size = 5000
 image_channels = 3
 
-# Algorithm hyperparameters
+# 알고리즘 하이퍼파라미터
 num_epochs = 20
-batch_size = 525  # Corresponds to 200 steps per epoch
+batch_size = 525  # 에포크당 200 스텝에 해당
 width = 128
 temperature = 0.1
-# Stronger augmentations for contrastive, weaker ones for supervised training
+# 대조(contrastive)를 위한 더 강력한 보강(augmentations),
+# 지도 트레이닝을 위한 약한 보강(augmentations)
 contrastive_augmentation = {"min_area": 0.25, "brightness": 0.6, "jitter": 0.2}
 classification_augmentation = {
     "min_area": 0.75,
@@ -87,14 +116,14 @@ classification_augmentation = {
 }
 ```
 
-## Dataset
+## 데이터세트 {#dataset}
 
-During training we will simultaneously load a large batch of unlabeled images along with a smaller batch of labeled images.
+트레이닝하는 동안 우리는 라벨이 붙은 이미지의 작은 배치와 함께
+라벨이 지정되지 않은 대량의 이미지를 동시에 로드합니다.
 
 ```python
 def prepare_dataset():
-    # Labeled and unlabeled samples are loaded synchronously
-    # with batch sizes selected accordingly
+    # 라벨이 붙은 샘플과 라벨이 붙지 않은 샘플은 그에 따라 선택된 배치 크기에 따라 동시에 로드됩니다.
     steps_per_epoch = (unlabeled_dataset_size + labeled_dataset_size) // batch_size
     unlabeled_batch_size = unlabeled_dataset_size // steps_per_epoch
     labeled_batch_size = labeled_dataset_size // steps_per_epoch
@@ -102,7 +131,7 @@ def prepare_dataset():
         f"batch size is {unlabeled_batch_size} (unlabeled) + {labeled_batch_size} (labeled)"
     )
 
-    # Turning off shuffle to lower resource usage
+    # 리소스 사용량을 낮추기 위해 셔플을 끕니다.
     unlabeled_train_dataset = (
         tfds.load("stl10", split="unlabelled", as_supervised=True, shuffle_files=False)
         .shuffle(buffer_size=10 * unlabeled_batch_size)
@@ -119,7 +148,7 @@ def prepare_dataset():
         .prefetch(buffer_size=tf.data.AUTOTUNE)
     )
 
-    # Labeled and unlabeled datasets are zipped together
+    # 라벨이 지정된 데이터세트와 라벨이 지정되지 않은 데이터세트를 함께 zip합니다.
     train_dataset = tf.data.Dataset.zip(
         (unlabeled_train_dataset, labeled_train_dataset)
     ).prefetch(buffer_size=tf.data.AUTOTUNE)
@@ -127,7 +156,7 @@ def prepare_dataset():
     return train_dataset, labeled_train_dataset, test_dataset
 
 
-# Load STL10 dataset
+# STL10 데이터세트를 로드합니다.
 train_dataset, labeled_train_dataset, test_dataset = prepare_dataset()
 ```
 
@@ -139,22 +168,28 @@ batch size is 500 (unlabeled) + 25 (labeled)
 
 {{% /details %}}
 
-## Image augmentations
+## 이미지 보강 {#image-augmentations}
 
-The two most important image augmentations for contrastive learning are the following:
+대조 학습을 위한 가장 중요한 두 가지 이미지 보강은 다음과 같습니다.
 
-- Cropping: forces the model to encode different parts of the same image similarly, we implement it with the [RandomTranslation]({{< relref "/docs/api/layers/preprocessing_layers/image_augmentation/random_translation" >}}) and [RandomZoom]({{< relref "/docs/api/layers/preprocessing_layers/image_augmentation/random_zoom" >}}) layers
-- Color jitter: prevents a trivial color histogram-based solution to the task by distorting color histograms. A principled way to implement that is by affine transformations in color space.
+- 자르기(Cropping): 모델이 동일한 이미지의 여러 부분을 유사하게 인코딩하도록 강제하며, [RandomTranslation]({{< relref "/docs/api/layers/preprocessing_layers/image_augmentation/random_translation" >}}) 및 [RandomZoom]({{< relref "/docs/api/layers/preprocessing_layers/image_augmentation/random_zoom" >}}) 레이어를 사용하여 구현합니다.
+- 색상 지터(Color jitter): 색상 히스토그램을 왜곡하여 작업에 대한 trivial 색상 히스토그램 기반 솔루션을 방지합니다. 이를 구현하는 원칙적인 방법은 색 공간의 아핀(affine) 변환을 사용하는 것입니다.
 
-In this example we use random horizontal flips as well. Stronger augmentations are applied for contrastive learning, along with weaker ones for supervised classification to avoid overfitting on the few labeled examples.
+이 예에서는 무작위 수평 뒤집기도 사용합니다.
+대조 학습에는 더 강한 보강이 적용되고,
+몇 가지 레이블이 지정된 예에 대한 과적합을 피하기 위해 지도 분류에는 약한 강화가 적용됩니다.
 
-We implement random color jitter as a custom preprocessing layer. Using preprocessing layers for data augmentation has the following two advantages:
+우리는 임의의 색상 지터를 커스텀 전처리 레이어로 구현합니다.
+데이터 보강을 위해 전처리 레이어를 사용하면, 다음과 같은 두 가지 이점이 있습니다.
 
-- The data augmentation will run on GPU in batches, so the training will not be bottlenecked by the data pipeline in environments with constrained CPU resources (such as a Colab Notebook, or a personal machine)
-- Deployment is easier as the data preprocessing pipeline is encapsulated in the model, and does not have to be reimplemented when deploying it
+- 데이터 보강은 배치에서 GPU에서 실행되므로,
+  CPU 리소스가 제한된 환경(예: Colab Notebook 또는 개인용 컴퓨터)에서
+  데이터 파이프라인으로 인해 트레이닝에 병목 현상이 발생하지 않습니다.
+- 데이터 전처리 파이프라인이 모델에 캡슐화되어 있으므로,
+  배포가 더 쉽고 배포 시 다시 구현할 필요가 없습니다.
 
 ```python
-# Distorts the color distibutions of images
+# 이미지의 색상 분포를 왜곡합니다.
 class RandomColorAffine(layers.Layer):
     def __init__(self, brightness=0, jitter=0, **kwargs):
         super().__init__(**kwargs)
@@ -172,14 +207,14 @@ class RandomColorAffine(layers.Layer):
         if training:
             batch_size = ops.shape(images)[0]
 
-            # Same for all colors
+            # 모든 색상에 대해 동일합니다.
             brightness_scales = 1 + keras.random.uniform(
                 (batch_size, 1, 1, 1),
                 minval=-self.brightness,
                 maxval=self.brightness,
                 seed=self.seed_generator,
             )
-            # Different for all colors
+            # 모든 색상에 대해 서로 다릅니다.
             jitter_matrices = keras.random.uniform(
                 (batch_size, 1, 3, 3),
                 minval=-self.jitter,
@@ -196,7 +231,7 @@ class RandomColorAffine(layers.Layer):
         return images
 
 
-# Image augmentation module
+# 이미지 보강 모듈
 def get_augmenter(min_area, brightness, jitter):
     zoom_factor = 1.0 - math.sqrt(min_area)
     return keras.Sequential(
@@ -211,10 +246,10 @@ def get_augmenter(min_area, brightness, jitter):
 
 
 def visualize_augmentations(num_images):
-    # Sample a batch from a dataset
+    # 데이터 세트로부터 배치 샘플링
     images = next(iter(train_dataset))[0][0][:num_images]
 
-    # Apply augmentations
+    # 보강 적용
     augmented_images = zip(
         images,
         get_augmenter(**classification_augmentation)(images),
@@ -243,10 +278,10 @@ visualize_augmentations(num_images=8)
 
 ![png](/images/examples/vision/semisupervised_simclr/semisupervised_simclr_9_0.png)
 
-## Encoder architecture
+## 인코더 아키텍쳐 {#encoder-architecture}
 
 ```python
-# Define the encoder architecture
+# 인코더 아키텍쳐 정의
 def get_encoder():
     return keras.Sequential(
         [
@@ -261,12 +296,12 @@ def get_encoder():
     )
 ```
 
-## Supervised baseline model
+## 지도 베이스라인 모델 {#supervised-baseline-model}
 
-A baseline supervised model is trained using random initialization.
+베이스라인 지도 모델은 무작위 초기화를 사용하여 트레이닝됩니다.
 
 ```python
-# Baseline supervised training with random initialization
+# 무작위 초기화를 사용한 베이스라인 지도 트레이닝
 baseline_model = keras.Sequential(
     [
         get_augmenter(**classification_augmentation),
@@ -340,27 +375,29 @@ Maximal validation accuracy: 59.90%
 
 {{% /details %}}
 
-## Self-supervised model for contrastive pretraining
+## 대조 사전 트레이닝을 위한 셀프 지도 모델 {#self-supervised-model-for-contrastive-pretraining}
 
-We pretrain an encoder on unlabeled images with a contrastive loss. A nonlinear projection head is attached to the top of the encoder, as it improves the quality of representations of the encoder.
+대비 손실이 있는 레이블이 지정되지 않은 이미지에 대해 인코더를 사전 트레이닝합니다.
+비선형 프로젝션 헤드는 인코더 표현의 품질을 향상시키기 위해 인코더 top에 부착됩니다.
 
-We use the InfoNCE/NT-Xent/N-pairs loss, which can be interpreted in the following way:
+우리는 InfoNCE/NT-Xent/N-pairs 손실을 사용하는데, 이는 다음과 같이 해석될 수 있습니다:
 
-1.  We treat each image in the batch as if it had its own class.
-2.  Then, we have two examples (a pair of augmented views) for each "class".
-3.  Each view's representation is compared to every possible pair's one (for both augmented versions).
-4.  We use the temperature-scaled cosine similarity of compared representations as logits.
-5.  Finally, we use categorical cross-entropy as the "classification" loss
+1. 배치의 각 이미지를 자체 클래스가 있는 것처럼 처리합니다.
+2. 그런 다음, 각 "클래스"에 대한 두 가지 예(한 쌍의 보강된 뷰)가 있습니다.
+3. (두 가지 보강된 버전 모두에 대해) 각 뷰의 표현은 가능한 모든 쌍의 표현과 비교됩니다.
+4. 비교 표현의 온도 스케일 코사인 유사성을 로짓으로 사용합니다.
+5. 마지막으로, 범주형 교차 엔트로피를 "분류" 손실로 사용합니다.
 
-The following two metrics are used for monitoring the pretraining performance:
+사전 트레이닝 성능을 모니터링하는 데 다음 두 가지 측정항목이 사용됩니다.
 
-- [Contrastive accuracy (SimCLR Table 5)](https://arxiv.org/abs/2002.05709): Self-supervised metric, the ratio of cases in which the representation of an image is more similar to its differently augmented version's one, than to the representation of any other image in the current batch. Self-supervised metrics can be used for hyperparameter tuning even in the case when there are no labeled examples.
-- [Linear probing accuracy](https://arxiv.org/abs/1603.08511): Linear probing is a popular metric to evaluate self-supervised classifiers. It is computed as the accuracy of a logistic regression classifier trained on top of the encoder's features. In our case, this is done by training a single dense layer on top of the frozen encoder. Note that contrary to traditional approach where the classifier is trained after the pretraining phase, in this example we train it during pretraining. This might slightly decrease its accuracy, but that way we can monitor its value during training, which helps with experimentation and debugging.
+- [대조 정확도(SimCLR Table 5) - Contrastive accuracy](https://arxiv.org/abs/2002.05709): 자기 지도 지표는 이미지 표현이 현재 배치의 다른 이미지 표현보다 다르게 보강된 버전의 표현과 더 유사한 경우의 비율입니다. 레이블이 지정된 예시가 없는 경우에도 자체 지도 지표를 하이퍼파라미터 튜닝에 사용할 수 있습니다.
+- [선형 프로빙 정확도 - Linear probing accuracy](https://arxiv.org/abs/1603.08511): 선형 프로빙은 자기 지도 분류기를 평가하는 데 널리 사용되는 측정항목입니다. 이는 인코더의 특성의 탑에 대해 트레이닝된 로지스틱 회귀 분류기의 정확도로 계산됩니다. 우리의 경우, 이는 동결된 인코더의 top에 대해 단일 dense 레이어를 트레이닝하여 수행됩니다. 분류기가 사전 트레이닝 단계 후에 트레이닝되는 전통적인 접근 방식과 달리, 이 예에서는 사전 트레이닝 중에 분류기를 트레이닝합니다. 이로 인해 정확도가 약간 떨어질 수 있지만, 트레이닝 중에 값을 모니터링할 수 있으므로 실험과 디버깅에 도움이 됩니다.
 
-Another widely used supervised metric is the [KNN accuracy](https://arxiv.org/abs/1805.01978), which is the accuracy of a KNN classifier trained on top of the encoder's features, which is not implemented in this example.
+널리 사용되는 또 다른 지도 측정항목은 [KNN 정확도](https://arxiv.org/abs/1805.01978)입니다.
+이는 인코더 특성의 top에 대한 트레이닝된 KNN 분류기의 정확도이지만, 이 예에서는 구현되지 않았습니다.
 
 ```python
-# Define the contrastive model with model-subclassing
+# 모델 서브클래싱을 사용하여 대조 모델 정의
 class ContrastiveModel(keras.Model):
     def __init__(self):
         super().__init__()
@@ -369,7 +406,7 @@ class ContrastiveModel(keras.Model):
         self.contrastive_augmenter = get_augmenter(**contrastive_augmentation)
         self.classification_augmenter = get_augmenter(**classification_augmentation)
         self.encoder = get_encoder()
-        # Non-linear MLP as projection head
+        # 프로젝션 헤드로서의 비선형 MLP
         self.projection_head = keras.Sequential(
             [
                 keras.Input(shape=(width,)),
@@ -378,7 +415,7 @@ class ContrastiveModel(keras.Model):
             ],
             name="projection_head",
         )
-        # Single dense layer for linear probing
+        # 선형 프로빙을 위한 단일 Dense 레이어
         self.linear_probe = keras.Sequential(
             [layers.Input(shape=(width,)), layers.Dense(10)],
             name="linear_probe",
@@ -394,7 +431,7 @@ class ContrastiveModel(keras.Model):
         self.contrastive_optimizer = contrastive_optimizer
         self.probe_optimizer = probe_optimizer
 
-        # self.contrastive_loss will be defined as a method
+        # self.contrastive_loss는 메소드로 정의됩니다.
         self.probe_loss = keras.losses.SparseCategoricalCrossentropy(from_logits=True)
 
         self.contrastive_loss_tracker = keras.metrics.Mean(name="c_loss")
@@ -414,18 +451,17 @@ class ContrastiveModel(keras.Model):
         ]
 
     def contrastive_loss(self, projections_1, projections_2):
-        # InfoNCE loss (information noise-contrastive estimation)
-        # NT-Xent loss (normalized temperature-scaled cross entropy)
+        # InfoNCE 손실 (정보 잡음 대비 추정 - information noise-contrastive estimation)
+        # NT-Xent 손실 (정규화된 온도 스케일 교차 엔트로피 - normalized temperature-scaled cross entropy)
 
-        # Cosine similarity: the dot product of the l2-normalized feature vectors
+        # 코사인 유사성: l2 정규화된 특성 벡터의 내적
         projections_1 = ops.normalize(projections_1, axis=1)
         projections_2 = ops.normalize(projections_2, axis=1)
         similarities = (
             ops.matmul(projections_1, ops.transpose(projections_2)) / self.temperature
         )
 
-        # The similarity between the representations of two augmented views of the
-        # same image should be higher than their similarity with other views
+        # 동일한 이미지의 두 보강 뷰 표현 간의 유사성은 다른 뷰 간의 유사성보다 높아야 합니다.
         batch_size = ops.shape(projections_1)[0]
         contrastive_labels = ops.arange(batch_size)
         self.contrastive_accuracy.update_state(contrastive_labels, similarities)
@@ -433,8 +469,7 @@ class ContrastiveModel(keras.Model):
             contrastive_labels, ops.transpose(similarities)
         )
 
-        # The temperature-scaled similarities are used as logits for cross-entropy
-        # a symmetrized version of the loss is used here
+        # 온도 스케일된 유사성이 교차 엔트로피에 대한 로짓으로 사용되며, 여기서는 손실의 대칭 버전이 사용됩니다.
         loss_1_2 = keras.losses.sparse_categorical_crossentropy(
             contrastive_labels, similarities, from_logits=True
         )
@@ -446,15 +481,15 @@ class ContrastiveModel(keras.Model):
     def train_step(self, data):
         (unlabeled_images, _), (labeled_images, labels) = data
 
-        # Both labeled and unlabeled images are used, without labels
+        # 라벨이 지정된 이미지와 라벨이 지정되지 않은 이미지가 모두 라벨 없이 사용됩니다.
         images = ops.concatenate((unlabeled_images, labeled_images), axis=0)
-        # Each image is augmented twice, differently
+        # 각 이미지는 서로 다르게 두 번씩 보강됩니다.
         augmented_images_1 = self.contrastive_augmenter(images, training=True)
         augmented_images_2 = self.contrastive_augmenter(images, training=True)
         with tf.GradientTape() as tape:
             features_1 = self.encoder(augmented_images_1, training=True)
             features_2 = self.encoder(augmented_images_2, training=True)
-            # The representations are passed through a projection mlp
+            # 표현은 프로젝션 mlp를 통해 전달됩니다.
             projections_1 = self.projection_head(features_1, training=True)
             projections_2 = self.projection_head(features_2, training=True)
             contrastive_loss = self.contrastive_loss(projections_1, projections_2)
@@ -470,13 +505,13 @@ class ContrastiveModel(keras.Model):
         )
         self.contrastive_loss_tracker.update_state(contrastive_loss)
 
-        # Labels are only used in evalutation for an on-the-fly logistic regression
+        # 라벨은 즉석(on-the-fly) 로지스틱 회귀 평가에만 사용됩니다.
         preprocessed_images = self.classification_augmenter(
             labeled_images, training=True
         )
         with tf.GradientTape() as tape:
-            # the encoder is used in inference mode here to avoid regularization
-            # and updating the batch normalization paramers if they are used
+            # 여기서 인코더는 추론 모드에서 사용되는데,
+            # 정규화를 방지하고 배치 정규화 매개변수가 사용되는 경우 이를 업데이트하기 위해서 입니다.
             features = self.encoder(preprocessed_images, training=False)
             class_logits = self.linear_probe(features, training=True)
             probe_loss = self.probe_loss(labels, class_logits)
@@ -492,7 +527,7 @@ class ContrastiveModel(keras.Model):
     def test_step(self, data):
         labeled_images, labels = data
 
-        # For testing the components are used with a training=False flag
+        # 테스트를 위해, 구성요소는 training=False 플래그와 함께 사용됩니다.
         preprocessed_images = self.classification_augmenter(
             labeled_images, training=False
         )
@@ -502,11 +537,11 @@ class ContrastiveModel(keras.Model):
         self.probe_loss_tracker.update_state(probe_loss)
         self.probe_accuracy.update_state(labels, class_logits)
 
-        # Only the probe metrics are logged at test time
+        # 테스트 시에는 프로브(probe) 측정항목만 기록됩니다.
         return {m.name: m.result() for m in self.metrics[2:]}
 
 
-# Contrastive pretraining
+# 대조 사전 트레이닝
 pretraining_model = ContrastiveModel()
 pretraining_model.compile(
     contrastive_optimizer=keras.optimizers.Adam(),
@@ -619,12 +654,13 @@ Maximal validation accuracy: 56.65%
 
 {{% /details %}}
 
-## Supervised finetuning of the pretrained encoder
+## 사전 트레이닝된 인코더의 지도 미세 조정 {#supervised-finetuning-of-the-pretrained-encoder}
 
-We then finetune the encoder on the labeled examples, by attaching a single randomly initalized fully connected classification layer on its top.
+그런 다음, 무작위로 초기화된 단일 완전 연결 분류 레이어를 top에 연결하여,
+레이블이 지정된 예제에 대해 인코더를 미세 조정합니다.
 
 ```python
-# Supervised finetuning of the pretrained encoder
+# 사전 트레이닝된 인코더의 지도 미세 조정
 finetuning_model = keras.Sequential(
     [
         get_augmenter(**classification_augmentation),
@@ -697,10 +733,10 @@ Maximal validation accuracy: 65.32%
 
 {{% /details %}}
 
-## Comparison against the baseline
+## 베이스라인과의 비교 {#comparison-against-the-baseline}
 
 ```python
-# The classification accuracies of the baseline and the pretraining + finetuning process:
+# 베이스라인 및 사전 트레이닝 + 미세 조정 프로세스의 분류 정확도:
 def plot_training_curves(pretraining_history, finetuning_history, baseline_history):
     for metric_key, metric_name in zip(["acc", "loss"], ["accuracy", "loss"]):
         plt.figure(figsize=(8, 5), dpi=100)
@@ -729,43 +765,77 @@ plot_training_curves(pretraining_history, finetuning_history, baseline_history)
 
 ![png](/images/examples/vision/semisupervised_simclr/semisupervised_simclr_19_1.png)
 
-By comparing the training curves, we can see that when using contrastive pretraining, a higher validation accuracy can be reached, paired with a lower validation loss, which means that the pretrained network was able to generalize better when seeing only a small amount of labeled examples.
+트레이닝 곡선을 비교함으로써, 대조 사전 트레이닝을 사용할 때,
+더 높은 검증 정확도에 도달할 수 있고, 검증 손실이 더 낮다는 것을 알 수 있습니다.
+이는 사전 트레이닝된 네트워크가 적은 양의 레이블이 지정된 예제만 볼 때
+더 잘 일반화할 수 있다는 것을 의미합니다.
 
-## Improving further
+## 더욱 개선하기 {#improving-further}
 
-### Architecture
+### 아키텍쳐 {#architecture}
 
-The experiment in the original paper demonstrated that increasing the width and depth of the models improves performance at a higher rate than for supervised learning. Also, using a [ResNet-50]({{< relref "/docs/api/applications/resnet/#resnet50-function" >}}) encoder is quite standard in the literature. However keep in mind, that more powerful models will not only increase training time but will also require more memory and will limit the maximal batch size you can use.
+원본 논문의 실험에서는 모델의 너비와 깊이를 늘리면,
+지도 학습보다 더 높은 속도로 성능이 향상된다는 사실이 입증되었습니다.
+또한, [ResNet-50]({{< relref "/docs/api/applications/resnet/#resnet50-function" >}}) 인코더를 사용하는 것은 문헌에서 매우 표준적인 것입니다.
+그러나 더 강력한 모델은 트레이닝 시간을 늘릴 뿐만 아니라 더 많은 메모리가 필요하고
+사용할 수 있는 최대 배치 크기가 제한된다는 점을 명심하세요.
 
-It has [been](https://arxiv.org/abs/1905.09272) [reported](https://arxiv.org/abs/1911.05722) that the usage of BatchNorm layers could sometimes degrade performance, as it introduces an intra-batch dependency between samples, which is why I did not have used them in this example. In my experiments however, using BatchNorm, especially in the projection head, improves performance.
+BatchNorm 레이어를 사용하면 때때로 성능이 저하될 수 있다는 것이
+[보고되고](https://arxiv.org/abs/1911.05722) [있습니다](https://arxiv.org/abs/1905.09272). - 샘플 간 배치(intra-batch) 종속성으로 인해,
+이 예제에서는 샘플을 사용하지 않았습니다.
+그러나 저의 실험에서는, 특히 프로젝션 헤드에서, BatchNorm을 사용하면 성능이 향상되었습니다.
 
-### Hyperparameters
+### 하이퍼파라미터 {#hyperparameters}
 
-The hyperparameters used in this example have been tuned manually for this task and architecture. Therefore, without changing them, only marginal gains can be expected from further hyperparameter tuning.
+이 예에 사용된 하이퍼파라미터는 이 작업 및 아키텍처에 대해 수동으로 조정되었습니다.
+따라서, 이를 변경하지 않으면, 추가적인 하이퍼파라미터 튜닝을 통해 미미한 이득만 기대할 수 있습니다.
 
-However for a different task or model architecture these would need tuning, so here are my notes on the most important ones:
+그러나 다른 작업이나 모델 아키텍처의 경우 조정이 필요하므로,
+가장 중요한 사항에 대한 메모는 다음과 같습니다.
 
-- **Batch size**: since the objective can be interpreted as a classification over a batch of images (loosely speaking), the batch size is actually a more important hyperparameter than usual. The higher, the better.
-- **Temperature**: the temperature defines the "softness" of the softmax distribution that is used in the cross-entropy loss, and is an important hyperparameter. Lower values generally lead to a higher contrastive accuracy. A recent trick (in [ALIGN](https://arxiv.org/abs/2102.05918)) is to learn the temperature's value as well (which can be done by defining it as a tf.Variable, and applying gradients on it). Even though this provides a good baseline value, in my experiments the learned temperature was somewhat lower than optimal, as it is optimized with respect to the contrastive loss, which is not a perfect proxy for representation quality.
-- **Image augmentation strength**: during pretraining stronger augmentations increase the difficulty of the task, however after a point too strong augmentations will degrade performance. During finetuning stronger augmentations reduce overfitting while in my experience too strong augmentations decrease the performance gains from pretraining. The whole data augmentation pipeline can be seen as an important hyperparameter of the algorithm, implementations of other custom image augmentation layers in Keras can be found in [this repository](https://github.com/beresandras/image-augmentation-layers-keras).
-- **Learning rate schedule**: a constant schedule is used here, but it is quite common in the literature to use a [cosine decay schedule](https://www.tensorflow.org/api_docs/python/tf/keras/experimental/CosineDecay), which can further improve performance.
-- **Optimizer**: Adam is used in this example, as it provides good performance with default parameters. SGD with momentum requires more tuning, however it could slightly increase performance.
+- **배치 크기**: 목표는 (느슨하게 말하면) 이미지 배치에 대한 분류로 해석될 수 있으므로,
+  배치 크기는 실제로 평소보다 더 중요한 하이퍼파라미터입니다. 높을수록 좋습니다.
+- **온도**: 온도는 교차 엔트로피 손실에 사용되는 소프트맥스 분포의
+  "부드러움(softness)"을 정의하며 중요한 하이퍼파라미터입니다.
+  일반적으로 값이 낮을수록 대비 정확도가 높아집니다.
+  최근의 트릭([ALIGN](https://arxiv.org/abs/2102.05918))은 온도 값도 학습하는 것입니다.
+  (이는 온도 값을 tf.Variable로 정의하고, 이에 그래디언트를 적용하여 수행할 수 있음)
+  이것이 좋은 베이스라인 값을 제공하더라도,
+  저의 실험에서 학습된 온도는 최적보다 다소 낮았는데,
+  이는 표현 품질에 대한 완벽한 프록시가 아닌,
+  대비 손실과 관련하여 최적화되었기 때문입니다.
+- **이미지 보강 강도**: 사전 트레이닝 중에 더 강한 보강은 작업의 난이도를 증가시키지만,
+  어느 시점 이후에는 너무 강한 보강으로 인해 성능이 저하됩니다.
+  미세 조정하는 동안 더 강한 보강은 과적합을 줄이는 반면,
+  저의 경험에 따르면 너무 강한 보강은 사전 트레이닝으로 인한 성능 향상을 감소시킵니다.
+  전체 데이터 보강 파이프라인은 알고리즘의 중요한 하이퍼파라미터로 볼 수 있으며,
+  Keras의 다른 커스텀 이미지 보강 레이어 구현은
+  [이 저장소](https://github.com/beresandras/image-augmentation-layers-keras)에서
+  찾을 수 있습니다.
+- **학습률 스케쥴**: 여기서는 일정한 스케쥴이 사용되지만,
+  문헌에서는 [코사인 감쇠 스케쥴](https://www.tensorflow.org/api_docs/python/tf/keras/experimental/CosineDecay)을 사용하는 것이 매우 일반적입니다.
+  이는 성능을 더욱 향상시킬 수 있습니다.
+- **옵티마이저**: 이 예에서는 기본 매개변수로 좋은 성능을 제공하는 Adam을 사용했습니다.
+  모멘텀이 있는 SGD는 더 많은 조정이 필요하지만, 성능이 약간 향상될 수 있습니다.
 
-## Related works
+## 연관된 작업들 {#related-works}
 
-Other instance-level (image-level) contrastive learning methods:
+기타 인스턴스 레벨(이미지 레벨) 대비 학습 방법:
 
-- [MoCo](https://arxiv.org/abs/1911.05722) ([v2](https://arxiv.org/abs/2003.04297), [v3](https://arxiv.org/abs/2104.02057)): uses a momentum-encoder as well, whose weights are an exponential moving average of the target encoder
-- [SwAV](https://arxiv.org/abs/2006.09882): uses clustering instead of pairwise comparison
-- [BarlowTwins](https://arxiv.org/abs/2103.03230): uses a cross correlation-based objective instead of pairwise comparison
+- [MoCo](https://arxiv.org/abs/1911.05722) ([v2](https://arxiv.org/abs/2003.04297), [v3](https://arxiv.org/abs/2104.02057)): 가중치가 타겟 인코더의 지수 이동 평균인, 모멘텀 인코더도 사용합니다.
+- [SwAV](https://arxiv.org/abs/2006.09882): 쌍별 비교(pairwise comparison) 대신 클러스터링을 사용합니다.
+- [BarlowTwins](https://arxiv.org/abs/2103.03230): 쌍별 비교 대신 교차 상관 기반 목표를 사용합니다.
 
-Keras implementations of **MoCo** and **BarlowTwins** can be found in [this repository](https://github.com/beresandras/contrastive-classification-keras), which includes a Colab notebook.
+**MoCo** 및 **BarlowTwins**의 Keras 구현은 Colab 노트북이 포함된 [이 저장소](https://github.com/beresandras/contrastive-classification-keras)에서 찾을 수 있습니다.
 
-There is also a new line of works, which optimize a similar objective, but without the use of any negatives:
+유사한 목표를 최적화하지만, 부정적인 요소를 사용하지 않는, 새로운 작업 라인도 있습니다.
 
-- [BYOL](https://arxiv.org/abs/2006.07733): momentum-encoder + no negatives
-- [SimSiam](https://arxiv.org/abs/2011.10566) ([Keras example]({{< relref "/docs/examples/vision/simsiam" >}})): no momentum-encoder + no negatives
+- [BYOL](https://arxiv.org/abs/2006.07733): 모멘텀 인코더 + 부정 요소 없음(no negatives)
+- [SimSiam](https://arxiv.org/abs/2011.10566) ([Keras 예시]({{< relref "/docs/examples/vision/simsiam" >}})): 모멘텀 인코더 없음 + 부정 없음
 
-In my experience, these methods are more brittle (they can collapse to a constant representation, I could not get them to work using this encoder architecture). Even though they are generally more dependent on the [model](https://generallyintelligent.ai/understanding-self-supervised-contrastive-learning.html) [architecture](https://arxiv.org/abs/2010.10241), they can improve performance at smaller batch sizes.
+저의 경험에 따르면, 이러한 방법은 더 취약합니다.
+(이들은 상수 표현으로 축소될 수 있으며, 이 인코더 아키텍처를 사용하여 작동하도록 할 수 없습니다)
+일반적으로 이들은 [모델](https://generallyintelligent.ai/understanding-self-supervised-contrastive-learning.html) [아키텍처](https://arxiv.org/abs/2010.10241)에 더 의존하지만, 더 작은 배치 크기에서 성능을 향상시킬 수 있습니다.
 
-You can use the trained model hosted on [Hugging Face Hub](https://huggingface.co/keras-io/semi-supervised-classification-simclr) and try the demo on [Hugging Face Spaces](https://huggingface.co/spaces/keras-io/semi-supervised-classification).
+[Hugging Face Hub](https://huggingface.co/keras-io/semi-supervised-classification-simclr)에서 호스팅되는 트레이닝된 모델을 사용하고,
+[Hugging Face Spaces](https://huggingface.co/spaces/keras-io/semi-supervised-classification)에서 데모를 시도해 볼 수 있습니다.

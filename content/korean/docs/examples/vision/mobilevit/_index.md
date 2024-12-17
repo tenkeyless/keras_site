@@ -1,6 +1,6 @@
 ---
-title: "MobileViT: A mobile-friendly Transformer-based model for image classification"
-linkTitle: A mobile-friendly Transformer-based model for image classification
+title: "MobileViT - 이미지 분류를 위한 모바일 친화적인 트랜스포머 기반 모델"
+linkTitle: MobileViT 이미지 분류
 toc: true
 weight: 7
 type: docs
@@ -11,7 +11,7 @@ type: docs
 **{{< t f_author >}}** [Sayak Paul](https://twitter.com/RisingSayak)  
 **{{< t f_date_created >}}** 2021/10/20  
 **{{< t f_last_modified >}}** 2024/02/11  
-**{{< t f_description >}}** MobileViT for image classification with combined benefits of convolutions and Transformers.
+**{{< t f_description >}}** 컨볼루션과 트랜스포머의 장점을 결합한 이미지 분류를 위한 MobileViT.
 
 {{< keras/version v=3 >}}
 
@@ -20,15 +20,23 @@ type: docs
 {{< card link="https://github.com/keras-team/keras-io/blob/master/examples/vision/mobilevit.py" title="GitHub" tag="GitHub">}}
 {{< /cards >}}
 
-## Introduction
+## 소개 {#introduction}
 
-In this example, we implement the MobileViT architecture ([Mehta et al.](https://arxiv.org/abs/2110.02178)), which combines the benefits of Transformers ([Vaswani et al.](https://arxiv.org/abs/1706.03762)) and convolutions. With Transformers, we can capture long-range dependencies that result in global representations. With convolutions, we can capture spatial relationships that model locality.
+이 예제에서는 트랜스포머([Vaswani et al.](https://arxiv.org/abs/1706.03762))와
+컨볼루션의 장점을 결합한,
+MobileViT 아키텍처([Mehta et al.](https://arxiv.org/abs/2110.02178))를 구현합니다.
+트랜스포머를 사용하면, 글로벌 표현으로 이어지는 장거리 종속성을 포착할 수 있습니다.
+컨볼루션을 사용하면, 지역성을 모델링하는 공간 관계를 캡처할 수 있습니다.
 
-Besides combining the properties of Transformers and convolutions, the authors introduce MobileViT as a general-purpose mobile-friendly backbone for different image recognition tasks. Their findings suggest that, performance-wise, MobileViT is better than other models with the same or higher complexity ([MobileNetV3](https://arxiv.org/abs/1905.02244), for example), while being efficient on mobile devices.
+트랜스포머와 컨볼루션의 특성을 결합하는 것 외에도,
+저자들은 다양한 이미지 인식 작업을 위한 범용 모바일 친화적인 백본으로 MobileViT를 소개합니다.
+저자들의 연구 결과에 따르면, MobileViT는 성능 면에서 동일하거나 더 높은 복잡도를 가진
+다른 모델([MobileNetV3](https://arxiv.org/abs/1905.02244) 등)보다 우수하며,
+모바일 장치에서 효율적이라고 합니다.
 
-Note: This example should be run with Tensorflow 2.13 and higher.
+참고: 이 예제는 Tensorflow 2.13 이상에서 실행해야 합니다.
 
-## Imports
+## Imports {#imports}
 
 ```python
 import os
@@ -45,22 +53,24 @@ import tensorflow_datasets as tfds
 tfds.disable_progress_bar()
 ```
 
-## Hyperparameters
+## 하이퍼파라미터 {#hyperparameters}
 
 ```python
-# Values are from table 4.
-patch_size = 4  # 2x2, for the Transformer blocks.
+# 값은 표 4에서 가져온 것입니다.
+patch_size = 4  # 2x2, 트랜스포머 블록에 대해.
 image_size = 256
-expansion_factor = 2  # expansion factor for the MobileNetV2 blocks.
+expansion_factor = 2  # MobileNetV2 블록의 확장 계수(expansion factor).
 ```
 
-## MobileViT utilities
+## MobileViT 유틸리티 {#mobilevit-utilities}
 
-The MobileViT architecture is comprised of the following blocks:
+MobileViT 아키텍처는 다음 블록으로 구성됩니다:
 
-- Strided 3x3 convolutions that process the input image.
-- [MobileNetV2](https://arxiv.org/abs/1801.04381)\-style inverted residual blocks for downsampling the resolution of the intermediate feature maps.
-- MobileViT blocks that combine the benefits of Transformers and convolutions. It is presented in the figure below (taken from the [original paper](https://arxiv.org/abs/2110.02178)):
+- 입력 이미지를 처리하는 스트라이드된 3x3 컨볼루션.
+- 중간 특성 맵의 해상도를 다운샘플링하기 위한
+  [MobileNetV2](https://arxiv.org/abs/1801.04381) 스타일의 inverted residual 블록.
+- 트랜스포머와 컨볼루션의 장점을 결합한 MobileViT 블록. 아래 그림에 나와 있습니다.
+  ([원본 논문](https://arxiv.org/abs/2110.02178)에서 발췌):
 
 ![png](/images/examples/vision/mobilevit/mANnhI7.png)
 
@@ -132,15 +142,15 @@ def mlp(x, hidden_units, dropout_rate):
 
 def transformer_block(x, transformer_layers, projection_dim, num_heads=2):
     for _ in range(transformer_layers):
-        # Layer normalization 1.
+        # 레이어 정규화 1.
         x1 = layers.LayerNormalization(epsilon=1e-6)(x)
-        # Create a multi-head attention layer.
+        # 멀티 헤드 어텐션 레이어 생성.
         attention_output = layers.MultiHeadAttention(
             num_heads=num_heads, key_dim=projection_dim, dropout=0.1
         )(x1, x1)
-        # Skip connection 1.
+        # 스킵 연결 1.
         x2 = layers.Add()([attention_output, x])
-        # Layer normalization 2.
+        # 레이어 정규화 2.
         x3 = layers.LayerNormalization(epsilon=1e-6)(x2)
         # MLP.
         x3 = mlp(
@@ -148,20 +158,20 @@ def transformer_block(x, transformer_layers, projection_dim, num_heads=2):
             hidden_units=[x.shape[-1] * 2, x.shape[-1]],
             dropout_rate=0.1,
         )
-        # Skip connection 2.
+        # 스킵 연결 2.
         x = layers.Add()([x3, x2])
 
     return x
 
 
 def mobilevit_block(x, num_blocks, projection_dim, strides=1):
-    # Local projection with convolutions.
+    # 컨볼루션을 사용한 로컬 프로젝션.
     local_features = conv_block(x, filters=projection_dim, strides=strides)
     local_features = conv_block(
         local_features, filters=projection_dim, kernel_size=1, strides=strides
     )
 
-    # Unfold into patches and then pass through Transformers.
+    # 패치로 펼친 다음, 트랜스포머를 통과.
     num_patches = int((local_features.shape[1] * local_features.shape[2]) / patch_size)
     non_overlapping_patches = layers.Reshape((patch_size, num_patches, projection_dim))(
         local_features
@@ -170,18 +180,18 @@ def mobilevit_block(x, num_blocks, projection_dim, strides=1):
         non_overlapping_patches, num_blocks, projection_dim
     )
 
-    # Fold into conv-like feature-maps.
+    # conv와 같은 특성 맵으로 Fold.
     folded_feature_map = layers.Reshape((*local_features.shape[1:-1], projection_dim))(
         global_features
     )
 
-    # Apply point-wise conv -> concatenate with the input features.
+    # 포인트 별 conv 적용 -> 입력 특성과 concatenate.
     folded_feature_map = conv_block(
         folded_feature_map, filters=x.shape[-1], kernel_size=1, strides=strides
     )
     local_global_features = layers.Concatenate(axis=-1)([x, folded_feature_map])
 
-    # Fuse the local and global features using a convoluion layer.
+    # 컨볼루션 레이어를 사용하여, 로컬 및 글로벌 특성을 융합(Fuse).
     local_global_features = conv_block(
         local_global_features, filters=projection_dim, strides=strides
     )
@@ -189,16 +199,25 @@ def mobilevit_block(x, num_blocks, projection_dim, strides=1):
     return local_global_features
 ```
 
-**More on the MobileViT block**:
+**MobileViT 블록에 대해 자세히 알아보기**:
 
-- First, the feature representations (A) go through convolution blocks that capture local relationships. The expected shape of a single entry here would be `(h, w, num_channels)`.
-- Then they get unfolded into another vector with shape `(p, n, num_channels)`, where `p` is the area of a small patch, and `n` is `(h * w) / p`. So, we end up with `n` non-overlapping patches.
-- This unfolded vector is then passed through a Tranformer block that captures global relationships between the patches.
-- The output vector (B) is again folded into a vector of shape `(h, w, num_channels)` resembling a feature map coming out of convolutions.
+- 먼저, 특성 표현(A)은 로컬 관계를 포착하는 컨볼루션 블록을 거칩니다.
+  여기서 단일 항목의 예상되는 모양은 `(h, w, num_channels)`입니다.
+- 그런 다음 `(p, n, num_channels)` 모양의 다른 벡터로 펼쳐지는데,
+  여기서 `p`는 작은 패치의 면적이고,
+  `n`은 `(h * w) / p`입니다.
+  따라서, `n`개의 겹치지 않는 패치로 끝납니다.
+- 이렇게 펼쳐진 벡터는 패치 사이의 글로벌 관계를 캡처하는 트랜스포머 블록을 통과합니다.
+- 출력 벡터(B)는 다시 컨볼루션에서 나오는 특성 맵과 유사한
+  `(h, w, num_channels)` 모양의 벡터로 접힙니다.
 
-Vectors A and B are then passed through two more convolutional layers to fuse the local and global representations. Notice how the spatial resolution of the final vector remains unchanged at this point. The authors also present an explanation of how the MobileViT block resembles a convolution block of a CNN. For more details, please refer to the original paper.
+그런 다음 벡터 A와 B는 두 개의 컨볼루션 레이어를 더 통과하여 로컬 표현과 글로벌 표현을 융합합니다.
+이 시점에서 최종 벡터의 공간 해상도가 어떻게 변하지 않는지 주목하세요.
+저자들은 MobileViT 블록이 CNN의 컨볼루션 블록과 어떻게 닮았는지에 대한 설명도 제시합니다.
+자세한 내용은 원본 논문을 참조하시기 바랍니다.
 
-Next, we combine these blocks together and implement the MobileViT architecture (XXS variant). The following figure (taken from the original paper) presents a schematic representation of the architecture:
+다음으로, 이러한 블록을 결합하여, MobileViT 아키텍처(XXS 변형)를 구현합니다.
+다음 그림(원본 논문에서 발췌)은 아키텍처의 개략적인 모습을 보여줍니다:
 
 ![png](/images/examples/vision/mobilevit/image.png)
 
@@ -207,13 +226,13 @@ def create_mobilevit(num_classes=5):
     inputs = keras.Input((image_size, image_size, 3))
     x = layers.Rescaling(scale=1.0 / 255)(inputs)
 
-    # Initial conv-stem -> MV2 block.
+    # 초기 conv-stem -> MV2 블록.
     x = conv_block(x, filters=16)
     x = inverted_residual_block(
         x, expanded_channels=16 * expansion_factor, output_channels=16
     )
 
-    # Downsampling with MV2 block.
+    # MV2 블록으로 다운샘플링.
     x = inverted_residual_block(
         x, expanded_channels=16 * expansion_factor, output_channels=24, strides=2
     )
@@ -224,26 +243,26 @@ def create_mobilevit(num_classes=5):
         x, expanded_channels=24 * expansion_factor, output_channels=24
     )
 
-    # First MV2 -> MobileViT block.
+    # 첫 번째 MV2 -> MobileViT 블록.
     x = inverted_residual_block(
         x, expanded_channels=24 * expansion_factor, output_channels=48, strides=2
     )
     x = mobilevit_block(x, num_blocks=2, projection_dim=64)
 
-    # Second MV2 -> MobileViT block.
+    # 두 번째 MV2 -> MobileViT 블록.
     x = inverted_residual_block(
         x, expanded_channels=64 * expansion_factor, output_channels=64, strides=2
     )
     x = mobilevit_block(x, num_blocks=4, projection_dim=80)
 
-    # Third MV2 -> MobileViT block.
+    # 세 번째 MV2 -> MobileViT 블록.
     x = inverted_residual_block(
         x, expanded_channels=80 * expansion_factor, output_channels=80, strides=2
     )
     x = mobilevit_block(x, num_blocks=3, projection_dim=96)
     x = conv_block(x, filters=320, kernel_size=1, strides=1)
 
-    # Classification head.
+    # 분류 헤드.
     x = layers.GlobalAvgPool2D()(x)
     outputs = layers.Dense(num_classes, activation="softmax")(x)
 
@@ -644,9 +663,12 @@ ________________________________________________________________________________
 
 {{% /details %}}
 
-## Dataset preparation
+## 데이터 세트 준비 {#dataset-preparation}
 
-We will be using the [`tf_flowers`](https://www.tensorflow.org/datasets/catalog/tf_flowers) dataset to demonstrate the model. Unlike other Transformer-based architectures, MobileViT uses a simple augmentation pipeline primarily because it has the properties of a CNN.
+모델을 시연하기 위해 [`tf_flowers`](https://www.tensorflow.org/datasets/catalog/tf_flowers) 데이터 세트를 사용하겠습니다.
+다른 Transformer 기반 아키텍처와 달리,
+MobileViT는 주로 CNN의 속성을 가지고 있기 때문에,
+간단한 보강 파이프라인을 사용합니다.
 
 ```python
 batch_size = 64
@@ -658,8 +680,7 @@ num_classes = 5
 def preprocess_dataset(is_training=True):
     def _pp(image, label):
         if is_training:
-            # Resize to a bigger spatial resolution and take the random
-            # crops.
+            # 더 큰 공간 해상도로 크기를 조정하고, 무작위로 자릅니다. (random crop)
             image = tf.image.resize(image, (resize_bigger, resize_bigger))
             image = tf.image.random_crop(image, (image_size, image_size, 3))
             image = tf.image.random_flip_left_right(image)
@@ -678,9 +699,10 @@ def prepare_dataset(dataset, is_training=True):
     return dataset.batch(batch_size).prefetch(auto)
 ```
 
-The authors use a multi-scale data sampler to help the model learn representations of varied scales. In this example, we discard this part.
+저자는 멀티 스케일 데이터 샘플러를 사용하여 모델이 다양한 스케일의 표현을 학습하도록 돕습니다.
+이 예제에서는, 이 부분을 생략합니다.
 
-## Load and prepare the dataset
+## 데이터 세트 로드 및 준비 {#load-and-prepare-the-dataset}
 
 ```python
 train_dataset, val_dataset = tfds.load(
@@ -705,7 +727,7 @@ Number of validation examples: 367
 
 {{% /details %}}
 
-## Train a MobileViT (XXS) model
+## MobileViT(XXS) 모델 트레이닝 {#train-a-mobilevit-xxs-model}
 
 ```python
 learning_rate = 0.002
@@ -720,7 +742,8 @@ def run_experiment(epochs=epochs):
     mobilevit_xxs = create_mobilevit(num_classes=num_classes)
     mobilevit_xxs.compile(optimizer=optimizer, loss=loss_fn, metrics=["accuracy"])
 
-    # When using `save_weights_only=True` in `ModelCheckpoint`, the filepath provided must end in `.weights.h5`
+    # `ModelCheckpoint`에서 `save_weights_only=True`를 사용하는 경우,
+    # 제공된 파일 경로는 `.weights.h5`로 끝나야 합니다.
     checkpoint_filepath = "/tmp/checkpoint.weights.h5"
     checkpoint_callback = keras.callbacks.ModelCheckpoint(
         checkpoint_filepath,
@@ -783,29 +806,31 @@ Epoch 30/30 52/52 [==============================] - 21s 408ms/step - loss: 0.60
 
 {{% /details %}}
 
-## Results and TFLite conversion
+## 결과 및 TFLite 변환 {#results-and-tflite-conversion}
 
-With about one million parameters, getting to ~85% top-1 accuracy on 256x256 resolution is a strong result. This MobileViT mobile is fully compatible with TensorFlow Lite (TFLite) and can be converted with the following code:
+약 100만 개의 파라미터를 사용하여,
+256x256 해상도에서 ~85%의 top-1 정확도를 달성한 것은 강력한 결과입니다.
+이 MobileViT 모바일은 TensorFlow Lite(TFLite)와 완벽하게 호환되며,
+다음 코드를 사용하여 변환할 수 있습니다:
 
 ```python
-# Serialize the model as a SavedModel.
+# 모델을 SavedModel로 직렬화.
 tf.saved_model.save(mobilevit_xxs, "mobilevit_xxs")
 
-# Convert to TFLite. This form of quantization is called
-# post-training dynamic-range quantization in TFLite.
+# 이러한 형태의 양자화(quantization)를 TFLite에서 트레이닝 후 동적 범위 양자화라고 합니다. (post-training dynamic-range quantization)
 converter = tf.lite.TFLiteConverter.from_saved_model("mobilevit_xxs")
 converter.optimizations = [tf.lite.Optimize.DEFAULT]
 converter.target_spec.supported_ops = [
-    tf.lite.OpsSet.TFLITE_BUILTINS,  # Enable TensorFlow Lite ops.
-    tf.lite.OpsSet.SELECT_TF_OPS,  # Enable TensorFlow ops.
+    tf.lite.OpsSet.TFLITE_BUILTINS,  # TensorFlow Lite ops 활성화.
+    tf.lite.OpsSet.SELECT_TF_OPS,  # TensorFlow ops 활성화.
 ]
 tflite_model = converter.convert()
 open("mobilevit_xxs.tflite", "wb").write(tflite_model)
 ```
 
-To learn more about different quantization recipes available in TFLite and running
-inference with TFLite models, check out
-[this official resource](https://www.tensorflow.org/lite/performance/post_training_quantization).
+TFLite에서 사용할 수 있는 다양한 양자화(quantization) 레시피와
+TFLite 모델을 사용한 추론 실행에 대해 자세히 알아보려면,
+[이 공식 리소스](https://www.tensorflow.org/lite/performance/post_training_quantization)를 확인하세요.
 
-You can use the trained model hosted on [Hugging Face Hub](https://huggingface.co/keras-io/mobile-vit-xxs)
-and try the demo on [Hugging Face Spaces](https://huggingface.co/spaces/keras-io/Flowers-Classification-MobileViT).
+[Hugging Face Hub](https://huggingface.co/keras-io/mobile-vit-xxs)에서 호스팅되는 트레이닝된 모델을 사용하고,
+[Hugging Face Spaces](https://huggingface.co/spaces/keras-io/Flowers-Classification-MobileViT)에서 데모를 사용해 볼 수 있습니다.

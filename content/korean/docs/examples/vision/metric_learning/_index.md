@@ -1,5 +1,6 @@
 ---
-title: Metric learning for image similarity search
+title: 이미지 유사도 검색을 위한 메트릭 학습
+linkTitle: 이미지 유사도 검색 메트릭 학습
 toc: true
 weight: 52
 type: docs
@@ -19,7 +20,7 @@ type: docs
 {{< card link="https://github.com/keras-team/keras-io/blob/master/examples/vision/metric_learning.py" title="GitHub" tag="GitHub">}}
 {{< /cards >}}
 
-## Overview
+## Overview {#overview}
 
 Metric learning aims to train models that can embed inputs into a high-dimensional space such that "similar" inputs, as defined by the training scheme, are located close to each other. These models once trained can produce embeddings for downstream systems where such similarity is useful; examples include as a ranking signal for search or as a form of pretrained embedding model for another supervised problem.
 
@@ -28,7 +29,7 @@ For a more detailed overview of metric learning see:
 - [What is metric learning?](http://contrib.scikit-learn.org/metric-learn/introduction.html)
 - ["Using crossentropy for metric learning" tutorial](https://www.youtube.com/watch?v=Jb4Ewl5RzkI)
 
-## Setup
+## Setup {#setup}
 
 Set Keras backend to tensorflow.
 
@@ -48,7 +49,7 @@ import keras
 from keras import layers
 ```
 
-## Dataset
+## Dataset {#dataset}
 
 For this example we will be using the [CIFAR-10](https://www.cs.toronto.edu/~kriz/cifar.html) dataset.
 
@@ -150,7 +151,7 @@ show_collage(examples)
 
 ![png](/images/examples/vision/metric_learning/metric_learning_13_0.png)
 
-## Embedding model
+## Embedding model {#embedding-model}
 
 We define a custom model with a `train_step` that first embeds both anchors and positives and then uses their pairwise dot products as logits for a softmax.
 
@@ -283,7 +284,7 @@ Epoch 20/20
 
 ![png](/images/examples/vision/metric_learning/metric_learning_19_3.png)
 
-## Testing
+## Testing {#testing}
 
 We can review the quality of this model by applying it to the test set and considering near neighbours in the embedding space.
 

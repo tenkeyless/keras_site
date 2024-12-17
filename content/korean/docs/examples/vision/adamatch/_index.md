@@ -1,5 +1,6 @@
 ---
-title: Semi-supervision and domain adaptation with AdaMatch
+title: AdaMatch를 통한 반지도(Semi-supervision) 및 도메인 적응
+linkTitle: AdaMatch 반지도 및 도메인 적응
 toc: true
 weight: 67
 type: docs
@@ -19,7 +20,7 @@ type: docs
 {{< card link="https://github.com/keras-team/keras-io/blob/master/examples/vision/adamatch.py" title="GitHub" tag="GitHub">}}
 {{< /cards >}}
 
-## Introduction
+## Introduction {#introduction}
 
 In this example, we will implement the AdaMatch algorithm, proposed in [AdaMatch: A Unified Approach to Semi-Supervised Learning and Domain Adaptation](https://arxiv.org/abs/2106.04732) by Berthelot et al. It sets a new state-of-the-art in unsupervised domain adaptation (as of June 2021). AdaMatch is particularly interesting because it unifies semi-supervised learning (SSL) and unsupervised domain adaptation (UDA) under one framework. It thereby provides a way to perform semi-supervised domain adaptation (SSDA).
 
@@ -31,7 +32,7 @@ This example requires TensorFlow 2.5 or higher, as well as TensorFlow Models, wh
 
 Before we proceed, let's review a few preliminary concepts underlying this example.
 
-## Preliminaries
+## Preliminaries {#preliminaries}
 
 In **semi-supervised learning (SSL)**, we use a small amount of labeled data to train models on a bigger unlabeled dataset. Popular semi-supervised learning methods for computer vision include [FixMatch](https://arxiv.org/abs/2001.07685), [MixMatch](https://arxiv.org/abs/1905.02249), [Noisy Student Training](https://arxiv.org/abs/1911.04252), etc. You can refer to [this example]({{< relref "/docs/examples/vision/consistency_training" >}}) to get an idea of what a standard SSL workflow looks like.
 
@@ -41,7 +42,7 @@ In **unsupervised domain adaptation**, we have access to a source labeled datase
 
 Popular domain adaptation algorithms in deep learning include [Deep CORAL](https://arxiv.org/abs/1612.01939), [Moment Matching](https://arxiv.org/abs/1812.01754), etc.
 
-## Setup
+## Setup {#setup}
 
 ```python
 import tensorflow as tf
@@ -60,7 +61,7 @@ import tensorflow_datasets as tfds
 tfds.disable_progress_bar()
 ```
 
-## Prepare the data
+## Prepare the data {#prepare-the-data}
 
 ```python
 # MNIST
@@ -82,7 +83,7 @@ svhn_train, svhn_test = tfds.load(
 )
 ```
 
-## Define constants and hyperparameters
+## Define constants and hyperparameters {#define-constants-and-hyperparameters}
 
 ```python
 RESIZE_TO = 32
@@ -102,7 +103,7 @@ DEPTH = 28
 WIDTH_MULT = 2
 ```
 
-## Data augmentation utilities
+## Data augmentation utilities {#data-augmentation-utilities}
 
 A standard element of SSL algorithms is to feed weakly and strongly augmented versions of the same images to the learning model to make its predictions consistent. For strong augmentation, [RandAugment](https://arxiv.org/abs/1909.13719) is a standard choice. For weak augmentation, we will use horizontal flipping and random cropping.
 
@@ -137,7 +138,7 @@ def strong_augment(image, source=True):
     return image
 ```
 
-## Data loading utilities
+## Data loading utilities {#data-loading-utilities}
 
 ```python
 def create_individual_ds(ds, aug_func, source=True):
@@ -175,7 +176,7 @@ Here's what a single image batch looks like:
 
 ![png](/images/examples/vision/adamatch/aver8cG.png)
 
-## Loss computation utilities
+## Loss computation utilities {#loss-computation-utilities}
 
 ```python
 def compute_loss_source(source_labels, logits_source_w, logits_source_s):
@@ -202,7 +203,7 @@ def compute_loss_target(target_pseudo_labels_w, logits_target_s, mask):
     return tf.reduce_mean(target_loss, 0)
 ```
 
-## Subclassed model for AdaMatch training
+## Subclassed model for AdaMatch training {#subclassed-model-for-adamatch-training}
 
 The figure below presents the overall workflow of AdaMatch (taken from the [original paper](https://arxiv.org/abs/2106.04732)):
 
@@ -330,7 +331,7 @@ Rather than using a fixed scalar quantity, a varying scalar is used in AdaMatch.
 
 This scheduler increases the weight of the target domain loss from 0 to 1 for the first half of the training. Then it keeps that weight at 1 for the second half of the training.
 
-## Instantiate a Wide-ResNet-28-2
+## Instantiate a Wide-ResNet-28-2 {#instantiate-a-wide-resnet-28-2}
 
 The authors use a [WideResNet-28-2](https://arxiv.org/abs/1605.07146) for the dataset pairs we are using in this example. Most of the following code has been referred from [this script](https://github.com/asmith26/wide_resnets_keras/blob/master/main.py). Note that the following model has a scaling layer inside it that scales the pixel values to \[0, 1\].
 
@@ -472,7 +473,7 @@ Model has 1.471226 Million parameters.
 
 {{% /details %}}
 
-## Instantiate AdaMatch model and compile it
+## Instantiate AdaMatch model and compile it {#instantiate-adamatch-model-and-compile-it}
 
 ```python
 reduce_lr = keras.optimizers.schedules.CosineDecay(LEARNING_RATE, TOTAL_STEPS, 0.25)
@@ -482,7 +483,7 @@ adamatch_trainer = AdaMatch(model=wrn_model, total_steps=TOTAL_STEPS)
 adamatch_trainer.compile(optimizer=optimizer)
 ```
 
-## Model training
+## Model training {#model-training}
 
 ```python
 total_ds = tf.data.Dataset.zip((final_source_ds, final_target_ds))
@@ -518,7 +519,7 @@ Epoch 10/10
 
 {{% /details %}}
 
-## Evaluation on the target and source test sets
+## Evaluation on the target and source test sets {#evaluation-on-the-target-and-source-test-sets}
 
 ```python
 # Compile the AdaMatch model to yield accuracy.

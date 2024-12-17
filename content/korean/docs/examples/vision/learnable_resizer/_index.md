@@ -1,5 +1,6 @@
 ---
-title: Learning to Resize in Computer Vision
+title: 컴퓨터 비전에서 리사이즈 학습
+linkTitle: 컴퓨터 비전에서 리사이즈 학습
 toc: true
 weight: 66
 type: docs
@@ -27,7 +28,7 @@ It turns out it may not always be the case. When training vision models, it is c
 
 As shown in the paper, this idea helps to consistently improve the performance of the common vision models (pre-trained on ImageNet-1k) like DenseNet-121, ResNet-50, MobileNetV2, and EfficientNets. In this example, we will implement the learnable image resizing module as proposed in the paper and demonstrate that on the [Cats and Dogs dataset](https://www.microsoft.com/en-us/download/details.aspx?id=54765) using the [DenseNet-121](https://arxiv.org/abs/1608.06993) architecture.
 
-## Setup
+## Setup {#setup}
 
 ```python
 import os
@@ -46,7 +47,7 @@ import matplotlib.pyplot as plt
 import numpy as np
 ```
 
-## Define hyperparameters
+## Define hyperparameters {#define-hyperparameters}
 
 In order to facilitate mini-batch learning, we need to have a fixed shape for the images inside a given batch. This is why an initial resizing is required. We first resize all the images to (300 x 300) shape and then learn their optimal representation for the (150 x 150) resolution.
 
@@ -62,7 +63,7 @@ EPOCHS = 5
 
 In this example, we will use the bilinear interpolation but the learnable image resizer module is not dependent on any specific interpolation method. We can also use others, such as bicubic.
 
-## Load and prepare the dataset
+## Load and prepare the dataset {#load-and-prepare-the-dataset}
 
 For this example, we will only use 40% of the total training dataset.
 
@@ -94,7 +95,7 @@ validation_ds = (
 )
 ```
 
-## Define the learnable resizer utilities
+## Define the learnable resizer utilities {#define-the-learnable-resizer-utilities}
 
 The figure below (courtesy: [Learning to Resize Images for Computer Vision Tasks](https://arxiv.org/abs/2103.09950v1)) presents the structure of the learnable resizing module:
 
@@ -162,7 +163,7 @@ def get_learnable_resizer(filters=16, num_res_blocks=1, interpolation=INTERPOLAT
 learnable_resizer = get_learnable_resizer()
 ```
 
-## Visualize the outputs of the learnable resizing module
+## Visualize the outputs of the learnable resizing module {#visualize-the-outputs-of-the-learnable-resizing-module}
 
 Here, we visualize how the resized images would look like after being passed through the random weights of the resizer.
 
@@ -202,7 +203,7 @@ WARNING:matplotlib.image:Clipping input data to the valid range for imshow with 
 
 ![png](/images/examples/vision/learnable_resizer/learnable_resizer_13_1.png)
 
-## Model building utility
+## Model building utility {#model-building-utility}
 
 ```python
 def get_model():
@@ -224,7 +225,7 @@ def get_model():
 
 The structure of the learnable image resizer module allows for flexible integrations with different vision models.
 
-## Compile and train our model with learnable resizer
+## Compile and train our model with learnable resizer {#compile-and-train-our-model-with-learnable-resizer}
 
 ```python
 model = get_model()
@@ -264,7 +265,7 @@ Epoch 5/5
 
 {{% /details %}}
 
-## Visualize the outputs of the trained visualizer
+## Visualize the outputs of the trained visualizer {#visualize-the-outputs-of-the-trained-visualizer}
 
 ```python
 plt.figure(figsize=(16, 10))
@@ -319,7 +320,7 @@ To show that it is not the case, the authors conduct the following experiment:
 
 Now, the authors argue that using the second option is better because it helps the model learn how to adjust the representations better with respect to the given resolution. Since the results purely are empirical, a few more experiments such as analyzing the cross-channel interaction would have been even better. It is worth noting that elements like [Squeeze and Excitation (SE) blocks](https://arxiv.org/abs/1709.01507), [Global Context (GC) blocks](https://arxiv.org/abs/1904.11492) also add a few parameters to an existing network but they are known to help a network process information in systematic ways to improve the overall performance.
 
-## Notes
+## Notes {#notes}
 
 - To impose shape bias inside the vision models, Geirhos et al. trained them with a combination of natural and stylized images. It might be interesting to investigate if this learnable resizing module could achieve something similar as the outputs seem to discard the texture information.
 

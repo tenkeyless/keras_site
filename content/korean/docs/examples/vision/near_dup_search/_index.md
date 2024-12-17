@@ -1,5 +1,6 @@
 ---
-title: Near-duplicate image search
+title: 중복에 가까운 이미지 검색
+linkTitle: 중복에 가까운 이미지 검색
 toc: true
 weight: 48
 type: docs
@@ -19,7 +20,7 @@ type: docs
 {{< card link="https://github.com/keras-team/keras-io/blob/master/examples/vision/near_dup_search.py" title="GitHub" tag="GitHub">}}
 {{< /cards >}}
 
-## Introduction
+## Introduction {#introduction}
 
 Fetching similar images in (near) real time is an important use case of information retrieval systems. Some popular products utilizing it include Pinterest, Google Image Search, etc. In this example, we will build a similar image search utility using [Locality Sensitive Hashing](https://towardsdatascience.com/understanding-locality-sensitive-hashing-49f6d1f6134) (LSH) and [random projection](https://en.wikipedia.org/wiki/Random_projection) on top of the image representations computed by a pretrained image classifier. This kind of search engine is also known as a _near-duplicate (or near-dup) image detector_. We will also look into optimizing the inference performance of our search utility on GPU using [TensorRT](https://developer.nvidia.com/tensorrt).
 
@@ -32,13 +33,13 @@ Finally, this example uses the following resource as a reference and as such reu
 
 _Note that in order to optimize the performance of our parser, you should have a GPU runtime available._
 
-## Setup
+## Setup {#setup}
 
 ```python
 !pip install tensorrt
 ```
 
-## Imports
+## Imports {#imports}
 
 ```python
 import matplotlib.pyplot as plt
@@ -52,7 +53,7 @@ import tensorflow_datasets as tfds
 tfds.disable_progress_bar()
 ```
 
-## Load the dataset and create a training set of 1,000 images
+## Load the dataset and create a training set of 1,000 images {#load-the-dataset-and-create-a-training-set-of-1000-images}
 
 To keep the run time of the example short, we will be using a subset of 1,000 images from the `tf_flowers` dataset (available through [TensorFlow Datasets](https://www.tensorflow.org/datasets/catalog/tf_flowers)) to build our vocabulary.
 
@@ -76,7 +77,7 @@ images = np.array(images)
 labels = np.array(labels)
 ```
 
-## Load a pre-trained model
+## Load a pre-trained model {#load-a-pre-trained-model}
 
 In this section, we load an image classification model that was trained on the `tf_flowers` dataset. 85% of the total images were used to build the training set. For more details on the training, refer to [this notebook](https://github.com/sayakpaul/near-dup-parser/blob/main/bit-supervised-training.ipynb).
 
@@ -100,7 +101,7 @@ bit_model.count_params()
 
 {{% /details %}}
 
-## Create an embedding model
+## Create an embedding model {#create-an-embedding-model}
 
 To retrieve similar images given a query image, we need to first generate vector representations of all the images involved. We do this via an embedding model that extracts output features from our pretrained classifier and normalizes the resulting feature vectors.
 
@@ -141,7 +142,7 @@ _________________________________________________________________
 
 Take note of the normalization layer inside the model. It is used to project the representation vectors to the space of unit-spheres.
 
-## Hashing utilities
+## Hashing utilities {#hashing-utilities}
 
 ```python
 def hash_func(embedding, random_vectors):
@@ -164,7 +165,7 @@ The shape of the vectors coming out of `embedding_model` is `(2048,)`, and consi
 
 Inside `hash_func()`, we first reduce the dimensionality of the embedding vectors. Then we compute the bitwise hash values of the images to determine their hash buckets. Images having same hash values are likely to go into the same hash bucket. From a deployment perspective, bitwise hash values are cheaper to store and operate on.
 
-## Query utilities
+## Query utilities {#query-utilities}
 
 The `Table` class is responsible for building a single hash table. Each entry in the hash table is a mapping between the reduced embedding of an image from our dataset and a unique identifier. Because our dimensionality reduction technique involves randomness, it can so happen that similar images are not mapped to the same hash bucket everytime the process run. To reduce this effect, we will take results from multiple tables into consideration – the number of tables and the reduction dimensionality are the key hyperparameters here.
 
@@ -297,7 +298,7 @@ class BuildLSHTable:
         return counts
 ```
 
-## Create LSH tables
+## Create LSH tables {#create-lsh-tables}
 
 With our helper utilities and classes implemented, we can now build our LSH table. Since we will be benchmarking performance between optimized and unoptimized embedding models, we will also warm up our GPU to avoid any unfair comparison.
 
@@ -321,7 +322,7 @@ lsh_builder.train(training_files)
 
 At the time of writing, the wall time was 54.1 seconds on a Tesla T4 GPU. This timing may vary based on the GPU you are using.
 
-## Optimize the model with TensorRT
+## Optimize the model with TensorRT {#optimize-the-model-with-tensorrt}
 
 For NVIDIA-based GPUs, the [TensorRT framework](https://docs.nvidia.com/deeplearning/frameworks/tf-trt-user-guide/index.html) can be used to dramatically enhance the inference latency by using various model optimization techniques like pruning, constant folding, layer fusion, and so on. Here we will use the [`tf.experimental.tensorrt`](https://www.tensorflow.org/api_docs/python/tf/experimental/tensorrt) module to optimize our embedding model.
 
@@ -381,7 +382,7 @@ root = tf.saved_model.load("tensorrt_embedding_model")
 trt_model_function = root.signatures["serving_default"]
 ```
 
-## Build LSH tables with optimized model
+## Build LSH tables with optimized model {#build-lsh-tables-with-optimized-model}
 
 ```python
 warmup()
@@ -417,7 +418,7 @@ for hash, entry in lsh_builder_trt.lsh.tables[0].table.items():
 
 {{% /details %}}
 
-## Visualize results on validation images
+## Visualize results on validation images {#visualize-results-on-validation-images}
 
 In this section we will first writing a couple of utility functions to visualize the similar image parsing process. Then we will benchmark the query performance of the models with and without optimization.
 
@@ -485,7 +486,7 @@ def visualize_lsh(lsh_class):
     plot_images(candidates, labels)
 ```
 
-### Non-TRT model
+### Non-TRT model {#non-trt-model}
 
 ```python
 for _ in range(5):
@@ -519,7 +520,7 @@ Matches: 306
 
 ![png](/images/examples/vision/near_dup_search/near_dup_search_41_6.png)
 
-### TRT model
+### TRT model {#trt-model}
 
 ```python
 for _ in range(5):
@@ -553,7 +554,7 @@ As you may have noticed, there are a couple of incorrect results. This can be mi
 - Better models for generating the initial embeddings especially for noisy samples. We can use techniques like [ArcFace](https://arxiv.org/abs/1801.07698), [Supervised Contrastive Learning](https://arxiv.org/abs/2004.11362), etc. that implicitly encourage better learning of representations for retrieval purposes.
 - The trade-off between the number of tables and the reduction dimensionality is crucial and helps set the right recall required for your application.
 
-## Benchmarking query performance
+## Benchmarking query performance {#benchmarking-query-performance}
 
 ```python
 def benchmark(lsh_class):
@@ -583,7 +584,7 @@ Time taken: 13.963
 
 We can immediately notice a stark difference between the query performance of the two models.
 
-## Final remarks
+## Final remarks {#final-remarks}
 
 In this example, we explored the TensorRT framework from NVIDIA for optimizing our model. It's best suited for GPU-based inference servers. There are other choices for such frameworks that cater to different hardware platforms:
 

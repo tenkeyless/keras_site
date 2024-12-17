@@ -1,5 +1,6 @@
 ---
-title: Image similarity estimation using a Siamese Network with a contrastive loss
+title: 대비 손실이 있는 Siamese 네트워크를 사용한 이미지 유사도 추정
+linkTitle: Siamese 이미지 유사도 추정
 toc: true
 weight: 50
 type: docs
@@ -19,13 +20,13 @@ type: docs
 {{< card link="https://github.com/keras-team/keras-io/blob/master/examples/vision/siamese_contrastive.py" title="GitHub" tag="GitHub">}}
 {{< /cards >}}
 
-## Introduction
+## Introduction {#introduction}
 
 [Siamese Networks](https://en.wikipedia.org/wiki/Siamese_neural_network) are neural networks which share weights between two or more sister networks, each producing embedding vectors of its respective inputs.
 
 In supervised similarity learning, the networks are then trained to maximize the contrast (distance) between embeddings of inputs of different classes, while minimizing the distance between embeddings of similar classes, resulting in embedding spaces that reflect the class segmentation of the training inputs.
 
-## Setup
+## Setup {#setup}
 
 ```python
 import random
@@ -35,7 +36,7 @@ from keras import ops
 import matplotlib.pyplot as plt
 ```
 
-## Hyperparameters
+## Hyperparameters {#hyperparameters}
 
 ```python
 epochs = 10
@@ -43,7 +44,7 @@ batch_size = 16
 margin = 1  # Margin for contrastive loss.
 ```
 
-## Load the MNIST dataset
+## Load the MNIST dataset {#load-the-mnist-dataset}
 
 ```python
 (x_train_val, y_train_val), (x_test, y_test) = keras.datasets.mnist.load_data()
@@ -53,7 +54,7 @@ x_train_val = x_train_val.astype("float32")
 x_test = x_test.astype("float32")
 ```
 
-## Define training and validation sets
+## Define training and validation sets {#define-training-and-validation-sets}
 
 ```python
 # Keep 50% of train_val  in validation set
@@ -62,7 +63,7 @@ y_train, y_val = y_train_val[:30000], y_train_val[30000:]
 del x_train_val, y_train_val
 ```
 
-## Create pairs of images
+## Create pairs of images {#create-pairs-of-images}
 
 We will train the model to differentiate between digits of different classes. For example, digit `0` needs to be differentiated from the rest of the digits (`1` through `9`), digit `1` - from `0` and `2` through `9`, and so on. To carry this out, we will select N random images from class A (for example, for digit `0`) and pair them with N random images from another class B (for example, for digit `1`). Then, we can repeat this process for all classes of digits (until digit `9`). Once we have paired digit `0` with other digits, we can repeat this process for the remaining classes for the rest of the digits (from `1` until `9`).
 
@@ -149,7 +150,7 @@ x_test_1 = pairs_test[:, 0]  # x_test_1.shape = (20000, 28, 28)
 x_test_2 = pairs_test[:, 1]
 ```
 
-## Visualize pairs and their labels
+## Visualize pairs and their labels {#visualize-pairs-and-their-labels}
 
 ```python
 def visualize(pairs, labels, to_show=6, num_col=3, predictions=None, test=False):
@@ -239,7 +240,7 @@ visualize(pairs_test[:-1], labels_test[:-1], to_show=4, num_col=4)
 
 ![png](/images/examples/vision/siamese_contrastive/siamese_contrastive_26_0.png)
 
-## Define the model
+## Define the model {#define-the-model}
 
 There are two input layers, each leading to its own network, which produces embeddings. A `Lambda` layer then merges them using an [Euclidean distance](https://en.wikipedia.org/wiki/Euclidean_distance) and the merged output is fed to the final network.
 
@@ -292,7 +293,7 @@ output_layer = keras.layers.Dense(1, activation="sigmoid")(normal_layer)
 siamese = keras.Model(inputs=[input_1, input_2], outputs=output_layer)
 ```
 
-## Define the contrastive Loss
+## Define the contrastive Loss {#define-the-contrastive-loss}
 
 ```python
 def loss(margin=1):
@@ -327,7 +328,7 @@ def loss(margin=1):
     return contrastive_loss
 ```
 
-## Compile the model with the contrastive loss
+## Compile the model with the contrastive loss {#compile-the-model-with-the-contrastive-loss}
 
 ```python
 siamese.compile(loss=loss(margin=margin), optimizer="RMSprop", metrics=["accuracy"])
@@ -365,7 +366,7 @@ Model: "functional_3"
 
 {{% /details %}}
 
-## Train the model
+## Train the model {#train-the-model}
 
 ```python
 history = siamese.fit(
@@ -404,7 +405,7 @@ Epoch 10/10
 
 {{% /details %}}
 
-## Visualize results
+## Visualize results {#visualize-results}
 
 ```python
 def plt_metric(history, metric, title, has_valid=True):
@@ -440,7 +441,7 @@ plt_metric(history=history.history, metric="loss", title="Contrastive Loss")
 
 ![png](/images/examples/vision/siamese_contrastive/siamese_contrastive_36_1.png)
 
-## Evaluate the model
+## Evaluate the model {#evaluate-the-model}
 
 ```python
 results = siamese.evaluate([x_test_1, x_test_2], labels_test)
@@ -457,7 +458,7 @@ test loss, test acc: [0.13836927711963654, 0.8143500089645386]
 
 {{% /details %}}
 
-## Visualize the predictions
+## Visualize the predictions {#visualize-the-predictions}
 
 ```python
 predictions = siamese.predict([x_test_1, x_test_2])

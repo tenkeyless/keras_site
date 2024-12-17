@@ -1,5 +1,6 @@
 ---
-title: Barlow Twins for Contrastive SSL
+title: Contrastive SSL을 위한 Barlow Twins
+linkTitle: Contrastive SSL Barlow Twins
 toc: true
 weight: 68
 type: docs
@@ -19,7 +20,7 @@ type: docs
 {{< card link="https://github.com/keras-team/keras-io/blob/master/examples/vision/barlow_twins.py" title="GitHub" tag="GitHub">}}
 {{< /cards >}}
 
-## Introduction
+## Introduction {#introduction}
 
 Self-supervised learning (SSL) is a relatively novel technique in which a model learns from unlabeled data, and is often used when the data is corrupted or if there is very little of it. A practical use for SSL is to create intermediate embeddings that are learned from the data. These embeddings are based on the dataset itself, with similar images having similar embeddings, and vice versa. They are then attached to the rest of the model, which uses those embeddings as information and effectively learns and makes predictions properly. These embeddings, ideally, should contain as much information and insight about the data as possible, so that the model can make better predictions. However, a common problem that arises is that the model creates embeddings that are redundant. For example, if two images are similar, the model will create embeddings that are just a string of 1's, or some other value that contains repeating bits of information. This is no better than a one-hot encoding or just having one bit as the model’s representations; it defeats the purpose of the embeddings, as they do not learn as much about the dataset as possible. For other approaches, the solution to the problem was to carefully configure the model such that it tries not to be redundant.
 
@@ -40,7 +41,7 @@ This notebook can train a Barlow Twins model and reach up to 64% validation accu
 
 ![image](/images/examples/vision/barlow_twins/G6LnEPT.png)
 
-### High-Level Theory
+### High-Level Theory {#high-level-theory}
 
 The model takes two versions of the same image(with different augmentations) as input. Then it takes a prediction of each of them, creating representations. They are then used to make a cross-correlation matrix.
 
@@ -71,13 +72,13 @@ where:
 
 Taken from the original paper: [Barlow Twins: Self-Supervised Learning via Redundancy Reduction](https://arxiv.org/abs/2103.03230)
 
-### References
+### References {#references}
 
 Paper: [Barlow Twins: Self-Supervised Learning via Redundancy Reduction](https://arxiv.org/abs/2103.03230)
 
 Original Implementation: [facebookresearch/barlowtwins](https://github.com/facebookresearch/barlowtwins)
 
-## Setup
+## Setup {#setup}
 
 ```python
 !pip install tensorflow-addons
@@ -113,7 +114,7 @@ tf.config.optimizer.set_jit(True)
 
 {{% /details %}}
 
-## Load the CIFAR-10 dataset
+## Load the CIFAR-10 dataset {#load-the-cifar-10-dataset}
 
 ```python
 [
@@ -125,7 +126,7 @@ train_features = train_features / 255.0
 test_features = test_features / 255.0
 ```
 
-## Necessary Hyperparameters
+## Necessary Hyperparameters {#necessary-hyperparameters}
 
 ```python
 # Batch size of dataset
@@ -134,7 +135,7 @@ BATCH_SIZE = 512
 IMAGE_SIZE = 32
 ```
 
-## Augmentation Utilities
+## Augmentation Utilities {#augmentation-utilities}
 
 The Barlow twins algorithm is heavily reliant on Augmentation. One unique feature of the method is that sometimes, augmentations probabilistically occur.
 
@@ -432,7 +433,7 @@ class RandomAugmentor(keras.Model):
 bt_augmentor = RandomAugmentor(IMAGE_SIZE)
 ```
 
-## Data Loading
+## Data Loading {#data-loading}
 
 A class that creates the barlow twins' dataset.
 
@@ -517,7 +518,7 @@ plot_values(next(sample_augment_versions))
 
 ![png](/images/examples/vision/barlow_twins/barlow_twins_21_1.png)
 
-## Pseudocode of loss and model
+## Pseudocode of loss and model {#pseudocode-of-loss-and-model}
 
 The following sections follow the original author's pseudocode containing both model and loss functions(see diagram below). Also contains a reference of variables used.
 
@@ -537,7 +538,7 @@ c_diff: diagonal portion of loss(invariance term).
 off_diag: off-diagonal portion of loss(redundancy reduction term).
 ```
 
-## BarlowLoss: barlow twins model's loss function
+## BarlowLoss: barlow twins model's loss function {#barlowloss-barlow-twins-models-loss-function}
 
 Barlow Twins uses the cross correlation matrix for its loss. There are two parts to the loss function:
 
@@ -695,7 +696,7 @@ class BarlowLoss(keras.losses.Loss):
         return loss
 ```
 
-## Barlow Twins' Model Architecture
+## Barlow Twins' Model Architecture {#barlow-twins-model-architecture}
 
 The model has two parts:
 
@@ -817,7 +818,7 @@ def build_twin() -> keras.Model:
     return model
 ```
 
-## Training Loop Model
+## Training Loop Model {#training-loop-model}
 
 See pseudocode for reference.
 
@@ -876,7 +877,7 @@ class BarlowModel(keras.Model):
         return {"loss": self.loss_tracker.result()}
 ```
 
-## Model Training
+## Model Training {#model-training}
 
 - Used the LAMB optimizer, instead of ADAM or SGD.
 - Similar to the LARS optimizer used in the paper, and lets the model converge much faster than other methods.
@@ -1229,7 +1230,7 @@ Epoch 160/160
 
 ![png](/images/examples/vision/barlow_twins/barlow_twins_35_1.png)
 
-## Evaluation
+## Evaluation {#evaluation}
 
 **Linear evaluation:** to evaluate the model's performance, we add a linear dense layer at the end and freeze the main model's weights, only letting the dense layer to be tuned. If the model actually learned something, then the accuracy would be significantly higher than random chance.
 
@@ -1352,17 +1353,17 @@ Epoch 35/35
 
 {{% /details %}}
 
-## Conclusion
+## Conclusion {#conclusion}
 
 - Barlow Twins is a simple and concise method for contrastive and self-supervised learning.
 - With this resnet-34 model architecture, we were able to reach 62-64% validation accuracy.
 
-## Use-Cases of Barlow-Twins(and contrastive learning in General)
+## Use-Cases of Barlow-Twins(and contrastive learning in General) {#use-cases-of-barlow-twinsand-contrastive-learning-in-general}
 
 - Semi-supervised learning: You can see that this model gave a 62-64% boost in accuracy when it wasn't even trained with the labels. It can be used when you have little labeled data but a lot of unlabeled data.
 - You do barlow twins training on the unlabeled data, and then you do secondary training with the labeled data.
 
-## Helpful links
+## Helpful links {#helpful-links}
 
 - [Paper](https://arxiv.org/abs/2103.03230)
 - [Original Pytorch Implementation](https://github.com/facebookresearch/barlowtwins)

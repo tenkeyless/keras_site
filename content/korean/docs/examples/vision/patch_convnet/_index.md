@@ -1,5 +1,6 @@
 ---
-title: Augmenting convnets with aggregated attention
+title: 통합 어텐션으로 컨볼루션 네트워크 강화
+linkTitle: 통합 어텐션으로 컨볼루션 네트워크 강화
 toc: true
 weight: 65
 type: docs
@@ -19,7 +20,7 @@ type: docs
 {{< card link="https://github.com/keras-team/keras-io/blob/master/examples/vision/patch_convnet.py" title="GitHub" tag="GitHub">}}
 {{< /cards >}}
 
-## Introduction
+## Introduction {#introduction}
 
 Vision transformers ([Dosovitskiy et. al](https://arxiv.org/abs/2010.11929)) have emerged as a powerful alternative to Convolutional Neural Networks. ViTs process the images in a patch-based manner. The image information is then aggregated into a `CLASS` token. This token correlates to the most important patches of the image for a particular classification decision.
 
@@ -30,7 +31,7 @@ In this example, we minimally implement the ideas of [Augmenting Convolutional n
 - The simple design for the attention-based pooling layer, such that it explicitly provides the weights (importance) of the different patches.
 - The novel architecture of convnet is called the **PatchConvNet** which deviates from the age old pyramidal architecture.
 
-## Setup and Imports
+## Setup and Imports {#setup-and-imports}
 
 This example requires TensorFlow Addons, which can be installed using the following command:
 
@@ -54,7 +55,7 @@ SEED = 42
 keras.utils.set_random_seed(SEED)
 ```
 
-## Hyperparameters
+## Hyperparameters {#hyperparameters}
 
 ```python
 # DATA
@@ -80,7 +81,7 @@ WEIGHT_DECAY = 1e-4
 EPOCHS = 50
 ```
 
-## Load the CIFAR10 dataset
+## Load the CIFAR10 dataset {#load-the-cifar10-dataset}
 
 ```python
 (x_train, y_train), (x_test, y_test) = keras.datasets.cifar10.load_data()
@@ -115,7 +116,7 @@ Testing samples: 10000
 
 {{% /details %}}
 
-## Augmentation layers
+## Augmentation layers {#augmentation-layers}
 
 ```python
 def get_preprocessing():
@@ -142,7 +143,7 @@ def get_train_augmentation_model():
     return model
 ```
 
-## Convolutional stem
+## Convolutional stem {#convolutional-stem}
 
 The stem of the model is a lightweight preprocessing module that maps images pixels to a set of vectors (patches).
 
@@ -175,7 +176,7 @@ def build_convolutional_stem(dimensions):
     return convolutional_stem
 ```
 
-## Convolutional trunk
+## Convolutional trunk {#convolutional-trunk}
 
 The trunk of the model is the most compute-intesive part. It consists of `N` stacked residual convolutional blocks.
 
@@ -287,7 +288,7 @@ class Trunk(layers.Layer):
         return x
 ```
 
-## Attention Pooling
+## Attention Pooling {#attention-pooling}
 
 The output of the convolutional trunk is attended with a trainable _query_ class token. The resulting attention map is the weight of every patch of the image for a classification decision.
 
@@ -364,7 +365,7 @@ class AttentionPooling(layers.Layer):
         return logits, ops.squeeze(viz_weights)[..., 1:]
 ```
 
-## Patch convnet
+## Patch convnet {#patch-convnet}
 
 The patch-convnet is shown in the figure below.
 
@@ -459,7 +460,7 @@ class PatchConvNet(keras.Model):
         return logits, viz_weights
 ```
 
-## Callbacks
+## Callbacks {#callbacks}
 
 This callback will plot the image and the attention map overlayed on the image.
 
@@ -505,7 +506,7 @@ class TrainMonitor(keras.callbacks.Callback):
             plt.close()
 ```
 
-## Learning rate schedule
+## Learning rate schedule {#learning-rate-schedule}
 
 ```python
 class WarmUpCosine(keras.optimizers.schedules.LearningRateSchedule):
@@ -559,7 +560,7 @@ scheduled_lrs = WarmUpCosine(
 )
 ```
 
-## Training
+## Training {#training}
 
 We build the model, compile it, and train it.
 
@@ -778,7 +779,7 @@ Top 5 test accuracy: 99.21%
 
 {{% /details %}}
 
-## Inference
+## Inference {#inference}
 
 Here, we use the trained model to plot the attention map.
 
@@ -829,7 +830,7 @@ plot_attention(image)
 
 ![png](/images/examples/vision/patch_convnet/patch_conv_net_25_1.png)
 
-## Conclusions
+## Conclusions {#conclusions}
 
 The attention map corresponding to the trainable `CLASS` token and the patches of the image helps explain the classificaiton decision. One should also note that the attention maps gradually get better. In the initial training regime, the attention is scattered all around while at a later stage, it focuses more on the objects of the image.
 

@@ -1,5 +1,6 @@
 ---
-title: Visualizing what convnets learn
+title: Convnets이 학습한 내용 시각화
+linkTitle: Conv 학습 시각화
 toc: true
 weight: 44
 type: docs
@@ -19,13 +20,13 @@ type: docs
 {{< card link="https://github.com/keras-team/keras-io/blob/master/examples/vision/visualizing_what_convnets_learn.py" title="GitHub" tag="GitHub">}}
 {{< /cards >}}
 
-## Introduction
+## Introduction {#introduction}
 
 In this example, we look into what sort of visual patterns image classification models learn. We'll be using the `ResNet50V2` model, trained on the ImageNet dataset.
 
 Our process is simple: we will create input images that maximize the activation of specific filters in a target layer (picked somewhere in the middle of the model: layer `conv3_block4_out`). Such images represent a visualization of the pattern that the filter responds to.
 
-## Setup
+## Setup {#setup}
 
 ```python
 import os
@@ -44,7 +45,7 @@ img_height = 180
 layer_name = "conv3_block4_out"
 ```
 
-## Build a feature extraction model
+## Build a feature extraction model {#build-a-feature-extraction-model}
 
 ```python
 # Build a ResNet50V2 model loaded with pre-trained ImageNet weights
@@ -55,7 +56,7 @@ layer = model.get_layer(name=layer_name)
 feature_extractor = keras.Model(inputs=model.inputs, outputs=layer.output)
 ```
 
-## Set up the gradient ascent process
+## Set up the gradient ascent process {#set-up-the-gradient-ascent-process}
 
 The "loss" we will maximize is simply the mean of the activation of a specific filter in our target layer. To avoid border effects, we exclude border pixels.
 
@@ -83,7 +84,7 @@ def gradient_ascent_step(img, filter_index, learning_rate):
     return loss, img
 ```
 
-## Set up the end-to-end filter visualization loop
+## Set up the end-to-end filter visualization loop {#set-up-the-end-to-end-filter-visualization-loop}
 
 Our process is as follow:
 
@@ -149,7 +150,7 @@ display(Image("0.png"))
 
 ![png](/images/examples/vision/visualizing_what_convnets_learn/visualizing_what_convnets_learn_15_0.png)
 
-## Visualize the first 64 filters in the target layer
+## Visualize the first 64 filters in the target layer {#visualize-the-first-64-filters-in-the-target-layer}
 
 Now, let's make a 8x8 grid of the first 64 filters in the target layer to get of feel for the range of different visual patterns that the model has learned.
 

@@ -1,6 +1,6 @@
 ---
-title: Classification using Attention-based Deep Multiple Instance Learning (MIL).
-linkTitle: Classification using Attention-based Deep Multiple Instance Learning
+title: 어텐션 기반 심층 다중 인스턴스 학습(MIL)을 사용한 분류
+linkTitle: MIL을 사용한 분류
 toc: true
 weight: 5
 type: docs
@@ -12,7 +12,7 @@ math: true
 **{{< t f_author >}}** [Mohamad Jaber](https://www.linkedin.com/in/mohamadjaber1/)  
 **{{< t f_date_created >}}** 2021/08/16  
 **{{< t f_last_modified >}}** 2021/11/25  
-**{{< t f_description >}}** MIL approach to classify bags of instances and get their individual instance score.
+**{{< t f_description >}}** MIL 접근 방식을 사용하여 인스턴스 가방을 분류하고 개별 인스턴스 점수를 얻습니다.
 
 {{< keras/version v=3 >}}
 
@@ -21,37 +21,44 @@ math: true
 {{< card link="https://github.com/keras-team/keras-io/blob/master/examples/vision/attention_mil_classification.py" title="GitHub" tag="GitHub">}}
 {{< /cards >}}
 
-## Introduction
+## 소개 {#introduction}
 
-### What is Multiple Instance Learning (MIL)?
+### 다중 인스턴스 학습(MIL, Multiple Instance Learning)이란 무엇인가요? {#what-is-multiple-instance-learning-mil}
 
-Usually, with supervised learning algorithms, the learner receives labels for a set of instances. In the case of MIL, the learner receives labels for a set of bags, each of which contains a set of instances. The bag is labeled positive if it contains at least one positive instance, and negative if it does not contain any.
+일반적으로, 지도 학습 알고리즘을 사용하면, 학습자는 인스턴스 집합에 대한 레이블을 받습니다.
+MIL의 경우, 학습자는 인스턴스 집합을 포함하는 가방 집합에 대한 레이블을 받습니다.
+가방에 양성 인스턴스가 하나 이상 포함되어 있으면 양성,
+하나도 포함되어 있지 않으면 음성으로 레이블이 지정됩니다.
 
-### Motivation
+### 동기 {#motivation}
 
-It is often assumed in image classification tasks that each image clearly represents a class label. In medical imaging (e.g. computational pathology, etc.) an _entire image_ is represented by a single class label (cancerous/non-cancerous) or a region of interest could be given. However, one will be interested in knowing which patterns in the image is actually causing it to belong to that class. In this context, the image(s) will be divided and the subimages will form the bag of instances.
+이미지 분류 작업에서는 각 이미지가 클래스 레이블을 명확하게 나타낸다고 가정하는 경우가 많습니다.
+의료 영상(예: 컴퓨터 병리학 등)에서는 _전체 이미지_ 가 단일 클래스 레이블(암/비암)로 표현되거나
+관심 영역이 주어질 수 있습니다.
+그러나, 이미지의 어떤 패턴이 실제로 해당 클래스에 속하게 만드는지 알고 싶을 것입니다.
+이러한 맥락에서, 이미지를 분할하고 서브 이미지가 인스턴스 가방을 형성하게 할 것입니다.
 
-Therefore, the goals are to:
+따라서, 목표는 다음과 같습니다:
 
-1.  Learn a model to predict a class label for a bag of instances.
-2.  Find out which instances within the bag caused a position class label prediction.
+1.  인스턴스 가방에 대한 클래스 레이블을 예측하는 모델을 학습합니다.
+2.  가방 내에서 어떤 인스턴스가 위치 클래스 레이블 예측을 일으켰는지 알아냅니다.
 
-### Implementation
+### 구현 {#implementation}
 
-The following steps describe how the model works:
+다음 단계에서는 모델 작동 방식을 설명합니다:
 
-1.  The feature extractor layers extract feature embeddings.
-2.  The embeddings are fed into the MIL attention layer to get the attention scores. The layer is designed as permutation-invariant.
-3.  Input features and their corresponding attention scores are multiplied together.
-4.  The resulting output is passed to a softmax function for classification.
+1.  특성 추출기 레이어가 특성 임베딩을 추출합니다.
+2.  임베딩은 MIL 어텐션 레이어에 공급되어 어텐션 점수를 얻습니다. 이 레이어는 순열 불변형(permutation-invariant)으로 설계됩니다.
+3.  입력 특성과 해당 어텐션 점수를 함께 곱합니다.
+4.  결과 출력은 분류를 위해 소프트맥스 함수로 전달됩니다.
 
-### References
+### 참조 {#references}
 
-- [Attention-based Deep Multiple Instance Learning](https://arxiv.org/abs/1802.04712).
-- Some of the attention operator code implementation was inspired from [https://github.com/utayao/Atten_Deep_MIL](https://github.com/utayao/Atten_Deep_MIL).
-- Imbalanced data [tutorial](https://www.tensorflow.org/tutorials/structured_data/imbalanced_data) by TensorFlow.
+- [어텐션 기반 심층 다중 인스턴스 학습](https://arxiv.org/abs/1802.04712).
+- 어텐션 연산자 코드 구현 중 일부는 [https://github.com/utayao/Atten_Deep_MIL](https://github.com/utayao/Atten_Deep_MIL)에서 영감을 얻었습니다.
+- TensorFlow에서 제공하는 불균형 데이터 [튜토리얼](https://www.tensorflow.org/tutorials/structured_data/imbalanced_data)
 
-## Setup
+## 셋업 {#setup}
 
 ```python
 import numpy as np
@@ -64,18 +71,20 @@ from matplotlib import pyplot as plt
 plt.style.use("ggplot")
 ```
 
-## Create dataset
+## 데이터 세트 생성 {#create-dataset}
 
-We will create a set of bags and assign their labels according to their contents. If at least one positive instance is available in a bag, the bag is considered as a positive bag. If it does not contain any positive instance, the bag will be considered as negative.
+가방 세트를 생성하고 내용물에 따라 라벨을 할당합니다.
+가방에 하나 이상의 양성 인스턴스가 있으면 해당 가방은 양성 가방으로 간주됩니다.
+양성 인스턴스가 하나도 포함되어 있지 않으면 해당 가방은 음성 가방으로 간주됩니다.
 
-### Configuration parameters
+### 구성 매개변수 {#configuration-parameters}
 
-- `POSITIVE_CLASS`: The desired class to be kept in the positive bag.
-- `BAG_COUNT`: The number of training bags.
-- `VAL_BAG_COUNT`: The number of validation bags.
-- `BAG_SIZE`: The number of instances in a bag.
-- `PLOT_SIZE`: The number of bags to plot.
-- `ENSEMBLE_AVG_COUNT`: The number of models to create and average together. (Optional: often results in better performance - set to 1 for single model)
+- `POSITIVE_CLASS`: 포지티브 가방에 보관할 원하는 클래스입니다.
+- `BAG_COUNT`: 트레이닝 가방의 개수입니다.
+- `VAL_BAG_COUNT`: 검증 가방의 개수입니다.
+- `BAG_SIZE`: 가방의 인스턴스 수입니다.
+- `PLOT_SIZE`: 플롯할 가방의 수입니다.
+- `ENSEMBLE_AVG_COUNT`: 함께 생성하고 평균을 낼 모델의 수입니다. (선택 사항: 종종 더 나은 성능을 제공합니다. 단일 모델의 경우 1로 설정).
 
 ```python
 POSITIVE_CLASS = 1
@@ -86,34 +95,35 @@ PLOT_SIZE = 3
 ENSEMBLE_AVG_COUNT = 1
 ```
 
-### Prepare bags
+### 가방 준비하기 {#prepare-bags}
 
-Since the attention operator is a permutation-invariant operator, an instance with a positive class label is randomly placed among the instances in the positive bag.
+어텐션 연산자는 순열 불변(permutation-invariant) 연산자이므로,
+클래스 레이블이 양성인 인스턴스는 양성 가방에 있는 인스턴스 중에서 무작위로 배치됩니다.
 
 ```python
 def create_bags(input_data, input_labels, positive_class, bag_count, instance_count):
-    # Set up bags.
+    # 가방 셋업.
     bags = []
     bag_labels = []
 
-    # Normalize input data.
+    # 입력 데이터 정규화.
     input_data = np.divide(input_data, 255.0)
 
-    # Count positive samples.
+    # 양성 샘플을 계산.
     count = 0
 
     for _ in range(bag_count):
-        # Pick a fixed size random subset of samples.
+        # 샘플의 고정된 크기 무작위 서브 집합을 선택.
         index = np.random.choice(input_data.shape[0], instance_count, replace=False)
         instances_data = input_data[index]
         instances_labels = input_labels[index]
 
-        # By default, all bags are labeled as 0.
+        # 기본적으로, 모든 가방은 0으로 레이블이 지정.
         bag_label = 0
 
-        # Check if there is at least a positive class in the bag.
+        # 가방에 적어도 하나의 양성 클래스가 있는지 확인.
         if positive_class in instances_labels:
-            # Positive bag will be labeled as 1.
+            # 양성 가방은 1로 표시.
             bag_label = 1
             count += 1
 
@@ -126,15 +136,15 @@ def create_bags(input_data, input_labels, positive_class, bag_count, instance_co
     return (list(np.swapaxes(bags, 0, 1)), np.array(bag_labels))
 
 
-# Load the MNIST dataset.
+# MNIST 데이터 세트를 로드.
 (x_train, y_train), (x_val, y_val) = keras.datasets.mnist.load_data()
 
-# Create training data.
+# 트레이닝 데이터를 생성.
 train_data, train_labels = create_bags(
     x_train, y_train, POSITIVE_CLASS, BAG_COUNT, BAG_SIZE
 )
 
-# Create validation data.
+# 검증 데이터를 생성.
 val_data, val_labels = create_bags(
     x_val, y_val, POSITIVE_CLASS, VAL_BAG_COUNT, BAG_SIZE
 )
@@ -151,33 +161,38 @@ Negative bags: 196
 
 {{% /details %}}
 
-## Create the model
+## 모델 만들기 {#create-the-model}
 
-We will now build the attention layer, prepare some utilities, then build and train the entire model.
+이제 어텐션 레이어를 빌드하고, 몇 가지 유틸리티를 준비한 다음, 전체 모델을 빌드하고 트레이닝하겠습니다.
 
-### Attention operator implementation
+### 어텐션 연산자 구현하기 {#attention-operator-implementation}
 
-The output size of this layer is decided by the size of a single bag.
+이 레이어의 출력 크기는 단일 가방의 크기에 따라 결정됩니다.
 
-The attention mechanism uses a weighted average of instances in a bag, in which the sum of the weights must equal to 1 (invariant of the bag size).
+어텐션 메커니즘은 가방에 있는 인스턴스의 가중 평균을 사용하며,
+가중치의 합은 1(가방 크기의 불변성)이어야 합니다.
 
-The weight matrices (parameters) are **w** and **v**. To include positive and negative values, hyperbolic tangent element-wise non-linearity is utilized.
+가중치 행렬(매개변수)은 **w**와 **v**입니다.
+양수 및 음수 값을 포함하기 위해, 쌍곡선 탄젠트(hyperbolic tangent) 요소별 비선형성이 활용됩니다.
 
-A **Gated attention mechanism** can be used to deal with complex relations. Another weight matrix, **u**, is added to the computation. A sigmoid non-linearity is used to overcome approximately linear behavior for $x ∈ [−1, 1]$ by hyperbolic tangent non-linearity.
+복잡한 관계를 처리하기 위해 **게이트 어텐션 메커니즘**을 사용할 수 있습니다.
+또다른 가중치 행렬인, **u**가 계산에 추가됩니다.
+쌍곡선 탄젠트 비선형성을 통해 $x \in [-1, 1]$에 대한 거의 선형적인 동작을 극복하기 위해
+시그모이드 비선형성이 사용됩니다.
 
 ```python
 class MILAttentionLayer(layers.Layer):
-    """Implementation of the attention-based Deep MIL layer.
+    """어텐션 기반 딥 MIL 레이어 구현.
 
     Args:
-      weight_params_dim: Positive Integer. Dimension of the weight matrix.
-      kernel_initializer: Initializer for the `kernel` matrix.
-      kernel_regularizer: Regularizer function applied to the `kernel` matrix.
-      use_gated: Boolean, whether or not to use the gated mechanism.
+      weight_params_dim: 양의 정수. 가중치 행렬의 차원입니다.
+      kernel_initializer: `kernel` 행렬의 이니셜라이저.
+      kernel_regularizer: `kernel` 행렬에 적용될 정규화 함수.
+      use_gated: Boolean. 게이트 메커니즘을 사용할지 여부입니다.
 
     Returns:
-      List of 2D tensors with BAG_SIZE length.
-      The tensors are the attention scores after softmax with shape `(batch_size, 1)`.
+      BAG_SIZE 길이의 2D 텐서 리스트.
+      텐서는 `(batch_size, 1)` 모양의 소프트맥스 이후의 어텐션 점수입니다.
     """
 
     def __init__(
@@ -205,8 +220,8 @@ class MILAttentionLayer(layers.Layer):
         self.u_regularizer = self.kernel_regularizer
 
     def build(self, input_shape):
-        # Input shape.
-        # List of 2D tensors with shape: (batch_size, input_dim).
+        # 입력 모양.
+        # 다음 모양의 2D 텐서 리스트: (batch_size, input_dim).
         input_dim = input_shape[0][1]
 
         self.v_weight_params = self.add_weight(
@@ -239,26 +254,26 @@ class MILAttentionLayer(layers.Layer):
         self.input_built = True
 
     def call(self, inputs):
-        # Assigning variables from the number of inputs.
+        # 입력 수에서 변수를 할당합니다.
         instances = [self.compute_attention_scores(instance) for instance in inputs]
 
-        # Stack instances into a single tensor.
+        # 인스턴스를 단일 텐서로 스택합니다.
         instances = ops.stack(instances)
 
-        # Apply softmax over instances such that the output summation is equal to 1.
+        # 출력 합이 1이 되도록 인스턴스에 걸쳐 소프트맥스를 적용합니다.
         alpha = ops.softmax(instances, axis=0)
 
-        # Split to recreate the same array of tensors we had as inputs.
+        # 분할하여 입력으로 사용한 것과 동일한 텐서 배열을 다시 생성합니다.
         return [alpha[i] for i in range(alpha.shape[0])]
 
     def compute_attention_scores(self, instance):
-        # Reserve in-case "gated mechanism" used.
+        # "게이트 메커니즘"이 사용될 경우를 위해 예약합니다.
         original_instance = instance
 
         # tanh(v*h_k^T)
         instance = ops.tanh(ops.tensordot(instance, self.v_weight_params, axes=1))
 
-        # for learning non-linear relations efficiently.
+        # 비선형 관계를 효율적으로 학습하기 위함.
         if self.use_gated:
             instance = instance * ops.sigmoid(
                 ops.tensordot(original_instance, self.u_weight_params, axes=1)
@@ -268,25 +283,26 @@ class MILAttentionLayer(layers.Layer):
         return ops.tensordot(instance, self.w_weight_params, axes=1)
 ```
 
-## Visualizer tool
+## 시각화 도구 {#visualizer-tool}
 
-Plot the number of bags (given by `PLOT_SIZE`) with respect to the class.
+클래스에 대한 가방 수(`PLOT_SIZE`로 제공됨)를 플롯합니다.
 
-Moreover, if activated, the class label prediction with its associated instance score for each bag (after the model has been trained) can be seen.
+또한, 활성화하면, 각 가방에 대한 관련 인스턴스 점수와 함께
+클래스 레이블 예측(모델 트레이닝된 후)을 볼 수 있습니다.
 
 ```python
 def plot(data, labels, bag_class, predictions=None, attention_weights=None):
-    """ "Utility for plotting bags and attention weights.
+    """가방과 어텐션 가중치를 플로팅하는 유틸리티.
 
     Args:
-      data: Input data that contains the bags of instances.
-      labels: The associated bag labels of the input data.
-      bag_class: String name of the desired bag class.
-        The options are: "positive" or "negative".
-      predictions: Class labels model predictions.
-      If you don't specify anything, ground truth labels will be used.
-      attention_weights: Attention weights for each instance within the input data.
-      If you don't specify anything, the values won't be displayed.
+      data: 인스턴스 가방이 포함된 입력 데이터.
+      labels: 입력 데이터의 연관된 가방 레이블.
+      bag_class: 원하는 가방 클래스의 문자열 이름.
+        옵션은 다음과 같습니다: "positive" 또는 "negative".
+      predictions: 클래스 레이블 모델 예측.
+        아무것도 지정하지 않으면, ground truth 레이블이 사용됩니다.
+      attention_weights: 입력 데이터 내 각 인스턴스에 대한 어텐션 가중치.
+        아무것도 지정하지 않으면, 값이 표시되지 않습니다.
     """
     return  ## TODO
     labels = np.array(labels).reshape(-1)
@@ -326,18 +342,19 @@ def plot(data, labels, bag_class, predictions=None, attention_weights=None):
         plt.show()
 
 
-# Plot some of validation data bags per class.
+# 클래스별 검증 데이터 가방을 플롯합니다.
 plot(val_data, val_labels, "positive")
 plot(val_data, val_labels, "negative")
 ```
 
-## Create model
+## 모델 만들기 {#create-model}
 
-First we will create some embeddings per instance, invoke the attention operator and then use the softmax function to output the class probabilities.
+먼저 인스턴스당 몇 개의 임베딩을 생성하고, 어텐션 연산자를 호출한 다음,
+소프트맥스 함수를 사용하여 클래스 확률을 출력합니다.
 
 ```python
 def create_model(instance_shape):
-    # Extract features from inputs.
+    # 입력에서 특성을 추출.
     inputs, embeddings = [], []
     shared_dense_layer_1 = layers.Dense(128, activation="relu")
     shared_dense_layer_2 = layers.Dense(64, activation="relu")
@@ -349,7 +366,7 @@ def create_model(instance_shape):
         inputs.append(inp)
         embeddings.append(dense_2)
 
-    # Invoke the attention layer.
+    # 어텐션 레이어를 호출.
     alpha = MILAttentionLayer(
         weight_params_dim=256,
         kernel_regularizer=keras.regularizers.L2(0.01),
@@ -357,56 +374,58 @@ def create_model(instance_shape):
         name="alpha",
     )(embeddings)
 
-    # Multiply attention weights with the input layers.
+    # 입력 레이어에 어텐션 가중치를 곱함.
     multiply_layers = [
         layers.multiply([alpha[i], embeddings[i]]) for i in range(len(alpha))
     ]
 
-    # Concatenate layers.
+    # 레이어 Concatenate.
     concat = layers.concatenate(multiply_layers, axis=1)
 
-    # Classification output node.
+    # 분류 출력 노드.
     output = layers.Dense(2, activation="softmax")(concat)
 
     return keras.Model(inputs, output)
 ```
 
-## Class weights
+## 클래스 가중치 {#class-weights}
 
-Since this kind of problem could simply turn into imbalanced data classification problem, class weighting should be considered.
+이러한 종류의 문제는 단순히 불균형한 데이터 분류 문제로 바뀔 수 있으므로, 클래스 가중치를 고려해야 합니다.
 
-Let's say there are 1000 bags. There often could be cases were ~90 % of the bags do not contain any positive label and ~10 % do. Such data can be referred to as **Imbalanced data**.
+가방이 1000개 있다고 가정해 보겠습니다.
+가방의 90%에는 양성 라벨이 하나도 없고, 10%에만 양성 라벨이 있는 경우가 종종 있을 수 있습니다.
+이러한 데이터를 **불균형 데이터(Imbalanced data)**라고 할 수 있습니다.
 
-Using class weights, the model will tend to give a higher weight to the rare class.
+클래스 가중치를 사용하면, 모델은 희귀 클래스에 더 높은 가중치를 부여하는 경향이 있습니다.
 
 ```python
 def compute_class_weights(labels):
-    # Count number of postive and negative bags.
+    # 양성 및 음성 가방 개수를 계산.
     negative_count = len(np.where(labels == 0)[0])
     positive_count = len(np.where(labels == 1)[0])
     total_count = negative_count + positive_count
 
-    # Build class weight dictionary.
+    # 클래스 가중치 딕셔너리 빌드.
     return {
         0: (1 / negative_count) * (total_count / 2),
         1: (1 / positive_count) * (total_count / 2),
     }
 ```
 
-## Build and train model
+## 모델 빌드 및 트레이닝 {#build-and-train-model}
 
-The model is built and trained in this section.
+이 섹션에서는 모델을 빌드하고 트레이닝합니다.
 
 ```python
 def train(train_data, train_labels, val_data, val_labels, model):
-    # Train model.
-    # Prepare callbacks.
-    # Path where to save best weights.
+    # 모델 트레이닝.
+    # 콜백을 준비합니다.
+    # 최적의 가중치를 저장할 경로를 설정합니다.
 
-    # Take the file name from the wrapper.
+    # 래퍼에서 파일 이름을 가져옵니다.
     file_path = "/tmp/best_model.weights.h5"
 
-    # Initialize model checkpoint callback.
+    # 모델 체크포인트 콜백을 초기화합니다.
     model_checkpoint = keras.callbacks.ModelCheckpoint(
         file_path,
         monitor="val_loss",
@@ -416,21 +435,21 @@ def train(train_data, train_labels, val_data, val_labels, model):
         save_weights_only=True,
     )
 
-    # Initialize early stopping callback.
-    # The model performance is monitored across the validation data and stops training
-    # when the generalization error cease to decrease.
+    # 조기 중지(early stopping) 콜백을 초기화합니다.
+    # 검증 데이터 전반에 걸쳐 모델 성능을 모니터링하고,
+    # 일반화 오류가 더 이상 감소하지 않으면 트레이닝을 중지합니다.
     early_stopping = keras.callbacks.EarlyStopping(
         monitor="val_loss", patience=10, mode="min"
     )
 
-    # Compile model.
+    # 모델 컴파일.
     model.compile(
         optimizer="adam",
         loss="sparse_categorical_crossentropy",
         metrics=["accuracy"],
     )
 
-    # Fit model.
+    # 모델 Fit.
     model.fit(
         train_data,
         train_labels,
@@ -442,20 +461,20 @@ def train(train_data, train_labels, val_data, val_labels, model):
         verbose=0,
     )
 
-    # Load best weights.
+    # 최적의 가중치를 로드.
     model.load_weights(file_path)
 
     return model
 
 
-# Building model(s).
+# 모델(들) 빌드.
 instance_shape = train_data[0][0].shape
 models = [create_model(instance_shape) for _ in range(ENSEMBLE_AVG_COUNT)]
 
-# Show single model architecture.
+# 단일 모델 아키텍처를 표시.
 print(models[0].summary())
 
-# Training model(s).
+# 모델(들) 트레이닝.
 trained_models = [
     train(train_data, train_labels, val_data, val_labels, model)
     for model in tqdm(models)
@@ -524,29 +543,30 @@ None
 
 {{% /details %}}
 
-## Model evaluation
+## 모델 평가 {#model-evaluation}
 
-The models are now ready for evaluation. With each model we also create an associated intermediate model to get the weights from the attention layer.
+이제 모델을 평가할 준비가 되었습니다.
+각 모델에 대해 어텐션 레이어에서 가중치를 얻기 위해 연결된 중간 모델도 생성합니다.
 
-We will compute a prediction for each of our `ENSEMBLE_AVG_COUNT` models, and average them together for our final prediction.
+각 `ENSEMBLE_AVG_COUNT` 모델에 대한 예측을 계산하고, 최종 예측을 위해 함께 평균을 냅니다.
 
 ```python
 def predict(data, labels, trained_models):
-    # Collect info per model.
+    # 모델별로 정보를 수집.
     models_predictions = []
     models_attention_weights = []
     models_losses = []
     models_accuracies = []
 
     for model in trained_models:
-        # Predict output classes on data.
+        # 데이터에 대한 출력 클래스를 예측.
         predictions = model.predict(data)
         models_predictions.append(predictions)
 
-        # Create intermediate model to get MIL attention layer weights.
+        # 중간 모델을 생성하여 MIL 어텐션 레이어 가중치 얻기.
         intermediate_model = keras.Model(model.input, model.get_layer("alpha").output)
 
-        # Predict MIL attention layer weights.
+        # MIL 어텐션 레이어 가중치를 예측.
         intermediate_predictions = intermediate_model.predict(data)
 
         attention_weights = np.squeeze(np.swapaxes(intermediate_predictions, 1, 0))
@@ -567,10 +587,10 @@ def predict(data, labels, trained_models):
     )
 
 
-# Evaluate and predict classes and attention scores on validation data.
+# 검증 데이터에 대해 클래스 및 어텐션 점수를 평가하고 예측.
 class_predictions, attention_params = predict(val_data, val_labels, trained_models)
 
-# Plot some results from our validation data.
+# 검증 데이터의 몇 가지 결과를 플로팅.
 plot(
     val_data,
     val_labels,
@@ -597,15 +617,19 @@ The average loss and accuracy are 0.03 and 99.00 % resp.
 
 {{% /details %}}
 
-## Conclusion
+## 결론 {#conclusion}
 
-From the above plot, you can notice that the weights always sum to 1. In a positively predict bag, the instance which resulted in the positive labeling will have a substantially higher attention score than the rest of the bag. However, in a negatively predicted bag, there are two cases:
+위의 플롯에서, 가중치가 항상 1로 합산되는 것을 볼 수 있습니다.
+양성으로 예측된 가방에서는, 양성으로 라벨링된 인스턴스가
+나머지 가방보다 훨씬 더 높은 어텐션 점수를 갖게 됩니다.
+그러나, 음성으로 예측된 가방에는 두 가지 경우가 있습니다:
 
-- All instances will have approximately similar scores.
-- An instance will have relatively higher score (but not as high as of a positive instance). This is because the feature space of this instance is close to that of the positive instance.
+- 모든 인스턴스의 점수가 거의 비슷합니다.
+- 한 인스턴스의 점수가 상대적으로 더 높지만, 양성 인스턴스만큼 높지는 않습니다.
+  이는 이 인스턴스의 특성 공간이 양성 인스턴스의 특성 공간에 가깝기 때문입니다.
 
-## Remarks
+## 비고 {#remarks}
 
-- If the model is overfit, the weights will be equally distributed for all bags. Hence, the regularization techniques are necessary.
-- In the paper, the bag sizes can differ from one bag to another. For simplicity, the bag sizes are fixed here.
-- In order not to rely on the random initial weights of a single model, averaging ensemble methods should be considered.
+- 모델이 과적합하면, 모든 가방에 가중치가 동일하게 분포됩니다. 따라서, 정규화 기법이 필요합니다.
+- 본 논문에서, 가방 크기는 가방마다 다를 수 있습니다. 편의를 위해, 여기서는 가방 크기를 고정했습니다.
+- 단일 모델의 무작위 초기 가중치에 의존하지 않으려면, 평균 앙상블 방법을 고려해야 합니다.

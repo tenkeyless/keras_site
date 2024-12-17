@@ -1,5 +1,6 @@
 ---
-title: Image Segmentation using Composable Fully-Convolutional Networks
+title: Composable 완전 컨볼루션 네트워크를 사용한 이미지 세그멘테이션
+linkTitle: Composable 완전 컨볼루션 이미지 세그멘테이션
 toc: true
 weight: 23
 type: docs
@@ -10,7 +11,7 @@ type: docs
 **{{< t f_author >}}** [Suvaditya Mukherjee](https://twitter.com/halcyonrayes)  
 **{{< t f_date_created >}}** 2023/06/16  
 **{{< t f_last_modified >}}** 2023/12/25  
-**{{< t f_description >}}** Using the Fully-Convolutional Network for Image Segmentation.
+**{{< t f_description >}}** 이미지 세그멘테이션을 위해 완전 컨벌루션 네트워크 사용.
 
 {{< keras/version v=3 >}}
 
@@ -19,7 +20,7 @@ type: docs
 {{< card link="https://github.com/keras-team/keras-io/blob/master/examples/vision/fully_convolutional_network.py" title="GitHub" tag="GitHub">}}
 {{< /cards >}}
 
-## Introduction
+## Introduction {#introduction}
 
 The following example walks through the steps to implement Fully-Convolutional Networks for Image Segmentation on the Oxford-IIIT Pets dataset. The model was proposed in the paper, [Fully Convolutional Networks for Semantic Segmentation by Long et. al.(2014)](https://arxiv.org/abs/1411.4038). Image segmentation is one of the most common and introductory tasks when it comes to Computer Vision, where we extend the problem of Image Classification from one-label-per-image to a pixel-wise classification problem. In this example, we will assemble the aforementioned Fully-Convolutional Segmentation architecture, capable of performing Image Segmentation. The network extends the pooling layer outputs from the VGG in order to perform upsampling and get a final result. The intermediate outputs coming from the 3rd, 4th and 5th Max-Pooling layers from VGG19 are extracted out and upsampled at different levels and factors to get a final output with the same shape as that of the output, but with the class of each pixel present at each location, instead of pixel intensity values. Different intermediate pool layers are extracted and processed upon for different versions of the network. The FCN architecture has 3 versions of differing quality.
 
@@ -33,7 +34,7 @@ All versions of the model derive their outputs through an iterative processing o
 
 To get a better idea on Image Segmentation or find more pre-trained models, feel free to navigate to the [Hugging Face Image Segmentation Models](https://huggingface.co/models?pipeline_tag=image-segmentation) page, or a [PyImageSearch Blog on Semantic Segmentation](https://pyimagesearch.com/2018/09/03/semantic-segmentation-with-opencv-and-deep-learning/)
 
-## Setup Imports
+## Setup Imports {#setup-imports}
 
 ```python
 import os
@@ -48,7 +49,7 @@ import numpy as np
 AUTOTUNE = tf.data.AUTOTUNE
 ```
 
-## Set configurations for notebook variables
+## Set configurations for notebook variables {#set-configurations-for-notebook-variables}
 
 We set the required parameters for the experiment. The chosen dataset has a total of 4 classes per image, with regards to the segmentation mask. We also set our hyperparameters in this cell.
 
@@ -80,7 +81,7 @@ Your GPU will likely run quickly with dtype policy mixed_float16 as it has compu
 
 {{% /details %}}
 
-## Load dataset
+## Load dataset {#load-dataset}
 
 We make use of the [Oxford-IIIT Pets dataset](http://www.robots.ox.ac.uk/~vgg/data/pets/) which contains a total of 7,349 samples and their segmentation masks. We have 37 classes, with roughly 200 samples per class. Our training and validation dataset has 3,128 and 552 samples respectively. Aside from this, our test split has a total of 3,669 samples.
 
@@ -95,7 +96,7 @@ We set a `batch_size` parameter that will batch our samples together, use a `shu
 )
 ```
 
-## Unpack and preprocess dataset
+## Unpack and preprocess dataset {#unpack-and-preprocess-dataset}
 
 We define a simple function that includes performs Resizing over our training, validation and test datasets. We do the same process on the masks as well, to make sure both are aligned in terms of shape and size.
 
@@ -118,7 +119,7 @@ valid_ds = valid_ds.map(unpack_resize_data, num_parallel_calls=AUTOTUNE)
 test_ds = test_ds.map(unpack_resize_data, num_parallel_calls=AUTOTUNE)
 ```
 
-## Visualize one random sample from the pre-processed dataset
+## Visualize one random sample from the pre-processed dataset {#visualize-one-random-sample-from-the-pre-processed-dataset}
 
 We visualize what a random sample in our test split of the dataset looks like, and plot the segmentation mask on top to see the effective mask areas. Note that we have performed pre-processing on this dataset too, which makes the image and mask size same.
 
@@ -150,7 +151,7 @@ plt.show()
 
 ![png](/images/examples/vision/fully_convolutional_network/fully_convolutional_network_11_0.png)
 
-## Perform VGG-specific pre-processing
+## Perform VGG-specific pre-processing {#perform-vgg-specific-pre-processing}
 
 [`keras.applications.VGG19`]({{< relref "/docs/api/applications/vgg#vgg19-function" >}}) requires the use of a `preprocess_input` function that will pro-actively perform Image-net style Standard Deviation Normalization scheme.
 
@@ -178,7 +179,7 @@ test_ds = (
 )
 ```
 
-## Model Definition
+## Model Definition {#model-definition}
 
 The Fully-Convolutional Network boasts a simple architecture composed of only [`keras.layers.Conv2D`]({{< relref "/docs/api/layers/convolution_layers/convolution2d#conv2d-class" >}}) Layers, [`keras.layers.Dense`]({{< relref "/docs/api/layers/core_layers/dense#dense-class" >}}) layers and [`keras.layers.Dropout`]({{< relref "/docs/api/layers/regularization_layers/dropout#dropout-class" >}}) layers.
 
@@ -186,7 +187,7 @@ The Fully-Convolutional Network boasts a simple architecture composed of only [`
 
 Pixel-wise prediction is performed by having a Softmax Convolutional layer with the same size of the image, such that we can perform direct comparison We can find several important metrics such as Accuracy and Mean-Intersection-over-Union on the network.
 
-### Backbone (VGG-19)
+### Backbone (VGG-19) {#backbone-vgg-19}
 
 We use the [VGG-19 network]({{< relref "/docs/api/applications/vgg" >}}) as the backbone, as the paper suggests it to be one of the most effective backbones for this network. We extract different outputs from the network by making use of `keras.models.Model`. Following this, we add layers on top to make a network perfectly simulating that of Diagram 1. The backbone's [`keras.layers.Dense`]({{< relref "/docs/api/layers/core_layers/dense#dense-class" >}}) layers will be converted to [`keras.layers.Conv2D`]({{< relref "/docs/api/layers/convolution_layers/convolution2d#conv2d-class" >}}) layers based on the [original Caffe code present here.](https://github.com/linxi159/FCN-caffe/blob/master/pascalcontext-fcn16s/net.py) All 3 networks will share the same backbone weights, but will have differing results based on their extensions. We make the backbone non-trainable to improve training time requirements. It is also noted in the paper that making the network trainable does not yield major benefits.
 
@@ -236,7 +237,7 @@ x[-1] = dense_convs(x[-1])
 pool3_output, pool4_output, pool5_output = x
 ```
 
-### FCN-32S
+### FCN-32S {#fcn-32s}
 
 We extend the last output, perform a `1x1 Convolution` and perform 2D Bilinear Upsampling by a factor of 32 to get an image of the same size as that of our input. We use a simple [`keras.layers.UpSampling2D`]({{< relref "/docs/api/layers/reshaping_layers/up_sampling2d#upsampling2d-class" >}}) layer over a [`keras.layers.Conv2DTranspose`]({{< relref "/docs/api/layers/convolution_layers/convolution2d_transpose#conv2dtranspose-class" >}}) since it yields performance benefits from being a deterministic mathematical operation over a Convolutional operation It is also noted in the paper that making the Up-sampling parameters trainable does not yield benefits. Original experiments of the paper used Upsampling as well.
 
@@ -273,7 +274,7 @@ final_fcn32s_output = fcn32s_upsampling(final_fcn32s_output)
 fcn32s_model = keras.Model(inputs=input_layer, outputs=final_fcn32s_output)
 ```
 
-### FCN-16S
+### FCN-16S {#fcn-16s}
 
 The pooling output from the FCN-32S is extended and added to the 4th-level Pooling output of our backbone. Following this, we upsample by a factor of 16 to get image of the same size as that of our input.
 
@@ -320,7 +321,7 @@ final_fcn16s_output = fcn16s_upsample_layer(final_fcn16s_output)
 fcn16s_model = keras.models.Model(inputs=input_layer, outputs=final_fcn16s_output)
 ```
 
-### FCN-8S
+### FCN-8S {#fcn-8s}
 
 The pooling output from the FCN-16S is extended once more, and added from the 3rd-level Pooling output of our backbone. This result is upsampled by a factor of 8 to get an image of the same size as that of our input.
 
@@ -367,7 +368,7 @@ final_fcn8s_output = fcn8s_upsample_layer(final_fcn8s_output)
 fcn8s_model = keras.models.Model(inputs=input_layer, outputs=final_fcn8s_output)
 ```
 
-### Load weights into backbone
+### Load weights into backbone {#load-weights-into-backbone}
 
 It was noted in the paper, as well as through experimentation that extracting the weights of the last 2 Fully-connected Dense layers from the backbone, reshaping the weights to fit that of the [`keras.layers.Dense`]({{< relref "/docs/api/layers/core_layers/dense#dense-class" >}}) layers we had previously converted into [`keras.layers.Conv2D`]({{< relref "/docs/api/layers/convolution_layers/convolution2d#conv2d-class" >}}), and setting them to it yields far better results and a significant increase in mIOU performance.
 
@@ -383,11 +384,11 @@ dense_convs.layers[0].set_weights([weights1])
 dense_convs.layers[2].set_weights([weights2])
 ```
 
-## Training
+## Training {#training}
 
 The original paper talks about making use of [SGD with Momentum]({{< relref "/docs/api/optimizers/sgd" >}}) as the optimizer of choice. But it was noticed during experimentation that [AdamW]({{< relref "/docs/api/optimizers/adamw" >}}) yielded better results in terms of mIOU and Pixel-wise Accuracy.
 
-### FCN-32S
+### FCN-32S {#fcn-32s}
 
 ```python
 fcn32s_optimizer = keras.optimizers.AdamW(
@@ -536,7 +537,7 @@ Corrupt JPEG data: 240 extraneous bytes before marker 0xd9
 
 {{% /details %}}
 
-### FCN-16S
+### FCN-16S {#fcn-16s}
 
 ```python
 fcn16s_optimizer = keras.optimizers.AdamW(
@@ -685,7 +686,7 @@ Corrupt JPEG data: 240 extraneous bytes before marker 0xd9
 
 {{% /details %}}
 
-### FCN-8S
+### FCN-8S {#fcn-8s}
 
 ```python
 fcn8s_optimizer = keras.optimizers.AdamW(
@@ -834,9 +835,9 @@ Corrupt JPEG data: premature end of data segment
 
 {{% /details %}}
 
-## Visualizations
+## Visualizations {#visualizations}
 
-### Plotting metrics for training run
+### Plotting metrics for training run {#plotting-metrics-for-training-run}
 
 We perform a comparative study between all 3 versions of the model by tracking training and validation metrics of Accuracy, Loss and Mean IoU.
 
@@ -872,7 +873,7 @@ plt.show()
 
 ![png](/images/examples/vision/fully_convolutional_network/fully_convolutional_network_34_0.png)
 
-### Visualizing predicted segmentation masks
+### Visualizing predicted segmentation masks {#visualizing-predicted-segmentation-masks}
 
 To understand the results and see them better, we pick a random image from the test dataset and perform inference on it to see the masks generated by each model. Note: For better results, the model must be trained for a higher number of epochs.
 
@@ -947,10 +948,10 @@ WARNING:matplotlib.image:Clipping input data to the valid range for imshow with 
 
 ![png](/images/examples/vision/fully_convolutional_network/fully_convolutional_network_36_1.png)
 
-## Conclusion
+## Conclusion {#conclusion}
 
 The Fully-Convolutional Network is an exceptionally simple network that has yielded strong results in Image Segmentation tasks across different benchmarks. With the advent of better mechanisms like [Attention](https://arxiv.org/abs/1706.03762) as used in [SegFormer](https://arxiv.org/abs/2105.15203) and [DeTR](https://arxiv.org/abs/2005.12872), this model serves as a quick way to iterate and find baselines for this task on unknown data.
 
-## Acknowledgements
+## Acknowledgements {#acknowledgements}
 
 I thank [Aritra Roy Gosthipaty](https://twitter.com/ariG23498), [Ayush Thakur](https://twitter.com/ayushthakur0) and [Ritwik Raha](https://twitter.com/ritwik_raha) for giving a preliminary review of the example. I also thank the [Google Developer Experts](https://developers.google.com/community/experts) program.

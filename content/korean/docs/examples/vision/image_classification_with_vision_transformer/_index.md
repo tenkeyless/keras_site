@@ -1,5 +1,6 @@
 ---
-title: Image classification with Vision Transformer
+title: 비전 트랜스포머로 이미지 분류
+linkTitle: 비전 트랜스포머 이미지 분류
 toc: true
 weight: 4
 type: docs
@@ -10,7 +11,7 @@ type: docs
 **{{< t f_author >}}** [Khalid Salama](https://www.linkedin.com/in/khalid-salama-24403144/)  
 **{{< t f_date_created >}}** 2021/01/18  
 **{{< t f_last_modified >}}** 2021/01/18  
-**{{< t f_description >}}** Implementing the Vision Transformer (ViT) model for image classification.
+**{{< t f_description >}}** 이미지 분류를 위한 비전 트랜스포머(ViT) 모델 구현하기
 
 {{< keras/version v=3 >}}
 
@@ -19,11 +20,14 @@ type: docs
 {{< card link="https://github.com/keras-team/keras-io/blob/master/examples/vision/image_classification_with_vision_transformer.py" title="GitHub" tag="GitHub">}}
 {{< /cards >}}
 
-## Introduction
+## 소개 {#introduction}
 
-This example implements the [Vision Transformer (ViT)](https://arxiv.org/abs/2010.11929) model by Alexey Dosovitskiy et al. for image classification, and demonstrates it on the CIFAR-100 dataset. The ViT model applies the Transformer architecture with self-attention to sequences of image patches, without using convolution layers.
+이 예는 이미지 분류를 위해 Alexey Dosovitskiy 등이 개발한 [Vision Transformer (ViT)](https://arxiv.org/abs/2010.11929) 모델을 구현하고,
+CIFAR-100 데이터 세트에 대해 이를 시연합니다.
+ViT 모델은, 컨볼루션 레이어를 사용하지 않고,
+이미지 패치 시퀀스에 셀프 어텐션으로 트랜스포머 아키텍처를 적용합니다.
 
-## Setup
+## 셋업 {#setup}
 
 ```python
 import os
@@ -38,7 +42,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 ```
 
-## Prepare the data
+## 데이터 준비 {#prepare-the-data}
 
 ```python
 num_classes = 100
@@ -59,30 +63,30 @@ x_test shape: (10000, 32, 32, 3) - y_test shape: (10000, 1)
 
 {{% /details %}}
 
-## Configure the hyperparameters
+## 하이퍼파라미터 구성 {#configure-the-hyperparameters}
 
 ```python
 learning_rate = 0.001
 weight_decay = 0.0001
 batch_size = 256
-num_epochs = 10  # For real training, use num_epochs=100. 10 is a test value
-image_size = 72  # We'll resize input images to this size
-patch_size = 6  # Size of the patches to be extract from the input images
+num_epochs = 10  # 실제 트레이닝의 경우, num_epochs=100을 사용합니다. 10은 테스트 값입니다.
+image_size = 72  # 입력 이미지의 크기를 이 크기로 조정합니다.
+patch_size = 6  # 입력 이미지에서 추출할 패치 크기
 num_patches = (image_size // patch_size) ** 2
 projection_dim = 64
 num_heads = 4
 transformer_units = [
     projection_dim * 2,
     projection_dim,
-]  # Size of the transformer layers
+]  # 트랜스포머 레이어의 크기
 transformer_layers = 8
 mlp_head_units = [
     2048,
     1024,
-]  # Size of the dense layers of the final classifier
+]  # 최종 분류기의 Dense 레이어 크기
 ```
 
-## Use data augmentation
+## 데이터 보강 사용 {#use-data-augmentation}
 
 ```python
 data_augmentation = keras.Sequential(
@@ -95,11 +99,11 @@ data_augmentation = keras.Sequential(
     ],
     name="data_augmentation",
 )
-# Compute the mean and the variance of the training data for normalization.
+# 정규화를 위해 트레이닝 데이터의 평균과 분산을 계산합니다.
 data_augmentation.layers[0].adapt(x_train)
 ```
 
-## Implement multilayer perceptron (MLP)
+## 다층 퍼셉트론(MLP) 구현 {#implement-multilayer-perceptron-mlp}
 
 ```python
 def mlp(x, hidden_units, dropout_rate):
@@ -109,7 +113,7 @@ def mlp(x, hidden_units, dropout_rate):
     return x
 ```
 
-## Implement patch creation as a layer
+## 레이어로서 패치 생성 구현 {#implement-patch-creation-as-a-layer}
 
 ```python
 class Patches(layers.Layer):
@@ -142,7 +146,7 @@ class Patches(layers.Layer):
         return config
 ```
 
-Let's display patches for a sample image
+샘플 이미지에 대한 패치를 표시해 보겠습니다.
 
 ```python
 plt.figure(figsize=(4, 4))
@@ -183,9 +187,10 @@ Elements per patch: 108
 
 ![png](/images/examples/vision/image_classification_with_vision_transformer/image_classification_with_vision_transformer_15_2.png)
 
-## Implement the patch encoding layer
+## 패치 인코딩 레이어 구현 {#implement-the-patch-encoding-layer}
 
-The `PatchEncoder` layer will linearly transform a patch by projecting it into a vector of size `projection_dim`. In addition, it adds a learnable position embedding to the projected vector.
+`PatchEncoder` 레이어는 패치를 `projection_dim` 크기의 벡터로 프로젝션하여 선형적으로 변환합니다.
+또한, 프로젝션된 벡터에 학습 가능한 위치 임베딩을 추가합니다.
 
 ```python
 class PatchEncoder(layers.Layer):
@@ -211,53 +216,63 @@ class PatchEncoder(layers.Layer):
         return config
 ```
 
-## Build the ViT model
+## ViT 모델 빌드 {#build-the-vit-model}
 
-The ViT model consists of multiple Transformer blocks, which use the `layers.MultiHeadAttention` layer as a self-attention mechanism applied to the sequence of patches. The Transformer blocks produce a `[batch_size, num_patches, projection_dim]` tensor, which is processed via an classifier head with softmax to produce the final class probabilities output.
+ViT 모델은 패치 시퀀스에 적용되는 셀프 어텐션 메커니즘으로서
+`layers.MultiHeadAttention` 레이어를 사용하는,
+여러 트랜스포머 블록으로 구성됩니다.
+트랜스포머 블록은 `[batch_size, num_patches, projection_dim]` 텐서를 생성하고,
+이 텐서는 소프트맥스가 있는 분류기 헤드를 통해 처리되어 최종 클래스 확률 출력을 생성합니다.
 
-Unlike the technique described in the [paper](https://arxiv.org/abs/2010.11929), which prepends a learnable embedding to the sequence of encoded patches to serve as the image representation, all the outputs of the final Transformer block are reshaped with `layers.Flatten()` and used as the image representation input to the classifier head. Note that the `layers.GlobalAveragePooling1D` layer could also be used instead to aggregate the outputs of the Transformer block, especially when the number of patches and the projection dimensions are large.
+[논문](https://arxiv.org/abs/2010.11929)에서 설명한 기법 즉,
+인코딩된 패치 시퀀스에 학습 가능한 임베딩을 추가하여 이미지 표현으로 사용하는 것과 달리,
+최종 Transformer 블록의 모든 출력은 `layers.Flatten()`으로 reshape 되어
+분류기 헤드에 입력되는 이미지 표현으로 사용됩니다.
+특히 패치 수와 투영 치수가 많은 경우,
+`layers.GlobalAveragePooling1D` 레이어를 대신 사용하여,
+Transformer 블록의 출력을 집계할 수도 있습니다.
 
 ```python
 def create_vit_classifier():
     inputs = keras.Input(shape=input_shape)
-    # Augment data.
+    # 데이터 보강.
     augmented = data_augmentation(inputs)
-    # Create patches.
+    # 패치 생성.
     patches = Patches(patch_size)(augmented)
-    # Encode patches.
+    # 패치 인코딩.
     encoded_patches = PatchEncoder(num_patches, projection_dim)(patches)
 
-    # Create multiple layers of the Transformer block.
+    # 트랜스포머 블록의 여러 레이어를 생성합니다.
     for _ in range(transformer_layers):
-        # Layer normalization 1.
+        # 레이어 정규화 1.
         x1 = layers.LayerNormalization(epsilon=1e-6)(encoded_patches)
-        # Create a multi-head attention layer.
+        # 멀티 헤드 어텐션 레이어를 생성.
         attention_output = layers.MultiHeadAttention(
             num_heads=num_heads, key_dim=projection_dim, dropout=0.1
         )(x1, x1)
-        # Skip connection 1.
+        # 스킵 연결 1.
         x2 = layers.Add()([attention_output, encoded_patches])
-        # Layer normalization 2.
+        # 레이어 정규화 2.
         x3 = layers.LayerNormalization(epsilon=1e-6)(x2)
         # MLP.
         x3 = mlp(x3, hidden_units=transformer_units, dropout_rate=0.1)
-        # Skip connection 2.
+        # 스킵 연결 2.
         encoded_patches = layers.Add()([x3, x2])
 
-    # Create a [batch_size, projection_dim] tensor.
+    # [batch_size, projection_dim] 텐서를 생성.
     representation = layers.LayerNormalization(epsilon=1e-6)(encoded_patches)
     representation = layers.Flatten()(representation)
     representation = layers.Dropout(0.5)(representation)
-    # Add MLP.
+    # MLP 추가.
     features = mlp(representation, hidden_units=mlp_head_units, dropout_rate=0.5)
-    # Classify outputs.
+    # 출력을 분류.
     logits = layers.Dense(num_classes)(features)
-    # Create the Keras model.
+    # Keras 모델을 생성.
     model = keras.Model(inputs=inputs, outputs=logits)
     return model
 ```
 
-## Compile, train, and evaluate the mode
+## 모드 컴파일, 트레이닝 및 평가하기 {#compile-train-and-evaluate-the-mode}
 
 ```python
 def run_experiment(model):
@@ -337,6 +352,17 @@ Test top 5 accuracy: 31.51%
 
 ![png](/images/examples/vision/image_classification_with_vision_transformer/image_classification_with_vision_transformer_21_10.png)
 
-After 100 epochs, the ViT model achieves around 55% accuracy and 82% top-5 accuracy on the test data. These are not competitive results on the CIFAR-100 dataset, as a ResNet50V2 trained from scratch on the same data can achieve 67% accuracy.
+100 에포크가 지난 후, ViT 모델은 테스트 데이터에 대해 약 55%의 정확도와
+82%의 top-5 정확도를 달성했습니다.
+동일한 데이터에 대해 처음부터 트레이닝된 ResNet50V2는 67%의 정확도를 달성할 수 있기 때문에,
+이는 CIFAR-100 데이터 세트에 대해서는 경쟁력이 없는 결과입니다.
 
-Note that the state of the art results reported in the [paper](https://arxiv.org/abs/2010.11929) are achieved by pre-training the ViT model using the JFT-300M dataset, then fine-tuning it on the target dataset. To improve the model quality without pre-training, you can try to train the model for more epochs, use a larger number of Transformer layers, resize the input images, change the patch size, or increase the projection dimensions. Besides, as mentioned in the paper, the quality of the model is affected not only by architecture choices, but also by parameters such as the learning rate schedule, optimizer, weight decay, etc. In practice, it's recommended to fine-tune a ViT model that was pre-trained using a large, high-resolution dataset.
+[논문](https://arxiv.org/abs/2010.11929)에 보고된 최신 결과는
+JFT-300M 데이터 세트를 사용하여 ViT 모델을 사전 트레이닝한 후,
+목표 데이터 세트에 대해 미세 조정하여 달성한 결과라는 점에 유의하세요.
+사전 트레이닝 없이 모델 품질을 개선하려면, 더 많은 에포크에 대해 모델을 트레이닝하거나,
+더 많은 수의 트랜스포머 레이어를 사용하거나, 입력 이미지의 크기를 조정하거나,
+패치 크기를 변경하거나, 프로젝션 차원을 늘리는 등의 방법을 시도할 수 있습니다.
+또한, 논문에서 언급했듯이, 모델의 품질은 아키텍처 선택뿐만 아니라,
+학습률 스케쥴, 옵티마이저, 가중치 감쇠 등과 같은 매개 변수에 의해서도 영향을 받습니다.
+실제로는, 대규모의 고해상도 데이터 세트를 사용하여 사전 트레이닝된 ViT 모델을 미세 조정하는 것이 좋습니다.

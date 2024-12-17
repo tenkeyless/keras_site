@@ -1,5 +1,6 @@
 ---
-title: Train a Vision Transformer on small datasets
+title: 소규모 데이터 세트에 대해 비전 트랜스포머 트레이닝
+linkTitle: 소규모 비전 트랜스포머
 toc: true
 weight: 17
 type: docs
@@ -11,7 +12,7 @@ math: true
 **{{< t f_author >}}** [Aritra Roy Gosthipaty](https://twitter.com/ariG23498)  
 **{{< t f_date_created >}}** 2022/01/07  
 **{{< t f_last_modified >}}** 2022/01/10  
-**{{< t f_description >}}** Training a ViT from scratch on smaller datasets with shifted patch tokenization and locality self-attention.
+**{{< t f_description >}}** 이동된 패치 토큰화(shifted patch tokenization) 및 지역별 셀프 어텐션을 사용하여, 더 작은 데이터 세트에 대해 처음부터 ViT를 트레이닝.
 
 {{< keras/version v=2 >}}
 
@@ -20,28 +21,38 @@ math: true
 {{< card link="https://github.com/keras-team/keras-io/blob/master/examples/vision/vit_small_ds.py" title="GitHub" tag="GitHub">}}
 {{< /cards >}}
 
-## Introduction
+## 소개 {#introduction}
 
-In the academic paper [An Image is Worth 16x16 Words: Transformers for Image Recognition at Scale](https://arxiv.org/abs/2010.11929), the authors mention that Vision Transformers (ViT) are data-hungry. Therefore, pretraining a ViT on a large-sized dataset like JFT300M and fine-tuning it on medium-sized datasets (like ImageNet) is the only way to beat state-of-the-art Convolutional Neural Network models.
+학술 논문 [이미지는 16x16 단어만큼의 가치가 있음: 스케일에서 이미지 인식을 위한 트랜스포머(An Image is Worth 16x16 Words: Transformers for Image Recognition at Scale)](https://arxiv.org/abs/2010.11929)에서,
+저자는 ViT(Vision Transformers)가 데이터를 많이 사용한다고 언급했습니다.
+따라서, JFT300M과 같은 대규모 데이터 세트에서 ViT를 사전 트레이닝하고,
+중간 크기 데이터 세트(예: ImageNet)에서 미세 조정하는 것이
+최첨단 컨볼루셔널 신경망 모델을 이길 수 있는 유일한 방법입니다.
 
-The self-attention layer of ViT lacks **locality inductive bias** (the notion that image pixels are locally correlated and that their correlation maps are translation-invariant). This is the reason why ViTs need more data. On the other hand, CNNs look at images through spatial sliding windows, which helps them get better results with smaller datasets.
+ViT의 셀프 어텐션 레이어에는 **지역성 유도 편향(locality inductive bias)**(이미지 픽셀이 지역적으로 상관되어 있고, 해당 상관(correlation) 맵이 이동 불변(translation-invariant)이라는 개념)이 부족합니다.
+이것이 ViT에 더 많은 데이터가 필요한 이유입니다.
+반면, CNN은 공간 슬라이딩 윈도우를 통해 이미지를 확인하므로,
+더 작은 데이터 세트로 더 나은 결과를 얻을 수 있습니다.
 
-In the academic paper [Vision Transformer for Small-Size Datasets](https://arxiv.org/abs/2112.13492v1), the authors set out to tackle the problem of locality inductive bias in ViTs.
+학술 논문 [소형 데이터 세트를 위한 비전 트랜스포머(Vision Transformer for Small-Size Datasets)](https://arxiv.org/abs/2112.13492v1)에서,
+저자는 ViT의 지역성 귀납 편향 문제를 해결하기 시작했습니다.
 
-The main ideas are:
+주요 아이디어는 다음과 같습니다.
 
-- **Shifted Patch Tokenization**
-- **Locality Self Attention**
+- **전환된 패치 토큰화(Shifted Patch Tokenization)**
+- **지역적 셀프 어텐션(Locality Self Attention)**
 
-This example implements the ideas of the paper. A large part of this example is inspired from [Image classification with Vision Transformer]({{< relref "/docs/examples/vision/image_classification_with_vision_transformer" >}}).
+이 예는 논문의 아이디어를 구현합니다. 이 예시의 대부분은 [비전 트랜스포머를 사용한 이미지 분류(Image classification with Vision Transformer)]({{< relref "/docs/examples/vision/image_classification_with_vision_transformer" >}})에서 영감을 받았습니다.
 
-_Note_: This example requires TensorFlow 2.6 or higher, as well as [TensorFlow Addons](https://www.tensorflow.org/addons), which can be installed using the following command:
+_참고_: 이 예시에는 TensorFlow 2.6 이상이 필요하며,
+다음 명령을 사용하여 설치할 수 있는
+[TensorFlow Addons](https://www.tensorflow.org/addons)도 필요합니다.
 
 ```shell
 pip install -qq -U tensorflow-addons
 ```
 
-## Setup
+## 셋업 {#setup}
 
 ```python
 import math
@@ -52,12 +63,12 @@ import tensorflow_addons as tfa
 import matplotlib.pyplot as plt
 from tensorflow.keras import layers
 
-# Setting seed for reproducibiltiy
+# 재현성을 위한 시드 설정
 SEED = 42
 keras.utils.set_random_seed(SEED)
 ```
 
-## Prepare the data
+## 데이터 준비 {#prepare-the-data}
 
 ```python
 NUM_CLASSES = 100
@@ -81,28 +92,28 @@ x_test shape: (10000, 32, 32, 3) - y_test shape: (10000, 1)
 
 {{% /details %}}
 
-## Configure the hyperparameters
+## 하이퍼파라미터 설정 {#configure-the-hyperparameters}
 
-The hyperparameters are different from the paper. Feel free to tune the hyperparameters yourself.
+하이퍼파라미터는 논문과 다릅니다. 하이퍼파라미터를 직접 조정해 보세요.
 
 ```python
-# DATA
+# 데이터
 BUFFER_SIZE = 512
 BATCH_SIZE = 256
 
-# AUGMENTATION
+# 보강
 IMAGE_SIZE = 72
 PATCH_SIZE = 6
 NUM_PATCHES = (IMAGE_SIZE // PATCH_SIZE) ** 2
 
-# OPTIMIZER
+# 옵티마이저
 LEARNING_RATE = 0.001
 WEIGHT_DECAY = 0.0001
 
-# TRAINING
+# 트레이닝
 EPOCHS = 50
 
-# ARCHITECTURE
+# 아키텍쳐
 LAYER_NORM_EPS = 1e-6
 TRANSFORMER_LAYERS = 8
 PROJECTION_DIM = 64
@@ -114,13 +125,15 @@ TRANSFORMER_UNITS = [
 MLP_HEAD_UNITS = [2048, 1024]
 ```
 
-## Use data augmentation
+## 데이터 보강 사용 {#use-data-augmentation}
 
-A snippet from the paper:
+논문의 스니펫:
 
-_"According to DeiT, various techniques are required to effectively train ViTs. Thus, we applied data augmentations such as CutMix, Mixup, Auto Augment, Repeated Augment to all models."_
+> _"DeiT에 따르면, ViT를 효과적으로 트레이닝시키기 위해서는 다양한 기술이 필요합니다. 따라서, 우리는 CutMix, Mixup, Auto Augment, Repeated Augment와 같은 데이터 보강을 모든 모델에 적용했습니다."_
 
-In this example, we will focus solely on the novelty of the approach and not on reproducing the paper results. For this reason, we don't use the mentioned data augmentation schemes. Please feel free to add to or remove from the augmentation pipeline.
+이 예에서는, 논문 결과를 재현하는 것이 아니라 접근 방식의 참신함에만 중점을 둘 것입니다.
+이러한 이유로, 우리는 언급된 데이터 보강 방식을 사용하지 않습니다.
+보강 파이프라인에 자유롭게 추가하거나 제거하세요.
 
 ```python
 data_augmentation = keras.Sequential(
@@ -133,20 +146,22 @@ data_augmentation = keras.Sequential(
     ],
     name="data_augmentation",
 )
-# Compute the mean and the variance of the training data for normalization.
+# 정규화를 위해 트레이닝 데이터의 평균과 분산을 계산합니다.
 data_augmentation.layers[0].adapt(x_train)
 ```
 
-## Implement Shifted Patch Tokenization
+## 이동된 패치 토큰화(Shifted Patch Tokenization) 구현 {#implement-shifted-patch-tokenization}
 
-In a ViT pipeline, the input images are divided into patches that are then linearly projected into tokens. Shifted patch tokenization (STP) is introduced to combat the low receptive field of ViTs. The steps for Shifted Patch Tokenization are as follows:
+ViT 파이프라인에서, 입력 이미지는 패치로 분할된 다음 선형적으로 토큰에 프로젝션됩니다.
+ViT의 낮은 수용 필드에 대처하기 위해 STP(Shifted Patch Tokenization)가 도입되었습니다.
+Shifted Patch Tokenization의 단계는 다음과 같습니다.
 
-- Start with an image.
-- Shift the image in diagonal directions.
-- Concat the diagonally shifted images with the original image.
-- Extract patches of the concatenated images.
-- Flatten the spatial dimension of all patches.
-- Layer normalize the flattened patches and then project it.
+- 이미지로 시작합니다.
+- 이미지를 대각선(diagonal) 방향으로 이동(Shift)합니다.
+- 대각선으로 이동된 이미지를 원본 이미지와 연결(Concat)합니다.
+- 연결된 이미지의 패치를 추출합니다.
+- 모든 패치의 공간 차원을 평면화(Flatten)합니다.
+- 평면화된 패치를 레이어 정규화한 다음 프로젝션합니다.
 
 ![Shifted Patch Toekenization](/images/examples/vision/vit_small_ds/bUnHxd0.png "Shifted Patch Tokenization [Source](https://arxiv.org/abs/2112.13492v1)")
 
@@ -162,7 +177,7 @@ class ShiftedPatchTokenization(layers.Layer):
         **kwargs,
     ):
         super().__init__(**kwargs)
-        self.vanilla = vanilla  # Flag to swtich to vanilla patch extractor
+        self.vanilla = vanilla  # 바닐라 패치 추출기로 전환할 플래그
         self.image_size = image_size
         self.patch_size = patch_size
         self.half_patch = patch_size // 2
@@ -171,7 +186,7 @@ class ShiftedPatchTokenization(layers.Layer):
         self.layer_norm = layers.LayerNormalization(epsilon=LAYER_NORM_EPS)
 
     def crop_shift_pad(self, images, mode):
-        # Build the diagonally shifted images
+        # 대각선으로 이동된(diagonally shifted) 이미지 만들기
         if mode == "left-up":
             crop_height = self.half_patch
             crop_width = self.half_patch
@@ -193,7 +208,7 @@ class ShiftedPatchTokenization(layers.Layer):
             shift_height = self.half_patch
             shift_width = self.half_patch
 
-        # Crop the shifted images and pad them
+        # 이동된 이미지(shifted images)를 자르고(Crop) 패딩합니다.
         crop = tf.image.crop_to_bounding_box(
             images,
             offset_height=crop_height,
@@ -212,7 +227,7 @@ class ShiftedPatchTokenization(layers.Layer):
 
     def call(self, images):
         if not self.vanilla:
-            # Concat the shifted images with the original image
+            # 이동된 이미지를 원본 이미지와 연결
             images = tf.concat(
                 [
                     images,
@@ -223,7 +238,7 @@ class ShiftedPatchTokenization(layers.Layer):
                 ],
                 axis=-1,
             )
-        # Patchify the images and flatten it
+        # 이미지를 패치하고 Flatten 합니다.
         patches = tf.image.extract_patches(
             images=images,
             sizes=[1, self.patch_size, self.patch_size, 1],
@@ -233,27 +248,25 @@ class ShiftedPatchTokenization(layers.Layer):
         )
         flat_patches = self.flatten_patches(patches)
         if not self.vanilla:
-            # Layer normalize the flat patches and linearly project it
+            # 플랫 패치를 레이어로 정규화하고 선형으로 프로젝션합니다.
             tokens = self.layer_norm(flat_patches)
             tokens = self.projection(tokens)
         else:
-            # Linearly project the flat patches
+            # 플랫 패치를 선형으로 프로젝션합니다.
             tokens = self.projection(flat_patches)
         return (tokens, patches)
 ```
 
-### Visualize the patches
+### 패치 시각화 {#visualize-the-patches}
 
 ```python
-# Get a random image from the training dataset
-# and resize the image
+# 트레이닝 데이터 세트에서 임의의 이미지를 가져오고, 이미지 크기를 조정합니다.
 image = x_train[np.random.choice(range(x_train.shape[0]))]
 resized_image = tf.image.resize(
     tf.convert_to_tensor([image]), size=(IMAGE_SIZE, IMAGE_SIZE)
 )
 
-# Vanilla patch maker: This takes an image and divides into
-# patches as in the original ViT paper
+# 바닐라 패치 메이커: ViT 원본 논문과 마찬가지로 이미지를 가져와서 패치로 나눕니다.
 (token, patch) = ShiftedPatchTokenization(vanilla=True)(resized_image / 255.0)
 (token, patch) = (token[0], patch[0])
 n = patch.shape[0]
@@ -268,8 +281,8 @@ for row in range(n):
         plt.axis("off")
 plt.show()
 
-# Shifted Patch Tokenization: This layer takes the image, shifts it
-# diagonally and then extracts patches from the concatinated images
+# 이동된 패치 토큰화(Shifted Patch Tokenization) :
+# 이 레이어는 이미지를 가져와, 대각선으로 이동한 다음, 연결된 이미지에서 패치를 추출합니다.
 (token, patch) = ShiftedPatchTokenization(vanilla=False)(resized_image / 255.0)
 (token, patch) = (token[0], patch[0])
 n = patch.shape[0]
@@ -308,9 +321,9 @@ for index, name in enumerate(shifted_images):
 
 {{% /details %}}
 
-## Implement the patch encoding layer
+## 패치 인코딩 레이어 구현 {#implement-the-patch-encoding-layer}
 
-This layer accepts projected patches and then adds positional information to them.
+이 레이어는 프로젝션된 패치를 받아들이고, 위치 정보를 추가합니다.
 
 ```python
 class PatchEncoder(layers.Layer):
@@ -330,30 +343,42 @@ class PatchEncoder(layers.Layer):
         return encoded_patches
 ```
 
-## Implement Locality Self Attention
+## 지역성 셀프 어텐션(Locality Self Attention) 구현 {#implement-locality-self-attention}
 
-The regular attention equation is stated below.
+정규 어텐션 수식은 다음과 같습니다.
 
 | $$\text{Attention}(Q,K,V) = \text{softmax}(\frac{QK^T}{\sqrt{d_k}})V$$                                            |
 | ----------------------------------------------------------------------------------------------------------------- |
 | [Source](https://towardsdatascience.com/attention-is-all-you-need-discovering-the-transformer-paper-73e5ff5e0634) |
 
-The attention module takes a query, key, and value. First, we compute the similarity between the query and key via a dot product. Then, the result is scaled by the square root of the key dimension. The scaling prevents the softmax function from having an overly small gradient. Softmax is then applied to the scaled dot product to produce the attention weights. The value is then modulated via the attention weights.
+어텐션 모듈은 쿼리, 키 및 값을 사용합니다.
+먼저, 내적을 통해 쿼리와 키 간의 유사성을 계산합니다.
+그런 다음, 결과는 키 차원의 제곱근으로 조정됩니다.
+스케일링은 소프트맥스 함수의 기울기가 지나치게 작은 것을 방지합니다.
+그런 다음 Softmax를 스케일링된 내적에 적용하여 어텐션 가중치를 생성합니다.
+그런 다음 해당 값은 어텐션 가중치를 통해 변조됩니다.
 
-In self-attention, query, key and value come from the same input. The dot product would result in large self-token relations rather than inter-token relations. This also means that the softmax gives higher probabilities to self-token relations than the inter-token relations. To combat this, the authors propose masking the diagonal of the dot product. This way, we force the attention module to pay more attention to the inter-token relations.
+셀프 어텐션에서는, 쿼리, 키, 값이 동일한 입력에서 나옵니다.
+내적은 토큰 간 관계라기보다는 큰 자체 토큰 관계를 나타냅니다.
+이는 또한 소프트맥스가 토큰 간 관계보다 자체 토큰 관계에 더 높은 확률을 제공한다는 것을 의미합니다.
+이 문제를 해결하기 위해, 저자는 내적의 대각선을 마스킹할 것을 제안합니다.
+이런 방식으로, 우리는 어텐션 모듈이 토큰 간 관계에 더 많은 주의를 기울이도록 강제합니다.
 
-The scaling factor is a constant in the regular attention module. This acts like a temperature term that can modulate the softmax function. The authors suggest a learnable temperature term instead of a constant.
+스케일링 계수는 일반 어텐션 모듈에서 상수입니다.
+이는 소프트맥스 함수를 조절할 수 있는 온도 항처럼 작동합니다.
+저자는 상수 대신 학습 가능한 온도 항을 제안합니다.
 
 ![Implementation of LSA](/images/examples/vision/vit_small_ds/GTV99pk.png "Locality Self Attention [Source](https://arxiv.org/abs/2112.13492v1)")
 
-The above two pointers make the Locality Self Attention. We have subclassed the [`layers.MultiHeadAttention`](https://www.tensorflow.org/api_docs/python/tf/keras/layers/MultiHeadAttention) and implemented the trainable temperature. The attention mask is built at a later stage.
+위의 두 가지 포인터는 Locality Self Attention을 만듭니다.
+[`layers.MultiHeadAttention`](https://www.tensorflow.org/api_docs/python/tf/keras/layers/MultiHeadAttention)을 서브 클래싱하여,
+트레이닝 가능한 온도를 구현했습니다. 어텐션 마스크는 이후 단계에서 제작됩니다.
 
 ```python
 class MultiHeadAttentionLSA(tf.keras.layers.MultiHeadAttention):
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
-        # The trainable temperature term. The initial value is
-        # the square root of the key dimension.
+        # 트레이닝 가능한 온도 항입니다. 초기값은 키 차원의 제곱근입니다.
         self.tau = tf.Variable(math.sqrt(float(self._key_dim)), trainable=True)
 
     def _compute_attention(self, query, key, value, attention_mask=None, training=None):
@@ -369,7 +394,7 @@ class MultiHeadAttentionLSA(tf.keras.layers.MultiHeadAttention):
         return attention_output, attention_scores
 ```
 
-## Implement the MLP
+## MLP 구현 {#implement-the-mlp}
 
 ```python
 def mlp(x, hidden_units, dropout_rate):
@@ -379,28 +404,28 @@ def mlp(x, hidden_units, dropout_rate):
     return x
 
 
-# Build the diagonal attention mask
+# diagonal 어텐션 마스크 만들기
 diag_attn_mask = 1 - tf.eye(NUM_PATCHES)
 diag_attn_mask = tf.cast([diag_attn_mask], dtype=tf.int8)
 ```
 
-## Build the ViT
+## ViT 빌드 {#build-the-vit}
 
 ```python
 def create_vit_classifier(vanilla=False):
     inputs = layers.Input(shape=INPUT_SHAPE)
-    # Augment data.
+    # 데이터 보강.
     augmented = data_augmentation(inputs)
-    # Create patches.
+    # 패치 생성.
     (tokens, _) = ShiftedPatchTokenization(vanilla=vanilla)(augmented)
-    # Encode patches.
+    # 패치 인코딩.
     encoded_patches = PatchEncoder()(tokens)
 
-    # Create multiple layers of the Transformer block.
+    # Transformer 블록의 여러 레이어를 만듭니다.
     for _ in range(TRANSFORMER_LAYERS):
-        # Layer normalization 1.
+        # 레이어 정규화 1.
         x1 = layers.LayerNormalization(epsilon=1e-6)(encoded_patches)
-        # Create a multi-head attention layer.
+        # 멀티 헤드 어텐션 레이어 만들기
         if not vanilla:
             attention_output = MultiHeadAttentionLSA(
                 num_heads=NUM_HEADS, key_dim=PROJECTION_DIM, dropout=0.1
@@ -409,32 +434,32 @@ def create_vit_classifier(vanilla=False):
             attention_output = layers.MultiHeadAttention(
                 num_heads=NUM_HEADS, key_dim=PROJECTION_DIM, dropout=0.1
             )(x1, x1)
-        # Skip connection 1.
+        # 스킵 연결 1.
         x2 = layers.Add()([attention_output, encoded_patches])
-        # Layer normalization 2.
+        # 레이어 정규화 2.
         x3 = layers.LayerNormalization(epsilon=1e-6)(x2)
         # MLP.
         x3 = mlp(x3, hidden_units=TRANSFORMER_UNITS, dropout_rate=0.1)
-        # Skip connection 2.
+        # 스킵 연결 2.
         encoded_patches = layers.Add()([x3, x2])
 
-    # Create a [batch_size, projection_dim] tensor.
+    # [batch_size, projection_dim] 텐서 생성.
     representation = layers.LayerNormalization(epsilon=1e-6)(encoded_patches)
     representation = layers.Flatten()(representation)
     representation = layers.Dropout(0.5)(representation)
-    # Add MLP.
+    # MLP 추가.
     features = mlp(representation, hidden_units=MLP_HEAD_UNITS, dropout_rate=0.5)
-    # Classify outputs.
+    # 분류 출력.
     logits = layers.Dense(NUM_CLASSES)(features)
-    # Create the Keras model.
+    # Keras 모델 생성.
     model = keras.Model(inputs=inputs, outputs=logits)
     return model
 ```
 
-## Compile, train, and evaluate the mode
+## 모드 컴파일, 트레이닝, 평가 {#compile-train-and-evaluate-the-mode}
 
 ```python
-# Some code is taken from:
+# 일부 코드는 다음에서 가져옵니다.:
 # https://www.kaggle.com/ashusma/training-rfcx-tensorflow-tpu-effnet-b2.
 class WarmUpCosine(keras.optimizers.schedules.LearningRateSchedule):
     def __init__(
@@ -515,12 +540,11 @@ def run_experiment(model):
     return history
 
 
-# Run experiments with the vanilla ViT
+# 바닐라 ViT로 실험 실행
 vit = create_vit_classifier(vanilla=True)
 history = run_experiment(vit)
 
-# Run experiments with the Shifted Patch Tokenization and
-# Locality Self Attention modified ViT
+# Shifted Patch Tokenization 및 Locality Self Attention 수정 ViT를 사용하여 실험 실행
 vit_sl = create_vit_classifier(vanilla=False)
 history = run_experiment(vit_sl)
 ```
@@ -738,12 +762,20 @@ Test top 5 accuracy: 82.27%
 
 {{% /details %}}
 
-## Final Notes
+## 최종 노트 {#final-notes}
 
-With the help of Shifted Patch Tokenization and Locality Self Attention, we were able to get ~**3-4%** top-1 accuracy gains on CIFAR100.
+Shifted Patch Tokenization과 Locality Self Attention의 도움으로,
+우리는 CIFAR100에 대해 ~**3-4%** top-1 정확도 향상을 얻을 수 있었습니다.
 
-The ideas on Shifted Patch Tokenization and Locality Self Attention are very intuitive and easy to implement. The authors also ablates of different shifting strategies for Shifted Patch Tokenization in the supplementary of the paper.
+Shifted Patch Tokenization 및 Locality Self Attention에 대한 아이디어는
+매우 직관적이고 구현하기 쉽습니다.
+저자는 또한 논문의 보충 자료에서 Shifted Patch Tokenization을 위한
+다양한 이동 전략을 제거했습니다.
 
-I would like to thank [Jarvislabs.ai](https://jarvislabs.ai/) for generously helping with GPU credits.
+GPU 크레딧에 아낌없이 도움을 주신
+[Jarvislabs.ai](https://jarvislabs.ai/)에게 감사의 말씀을 전하고 싶습니다.
 
-You can use the trained model hosted on [Hugging Face Hub](https://huggingface.co/keras-io/vit_small_ds_v2) and try the demo on [Hugging Face Spaces](https://huggingface.co/spaces/keras-io/vit-small-ds).
+[Hugging Face Hub](https://huggingface.co/keras-io/vit_small_ds_v2)에서 호스팅되는
+트레이닝된 모델을 사용하고,
+[Hugging Face Spaces](https://huggingface.co/spaces/keras-io/vit-small-ds)에서
+데모를 시도해 볼 수 있습니다.
