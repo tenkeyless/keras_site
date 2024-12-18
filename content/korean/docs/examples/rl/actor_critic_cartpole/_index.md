@@ -1,5 +1,6 @@
 ---
-title: Actor Critic Method
+title: Actor Critic 방법
+linkTitle: Actor Critic 방법
 toc: true
 weight: 1
 type: docs
@@ -19,11 +20,11 @@ type: docs
 {{< card link="https://github.com/keras-team/keras-io/blob/master/examples/rl/actor_critic_cartpole.py" title="GitHub" tag="GitHub">}}
 {{< /cards >}}
 
-## Introduction
+## Introduction {#introduction}
 
 This script shows an implementation of Actor Critic method on CartPole-V0 environment.
 
-### Actor Critic Method
+### Actor Critic Method {#actor-critic-method}
 
 As an agent takes actions and moves through an environment, it learns to map the observed state of the environment to two possible outputs:
 
@@ -32,16 +33,16 @@ As an agent takes actions and moves through an environment, it learns to map the
 
 Agent and Critic learn to perform their tasks, such that the recommended actions from the actor maximize the rewards.
 
-### CartPole-V0
+### CartPole-V0 {#cartpole-v0}
 
 A pole is attached to a cart placed on a frictionless track. The agent has to apply force to move the cart. It is rewarded for every time step the pole remains upright. The agent, therefore, must learn to keep the pole from falling over.
 
-### References
+### References {#references}
 
 - [CartPole](http://www.derongliu.org/adp/adp-cdrom/Barto1983.pdf)
 - [Actor Critic Method](https://hal.inria.fr/hal-00840470/document)
 
-## Setup
+## Setup {#setup}
 
 ```python
 import os
@@ -62,7 +63,7 @@ env.seed(seed)
 eps = np.finfo(np.float32).eps.item()  # Smallest number such that 1.0 + eps != 1.0
 ```
 
-## Implement Actor Critic network
+## Implement Actor Critic network {#implement-actor-critic-network}
 
 This network learns two functions:
 
@@ -84,7 +85,7 @@ critic = layers.Dense(1)(common)
 model = keras.Model(inputs=inputs, outputs=[action, critic])
 ```
 
-## Train
+## Train {#train}
 
 ```python
 optimizer = keras.optimizers.Adam(learning_rate=0.01)
@@ -221,7 +222,7 @@ Solved at episode 322!
 
 {{% /details %}}
 
-## Visualizations
+## Visualizations {#visualizations}
 
 In early stages of training:
 

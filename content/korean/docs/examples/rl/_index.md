@@ -1,5 +1,5 @@
 ---
-title: Reinforcement Learning
+title: 강화 학습
 toc: true
 weight: 7
 ---

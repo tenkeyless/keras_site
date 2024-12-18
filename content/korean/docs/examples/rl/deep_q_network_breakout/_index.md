@@ -1,5 +1,6 @@
 ---
-title: Deep Q-Learning for Atari Breakout
+title: 아타리 브레이크아웃을 위한 심층 Q-러닝
+linkTitle: Atari Breakout 심층 Q-러닝
 toc: true
 weight: 3
 type: docs
@@ -19,30 +20,30 @@ type: docs
 {{< card link="https://github.com/keras-team/keras-io/blob/master/examples/rl/deep_q_network_breakout.py" title="GitHub" tag="GitHub">}}
 {{< /cards >}}
 
-## Introduction
+## Introduction {#introduction}
 
 This script shows an implementation of Deep Q-Learning on the `BreakoutNoFrameskip-v4` environment.
 
-### Deep Q-Learning
+### Deep Q-Learning {#deep-q-learning}
 
 As an agent takes actions and moves through an environment, it learns to map the observed state of the environment to an action. An agent will choose an action in a given state based on a "Q-value", which is a weighted reward based on the expected highest long-term reward. A Q-Learning Agent learns to perform its task such that the recommended action maximizes the potential future rewards. This method is considered an "Off-Policy" method, meaning its Q values are updated assuming that the best action was chosen, even if the best action was not chosen.
 
-### Atari Breakout
+### Atari Breakout {#atari-breakout}
 
 In this environment, a board moves along the bottom of the screen returning a ball that will destroy blocks at the top of the screen. The aim of the game is to remove all blocks and breakout of the level. The agent must learn to control the board by moving left and right, returning the ball and removing all the blocks without the ball passing the board.
 
-### Note
+### Note {#note}
 
 The Deepmind paper trained for "a total of 50 million frames (that is, around 38 days of game experience in total)". However this script will give good results at around 10 million frames which are processed in less than 24 hours on a modern machine.
 
 You can control the number of episodes by setting the `max_episodes` variable to a value greater than 0.
 
-### References
+### References {#references}
 
 - [Q-Learning](https://link.springer.com/content/pdf/10.1007/BF00992698.pdf)
 - [Deep Q-Learning](https://www.semanticscholar.org/paper/Human-level-control-through-deep-reinforcement-Mnih-Kavukcuoglu/340f48901f72278f6bf78a04ee5b01df208cc508)
 
-## Setup
+## Setup {#setup}
 
 ```python
 import os
@@ -115,7 +116,7 @@ Random seed is -1625411987
 
 {{% /details %}}
 
-## Implement the Deep Q-Network
+## Implement the Deep Q-Network {#implement-the-deep-q-network}
 
 This network learns an approximation of the Q-table, which is a mapping between the states and actions that an agent will take. For every state we'll have four actions, that can be taken. The environment provides the state, and the action is chosen by selecting the larger of the four Q-values predicted in the output layer.
 
@@ -152,7 +153,7 @@ model = create_q_model()
 model_target = create_q_model()
 ```
 
-## Train
+## Train {#train}
 
 ```python
 # In the Deepmind paper they use RMSProp however then Adam optimizer
@@ -300,7 +301,7 @@ while True:
         break
 ```
 
-## Visualizations
+## Visualizations {#visualizations}
 
 Before any training:
 
