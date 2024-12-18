@@ -1,5 +1,6 @@
 ---
-title: FeatureSpace advanced use cases
+title: FeatureSpace 고급 사용 사례
+linkTitle: FeatureSpace 고급 사용 사례
 toc: true
 weight: 2
 type: docs
@@ -19,13 +20,13 @@ type: docs
 {{< card link="https://github.com/keras-team/keras-io/blob/master/examples/structured_data/feature_space_advanced.py" title="GitHub" tag="GitHub">}}
 {{< /cards >}}
 
-## Introduction
+## Introduction {#introduction}
 
 This example is an extension of the [Structured data classification with FeatureSpace]({{< relref "/docs/examples/structured_data/structured_data_classification_with_feature_space" >}}) code example, and here we will extend it to cover more complex use cases of the [`keras.utils.FeatureSpace`]({{< relref "/docs/api/utils/feature_space#featurespace-class" >}}) preprocessing utility, like feature hashing, feature crosses, handling missing values and integrating [Keras preprocessing layers]({{< relref "/docs/api/layers/preprocessing_layers" >}}) with FeatureSpace.
 
 The general task still is structured data classification (also known as tabular data classification) using a data that includes numerical features, integer categorical features, and string categorical features.
 
-### The dataset
+### The dataset {#the-dataset}
 
 [Our dataset](https://archive.ics.uci.edu/dataset/222/bank+marketing) is provided by a Portuguese banking institution. It's a CSV file with 4119 rows. Each row contains information about marketing campaigns based on phone calls, and each column describes an attribute of the client. We use the features to predict whether the client subscribed ('yes') or not ('no') to the product (bank term deposit).
 
@@ -57,7 +58,7 @@ Here's the description of each feature:
 
 **Important note regarding the feature `duration`**: this attribute highly affects the output target (e.g., if duration=0 then y='no'). Yet, the duration is not known before a call is performed. Also, after the end of the call y is obviously known. Thus, this input should only be included for benchmark purposes and should be discarded if the intention is to have a realistic predictive model. For this reason we will drop it.
 
-## Setup
+## Setup {#setup}
 
 ```python
 import os
@@ -72,7 +73,7 @@ from pathlib import Path
 from zipfile import ZipFile
 ```
 
-## Load the data
+## Load the data {#load-the-data}
 
 Let's download the data and load it into a Pandas dataframe:
 
@@ -154,7 +155,7 @@ Dataframe shape: (4119, 21)
 
 The column, "y", indicates whether the client has subscribed a term deposit or not.
 
-## Train/validation split
+## Train/validation split {#trainvalidation-split}
 
 Let's split the data into a training and validation set:
 
@@ -176,7 +177,7 @@ Using 3295 samples for training and 824 for validation
 
 {{% /details %}}
 
-## Generating TF datasets
+## Generating TF datasets {#generating-tf-datasets}
 
 Let's generate [`tf.data.Dataset`](https://www.tensorflow.org/api_docs/python/tf/data/Dataset) objects for each dataframe, since our target column `y` is a string we also need to encode it as an integer to be able to train our model with it. To achieve this we will create a `StringLookup` layer that will map the strings "no" and "yes" into "0" and "1" respectively.
 
@@ -223,7 +224,7 @@ Target: 0
 
 {{% /details %}}
 
-## Preprocessing
+## Preprocessing {#preprocessing}
 
 Usually our data is not on the proper or best format for modeling, this is why most of the time we need to do some kind of preprocessing on the features to make them compatible with the model or to extract the most of them for the task. We need to do this preprocessing step for training but but at inference we also need to make sure that the data goes through the same process, this where a utility like `FeatureSpace` shines, we can define all the preprocessing once and re-use it at different stages of our system.
 
@@ -246,7 +247,7 @@ def example_feature_space(dataset, feature_space, feature_names):
         )
 ```
 
-### Feature hashing
+### Feature hashing {#feature-hashing}
 
 **Feature hashing** means hashing or encoding a set of values into a defined number of bins, in this case we have `campaign` (number of contacts performed during this campaign and for a client) which is a numerical feature that can assume a varying range of values and we will hash it into 4 bins, this means that any possible value of the original feature will be placed into one of those possible 4 bins. The output here can be a one-hot encoded vector or a single number.
 
@@ -309,7 +310,7 @@ Preprocessed output: [{'age': array([0., 1., 0.], dtype=float32)}]
 
 {{% /details %}}
 
-### Feature indexing
+### Feature indexing {#feature-indexing}
 
 **Indexing** a string feature essentially means creating a discrete numerical representation for it, this is especially important for string features since most models only accept numerical features. This transformation will place the string values into different categories. The output here can be a one-hot encoded vector or a single number.
 
@@ -361,7 +362,7 @@ Preprocessed output: [{'previously_contacted': array([1., 0.], dtype=float32)}]
 
 {{% /details %}}
 
-### Feature crosses (mixing features of diverse types)
+### Feature crosses (mixing features of diverse types) {#feature-crosses-mixing-features-of-diverse-types}
 
 With **crosses** we can do feature interactions between an arbitrary number of features of mixed types as long as they are categorical features, you can think of instead of having a feature {'age': 20} and another {'job': 'entrepreneur'} we can have {'age_X_job': 20_entrepreneur}, but with `FeatureSpace` and **crosses** we can apply specific preprocessing to each individual feature and to the feature cross itself. This option can be very powerful for specific use cases, here might be a good option since age combined with job can have different meanings for the banking domain.
 
@@ -400,7 +401,7 @@ Preprocessed output: [{'age': array([0., 0., 1., 0., 0., 0.], dtype=float32)}, {
 
 {{% /details %}}
 
-### FeatureSpace using a Keras preprocessing layer
+### FeatureSpace using a Keras preprocessing layer {#featurespace-using-a-keras-preprocessing-layer}
 
 To be a really flexible and extensible feature we cannot only rely on those pre-defined transformation, we must be able to re-use other transformations from the Keras/TensorFlow ecosystem and customize our own, this is why `FeatureSpace` is also designed to work with [Keras preprocessing layers]({{< relref "/docs/api/layers/preprocessing_layers" >}}), this way we can use sophisticated data transformations provided by the framework, you can even create your own custom Keras preprocessing layers and use it in the same way.
 
@@ -430,7 +431,7 @@ Preprocessed output: [{'education': array([0.       , 1.4574516, 0.       , 0.  
 
 {{% /details %}}
 
-## Configuring the final `FeatureSpace`
+## Configuring the final `FeatureSpace` {#configuring-the-final-featurespace}
 
 Now that we know how to use `FeatureSpace` for more complex use cases let's pick the ones that looks more useful for this task and create the final `FeatureSpace` component.
 
@@ -478,7 +479,7 @@ feature_space = FeatureSpace(
 )
 ```
 
-## Adapt the `FeatureSpace` to the training data
+## Adapt the `FeatureSpace` to the training data {#adapt-the-featurespace-to-the-training-data}
 
 Before we start using the `FeatureSpace` to build a model, we have to adapt it to the training data. During `adapt()`, the `FeatureSpace` will:
 
@@ -530,7 +531,7 @@ preprocessed_x sample:
 
 {{% /details %}}
 
-## Saving the `FeatureSpace`
+## Saving the `FeatureSpace` {#saving-the-featurespace}
 
 At this point we can choose to save our `FeatureSpace` component, this have many advantages like re-using it on different experiments that use the same model, saving time if you need to re-run the preprocessing step, and mainly for model deployment, where by loading it you can be sure that you will be applying the same preprocessing steps don't matter the device or environment, this is a great way to reduce [training/servingskew](https://developers.google.com/machine-learning/guides/rules-of-ml#training-serving_skew).
 
@@ -538,7 +539,7 @@ At this point we can choose to save our `FeatureSpace` component, this have many
 feature_space.save("myfeaturespace.keras")
 ```
 
-## Preprocessing with `FeatureSpace` as part of the tf.data pipeline
+## Preprocessing with `FeatureSpace` as part of the tf.data pipeline {#preprocessing-with-featurespace-as-part-of-the-tfdata-pipeline}
 
 We will opt to use our component asynchronously by making it part of the tf.data pipeline, as noted at the [previous guide]({{< relref "/docs/examples/structured_data/structured_data_classification_with_feature_space" >}}) This enables asynchronous parallel preprocessing of the data on CPU before it hits the model. Usually, this is always the right thing to do during training.
 
@@ -554,7 +555,7 @@ preprocessed_valid_ds = valid_ds.map(
 ).prefetch(tf.data.AUTOTUNE)
 ```
 
-## Model
+## Model {#model}
 
 We will take advantage of our `FeatureSpace` component to build the model, as we want the model to be compatible with our preprocessing function, let's use the the `FeatureSpace` feature map as the input of our model.
 
@@ -582,7 +583,7 @@ model = keras.Model(inputs=encoded_features, outputs=output)
 model.compile(optimizer="adam", loss="binary_crossentropy", metrics=["accuracy"])
 ```
 
-## Training
+## Training {#training}
 
 Let's train our model for 20 epochs. Note that feature preprocessing is happening as part of the tf.data pipeline, not as part of the model.
 
@@ -641,11 +642,11 @@ Epoch 20/20
 
 {{% /details %}}
 
-## Inference on new data with the end-to-end model
+## Inference on new data with the end-to-end model {#inference-on-new-data-with-the-end-to-end-model}
 
 Now, we can build our inference model (which includes the `FeatureSpace`) to make predictions based on dicts of raw features values, as follows:
 
-### Loading the `FeatureSpace`
+### Loading the `FeatureSpace` {#loading-the-featurespace}
 
 First let's load the `FeatureSpace` that we saved a few moment ago, this can be quite handy if you train a model but want to do inference at different time, possibly using a different device or environment.
 
@@ -653,7 +654,7 @@ First let's load the `FeatureSpace` that we saved a few moment ago, this can be 
 loaded_feature_space = keras.saving.load_model("myfeaturespace.keras")
 ```
 
-### Building the inference end-to-end model
+### Building the inference end-to-end model {#building-the-inference-end-to-end-model}
 
 To build the inference model we need both the feature input map and the preprocessing encoded Keras tensors.
 

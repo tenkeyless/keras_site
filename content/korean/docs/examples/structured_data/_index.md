@@ -1,5 +1,5 @@
 ---
-title: Structured Data
+title: 구조화된 데이터
 toc: true
 weight: 3
 ---

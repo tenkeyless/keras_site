@@ -1,5 +1,6 @@
 ---
-title: Collaborative Filtering for Movie Recommendations
+title: 영화 추천을 위한 Collaborative 필터링
+linkTitle: 영화 추천 Collaborative 필터링
 toc: true
 weight: 10
 type: docs
@@ -19,7 +20,7 @@ type: docs
 {{< card link="https://github.com/keras-team/keras-io/blob/master/examples/structured_data/collaborative_filtering_movielens.py" title="GitHub" tag="GitHub">}}
 {{< /cards >}}
 
-## Introduction
+## Introduction {#introduction}
 
 This example demonstrates [Collaborative filtering](https://en.wikipedia.org/wiki/Collaborative_filtering) using the [Movielens dataset](https://www.kaggle.com/c/movielens-100k) to recommend movies to users. The MovieLens ratings dataset lists the ratings given by a set of users to a set of movies. Our goal is to be able to predict ratings for movies a user has not yet watched. The movies with the highest predicted ratings can then be recommended to the user.
 
@@ -47,7 +48,7 @@ from keras import layers
 from keras import ops
 ```
 
-## First, load the data and apply preprocessing
+## First, load the data and apply preprocessing {#first-load-the-data-and-apply-preprocessing}
 
 ```python
 # Download the actual data from http://files.grouplens.org/datasets/movielens/ml-latest-small.zip"
@@ -118,7 +119,7 @@ Number of users: 610, Number of Movies: 9724, Min rating: 0.5, Max rating: 5.0
 
 {{% /details %}}
 
-## Prepare training and validation data
+## Prepare training and validation data {#prepare-training-and-validation-data}
 
 ```python
 df = df.sample(frac=1, random_state=42)
@@ -135,7 +136,7 @@ x_train, x_val, y_train, y_val = (
 )
 ```
 
-## Create the model
+## Create the model {#create-the-model}
 
 We embed both users and movies in to 50-dimensional vectors.
 
@@ -185,7 +186,7 @@ model.compile(
 )
 ```
 
-## Train the model based on the data split
+## Train the model based on the data split {#train-the-model-based-on-the-data-split}
 
 ```python
 history = model.fit(
@@ -215,7 +216,7 @@ Epoch 5/5
 
 {{% /details %}}
 
-## Plot training and validation loss
+## Plot training and validation loss {#plot-training-and-validation-loss}
 
 ```python
 plt.plot(history.history["loss"])
@@ -229,7 +230,7 @@ plt.show()
 
 ![png](/images/examples/structured_data/collaborative_filtering_movielens/collaborative_filtering_movielens_14_0.png)
 
-## Show top 10 movie recommendations to a user
+## Show top 10 movie recommendations to a user {#show-top-10-movie-recommendations-to-a-user}
 
 ```python
 movie_df = pd.read_csv(movielens_dir / "movies.csv")
