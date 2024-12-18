@@ -1,5 +1,6 @@
 ---
-title: Parameter-efficient fine-tuning of Gemma with LoRA and QLoRA
+title: LoRA 및 QLoRA를 사용한 Gemma의 매개변수 효율적인 미세 조정
+linkTitle: LoRA 및 QLoRA로 Gemma의 매개변수 효율적 미세 조정
 toc: true
 weight: 1
 type: docs
@@ -19,7 +20,7 @@ type: docs
 {{< card link="https://github.com/keras-team/keras-io/blob/master/examples/keras_recipes/parameter_efficient_finetuning_of_gemma_with_lora_and_qlora.py" title="GitHub" tag="GitHub">}}
 {{< /cards >}}
 
-## Introduction
+## Introduction {#introduction}
 
 Large Language Models (LLMs) have been shown to be effective at a variety of NLP tasks. An LLM is first pre-trained on a large corpus of text in a self-supervised fashion. Pre-training helps LLMs learn general-purpose knowledge, such as statistical relationships between words. An LLM can then be fine-tuned on a downstream task of interest (such as sentiment analysis).
 
@@ -31,7 +32,7 @@ In this example, we will fine-tune KerasHub's [Gemma model](https://keras.io/api
 
 Note that this example runs on all backends supported by Keras. TensorFlow is only used for data preprocessing.
 
-## Setup
+## Setup {#setup}
 
 Before we start implementing the pipeline, let's install and import all the libraries we need. We'll be using the KerasHub library.
 
@@ -62,7 +63,7 @@ import tensorflow_datasets as tfds
 keras.config.set_dtype_policy("bfloat16")
 ```
 
-## Dataset
+## Dataset {#dataset}
 
 We will use the MTNT (Machine Translation of Noisy Text) dataset, which is available from TensorFlow Datasets. In this example, we will use the French-to-English portion of the dataset.
 
@@ -169,7 +170,7 @@ We will take a subset of the dataset for the purpose of this example.
 train_ds = train_ds.batch(1).take(100)
 ```
 
-## Model
+## Model {#model}
 
 KerasHub provides implementations of many popular model architectures. In this example, we will use `GemmaCausalLM`, an end-to-end Gemma model for causal language modeling. A causal language model predicts the next token based on previous tokens.
 
@@ -215,25 +216,25 @@ Model: "gemma_causal_lm"
 
 {{% /details %}}
 
-## LoRA Fine-tuning
+## LoRA Fine-tuning {#lora-fine-tuning}
 
-### What exactly is LoRA?
+### What exactly is LoRA? {#what-exactly-is-lora}
 
 Low-rank adaptation (LoRA) is a parameter-efficient fine-tuning technique for LLMs. It freezes the weights of the LLM, and injects trainable rank-decomposition matrices. Let's understand this more clearly.
 
 Assume we have an `n x n` pre-trained dense layer (or weight matrix), `W0`. We initialize two dense layers, `A` and `B`, of shapes `n x rank`, and `rank x n`, respectively. `rank` is much smaller than `n`. In the paper, values between 1 and 4 are shown to work well.
 
-### LoRA equation
+### LoRA equation {#lora-equation}
 
 The original equation is `output = W0x + b0`, where `x` is the input, `W0` and `b0` are the weight matrix and bias terms of the original dense layer (frozen). The LoRA equation is: `output = W0x + b0 + BAx`, where `A` and `B` are the rank-decomposition matrices.
 
 LoRA is based on the idea that updates to the weights of the pre-trained language model have a low "intrinsic rank" since pre-trained language models are over-parametrized. Predictive performance of full fine-tuning can be replicated even by constraining `W0`'s updates to low-rank decomposition matrices.
 
-### Number of trainable parameters
+### Number of trainable parameters {#number-of-trainable-parameters}
 
 Let's do some quick math. Suppose `n` is 768, and `rank` is 4. `W0` has `768 x 768 = 589,824` parameters, whereas the LoRA layers, `A` and `B` together have `768 x 4 + 4 x 768 = 6,144` parameters. So, for the dense layer, we go from `589,824` trainable parameters to `6,144` trainable parameters!
 
-### Why does LoRA reduce memory footprint?
+### Why does LoRA reduce memory footprint? {#why-does-lora-reduce-memory-footprint}
 
 Even though the total number of parameters increase (since we are adding LoRA layers), the memory footprint reduces, because the number of trainable parameters reduces. Let's dive deeper into this.
 
@@ -246,7 +247,7 @@ The memory usage of a model can be split into four parts:
 
 Since, with LoRA, there is a huge reduction in the number of trainable parameters, the optimizer memory and the memory required to store the gradients for LoRA is much less than the original model. This is where most of the memory savings happen.
 
-### Why is LoRA so popular?
+### Why is LoRA so popular? {#why-is-lora-so-popular}
 
 - Reduces GPU memory usage;
 - Faster training; and
@@ -339,7 +340,7 @@ del optimizer
 gc.collect()
 ```
 
-## QLoRA Fine-tuning
+## QLoRA Fine-tuning {#qlora-fine-tuning}
 
 Quantized Low-Rank Adaptation (QLoRA) extends LoRA to enhance efficiency by quantizing the model weights from high precision data types, such as float32, to lower precision data types like int8. This leads to reduced memory usage and faster computation. The saved model weights are also much smaller.
 

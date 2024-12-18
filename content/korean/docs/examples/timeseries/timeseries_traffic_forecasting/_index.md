@@ -1,5 +1,6 @@
 ---
-title: Traffic forecasting using graph neural networks and LSTM
+title: 그래프 신경망과 LSTM을 사용한 트래픽 예측
+linkTitle: 그래프 신경망과 LSTM 트래픽 예측
 toc: true
 weight: 6
 type: docs
@@ -19,7 +20,7 @@ type: docs
 {{< card link="https://github.com/keras-team/keras-io/blob/master/examples/timeseries/timeseries_traffic_forecasting.py" title="GitHub" tag="GitHub">}}
 {{< /cards >}}
 
-## Introduction
+## Introduction {#introduction}
 
 This example shows how to forecast traffic condition using graph neural networks and LSTM. Specifically, we are interested in predicting the future values of the traffic speed given a history of the traffic speed for a collection of road segments.
 
@@ -31,7 +32,7 @@ The data processing and the model architecture are inspired by this paper:
 
 Yu, Bing, Haoteng Yin, and Zhanxing Zhu. "Spatio-temporal graph convolutional networks: a deep learning framework for traffic forecasting." Proceedings of the 27th International Joint Conference on Artificial Intelligence, 2018. ([github](https://github.com/VeritasYin/STGCN_IJCAI-18))
 
-## Setup
+## Setup {#setup}
 
 ```python
 import os
@@ -49,9 +50,9 @@ from keras import layers
 from keras import ops
 ```
 
-## Data preparation
+## Data preparation {#data-preparation}
 
-### Data description
+### Data description {#data-description}
 
 We use a real-world traffic speed dataset named `PeMSD7`. We use the version collected and prepared by [Yu et al., 2018](https://arxiv.org/abs/1709.04875) and available [here](https://github.com/VeritasYin/STGCN_IJCAI-18/tree/master/dataset).
 
@@ -62,7 +63,7 @@ The data consists of two files:
 
 The full description of the dataset can be found in [Yu et al., 2018](https://arxiv.org/abs/1709.04875).
 
-### Loading data
+### Loading data {#loading-data}
 
 ```python
 url = "https://github.com/VeritasYin/STGCN_IJCAI-18/raw/master/dataset/PeMSD7_Full.zip"
@@ -89,7 +90,7 @@ speeds_array shape=(12672, 228)
 
 {{% /details %}}
 
-### sub-sampling roads
+### sub-sampling roads {#sub-sampling-roads}
 
 To reduce the problem size and make the training faster, we will only work with a sample of 26 roads out of the 228 roads in the dataset. We have chosen the roads by starting from road 0, choosing the 5 closest roads to it, and continuing this process until we get 25 roads. You can choose any other subset of the roads. We chose the roads in this way to increase the likelihood of having roads with correlated speed timeseries. `sample_routes` contains the IDs of the selected roads.
 
@@ -138,7 +139,7 @@ speeds_array shape=(12672, 26)
 
 {{% /details %}}
 
-### Data visualization
+### Data visualization {#data-visualization}
 
 Here are the timeseries of the traffic speed for two of the routes:
 
@@ -179,7 +180,7 @@ Text(0, 0.5, 'road number')
 
 Using this correlation heatmap, we can see that for example the speed in routes 4, 5, 6 are highly correlated.
 
-### Splitting and normalizing data
+### Splitting and normalizing data {#splitting-and-normalizing-data}
 
 Next, we split the speed values array into train/validation/test sets, and normalize the resulting arrays:
 
@@ -233,7 +234,7 @@ test set size: (3802, 26)
 
 {{% /details %}}
 
-### Creating TensorFlow Datasets
+### Creating TensorFlow Datasets {#creating-tensorflow-datasets}
 
 Next, we create the datasets for our forecasting problem. The forecasting problem can be stated as follows: given a sequence of the road speed values at times `t+1, t+2, ..., t+T`, we want to predict the future values of the roads speed for times `t+T+1, ..., t+T+h`. So for each time `t` the inputs to our model are `T` vectors each of size `N` and the targets are `h` vectors each of size `N`, where `N` is the number of roads.
 
@@ -328,7 +329,7 @@ test_dataset = create_tf_dataset(
 )
 ```
 
-### Roads Graph
+### Roads Graph {#roads-graph}
 
 As mentioned before, we assume that the road segments form a graph. The `PeMSD7` dataset has the road segments distance. The next step is to create the graph adjacency matrix from these distances. Following [Yu et al., 2018](https://arxiv.org/abs/1709.04875) (equation 10) we assume there is an edge between two nodes in the graph if the distance between the corresponding roads is less than a threshold.
 
@@ -390,11 +391,11 @@ number of nodes: 26, number of edges: 150
 
 {{% /details %}}
 
-## Network architecture
+## Network architecture {#network-architecture}
 
 Our model for forecasting over the graph consists of a graph convolution layer and a LSTM layer.
 
-### Graph convolution layer
+### Graph convolution layer {#graph-convolution-layer}
 
 Our implementation of the graph convolution layer resembles the implementation in [this Keras example]({{< relref "/docs/examples/graph/gnn_citations" >}}). Note that in that example input to the layer is a 2D tensor of shape `(num_nodes,in_feat)` but in our example the input to the layer is a 4D tensor of shape `(num_nodes, batch_size, input_seq_length, in_feat)`. The graph convolution layer performs the following steps:
 
@@ -487,7 +488,7 @@ class GraphConv(layers.Layer):
         return self.update(nodes_representation, aggregated_messages)
 ```
 
-### LSTM plus graph convolution
+### LSTM plus graph convolution {#lstm-plus-graph-convolution}
 
 By applying the graph convolution layer to the input tensor, we get another tensor containing the nodes' representations over time (another 4D tensor). For each time step, a node's representation is informed by the information from its neighbors.
 
@@ -565,7 +566,7 @@ class LSTMGC(layers.Layer):
         )  # returns Tensor of shape (batch_size, output_seq_len, num_nodes)
 ```
 
-## Model training
+## Model training {#model-training}
 
 ```python
 in_feat = 1
@@ -668,7 +669,7 @@ Epoch 20/20
 
 {{% /details %}}
 
-## Making forecasts on test set
+## Making forecasts on test set {#making-forecasts-on-test-set}
 
 Now we can use the trained model to make forecasts for the test set. Below, we compute the MAE of the model and compare it to the MAE of naive forecasts. The naive forecasts are the last value of the speed for each node.
 

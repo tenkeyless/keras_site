@@ -1,5 +1,6 @@
 ---
-title: Message-passing neural network (MPNN) for molecular property prediction
+title: 분자 특성 예측을 위한 메시지 전달 신경망(MPNN)
+linkTitle: 분자 특성 예측을 위한 메시지 전달 신경망(MPNN)
 toc: true
 weight: 3
 type: docs
@@ -19,7 +20,7 @@ type: docs
 {{< card link="https://github.com/keras-team/keras-io/blob/master/examples/graph/mpnn-molecular-graphs.py" title="GitHub" tag="GitHub">}}
 {{< /cards >}}
 
-## Introduction
+## Introduction {#introduction}
 
 In this tutorial, we will implement a type of graph neural network (GNN) known as \_ message passing neural network\_ (MPNN) to predict graph properties. Specifically, we will implement an MPNN to predict a molecular property known as _blood-brain barrier permeability_ (BBBP).
 
@@ -27,13 +28,13 @@ Motivation: as molecules are naturally represented as an undirected graph `G = (
 
 Until now, more traditional methods, such as random forests, support vector machines, etc., have been commonly used to predict molecular properties. In contrast to GNNs, these traditional approaches often operate on precomputed molecular features such as molecular weight, polarity, charge, number of carbon atoms, etc. Although these molecular features prove to be good predictors for various molecular properties, it is hypothesized that operating on these more "raw", "low-level", features could prove even better.
 
-### References
+### References {#references}
 
 In recent years, a lot of effort has been put into developing neural networks for graph data, including molecular graphs. For a summary of graph neural networks, see e.g., [A Comprehensive Survey on Graph Neural Networks](https://arxiv.org/abs/1901.00596) and [Graph Neural Networks: A Review of Methods and Applications](https://arxiv.org/abs/1812.08434); and for further reading on the specific graph neural network implemented in this tutorial see [Neural Message Passing for Quantum Chemistry](https://arxiv.org/abs/1704.01212) and [DeepChem's MPNNModel](https://deepchem.readthedocs.io/en/latest/api_reference/models.html#mpnnmodel).
 
-## Setup
+## Setup {#setup}
 
-### Install RDKit and other dependencies
+### Install RDKit and other dependencies {#install-rdkit-and-other-dependencies}
 
 (Text below taken from [this tutorial]({{< relref "/docs/examples/generative/wgan-graphs" >}}).
 
@@ -57,7 +58,7 @@ pip -q install pydot
 sudo apt-get -qq install graphviz
 ```
 
-### Import packages
+### Import packages {#import-packages}
 
 ```python
 import os
@@ -85,11 +86,11 @@ np.random.seed(42)
 tf.random.set_seed(42)
 ```
 
-## Dataset
+## Dataset {#dataset}
 
 Information about the dataset can be found in [A Bayesian Approach to in Silico Blood-Brain Barrier Penetration Modeling](https://pubs.acs.org/doi/10.1021/ci300124c) and [MoleculeNet: A Benchmark for Molecular Machine Learning](https://arxiv.org/abs/1703.00564). The dataset will be downloaded from [MoleculeNet.org](https://moleculenet.org/datasets-1).
 
-### About
+### About {#about}
 
 The dataset contains **2,050** molecules. Each molecule come with a **name**, **label** and **SMILES** string.
 
@@ -115,7 +116,7 @@ df.iloc[96:104]
 | 102 | Alprostadil      | 0    | CCCCC\[C@H\](O)/C=C/\[C@H\]1\[C@H\](O)CC(=O)\[C@@H\]1C... |
 | 103 | aminophylline    | 0    | CN1C(=O)N(C)c2nc\[nH\]c2C1=O.CN3C(=O)N(C)c4nc\[nH...      |
 
-### Define features
+### Define features {#define-features}
 
 To encode features for atoms and bonds (which we will need later), we'll define two classes: `AtomFeaturizer` and `BondFeaturizer` respectively.
 
@@ -195,7 +196,7 @@ bond_featurizer = BondFeaturizer(
 )
 ```
 
-### Generate graphs
+### Generate graphs {#generate-graphs}
 
 Before we can generate complete graphs from SMILES, we need to implement the following functions:
 
@@ -284,7 +285,7 @@ x_test = graphs_from_smiles(df.iloc[test_index].smiles)
 y_test = df.iloc[test_index].p_np
 ```
 
-### Test the functions
+### Test the functions {#test-the-functions}
 
 ```python
 print(f"Name:\t{df.name[100]}\nSMILES:\t{df.smiles[100]}\nBBBP:\t{df.p_np[100]}")
@@ -325,7 +326,7 @@ Graph (including self-loops):
 
 {{% /details %}}
 
-### Create a [`tf.data.Dataset`](https://www.tensorflow.org/api_docs/python/tf/data/Dataset)
+### Create a [`tf.data.Dataset`](https://www.tensorflow.org/api_docs/python/tf/data/Dataset) {#create-a-tfdatadatasethttpswwwtensorfloworgapi_docspythontfdatadataset}
 
 In this tutorial, the MPNN implementation will take as input (per iteration) a single graph. Therefore, given a batch of (sub)graphs (molecules), we need to merge them into a single graph (we'll refer to this graph as _global graph_). This global graph is a disconnected graph where each subgraph is completely separated from the other subgraphs.
 
@@ -365,11 +366,11 @@ def MPNNDataset(X, y, batch_size=32, shuffle=False):
     return dataset.batch(batch_size).map(prepare_batch, -1).prefetch(-1)
 ```
 
-## Model
+## Model {#model}
 
 The MPNN model can take on various shapes and forms. In this tutorial, we will implement an MPNN based on the original paper [Neural Message Passing for Quantum Chemistry](https://arxiv.org/abs/1704.01212) and [DeepChem's MPNNModel](https://deepchem.readthedocs.io/en/latest/api_reference/models.html#mpnnmodel). The MPNN of this tutorial consists of three stages: message passing, readout and classification.
 
-### Message passing
+### Message passing {#message-passing}
 
 The message passing step itself consists of two parts:
 
@@ -451,7 +452,7 @@ class MessagePassing(layers.Layer):
         return atom_features_updated
 ```
 
-### Readout
+### Readout {#readout}
 
 When the message passing procedure ends, the k-step-aggregated node states are to be partitioned into subgraphs (corresponding to each molecule in the batch) and subsequently reduced to graph-level embeddings. In the [original paper](https://arxiv.org/abs/1704.01212), a [set-to-set layer](https://arxiv.org/abs/1511.06391) was used for this purpose. In this tutorial however, a transformer encoder + average pooling will be used. Specifically:
 
@@ -517,7 +518,7 @@ class TransformerEncoderReadout(layers.Layer):
         return self.average_pooling(proj_output)
 ```
 
-### Message Passing Neural Network (MPNN)
+### Message Passing Neural Network (MPNN) {#message-passing-neural-network-mpnn}
 
 It is now time to complete the MPNN model. In addition to the message passing and readout, a two-layer classification network will be implemented to make predictions of BBBP.
 
@@ -570,7 +571,7 @@ keras.utils.plot_model(mpnn, show_dtype=True, show_shapes=True)
 
 ![png](/images/examples/graph/mpnn-molecular-graphs/mpnn-molecular-graphs_21_0.png)
 
-### Training
+### Training {#training}
 
 ```python
 train_dataset = MPNNDataset(x_train, y_train)
@@ -684,7 +685,7 @@ Epoch 40/40
 
 ![png](/images/examples/graph/mpnn-molecular-graphs/mpnn-molecular-graphs_23_2.png)
 
-### Predicting
+### Predicting {#predicting}
 
 ```python
 molecules = [molecule_from_smiles(df.smiles.values[index]) for index in test_index]
@@ -697,7 +698,7 @@ MolsToGridImage(molecules, molsPerRow=4, legends=legends)
 
 ![png](/images/examples/graph/mpnn-molecular-graphs/mpnn-molecular-graphs_25_0.png)
 
-## Conclusions
+## Conclusions {#conclusions}
 
 In this tutorial, we demonstrated a message passing neural network (MPNN) to predict blood-brain barrier permeability (BBBP) for a number of different molecules. We first had to construct graphs from SMILES, then build a Keras model that could operate on these graphs, and finally train the model to make the predictions.
 

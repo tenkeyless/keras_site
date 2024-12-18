@@ -1,5 +1,6 @@
 ---
-title: Structured data learning with TabTransformer
+title: TabTransformer를 사용한 구조화된 데이터 학습
+linkTitle: TabTransformer 구조화된 데이터 학습
 toc: true
 weight: 9
 type: docs
@@ -19,11 +20,11 @@ type: docs
 {{< card link="https://github.com/keras-team/keras-io/blob/master/examples/structured_data/tabtransformer.py" title="GitHub" tag="GitHub">}}
 {{< /cards >}}
 
-## Introduction
+## Introduction {#introduction}
 
 This example demonstrates how to do structured data classification using [TabTransformer](https://arxiv.org/abs/2012.06678), a deep tabular data modeling architecture for supervised and semi-supervised learning. The TabTransformer is built upon self-attention based Transformers. The Transformer layers transform the embeddings of categorical features into robust contextual embeddings to achieve higher predictive accuracy.
 
-## Setup
+## Setup {#setup}
 
 ```python
 import keras
@@ -38,7 +39,7 @@ import matplotlib.pyplot as plt
 from functools import partial
 ```
 
-## Prepare the data
+## Prepare the data {#prepare-the-data}
 
 This example uses the [United States Census Income Dataset](https://archive.ics.uci.edu/ml/datasets/census+income) provided by the [UC Irvine Machine Learning Repository](https://archive.ics.uci.edu/ml/index.php). The task is binary classification to predict whether a person is likely to be making over USD 50,000 a year.
 
@@ -107,7 +108,7 @@ train_data.to_csv(train_data_file, index=False, header=False)
 test_data.to_csv(test_data_file, index=False, header=False)
 ```
 
-## Define dataset metadata
+## Define dataset metadata {#define-dataset-metadata}
 
 Here, we define the metadata of the dataset that will be useful for reading and parsing the data into input features, and encoding the input features with respect to their types.
 
@@ -148,7 +149,7 @@ TARGET_FEATURE_NAME = "income_bracket"
 TARGET_LABELS = [" <=50K", " >50K"]
 ```
 
-## Configure the hyperparameters
+## Configure the hyperparameters {#configure-the-hyperparameters}
 
 The hyperparameters includes model architecture and training configurations.
 
@@ -169,7 +170,7 @@ MLP_HIDDEN_UNITS_FACTORS = [
 NUM_MLP_BLOCKS = 2  # Number of MLP blocks in the baseline model.
 ```
 
-## Implement data reading pipeline
+## Implement data reading pipeline {#implement-data-reading-pipeline}
 
 We define an input function that reads and parses the file, then converts features and labels into a[`tf.data.Dataset`](https://www.tensorflow.org/guide/datasets) for training or evaluation.
 
@@ -223,7 +224,7 @@ def get_dataset_from_csv(csv_file_path, batch_size=128, shuffle=False):
     return dataset.cache()
 ```
 
-## Implement a training and evaluation procedure
+## Implement a training and evaluation procedure {#implement-a-training-and-evaluation-procedure}
 
 ```python
 def run_experiment(
@@ -261,7 +262,7 @@ def run_experiment(
     return history
 ```
 
-## Create model inputs
+## Create model inputs {#create-model-inputs}
 
 Now, define the inputs for the models as a dictionary, where the key is the feature name, and the value is a `keras.layers.Input` tensor with the corresponding feature shape and data type.
 
@@ -280,7 +281,7 @@ def create_model_inputs():
     return inputs
 ```
 
-## Encode features
+## Encode features {#encode-features}
 
 The `encode_inputs` method returns `encoded_categorical_feature_list` and `numerical_feature_list`. We encode the categorical features as embeddings, using a fixed `embedding_dims` for all the features, regardless their vocabulary sizes. This is required for the Transformer model.
 
@@ -315,7 +316,7 @@ def encode_inputs(inputs, embedding_dims):
     return encoded_categorical_feature_list, numerical_feature_list
 ```
 
-## Implement an MLP block
+## Implement an MLP block {#implement-an-mlp-block}
 
 ```python
 def create_mlp(hidden_units, dropout_rate, activation, normalization_layer, name=None):
@@ -328,7 +329,7 @@ def create_mlp(hidden_units, dropout_rate, activation, normalization_layer, name
     return keras.Sequential(mlp_layers, name=name)
 ```
 
-## Experiment 1: a baseline model
+## Experiment 1: a baseline model {#experiment-1-a-baseline-model}
 
 In the first experiment, we create a simple multi-layer feed-forward network.
 
@@ -457,7 +458,7 @@ Validation accuracy: 81.43%
 
 The baseline linear model achieves ~81% validation accuracy.
 
-## Experiment 2: TabTransformer
+## Experiment 2: TabTransformer {#experiment-2-tabtransformer}
 
 The TabTransformer architecture works as follows:
 
@@ -638,6 +639,6 @@ Validation accuracy: 84.59%
 
 The TabTransformer model achieves ~85% validation accuracy. Note that, with the default parameter configurations, both the baseline and the TabTransformer have similar number of trainable weights: 109,629 and 92,151 respectively, and both use the same training hyperparameters.
 
-## Conclusion
+## Conclusion {#conclusion}
 
 TabTransformer significantly outperforms MLP and recent deep networks for tabular data while matching the performance of tree-based ensemble models. TabTransformer can be learned in end-to-end supervised training using labeled examples. For a scenario where there are a few labeled examples and a large number of unlabeled examples, a pre-training procedure can be employed to train the Transformer layers using unlabeled data. This is followed by fine-tuning of the pre-trained Transformer layers along with the top MLP layer using the labeled data.

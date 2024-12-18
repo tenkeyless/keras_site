@@ -1,5 +1,6 @@
 ---
-title: Semantic Similarity with KerasNLP
+title: KerasNLP를 사용한 시맨틱 유사성
+linkTitle: 시맨틱 유사성 (KerasNLP)
 toc: true
 weight: 18
 type: docs
@@ -19,7 +20,7 @@ type: docs
 {{< card link="https://github.com/keras-team/keras-io/blob/master/examples/nlp/semantic_similarity_with_keras_nlp.py" title="GitHub" tag="GitHub">}}
 {{< /cards >}}
 
-## Introduction
+## Introduction {#introduction}
 
 Semantic similarity refers to the task of determining the degree of similarity between two sentences in terms of their meaning. We already saw in [this]({{< relref "/docs/examples/nlp/semantic_similarity_with_bert" >}}) example how to use SNLI (Stanford Natural Language Inference) corpus to predict sentence semantic similarity with the HuggingFace Transformers library. In this tutorial we will learn how to use [KerasNLP]({{< relref "/docs/keras_nlp" >}}), an extension of the core Keras API, for the same task. Furthermore, we will discover how KerasNLP effectively reduces boilerplate code and simplifies the process of building and utilizing models. For more information on KerasNLP, please refer to [KerasNLP's official documentation]({{< relref "/docs/keras_nlp" >}}).
 
@@ -30,7 +31,7 @@ This guide is broken down into the following parts:
 3.  _Saving and Reloading_ the model.
 4.  _Performing inference_ with the model. 5 _Improving accuracy_ with RoBERTa
 
-## Setup
+## Setup {#setup}
 
 The following guide uses [Keras Core]({{< relref "/docs/keras_3" >}}) to work in any of `tensorflow`, `jax` or `torch`. Support for Keras Core is baked into KerasNLP, simply change the `KERAS_BACKEND` environment variable below to change the backend you would like to use. We select the `jax` backend below, which will give us a particularly fast train step below.
 
@@ -49,7 +50,7 @@ import tensorflow_datasets as tfds
 
 To load the SNLI dataset, we use the tensorflow-datasets library, which contains over 550,000 samples in total. However, to ensure that this example runs quickly, we use only 20% of the training samples.
 
-## Overview of SNLI Dataset
+## Overview of SNLI Dataset {#overview-of-snli-dataset}
 
 Every sample in the dataset contains three components: `hypothesis`, `premise`, and `label`. epresents the original caption provided to the author of the pair, while the hypothesis refers to the hypothesis caption created by the author of the pair. The label is assigned by annotators to indicate the similarity between the two sentences.
 
@@ -85,7 +86,7 @@ sample
 
 {{% /details %}}
 
-### Preprocessing
+### Preprocessing {#preprocessing}
 
 In our dataset, we have identified that some samples have missing or incorrectly labeled data, which is denoted by a value of -1. To ensure the accuracy and reliability of our model, we simply filter out these samples from our dataset.
 
@@ -120,7 +121,7 @@ test_ds = (
 )
 ```
 
-## Establishing baseline with BERT.
+## Establishing baseline with BERT. {#establishing-baseline-with-bert}
 
 We use the BERT model from KerasNLP to establish a baseline for our semantic similarity task. The `keras_nlp.models.BertClassifier` class attaches a classification head to the BERT Backbone, mapping the backbone outputs to a logit output suitable for a classification task. This significantly reduces the need for custom code.
 
@@ -154,7 +155,7 @@ bert_classifier.fit(train_ds, validation_data=val_ds, epochs=1)
 
 Our BERT classifier achieved an accuracy of around 76% on the validation split. Now, let's evaluate its performance on the test split.
 
-### Evaluate the performance of the trained model on test data.
+### Evaluate the performance of the trained model on test data. {#evaluate-the-performance-of-the-trained-model-on-test-data}
 
 ```python
 bert_classifier.evaluate(test_ds)
@@ -282,7 +283,7 @@ Our Tiny BERT model achieved an accuracy of approximately 79% on the test set wi
 
 Let's save our model for now and move on to learning how to perform inference with it.
 
-## Save and Reload the model
+## Save and Reload the model {#save-and-reload-the-model}
 
 ```python
 bert_classifier.save("bert_classifier.keras")
@@ -300,7 +301,7 @@ restored_model.evaluate(test_ds)
 
 {{% /details %}}
 
-## Performing inference with the model.
+## Performing inference with the model. {#performing-inference-with-the-model}
 
 Let's see how to perform inference with KerasNLP models
 
@@ -350,7 +351,7 @@ predictions = softmax(predictions)
 
 {{% /details %}}
 
-## Improving accuracy with RoBERTa
+## Improving accuracy with RoBERTa {#improving-accuracy-with-roberta}
 
 Now that we have established a baseline, we can attempt to improve our results by experimenting with different models. Thanks to KerasNLP, fine-tuning a RoBERTa checkpoint on the same dataset is easy with just a few lines of code.
 

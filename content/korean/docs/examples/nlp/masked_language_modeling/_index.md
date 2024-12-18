@@ -1,5 +1,6 @@
 ---
-title: End-to-end Masked Language Modeling with BERT
+title: BERT를 사용한 엔드투엔드 마스크 언어 모델링
+linkTitle: BERT 엔드투엔드 마스크 언어 모델링
 toc: true
 weight: 21
 type: docs
@@ -19,7 +20,7 @@ type: docs
 {{< card link="https://github.com/keras-team/keras-io/blob/master/examples/nlp/masked_language_modeling.py" title="GitHub" tag="GitHub">}}
 {{< /cards >}}
 
-## Introduction
+## Introduction {#introduction}
 
 Masked Language Modeling is a fill-in-the-blank task, where a model uses the context words surrounding a mask token to try to predict what the masked word should be.
 
@@ -38,7 +39,7 @@ We will use the Keras `TextVectorization` and `MultiHeadAttention` layers to cre
 
 Note: This example should be run with `tf-nightly`.
 
-## Setup
+## Setup {#setup}
 
 Install `tf-nightly` via `pip install tf-nightly`.
 
@@ -59,7 +60,7 @@ import re
 from pprint import pprint
 ```
 
-## Set-up Configuration
+## Set-up Configuration {#set-up-configuration}
 
 ```python
 @dataclass
@@ -77,7 +78,7 @@ class Config:
 config = Config()
 ```
 
-## Load the data
+## Load the data {#load-the-data}
 
 We will first download the IMDB data and load into a Pandas dataframe.
 
@@ -128,7 +129,7 @@ all_data = train_df.append(test_df)
 
 {{% /details %}}
 
-## Dataset preparation
+## Dataset preparation {#dataset-preparation}
 
 We will use the `TextVectorization` layer to vectorize the text into integer token ids. It transforms a batch of strings into either a sequence of token indices (one sample = 1D array of integer token indices, in order) or a dense representation (one sample = 1D array of float values encoding an unordered set of tokens).
 
@@ -258,7 +259,7 @@ mlm_ds = tf.data.Dataset.from_tensor_slices(
 mlm_ds = mlm_ds.shuffle(1000).batch(config.BATCH_SIZE)
 ```
 
-## Create BERT model (Pretraining Model) for masked language modeling
+## Create BERT model (Pretraining Model) for masked language modeling {#create-bert-model-pretraining-model-for-masked-language-modeling}
 
 We will create a BERT-like pretraining model architecture using the `MultiHeadAttention` layer. It will take token ids as inputs (including masked tokens) and it will predict the correct ids for the masked input tokens.
 
@@ -448,7 +449,7 @@ ________________________________________________________________________________
 
 {{% /details %}}
 
-## Train and Save
+## Train and Save {#train-and-save}
 
 ```python
 bert_masked_model.fit(mlm_ds, epochs=5, callbacks=[generator_callback])
@@ -530,7 +531,7 @@ Epoch 4/5
 
 {{% /details %}}
 
-## Fine-tune a sentiment classification model
+## Fine-tune a sentiment classification model {#fine-tune-a-sentiment-classification-model}
 
 We will fine-tune our self-supervised model on a downstream task of sentiment classification. To do this, let's create a classifier by adding a pooling layer and a `Dense` layer on top of the pretrained BERT features.
 
@@ -631,7 +632,7 @@ Epoch 5/5
 
 {{% /details %}}
 
-## Create an end-to-end model and evaluate it
+## Create an end-to-end model and evaluate it {#create-an-end-to-end-model-and-evaluate-it}
 
 When you want to deploy a model, it's best if it already includes its preprocessing pipeline, so that you don't have to reimplement the preprocessing logic in your production environment. Let's create an end-to-end model that incorporates the `TextVectorization` layer, and let's evaluate. Our model will accept raw strings as input.
 

@@ -1,5 +1,6 @@
 ---
-title: How to train a Keras model on TFRecord files
+title: TFRecord 파일에서 Keras 모델을 트레이닝하는 방법
+linkTitle: TFRecord 파일에서 Keras 모델 트레이닝
 toc: true
 weight: 19
 type: docs
@@ -19,7 +20,7 @@ type: docs
 {{< card link="https://github.com/keras-team/keras-io/blob/master/examples/keras_recipes/tfrecord.py" title="GitHub" tag="GitHub">}}
 {{< /cards >}}
 
-## Introduction + Set Up
+## Introduction + Set Up {#introduction-set-up}
 
 TFRecords store a sequence of binary records, read linearly. They are useful format for storing data because they can be read efficiently. Learn more about TFRecords [here](https://www.tensorflow.org/tutorials/load_data/tfrecord).
 
@@ -56,7 +57,7 @@ BATCH_SIZE = 64
 IMAGE_SIZE = [1024, 1024]
 ```
 
-## Load the data
+## Load the data {#load-the-data}
 
 ```python
 FILENAMES = tf.io.gfile.glob(GCS_PATH + "/tfrecords/train*.tfrec")
@@ -79,7 +80,7 @@ Test TFRecord Files: 16
 
 {{% /details %}}
 
-### Decoding the data
+### Decoding the data {#decoding-the-data}
 
 The images have to be converted to tensors so that it will be a valid input in our model. As images utilize an RBG scale, we specify 3 channels.
 
@@ -113,7 +114,7 @@ def read_tfrecord(example, labeled):
     return image
 ```
 
-### Define loading methods
+### Define loading methods {#define-loading-methods}
 
 Our dataset is not ordered in any meaningful way, so the order can be ignored when loading our dataset. By ignoring the order and reading files as soon as they come in, it will take a shorter time to load the data.
 
@@ -145,7 +146,7 @@ def get_dataset(filenames, labeled=True):
     return dataset
 ```
 
-### Visualize input images
+### Visualize input images {#visualize-input-images}
 
 ```python
 train_dataset = get_dataset(TRAINING_FILENAMES)
@@ -172,9 +173,9 @@ show_batch(image_batch.numpy(), label_batch.numpy())
 
 ![png](/images/examples/keras_recipes/tfrecord/tfrecord_16_0.png)
 
-## Building our model
+## Building our model {#building-our-model}
 
-### Define callbacks
+### Define callbacks {#define-callbacks}
 
 The following function allows for the model to change the learning rate as it runs each epoch.
 
@@ -195,7 +196,7 @@ early_stopping_cb = tf.keras.callbacks.EarlyStopping(
 )
 ```
 
-### Build our base model
+### Build our base model {#build-our-base-model}
 
 Transfer learning is a great way to reap the benefits of a well-trained model without having the train the model ourselves. For this notebook, we want to import the Xception model. A more in-depth analysis of transfer learning can be found [here]({{< relref "/docs/examples/vision/image_classification_efficientnet_fine_tuning" >}}).
 
@@ -228,7 +229,7 @@ def make_model():
     return model
 ```
 
-## Train the model
+## Train the model {#train-the-model}
 
 ```python
 with strategy.scope():
@@ -255,7 +256,7 @@ Epoch 2/2
 
 {{% /details %}}
 
-## Predict results
+## Predict results {#predict-results}
 
 We'll use our model to predict results for our test dataset images. Values closer to `0` are more likely to be benign and values closer to `1` are more likely to be malignant.
 

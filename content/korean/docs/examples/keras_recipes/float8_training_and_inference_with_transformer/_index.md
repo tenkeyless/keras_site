@@ -1,5 +1,6 @@
 ---
-title: Float8 training and inference with a simple Transformer model
+title: 간단한 Transformer 모델을 사용한 Float8 트레이닝 및 추론
+linkTitle: 간단한 Transformer 모델 Float8 트레이닝 및 추론
 toc: true
 weight: 2
 type: docs
@@ -19,7 +20,7 @@ type: docs
 {{< card link="https://github.com/keras-team/keras-io/blob/master/examples/keras_recipes/float8_training_and_inference_with_transformer.py" title="GitHub" tag="GitHub">}}
 {{< /cards >}}
 
-## Introduction
+## Introduction {#introduction}
 
 As the number of parameters in Transformer models continues to grow, training and inference become highly memory and compute-intensive. Therefore, 8-bit floating point (FP8) was introduced, offering improved performance over 16-bit floating point with nearly no degradation in accuracy.
 
@@ -36,7 +37,7 @@ In this example, we will build a simple Transformer model and train it with both
 
 Note: You will need a decent GPU with FP8 Tensor Cores support for the expected performance improvement.
 
-## Setup
+## Setup {#setup}
 
 We will use KerasHub library to simplify the model implementation. Additionally, use mixed precision training to reduce the training time.
 
@@ -79,7 +80,7 @@ MODEL_KWARGS = dict(
 )
 ```
 
-## Dataset
+## Dataset {#dataset}
 
 First, let's download the IMDB dataset and extract it.
 
@@ -159,7 +160,7 @@ Label: 1
 
 {{% /details %}}
 
-### Tokenizing the data
+### Tokenizing the data {#tokenizing-the-data}
 
 We'll be using the [`keras_hub.tokenizers.WordPieceTokenizer`]({{< relref "/docs/api/keras_hub/tokenizers/word_piece_tokenizer#wordpiecetokenizer-class" >}}) layer to tokenize the text. [`keras_hub.tokenizers.WordPieceTokenizer`]({{< relref "/docs/api/keras_hub/tokenizers/word_piece_tokenizer#wordpiecetokenizer-class" >}}) takes a WordPiece vocabulary and has functions for tokenizing the text, and detokenizing sequences of tokens.
 
@@ -250,7 +251,7 @@ Recovered text after detokenizing:  tf.Tensor(b'great movie - especially the mus
 
 {{% /details %}}
 
-## Formatting the dataset
+## Formatting the dataset {#formatting-the-dataset}
 
 Next, we'll format our datasets in the form that will be fed to the models. We need to tokenize the text.
 
@@ -270,7 +271,7 @@ val_ds = make_dataset(val_ds)
 test_ds = make_dataset(test_ds)
 ```
 
-## Model
+## Model {#model}
 
 Let's build a simple Transformer model. We will use `TokenAndPositionEmbedding` and `TransformerDecoder` from KerasHub library. `TokenAndPositionEmbedding` represents words and their order in a sentence, while `TransformerDecoder` outputs one vector for each time step of our input sequence. Here, we take the mean across all time steps and use a feedforward network on top of it to classify text.
 
@@ -303,7 +304,7 @@ def build_model(
     return keras.Model(inputs=token_id_input, outputs=outputs)
 ```
 
-## Training and evaluating our model
+## Training and evaluating our model {#training-and-evaluating-our-model}
 
 First, we train and evaluate the model with mixed precision (`"mixed_bfloat16"`). Afterward, we compare the results with FP8 training/inference.
 
@@ -428,12 +429,12 @@ Accuracy (float8): 74.16%
 
 {{% /details %}}
 
-## Recipes
+## Recipes {#recipes}
 
 - The improvements in training speed are relatively small if the model is not sufficiently large. The recommendation is to train with a model containing parameters >5B.
 - You will need hardware such as NVIDIA H100 that supports FP8 Tensor Cores to gain the speedups.
 
-## References
+## References {#references}
 
 - [FP8 Formats for Deep Learning](https://arxiv.org/abs/2209.05433)
 - [FP8 Primer](https://docs.nvidia.com/deeplearning/transformer-engine/user-guide/examples/fp8_primer.html)

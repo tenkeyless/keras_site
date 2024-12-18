@@ -54,7 +54,7 @@ weight: 1
 |                             | {{< hextra/hero-button text="V3" style="background: rgb(23, 132, 133);pointer-events: none; padding: 0.1em 1em;" >}}               | {{< titledRelref "/docs/examples/vision/image_classification_with_vision_transformer" >}}                 | 2021/01/18                       | 2021/01/18                          |
 | ★                           | {{< hextra/hero-button text="V3" style="background: rgb(23, 132, 133);pointer-events: none; padding: 0.1em 1em;" >}}               | {{< titledRelref "/docs/examples/vision/mnist_convnet" >}}                                                | 2015/06/19                       | 2020/04/21                          |
 
-### Image segmentation {#image-segmentation}
+### 이미지 세그멘테이션 {#image-segmentation}
 
 | {{< t f_example_starter >}} | {{< t f_example_version >}}                                                                                                        | {{< t f_example_title >}}                                                   | {{< t f_example_date_created >}} | {{< t f_example_last_modified >}} |
 | --------------------------- | ---------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------- | -------------------------------- | --------------------------------- |
@@ -70,7 +70,7 @@ weight: 1
 |                             | {{< hextra/hero-button text="V2" style="background: rgb(255 237 183); color: black; pointer-events: none; padding: 0.1em 1em;" >}} | {{< titledRelref "/docs/examples/vision/basnet_segmentation" >}}            | 2023/05/30                       | 2023/07/13                          |
 | ★                           | {{< hextra/hero-button text="V3" style="background: rgb(23, 132, 133);pointer-events: none; padding: 0.1em 1em;" >}}               | {{< titledRelref "/docs/examples/vision/oxford_pets_image_segmentation" >}} | 2019/03/20                       | 2020/04/20                          |
 
-### Object detection {#object-detection}
+### 객체 감지 {#object-detection}
 
 | {{< t f_example_starter >}} | {{< t f_example_version >}}                                                                                                        | {{< t f_example_title >}}                                                              | {{< t f_example_date_created >}} | {{< t f_example_last_modified >}} |
 | --------------------------- | ---------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------- | -------------------------------- | --------------------------------- |
@@ -114,7 +114,7 @@ weight: 1
 |                             | {{< hextra/hero-button text="V3" style="background: rgb(23, 132, 133);pointer-events: none; padding: 0.1em 1em;" >}} | {{< titledRelref "/docs/examples/vision/handwriting_recognition" >}} | 2021/08/16                       | 2024/09/01                          |
 |                             | {{< hextra/hero-button text="V3" style="background: rgb(23, 132, 133);pointer-events: none; padding: 0.1em 1em;" >}} | {{< titledRelref "/docs/examples/vision/captcha_ocr" >}}             | 2020/06/14                       | 2024/03/13                          |
 
-### Image enhancement {#image-enhancement}
+### 이미지 강화 {#image-enhancement}
 
 | {{< t f_example_starter >}} | {{< t f_example_version >}}                                                                                          | {{< t f_example_title >}}                                               | {{< t f_example_date_created >}} | {{< t f_example_last_modified >}} |
 | --------------------------- | -------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------- | -------------------------------- | --------------------------------- |
@@ -132,7 +132,7 @@ weight: 1
 |                             | {{< hextra/hero-button text="V3" style="background: rgb(23, 132, 133);pointer-events: none; padding: 0.1em 1em;" >}} | {{< titledRelref "/docs/examples/vision/autoencoder" >}}                | 2021/03/01                       | 2021/03/01                          |
 |                             | {{< hextra/hero-button text="V3" style="background: rgb(23, 132, 133);pointer-events: none; padding: 0.1em 1em;" >}} | {{< titledRelref "/docs/examples/vision/super_resolution_sub_pixel" >}} | 2020/07/28                       | 2020/08/27                          |
 
-### Data augmentation {#data-augmentation}
+### 데이터 보강 {#data-augmentation}
 
 | {{< t f_example_starter >}} | {{< t f_example_version >}}                                                                                          | {{< t f_example_title >}}                                | {{< t f_example_date_created >}} | {{< t f_example_last_modified >}} |
 | --------------------------- | -------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------- | -------------------------------- | --------------------------------- |
@@ -146,7 +146,7 @@ weight: 1
 |                             | {{< hextra/hero-button text="V3" style="background: rgb(23, 132, 133);pointer-events: none; padding: 0.1em 1em;" >}} | {{< titledRelref "/docs/examples/vision/cutmix" >}}      | 2021/06/08                       | 2023/11/14                          |
 |                             | {{< hextra/hero-button text="V3" style="background: rgb(23, 132, 133);pointer-events: none; padding: 0.1em 1em;" >}} | {{< titledRelref "/docs/examples/vision/mixup" >}}       | 2021/03/06                       | 2023/07/24                          |
 
-### Image & Text {#image-text}
+### 이미지 & 텍스트 {#image-text}
 
 | {{< t f_example_starter >}} | {{< t f_example_version >}}                                                                                                        | {{< t f_example_title >}}                                     | {{< t f_example_date_created >}} | {{< t f_example_last_modified >}} |
 | --------------------------- | ---------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------- | -------------------------------- | --------------------------------- |
@@ -158,7 +158,7 @@ weight: 1
 | ★                           | {{< hextra/hero-button text="V3" style="background: rgb(23, 132, 133);pointer-events: none; padding: 0.1em 1em;" >}}               | {{< titledRelref "/docs/examples/vision/image_captioning" >}} | 2021/05/29                       | 2021/10/31                          |
 |                             | {{< hextra/hero-button text="V2" style="background: rgb(255 237 183); color: black; pointer-events: none; padding: 0.1em 1em;" >}} | {{< titledRelref "/docs/examples/vision/nl_image_search" >}}  | 2021/01/30                       | 2021/01/30                          |
 
-### Vision models interpretability {#vision-models-interpretability}
+### 비전 모델 해석 가능성 {#vision-models-interpretability}
 
 | {{< t f_example_starter >}} | {{< t f_example_version >}}                                                                                          | {{< t f_example_title >}}                                                    | {{< t f_example_date_created >}} | {{< t f_example_last_modified >}} |
 | --------------------------- | -------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------- | -------------------------------- | --------------------------------- |
@@ -174,7 +174,7 @@ weight: 1
 |                             | {{< hextra/hero-button text="V3" style="background: rgb(23, 132, 133);pointer-events: none; padding: 0.1em 1em;" >}} | {{< titledRelref "/docs/examples/vision/integrated_gradients" >}}            | 2020/06/02                       | 2020/06/02                          |
 |                             | {{< hextra/hero-button text="V3" style="background: rgb(23, 132, 133);pointer-events: none; padding: 0.1em 1em;" >}} | {{< titledRelref "/docs/examples/vision/visualizing_what_convnets_learn" >}} | 2020/05/29                       | 2020/05/29                          |
 
-### Image similarity search {#image-similarity-search}
+### 이미지 유사도 검색 {#image-similarity-search}
 
 | {{< t f_example_starter >}} | {{< t f_example_version >}}                                                                                                        | {{< t f_example_title >}}                                                  | {{< t f_example_date_created >}} | {{< t f_example_last_modified >}} |
 | --------------------------- | ---------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------- | -------------------------------- | --------------------------------- |
@@ -196,7 +196,7 @@ weight: 1
 |                             | {{< hextra/hero-button text="V3" style="background: rgb(23, 132, 133);pointer-events: none; padding: 0.1em 1em;" >}}               | {{< titledRelref "/docs/examples/vision/semantic_image_clustering" >}}     | 2021/02/28                       | 2021/02/28                          |
 |                             | {{< hextra/hero-button text="V3" style="background: rgb(23, 132, 133);pointer-events: none; padding: 0.1em 1em;" >}}               | {{< titledRelref "/docs/examples/vision/metric_learning" >}}               | 2020/06/05                       | 2020/06/09                          |
 
-### Video {#video}
+### 비디오 {#video}
 
 | {{< t f_example_starter >}} | {{< t f_example_version >}}                                                                                          | {{< t f_example_title >}}                                         | {{< t f_example_date_created >}} | {{< t f_example_last_modified >}} |
 | --------------------------- | -------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------- | -------------------------------- | --------------------------------- |
@@ -212,7 +212,7 @@ weight: 1
 |                             | {{< hextra/hero-button text="V3" style="background: rgb(23, 132, 133);pointer-events: none; padding: 0.1em 1em;" >}} | {{< titledRelref "/docs/examples/vision/conv_lstm" >}}            | 2021/06/02                       | 2023/11/10                          |
 |                             | {{< hextra/hero-button text="V3" style="background: rgb(23, 132, 133);pointer-events: none; padding: 0.1em 1em;" >}} | {{< titledRelref "/docs/examples/vision/video_transformers" >}}   | 2021/08/06                       | 2023/07/22                          |
 
-### Performance recipes {#performance-recipes}
+### 성능 레시피 {#performance-recipes}
 
 | {{< t f_example_starter >}} | {{< t f_example_version >}}                                                                                          | {{< t f_example_title >}}                                            | {{< t f_example_date_created >}} | {{< t f_example_last_modified >}} |
 | --------------------------- | -------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------- | -------------------------------- | --------------------------------- |
@@ -234,7 +234,7 @@ weight: 1
 |                             | {{< hextra/hero-button text="V3" style="background: rgb(23, 132, 133);pointer-events: none; padding: 0.1em 1em;" >}} | {{< titledRelref "/docs/examples/vision/fixres" >}}                  | 2021/10/08                       | 2021/10/10                          |
 |                             | {{< hextra/hero-button text="V3" style="background: rgb(23, 132, 133);pointer-events: none; padding: 0.1em 1em;" >}} | {{< titledRelref "/docs/examples/vision/knowledge_distillation" >}}  | 2020/09/01                       | 2020/09/01                          |
 
-### Other {#other}
+### 기타 {#other}
 
 | {{< t f_example_starter >}} | {{< t f_example_version >}}                                                                                                        | {{< t f_example_title >}}                                                    | {{< t f_example_date_created >}} | {{< t f_example_last_modified >}} |
 | --------------------------- | ---------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------- | -------------------------------- | --------------------------------- |

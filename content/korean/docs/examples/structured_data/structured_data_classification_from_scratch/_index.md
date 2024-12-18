@@ -1,5 +1,6 @@
 ---
-title: Structured data classification from scratch
+title: 처음부터 구조화된 데이터 분류
+linkTitle: 처음부터 구조화된 데이터 분류
 toc: true
 weight: 4
 type: docs
@@ -19,13 +20,13 @@ type: docs
 {{< card link="https://github.com/keras-team/keras-io/blob/master/examples/structured_data/structured_data_classification_from_scratch.py" title="GitHub" tag="GitHub">}}
 {{< /cards >}}
 
-## Introduction
+## Introduction {#introduction}
 
 This example demonstrates how to do structured data classification, starting from a raw CSV file. Our data includes both numerical and categorical features. We will use Keras preprocessing layers to normalize the numerical features and vectorize the categorical ones.
 
 Note that this example should be run with TensorFlow 2.5 or higher.
 
-### The dataset
+### The dataset {#the-dataset}
 
 [Our dataset](https://archive.ics.uci.edu/ml/datasets/heart+Disease) is provided by the Cleveland Clinic Foundation for Heart Disease. It's a CSV file with 303 rows. Each row contains information about a patient (a **sample**), and each column describes an attribute of the patient (a **feature**). We use the features to predict whether a patient has a heart disease (**binary classification**).
 
@@ -48,7 +49,7 @@ Here's the description of each feature:
 | Thal     | 3 = normal; 6 = fixed defect; 7 = reversible defect    | Categorical                  |
 | Target   | Diagnosis of heart disease (1 = true; 0 = false)       | Target                       |
 
-## Setup
+## Setup {#setup}
 
 ```python
 import os
@@ -62,7 +63,7 @@ import keras
 from keras import layers
 ```
 
-## Preparing the data
+## Preparing the data {#preparing-the-data}
 
 Let's download the data and load it into a Pandas dataframe:
 
@@ -160,7 +161,7 @@ train_ds = train_ds.batch(32)
 val_ds = val_ds.batch(32)
 ```
 
-## Feature preprocessing with Keras layers
+## Feature preprocessing with Keras layers {#feature-preprocessing-with-keras-layers}
 
 The following features are categorical features encoded as integers:
 
@@ -230,7 +231,7 @@ def encode_categorical_feature(feature, name, dataset, is_string):
     return encoded_feature
 ```
 
-## Build a model
+## Build a model {#build-a-model}
 
 With this done, we can create our end-to-end model:
 
@@ -322,7 +323,7 @@ keras.utils.plot_model(model, show_shapes=True, rankdir="LR")
 
 ![png](/images/examples/structured_data/structured_data_classification_from_scratch/structured_data_classification_from_scratch_23_0.png)
 
-## Train the model
+## Train the model {#train-the-model}
 
 ```python
 model.fit(train_ds, epochs=50, validation_data=val_ds)
@@ -439,7 +440,7 @@ Epoch 50/50
 
 We quickly get to 80% validation accuracy.
 
-## Inference on new data
+## Inference on new data {#inference-on-new-data}
 
 To get a prediction for a new sample, you can simply call `model.predict()`. There are just two things you need to do:
 

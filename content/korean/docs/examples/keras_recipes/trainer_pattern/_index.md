@@ -1,5 +1,6 @@
 ---
-title: Trainer pattern
+title: 트레이너 패턴
+linkTitle: 트레이너 패턴
 toc: true
 weight: 6
 type: docs
@@ -19,13 +20,13 @@ type: docs
 {{< card link="https://github.com/keras-team/keras-io/blob/master/examples/keras_recipes/trainer_pattern.py" title="GitHub" tag="GitHub">}}
 {{< /cards >}}
 
-## Introduction
+## Introduction {#introduction}
 
 This example shows how to create a custom training step using the "Trainer pattern", which can then be shared across multiple Keras models. This pattern overrides the `train_step()` method of the [`keras.Model`]({{< relref "/docs/api/models/model#model-class" >}}) class, allowing for training loops beyond plain supervised learning.
 
 The Trainer pattern can also easily be adapted to more complex models with larger custom training steps, such as [this end-to-end GAN model]({{< relref "/docs/guides/custom_train_step_in_tensorflow/#wrapping-up-an-endtoend-gan-example" >}}), by putting the custom training step in the Trainer class definition.
 
-## Setup
+## Setup {#setup}
 
 ```python
 import os
@@ -41,7 +42,7 @@ mnist = keras.datasets.mnist
 x_train, x_test = x_train / 255.0, x_test / 255.0
 ```
 
-## Define the Trainer class
+## Define the Trainer class {#define-the-trainer-class}
 
 A custom training and evaluation step can be created by overriding the `train_step()` and `test_step()` method of a `Model` subclass:
 
@@ -97,7 +98,7 @@ class MyTrainer(keras.Model):
         return x
 ```
 
-## Define multiple models to share the custom training step
+## Define multiple models to share the custom training step {#define-multiple-models-to-share-the-custom-training-step}
 
 Let's define two different models that can share our Trainer class and its custom `train_step()`:
 
@@ -122,14 +123,14 @@ func_output = keras.layers.Dense(10, activation="softmax")(x)
 model_b = keras.Model(func_input, func_output)
 ```
 
-## Create Trainer class objects from the models
+## Create Trainer class objects from the models {#create-trainer-class-objects-from-the-models}
 
 ```python
 trainer_1 = MyTrainer(model_a)
 trainer_2 = MyTrainer(model_b)
 ```
 
-## Compile and fit the models to the MNIST dataset
+## Compile and fit the models to the MNIST dataset {#compile-and-fit-the-models-to-the-mnist-dataset}
 
 ```python
 trainer_1.compile(optimizer=keras.optimizers.SGD())

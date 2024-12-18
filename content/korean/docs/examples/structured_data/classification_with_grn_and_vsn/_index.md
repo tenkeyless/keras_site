@@ -1,5 +1,6 @@
 ---
-title: Classification with Gated Residual and Variable Selection Networks
+title: Gated Residual 및 변수 선택 네트워크를 사용한 분류
+linkTitle: Gated Residual 및 변수 선택 네트워크 분류
 toc: true
 weight: 6
 type: docs
@@ -19,7 +20,7 @@ type: docs
 {{< card link="https://github.com/keras-team/keras-io/blob/master/examples/structured_data/classification_with_grn_and_vsn.py" title="GitHub" tag="GitHub">}}
 {{< /cards >}}
 
-## Introduction
+## Introduction {#introduction}
 
 This example demonstrates the use of Gated Residual Networks (GRN) and Variable Selection Networks (VSN), proposed by Bryan Lim et al. in [Temporal Fusion Transformers (TFT) for Interpretable Multi-horizon Time Series Forecasting](https://arxiv.org/abs/1912.09363), for structured data classification. GRNs give the flexibility to the model to apply non-linear processing only where needed. VSNs allow the model to softly remove any unnecessary noisy inputs which could negatively impact performance. Together, those techniques help improving the learning capacity of deep neural network models.
 
@@ -27,13 +28,13 @@ Note that this example implements only the GRN and VSN components described in i
 
 To run the code you need to use TensorFlow 2.3 or higher.
 
-## The dataset
+## The dataset {#the-dataset}
 
 This example uses the [United States Census Income Dataset](https://archive.ics.uci.edu/ml/datasets/Census-Income+%28KDD%29) provided by the [UC Irvine Machine Learning Repository](https://archive.ics.uci.edu/ml/index.php). The task is binary classification to determine whether a person makes over 50K a year.
 
 The dataset includes ~300K instances with 41 input features: 7 numerical features and 34 categorical features.
 
-## Setup
+## Setup {#setup}
 
 ```python
 import math
@@ -44,7 +45,7 @@ from tensorflow import keras
 from tensorflow.keras import layers
 ```
 
-## Prepare the data
+## Prepare the data {#prepare-the-data}
 
 First we load the data from the UCI Machine Learning Repository into a Pandas DataFrame.
 
@@ -145,7 +146,7 @@ valid_data.to_csv(valid_data_file, index=False, header=False)
 test_data.to_csv(test_data_file, index=False, header=False)
 ```
 
-## Define dataset metadata
+## Define dataset metadata {#define-dataset-metadata}
 
 Here, we define the metadata of the dataset that will be useful for reading and parsing the data into input features, and encoding the input features with respect to their types.
 
@@ -186,7 +187,7 @@ COLUMN_DEFAULTS = [
 ]
 ```
 
-## Create a [`tf.data.Dataset`](https://www.tensorflow.org/api_docs/python/tf/data/Dataset) for training and evaluation
+## Create a [`tf.data.Dataset`](https://www.tensorflow.org/api_docs/python/tf/data/Dataset) for training and evaluation {#create-a-tfdatadatasethttpswwwtensorfloworgapi_docspythontfdatadataset-for-training-and-evaluation}
 
 We create an input function to read and parse the file, and convert features and labels into a [`tf.data.Dataset`](https://www.tensorflow.org/api_docs/python/tf/data/Dataset) for training and evaluation.
 
@@ -220,7 +221,7 @@ def get_dataset_from_csv(csv_file_path, shuffle=False, batch_size=128):
     return dataset
 ```
 
-## Create model inputs
+## Create model inputs {#create-model-inputs}
 
 ```python
 def create_model_inputs():
@@ -237,7 +238,7 @@ def create_model_inputs():
     return inputs
 ```
 
-## Encode input features
+## Encode input features {#encode-input-features}
 
 For categorical features, we encode them using `layers.Embedding` using the `encoding_size` as the embedding dimensions. For the numerical features, we apply linear transformation using `layers.Dense` to project each feature into `encoding_size`\-dimensional vector. Thus, all the encoded features will have the same dimensionality.
 
@@ -269,7 +270,7 @@ def encode_inputs(inputs, encoding_size):
     return encoded_features
 ```
 
-## Implement the Gated Linear Unit
+## Implement the Gated Linear Unit {#implement-the-gated-linear-unit}
 
 [Gated Linear Units (GLUs)](https://arxiv.org/abs/1612.08083) provide the flexibility to suppress input that are not relevant for a given task.
 
@@ -284,7 +285,7 @@ class GatedLinearUnit(layers.Layer):
         return self.linear(inputs) * self.sigmoid(inputs)
 ```
 
-## Implement the Gated Residual Network
+## Implement the Gated Residual Network {#implement-the-gated-residual-network}
 
 The Gated Residual Network (GRN) works as follows:
 
@@ -316,7 +317,7 @@ class GatedResidualNetwork(layers.Layer):
         return x
 ```
 
-## Implement the Variable Selection Network
+## Implement the Variable Selection Network {#implement-the-variable-selection-network}
 
 The Variable Selection Network (VSN) works as follows:
 
@@ -353,7 +354,7 @@ class VariableSelection(layers.Layer):
         return outputs
 ```
 
-## Create Gated Residual and Variable Selection Networks model
+## Create Gated Residual and Variable Selection Networks model {#create-gated-residual-and-variable-selection-networks-model}
 
 ```python
 def create_model(encoding_size):
@@ -370,7 +371,7 @@ def create_model(encoding_size):
     return model
 ```
 
-## Compile, train, and evaluate the model
+## Compile, train, and evaluate the model {#compile-train-and-evaluate-the-model}
 
 ```python
 learning_rate = 0.001

@@ -1,5 +1,6 @@
 ---
-title: Pretraining BERT with Hugging Face Transformers
+title: Hugging Face 트랜스포머로 BERT 사전 트레이닝하기
+linkTitle: Hugging Face 트랜스포머 BERT 사전 트레이닝
 toc: true
 weight: 23
 type: docs
@@ -19,9 +20,9 @@ type: docs
 {{< card link="https://github.com/keras-team/keras-io/blob/master/examples/pretraining/pretraining_BERT.py" title="GitHub" tag="GitHub">}}
 {{< /cards >}}
 
-## Introduction
+## Introduction {#introduction}
 
-### BERT (Bidirectional Encoder Representations from Transformers)
+### BERT (Bidirectional Encoder Representations from Transformers) {#bert-bidirectional-encoder-representations-from-transformers}
 
 In the field of computer vision, researchers have repeatedly shown the value of transfer learning — pretraining a neural network model on a known task/dataset, for instance ImageNet classification, and then performing fine-tuning — using the trained neural network as the basis of a new specific-purpose model. In recent years, researchers have shown that a similar technique can be useful in many natural language tasks.
 
@@ -31,19 +32,19 @@ As opposed to directional models, which read the text input sequentially (left-t
 
 When training language models, a challenge is defining a prediction goal. Many models predict the next word in a sequence (e.g. `"The child came home from _"`), a directional approach which inherently limits context learning. To overcome this challenge, BERT uses two training strategies:
 
-### Masked Language Modeling (MLM)
+### Masked Language Modeling (MLM) {#masked-language-modeling-mlm}
 
 Before feeding word sequences into BERT, 15% of the words in each sequence are replaced with a `[MASK]` token. The model then attempts to predict the original value of the masked words, based on the context provided by the other, non-masked, words in the sequence.
 
-### Next Sentence Prediction (NSP)
+### Next Sentence Prediction (NSP) {#next-sentence-prediction-nsp}
 
 In the BERT training process, the model receives pairs of sentences as input and learns to predict if the second sentence in the pair is the subsequent sentence in the original document. During training, 50% of the inputs are a pair in which the second sentence is the subsequent sentence in the original document, while in the other 50% a random sentence from the corpus is chosen as the second sentence. The assumption is that the random sentence will represent a disconnect from the first sentence.
 
 Though Google provides a pretrained BERT checkpoint for English, you may often need to either pretrain the model from scratch for a different language, or do a continued-pretraining to fit the model to a new domain. In this notebook, we pretrain BERT from scratch optimizing both MLM and NSP objectves using 🤗 Transformers on the `WikiText` English dataset loaded from 🤗 Datasets.
 
-## Setup
+## Setup {#setup}
 
-### Installing the requirements
+### Installing the requirements {#installing-the-requirements}
 
 ```shell
 pip install git+https://github.com/huggingface/transformers.git
@@ -52,7 +53,7 @@ pip install huggingface-hub
 pip install nltk
 ```
 
-### Importing the necessary libraries
+### Importing the necessary libraries {#importing-the-necessary-libraries}
 
 ```python
 import nltk
@@ -78,7 +79,7 @@ tf.keras.utils.set_random_seed(42)
 
 {{% /details %}}
 
-### Define certain variables
+### Define certain variables {#define-certain-variables}
 
 ```python
 TOKENIZER_BATCH_SIZE = 256  # Batch-size to train the tokenizer on
@@ -98,7 +99,7 @@ LEARNING_RATE = 1e-4  # Learning rate for training the model
 MODEL_CHECKPOINT = "bert-base-cased"  # Name of pretrained model from 🤗 Model Hub
 ```
 
-## Load the WikiText dataset
+## Load the WikiText dataset {#load-the-wikitext-dataset}
 
 We now download the `WikiText` language modeling dataset. It is a collection of over 100 million tokens extracted from the set of verified "Good" and "Featured" articles on Wikipedia.
 
@@ -157,7 +158,7 @@ DatasetDict({
 
 {{% /details %}}
 
-## Training a new Tokenizer
+## Training a new Tokenizer {#training-a-new-tokenizer}
 
 First we train our own tokenizer from scratch on our corpus, so that can we can use it to train our language model from scratch.
 
@@ -219,7 +220,7 @@ tokenizer = tokenizer.train_new_from_iterator(
 
 So now we our done training our new tokenizer! Next we move on to the data pre-processing steps.
 
-## Data Pre-processing
+## Data Pre-processing {#data-pre-processing}
 
 For the sake of demonstrating the workflow, in this notebook we only take small subsets of the entire WikiText `train` and `test` splits.
 
@@ -439,7 +440,7 @@ validation = tokenized_dataset["validation"].to_tf_dataset(
 )
 ```
 
-## Defining the model
+## Defining the model {#defining-the-model}
 
 To define our model, first we need to define a config which will help us define certain parameters of our model architecture. This includes parameters like number of transformer layers, number of attention heads, hidden dimension, etc. For this notebook, we try to define the exact config defined in the original BERT paper.
 

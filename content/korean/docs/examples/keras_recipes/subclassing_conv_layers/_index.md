@@ -1,5 +1,6 @@
 ---
-title: Customizing the convolution operation of a Conv2D layer
+title: Conv2D 레이어의 컨볼루션 연산 커스터마이즈하기
+linkTitle: Conv2D 레이어 컨볼루션 연산 커스터마이즈
 toc: true
 weight: 5
 type: docs
@@ -19,13 +20,13 @@ type: docs
 {{< card link="https://github.com/keras-team/keras-io/blob/master/examples/keras_recipes/subclassing_conv_layers.py" title="GitHub" tag="GitHub">}}
 {{< /cards >}}
 
-## Introduction
+## Introduction {#introduction}
 
 You may sometimes need to implement custom versions of convolution layers like `Conv1D` and `Conv2D`. Keras enables you do this without implementing the entire layer from scratch: you can reuse most of the base convolution layer and just customize the convolution op itself via the `convolution_op()` method.
 
 This method was introduced in Keras 2.7. So before using the `convolution_op()` API, ensure that you are running Keras version 2.7.0 or greater.
 
-## A Simple `StandardizedConv2D` implementation
+## A Simple `StandardizedConv2D` implementation {#a-simple-standardizedconv2d-implementation}
 
 There are two ways to use the `Conv.convolution_op()` API. The first way is to override the `convolution_op()` method on a convolution layer subclass. Using this approach, we can quickly implement a [StandardizedConv2D](https://arxiv.org/abs/1903.10520) as shown below.
 
@@ -66,7 +67,7 @@ class StandardizedConv2DWithCall(layers.Conv2D):
         return result
 ```
 
-## Example Usage
+## Example Usage {#example-usage}
 
 Both of these layers work as drop-in replacements for `Conv2D`. The following demonstration performs classification on the MNIST dataset.
 
@@ -177,6 +178,6 @@ Epoch 5/5
 
 {{% /details %}}
 
-## Conclusion
+## Conclusion {#conclusion}
 
 The `Conv.convolution_op()` API provides an easy and readable way to implement custom convolution layers. A `StandardizedConvolution` implementation using the API is quite terse, consisting of only four lines of code.

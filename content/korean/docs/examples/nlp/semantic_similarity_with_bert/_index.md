@@ -1,5 +1,6 @@
 ---
-title: Semantic Similarity with BERT
+title: BERT를 사용한 시맨틱 유사성
+linkTitle: 시맨틱 유사성 (BERT)
 toc: true
 weight: 19
 type: docs
@@ -19,16 +20,16 @@ type: docs
 {{< card link="https://github.com/keras-team/keras-io/blob/master/examples/nlp/semantic_similarity_with_bert.py" title="GitHub" tag="GitHub">}}
 {{< /cards >}}
 
-## Introduction
+## Introduction {#introduction}
 
 Semantic Similarity is the task of determining how similar two sentences are, in terms of what they mean. This example demonstrates the use of SNLI (Stanford Natural Language Inference) Corpus to predict sentence semantic similarity with Transformers. We will fine-tune a BERT model that takes two sentences as inputs and that outputs a similarity score for these two sentences.
 
-### References
+### References {#references}
 
 - [BERT](https://arxiv.org/pdf/1810.04805.pdf)
 - [SNLI](https://nlp.stanford.edu/projects/snli/)
 
-## Setup
+## Setup {#setup}
 
 Note: install HuggingFace `transformers` via `pip install transformers` (version >= 2.11.0).
 
@@ -39,7 +40,7 @@ import tensorflow as tf
 import transformers
 ```
 
-## Configuration
+## Configuration {#configuration}
 
 ```python
 max_length = 128  # Maximum length of input sentence to the model.
@@ -50,7 +51,7 @@ epochs = 2
 labels = ["contradiction", "entailment", "neutral"]
 ```
 
-## Load the Data
+## Load the Data {#load-the-data}
 
 ```python
 !curl -LO https://raw.githubusercontent.com/MohamadMerchant/SNLI/master/data.tar.gz
@@ -117,7 +118,7 @@ Similarity: contradiction
 
 {{% /details %}}
 
-## Preprocessing
+## Preprocessing {#preprocessing}
 
 ```python
 # We have some NaN entries in our train data, we will simply drop them.
@@ -212,7 +213,7 @@ test_df["label"] = test_df["similarity"].apply(
 y_test = tf.keras.utils.to_categorical(test_df.label, num_classes=3)
 ```
 
-## Create a custom data generator
+## Create a custom data generator {#create-a-custom-data-generator}
 
 ```python
 class BertSemanticDataGenerator(tf.keras.utils.Sequence):
@@ -291,7 +292,7 @@ class BertSemanticDataGenerator(tf.keras.utils.Sequence):
             np.random.RandomState(42).shuffle(self.indexes)
 ```
 
-## Build the model
+## Build the model {#build-the-model}
 
 ```python
 # Create the model under a distribution strategy scope.
@@ -411,7 +412,7 @@ HBox(children=(FloatProgress(value=0.0, description='Downloading', max=231508.0,
 
 {{% /details %}}
 
-## Train the Model
+## Train the Model {#train-the-model}
 
 Training is done only for the top layers to perform "feature extraction", which will allow the model to use the representations of the pretrained model.
 
@@ -436,7 +437,7 @@ Epoch 2/2
 
 {{% /details %}}
 
-## Fine-tuning
+## Fine-tuning {#fine-tuning}
 
 This step must only be performed after the feature extraction model has been trained to convergence on the new data.
 
@@ -492,7 +493,7 @@ ________________________________________________________________________________
 
 {{% /details %}}
 
-## Train the entire model end-to-end
+## Train the entire model end-to-end {#train-the-entire-model-end-to-end}
 
 ```python
 history = model.fit(
@@ -515,7 +516,7 @@ Epoch 2/2
 
 {{% /details %}}
 
-## Evaluate model on the test set
+## Evaluate model on the test set {#evaluate-model-on-the-test-set}
 
 ```python
 test_data = BertSemanticDataGenerator(
@@ -537,7 +538,7 @@ model.evaluate(test_data, verbose=1)
 
 {{% /details %}}
 
-## Inference on custom sentences
+## Inference on custom sentences {#inference-on-custom-sentences}
 
 ```python
 def check_similarity(sentence1, sentence2):

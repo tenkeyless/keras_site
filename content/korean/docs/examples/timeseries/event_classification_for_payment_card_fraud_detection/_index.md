@@ -1,5 +1,6 @@
 ---
-title: Event classification for payment card fraud detection
+title: 카드 결제 사기 탐지를 위한 이벤트 분류
+linkTitle: 카드 결제 사기 탐지 이벤트 분류
 toc: true
 weight: 4
 type: docs
@@ -38,7 +39,7 @@ import tensorflow as tf
 from sklearn.metrics import RocCurveDisplay
 ```
 
-## Introduction
+## Introduction {#introduction}
 
 Payment fraud detection is critical for banks, businesses, and consumers. In Europe alone, fraudulent transactions were estimated at [€1.89 billion in 2019](https://www.ecb.europa.eu/pub/pdf/cardfraud/ecb.cardfraudreport202110~cac4c418e8.en.pdf). Worldwide, approximately [3.6%](https://www.cybersource.com/content/dam/documents/campaign/fraud-report/global-fraud-report-2022.pdf) of commerce revenue is lost to fraud. In this notebook, we train and evaluate a model to detect fraudulent transactions using the synthetic dataset attached to the book [Reproducible Machine Learning for Credit Card Fraud Detection](https://fraud-detection-handbook.github.io/fraud-detection-handbook/Foreword.html) by Le Borgne et al.
 
@@ -46,7 +47,7 @@ Fraudulent transactions often cannot be detected by looking at transactions in i
 
 We preprocess a transaction dataset into a tabular dataset and use a feed-forward neural network to learn the patterns of fraud and make predictions.
 
-## Loading the dataset
+## Loading the dataset {#loading-the-dataset}
 
 The dataset contains payment transactions sampled between April 1, 2018 and September 30, 2018. The transactions are stored in CSV files, one for each day.
 
@@ -177,7 +178,7 @@ transactions_evset.add_index("CUSTOMER_ID").plot(indexes="3774")
 
 Note the few fraudulent transactions for this client.
 
-## Preparing the training data
+## Preparing the training data {#preparing-the-training-data}
 
 Fraudulent transactions in isolation cannot be detected. Instead, we need to connect related transactions. For each transaction, we compute the sum and count of transactions for the same terminal in the last `n` days. Because we don't know the correct value for `n`, we use multiple values for `n` and compute a set of features for each of them.
 
@@ -453,7 +454,7 @@ Finally, we group together the features and the labels.
 normalized_all_data = tp.glue(normalized_features, all_data["TX_FRAUD"])
 ```
 
-## Split dataset into a train, validation and test set
+## Split dataset into a train, validation and test set {#split-dataset-into-a-train-validation-and-test-set}
 
 To evaluate the quality of our machine learning model, we need training, validation and test sets. Since the system is dynamic (new fraud patterns are being created all the time), it is important for the training set to come before the validation set, and the validation set come before the testing set:
 
@@ -516,7 +517,7 @@ Testing examples: 288064
 
 It is important to split the dataset **after** the features have been computed because some of the features for the training dataset are computed from transactions during the training window.
 
-## Create TensorFlow datasets
+## Create TensorFlow datasets {#create-tensorflow-datasets}
 
 We convert the datasets from EventSets to TensorFlow Datasets as Keras consumes them natively.
 
@@ -633,7 +634,7 @@ Proportion of examples rejected by sampler is high: [0.991630733][0.991630733 0.
 
 {{% /details %}}
 
-## Train the model
+## Train the model {#train-the-model}
 
 The original dataset is transactional, but the processed data is tabular and only contains normalized numerical values. Therefore, we train a feed-forward neural network.
 
@@ -768,7 +769,7 @@ array([[0.08197185],
 
 {{% /details %}}
 
-## Conclusion
+## Conclusion {#conclusion}
 
 We trained a feed-forward neural network to identify fraudulent transactions. To feed them into the model, the transactions were preprocessed and transformed into a tabular dataset using [Temporian](https://temporian.readthedocs.io/en/latest/). Now, a question to the reader: What could be done to further improve the model's performance?
 

@@ -1,5 +1,6 @@
 ---
-title: Audio Classification with the STFTSpectrogram layer
+title: STFTSpectrogram 레이어를 사용한 오디오 분류
+linkTitle: STFTSpectrogram 레이어 오디오 분류
 toc: true
 weight: 5
 type: docs
@@ -19,7 +20,7 @@ type: docs
 {{< card link="https://github.com/keras-team/keras-io/blob/master/examples/audio/stft.py" title="GitHub" tag="GitHub">}}
 {{< /cards >}}
 
-## Introduction
+## Introduction {#introduction}
 
 Preprocessing audio as spectrograms is an essential step in the vast majority of audio-based applications. Spectrograms represent the frequency content of a signal over time, are widely used for this purpose. In this tutorial, we'll demonstrate how to use the `STFTSpectrogram` layer in Keras to convert raw audio waveforms into spectrograms **within the model**. We'll then feed these spectrograms into an LSTM network followed by Dense layers to perform audio classification on the Speech Commands dataset.
 
@@ -30,9 +31,9 @@ We will:
 - Build two models, one using spectrograms as 1D signals and the other is using as images (2D signals) with a pretrained image model.
 - Train and evaluate the models.
 
-## Setup
+## Setup {#setup}
 
-### Importing the necessary libraries
+### Importing the necessary libraries {#importing-the-necessary-libraries}
 
 ```python
 import os
@@ -52,7 +53,7 @@ from scipy.signal import resample
 keras.utils.set_random_seed(41)
 ```
 
-### Define some variables
+### Define some variables {#define-some-variables}
 
 ```python
 BASE_DATA_DIR = "./datasets/esc-50_extracted/ESC-50-master/"
@@ -62,11 +63,11 @@ EPOCHS = 200
 SAMPLE_RATE = 16000
 ```
 
-## Download and Preprocess the ESC-10 Dataset
+## Download and Preprocess the ESC-10 Dataset {#download-and-preprocess-the-esc-10-dataset}
 
 We'll use the Dataset for Environmental Sound Classification dataset (ESC-10). This dataset consists of five-second .wav files of environmental sounds.
 
-### Download and Extract the dataset
+### Download and Extract the dataset {#download-and-extract-the-dataset}
 
 ```python
 keras.utils.get_file(
@@ -86,7 +87,7 @@ keras.utils.get_file(
 
 {{% /details %}}
 
-### Read the CSV file
+### Read the CSV file {#read-the-csv-file}
 
 ```python
 pd_data = pd.read_csv(os.path.join(BASE_DATA_DIR, "meta", "esc50.csv"))
@@ -115,7 +116,7 @@ pd_data
 
 400 rows × 7 columns
 
-### Define functions to read and preprocess the WAV files
+### Define functions to read and preprocess the WAV files {#define-functions-to-read-and-preprocess-the-wav-files}
 
 ```python
 def read_wav_file(path, target_sr=SAMPLE_RATE):
@@ -208,7 +209,7 @@ plot_multi_bandwidth_spectrogram(sample_wav_data)
 
 ![png](/images/examples/audio/stft/multiband_spectrogram.png)
 
-### Define functions to construct a TF Dataset
+### Define functions to construct a TF Dataset {#define-functions-to-construct-a-tf-dataset}
 
 ```python
 def read_dataset(df, folds):
@@ -219,7 +220,7 @@ def read_dataset(df, folds):
     return waves, targets
 ```
 
-### Create the datasets
+### Create the datasets {#create-the-datasets}
 
 ```python
 train_x, train_y = read_dataset(pd_data, [1, 2, 3])
@@ -227,7 +228,7 @@ valid_x, valid_y = read_dataset(pd_data, [4])
 test_x, test_y = read_dataset(pd_data, [5])
 ```
 
-## Training the Models
+## Training the Models {#training-the-models}
 
 In this tutorial we demonstrate the different usecases of the `STFTSpectrogram` layer.
 
@@ -235,7 +236,7 @@ The first model will use a non-trainable `STFTSpectrogram` layer, so it is inten
 
 The second model will use a trainable `STFTSpectrogram` layer with the `expand_dims` option, which expands the shapes to be compatible with image models.
 
-### Create the 1D model
+### Create the 1D model {#create-the-1d-model}
 
 1.  Create a non-trainable spectrograms, extracting a 1D time signal.
 2.  Apply `Conv1D` layers with `LayerNormalization` simialar to the classic VGG design.
@@ -750,7 +751,7 @@ Epoch 200/200
 
 {{% /details %}}
 
-### Create the 2D model
+### Create the 2D model {#create-the-2d-model}
 
 1.  Create three spectrograms with multiple band-widths from the raw input.
 2.  Concatenate the three spectrograms to have three channels.
@@ -1264,7 +1265,7 @@ Epoch 200/200
 
 {{% /details %}}
 
-### Plot Training History
+### Plot Training History {#plot-training-history}
 
 ```python
 epochs_range = range(EPOCHS)
@@ -1322,7 +1323,7 @@ plt.show()
 
 ![png](/images/examples/audio/stft/training.png)
 
-### Evaluate on Test Data
+### Evaluate on Test Data {#evaluate-on-test-data}
 
 Running the models on the test set.
 

@@ -1,5 +1,6 @@
 ---
-title: MultipleChoice Task with Transfer Learning
+title: 전이 학습으로 MultipleChoice 태스크
+linkTitle: 전이 학습 MultipleChoice 태스크
 toc: true
 weight: 26
 type: docs
@@ -19,11 +20,11 @@ type: docs
 {{< card link="https://github.com/keras-team/keras-io/blob/master/examples/nlp/multiple_choice_task_with_transfer_learning.py" title="GitHub" tag="GitHub">}}
 {{< /cards >}}
 
-## Introduction
+## Introduction {#introduction}
 
 In this example, we will demonstrate how to perform the **MultipleChoice** task by finetuning pre-trained DebertaV3 model. In this task, several candidate answers are provided along with a context and the model is trained to select the correct answer unlike question answering. We will use SWAG dataset to demonstrate this example.
 
-## Setup
+## Setup {#setup}
 
 ```python
 import keras_hub
@@ -36,7 +37,7 @@ import pandas as pd
 import matplotlib.pyplot as plt
 ```
 
-## Dataset
+## Dataset {#dataset}
 
 In this example we'll use **SWAG** dataset for multiplechoice task.
 
@@ -77,7 +78,7 @@ README.md  test.csv  train.csv  train_full.csv  val.csv  val_full.csv
 
 {{% /details %}}
 
-## Configuration
+## Configuration {#configuration}
 
 ```python
 class CFG:
@@ -89,7 +90,7 @@ class CFG:
     augment = True  # Augmentation (Shuffle Options)
 ```
 
-## Reproducibility
+## Reproducibility {#reproducibility}
 
 Sets value for random seed to produce similar result in each run.
 
@@ -97,7 +98,7 @@ Sets value for random seed to produce similar result in each run.
 keras.utils.set_random_seed(CFG.seed)
 ```
 
-## Meta Data
+## Meta Data {#meta-data}
 
 - **train.csv** - will be used for training.
 - `sent1` and `sent2`: these fields show how a sentence starts, and if you put the two together, you get the `startphrase` field.
@@ -130,7 +131,7 @@ print("# Valid Data: {:,}".format(len(valid_df)))
 
 {{% /details %}}
 
-## Contextualize Options
+## Contextualize Options {#contextualize-options}
 
 Our approach entails furnishing the model with question and answer pairs, as opposed to employing a single question for all five options. In practice, this signifies that for the five options, we will supply the model with the same set of five questions combined with each respective answer choice (e.g., `(Q + A)`, `(Q + B)`, and so on). This analogy draws parallels to the practice of revisiting a question multiple times during an exam to promote a deeper understanding of the problem at hand.
 
@@ -155,7 +156,7 @@ train_df = train_df.apply(make_options, axis=1)
 valid_df = valid_df.apply(make_options, axis=1)
 ```
 
-## Preprocessing
+## Preprocessing {#preprocessing}
 
 **What it does:** The preprocessor takes input strings and transforms them into a dictionary (`token_ids`, `padding_mask`) containing preprocessed tensors. This process starts with tokenization, where input strings are converted into sequences of token IDs.
 
@@ -201,7 +202,7 @@ def preprocess_fn(text, label=None):
     )  # Return processed text and label if available
 ```
 
-## Augmentation
+## Augmentation {#augmentation}
 
 In this notebook, we'll experiment with an interesting augmentation technique, `option_shuffle`. Since we're providing the model with one option at a time, we can introduce a shuffle to the order of options. For instance, options `[A, C, E, D, B]` would be rearranged as `[D, B, A, E, C]`. This practice will help the model focus on the content of the options themselves, rather than being influenced by their positions.
 
@@ -227,7 +228,7 @@ def augment_fn(text, label=None):
     return (text, label) if label is not None else text
 ```
 
-## DataLoader
+## DataLoader {#dataloader}
 
 The code below sets up a robust data flow pipeline using [`tf.data.Dataset`](https://www.tensorflow.org/api_docs/python/tf/data/Dataset) for data processing. Notable aspects of [`tf.data`](https://www.tensorflow.org/api_docs/python/tf/data) include its ability to simplify pipeline construction and represent components in sequences.
 
@@ -295,7 +296,7 @@ valid_ds = build_dataset(
 )
 ```
 
-## LR Schedule
+## LR Schedule {#lr-schedule}
 
 Implementing a learning rate scheduler is crucial for transfer learning. The learning rate initiates at `lr_start` and gradually tapers down to `lr_min` using **cosine** curve.
 
@@ -345,7 +346,7 @@ _ = get_lr_callback(CFG.batch_size, plot=True)
 
 ![png](/images/examples/nlp/multiple_choice_task_with_transfer_learning/multiple_choice_task_with_transfer_learning_32_0.png)
 
-## Callbacks
+## Callbacks {#callbacks}
 
 The function below will gather all the training callbacks, such as `lr_scheduler`, `model_checkpoint`.
 
@@ -367,15 +368,15 @@ def get_callbacks():
 callbacks = get_callbacks()
 ```
 
-## MultipleChoice Model
+## MultipleChoice Model {#multiplechoice-model}
 
-### Pre-trained Models
+### Pre-trained Models {#pre-trained-models}
 
 The `KerasHub` library provides comprehensive, ready-to-use implementations of popular NLP model architectures. It features a variety of pre-trained models including `Bert`, `Roberta`, `DebertaV3`, and more. In this notebook, we'll showcase the usage of `DistillBert`. However, feel free to explore all available models in the [KerasHub documentation]({{< relref "/docs/api/keras_hub/models" >}}). Also for a deeper understanding of `KerasHub`, refer to the informative [getting started guide]({{< relref "/docs/guides/keras_hub/getting_started" >}}).
 
 Our approach involves using `keras_hub.models.XXClassifier` to process each question and option pari (e.g. (Q+A), (Q+B), etc.), generating logits. These logits are then combined and passed through a softmax function to produce the final output.
 
-### Classifier for Multiple-Choice Tasks
+### Classifier for Multiple-Choice Tasks {#classifier-for-multiple-choice-tasks}
 
 When dealing with multiple-choice questions, instead of giving the model the question and all options together `(Q + A + B + C ...)`, we provide the model with one option at a time along with the question. For instance, `(Q + A)`, `(Q + B)`, and so on. Once we have the prediction scores (logits) for all options, we combine them using the `Softmax` function to get the ultimate result. If we had given all options at once to the model, the text's length would increase, making it harder for the model to handle. The picture below illustrates this idea:
 
@@ -543,7 +544,7 @@ keras.utils.plot_model(model, show_shapes=True)
 
 ![png](/images/examples/nlp/multiple_choice_task_with_transfer_learning/multiple_choice_task_with_transfer_learning_42_0.png)
 
-## Training
+## Training {#training}
 
 ```python
 # Start training the model
@@ -574,7 +575,7 @@ Epoch 5/5
 
 {{% /details %}}
 
-## Inference
+## Inference {#inference}
 
 ```python
 # Make predictions using the trained model on last validation data
@@ -657,7 +658,7 @@ People are standing on sand wearing red shirts. They
 
 {{% /details %}}
 
-## Reference
+## Reference {#reference}
 
 - [Multiple Choice with HF](https://twitter.com/johnowhitaker/status/1689790373454041089?s=20)
 - [Keras NLP]({{< relref "/docs/api/keras_hub" >}})

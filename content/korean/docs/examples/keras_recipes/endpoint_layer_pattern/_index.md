@@ -1,5 +1,6 @@
 ---
-title: Endpoint layer pattern
+title: 엔드포인트 레이어 패턴
+linkTitle: 엔드포인트 레이어 패턴
 toc: true
 weight: 7
 type: docs
@@ -19,7 +20,7 @@ type: docs
 {{< card link="https://github.com/keras-team/keras-io/blob/master/examples/keras_recipes/endpoint_layer_pattern.py" title="GitHub" tag="GitHub">}}
 {{< /cards >}}
 
-## Setup
+## Setup {#setup}
 
 ```python
 import os
@@ -31,7 +32,7 @@ import keras
 import numpy as np
 ```
 
-## Usage of endpoint layers in the Functional API
+## Usage of endpoint layers in the Functional API {#usage-of-endpoint-layers-in-the-functional-api}
 
 An "endpoint layer" has access to the model's targets, and creates arbitrary losses in `call()` using `self.add_loss()` and `Metric.update_state()`. This enables you to define losses and metrics that don't match the usual signature `fn(y_true, y_pred, sample_weight=None)`.
 
@@ -94,7 +95,7 @@ Epoch 2/2
 
 {{% /details %}}
 
-## Exporting an inference-only model
+## Exporting an inference-only model {#exporting-an-inference-only-model}
 
 Simply don't include `targets` in the model. The weights stay the same.
 
@@ -117,7 +118,7 @@ preds = inference_model.predict(np.random.random((1000, 764)))
 
 {{% /details %}}
 
-## Usage of loss endpoint layers in subclassed models
+## Usage of loss endpoint layers in subclassed models {#usage-of-loss-endpoint-layers-in-subclassed-models}
 
 ```python
 class LogReg(keras.Model):

@@ -1,5 +1,6 @@
 ---
-title: Text classification from scratch
+title: 처음부터 텍스트 분류
+linkTitle: 처음부터 텍스트 분류
 toc: true
 weight: 1
 type: docs
@@ -21,11 +22,11 @@ type: docs
 
 ⓘ This example uses Keras 3
 
-## Introduction
+## Introduction {#introduction}
 
 This example shows how to do text classification starting from raw text (as a set of text files on disk). We demonstrate the workflow on the IMDB sentiment classification dataset (unprocessed version). We use the `TextVectorization` layer for word splitting & indexing.
 
-## Setup
+## Setup {#setup}
 
 ```python
 import os
@@ -38,7 +39,7 @@ import numpy as np
 from keras import layers
 ```
 
-## Load the data: IMDB movie review sentiment classification
+## Load the data: IMDB movie review sentiment classification {#load-the-data-imdb-movie-review-sentiment-classification}
 
 Let's download the data and inspect its structure.
 
@@ -186,7 +187,7 @@ b"Michelle Rodriguez is the defining actress who could be the charging force for
 
 {{% /details %}}
 
-## Prepare the data
+## Prepare the data {#prepare-the-data}
 
 In particular, we remove `<br />` tags.
 
@@ -236,7 +237,7 @@ text_ds = raw_train_ds.map(lambda x, y: x)
 vectorize_layer.adapt(text_ds)
 ```
 
-## Two options to vectorize the data
+## Two options to vectorize the data {#two-options-to-vectorize-the-data}
 
 There are 2 ways we can use our text vectorization layer:
 
@@ -272,7 +273,7 @@ val_ds = val_ds.cache().prefetch(buffer_size=10)
 test_ds = test_ds.cache().prefetch(buffer_size=10)
 ```
 
-## Build a model
+## Build a model {#build-a-model}
 
 We choose a simple 1D convnet starting with an `Embedding` layer.
 
@@ -303,7 +304,7 @@ model = keras.Model(inputs, predictions)
 model.compile(loss="binary_crossentropy", optimizer="adam", metrics=["accuracy"])
 ```
 
-## Train the model
+## Train the model {#train-the-model}
 
 ```python
 epochs = 3
@@ -327,7 +328,7 @@ Epoch 3/3
 
 {{% /details %}}
 
-## Evaluate the model on the test set
+## Evaluate the model on the test set {#evaluate-the-model-on-the-test-set}
 
 ```python
 model.evaluate(test_ds)
@@ -343,7 +344,7 @@ model.evaluate(test_ds)
 
 {{% /details %}}
 
-## Make an end-to-end model
+## Make an end-to-end model {#make-an-end-to-end-model}
 
 If you want to obtain a model capable of processing raw strings, you can simply create a new model (using the weights we just trained):
 

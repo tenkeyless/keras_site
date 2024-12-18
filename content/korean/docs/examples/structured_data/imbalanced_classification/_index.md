@@ -1,5 +1,6 @@
 ---
-title: "Imbalanced classification: credit card fraud detection"
+title: "불균형 분류: 신용 카드 사기 탐지"
+linkTitle: "불균형 분류: 신용 카드 사기 탐지"
 toc: true
 weight: 3
 type: docs
@@ -19,11 +20,11 @@ type: docs
 {{< card link="https://github.com/keras-team/keras-io/blob/master/examples/structured_data/imbalanced_classification.py" title="GitHub" tag="GitHub">}}
 {{< /cards >}}
 
-## Introduction
+## Introduction {#introduction}
 
 This example looks at the [Kaggle Credit Card Fraud Detection](https://www.kaggle.com/mlg-ulb/creditcardfraud/) dataset to demonstrate how to train a classification model on data with highly imbalanced classes.
 
-## First, vectorize the CSV data
+## First, vectorize the CSV data {#first-vectorize-the-csv-data}
 
 ```python
 import csv
@@ -62,7 +63,7 @@ targets.shape: (284807, 1)
 
 {{% /details %}}
 
-## Prepare a validation set
+## Prepare a validation set {#prepare-a-validation-set}
 
 ```python
 num_val_samples = int(len(features) * 0.2)
@@ -84,7 +85,7 @@ Number of validation samples: 56961
 
 {{% /details %}}
 
-## Analyze class imbalance in the targets
+## Analyze class imbalance in the targets {#analyze-class-imbalance-in-the-targets}
 
 ```python
 counts = np.bincount(train_targets[:, 0])
@@ -106,7 +107,7 @@ Number of positive samples in training data: 417 (0.18% of total)
 
 {{% /details %}}
 
-## Normalize the data using training set statistics
+## Normalize the data using training set statistics {#normalize-the-data-using-training-set-statistics}
 
 ```python
 mean = np.mean(train_features, axis=0)
@@ -117,7 +118,7 @@ train_features /= std
 val_features /= std
 ```
 
-## Build a binary classification model
+## Build a binary classification model {#build-a-binary-classification-model}
 
 ```python
 import keras
@@ -162,7 +163,7 @@ Model: "sequential"
 
 {{% /details %}}
 
-## Train the model with `class_weight` argument
+## Train the model with `class_weight` argument {#train-the-model-with-class_weight-argument}
 
 ```python
 metrics = [
@@ -262,7 +263,7 @@ Epoch 30/30
 
 {{% /details %}}
 
-## Conclusions
+## Conclusions {#conclusions}
 
 At the end of training, out of 56,961 validation transactions, we are:
 

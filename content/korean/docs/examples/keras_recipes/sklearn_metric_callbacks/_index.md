@@ -1,5 +1,6 @@
 ---
-title: Evaluating and exporting scikit-learn metrics in a Keras callback
+title: Keras 콜백에서 scikit-learn 메트릭 평가 및 내보내기
+linkTitle: Keras 콜백 scikit-learn 메트릭 평가 및 내보내기
 toc: true
 weight: 18
 type: docs
@@ -19,13 +20,13 @@ type: docs
 {{< card link="https://github.com/keras-team/keras-io/blob/master/examples/keras_recipes/sklearn_metric_callbacks.py" title="GitHub" tag="GitHub">}}
 {{< /cards >}}
 
-## Introduction
+## Introduction {#introduction}
 
 [Keras callbacks]({{< relref "/docs/api/callbacks" >}}) allow for the execution of arbitrary code at various stages of the Keras training process. While Keras offers first-class support for metric evaluation, [Keras metrics]({{< relref "/docs/api/metrics" >}}) may only rely on TensorFlow code internally.
 
 While there are TensorFlow implementations of many metrics online, some metrics are implemented using [NumPy](https://numpy.org/) or another Python-based numerical computation library. By performing metric evaluation inside of a Keras callback, we can leverage any existing metric, and ultimately export the result to TensorBoard.
 
-## Jaccard score metric
+## Jaccard score metric {#jaccard-score-metric}
 
 This example makes use of a sklearn metric, `sklearn.metrics.jaccard_score()`, and writes the result to TensorBoard using the [`tf.summary`](https://www.tensorflow.org/api_docs/python/tf/summary) API.
 
@@ -76,7 +77,7 @@ class JaccardScoreCallback(keras.callbacks.Callback):
             self.summary_writer.flush()
 ```
 
-## Sample usage
+## Sample usage {#sample-usage}
 
 Let's test our `JaccardScoreCallback` class with a Keras model.
 
@@ -223,6 +224,6 @@ If you now launch a TensorBoard instance using `tensorboard --logdir=logs`, you 
 
 ![TensorBoard Jaccard Score](/images/examples/keras_recipes/sklearn_metric_callbacks/T4qzrdn.png)
 
-## Conclusion
+## Conclusion {#conclusion}
 
 Many ML practitioners and researchers rely on metrics that may not yet have a TensorFlow implementation. Keras users can still leverage the wide variety of existing metric implementations in other frameworks by using a Keras callback. These metrics can be exported, viewed and analyzed in the TensorBoard like any other metric.

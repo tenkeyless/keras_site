@@ -1,5 +1,6 @@
 ---
-title: Abstractive Text Summarization with BART
+title: BART를 사용한 추상적 텍스트 요약
+linkTitle: BART 추상 텍스트 요약
 toc: true
 weight: 22
 type: docs
@@ -19,7 +20,7 @@ type: docs
 {{< card link="https://github.com/keras-team/keras-io/blob/master/examples/nlp/abstractive_summarization_with_bart.py" title="GitHub" tag="GitHub">}}
 {{< /cards >}}
 
-## Introduction
+## Introduction {#introduction}
 
 In the era of information overload, it has become crucial to extract the crux of a long document or a conversation and express it in a few sentences. Owing to the fact that summarization has widespread applications in different domains, it has become a key, well-studied NLP task in recent years.
 
@@ -27,7 +28,7 @@ In the era of information overload, it has become crucial to extract the crux of
 
 In this example, we will demonstrate how to fine-tune BART on the abstractive summarization task (on conversations!) using KerasHub, and generate summaries using the fine-tuned model.
 
-## Setup
+## Setup {#setup}
 
 Before we start implementing the pipeline, let's install and import all the libraries we need. We'll be using the KerasHub library. We will also need a couple of utility libraries.
 
@@ -92,7 +93,7 @@ MAX_DECODER_SEQUENCE_LENGTH = 128
 MAX_GENERATION_LENGTH = 40
 ```
 
-## Dataset
+## Dataset {#dataset}
 
 Let's load the [SAMSum dataset](https://arxiv.org/abs/1911.12237). This dataset contains around 15,000 pairs of conversations/dialogues and summaries.
 
@@ -168,7 +169,7 @@ train_ds = (
 train_ds = train_ds.take(NUM_BATCHES)
 ```
 
-## Fine-tune BART
+## Fine-tune BART {#fine-tune-bart}
 
 Let's load the model and preprocessor first. We use sequence lengths of 512 and 128 for the encoder and decoder, respectively, instead of 1024 (which is the default sequence length). This will allow us to run this example quickly on Colab.
 
@@ -278,7 +279,7 @@ bart_lm.fit(train_ds, epochs=EPOCHS)
 
 {{% /details %}}
 
-## Generate summaries and evaluate them!
+## Generate summaries and evaluate them! {#generate-summaries-and-evaluate-them}
 
 Now that the model has been trained, let's get to the fun part - actually generating summaries! Let's pick the first 100 samples from the validation set and generate summaries for them. We will use the default decoding strategy, i.e., greedy search.
 
