@@ -1,5 +1,6 @@
 ---
-title: Text classification with Switch Transformer
+title: 스위치 트랜스포머로 텍스트 분류
+linkTitle: 스위치 트랜스포머 텍스트 분류
 toc: true
 weight: 6
 type: docs
@@ -19,7 +20,7 @@ type: docs
 {{< card link="https://github.com/keras-team/keras-io/blob/master/examples/nlp/text_classification_with_switch_transformer.py" title="GitHub" tag="GitHub">}}
 {{< /cards >}}
 
-## Introduction
+## Introduction {#introduction}
 
 This example demonstrates the implementation of the [Switch Transformer](https://arxiv.org/abs/2101.03961) model for text classification.
 
@@ -27,7 +28,7 @@ The Switch Transformer replaces the feedforward network (FFN) layer in the stand
 
 Note that, for training the Switch Transformer efficiently, data and model parallelism need to be applied, so that expert modules can run simultaneously, each on its own accelerator. While the implementation described in the paper uses the [TensorFlow Mesh](https://github.com/tensorflow/mesh) framework for distributed training, this example presents a simple, non-distributed implementation of the Switch Transformer model for demonstration purposes.
 
-## Setup
+## Setup {#setup}
 
 ```python
 import keras
@@ -35,7 +36,7 @@ from keras import ops
 from keras import layers
 ```
 
-## Download and prepare dataset
+## Download and prepare dataset {#download-and-prepare-dataset}
 
 ```python
 vocab_size = 20000  # Only consider the top 20k words
@@ -56,7 +57,7 @@ x_val = keras.utils.pad_sequences(x_val, maxlen=num_tokens_per_example)
 
 {{% /details %}}
 
-## Define hyperparameters
+## Define hyperparameters {#define-hyperparameters}
 
 ```python
 embed_dim = 32  # Embedding size for each token.
@@ -81,7 +82,7 @@ Number of tokens per batch: 10000
 
 {{% /details %}}
 
-## Implement token & position embedding layer
+## Implement token & position embedding layer {#implement-token-position-embedding-layer}
 
 It consists of two separate embedding layers, one for tokens, one for token index (positions).
 
@@ -100,7 +101,7 @@ class TokenAndPositionEmbedding(layers.Layer):
         return x + positions
 ```
 
-## Implement the feedforward network
+## Implement the feedforward network {#implement-the-feedforward-network}
 
 This is used as the Mixture of Experts in the Switch Transformer.
 
@@ -111,7 +112,7 @@ def create_feedforward_network(ff_dim, embed_dim, name=None):
     )
 ```
 
-## Implement the load-balanced loss
+## Implement the load-balanced loss {#implement-the-load-balanced-loss}
 
 This is an auxiliary loss to encourage a balanced load across experts.
 
@@ -135,7 +136,7 @@ def load_balanced_loss(router_probs, expert_mask):
     return loss
 ```
 
-### Implement the router as a layer
+### Implement the router as a layer {#implement-the-router-as-a-layer}
 
 ```python
 class Router(layers.Layer):
@@ -195,7 +196,7 @@ class Router(layers.Layer):
         return dispatch_tensor, combined_tensor
 ```
 
-### Implement a Switch layer
+### Implement a Switch layer {#implement-a-switch-layer}
 
 ```python
 class Switch(layers.Layer):
@@ -246,7 +247,7 @@ class Switch(layers.Layer):
         return outputs
 ```
 
-## Implement a Transformer block layer
+## Implement a Transformer block layer {#implement-a-transformer-block-layer}
 
 ```python
 class TransformerBlock(layers.Layer):
@@ -270,7 +271,7 @@ class TransformerBlock(layers.Layer):
         return self.layernorm2(out1 + ffn_output)
 ```
 
-## Implement the classifier
+## Implement the classifier {#implement-the-classifier}
 
 The `TransformerBlock` layer outputs one vector for each time step of our input sequence. Here, we take the mean across all time steps and use a feedforward network on top of it to classify text.
 
@@ -295,7 +296,7 @@ def create_classifier():
     return classifier
 ```
 
-## Train and evaluate the model
+## Train and evaluate the model {#train-and-evaluate-the-model}
 
 ```python
 def run_experiment(classifier):
@@ -333,6 +334,6 @@ Epoch 3/3
 
 {{% /details %}}
 
-## Conclusion
+## Conclusion {#conclusion}
 
 Compared to the standard Transformer architecture, the Switch Transformer can have a much larger number of parameters, leading to increased model capacity, while maintaining a reasonable computational cost.

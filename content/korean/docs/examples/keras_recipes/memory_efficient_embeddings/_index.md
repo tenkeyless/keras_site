@@ -1,5 +1,6 @@
 ---
-title: Memory-efficient embeddings for recommendation systems
+title: 추천 시스템을 위한 메모리 효율적인 임베딩
+linkTitle: 추천 시스템 메모리 효율적 임베딩
 toc: true
 weight: 12
 type: docs
@@ -19,7 +20,7 @@ type: docs
 {{< card link="https://github.com/keras-team/keras-io/blob/master/examples/keras_recipes/memory_efficient_embeddings.py" title="GitHub" tag="GitHub">}}
 {{< /cards >}}
 
-## Introduction
+## Introduction {#introduction}
 
 This example demonstrates two techniques for building memory-efficient recommendation models by reducing the size of the embedding tables, without sacrificing model effectiveness:
 
@@ -28,7 +29,7 @@ This example demonstrates two techniques for building memory-efficient recommend
 
 We use the [1M version of the Movielens dataset](https://grouplens.org/datasets/movielens/1m/). The dataset includes around 1 million ratings from 6,000 users on 4,000 movies.
 
-## Setup
+## Setup {#setup}
 
 ```python
 import os
@@ -46,9 +47,9 @@ from keras.layers import StringLookup
 import matplotlib.pyplot as plt
 ```
 
-## Prepare the data
+## Prepare the data {#prepare-the-data}
 
-### Download and process data
+### Download and process data {#download-and-process-data}
 
 ```python
 urlretrieve("http://files.grouplens.org/datasets/movielens/ml-1m.zip", "movielens.zip")
@@ -83,7 +84,7 @@ Number of ratings: 1000209
 
 {{% /details %}}
 
-### Create train and eval data splits
+### Create train and eval data splits {#create-train-and-eval-data-splits}
 
 ```python
 random_selection = np.random.rand(len(ratings_data.index)) <= 0.85
@@ -107,7 +108,7 @@ Train and eval data files are saved.
 
 {{% /details %}}
 
-### Define dataset metadata and hyperparameters
+### Define dataset metadata and hyperparameters {#define-dataset-metadata-and-hyperparameters}
 
 ```python
 csv_header = list(ratings_data.columns)
@@ -120,7 +121,7 @@ num_epochs = 3
 base_embedding_dim = 64
 ```
 
-## Train and evaluate the model
+## Train and evaluate the model {#train-and-evaluate-the-model}
 
 ```python
 def get_dataset_from_csv(csv_file_path, batch_size=128, shuffle=True):
@@ -156,9 +157,9 @@ def run_experiment(model):
     return history
 ```
 
-## Experiment 1: baseline collaborative filtering model
+## Experiment 1: baseline collaborative filtering model {#experiment-1-baseline-collaborative-filtering-model}
 
-### Implement embedding encoder
+### Implement embedding encoder {#implement-embedding-encoder}
 
 ```python
 def embedding_encoder(vocabulary, embedding_dim, num_oov_indices=0, name=None):
@@ -175,7 +176,7 @@ def embedding_encoder(vocabulary, embedding_dim, num_oov_indices=0, name=None):
     )
 ```
 
-### Implement the baseline model
+### Implement the baseline model {#implement-the-baseline-model}
 
 ```python
 def create_baseline_model():
@@ -282,9 +283,9 @@ Epoch 3/3
 
 ![png](/images/examples/keras_recipes/memory_efficient_embeddings/memory_efficient_embeddings_17_3.png)
 
-## Experiment 2: memory-efficient model
+## Experiment 2: memory-efficient model {#experiment-2-memory-efficient-model}
 
-### Implement Quotient-Remainder embedding as a layer
+### Implement Quotient-Remainder embedding as a layer {#implement-quotient-remainder-embedding-as-a-layer}
 
 The Quotient-Remainder technique works as follows. For a set of vocabulary and embedding size `embedding_dim`, instead of creating a `vocabulary_size X embedding_dim` embedding table, we create _two_ `num_buckets X embedding_dim` embedding tables, where `num_buckets` is much smaller than `vocabulary_size`. An embedding for a given item `index` is generated via the following steps:
 
@@ -329,7 +330,7 @@ class QREmbedding(keras.layers.Layer):
         return quotient_embedding * remainder_embedding
 ```
 
-### Implement Mixed Dimension embedding as a layer
+### Implement Mixed Dimension embedding as a layer {#implement-mixed-dimension-embedding-as-a-layer}
 
 In the mixed dimension embedding technique, we train embedding vectors with full dimensions for the frequently queried items, while train embedding vectors with _reduced dimensions_ for less frequent items, plus a _projection weights matrix_ to bring low dimension embeddings to the full dimensions.
 
@@ -397,7 +398,7 @@ class MDEmbedding(keras.layers.Layer):
         return embeddings
 ```
 
-### Implement the memory-efficient model
+### Implement the memory-efficient model {#implement-the-memory-efficient-model}
 
 In this experiment, we are going to use the **Quotient-Remainder** technique to reduce the size of the user embeddings, and the **Mixed Dimension** technique to reduce the size of the movie embeddings.
 

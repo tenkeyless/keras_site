@@ -1,6 +1,6 @@
 ---
-title: Sequence to sequence learning for performing number addition
-toc: true
+title: 숫자 덧셈을 수행하기 위한 시퀀스-to-시퀀스 학습
+linkTitle: 숫자 덧셈 수행 시퀀스-to-시퀀스 학습
 weight: 17
 type: docs
 ---
@@ -19,7 +19,7 @@ type: docs
 {{< card link="https://github.com/keras-team/keras-io/blob/master/examples/nlp/addition_rnn.py" title="GitHub" tag="GitHub">}}
 {{< /cards >}}
 
-## Introduction
+## Introduction {#introduction}
 
 In this example, we train a model to learn to add two numbers, provided as strings.
 
@@ -50,7 +50,7 @@ Five digits (reversed):
 
 - One layer LSTM (128 HN), 550k training examples = 99% train/test accuracy in 30 epochs
 
-## Setup
+## Setup {#setup}
 
 ```python
 import keras
@@ -67,7 +67,7 @@ REVERSE = True
 MAXLEN = DIGITS + 1 + DIGITS
 ```
 
-## Generate the data
+## Generate the data {#generate-the-data}
 
 ```python
 class CharacterTable:
@@ -157,7 +157,7 @@ Total questions: 50000
 
 {{% /details %}}
 
-## Vectorize the data
+## Vectorize the data {#vectorize-the-data}
 
 ```python
 print("Vectorization...")
@@ -203,7 +203,7 @@ Validation Data:
 
 {{% /details %}}
 
-## Build the model
+## Build the model {#build-the-model}
 
 ```python
 print("Build model...")
@@ -260,7 +260,7 @@ Model: "sequential"
 
 {{% /details %}}
 
-## Train the model
+## Train the model {#train-the-model}
 
 ```python
 # Training parameters.

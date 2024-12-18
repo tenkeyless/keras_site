@@ -1,5 +1,6 @@
 ---
-title: Video Vision Transformer
+title: 비디오 비전 트랜스포머
+linkTitle: 비디오 비전 트랜스포머
 toc: true
 weight: 58
 type: docs
@@ -19,7 +20,7 @@ type: docs
 {{< card link="https://github.com/keras-team/keras-io/blob/master/examples/vision/vivit.py" title="GitHub" tag="GitHub">}}
 {{< /cards >}}
 
-## Introduction
+## Introduction {#introduction}
 
 Videos are sequences of images. Let's assume you have an image representation model (CNN, ViT, etc.) and a sequence model (RNN, LSTM, etc.) at hand. We ask you to tweak the model for video classification. The simplest approach would be to apply the image model to individual frames, use the sequence model to learn sequences of image features, then apply a classification head on the learned sequence representation. The Keras example [Video Classification with a CNN-RNN Architecture]({{< relref "/docs/examples/vision/video_classification" >}}) explains this approach in detail. Alernatively, you can also build a hybrid Transformer-based model for video classification as shown in the Keras example [Video Classification with Transformers]({{< relref "/docs/examples/vision/video_transformers" >}}).
 
@@ -31,7 +32,7 @@ This example requires `medmnist` package, which can be installed by running the 
 !pip install -qq medmnist
 ```
 
-## Imports
+## Imports {#imports}
 
 ```python
 import os
@@ -50,7 +51,7 @@ os.environ["TF_CUDNN_DETERMINISTIC"] = "1"
 keras.utils.set_random_seed(SEED)
 ```
 
-## Hyperparameters
+## Hyperparameters {#hyperparameters}
 
 The hyperparameters are chosen via hyperparameter search. You can learn more about the process in the "conclusion" section.
 
@@ -80,7 +81,7 @@ NUM_HEADS = 8
 NUM_LAYERS = 8
 ```
 
-## Dataset
+## Dataset {#dataset}
 
 For our example we use the [MedMNIST v2: A Large-Scale Lightweight Benchmark for 2D and 3D Biomedical Image Classification](https://medmnist.com/) dataset. The videos are lightweight and easy to train on.
 
@@ -121,7 +122,7 @@ prepared_dataset = download_and_prepare_dataset(info)
 (test_videos, test_labels) = prepared_dataset[2]
 ```
 
-### [`tf.data`](https://www.tensorflow.org/api_docs/python/tf/data) pipeline
+### [`tf.data`](https://www.tensorflow.org/api_docs/python/tf/data) pipeline {#tfdatahttpswwwtensorfloworgapi_docspythontfdata-pipeline}
 
 ```python
 def preprocess(frames: tf.Tensor, label: tf.Tensor):
@@ -163,7 +164,7 @@ validloader = prepare_dataloader(valid_videos, valid_labels, "valid")
 testloader = prepare_dataloader(test_videos, test_labels, "test")
 ```
 
-## Tubelet Embedding
+## Tubelet Embedding {#tubelet-embedding}
 
 In ViTs, an image is divided into patches, which are then spatially flattened, a process known as tokenization. For a video, one can repeat this process for individual frames. **Uniform frame sampling** as suggested by the authors is a tokenization scheme in which we sample frames from the video clip and perform simple ViT tokenization.
 
@@ -191,7 +192,7 @@ class TubeletEmbedding(layers.Layer):
         return flattened_patches
 ```
 
-## Positional Embedding
+## Positional Embedding {#positional-embedding}
 
 This layer adds positional information to the encoded video tokens.
 
@@ -215,7 +216,7 @@ class PositionalEncoder(layers.Layer):
         return encoded_tokens
 ```
 
-## Video Vision Transformer
+## Video Vision Transformer {#video-vision-transformer}
 
 The authors suggest 4 variants of Vision Transformer:
 
@@ -279,7 +280,7 @@ def create_vivit_classifier(
     return model
 ```
 
-## Train
+## Train {#train}
 
 ```python
 def run_experiment():
@@ -325,7 +326,7 @@ Test top 5 accuracy: 97.54%
 
 {{% /details %}}
 
-## Inference
+## Inference {#inference}
 
 ```python
 NUM_SAMPLES_VIZ = 25
@@ -389,7 +390,7 @@ ipywidgets.widgets.GridBox(
 )
 ```
 
-## Final thoughts
+## Final thoughts {#final-thoughts}
 
 With a vanilla implementation, we achieve ~79-80% Top-1 accuracy on the
 test dataset.

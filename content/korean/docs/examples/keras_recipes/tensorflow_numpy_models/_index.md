@@ -1,5 +1,6 @@
 ---
-title: Writing Keras Models With TensorFlow NumPy
+title: TensorFlow NumPy로 Keras 모델 작성하기
+linkTitle: TensorFlow NumPy Keras 모델 작성
 toc: true
 weight: 9
 type: docs
@@ -19,7 +20,7 @@ type: docs
 {{< card link="https://github.com/keras-team/keras-io/blob/master/examples/keras_recipes/tensorflow_numpy_models.py" title="GitHub" tag="GitHub">}}
 {{< /cards >}}
 
-## Introduction
+## Introduction {#introduction}
 
 [NumPy](https://numpy.org/) is a hugely successful Python linear algebra library.
 
@@ -29,7 +30,7 @@ The TensorFlow NumPy API has full integration with the TensorFlow ecosystem. Fea
 
 Let's run through a few examples.
 
-## Setup
+## Setup {#setup}
 
 ```python
 import os
@@ -68,7 +69,7 @@ Downloading data from https://storage.googleapis.com/tensorflow/tf-keras-dataset
 
 {{% /details %}}
 
-## Subclassing keras.Model with TNP
+## Subclassing keras.Model with TNP {#subclassing-kerasmodel-with-tnp}
 
 The most flexible way to make use of the Keras API is to subclass the [`keras.Model`]({{< relref "/docs/api/models/model" >}}) class. Subclassing the Model class gives you the ability to fully customize what occurs in the training loop. This makes subclassing Model a popular option for researchers.
 
@@ -180,7 +181,7 @@ Mean absolute percent error after training: 52.533199310302734
 
 {{% /details %}}
 
-## Implementing a Keras Layer Based Model with TNP
+## Implementing a Keras Layer Based Model with TNP {#implementing-a-keras-layer-based-model-with-tnp}
 
 If desired, TNP can also be used in layer oriented Keras code structure. Let's implement the same model, but using a layered approach!
 
@@ -317,7 +318,7 @@ Mean absolute percent error after training: 55.646610260009766
 
 The Keras API offers a wide variety of layers. The ability to use them alongside NumPy code can be a huge time saver in projects.
 
-## Distribution Strategy
+## Distribution Strategy {#distribution-strategy}
 
 TensorFlow NumPy and Keras integrate with [TensorFlow Distribution Strategies](https://www.tensorflow.org/guide/distributed_training). This makes it simple to perform distributed training across multiple GPUs, or even an entire TPU Pod.
 

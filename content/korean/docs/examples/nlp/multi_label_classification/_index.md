@@ -1,5 +1,6 @@
 ---
-title: Large-scale multi-label text classification
+title: 대규모 다중 레이블 텍스트 분류
+linkTitle: 대규모 다중 레이블 텍스트 분류
 toc: true
 weight: 4
 type: docs
@@ -19,13 +20,13 @@ type: docs
 {{< card link="https://github.com/keras-team\keras-io\blob\master\examples\nlp/multi_label_classification.py" title="GitHub" tag="GitHub">}}
 {{< /cards >}}
 
-## Introduction
+## Introduction {#introduction}
 
 In this example, we will build a multi-label text classifier to predict the subject areas of arXiv papers from their abstract bodies. This type of classifier can be useful for conference submission portals like [OpenReview](https://openreview.net/). Given a paper abstract, the portal could provide suggestions for which areas the paper would best belong to.
 
 The dataset was collected using the [`arXiv` Python library](https://github.com/lukasschwab/arxiv.py) that provides a wrapper around the [original arXiv API](http://arxiv.org/help/api/index). To learn more about the data collection process, please refer to [this notebook](https://github.com/soumik12345/multi-label-text-classification/blob/master/arxiv_scrape.ipynb). Additionally, you can also find the dataset on [Kaggle](https://www.kaggle.com/spsayakpaul/arxiv-paper-abstracts).
 
-## Imports
+## Imports {#imports}
 
 ```python
 from tensorflow.keras import layers
@@ -40,7 +41,7 @@ import pandas as pd
 import numpy as np
 ```
 
-## Perform exploratory data analysis
+## Perform exploratory data analysis {#perform-exploratory-data-analysis}
 
 In this section, we first load the dataset into a `pandas` dataframe and then perform some basic exploratory data analysis (EDA).
 
@@ -127,7 +128,7 @@ arxiv_data_filtered.shape
 
 {{% /details %}}
 
-## Convert the string labels to lists of strings
+## Convert the string labels to lists of strings {#convert-the-string-labels-to-lists-of-strings}
 
 The initial labels are represented as raw strings. Here we make them `List[str]` for a more compact representation.
 
@@ -148,7 +149,7 @@ array([list(['cs.CV', 'cs.LG']), list(['cs.CV', 'cs.AI', 'cs.LG']),
 
 {{% /details %}}
 
-## Use stratified splits because of class imbalance
+## Use stratified splits because of class imbalance {#use-stratified-splits-because-of-class-imbalance}
 
 The dataset has a [class imbalance problem](https://developers.google.com/machine-learning/glossary/#class-imbalanced-dataset). So, to have a fair evaluation result, we need to ensure the datasets are sampled with stratification. To know more about different strategies to deal with the class imbalance problem, you can follow [this tutorial](https://www.tensorflow.org/tutorials/structured_data/imbalanced_data). For an end-to-end demonstration of classification with imbablanced data, refer to [Imbalanced classification: credit card fraud detection]({{< relref "/docs/examples/structured_data/imbalanced_classification" >}}).
 
@@ -182,7 +183,7 @@ Number of rows in test set: 1833
 
 {{% /details %}}
 
-## Multi-label binarization
+## Multi-label binarization {#multi-label-binarization}
 
 Now we preprocess our labels using the [`StringLookup`]({{< relref "/docs/api/layers/preprocessing_layers/categorical/string_lookup" >}}) layer.
 
@@ -237,7 +238,7 @@ Label-binarized representation: [[0. 1. 1. 0. 0. 1. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0
 
 {{% /details %}}
 
-## Data preprocessing and [`tf.data.Dataset`](https://www.tensorflow.org/api_docs/python/tf/data/Dataset) objects
+## Data preprocessing and [`tf.data.Dataset`](https://www.tensorflow.org/api_docs/python/tf/data/Dataset) objects {#data-preprocessing-and-tfdatadatasethttpswwwtensorfloworgapi_docspythontfdatadataset-objects}
 
 We first get percentile estimates of the sequence lengths. The purpose will be clear in a moment.
 
@@ -290,7 +291,7 @@ validation_dataset = make_dataset(val_df, is_train=False)
 test_dataset = make_dataset(test_df, is_train=False)
 ```
 
-## Dataset preview
+## Dataset preview {#dataset-preview}
 
 ```python
 text_batch, label_batch = next(iter(train_dataset))
@@ -323,7 +324,7 @@ Label(s): ['cs.CV' 'cs.RO']
 
 {{% /details %}}
 
-## Vectorization
+## Vectorization {#vectorization}
 
 Before we feed the data to our model, we need to vectorize it (represent it in a numerical form). For that purpose, we will use the [`TextVectorization` layer]({{< relref "/docs/api/layers/preprocessing_layers/text/text_vectorization" >}}). It can operate as a part of your main model so that the model is excluded from the core preprocessing logic. This greatly reduces the chances of training / serving skew during inference.
 
@@ -374,7 +375,7 @@ To learn more about other possible configurations with `TextVectorizer`, please 
 
 **Note**: Setting the `max_tokens` argument to a pre-calculated vocabulary size is not a requirement.
 
-## Create a text classification model
+## Create a text classification model {#create-a-text-classification-model}
 
 We will keep our model simple – it will be a small stack of fully-connected layers with ReLU as the non-linearity.
 
@@ -390,7 +391,7 @@ def make_model():
     return shallow_mlp_model
 ```
 
-## Train the model
+## Train the model {#train-the-model}
 
 We will train our model using the binary crossentropy loss. This is because the labels are not disjoint. For a given abstract, we may have multiple categories. So, we will divide the prediction task into a series of multiple binary classification problems. This is also why we kept the activation function of the classification layer in our model to sigmoid. Researchers have used other combinations of loss function and activation function as well. For example, in [Exploring the Limits of Weakly Supervised Pretraining](https://arxiv.org/abs/1805.00932), Mahajan et al. used the softmax activation function and cross-entropy loss to train their models.
 
@@ -477,7 +478,7 @@ Epoch 20/20
 
 While training, we notice an initial sharp fall in the loss followed by a gradual decay.
 
-### Evaluate the model
+### Evaluate the model {#evaluate-the-model}
 
 ```python
 _, binary_acc = shallow_mlp_model.evaluate(test_dataset)
@@ -495,7 +496,7 @@ Categorical accuracy on the test set: 99.33%.
 
 The trained model gives us an evaluation accuracy of ~99%.
 
-## Inference
+## Inference {#inference}
 
 An important feature of the [preprocessing layers provided by Keras]({{< relref "/docs/api/layers/preprocessing_layers" >}}) is that they can be included inside a [`tf.keras.Model`]({{< relref "/docs/api/models/model#model-class" >}}). We will export an inference model by including the `text_vectorization` layer on top of `shallow_mlp_model`. This will allow our inference model to directly operate on raw strings.
 
@@ -557,7 +558,7 @@ Predicted Label(s): (stat.ML, cs.LG, cs.AI)
 
 The prediction results are not that great but not below the par for a simple model like ours. We can improve this performance with models that consider word order like LSTM or even those that use Transformers ([Vaswani et al.](https://arxiv.org/abs/1706.03762)).
 
-## Acknowledgements
+## Acknowledgements {#acknowledgements}
 
 We would like to thank [Matt Watson](https://github.com/mattdangerw) for helping us tackle the multi-label binarization part and inverse-transforming the processed labels to the original form.
 

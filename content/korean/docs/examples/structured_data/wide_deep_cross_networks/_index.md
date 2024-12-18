@@ -1,5 +1,6 @@
 ---
-title: Structured data learning with Wide, Deep, and Cross networks
+title: 와이드, 딥, 크로스 네트워크를 통한 구조화된 데이터 학습
+linkTitle: 와이드, 딥, 크로스 네트워크 구조화된 데이터 학습
 toc: true
 weight: 5
 type: docs
@@ -19,7 +20,7 @@ type: docs
 {{< card link="https://github.com/keras-team/keras-io/blob/master/examples/structured_data/wide_deep_cross_networks.py" title="GitHub" tag="GitHub">}}
 {{< /cards >}}
 
-## Introduction
+## Introduction {#introduction}
 
 This example demonstrates how to do structured data classification using the two modeling techniques:
 
@@ -28,11 +29,11 @@ This example demonstrates how to do structured data classification using the two
 
 Note that this example should be run with TensorFlow 2.5 or higher.
 
-## The dataset
+## The dataset {#the-dataset}
 
 This example uses the [Covertype](https://archive.ics.uci.edu/ml/datasets/covertype) dataset from the UCI Machine Learning Repository. The task is to predict forest cover type from cartographic variables. The dataset includes 506,011 instances with 12 input features: 10 numerical features and 2 categorical features. Each instance is categorized into 1 of 7 classes.
 
-## Setup
+## Setup {#setup}
 
 ```python
 import os
@@ -48,7 +49,7 @@ import keras
 from keras import layers
 ```
 
-## Prepare the data
+## Prepare the data {#prepare-the-data}
 
 First, let's load the dataset from the UCI Machine Learning Repository into a Pandas DataFrame:
 
@@ -185,7 +186,7 @@ train_data.to_csv(train_data_file, index=False)
 test_data.to_csv(test_data_file, index=False)
 ```
 
-## Define dataset metadata
+## Define dataset metadata {#define-dataset-metadata}
 
 Here, we define the metadata of the dataset that will be useful for reading and parsing the data into input features, and encoding the input features with respect to their types.
 
@@ -224,7 +225,7 @@ COLUMN_DEFAULTS = [
 NUM_CLASSES = len(TARGET_FEATURE_LABELS)
 ```
 
-## Experiment setup
+## Experiment setup {#experiment-setup}
 
 Next, let's define an input function that reads and parses the file, then converts features and labels into a[`tf.data.Dataset`](https://www.tensorflow.org/guide/datasets) for training or evaluation.
 
@@ -274,7 +275,7 @@ def run_experiment(model):
     print(f"Test accuracy: {round(accuracy * 100, 2)}%")
 ```
 
-## Create model inputs
+## Create model inputs {#create-model-inputs}
 
 Now, define the inputs for the models as a dictionary, where the key is the feature name, and the value is a `keras.layers.Input` tensor with the corresponding feature shape and data type.
 
@@ -293,7 +294,7 @@ def create_model_inputs():
     return inputs
 ```
 
-## Encode features
+## Encode features {#encode-features}
 
 We create two representations of our input features: sparse and dense: 1. In the **sparse** representation, the categorical features are encoded with one-hot encoding using the `CategoryEncoding` layer. This representation can be useful for the model to _memorize_ particular feature values to make certain predictions. 2. In the **dense** representation, the categorical features are encoded with low-dimensional embeddings using the `Embedding` layer. This representation helps the model to _generalize_ well to unseen feature combinations.
 
@@ -337,7 +338,7 @@ def encode_inputs(inputs, use_embedding=False):
     return all_features
 ```
 
-## Experiment 1: a baseline model
+## Experiment 1: a baseline model {#experiment-1-a-baseline-model}
 
 In the first experiment, let's create a multi-layer feed-forward network, where the categorical features are one-hot encoded.
 
@@ -495,7 +496,7 @@ Test accuracy: 69.5%
 
 The baseline linear model achieves ~76% test accuracy.
 
-## Experiment 2: Wide & Deep model
+## Experiment 2: Wide & Deep model {#experiment-2-wide-deep-model}
 
 In the second experiment, we create a Wide & Deep model. The wide part of the model a linear model, while the deep part of the model is a multi-layer feed-forward network.
 
@@ -660,7 +661,7 @@ Test accuracy: 79.04%
 
 The wide and deep model achieves ~79% test accuracy.
 
-## Experiment 3: Deep & Cross model
+## Experiment 3: Deep & Cross model {#experiment-3-deep-cross-model}
 
 In the third experiment, we create a Deep & Cross model. The deep part of this model is the same as the deep part created in the previous experiment. The key idea of the cross part is to apply explicit feature crossing in an efficient way, where the degree of cross features grows with layer depth.
 
@@ -827,6 +828,6 @@ Test accuracy: 77.98%
 
 The deep and cross model achieves ~81% test accuracy.
 
-## Conclusion
+## Conclusion {#conclusion}
 
 You can use Keras Preprocessing Layers to easily handle categorical features with different encoding mechanisms, including one-hot encoding and feature embedding. In addition, different model architectures — like wide, deep, and cross networks — have different advantages, with respect to different dataset properties. You can explore using them independently or combining them to achieve the best result for your dataset.

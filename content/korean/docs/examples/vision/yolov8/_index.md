@@ -1,5 +1,6 @@
 ---
-title: Efficient Object Detection with YOLOV8 and KerasCV
+title: YOLOV8 및 KerasCV를 통한 효율적인 객체 감지
+linkTitle: YOLOV8 객체 감지
 toc: true
 weight: 79
 type: docs
@@ -19,7 +20,7 @@ type: docs
 {{< card link="https://github.com/keras-team/keras-io/blob/master/examples/vision/yolov8.py" title="GitHub" tag="GitHub">}}
 {{< /cards >}}
 
-## Introduction
+## Introduction {#introduction}
 
 KerasCV is an extension of Keras for computer vision tasks. In this example, we'll see how to train a YOLOV8 object detection model using KerasCV.
 
@@ -40,7 +41,7 @@ If you're interested in learning about object detection using KerasCV, I highly 
 
 {{% /details %}}
 
-## Setup
+## Setup {#setup}
 
 ```python
 import os
@@ -68,7 +69,7 @@ caused by: ['/opt/conda/lib/python3.10/site-packages/tensorflow_io/python/ops/li
 
 {{% /details %}}
 
-## Load Data
+## Load Data {#load-data}
 
 For this guide, we will be utilizing the Self-Driving Car Dataset obtained from [roboflow](https://public.roboflow.com/object-detection/self-driving-car). In order to make the dataset more manageable, I have extracted a subset of the larger dataset, which originally consisted of 15,000 data samples. From this subset, I have chosen 7,316 samples for model training.
 
@@ -84,7 +85,7 @@ However, in this code example, we will demonstrate how to load the dataset from 
 
 Loading custom datasets that are not available in the TensorFlow Datasets library is one of the main advantages of using the [`tf.data`](https://www.tensorflow.org/api_docs/python/tf/data) pipeline. This approach allows you to create a custom data preprocessing pipeline tailored to the specific needs and requirements of your dataset.
 
-## Hyperparameters
+## Hyperparameters {#hyperparameters}
 
 ```python
 SPLIT_RATIO = 0.2
@@ -280,7 +281,7 @@ boxes = keras_cv.bounding_box.convert_format(
     )
 ```
 
-## Data Augmentation
+## Data Augmentation {#data-augmentation}
 
 One of the most challenging tasks when constructing object detection pipelines is data augmentation. It involves applying various transformations to the input images to increase the diversity of the training data and improve the model's ability to generalize. However, when working with object detection tasks, it becomes even more complex as these transformations need to be aware of the underlying bounding boxes and update them accordingly.
 
@@ -302,7 +303,7 @@ augmenter = keras.Sequential(
 )
 ```
 
-## Creating Training Dataset
+## Creating Training Dataset {#creating-training-dataset}
 
 ```python
 train_ds = train_data.map(load_dataset, num_parallel_calls=tf.data.AUTOTUNE)
@@ -311,7 +312,7 @@ train_ds = train_ds.ragged_batch(BATCH_SIZE, drop_remainder=True)
 train_ds = train_ds.map(augmenter, num_parallel_calls=tf.data.AUTOTUNE)
 ```
 
-## Creating Validation Dataset
+## Creating Validation Dataset {#creating-validation-dataset}
 
 ```python
 resizing = keras_cv.layers.JitteredResize(
@@ -326,7 +327,7 @@ val_ds = val_ds.ragged_batch(BATCH_SIZE, drop_remainder=True)
 val_ds = val_ds.map(resizing, num_parallel_calls=tf.data.AUTOTUNE)
 ```
 
-## Visualization
+## Visualization {#visualization}
 
 ```python
 def visualize_dataset(inputs, value_range, rows, cols, bounding_box_format):
@@ -372,7 +373,7 @@ val_ds = val_ds.map(dict_to_tuple, num_parallel_calls=tf.data.AUTOTUNE)
 val_ds = val_ds.prefetch(tf.data.AUTOTUNE)
 ```
 
-## Creating Model
+## Creating Model {#creating-model}
 
 YOLOv8 is a cutting-edge YOLO model that is used for a variety of computer vision tasks, such as object detection, image classification, and instance segmentation. Ultralytics, the creators of YOLOv5, also developed YOLOv8, which incorporates many improvements and changes in architecture and developer experience compared to its predecessor. YOLOv8 is the latest state-of-the-art model that is highly regarded in the industry.
 
@@ -434,7 +435,7 @@ yolo = keras_cv.models.YOLOV8Detector(
 )
 ```
 
-## Compile the Model
+## Compile the Model {#compile-the-model}
 
 Loss used for YOLOV8
 
@@ -452,7 +453,7 @@ yolo.compile(
 )
 ```
 
-## COCO Metric Callback
+## COCO Metric Callback {#coco-metric-callback}
 
 We will be using `BoxCOCOMetrics` from KerasCV to evaluate the model and calculate the Map(Mean Average Precision) score, Recall and Precision. We also save our model when the mAP score improves.
 
@@ -487,7 +488,7 @@ class EvaluateCOCOMetricsCallback(keras.callbacks.Callback):
         return logs
 ```
 
-## Train the Model
+## Train the Model {#train-the-model}
 
 ```python
 yolo.fit(
@@ -513,7 +514,7 @@ Epoch 3/3
 
 {{% /details %}}
 
-## Visualize Predictions
+## Visualize Predictions {#visualize-predictions}
 
 ```python
 def visualize_detections(model, dataset, bounding_box_format):

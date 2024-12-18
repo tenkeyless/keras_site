@@ -1,5 +1,5 @@
 ---
-title: Pneumonia Classification on TPU
+title: TPU에서 폐렴 분류
 toc: true
 weight: 8
 type: docs
@@ -10,7 +10,7 @@ type: docs
 **{{< t f_author >}}** Amy MiHyun Jang  
 **{{< t f_date_created >}}** 2020/07/28  
 **{{< t f_last_modified >}}** 2024/02/12  
-**{{< t f_description >}}** Medical image classification on TPU.
+**{{< t f_description >}}** TPU에서 의료 이미지 분류.
 
 {{< keras/version v=3 >}}
 
@@ -19,9 +19,10 @@ type: docs
 {{< card link="https://github.com/keras-team/keras-io/blob/master/examples/vision/xray_classification_with_tpus.py" title="GitHub" tag="GitHub">}}
 {{< /cards >}}
 
-## Introduction + Set-up
+## 소개 + 셋업 {#introduction-set-up}
 
-This tutorial will explain how to build an X-ray image classification model to predict whether an X-ray scan shows presence of pneumonia.
+이 튜토리얼에서는 엑스레이 스캔에서 폐렴(pneumonia)이 있는지 여부를 예측하기 위해,
+엑스레이 이미지 분류 모델을 빌드하는 방법을 설명합니다.
 
 ```python
 import re
@@ -131,7 +132,9 @@ Number of replicas: 8
 
 {{% /details %}}
 
-We need a Google Cloud link to our data to load the data using a TPU. Below, we define key configuration parameters we'll use in this example. To run on TPU, this example must be on Colab with the TPU runtime selected.
+TPU를 사용하여 데이터를 로드하려면 데이터에 대한 Google Cloud 링크가 필요합니다.
+아래에서는, 이 예제에서 사용할 주요 구성 매개변수를 정의합니다.
+TPU에서 실행하려면, 이 예제는 TPU 런타임이 선택된 Colab에 있어야 합니다.
 
 ```python
 AUTOTUNE = tf.data.AUTOTUNE
@@ -140,9 +143,10 @@ IMAGE_SIZE = [180, 180]
 CLASS_NAMES = ["NORMAL", "PNEUMONIA"]
 ```
 
-## Load the data
+## 데이터 로드 {#load-the-data}
 
-The Chest X-ray data we are using from [_Cell_](<https://www.cell.com/cell/fulltext/S0092-8674(18)30154-5>) divides the data into training and test files. Let's first load in the training TFRecords.
+[_Cell_](<https://www.cell.com/cell/fulltext/S0092-8674(18)30154-5>)에서 사용하는 흉부 엑스레이 데이터는
+트레이닝 파일과 테스트 파일로 나뉩니다. 먼저 트레이닝용 TFRecords를 로드해 보겠습니다.
 
 ```python
 train_images = tf.data.TFRecordDataset(
@@ -155,7 +159,7 @@ train_paths = tf.data.TFRecordDataset(
 ds = tf.data.Dataset.zip((train_images, train_paths))
 ```
 
-Let's count how many healthy/normal chest X-rays we have and how many pneumonia chest X-rays we have:
+건강한/정상 흉부 엑스레이와 폐렴 흉부 엑스레이의 수를 세어 보겠습니다:
 
 ```python
 COUNT_NORMAL = len(
@@ -186,17 +190,18 @@ Pneumonia images count in training set: 3883
 
 {{% /details %}}
 
-Notice that there are way more images that are classified as pneumonia than normal. This shows that we have an imbalance in our data. We will correct for this imbalance later on in our notebook.
+폐렴으로 분류된 이미지가 정상보다 훨씬 더 많은 것을 알 수 있습니다.
+이는 데이터에 불균형이 있음을 보여줍니다. 이 불균형은 나중에 노트북에서 수정하겠습니다.
 
-We want to map each filename to the corresponding (image, label) pair. The following methods will help us do that.
+각 파일 이름을 해당 (이미지, 레이블) 쌍에 매핑하고 싶습니다. 다음 방법이 도움이 될 것입니다.
 
-As we only have two labels, we will encode the label so that `1` or `True` indicates pneumonia and `0` or `False` indicates normal.
+레이블이 두 개뿐이므로, `1` 또는 `True`가 폐렴을 나타내고, `0` 또는 `False`가 정상을 나타내도록 레이블을 인코딩합니다.
 
 ```python
 def get_label(file_path):
-    # convert the path to a list of path components
+    # 경로를 경로 구성 요소 리스트로 변환
     parts = tf.strings.split(file_path, "/")
-    # The second to last is the class-directory
+    # 맨 마지막에서 두 번째는 클래스 디렉터리.
     if parts[-2] == "PNEUMONIA":
         return 1
     else:
@@ -204,15 +209,15 @@ def get_label(file_path):
 
 
 def decode_img(img):
-    # convert the compressed string to a 3D uint8 tensor
+    # 압축된 문자열을 3D uint8 텐서로 변환.
     img = tf.image.decode_jpeg(img, channels=3)
-    # resize the image to the desired size.
+    # 원하는 크기로 이미지 크기를 조정.
     return tf.image.resize(img, IMAGE_SIZE)
 
 
 def process_path(image, path):
     label = get_label(path)
-    # load the raw data from the file as a string
+    # 파일에서 원시 데이터를 문자열로 로드.
     img = decode_img(image)
     return img, label
 
@@ -220,7 +225,7 @@ def process_path(image, path):
 ds = ds.map(process_path, num_parallel_calls=AUTOTUNE)
 ```
 
-Let's split the data into a training and validation datasets.
+데이터를 트레이닝 데이터 세트와 검증 데이터 세트로 나눠 보겠습니다.
 
 ```python
 ds = ds.shuffle(10000)
@@ -228,7 +233,7 @@ train_ds = ds.take(4200)
 val_ds = ds.skip(4200)
 ```
 
-Let's visualize the shape of an (image, label) pair.
+(이미지, 레이블) 쌍의 모양을 시각화해 보겠습니다.
 
 ```python
 for image, label in train_ds.take(1):
@@ -245,7 +250,7 @@ Label:  False
 
 {{% /details %}}
 
-Load and format the test data as well.
+테스트 데이터도 로드하고 서식을 지정합니다.
 
 ```python
 test_images = tf.data.TFRecordDataset(
@@ -260,17 +265,17 @@ test_ds = test_ds.map(process_path, num_parallel_calls=AUTOTUNE)
 test_ds = test_ds.batch(BATCH_SIZE)
 ```
 
-## Visualize the dataset
+## 데이터세트 시각화 {#visualize-the-dataset}
 
-First, let's use buffered prefetching so we can yield data from disk without having I/O become blocking.
+먼저, 버퍼링된 프리페칭을 사용하여 I/O가 차단되지 않고 디스크에서 데이터를 가져올 수 있도록 하겠습니다.
 
-Please note that large image datasets should not be cached in memory. We do it here because the dataset is not very large and we want to train on TPU.
+대용량 이미지 데이터세트는 메모리에 캐시해서는 안 된다는 점에 유의하세요.
+여기서는 데이터 세트가 그다지 크지 않고, TPU에서 트레이닝을 하고자 하기 때문에 이렇게 합니다.
 
 ```python
 def prepare_for_training(ds, cache=True):
-    # This is a small dataset, only load it once, and keep it in memory.
-    # use `.cache(filename)` to cache preprocessing work for datasets that don't
-    # fit in memory.
+    # 작은 데이터 집합이므로, 한 번만 로드하고, 메모리에 보관합니다.
+    # 메모리에 맞지 않는 데이터 집합의 전처리 작업을 캐시하려면 `.cache(filename)`를 사용합니다.
     if cache:
         if isinstance(cache, str):
             ds = ds.cache(cache)
@@ -279,14 +284,13 @@ def prepare_for_training(ds, cache=True):
 
     ds = ds.batch(BATCH_SIZE)
 
-    # `prefetch` lets the dataset fetch batches in the background while the model
-    # is training.
+    # `prefetch`는 모델이 트레이닝하는 동안 데이터세트가 백그라운드에서 배치를 가져올 수 있도록 합니다.
     ds = ds.prefetch(buffer_size=AUTOTUNE)
 
     return ds
 ```
 
-Call the next batch iteration of the training data.
+트레이닝 데이터의 다음 배치 반복을 호출합니다.
 
 ```python
 train_ds = prepare_for_training(train_ds)
@@ -295,7 +299,7 @@ val_ds = prepare_for_training(val_ds)
 image_batch, label_batch = next(iter(train_ds))
 ```
 
-Define the method to show the images in the batch.
+배치에 이미지를 표시하는 방법을 정의합니다.
 
 ```python
 def show_batch(image_batch, label_batch):
@@ -310,7 +314,8 @@ def show_batch(image_batch, label_batch):
         plt.axis("off")
 ```
 
-As the method takes in NumPy arrays as its parameters, call the numpy function on the batches to return the tensor in NumPy array form.
+이 메서드는 매개변수로 NumPy 배열을 받으므로,
+배치에서 numpy 함수를 호출하여 텐서를 NumPy 배열 형식으로 반환합니다.
 
 ```python
 show_batch(image_batch.numpy(), label_batch.numpy())
@@ -318,11 +323,12 @@ show_batch(image_batch.numpy(), label_batch.numpy())
 
 ![png](/images/examples/vision/xray_classification_with_tpus/xray_classification_with_tpus_25_0.png)
 
-## Build the CNN
+## CNN 빌드 {#build-the-cnn}
 
-To make our model more modular and easier to understand, let's define some blocks. As we're building a convolution neural network, we'll create a convolution block and a dense layer block.
+모델을 보다 모듈화하고 이해하기 쉽게 만들기 위해, 몇 가지 블록을 정의해 보겠습니다.
+컨볼루션 신경망을 빌드할 때, 컨볼루션 블록과 Dense 레이어 블록을 만들겠습니다.
 
-The architecture for this CNN has been inspired by this [article](https://towardsdatascience.com/deep-learning-for-detecting-pneumonia-from-x-ray-images-fc9a3d9fdba8).
+이 CNN의 아키텍처는 이 [글](https://towardsdatascience.com/deep-learning-for-detecting-pneumonia-from-x-ray-images-fc9a3d9fdba8)에서 영감을 얻었습니다.
 
 ```python
 import os
@@ -348,11 +354,14 @@ def dense_block(units, dropout_rate, inputs):
     return outputs
 ```
 
-The following method will define the function to build our model for us.
+다음 메서드는 모델을 빌드하는 함수를 정의합니다.
 
-The images originally have values that range from \[0, 255\]. CNNs work better with smaller numbers so we will scale this down for our input.
+이미지의 원래 값은 \[0, 255\] 범위입니다.
+CNN은 숫자가 작을수록 더 잘 작동하므로, 입력에 맞게 이 값을 축소하겠습니다.
 
-The Dropout layers are important, as they reduce the likelikhood of the model overfitting. We want to end the model with a `Dense` layer with one node, as this will be the binary output that determines if an X-ray shows presence of pneumonia.
+드롭아웃 레이어는 모델이 과적합할 가능성을 줄여주기 때문에 중요합니다.
+노드가 하나 있는 `Dense` 레이어로 모델을 끝내고자 하는데,
+이는 엑스레이에서 폐렴의 존재 여부를 판단하는 이진 출력이 될 것이기 때문입니다.
 
 ```python
 def build_model():
@@ -382,9 +391,10 @@ def build_model():
     return model
 ```
 
-## Correct for data imbalance
+## 데이터 불균형 수정 {#correct-for-data-imbalance}
 
-We saw earlier in this example that the data was imbalanced, with more images classified as pneumonia than normal. We will correct for that by using class weighting:
+이 예제 앞부분에서, 폐렴으로 분류된 이미지가 정상보다 많아 데이터의 불균형을 확인했습니다.
+클래스 가중치를 사용하여 이를 보정하겠습니다:
 
 ```python
 initial_bias = np.log([COUNT_PNEUMONIA / COUNT_NORMAL])
@@ -410,13 +420,17 @@ Weight for class 1: 0.67
 
 {{% /details %}}
 
-The weight for class `0` (Normal) is a lot higher than the weight for class `1` (Pneumonia). Because there are less normal images, each normal image will be weighted more to balance the data as the CNN works best when the training data is balanced.
+클래스 `0`(정상)의 가중치가 클래스 `1`(폐렴)의 가중치보다 훨씬 높습니다.
+트레이닝 데이터가 균형을 이룰 때 CNN이 가장 잘 작동하므로,
+정상 이미지가 적기 때문에 각 정상 이미지에 더 많은 가중치를 부여하여 데이터의 균형을 맞춥니다.
 
-## Train the model
+## 모델 트레이닝 {#train-the-model}
 
-### Defining callbacks
+### 콜백 정의하기 {#defining-callbacks}
 
-The checkpoint callback saves the best weights of the model, so next time we want to use the model, we do not have to spend time training it. The early stopping callback stops the training process when the model starts becoming stagnant, or even worse, when the model starts overfitting.
+체크포인트 콜백은 모델의 가장 좋은 가중치를 저장하므로,
+다음에 모델을 사용하고자 할 때, 트레이닝에 시간을 들일 필요가 없습니다.
+조기 중지 콜백은 모델이 정체되기 시작하거나, 모델이 과적합하기 시작하면 트레이닝 프로세스를 중지합니다.
 
 ```python
 checkpoint_cb = keras.callbacks.ModelCheckpoint("xray_model.keras", save_best_only=True)
@@ -426,7 +440,9 @@ early_stopping_cb = keras.callbacks.EarlyStopping(
 )
 ```
 
-We also want to tune our learning rate. Too high of a learning rate will cause the model to diverge. Too small of a learning rate will cause the model to be too slow. We implement the exponential learning rate scheduling method below.
+학습률도 조정하고 싶습니다.
+학습률이 너무 높으면 모델이 발산(diverge)될 수 있습니다.
+학습률이 너무 작으면, 모델이 너무 느려집니다. 아래에서 지수 학습률 스케줄링 방법을 구현합니다.
 
 ```python
 initial_learning_rate = 0.015
@@ -435,15 +451,22 @@ lr_schedule = keras.optimizers.schedules.ExponentialDecay(
 )
 ```
 
-### Fit the model
+### 모델 Fit {#fit-the-model}
 
-For our metrics, we want to include precision and recall as they will provide use with a more informed picture of how good our model is. Accuracy tells us what fraction of the labels is correct. Since our data is not balanced, accuracy might give a skewed sense of a good model (i.e. a model that always predicts PNEUMONIA will be 74% accurate but is not a good model).
+메트릭에는, 정확도(precision)와 재응답률(recall)이 포함되어야 모델이 얼마나 좋은지 더 많은 정보를 얻을 수 있습니다.
+정확도는 레이블 중 몇 퍼센트의 레이블이 정확한지를 알려줍니다.
+데이터의 균형이 맞지 않기 때문에, 정확도는 좋은 모델에 대한 왜곡된 느낌을 줄 수 있습니다.
+(즉, PNEUMONIA를 항상 74% 정확도로 예측하는 모델은 좋은 모델이 아닙니다)
 
-Precision is the number of true positives (TP) over the sum of TP and false positives (FP). It shows what fraction of labeled positives are actually correct.
+정확도(Precision)는 TP(true positives)와 FP(false negatves)의 합에 대한 TP의 수입니다.
+이는 라벨이 지정된 양성 중 실제로 정확한 비율을 보여줍니다.
 
-Recall is the number of TP over the sum of TP and false negatves (FN). It shows what fraction of actual positives are correct.
+리콜(Recall)은 TP와 FN의 합에 대한 TP의 수입니다.
+실제 양성 중 몇 퍼센트가 정확한지를 보여줍니다.
 
-Since there are only two possible labels for the image, we will be using the binary crossentropy loss. When we fit the model, remember to specify the class weights, which we defined earlier. Because we are using a TPU, training will be quick - less than 2 minutes.
+이미지에 가능한 레이블이 두 개뿐이므로, 이진 교차 엔트로피 손실을 사용하겠습니다.
+모델을 fit 할 때, 앞서 정의한 클래스 가중치를 지정하는 것을 잊지 마세요.
+TPU를 사용하기 때문에, 트레이닝은 2분 이내에 빠르게 완료됩니다.
 
 ```python
 with strategy.scope():
@@ -554,9 +577,10 @@ Epoch 35/100
 
 {{% /details %}}
 
-## Visualizing model performance
+## 모델 성능 시각화 {#visualizing-model-performance}
 
-Let's plot the model accuracy and loss for the training and the validating set. Note that no random seed is specified for this notebook. For your notebook, there might be slight variance.
+트레이닝 및 검증 세트에 대한 모델 정확도와 손실을 플로팅해 보겠습니다.
+이 노트북에는 랜덤 시드가 지정되어 있지 않습니다. 노트북의 경우, 약간의 편차가 있을 수 있습니다.
 
 ```python
 fig, ax = plt.subplots(1, 4, figsize=(20, 3))
@@ -573,11 +597,11 @@ for i, met in enumerate(["precision", "recall", "binary_accuracy", "loss"]):
 
 ![png](/images/examples/vision/xray_classification_with_tpus/xray_classification_with_tpus_41_0.png)
 
-We see that the accuracy for our model is around 95%.
+저희 모델의 정확도는 약 95%입니다.
 
-## Predict and evaluate results
+## 결과 예측 및 평가 {#predict-and-evaluate-results}
 
-Let's evaluate the model on our test data!
+테스트 데이터로 모델을 평가해 봅시다!
 
 ```python
 model.evaluate(test_ds, return_dict=True)
@@ -596,9 +620,12 @@ model.evaluate(test_ds, return_dict=True)
 
 {{% /details %}}
 
-We see that our accuracy on our test data is lower than the accuracy for our validating set. This may indicate overfitting.
+테스트 데이터의 정확도가 검증 집합의 정확도보다 낮다는 것을 알 수 있습니다.
+이는 과적합을 나타낼 수 있습니다.
 
-Our recall is greater than our precision, indicating that almost all pneumonia images are correctly identified but some normal images are falsely identified. We should aim to increase our precision.
+정확도(precision)보다 리콜(recall)이 더 높다는 것은,
+거의 모든 폐렴 이미지를 정확하게 식별했지만, 일부 정상 이미지를 잘못 식별했음을 나타냅니다.
+정확도(precision)를 높이는 것을 목표로 해야 합니다.
 
 ```python
 for image, label in test_ds.take(1):

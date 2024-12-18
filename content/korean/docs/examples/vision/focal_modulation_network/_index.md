@@ -1,5 +1,6 @@
 ---
-title: "Focal Modulation: A replacement for Self-Attention"
+title: "초점 변조(Focal Modulation): 셀프 어텐션을 대체"
+linkTitle: "초점 변조: 셀프 어텐션 대체"
 toc: true
 weight: 71
 type: docs
@@ -20,7 +21,7 @@ math: true
 {{< card link="https://github.com/keras-team/keras-io/blob/master/examples/vision/focal_modulation_network.py" title="GitHub" tag="GitHub">}}
 {{< /cards >}}
 
-## Introduction
+## Introduction {#introduction}
 
 This tutorial aims to provide a comprehensive guide to the implementation of Focal Modulation Networks, as presented in [Yang et al.](https://arxiv.org/abs/2203.11926).
 
@@ -61,7 +62,7 @@ In this tutorial, we will delve into the practical application of this layer by 
 
 Note: We try to align our implementation with the [official implementation](https://github.com/microsoft/FocalNet).
 
-## Setup and Imports
+## Setup and Imports {#setup-and-imports}
 
 We use tensorflow version `2.11.0` for this tutorial.
 
@@ -79,7 +80,7 @@ from random import randint
 tf.keras.utils.set_random_seed(42)
 ```
 
-## Global Configuration
+## Global Configuration {#global-configuration}
 
 We do not have any strong rationale behind choosing these hyperparameters. Please feel free to change the configuration and train the model.
 
@@ -101,7 +102,7 @@ WEIGHT_DECAY = 1e-4
 EPOCHS = 25
 ```
 
-## Load and process the CIFAR-10 dataset
+## Load and process the CIFAR-10 dataset {#load-and-process-the-cifar-10-dataset}
 
 ```python
 (x_train, y_train), (x_test, y_test) = keras.datasets.cifar10.load_data()
@@ -120,7 +121,7 @@ Downloading data from https://www.cs.toronto.edu/~kriz/cifar-10-python.tar.gz
 
 {{% /details %}}
 
-### Build the augmentations
+### Build the augmentations {#build-the-augmentations}
 
 We use the [`keras.Sequential`]({{< relref "/docs/api/models/sequential#sequential-class" >}}) API to compose all the individual augmentation steps into one API.
 
@@ -146,7 +147,7 @@ test_aug = keras.Sequential(
 )
 ```
 
-### Build [`tf.data`](https://www.tensorflow.org/api_docs/python/tf/data) pipeline
+### Build [`tf.data`](https://www.tensorflow.org/api_docs/python/tf/data) pipeline {#build-tfdatahttpswwwtensorfloworgapi_docspythontfdata-pipeline}
 
 ```python
 train_ds = tf.data.Dataset.from_tensor_slices((x_train, y_train))
@@ -184,7 +185,7 @@ Lambda fuctions will be no more assumed to be used in the statement where they a
 
 {{% /details %}}
 
-## Architecture
+## Architecture {#architecture}
 
 We pause here to take a quick look at the Architecture of the Focal Modulation Network. **Figure 1** shows how every individual layer is compiled into a single model. This gives us a bird's eye view of the entire architecture.
 
@@ -209,7 +210,7 @@ The blue blocks represent the Focal Modulation block. A stack of these blocks bu
 
 ![The Entire Architecture](/images/examples/vision/focal_modulation_network/PduYD6m.png "Figure 2: The Entire Architecture (Source: Aritra and Ritwik)")
 
-## Patch Embedding Layer
+## Patch Embedding Layer {#patch-embedding-layer}
 
 The patch embedding layer is used to patchify the input images and project them into a latent space. This layer is also used as the down-sampling layer in the architecture.
 
@@ -271,7 +272,7 @@ class PatchEmbed(layers.Layer):
         return x, height, width, channels
 ```
 
-## Focal Modulation block
+## Focal Modulation block {#focal-modulation-block}
 
 A Focal Modulation block can be considered as a single Transformer Block with the Self Attention (SA) module being replaced with Focal Modulation module, as we saw in **Figure 2**.
 
@@ -281,7 +282,7 @@ Let us recall how a focal modulation block is supposed to look like with the aid
 
 The Focal Modulation Block consists of: - Multilayer Perceptron - Focal Modulation layer
 
-### Multilayer Perceptron
+### Multilayer Perceptron {#multilayer-perceptron}
 
 ```python
 def MLP(
@@ -302,7 +303,7 @@ def MLP(
     )
 ```
 
-### Focal Modulation layer
+### Focal Modulation layer {#focal-modulation-layer}
 
 In a typical Transformer architecture, for each visual token (**query**) `x_i in R^C` in an input feature map `X in R^{HxWxC}` a **generic encoding process** produces a feature representation `y_i in R^C`.
 
@@ -358,7 +359,7 @@ While `q()` is pretty straightforward to understand, the context aggregation fun
 
 The context aggregation function `m()` consists of two parts as shown in **Figure 6**: - Hierarchical Contextualization - Gated Aggregation
 
-#### Hierarchical Contextualization
+#### Hierarchical Contextualization {#hierarchical-contextualization}
 
 ![Hierarchical Contextualization](/images/examples/vision/focal_modulation_network/q875c83.png "**Figure 7**: Hierarchical Contextualization (Source: Aritra and Ritwik)")
 
@@ -388,7 +389,7 @@ $$
 
 Equation 7: Average Pooling of the final feature (Source: Aritra and Ritwik)
 
-#### Gated Aggregation
+#### Gated Aggregation {#gated-aggregation}
 
 ![Gated Aggregation](/images/examples/vision/focal_modulation_network/LwrdDKo.png "**Figure 8**: Gated Aggregation (Source: Aritra and Ritwik)")
 
@@ -528,7 +529,7 @@ class FocalModulationLayer(layers.Layer):
         return x_output
 ```
 
-### The Focal Modulation block
+### The Focal Modulation block {#the-focal-modulation-block}
 
 Finally, we have all the components we need to build the Focal Modulation block. Here we take the MLP and Focal Modulation layer together and build the Focal Modulation block.
 
@@ -602,7 +603,7 @@ class FocalModulationBlock(layers.Layer):
         return x
 ```
 
-## The Basic Layer
+## The Basic Layer {#the-basic-layer}
 
 The basic layer consists of a collection of Focal Modulation blocks. This is illustrated in **Figure 9**.
 
@@ -695,7 +696,7 @@ class BasicLayer(layers.Layer):
         return x, height_o, width_o, channels_o
 ```
 
-## The Focal Modulation Network model
+## The Focal Modulation Network model {#the-focal-modulation-network-model}
 
 This is the model that ties everything together. It consists of a collection of Basic Layers with a classification head. For a recap of how this is structured refer to **Figure 1**.
 
@@ -792,13 +793,13 @@ class FocalModulationNetwork(keras.Model):
         return x
 ```
 
-## Train the model
+## Train the model {#train-the-model}
 
 Now with all the components in place and the architecture actually built, we are ready to put it to good use.
 
 In this section, we train our Focal Modulation model on the CIFAR-10 dataset.
 
-### Visualization Callback
+### Visualization Callback {#visualization-callback}
 
 A key feature of the Focal Modulation Network is explicit input-dependency. This means the modulator is calculated by looking at the local features around the target location, so it depends on the input. In very simple terms, this makes interpretation easy. We can simply lay down the gating values and the original image, next to each other to see how the gating mechanism works.
 
@@ -854,7 +855,7 @@ def display_grid(
     plt.close()
 ```
 
-### TrainMonitor
+### TrainMonitor {#trainmonitor}
 
 ```python
 # Taking a batch of test inputs to measure the model's progress.
@@ -883,7 +884,7 @@ class TrainMonitor(keras.callbacks.Callback):
             display_grid(test_images=test_images, gates=gates, modulator=modulator)
 ```
 
-### Learning Rate scheduler
+### Learning Rate scheduler {#learning-rate-scheduler}
 
 ```python
 # Some code is taken from:
@@ -937,7 +938,7 @@ scheduled_lrs = WarmUpCosine(
 )
 ```
 
-### Initialize, compile and train the model
+### Initialize, compile and train the model {#initialize-compile-and-train-the-model}
 
 ```python
 focal_mod_net = FocalModulationNetwork()
@@ -1032,7 +1033,7 @@ Epoch 25/25
 
 {{% /details %}}
 
-## Plot loss and accuracy
+## Plot loss and accuracy {#plot-loss-and-accuracy}
 
 ```python
 plt.plot(history.history["loss"], label="loss")
@@ -1050,7 +1051,7 @@ plt.show()
 
 ![png](/images/examples/vision/focal_modulation_network/focal_modulation_network_39_1.png)
 
-## Test visualizations
+## Test visualizations {#test-visualizations}
 
 Let's test our model on some test images and see how the gates look like.
 
@@ -1083,7 +1084,7 @@ for row in range(5):
 
 ![png](/images/examples/vision/focal_modulation_network/focal_modulation_network_41_4.png)
 
-## Conclusion
+## Conclusion {#conclusion}
 
 The proposed architecture, the Focal Modulation Network architecture is a mechanism that allows different parts of an image to interact with each other in a way that depends on the image itself. It works by first gathering different levels of context information around each part of the image (the "query token"), then using a gate to decide which context information is most relevant, and finally combining the chosen information in a simple but effective way.
 
@@ -1093,6 +1094,6 @@ The authors also mention that they created a series of Focal Modulation Networks
 
 The FocalNets architecture has the potential to deliver impressive results and offers a simple implementation. Its promising performance and ease of use make it an attractive alternative to Self-Attention for researchers to explore in their own projects. It could potentially become widely adopted by the Deep Learning community in the near future.
 
-## Acknowledgement
+## Acknowledgement {#acknowledgement}
 
 We would like to thank [PyImageSearch](https://pyimagesearch.com/) for providing with a Colab Pro account, [JarvisLabs.ai](https://cloud.jarvislabs.ai/) for GPU credits, and also Microsoft Research for providing an [official implementation](https://github.com/microsoft/FocalNet) of their paper. We would also like to extend our gratitude to the first author of the paper [Jianwei Yang](https://twitter.com/jw2yang4ai) who reviewed this tutorial extensively.

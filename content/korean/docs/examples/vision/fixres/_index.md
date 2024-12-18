@@ -1,5 +1,6 @@
 ---
-title: "FixRes: Fixing train-test resolution discrepancy"
+title: "FixRes: 트레이닝-테스트 해상도 불일치 수정"
+linkTitle: "FixRes: 트레이닝-테스트 해상도 불일치 수정"
 toc: true
 weight: 63
 type: docs
@@ -19,13 +20,13 @@ type: docs
 {{< card link="https://github.com/keras-team/keras-io/blob/master/examples/vision/fixres.py" title="GitHub" tag="GitHub">}}
 {{< /cards >}}
 
-## Introduction
+## Introduction {#introduction}
 
 It is a common practice to use the same input image resolution while training and testing vision models. However, as investigated in [Fixing the train-test resolution discrepancy](https://arxiv.org/abs/1906.06423) (Touvron et al.), this practice leads to suboptimal performance. Data augmentation is an indispensable part of the training process of deep neural networks. For vision models, we typically use random resized crops during training and center crops during inference. This introduces a discrepancy in the object sizes seen during training and inference. As shown by Touvron et al., if we can fix this discrepancy, we can significantly boost model performance.
 
 In this example, we implement the **FixRes** techniques introduced by Touvron et al. to fix this discrepancy.
 
-## Imports
+## Imports {#imports}
 
 ```python
 import keras
@@ -39,7 +40,7 @@ tfds.disable_progress_bar()
 import matplotlib.pyplot as plt
 ```
 
-## Load the `tf_flowers` dataset
+## Load the `tf_flowers` dataset {#load-the-tf_flowers-dataset}
 
 ```python
 train_dataset, val_dataset = tfds.load(
@@ -61,7 +62,7 @@ Number of validation examples: 367
 
 {{% /details %}}
 
-## Data preprocessing utilities
+## Data preprocessing utilities {#data-preprocessing-utilities}
 
 We create three datasets:
 
@@ -163,7 +164,7 @@ def make_dataset(
 
 Notice how the augmentation transforms vary for the kind of dataset we are preparing.
 
-## Prepare datasets
+## Prepare datasets {#prepare-datasets}
 
 ```python
 initial_train_dataset = make_dataset(train_dataset, train=True, image_size=smaller_size)
@@ -180,7 +181,7 @@ vanilla_val_dataset = make_dataset(
 )
 ```
 
-## Visualize the datasets
+## Visualize the datasets {#visualize-the-datasets}
 
 ```python
 def visualize_dataset(batch_images):
@@ -230,7 +231,7 @@ Batch shape: (32, 224, 224, 3).
 
 {{% /details %}}
 
-## Model training utilities
+## Model training utilities {#model-training-utilities}
 
 We train multiple variants of ResNet50V2 ([He et al.](https://arxiv.org/abs/1603.05027)):
 
@@ -287,7 +288,7 @@ def train_and_evaluate(
     return model
 ```
 
-## Experiment 1: Train on 128x128 and then fine-tune on 224x224
+## Experiment 1: Train on 128x128 and then fine-tune on 224x224 {#experiment-1-train-on-128x128-and-then-fine-tune-on-224x224}
 
 ```python
 epochs = 30
@@ -367,7 +368,7 @@ Top-1 accuracy on the validation set: 75.48%.
 
 {{% /details %}}
 
-### Freeze all the layers except for the final Batch Normalization layer
+### Freeze all the layers except for the final Batch Normalization layer {#freeze-all-the-layers-except-for-the-final-batch-normalization-layer}
 
 For fine-tuning, we train only two layers:
 
@@ -425,7 +426,7 @@ Top-1 accuracy on the validation set: 75.20%.
 
 {{% /details %}}
 
-## Experiment 2: Train a model on 224x224 resolution from scratch
+## Experiment 2: Train a model on 224x224 resolution from scratch {#experiment-2-train-a-model-on-224x224-resolution-from-scratch}
 
 Now, we train another model from scratch on the larger resolution dataset. Recall that the augmentation transforms used in this dataset are different from before.
 

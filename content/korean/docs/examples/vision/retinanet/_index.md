@@ -1,5 +1,6 @@
 ---
-title: Object Detection with RetinaNet
+title: RetinaNet을 이용한 객체 감지
+linkTitle: RetinaNet 객체 감지
 toc: true
 weight: 24
 type: docs
@@ -19,7 +20,7 @@ type: docs
 {{< card link="https://github.com/keras-team/keras-io/blob/master/examples/vision/retinanet.py" title="GitHub" tag="GitHub">}}
 {{< /cards >}}
 
-## Introduction
+## Introduction {#introduction}
 
 Object detection a very important problem in computer vision. Here the model is tasked with localizing the objects present in an image, and at the same time, classifying them into different categories. Object detection models can be broadly classified into "single-stage" and "two-stage" detectors. Two-stage detectors are often more accurate but at the cost of being slower. Here in this example, we will implement RetinaNet, a popular single-stage detector, which is accurate and runs fast. RetinaNet uses a feature pyramid network to efficiently detect objects at multiple scales and introduces a new loss, the Focal loss function, to alleviate the problem of the extreme foreground-background class imbalance.
 
@@ -41,7 +42,7 @@ import matplotlib.pyplot as plt
 import tensorflow_datasets as tfds
 ```
 
-## Downloading the COCO2017 dataset
+## Downloading the COCO2017 dataset {#downloading-the-coco2017-dataset}
 
 Training on the entire COCO2017 dataset which has around 118k images takes a lot of time, hence we will be using a smaller subset of ~500 images for training in this example.
 
@@ -65,7 +66,7 @@ Downloading data from https://github.com/srihari-humbarwadi/datasets/releases/do
 
 {{% /details %}}
 
-## Implementing utility functions
+## Implementing utility functions {#implementing-utility-functions}
 
 Bounding boxes can be represented in multiple ways, the most common formats are:
 
@@ -121,7 +122,7 @@ def convert_to_corners(boxes):
     )
 ```
 
-## Computing pairwise Intersection Over Union (IOU)
+## Computing pairwise Intersection Over Union (IOU) {#computing-pairwise-intersection-over-union-iou}
 
 As we will see later in the example, we would be assigning ground truth boxes to anchor boxes based on the extent of overlapping. This will require us to calculate the Intersection Over Union (IOU) between all the anchor boxes and ground truth boxes pairs.
 
@@ -183,7 +184,7 @@ def visualize_detections(
     return ax
 ```
 
-## Implementing Anchor generator
+## Implementing Anchor generator {#implementing-anchor-generator}
 
 Anchor boxes are fixed sized boxes that the model uses to predict the bounding box for an object. It does this by regressing the offset between the location of the object's center and the center of an anchor box, and then uses the width and height of the anchor box to predict a relative scale of the object. In the case of RetinaNet, each location on a given feature map has nine anchor boxes (at three scales and three ratios).
 
@@ -282,7 +283,7 @@ class AnchorBox:
         return tf.concat(anchors, axis=0)
 ```
 
-## Preprocessing data
+## Preprocessing data {#preprocessing-data}
 
 Preprocessing the images involves two steps:
 
@@ -392,7 +393,7 @@ def preprocess_data(sample):
     return image, bbox, class_id
 ```
 
-## Encoding labels
+## Encoding labels {#encoding-labels}
 
 The raw labels, consisting of bounding boxes and class ids need to be transformed into targets for training. This transformation consists of the following steps:
 
@@ -508,7 +509,7 @@ class LabelEncoder:
         return batch_images, labels.stack()
 ```
 
-## Building the ResNet50 backbone
+## Building the ResNet50 backbone {#building-the-resnet50-backbone}
 
 RetinaNet uses a ResNet based backbone, using which a feature pyramid network is constructed. In the example we use ResNet50 as the backbone, and return the feature maps at strides 8, 16 and 32.
 
@@ -527,7 +528,7 @@ def get_backbone():
     )
 ```
 
-## Building Feature Pyramid Network as a custom layer
+## Building Feature Pyramid Network as a custom layer {#building-feature-pyramid-network-as-a-custom-layer}
 
 ```python
 class FeaturePyramid(keras.layers.Layer):
@@ -567,7 +568,7 @@ class FeaturePyramid(keras.layers.Layer):
         return p3_output, p4_output, p5_output, p6_output, p7_output
 ```
 
-## Building the classification and box regression heads.
+## Building the classification and box regression heads. {#building-the-classification-and-box-regression-heads}
 
 The RetinaNet model has separate heads for bounding box regression and for predicting class probabilities for the objects. These heads are shared between all the feature maps of the feature pyramid.
 
@@ -603,7 +604,7 @@ def build_head(output_filters, bias_init):
     return head
 ```
 
-## Building RetinaNet using a subclassed model
+## Building RetinaNet using a subclassed model {#building-retinanet-using-a-subclassed-model}
 
 ```python
 class RetinaNet(keras.Model):
@@ -639,7 +640,7 @@ class RetinaNet(keras.Model):
         return tf.concat([box_outputs, cls_outputs], axis=-1)
 ```
 
-## Implementing a custom layer to decode predictions
+## Implementing a custom layer to decode predictions {#implementing-a-custom-layer-to-decode-predictions}
 
 ```python
 class DecodePredictions(tf.keras.layers.Layer):
@@ -710,7 +711,7 @@ class DecodePredictions(tf.keras.layers.Layer):
         )
 ```
 
-## Implementing Smooth L1 loss and Focal Loss as keras custom losses
+## Implementing Smooth L1 loss and Focal Loss as keras custom losses {#implementing-smooth-l1-loss-and-focal-loss-as-keras-custom-losses}
 
 ```python
 class RetinaNetBoxLoss(tf.losses.Loss):
@@ -787,7 +788,7 @@ class RetinaNetLoss(tf.losses.Loss):
         return loss
 ```
 
-## Setting up training parameters
+## Setting up training parameters {#setting-up-training-parameters}
 
 ```python
 model_dir = "retinanet/"
@@ -803,7 +804,7 @@ learning_rate_fn = tf.optimizers.schedules.PiecewiseConstantDecay(
 )
 ```
 
-## Initializing and compiling model
+## Initializing and compiling model {#initializing-and-compiling-model}
 
 ```python
 resnet50_backbone = get_backbone()
@@ -824,7 +825,7 @@ Downloading data from https://storage.googleapis.com/tensorflow/keras-applicatio
 
 {{% /details %}}
 
-## Setting up callbacks
+## Setting up callbacks {#setting-up-callbacks}
 
 ```python
 callbacks_list = [
@@ -838,7 +839,7 @@ callbacks_list = [
 ]
 ```
 
-## Load the COCO2017 dataset using TensorFlow Datasets
+## Load the COCO2017 dataset using TensorFlow Datasets {#load-the-coco2017-dataset-using-tensorflow-datasets}
 
 ```python
 # set `data_dir=None` to load the complete dataset
@@ -848,7 +849,7 @@ callbacks_list = [
 )
 ```
 
-## Setting up a [`tf.data`](https://www.tensorflow.org/api_docs/python/tf/data) pipeline
+## Setting up a [`tf.data`](https://www.tensorflow.org/api_docs/python/tf/data) pipeline {#setting-up-a-tfdatahttpswwwtensorfloworgapi_docspythontfdata-pipeline}
 
 To ensure that the model is fed with data efficiently we will be using [`tf.data`](https://www.tensorflow.org/api_docs/python/tf/data) API to create our input pipeline. The input pipeline consists for the following major processing steps:
 
@@ -878,7 +879,7 @@ val_dataset = val_dataset.apply(tf.data.experimental.ignore_errors())
 val_dataset = val_dataset.prefetch(autotune)
 ```
 
-## Training the model
+## Training the model {#training-the-model}
 
 ```python
 # Uncomment the following lines, when training on full dataset
@@ -915,7 +916,7 @@ Epoch 1: saving model to retinanet/weights_epoch_1
 
 {{% /details %}}
 
-## Loading weights
+## Loading weights {#loading-weights}
 
 ```python
 # Change this to `model_dir` when not using the downloaded weights
@@ -933,7 +934,7 @@ model.load_weights(latest_checkpoint)
 
 {{% /details %}}
 
-## Building inference model
+## Building inference model {#building-inference-model}
 
 ```python
 image = tf.keras.Input(shape=[None, None, 3], name="image")
@@ -942,7 +943,7 @@ detections = DecodePredictions(confidence_threshold=0.5)(image, predictions)
 inference_model = tf.keras.Model(inputs=image, outputs=detections)
 ```
 
-## Generating detections
+## Generating detections {#generating-detections}
 
 ```python
 def prepare_image(image):

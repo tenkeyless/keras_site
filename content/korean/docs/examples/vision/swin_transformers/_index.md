@@ -1,5 +1,6 @@
 ---
-title: Image classification with Swin Transformers
+title: Swin 트랜스포머를 사용한 이미지 분류
+linkTitle: Swin 트랜스포머 이미지 분류
 toc: true
 weight: 16
 type: docs
@@ -10,7 +11,7 @@ type: docs
 **{{< t f_author >}}** [Rishit Dagli](https://twitter.com/rishit_dagli)  
 **{{< t f_date_created >}}** 2021/09/08  
 **{{< t f_last_modified >}}** 2021/09/08  
-**{{< t f_description >}}** Image classification using Swin Transformers, a general-purpose backbone for computer vision.
+**{{< t f_description >}}** 컴퓨터 비전용 범용 백본인 Swin Transformers를 사용한 이미지 분류.
 
 {{< keras/version v=3 >}}
 
@@ -19,42 +20,54 @@ type: docs
 {{< card link="https://github.com/keras-team/keras-io/blob/master/examples/vision/swin_transformers.py" title="GitHub" tag="GitHub">}}
 {{< /cards >}}
 
-This example implements [Swin Transformer: Hierarchical Vision Transformer using Shifted Windows](https://arxiv.org/abs/2103.14030) by Liu et al. for image classification, and demonstrates it on the [CIFAR-100 dataset](https://www.cs.toronto.edu/~kriz/cifar.html).
+이 예제는 Liu 등의 [Swin Transformer: Shifted 윈도우를 사용한 계층적 비전 트랜스포머(Swin Transformer: Hierarchical Vision Transformer using Shifted Windows)](https://arxiv.org/abs/2103.14030)를 이미지 분류를 위해 구현하고,
+[CIFAR-100 데이터셋](https://www.cs.toronto.edu/~kriz/cifar.html)에 대해 시연합니다.
 
-Swin Transformer (**S**hifted **Win**dow Transformer) can serve as a general-purpose backbone for computer vision. Swin Transformer is a hierarchical Transformer whose representations are computed with _shifted windows_. The shifted window scheme brings greater efficiency by limiting self-attention computation to non-overlapping local windows while also allowing for cross-window connections. This architecture has the flexibility to model information at various scales and has a linear computational complexity with respect to image size.
+Swin Transformer (**S**hifted **Win**dow Transformer)는
+컴퓨터 비전을 위한 범용 백본으로 사용될 수 있습니다.
+Swin Transformer는 _이동된 윈도우(shifted windows)_ 로
+표현을 계산하는 계층적 트랜스포머입니다.
+Shifted Windows 방식은 셀프 어텐션 계산을 겹치지 않는 지역 윈도우로 제한하면서도,
+윈도우 간 연결을 허용함으로써 더 큰 효율성을 가져옵니다.
+이 아키텍처는 다양한 스케일의 정보를 모델링할 수 있는 유연성을 가지며,
+이미지 크기에 대해 선형적인 계산 복잡도를 가집니다.
 
-This example requires TensorFlow 2.5 or higher.
+이 예제는 TensorFlow 2.5 이상이 필요합니다.
 
-## Setup
+## 셋업 {#setup}
 
 ```python
 import matplotlib.pyplot as plt
 import numpy as np
-import tensorflow as tf  # For tf.data and preprocessing only.
+import tensorflow as tf  # tf.data 및 전처리에만 해당됩니다.
 import keras
 from keras import layers
 from keras import ops
 ```
 
-## Configure the hyperparameters
+## 하이퍼파라미터 구성 {#configure-the-hyperparameters}
 
 A key parameter to pick is the `patch_size`, the size of the input patches. In order to use each pixel as an individual input, you can set `patch_size` to `(1, 1)`. Below, we take inspiration from the original paper settings for training on ImageNet-1K, keeping most of the original settings for this example.
+
+선택할 주요 매개변수는 입력 패치의 크기인 `patch_size`입니다.
+각 픽셀을 개별 입력으로 사용하려면, `patch_size`를 `(1, 1)`로 설정하면 됩니다.
+아래에서는, ImageNet-1K 트레이닝을 위한 원본 논문 설정에서 영감을 얻어,
+이 예제에서는 원본 설정을 대부분 유지합니다.
 
 ```python
 num_classes = 100
 input_shape = (32, 32, 3)
 
-patch_size = (2, 2)  # 2-by-2 sized patches
-dropout_rate = 0.03  # Dropout rate
-num_heads = 8  # Attention heads
-embed_dim = 64  # Embedding dimension
-num_mlp = 256  # MLP layer size
-# Convert embedded patches to query, key, and values with a learnable additive
-# value
+patch_size = (2, 2)  # 2x2 크기의 패치
+dropout_rate = 0.03  # Dropout 비율
+num_heads = 8  # 어텐션 헤드
+embed_dim = 64  # 임베딩 차원
+num_mlp = 256  # MLP 레이어 크기
+# 학습 가능한 추가적인 값을 사용하여 임베디드 패치를 쿼리, 키 및 값으로 변환
 qkv_bias = True
-window_size = 2  # Size of attention window
-shift_size = 1  # Size of shifting window
-image_dimension = 32  # Initial image size
+window_size = 2  # 어텐션 윈도우의 크기
+shift_size = 1  # 이동 윈도우의 크기
+image_dimension = 32  # 초기 이미지 크기
 
 num_patch_x = input_shape[0] // patch_size[0]
 num_patch_y = input_shape[1] // patch_size[1]
@@ -67,9 +80,10 @@ weight_decay = 0.0001
 label_smoothing = 0.1
 ```
 
-## Prepare the data
+## 데이터 준비 {#prepare-the-data}
 
-We load the CIFAR-100 dataset through `keras.datasets`, normalize the images, and convert the integer labels to one-hot encoded vectors.
+CIFAR-100 데이터셋을 `keras.datasets`를 통해 로드하고,
+이미지를 정규화하고, 정수 레이블을 원-핫 인코딩된 벡터로 변환합니다.
 
 ```python
 (x_train, y_train), (x_test, y_test) = keras.datasets.cifar100.load_data()
@@ -104,9 +118,9 @@ x_test shape: (10000, 32, 32, 3) - y_test shape: (10000, 100)
 
 ![png](/images/examples/vision/swin_transformers/swin_transformers_7_1.png)
 
-## Helper functions
+## 헬퍼 함수 {#helper-functions}
 
-We create two helper functions to help us get a sequence of patches from the image, merge patches, and apply dropout.
+이미지에서 패치 시퀀스를 얻고, 패치를 병합하고, 드롭아웃을 적용하는 두 개의 헬퍼 함수를 만듭니다.
 
 ```python
 def window_partition(x, window_size):
@@ -148,9 +162,15 @@ def window_reverse(windows, window_size, height, width, channels):
     return x
 ```
 
-## Window based multi-head self-attention
+## 윈도우 기반 멀티 헤드 셀프 어텐션 {#window-based-multi-head-self-attention}
 
-Usually Transformers perform global self-attention, where the relationships between a token and all other tokens are computed. The global computation leads to quadratic complexity with respect to the number of tokens. Here, as the [original paper](https://arxiv.org/abs/2103.14030) suggests, we compute self-attention within local windows, in a non-overlapping manner. Global self-attention leads to quadratic computational complexity in the number of patches, whereas window-based self-attention leads to linear complexity and is easily scalable.
+일반적으로 트랜스포머는 글로벌 셀프 어텐션을 수행하여,
+토큰과 다른 모든 토큰 간의 관계를 계산합니다.
+글로벌 계산은 토큰 수에 대해 이차적인 복잡도로 이어집니다.
+여기서는, [원본 논문](https://arxiv.org/abs/2103.14030)이 제안하는대로,
+겹치지 않는 방식으로, 로컬 윈도우 내에서 셀프 어텐션을 계산합니다.
+글로벌 셀프 어텐션은 패치 수에 대해 이차적인 계산 복잡도를 가지지만,
+윈도우 기반 셀프 어텐션은 선형적인 복잡도를 가지며 쉽게 확장 가능합니다.
 
 ```python
 class WindowAttention(layers.Layer):
@@ -245,11 +265,19 @@ class WindowAttention(layers.Layer):
         return x_qkv
 ```
 
-## The complete Swin Transformer model
+## 완전한 Swin Transformer 모델 {#the-complete-swin-transformer-model}
 
-Finally, we put together the complete Swin Transformer by replacing the standard multi-head attention (MHA) with shifted windows attention. As suggested in the original paper, we create a model comprising of a shifted window-based MHA layer, followed by a 2-layer MLP with GELU nonlinearity in between, applying `LayerNormalization` before each MSA layer and each MLP, and a residual connection after each of these layers.
+마지막으로, 표준 멀티 헤드 어텐션(MHA, multi-head attention)를
+이동된 윈도우 어텐션으로 대체하여 완전한 Swin Transformer를 구성합니다.
+원본 논문에서 제안한 대로, 이동된 윈도우 기반 MHA 레이어 다음에,
+GELU 비선형성을 가진 2-레이어 MLP를 사용하고,
+각 MSA 레이어와 각 MLP 전에 `LayerNormalization`을 적용하며,
+이 레이어들 각각 후에 residual 연결을 적용하는 모델을 만듭니다.
 
-Notice that we only create a simple MLP with 2 Dense and 2 Dropout layers. Often you will see models using ResNet-50 as the MLP which is quite standard in the literature. However in this paper the authors use a 2-layer MLP with GELU nonlinearity in between.
+단순히 2개의 Dense 레이어와 2개의 Dropout 레이어로 구성된
+간단한 MLP만 만든다는 점에 주목하세요.
+종종 문헌에서 매우 표준적인 ResNet-50을 MLP로 사용하는 모델을 볼 수 있습니다.
+그러나 이 논문에서 저자들은 중간에 GELU 비선형성을 가진 2-레이어 MLP를 사용합니다.
 
 ```python
 class SwinTransformer(layers.Layer):
@@ -267,12 +295,12 @@ class SwinTransformer(layers.Layer):
     ):
         super().__init__(**kwargs)
 
-        self.dim = dim  # number of input dimensions
-        self.num_patch = num_patch  # number of embedded patches
-        self.num_heads = num_heads  # number of attention heads
-        self.window_size = window_size  # size of window
-        self.shift_size = shift_size  # size of window shift
-        self.num_mlp = num_mlp  # number of MLP nodes
+        self.dim = dim  # 입력 차원 수
+        self.num_patch = num_patch  # 임베드 패치 수
+        self.num_heads = num_heads  # 어텐션 헤드 수
+        self.window_size = window_size  # 윈도우 크기
+        self.shift_size = shift_size  # 윈도우 shift 크기
+        self.num_mlp = num_mlp  # MLP 노드 수
 
         self.norm1 = layers.LayerNormalization(epsilon=1e-5)
         self.attn = WindowAttention(
@@ -322,7 +350,7 @@ class SwinTransformer(layers.Layer):
                     count += 1
             mask_array = ops.convert_to_tensor(mask_array)
 
-            # mask array to windows
+            # 배열을 윈도우에 마스크
             mask_windows = window_partition(mask_array, self.window_size)
             mask_windows = ops.reshape(
                 mask_windows, [-1, self.window_size * self.window_size]
@@ -383,14 +411,15 @@ class SwinTransformer(layers.Layer):
         return x
 ```
 
-## Model training and evaluation
+## 모델 트레이닝 및 평가 {#model-training-and-evaluation}
 
-### Extract and embed patches
+### 추출 및 패치 임베딩 {#extract-and-embed-patches}
 
-We first create 3 layers to help us extract, embed and merge patches from the images on top of which we will later use the Swin Transformer class we built.
+우선, 이미지에서 패치를 추출하고, 임베딩하며 병합하는 데 도움이 되는 3개의 레이어를 만듭니다.
+이후에 우리가 구축한 Swin Transformer 클래스를 사용할 것입니다.
 
 ```python
-# Using tf ops since it is only used in tf.data.
+# tf.data에서만 사용되므로 tf ops를 사용합니다.
 def patch_extract(images):
     batch_size = tf.shape(images)[0]
     patches = tf.image.extract_patches(
@@ -437,9 +466,10 @@ class PatchMerging(keras.layers.Layer):
         return self.linear_trans(x)
 ```
 
-### Prepare the tf.data.Dataset
+### tf.data.Dataset 준비 {#prepare-the-tfdatadataset}
 
-We do all the steps, which do not have trainable weights with tf.data. Prepare the training, validation and testing sets.
+모든 단계를 트레이닝 가능한 가중치가 없는 tf.data로 수행합니다.
+트레이닝, 검증, 테스트 세트를 준비합니다.
 
 ```python
 def augment(x):
@@ -471,9 +501,9 @@ dataset_test = (
 )
 ```
 
-### Build the model
+### 모델 빌드 {#build-the-model}
 
-We put together the Swin Transformer model.
+이제 Swin Transformer 모델로 합쳐봅시다.
 
 ```python
 input = layers.Input(shape=(256, 12))
@@ -511,9 +541,11 @@ An NVIDIA GPU may be present on this machine, but a CUDA-enabled jaxlib is not i
 
 {{% /details %}}
 
-### Train on CIFAR-100
+### CIFAR-100에 대해 트레이닝 {#train-on-cifar-100}
 
-We train the model on CIFAR-100. Here, we only train the model for 40 epochs to keep the training time short in this example. In practice, you should train for 150 epochs to reach convergence.
+우리는 CIFAR-100에 대해 모델을 트레이닝합니다.
+여기에서는, 트레이닝 시간을 짧게 유지하기 위해 40 에포크 동안만 모델을 트레이닝합니다.
+실제로, 수렴에 도달하려면 150 에포크 정도로 트레이닝해야 합니다.
 
 ```python
 model = keras.Model(input, output)
@@ -623,7 +655,7 @@ Epoch 40/40
 
 {{% /details %}}
 
-Let's visualize the training progress of the model.
+모델의 트레이닝 진행 상황을 시각화해 보겠습니다.
 
 ```python
 plt.plot(history.history["loss"], label="train_loss")
@@ -638,7 +670,7 @@ plt.show()
 
 ![png](/images/examples/vision/swin_transformers/swin_transformers_23_0.png)
 
-Let's display the final results of the training on CIFAR-100.
+CIFAR-100에 대한 트레이닝의 최종 결과를 표시해 보겠습니다.
 
 ```python
 loss, accuracy, top_5_accuracy = model.evaluate(dataset_test)
@@ -658,10 +690,27 @@ Test top 5 accuracy: 75.23%
 
 {{% /details %}}
 
-The Swin Transformer model we just trained has just 152K parameters, and it gets us to ~75% test top-5 accuracy within just 40 epochs without any signs of overfitting as well as seen in above graph. This means we can train this network for longer (perhaps with a bit more regularization) and obtain even better performance. This performance can further be improved by additional techniques like cosine decay learning rate schedule, other data augmentation techniques. While experimenting, I tried training the model for 150 epochs with a slightly higher dropout and greater embedding dimensions which pushes the performance to ~72% test accuracy on CIFAR-100 as you can see in the screenshot.
+방금 트레이닝한 Swin Transformer 모델에는 152K개의 매개변수가 있으며,
+위 그래프에서 볼 수 있듯이 과적합 징후 없이
+단 40 에포크에서 top-5개 정확도를 최대 75% 테스트할 수 있습니다.
+이는 우리가 이 네트워크를 더 오랫동안 트레이닝하고(아마도 좀 더 정규화와 함께)
+훨씬 더 나은 성능을 얻을 수 있음을 의미합니다.
+이 성능은 코사인 감쇠 학습률 스케쥴,
+기타 데이터 보강 기술과 같은 추가적인 기술을 통해 더욱 향상될 수 있습니다.
+실험하는 동안, 저는 스크린샷에서 볼 수 있듯이,
+약간 더 높은 드롭아웃과 더 큰 임베딩 차원을 사용하여
+150 에포크 동안 모델을 트레이닝하여,
+CIFAR-100에 대해 성능을 최대 72% 테스트 정확도로 끌어올려 보았습니다.
 
 ![Results of training for longer](/images/examples/vision/swin_transformers/9vnQesZ.png)
 
-The authors present a top-1 accuracy of 87.3% on ImageNet. The authors also present a number of experiments to study how input sizes, optimizers etc. affect the final performance of this model. The authors further present using this model for object detection, semantic segmentation and instance segmentation as well and report competitive results for these. You are strongly advised to also check out the [original paper](https://arxiv.org/abs/2103.14030).
+저자는 ImageNet에 대해 87.3%의 top-1 정확도를 제시합니다.
+저자는 또한 입력 크기, 옵티마이저 등이
+이 모델의 최종 성능에 어떤 영향을 미치는지 연구하기 위해 여러 가지 실험을 제시합니다.
+저자는 객체 감지, 시맨틱 세그멘테이션 및 인스턴스 세그멘테이션에도
+이 모델을 사용하는 방법을 제시하고, 이에 대한 경쟁력 있는 결과를 보고합니다.
+[원본 논문](https://arxiv.org/abs/2103.14030)도 확인해 보시기 바랍니다.
 
-This example takes inspiration from the official [PyTorch](https://github.com/microsoft/Swin-Transformer) and [TensorFlow](https://github.com/VcampSoldiers/Swin-Transformer-Tensorflow) implementations.
+이 예는 공식 [PyTorch](https://github.com/microsoft/Swin-Transformer)
+및 [TensorFlow](https://github.com/VcampSoldiers/Swin-Transformer-Tensorflow)
+구현에서 영감을 얻었습니다.

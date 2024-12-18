@@ -1,5 +1,6 @@
 ---
-title: Keras debugging tips
+title: Keras 디버깅 팁
+linkTitle: Keras 디버깅 팁
 toc: true
 weight: 4
 type: docs
@@ -19,7 +20,7 @@ type: docs
 {{< card link="https://github.com/keras-team/keras-io/blob/master/examples/keras_recipes/debugging_tips.py" title="GitHub" tag="GitHub">}}
 {{< /cards >}}
 
-## Introduction
+## Introduction {#introduction}
 
 It's generally possible to do almost anything in Keras _without writing code_ per se: whether you're implementing a new type of GAN or the latest convnet architecture for image segmentation, you can usually stick to calling built-in methods. Because all built-in methods do extensive input validation checks, you will have little to no debugging to do. A Functional API model made entirely of built-in layers will work on first try – if you can compile it, it will run.
 
@@ -31,7 +32,7 @@ However, sometimes, you will need to dive deeper and write your own code. Here a
 
 This document provides a few simple tips to help you navigate debugging in these situations.
 
-## Tip 1: test each part before you test the whole
+## Tip 1: test each part before you test the whole {#tip-1-test-each-part-before-you-test-the-whole}
 
 If you've created any object that has a chance of not working as expected, don't just drop it in your end-to-end process and watch sparks fly. Rather, test your custom object in isolation first. This may seem obvious – but you'd be surprised how often people don't start with this.
 
@@ -171,7 +172,7 @@ kernel.shape: (10, 5)
 
 {{% /details %}}
 
-## Tip 2: use `model.summary()` and `plot_model()` to check layer output shapes
+## Tip 2: use `model.summary()` and `plot_model()` to check layer output shapes {#tip-2-use-modelsummary-and-plot_model-to-check-layer-output-shapes}
 
 If you're working with complex network topologies, you're going to need a way to visualize how your layers are connected and how they transform the data that passes through them.
 
@@ -269,7 +270,7 @@ keras.utils.plot_model(model, show_shapes=True)
 
 With this plot, any connectivity-level error becomes immediately obvious.
 
-## Tip 3: to debug what happens during `fit()`, use `run_eagerly=True`
+## Tip 3: to debug what happens during `fit()`, use `run_eagerly=True` {#tip-3-to-debug-what-happens-during-fit-use-run_eagerlytrue}
 
 The `fit()` method is fast: it runs a well-optimized, fully-compiled computation graph. That's great for performance, but it also means that the code you're executing isn't the Python code you've written. This can be problematic when debugging. As you may recall, Python is slow – so we use it as a staging language, not as an execution language.
 

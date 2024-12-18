@@ -1,5 +1,6 @@
 ---
-title: Low-light image enhancement using MIRNet
+title: MIRNet을 사용한 저조도 이미지 향상
+linkTitle: MIRNet 저조도 이미지 향상
 toc: true
 weight: 35
 type: docs
@@ -19,17 +20,17 @@ type: docs
 {{< card link="https://github.com/keras-team/keras-io/blob/master/examples/vision/mirnet.py" title="GitHub" tag="GitHub">}}
 {{< /cards >}}
 
-## Introduction
+## Introduction {#introduction}
 
 With the goal of recovering high-quality image content from its degraded version, image restoration enjoys numerous applications, such as in photography, security, medical imaging, and remote sensing. In this example, we implement the **MIRNet** model for low-light image enhancement, a fully-convolutional architecture that learns an enriched set of features that combines contextual information from multiple scales, while simultaneously preserving the high-resolution spatial details.
 
-### References:
+### References: {#references}
 
 - [Learning Enriched Features for Real Image Restoration and Enhancement](https://arxiv.org/abs/2003.06792)
 - [The Retinex Theory of Color Vision](http://www.cnbc.cmu.edu/~tai/cp_papers/E.Land_Retinex_Theory_ScientifcAmerican.pdf)
 - [Two deterministic half-quadratic regularization algorithms for computed imaging](https://ieeexplore.ieee.org/document/413553)
 
-## Downloading LOLDataset
+## Downloading LOLDataset {#downloading-loldataset}
 
 The **LoL Dataset** has been created for low-light image enhancement. It provides 485 images for training and 15 for testing. Each image pair in the dataset consists of a low-light input image and its corresponding well-exposed reference image.
 
@@ -81,7 +82,7 @@ lol_dataset.zip     100%[===================>] 331.09M   316MB/s    in 1.0s
 
 {{% /details %}}
 
-## Creating a TensorFlow Dataset
+## Creating a TensorFlow Dataset {#creating-a-tensorflow-dataset}
 
 We use 300 image pairs from the LoL Dataset's training set for training, and we use the remaining 185 image pairs for validation. We generate random crops of size `128 x 128` from the image pairs to be used for both training and validation.
 
@@ -162,7 +163,7 @@ Val Dataset: (TensorSpec(shape=(4, 128, 128, 3), dtype=tf.float32, name=None), T
 
 {{% /details %}}
 
-## MIRNet Model
+## MIRNet Model {#mirnet-model}
 
 Here are the main features of the MIRNet model:
 
@@ -173,7 +174,7 @@ Here are the main features of the MIRNet model:
 
 ![png](/images/examples/vision/mirnet/mirnet_architecture.png)
 
-### Selective Kernel Feature Fusion
+### Selective Kernel Feature Fusion {#selective-kernel-feature-fusion}
 
 The Selective Kernel Feature Fusion or SKFF module performs dynamic adjustment of receptive fields via two operations: **Fuse** and **Select**. The Fuse operator generates global feature descriptors by combining the information from multi-resolution streams. The Select operator uses these descriptors to recalibrate the feature maps (of different streams) followed by their aggregation.
 
@@ -212,7 +213,7 @@ def selective_kernel_feature_fusion(
     return aggregated_feature
 ```
 
-### Dual Attention Unit
+### Dual Attention Unit {#dual-attention-unit}
 
 The Dual Attention Unit or DAU is used to extract features in the convolutional streams. While the SKFF block fuses information across multi-resolution branches, we also need a mechanism to share information within a feature tensor, both along the spatial and the channel dimensions which is done by the DAU block. The DAU suppresses less useful features and only allows more informative ones to pass further. This feature recalibration is achieved by using **Channel Attention** and **Spatial Attention** mechanisms.
 
@@ -274,7 +275,7 @@ def dual_attention_unit_block(input_tensor):
     return layers.Add()([input_tensor, concatenation])
 ```
 
-### Multi-Scale Residual Block
+### Multi-Scale Residual Block {#multi-scale-residual-block}
 
 The Multi-Scale Residual Block is capable of generating a spatially-precise output by maintaining high-resolution representations, while receiving rich contextual information from low-resolutions. The MRB consists of multiple (three in this paper) fully-convolutional streams connected in parallel. It allows information exchange across parallel streams in order to consolidate the high-resolution features with the help of low-resolution features, and vice versa. The MIRNet employs a recursive residual design (with skip connections) to ease the flow of information during the learning process. In order to maintain the residual nature of our architecture, residual resizing modules are used to perform downsampling and upsampling operations that are used in the Multi-scale Residual Block.
 
@@ -352,7 +353,7 @@ def multi_scale_residual_block(input_tensor, channels):
     return layers.Add()([input_tensor, conv])
 ```
 
-### MIRNet Model
+### MIRNet Model {#mirnet-model}
 
 ```python
 def recursive_residual_group(input_tensor, num_mrb, channels):
@@ -376,7 +377,7 @@ def mirnet_model(num_rrg, num_mrb, channels):
 model = mirnet_model(num_rrg=3, num_mrb=2, channels=64)
 ```
 
-## Training
+## Training {#training}
 
 - We train MIRNet using **Charbonnier Loss** as the loss function and **Adam Optimizer** with a learning rate of `1e-4`.
 - We use **Peak Signal Noise Ratio** or PSNR as a metric which is an expression for the ratio between the maximum possible value (power) of a signal and the power of distorting noise that affects the quality of its representation.
@@ -554,7 +555,7 @@ Epoch 50/50
 
 ![png](/images/examples/vision/mirnet/mirnet_17_4.png)
 
-## Inference
+## Inference {#inference}
 
 ```python
 def plot_results(images, titles, figure_size=(12, 12)):
@@ -581,7 +582,7 @@ def infer(original_image):
     return output_image
 ```
 
-### Inference on Test Images
+### Inference on Test Images {#inference-on-test-images}
 
 We compare the test images from LOLDataset enhanced by MIRNet with images enhanced via the `PIL.ImageOps.autocontrast()` function.
 

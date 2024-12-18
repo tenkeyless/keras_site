@@ -1,5 +1,6 @@
 ---
-title: Image classification via fine-tuning with EfficientNet
+title: EfficientNet으로 미세 조정을 통한 이미지 분류
+linkTitle: EfficientNet 이미지 분류
 toc: true
 weight: 3
 type: docs
@@ -10,7 +11,7 @@ type: docs
 **{{< t f_author >}}** [Yixing Fu](https://github.com/yixingfu)  
 **{{< t f_date_created >}}** 2020/06/30  
 **{{< t f_last_modified >}}** 2023/07/10  
-**{{< t f_description >}}** Use EfficientNet with weights pre-trained on imagenet for Stanford Dogs classification.
+**{{< t f_description >}}** Stanford Dogs 분류를 위해 imagenet에 대해 사전 트레이닝된 가중치로 EfficientNet을 사용합니다.
 
 {{< keras/version v=3 >}}
 
@@ -19,95 +20,146 @@ type: docs
 {{< card link="https://github.com/keras-team/keras-io/blob/master/examples/vision/image_classification_efficientnet_fine_tuning.py" title="GitHub" tag="GitHub">}}
 {{< /cards >}}
 
-## Introduction: what is EfficientNet
+## 소개: EfficientNet이란? {#introduction-what-is-efficientnet}
 
-EfficientNet, first introduced in [Tan and Le, 2019](https://arxiv.org/abs/1905.11946) is among the most efficient models (i.e. requiring least FLOPS for inference) that reaches State-of-the-Art accuracy on both imagenet and common image classification transfer learning tasks.
+[Tan and Le, 2019](https://arxiv.org/abs/1905.11946)에서
+처음 소개된 EfficientNet은 imagenet과 일반적인 이미지 분류 전이 학습 작업 모두에서
+SOTA 정확도에 도달하는 가장 효율적인 모델(즉, 추론에 최소의 FLOPS가 필요함)중 하나입니다.
 
-The smallest base model is similar to [MnasNet](https://arxiv.org/abs/1807.11626), which reached near-SOTA with a significantly smaller model. By introducing a heuristic way to scale the model, EfficientNet provides a family of models (B0 to B7) that represents a good combination of efficiency and accuracy on a variety of scales. Such a scaling heuristics (compound-scaling, details see [Tan and Le, 2019](https://arxiv.org/abs/1905.11946)) allows the efficiency-oriented base model (B0) to surpass models at every scale, while avoiding extensive grid-search of hyperparameters.
+가장 작은 기본 모델은 훨씬 더 작은 모델로 SOTA에 가까운 정확도를 달성한
+[MnasNet](https://arxiv.org/abs/1807.11626)과 유사합니다.
+모델을 확장하는 휴리스틱 방식을 도입함으로써,
+EfficientNet은 다양한 규모에서 효율성과 정확성의 좋은 조합을 나타내는 모델 제품군(B0~B7)을 제공합니다.
+이러한 확장 휴리스틱(복합 확장, 자세한 내용은 [Tan and Le, 2019](https://arxiv.org/abs/1905.11946) 참조)을 사용하면
+효율성 지향 기본 모델(B0)이 모든 규모의 모델을 능가하는 동시에,
+하이퍼파라미터에 대한 광범위한 그리드 검색을 피할 수 있습니다.
 
-A summary of the latest updates on the model is available at [here](https://github.com/tensorflow/tpu/tree/master/models/official/efficientnet), where various augmentation schemes and semi-supervised learning approaches are applied to further improve the imagenet performance of the models. These extensions of the model can be used by updating weights without changing model architecture.
+이 모델의 최신 업데이트 요약은 [여기](https://github.com/tensorflow/tpu/tree/master/models/official/efficientnet)에서 확인할 수 있으며,
+모델의 이미지넷 성능을 더욱 향상시키기 위해 다양한 보강 체계와 준지도 학습 접근법이 적용됩니다.
+이러한 모델 확장은 모델 아키텍처를 변경하지 않고 가중치를 업데이트하여 사용할 수 있습니다.
 
-## B0 to B7 variants of EfficientNet
+## B0~B7 EfficientNet 변형 {#b0-to-b7-variants-of-efficientnet}
 
-_(This section provides some details on "compound scaling", and can be skipped if you're only interested in using the models)_
+_(이 섹션에서는 "복합 스케일링(compound scaling)"에 대한 자세한 내용을 제공하며, 모델 사용에만 관심이 있는 경우 건너뛸 수 있습니다)_
 
-Based on the [original paper](https://arxiv.org/abs/1905.11946) people may have the impression that EfficientNet is a continuous family of models created by arbitrarily choosing scaling factor in as Eq.(3) of the paper. However, choice of resolution, depth and width are also restricted by many factors:
+[원본 논문](https://arxiv.org/abs/1905.11946)을 보면 EfficientNet이
+논문의 식 (3)과 같이 스케일링 계수를 임의로 선택해 만든 연속적인 모델군이라는 인상을 받을 수 있습니다.
+그러나, 해상도, 깊이, 폭의 선택은 여러 가지 요인에 의해 제한됩니다:
 
-- Resolution: Resolutions not divisible by 8, 16, etc. cause zero-padding near boundaries of some layers which wastes computational resources. This especially applies to smaller variants of the model, hence the input resolution for B0 and B1 are chosen as 224 and 240.
+- 해상도: 8, 16 등으로 나눌 수 없는 해상도는 일부 레이어의 경계 근처에서 제로 패딩이 발생하여
+  계산 리소스를 낭비합니다. 이는 특히 모델의 작은 변형에 적용되므로,
+  B0 및 B1의 입력 해상도는 224 및 240으로 선택됩니다.
 
-- Depth and width: The building blocks of EfficientNet demands channel size to be multiples of 8.
+- 깊이와 너비: EfficientNet의 빌딩 블록은 채널 크기가 8의 배수일 것을 요구합니다.
 
-- Resource limit: Memory limitation may bottleneck resolution when depth and width can still increase. In such a situation, increasing depth and/or width but keep resolution can still improve performance.
+- 리소스 제한: 메모리 제한으로 인해 깊이와 너비가 계속 증가할 수 있는 경우
+  해상도에 병목 현상이 발생할 수 있습니다.
+  이러한 상황에서는, 깊이 및/또는 너비를 늘리되 해상도를 유지하면 성능이 향상될 수 있습니다.
 
-As a result, the depth, width and resolution of each variant of the EfficientNet models are hand-picked and proven to produce good results, though they may be significantly off from the compound scaling formula. Therefore, the keras implementation (detailed below) only provide these 8 models, B0 to B7, instead of allowing arbitray choice of width / depth / resolution parameters.
+따라서, EfficientNet 모델의 각 변형 모델의 깊이, 너비 및 해상도는 수작업으로 선택되어
+좋은 결과를 내는 것으로 입증되었지만, 복합 스케일링 공식과 크게 다를 수 있습니다.
+따라서, keras 구현(아래에 자세히 설명되어 있음)에서는
+너비/깊이/해상도 매개변수의 임의 선택을 허용하는 대신,
+이 8가지 모델인 B0~B7만 제공합니다.
 
-## Keras implementation of EfficientNet
+## EfficientNet Keras 구현 {#keras-implementation-of-efficientnet}
 
-An implementation of EfficientNet B0 to B7 has been shipped with Keras since v2.3. To use EfficientNetB0 for classifying 1000 classes of images from ImageNet, run:
+Keras 2.3 버전부터 Keras와 함께 EfficientNet B0~B7의 구현이 제공되었습니다.
+ImageNet으로부터의 1000개의 이미지 클래스를 분류하는데
+EfficientNetB0을 사용하려면, 다음을 실행하세요:
 
 ```python
 from tensorflow.keras.applications import EfficientNetB0
 model = EfficientNetB0(weights='imagenet')
 ```
 
-This model takes input images of shape `(224, 224, 3)`, and the input data should be in the range `[0, 255]`. Normalization is included as part of the model.
+이 모델은 `(224, 224, 3)` 모양의 입력 이미지를 사용하며,
+입력 데이터는 `[0, 255]` 범위여야 합니다.
+정규화는 모델의 일부로 포함됩니다.
 
-Because training EfficientNet on ImageNet takes a tremendous amount of resources and several techniques that are not a part of the model architecture itself. Hence the Keras implementation by default loads pre-trained weights obtained via training with [AutoAugment](https://arxiv.org/abs/1805.09501).
+이미지넷에 대해 EfficientNet을 트레이닝하려면
+엄청난 양의 리소스와 모델 아키텍처 자체에 포함되지 않은 몇 가지 기술이 필요하기 때문입니다.
+따라서 Keras 구현은 기본적으로
+[AutoAugment](https://arxiv.org/abs/1805.09501)을 통한 트레이닝을 통해 얻은
+사전 트레이닝된 가중치를 로드합니다.
 
-For B0 to B7 base models, the input shapes are different. Here is a list of input shape expected for each model:
+B0~B7 베이스 모델의 경우, 입력 모양이 다릅니다.
+다음은 각 모델에 대해 기대되는 입력 모양 목록입니다:
 
-| Base model     | resolution |
-| -------------- | ---------- |
-| EfficientNetB0 | 224        |
-| EfficientNetB1 | 240        |
-| EfficientNetB2 | 260        |
-| EfficientNetB3 | 300        |
-| EfficientNetB4 | 380        |
-| EfficientNetB5 | 456        |
-| EfficientNetB6 | 528        |
-| EfficientNetB7 | 600        |
+| 베이스 모델    | 해상도 |
+| -------------- | ------ |
+| EfficientNetB0 | 224    |
+| EfficientNetB1 | 240    |
+| EfficientNetB2 | 260    |
+| EfficientNetB3 | 300    |
+| EfficientNetB4 | 380    |
+| EfficientNetB5 | 456    |
+| EfficientNetB6 | 528    |
+| EfficientNetB7 | 600    |
 
-When the model is intended for transfer learning, the Keras implementation provides a option to remove the top layers:
+모델이 전이 학습을 목적으로 하는 경우, Keras 구현은 최상위 레이어를 제거하는 옵션을 제공합니다:
 
 ```python
 model = EfficientNetB0(include_top=False, weights='imagenet')
 ```
 
-This option excludes the final `Dense` layer that turns 1280 features on the penultimate layer into prediction of the 1000 ImageNet classes. Replacing the top layer with custom layers allows using EfficientNet as a feature extractor in a transfer learning workflow.
+이 옵션은 두 번째 레이어의 1280개 특성을
+1000개의 ImageNet 클래스에 대한 예측으로 바꾸는 최종 `Dense` 레이어를 제외합니다.
+최상위 레이어를 커스텀 레이어로 대체하면
+전이 학습 워크플로우에서 EfficientNet을 특성 추출기로 사용할 수 있습니다.
 
-Another argument in the model constructor worth noticing is `drop_connect_rate` which controls the dropout rate responsible for [stochastic depth](https://arxiv.org/abs/1603.09382). This parameter serves as a toggle for extra regularization in finetuning, but does not affect loaded weights. For example, when stronger regularization is desired, try:
+모델 생성자에서 주목할 만한 또 다른 인수는
+[확률적 깊이(stochastic depth)](https://arxiv.org/abs/1603.09382)를
+담당하는 드롭아웃 비율을 제어하는 `drop_connect_rate`입니다.
+이 매개변수는 미세 조정에서 추가 정규화를 위한 토글 역할을 하지만,
+로드된 가중치에는 영향을 미치지 않습니다.
+예를 들어, 더 강력한 정규화가 필요한 경우, 다음을 사용해 보세요:
 
 ```python
 model = EfficientNetB0(weights='imagenet', drop_connect_rate=0.4)
 ```
 
-The default value is 0.2.
+기본값은 0.2입니다.
 
-## Example: EfficientNetB0 for Stanford Dogs.
+## 예시: Stanford Dogs를 위한 EfficientNetB0 {#example-efficientnetb0-for-stanford-dogs}
 
-EfficientNet is capable of a wide range of image classification tasks. This makes it a good model for transfer learning. As an end-to-end example, we will show using pre-trained EfficientNetB0 on [Stanford Dogs](http://vision.stanford.edu/aditya86/ImageNetDogs/main.html) dataset.
+EfficientNet은 광범위한 이미지 분류 작업을 수행할 수 있습니다.
+따라서, 전이 학습을 위한 좋은 모델입니다.
+엔드투엔드 예시로, [Stanford Dogs](http://vision.stanford.edu/aditya86/ImageNetDogs/main.html) 데이터 세트에 대해
+사전 트레이닝된 EfficientNetB0을 사용해 보여드리겠습니다.
 
-## Setup and data loading
+## 셋업 및 데이터 로드 {#setup-and-data-loading}
 
 ```python
 import numpy as np
 import tensorflow_datasets as tfds
-import tensorflow as tf  # For tf.data
+import tensorflow as tf  # tf.data를 위해
 import matplotlib.pyplot as plt
 import keras
 from keras import layers
 from keras.applications import EfficientNetB0
 
-# IMG_SIZE is determined by EfficientNet model choice
+# IMG_SIZE는 EfficientNet 모델 선택에 따라 결정됩니다.
 IMG_SIZE = 224
 BATCH_SIZE = 64
 ```
 
-### Loading data
+### 데이터 로드 {#loading-data}
 
-Here we load data from [tensorflow_datasets](https://www.tensorflow.org/datasets) (hereafter TFDS). Stanford Dogs dataset is provided in TFDS as [stanford_dogs](https://www.tensorflow.org/datasets/catalog/stanford_dogs). It features 20,580 images that belong to 120 classes of dog breeds (12,000 for training and 8,580 for testing).
+여기서는 [tensorflow_datasets](https://www.tensorflow.org/datasets)(이하 TFDS)에서
+데이터를 로드합니다.
+Stanford Dogs 데이터 세트는
+TFDS에서 [stanford_dogs](https://www.tensorflow.org/datasets/catalog/stanford_dogs)로 제공됩니다.
+120개 견종에 속하는 20,580개의 이미지(트레이닝용 12,000개, 테스트용 8,580개)가 포함되어 있습니다.
 
-By simply changing `dataset_name` below, you may also try this notebook for other datasets in TFDS such as [cifar10](https://www.tensorflow.org/datasets/catalog/cifar10), [cifar100](https://www.tensorflow.org/datasets/catalog/cifar100), [food101](https://www.tensorflow.org/datasets/catalog/food101), etc. When the images are much smaller than the size of EfficientNet input, we can simply upsample the input images. It has been shown in [Tan and Le, 2019](https://arxiv.org/abs/1905.11946) that transfer learning result is better for increased resolution even if input images remain small.
+아래 `dataset_name`을 변경하면,
+[cifar10](https://www.tensorflow.org/datasets/catalog/cifar10),
+[cifar100](https://www.tensorflow.org/datasets/catalog/cifar100),
+[food101](https://www.tensorflow.org/datasets/catalog/food101) 등
+TFDS의 다른 데이터 세트에 대해서도 이 노트북을 사용해 볼 수 있습니다.
+이미지가 EfficientNet 입력 크기보다 훨씬 작은 경우, 입력 이미지를 업샘플링하면 됩니다.
+[Tan and Le, 2019](https://arxiv.org/abs/1905.11946)에서
+입력 이미지가 작아도 해상도가 높아지면 전이 학습 결과가 더 좋아진다는 것을 보여주었습니다.
 
 ```python
 dataset_name = "stanford_dogs"
@@ -117,7 +169,10 @@ dataset_name = "stanford_dogs"
 NUM_CLASSES = ds_info.features["label"].num_classes
 ```
 
-When the dataset include images with various size, we need to resize them into a shared size. The Stanford Dogs dataset includes only images at least 200x200 pixels in size. Here we resize the images to the input size needed for EfficientNet.
+데이터 세트에 다양한 크기의 이미지가 포함되어 있는 경우,
+우리는 공유되는 크기로 크기를 조정해야 합니다.
+Stanford Dogs 데이터 세트에는 최소 200x200픽셀 크기의 이미지만 포함되어 있습니다.
+여기서 우리는 이미지의 크기를 EfficientNet에 필요한 입력 크기로 조정합니다.
 
 ```python
 size = (IMG_SIZE, IMG_SIZE)
@@ -125,9 +180,9 @@ ds_train = ds_train.map(lambda image, label: (tf.image.resize(image, size), labe
 ds_test = ds_test.map(lambda image, label: (tf.image.resize(image, size), label))
 ```
 
-### Visualizing the data
+### 데이터 시각화 {#visualizing-the-data}
 
-The following code shows the first 9 images with their labels.
+다음 코드는 처음 9개의 이미지와 해당 레이블을 보여줍니다.
 
 ```python
 def format_label(label):
@@ -145,9 +200,9 @@ for i, (image, label) in enumerate(ds_train.take(9)):
 
 ![png](/images/examples/vision/image_classification_efficientnet_fine_tuning/image_classification_efficientnet_fine_tuning_9_0.png)
 
-### Data augmentation
+### 데이터 보강 {#data-augmentation}
 
-We can use the preprocessing layers APIs for image augmentation.
+이미지 보강을 위해 전처리 레이어 API를 사용할 수 있습니다.
 
 ```python
 img_augmentation_layers = [
@@ -164,7 +219,10 @@ def img_augmentation(images):
     return images
 ```
 
-This `Sequential` model object can be used both as a part of the model we later build, and as a function to preprocess data before feeding into the model. Using them as function makes it easy to visualize the augmented images. Here we plot 9 examples of augmentation result of a given figure.
+이 `Sequential` 모델 객체는 나중에 빌드하는 모델의 일부로서 사용할 수도 있고,
+모델에 데이터를 입력하기 전에 데이터를 사전 처리하는 함수로 사용할 수도 있습니다.
+함수로 사용하면 보강된 이미지를 쉽게 시각화할 수 있습니다.
+여기에서는 주어진 그림의 보강 결과의 9가지 예를 보여줍니다.
 
 ```python
 for image, label in ds_train.take(1):
@@ -179,14 +237,19 @@ for image, label in ds_train.take(1):
 
 ![png](/images/examples/vision/image_classification_efficientnet_fine_tuning/image_classification_efficientnet_fine_tuning_13_0.png)
 
-### Prepare inputs
+### 입력 준비 {#prepare-inputs}
 
-Once we verify the input data and augmentation are working correctly, we prepare dataset for training. The input data are resized to uniform `IMG_SIZE`. The labels are put into one-hot (a.k.a. categorical) encoding. The dataset is batched.
+입력 데이터와 보강이 제대로 작동하는지 확인하면, 트레이닝을 위한 데이터 세트를 준비합니다.
+입력 데이터의 크기를 균일한 `IMG_SIZE`로 조정합니다.
+레이블은 one-hot(일명 카테고리형) 인코딩에 넣습니다. 데이터 세트가 배치 처리됩니다.
 
-Note: `prefetch` and `AUTOTUNE` may in some situation improve performance, but depends on environment and the specific dataset used. See this [guide](https://www.tensorflow.org/guide/data_performance) for more information on data pipeline performance.
+> 참고: `prefetch`와 `AUTOTUNE`은 경우에 따라 성능을 향상시킬 수 있지만,
+> 환경과 사용되는 특정 데이터 세트에 따라 다릅니다.
+> 데이터 파이프라인 성능에 대한 자세한 내용은
+> 이 [가이드](https://www.tensorflow.org/guide/data_performance)를 참조하세요.
 
 ```python
-# One-hot / categorical encoding
+# One-hot/카테고리형 인코딩 One-hot
 def input_preprocess_train(image, label):
     image = img_augmentation(image)
     label = tf.one_hot(label, NUM_CLASSES)
@@ -206,11 +269,11 @@ ds_test = ds_test.map(input_preprocess_test, num_parallel_calls=tf.data.AUTOTUNE
 ds_test = ds_test.batch(batch_size=BATCH_SIZE, drop_remainder=True)
 ```
 
-## Training a model from scratch
+## 처음부터 모델 트레이닝하기 {#training-a-model-from-scratch}
 
-We build an EfficientNetB0 with 120 output classes, that is initialized from scratch:
+처음부터 초기화된, 120개의 출력 클래스가 있는 EfficientNetB0을 빌드합니다:
 
-Note: the accuracy will increase very slowly and may overfit.
+> 참고: 정확도가 매우 느리게 증가하며, 과적합할 수 있습니다.
 
 ```python
 model = EfficientNetB0(
@@ -1048,9 +1111,17 @@ Epoch 40/40
 
 {{% /details %}}
 
-Training the model is relatively fast. This might make it sounds easy to simply train EfficientNet on any dataset wanted from scratch. However, training EfficientNet on smaller datasets, especially those with lower resolution like CIFAR-100, faces the significant challenge of overfitting.
+모델 트레이닝은 비교적 빠릅니다.
+따라서, 처음부터 원하는 데이터 세트에 대해
+EfficientNet을 트레이닝하는 것이 쉬워 보일 수 있습니다.
+그러나, 소규모 데이터 세트, 특히 CIFAR-100과 같이 해상도가 낮은 데이터 세트에 대해,
+EfficientNet을 트레이닝할 경우, 과적합이라는 중대한 문제에 직면하게 됩니다.
 
-Hence training from scratch requires very careful choice of hyperparameters and is difficult to find suitable regularization. It would also be much more demanding in resources. Plotting the training and validation accuracy makes it clear that validation accuracy stagnates at a low value.
+따라서 처음부터 트레이닝하려면 하이퍼파라미터를 매우 신중하게 선택해야 하며,
+적절한 정규화를 찾기가 어렵습니다.
+이것은 또한 리소스도 훨씬 더 많이 요구됩니다.
+트레이닝과 검증 정확도를 그래프로 그려보면,
+검증 정확도가 낮은 값에서 정체되는 것을 알 수 있습니다.
 
 ```python
 import matplotlib.pyplot as plt
@@ -1071,19 +1142,19 @@ plot_hist(hist)
 
 ![png](/images/examples/vision/image_classification_efficientnet_fine_tuning/image_classification_efficientnet_fine_tuning_19_0.png)
 
-## Transfer learning from pre-trained weights
+## 사전 트레이닝된 가중치를 통한 전이 학습 {#transfer-learning-from-pre-trained-weights}
 
-Here we initialize the model with pre-trained ImageNet weights, and we fine-tune it on our own dataset.
+여기서는 미리 트레이닝된 ImageNet 가중치로 모델을 초기화하고, 자체 데이터 세트에서 미세 조정합니다.
 
 ```python
 def build_model(num_classes):
     inputs = layers.Input(shape=(IMG_SIZE, IMG_SIZE, 3))
     model = EfficientNetB0(include_top=False, input_tensor=inputs, weights="imagenet")
 
-    # Freeze the pretrained weights
+    # 사전 트레이닝된 가중치 동결
     model.trainable = False
 
-    # Rebuild top
+    # 톱만 다시 빌드
     x = layers.GlobalAveragePooling2D(name="avg_pool")(model.output)
     x = layers.BatchNormalization()(x)
 
@@ -1091,7 +1162,7 @@ def build_model(num_classes):
     x = layers.Dropout(top_dropout_rate, name="top_dropout")(x)
     outputs = layers.Dense(num_classes, activation="softmax", name="pred")(x)
 
-    # Compile
+    # 컴파일
     model = keras.Model(inputs, outputs, name="EfficientNet")
     optimizer = keras.optimizers.Adam(learning_rate=1e-2)
     model.compile(
@@ -1100,9 +1171,13 @@ def build_model(num_classes):
     return model
 ```
 
-The first step to transfer learning is to freeze all layers and train only the top layers. For this step, a relatively large learning rate (1e-2) can be used. Note that validation accuracy and loss will usually be better than training accuracy and loss. This is because the regularization is strong, which only suppresses training-time metrics.
+전이 학습의 첫 번째 단계는 모든 레이어를 동결하고 최상위 레이어만 트레이닝하는 것입니다.
+이 단계에서는, 비교적 큰 학습률(1e-2)을 사용할 수 있습니다.
+일반적으로 검증 정확도와 손실이 트레이닝 정확도와 손실보다 낫다는 점에 유의하세요.
+이는 정규화가 강력하여, 트레이닝 시의 메트릭만 억제하기 때문입니다.
 
-Note that the convergence may take up to 50 epochs depending on choice of learning rate. If image augmentation layers were not applied, the validation accuracy may only reach ~60%.
+학습률 선택에 따라 수렴에 최대 50개의 에포크가 소요될 수 있습니다.
+이미지 보강 레이어를 적용하지 않은 경우, 검증 정확도는 최대 60%에 불과할 수 있습니다.
 
 ```python
 model = build_model(num_classes=NUM_CLASSES)
@@ -1171,17 +1246,30 @@ Epoch 25/25
 
 ![png](/images/examples/vision/image_classification_efficientnet_fine_tuning/image_classification_efficientnet_fine_tuning_23_1.png)
 
-The second step is to unfreeze a number of layers and fit the model using smaller learning rate. In this example we show unfreezing all layers, but depending on specific dataset it may be desireble to only unfreeze a fraction of all layers.
+두 번째 단계는 여러 레이어의 동결을 해제하고 더 작은 학습률을 사용하여 모델을 맞추는 것입니다.
+이 예에서는 모든 레이어를 동결 해제하는 것을 보여드리지만,
+특정 데이터 세트에 따라 전체 레이어 중 일부만 동결 해제하는 것이 바람직할 수도 있습니다.
 
-When the feature extraction with pretrained model works good enough, this step would give a very limited gain on validation accuracy. In our case we only see a small improvement, as ImageNet pretraining already exposed the model to a good amount of dogs.
+사전 트레이닝된 모델을 사용한 특성 추출이 충분히 잘 작동하는 경우,
+이 단계는 검증 정확도를 매우 제한적으로 향상시킬 수 있습니다.
+우리의 경우에는 이미 ImageNet 사전 트레이닝된 모델이 많은 양의 개에 노출되어 있었기 때문에
+약간의 개선만 있었습니다.
 
-On the other hand, when we use pretrained weights on a dataset that is more different from ImageNet, this fine-tuning step can be crucial as the feature extractor also needs to be adjusted by a considerable amount. Such a situation can be demonstrated if choosing CIFAR-100 dataset instead, where fine-tuning boosts validation accuracy by about 10% to pass 80% on `EfficientNetB0`.
+반면, ImageNet으로부터의 다른 데이터 세트에 대해 사전 트레이닝된 가중치를 사용하는 경우,
+특성 추출기 역시 상당 부분 조정해야 하므로, 이 미세 조정 단계가 매우 중요할 수 있습니다.
+이러한 상황은 CIFAR-100 데이터 세트를 선택하면 확인할 수 있는데,
+이 경우 미세 조정을 통해 검증 정확도가 약 10% 향상되어,
+`EfficientNetB0`에서 80%를 통과할 수 있습니다.
 
-A side note on freezing/unfreezing models: setting `trainable` of a `Model` will simultaneously set all layers belonging to the `Model` to the same `trainable` attribute. Each layer is trainable only if both the layer itself and the model containing it are trainable. Hence when we need to partially freeze/unfreeze a model, we need to make sure the `trainable` attribute of the model is set to `True`.
+모델 동결/해제에 대한 참고 사항: `Model`의 `trainable`을 설정하면,
+`Model`에 속한 모든 레이어가 동시에 동일한 `trainable` 속성으로 설정됩니다.
+각 레이어는 레이어 자체와 레이어가 포함된 모델이 모두 트레이닝 가능한 경우에만 트레이닝 가능할 수 있습니다.
+따라서, 모델을 부분적으로 동결/동결 해제해야 하는 경우,
+모델의 `trainable` 속성이 `True`로 설정되어 있는지 확인해야 합니다.
 
 ```python
 def unfreeze_model(model):
-    # We unfreeze the top 20 layers while leaving BatchNorm layers frozen
+    # 상위 20개 레이어는 동결 해제하고 BatchNorm 레이어는 고정된 상태로 둡니다.
     for layer in model.layers[-20:]:
         if not isinstance(layer, layers.BatchNormalization):
             layer.trainable = True
@@ -1216,17 +1304,17 @@ Epoch 4/4
 
 ![png](/images/examples/vision/image_classification_efficientnet_fine_tuning/image_classification_efficientnet_fine_tuning_25_1.png)
 
-### Tips for fine tuning EfficientNet
+### EfficientNet 미세 조정을 위한 팁 {#tips-for-fine-tuning-efficientnet}
 
-On unfreezing layers:
+동결 해제 레이어에서:
 
-- The `BatchNormalization` layers need to be kept frozen ([more details]({{< relref "/docs/guides/transfer_learning" >}})). If they are also turned to trainable, the first epoch after unfreezing will significantly reduce accuracy.
-- In some cases it may be beneficial to open up only a portion of layers instead of unfreezing all. This will make fine tuning much faster when going to larger models like B7.
-- Each block needs to be all turned on or off. This is because the architecture includes a shortcut from the first layer to the last layer for each block. Not respecting blocks also significantly harms the final performance.
+- `BatchNormalization` 레이어는 동결 상태로 유지해야 합니다. ([자세한 내용]({{< relref "/docs/guides/transfer_learning" >}})) 트레이닝 가능한 상태로 전환하면, 동결 해제 후 첫 번째 에포크에서 정확도가 크게 떨어집니다.
+- 경우에 따라서는 모든 레이어를 동결 해제하는 대신, 일부 레이어만 동결 해제하는 것이 유리할 수 있습니다. 이렇게 하면 B7과 같은 큰 모델로 이동할 때 미세 조정이 훨씬 빨라집니다.
+- 각 블록을 모두 켜거나 꺼야 합니다. 이는 아키텍처에 각 블록의 첫 번째 레이어에서 마지막 레이어까지 shortcut이 포함되어 있기 때문입니다. 블록을 존중하지 않으면 최종 성능도 크게 저하됩니다.
 
-Some other tips for utilizing EfficientNet:
+EfficientNet을 활용하기 위한 몇 가지 다른 팁:
 
-- Larger variants of EfficientNet do not guarantee improved performance, especially for tasks with less data or fewer classes. In such a case, the larger variant of EfficientNet chosen, the harder it is to tune hyperparameters.
-- EMA (Exponential Moving Average) is very helpful in training EfficientNet from scratch, but not so much for transfer learning.
-- Do not use the RMSprop setup as in the original paper for transfer learning. The momentum and learning rate are too high for transfer learning. It will easily corrupt the pretrained weight and blow up the loss. A quick check is to see if loss (as categorical cross entropy) is getting significantly larger than log(NUM_CLASSES) after the same epoch. If so, the initial learning rate/momentum is too high.
-- Smaller batch size benefit validation accuracy, possibly due to effectively providing regularization.
+- 특히 데이터가 적거나 클래스 수가 적은 작업의 경우, EfficientNet의 변형이 클수록 성능이 향상되지 않습니다. 이러한 경우, 더 큰 EfficientNet 변형을 선택할수록, 하이퍼파라미터를 조정하기가 더 어려워집니다.
+- EMA(지수이동평균, Exponential Moving Average)는 EfficientNet을 처음부터 트레이닝하는 데는 매우 유용하지만, 전이 학습에는 그다지 유용하지 않습니다.
+- 전이 학습에는 원본 논문에서와 같은 RMSprop 설정을 사용하지 마세요. 전이 학습을 하기에는 모멘텀과 학습률이 너무 높습니다. 사전 트레이닝된 가중치가 쉽게 손상되어 손실이 커질 수 있습니다. 간단한 확인 방법은 손실(카테고리형 교차 엔트로피)이 같은 에포크 이후 log(NUM_CLASSES)보다 현저히 커지는지 확인하는 것입니다. 만약 그렇다면, 초기 학습률/모멘텀이 너무 높다는 뜻입니다.
+- 배치 크기가 작을수록 정규화를 효과적으로 제공하기 때문에, 검증 정확도에 도움이 될 수 있습니다.

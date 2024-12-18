@@ -1,5 +1,6 @@
 ---
-title: Deep Deterministic Policy Gradient (DDPG)
+title: 심층 결정론적 정책 그래디언트(DDPG)
+linkTitle: 심층 결정론적 정책 그래디언트(DDPG)
 toc: true
 weight: 4
 type: docs
@@ -19,7 +20,7 @@ type: docs
 {{< card link="https://github.com/keras-team/keras-io/blob/master/examples/rl/ddpg_pendulum.py" title="GitHub" tag="GitHub">}}
 {{< /cards >}}
 
-## Introduction
+## Introduction {#introduction}
 
 **Deep Deterministic Policy Gradient (DDPG)** is a model-free off-policy algorithm for learning continuous actions.
 
@@ -27,13 +28,13 @@ It combines ideas from DPG (Deterministic Policy Gradient) and DQN (Deep Q-Netwo
 
 This tutorial closely follow this paper - [Continuous control with deep reinforcement learning](https://arxiv.org/abs/1509.02971)
 
-## Problem
+## Problem {#problem}
 
 We are trying to solve the classic **Inverted Pendulum** control problem. In this setting, we can take only two actions: swing left or swing right.
 
 What make this problem challenging for Q-Learning Algorithms is that actions are **continuous** instead of being **discrete**. That is, instead of using two discrete actions like `-1` or `+1`, we have to select from infinite actions ranging from `-2` to `+2`.
 
-## Quick theory
+## Quick theory {#quick-theory}
 
 Just like the Actor-Critic method, we have two networks:
 
@@ -130,7 +131,7 @@ class OUActionNoise:
 
 The `Buffer` class implements Experience Replay.
 
-## Algorithm
+## Algorithm {#algorithm}
 
 ![Algorithm](/images/examples/rl/ddpg_pendulum/mS6iGyJ.jpg)
 
@@ -298,7 +299,7 @@ def policy(state, noise_object):
     return [np.squeeze(legal_action)]
 ```
 
-## Training hyperparameters
+## Training hyperparameters {#training-hyperparameters}
 
 ```python
 std_dev = 0.2

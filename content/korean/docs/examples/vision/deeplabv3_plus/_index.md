@@ -1,5 +1,6 @@
 ---
-title: Multiclass semantic segmentation using DeepLabV3+
+title: DeepLabV3+를 사용한 다중 클래스 시맨틱 세그멘테이션
+linkTitle: DeepLabV3+ 시맨틱 세그멘테이션
 toc: true
 weight: 21
 type: docs
@@ -10,7 +11,7 @@ type: docs
 **{{< t f_author >}}** [Soumik Rakshit](http://github.com/soumik12345)  
 **{{< t f_date_created >}}** 2021/08/31  
 **{{< t f_last_modified >}}** 2024/01/05  
-**{{< t f_description >}}** Implement DeepLabV3+ architecture for Multi-class Semantic Segmentation.
+**{{< t f_description >}}** 다중 클래스 의미론적 분할을 위한 DeepLabV3+ 아키텍처를 구현합니다.
 
 {{< keras/version v=3 >}}
 
@@ -19,17 +20,17 @@ type: docs
 {{< card link="https://github.com/keras-team/keras-io/blob/master/examples/vision/deeplabv3_plus.py" title="GitHub" tag="GitHub">}}
 {{< /cards >}}
 
-## Introduction
+## Introduction {#introduction}
 
 Semantic segmentation, with the goal to assign semantic labels to every pixel in an image, is an essential computer vision task. In this example, we implement the **DeepLabV3+** model for multi-class semantic segmentation, a fully-convolutional architecture that performs well on semantic segmentation benchmarks.
 
-### References:
+### References: {#references}
 
 - [Encoder-Decoder with Atrous Separable Convolution for Semantic Image Segmentation](https://arxiv.org/abs/1802.02611)
 - [Rethinking Atrous Convolution for Semantic Image Segmentation](https://arxiv.org/abs/1706.05587)
 - [DeepLab: Semantic Image Segmentation with Deep Convolutional Nets, Atrous Convolution, and Fully Connected CRFs](https://arxiv.org/abs/1606.00915)
 
-## Downloading the data
+## Downloading the data {#downloading-the-data}
 
 We will use the [Crowd Instance-level Human Parsing Dataset](https://arxiv.org/abs/1811.12596) for training our model. The Crowd Instance-level Human Parsing (CIHP) dataset has 38,280 diverse human images. Each image in CIHP is labeled with pixel-wise annotations for 20 categories, as well as instance-level identification. This dataset can be used for the "human part segmentation" task.
 
@@ -67,7 +68,7 @@ To: /content/keras-io/scripts/tmp_7009966/instance-level-human-parsing.zip
 
 {{% /details %}}
 
-## Creating a TensorFlow Dataset
+## Creating a TensorFlow Dataset {#creating-a-tensorflow-dataset}
 
 Training on the entire CIHP dataset with 38,280 images takes a lot of time, hence we will be using a smaller subset of 200 images for training our model in this example.
 
@@ -131,7 +132,7 @@ Val Dataset: <_BatchDataset element_spec=(TensorSpec(shape=(4, 512, 512, 3), dty
 
 {{% /details %}}
 
-## Building the DeepLabV3+ model
+## Building the DeepLabV3+ model {#building-the-deeplabv3-model}
 
 DeepLabv3+ extends DeepLabv3 by adding an encoder-decoder structure. The encoder module processes multiscale contextual information by applying dilated convolution at multiple scales, while the decoder module refines the segmentation results along object boundaries.
 
@@ -740,7 +741,7 @@ Model: "functional_1"
 
 {{% /details %}}
 
-## Training
+## Training {#training}
 
 We train the model using sparse categorical crossentropy as the loss function, and Adam as the optimizer.
 
@@ -844,7 +845,7 @@ Epoch 25/25
 
 ![png](/images/examples/vision/deeplabv3_plus/deeplabv3_plus_12_4.png)
 
-## Inference using Colormap Overlay
+## Inference using Colormap Overlay {#inference-using-colormap-overlay}
 
 The raw predictions from the model represent a one-hot encoded tensor of shape `(N, 512, 512, 20)` where each one of the 20 channels is a binary mask corresponding to a predicted label. In order to visualize the results, we plot them as RGB segmentation masks where each pixel is represented by a unique color corresponding to the particular label predicted. We can easily find the color corresponding to each label from the `human_colormap.mat` file provided as part of the dataset. We would also plot an overlay of the RGB segmentation mask on the input image as this further helps us to identify the different categories present in the image more intuitively.
 
@@ -905,7 +906,7 @@ def plot_predictions(images_list, colormap, model):
         )
 ```
 
-### Inference on Train Images
+### Inference on Train Images {#inference-on-train-images}
 
 ```python
 plot_predictions(train_images[:4], colormap, model=model)
@@ -939,7 +940,7 @@ plot_predictions(train_images[:4], colormap, model=model)
 
 {{% /details %}}
 
-### Inference on Validation Images
+### Inference on Validation Images {#inference-on-validation-images}
 
 You can use the trained model hosted on [Hugging Face Hub](https://huggingface.co/keras-io/deeplabv3p-resnet50) and try the demo on [Hugging Face Spaces](https://huggingface.co/spaces/keras-io/Human-Part-Segmentation).
 

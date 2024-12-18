@@ -1,5 +1,6 @@
 ---
-title: Probabilistic Bayesian Neural Networks
+title: 확률론적 베이지안 신경망
+linkTitle: 확률론적 베이지안 신경망
 toc: true
 weight: 16
 type: docs
@@ -19,7 +20,7 @@ type: docs
 {{< card link="https://github.com/keras-team/keras-io/blob/master/examples/keras_recipes/bayesian_neural_networks.py" title="GitHub" tag="GitHub">}}
 {{< /cards >}}
 
-## Introduction
+## Introduction {#introduction}
 
 Taking a probabilistic approach to deep learning allows to account for _uncertainty_, so that models can assign less levels of confidence to incorrect predictions. Sources of uncertainty can be found in the data, due to measurement error or noise in the labels, or the model, due to insufficient data availability for the model to learn effectively.
 
@@ -31,7 +32,7 @@ This example requires TensorFlow 2.3 or higher. You can install Tensorflow Proba
 pip install tensorflow-probability
 ```
 
-## The dataset
+## The dataset {#the-dataset}
 
 We use the [Wine Quality](https://archive.ics.uci.edu/ml/datasets/wine+quality) dataset, which is available in the [TensorFlow Datasets](https://www.tensorflow.org/datasets/catalog/wine_quality). We use the red wine subset, which contains 4,898 examples. The dataset has 11numerical physicochemical features of the wine, and the task is to predict the wine quality, which is a score between 0 and 10. In this example, we treat this as a regression task.
 
@@ -41,7 +42,7 @@ You can install TensorFlow Datasets using the following command:
 pip install tensorflow-datasets
 ```
 
-## Setup
+## Setup {#setup}
 
 ```python
 import numpy as np
@@ -52,7 +53,7 @@ import tensorflow_datasets as tfds
 import tensorflow_probability as tfp
 ```
 
-## Create training and evaluation datasets
+## Create training and evaluation datasets {#create-training-and-evaluation-datasets}
 
 Here, we load the `wine_quality` dataset using `tfds.load()`, and we convert the target feature to float. Then, we shuffle the dataset and split it into training and test sets. We take the first `train_size` examples as the train split, and the rest as the test split.
 
@@ -75,7 +76,7 @@ def get_train_and_test_splits(train_size, batch_size=1):
     return train_dataset, test_dataset
 ```
 
-## Compile, train, and evaluate the model
+## Compile, train, and evaluate the model {#compile-train-and-evaluate-the-model}
 
 ```python
 hidden_units = [8, 8]
@@ -101,7 +102,7 @@ def run_experiment(model, loss, train_dataset, test_dataset):
     print(f"Test RMSE: {round(rmse, 3)}")
 ```
 
-## Create model inputs
+## Create model inputs {#create-model-inputs}
 
 ```python
 FEATURE_NAMES = [
@@ -128,7 +129,7 @@ def create_model_inputs():
     return inputs
 ```
 
-## Experiment 1: standard neural network
+## Experiment 1: standard neural network {#experiment-1-standard-neural-network}
 
 We create a standard deterministic neural network model as a baseline.
 
@@ -234,7 +235,7 @@ Predicted: 6.2 - Actual: 7.0
 
 {{% /details %}}
 
-## Experiment 2: Bayesian neural network (BNN)
+## Experiment 2: Bayesian neural network (BNN) {#experiment-2-bayesian-neural-network-bnn}
 
 The object of the Bayesian approach for modeling neural networks is to capture the _epistemic uncertainty_, which is uncertainty about the model fitness, due to limited training data.
 
@@ -302,7 +303,7 @@ def create_bnn_model(train_size):
 
 The epistemic uncertainty can be reduced as we increase the size of the training data. That is, the more data the BNN model sees, the more it is certain about its estimates for the weights (distribution parameters). Let's test this behaviour by training the BNN model on a small subset of the training set, and then on the full training set, to compare the output variances.
 
-### Train BNN with a small training subset.
+### Train BNN with a small training subset. {#train-bnn-with-a-small-training-subset}
 
 ```python
 num_epochs = 500
@@ -394,7 +395,7 @@ Predictions mean: 6.33, min: 6.05, max: 6.54, range: 0.48 - Actual: 7.0
 
 {{% /details %}}
 
-### Train BNN with the whole training set.
+### Train BNN with the whole training set. {#train-bnn-with-the-whole-training-set}
 
 ```python
 num_epochs = 500
@@ -453,7 +454,7 @@ Predictions mean: 6.44, min: 6.19, max: 6.59, range: 0.4 - Actual: 7.0
 
 Notice that the model trained with the full training dataset shows smaller range (uncertainty) in the prediction values for the same inputs, compared to the model trained with a subset of the training dataset.
 
-## Experiment 3: probabilistic Bayesian neural network
+## Experiment 3: probabilistic Bayesian neural network {#experiment-3-probabilistic-bayesian-neural-network}
 
 So far, the output of the standard and the Bayesian NN models that we built is deterministic, that is, produces a point estimate as a prediction for a given example. We can create a probabilistic NN by letting the model output a distribution. In this case, the model captures the _aleatoric uncertainty_ as well, which is due to irreducible noise in the data, or to the stochastic nature of the process generating the data.
 

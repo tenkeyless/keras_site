@@ -1,5 +1,6 @@
 ---
-title: Proximal Policy Optimization
+title: Proximal 정책 최적화
+linkTitle: Proximal 정책 최적화
 toc: true
 weight: 2
 type: docs
@@ -19,17 +20,17 @@ type: docs
 {{< card link="https://github.com/keras-team/keras-io/blob/master/examples/rl/ppo_cartpole.py" title="GitHub" tag="GitHub">}}
 {{< /cards >}}
 
-## Introduction
+## Introduction {#introduction}
 
 This code example solves the CartPole-v1 environment using a Proximal Policy Optimization (PPO) agent.
 
-### CartPole-v1
+### CartPole-v1 {#cartpole-v1}
 
 A pole is attached by an un-actuated joint to a cart, which moves along a frictionless track. The system is controlled by applying a force of +1 or -1 to the cart. The pendulum starts upright, and the goal is to prevent it from falling over. A reward of +1 is provided for every timestep that the pole remains upright. The episode ends when the pole is more than 15 degrees from vertical, or the cart moves more than 2.4 units from the center. After 200 steps the episode ends. Thus, the highest return we can get is equal to 200.
 
 [CartPole-v1](https://gymnasium.farama.org/environments/classic_control/cart_pole/)
 
-### Proximal Policy Optimization
+### Proximal Policy Optimization {#proximal-policy-optimization}
 
 PPO is a policy gradient method and can be used for environments with either discrete or continuous action spaces. It trains a stochastic policy in an on-policy way. Also, it utilizes the actor critic method. The actor maps the observation to an action and the critic gives an expectation of the rewards of the agent for the observation given. Firstly, it collects a set of trajectories for each epoch by sampling from the latest version of the stochastic policy. Then, the rewards-to-go and the advantage estimates are computed in order to update the policy and fit the value function. The policy is updated via a stochastic gradient ascent optimizer, while the value function is fitted via some gradient descent algorithm. This procedure is applied for many epochs until the environment is solved.
 
@@ -38,13 +39,13 @@ PPO is a policy gradient method and can be used for environments with either dis
 - [Proximal Policy Optimization Algorithms](https://arxiv.org/abs/1707.06347)
 - [OpenAI Spinning Up docs - PPO](https://spinningup.openai.com/en/latest/algorithms/ppo.html)
 
-### Note
+### Note {#note}
 
 This code example uses Keras and Tensorflow v2. It is based on the PPO Original Paper, the OpenAI's Spinning Up docs for PPO, and the OpenAI's Spinning Up implementation of PPO using Tensorflow v1.
 
 [OpenAI Spinning Up Github - PPO](https://github.com/openai/spinningup/blob/master/spinup/algos/tf1/ppo/ppo.py)
 
-## Libraries
+## Libraries {#libraries}
 
 For this example the following libraries are used:
 
@@ -67,7 +68,7 @@ import gymnasium as gym
 import scipy.signal
 ```
 
-## Functions and class
+## Functions and class {#functions-and-class}
 
 ```python
 def discounted_cumulative_sums(x, discount):
@@ -202,7 +203,7 @@ def train_value_function(observation_buffer, return_buffer):
     value_optimizer.apply_gradients(zip(value_grads, critic.trainable_variables))
 ```
 
-## Hyperparameters
+## Hyperparameters {#hyperparameters}
 
 ```python
 # Hyperparameters of the PPO algorithm
@@ -222,7 +223,7 @@ hidden_sizes = (64, 64)
 render = False
 ```
 
-## Initializations
+## Initializations {#initializations}
 
 ```python
 # Initialize the environment and get the dimensionality of the
@@ -250,7 +251,7 @@ observation, _ = env.reset()
 episode_return, episode_length = 0, 0
 ```
 
-## Train
+## Train {#train}
 
 ```python
 # Iterate over the number of epochs
@@ -387,7 +388,7 @@ for epoch in range(epochs):
 
 {{% /details %}}
 
-## Visualizations
+## Visualizations {#visualizations}
 
 Before training:
 

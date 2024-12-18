@@ -1,5 +1,6 @@
 ---
-title: Timeseries classification from scratch
+title: 처음부터 타임시리즈 분류
+linkTitle: 처음부터 타임시리즈 분류
 toc: true
 weight: 1
 type: docs
@@ -19,11 +20,11 @@ type: docs
 {{< card link="https://github.com/keras-team/keras-io/blob/master/examples/timeseries/timeseries_classification_from_scratch.py" title="GitHub" tag="GitHub">}}
 {{< /cards >}}
 
-## Introduction
+## Introduction {#introduction}
 
 This example shows how to do timeseries classification from scratch, starting from raw CSV timeseries files on disk. We demonstrate the workflow on the FordA dataset from the [UCR/UEA archive](https://www.cs.ucr.edu/%7Eeamonn/time_series_data_2018/).
 
-## Setup
+## Setup {#setup}
 
 ```python
 import keras
@@ -31,13 +32,13 @@ import numpy as np
 import matplotlib.pyplot as plt
 ```
 
-## Load the data: the FordA dataset
+## Load the data: the FordA dataset {#load-the-data-the-forda-dataset}
 
-### Dataset description
+### Dataset description {#dataset-description}
 
 The dataset we are using here is called FordA. The data comes from the UCR archive. The dataset contains 3601 training instances and another 1320 testing instances. Each timeseries corresponds to a measurement of engine noise captured by a motor sensor. For this task, the goal is to automatically detect the presence of a specific issue with the engine. The problem is a balanced binary classification task. The full description of this dataset can be found [here](http://www.j-wichard.de/publications/FordPaper.pdf).
 
-### Read the TSV data
+### Read the TSV data {#read-the-tsv-data}
 
 We will use the `FordA_TRAIN` file for training and the `FordA_TEST` file for testing. The simplicity of this dataset allows us to demonstrate effectively how to use ConvNets for timeseries classification. In this file, the first column corresponds to the label.
 
@@ -55,7 +56,7 @@ x_train, y_train = readucr(root_url + "FordA_TRAIN.tsv")
 x_test, y_test = readucr(root_url + "FordA_TEST.tsv")
 ```
 
-## Visualize the data
+## Visualize the data {#visualize-the-data}
 
 Here we visualize one timeseries example for each class in the dataset.
 
@@ -73,7 +74,7 @@ plt.close()
 
 ![png](/images/examples/timeseries/timeseries_classification_from_scratch/timeseries_classification_from_scratch_7_0.png)
 
-## Standardize the data
+## Standardize the data {#standardize-the-data}
 
 Our timeseries are already in a single length (500). However, their values are usually in various ranges. This is not ideal for a neural network; in general we should seek to make the input values normalized. For this specific dataset, the data is already z-normalized: each timeseries sample has a mean equal to zero and a standard deviation equal to one. This type of normalization is very common for timeseries classification problems, see [Bagnall et al. (2016)](https://link.springer.com/article/10.1007/s10618-016-0483-9).
 
@@ -105,7 +106,7 @@ y_train[y_train == -1] = 0
 y_test[y_test == -1] = 0
 ```
 
-## Build a model
+## Build a model {#build-a-model}
 
 We build a Fully Convolutional Neural Network originally proposed in [this paper](https://arxiv.org/abs/1611.06455). The implementation is based on the TF 2 version provided [here](https://github.com/hfawaz/dl-4-tsc/). The following hyperparameters (kernel_size, filters, the usage of BatchNorm) were found via random search using [KerasTuner](https://github.com/keras-team/keras-tuner).
 
@@ -138,7 +139,7 @@ keras.utils.plot_model(model, show_shapes=True)
 
 ![png](/images/examples/timeseries/timeseries_classification_from_scratch/timeseries_classification_from_scratch_17_0.png)
 
-## Train the model
+## Train the model {#train-the-model}
 
 ```python
 epochs = 500
@@ -759,7 +760,7 @@ Epoch 291: early stopping
 
 {{% /details %}}
 
-## Evaluate model on test data
+## Evaluate model on test data {#evaluate-model-on-test-data}
 
 ```python
 model = keras.models.load_model("best_model.keras")
@@ -780,7 +781,7 @@ Test loss 0.09916326403617859
 
 {{% /details %}}
 
-## Plot the model's training and validation loss
+## Plot the model's training and validation loss {#plot-the-models-training-and-validation-loss}
 
 ```python
 metric = "sparse_categorical_accuracy"

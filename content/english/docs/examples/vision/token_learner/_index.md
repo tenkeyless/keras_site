@@ -7,7 +7,7 @@ type: docs
 
 {{< keras/original checkedAt="2024-11-21" >}}
 
-**Authors:** [Aritra Roy Gosthipaty](https://twitter.com/ariG23498), [Sayak Paul](https://twitter.com/RisingSayak) (equal contribution), converted to Keras 3 by [Muhammad Anas Raza](https://anasrz.com)  
+**{{< t f_author >}}** [Aritra Roy Gosthipaty](https://twitter.com/ariG23498), [Sayak Paul](https://twitter.com/RisingSayak) (equal contribution), converted to Keras 3 by [Muhammad Anas Raza](https://anasrz.com)  
 **{{< t f_date_created >}}** 2021/12/10  
 **{{< t f_last_modified >}}** 2023/08/14  
 **{{< t f_description >}}** Adaptively generating a smaller number of tokens for Vision Transformers.

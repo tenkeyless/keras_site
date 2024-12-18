@@ -1,5 +1,6 @@
 ---
-title: Image Super-Resolution using an Efficient Sub-Pixel CNN
+title: Efficient Sub-Pixel CNN을 사용한 이미지 슈퍼 레졸루션
+linkTitle: Efficient Sub-Pixel CNN 이미지 슈퍼 레졸루션
 toc: true
 weight: 36
 type: docs
@@ -19,13 +20,13 @@ type: docs
 {{< card link="https://github.com/keras-team/keras-io/blob/master/examples/vision/super_resolution_sub_pixel.py" title="GitHub" tag="GitHub">}}
 {{< /cards >}}
 
-## Introduction
+## Introduction {#introduction}
 
 ESPCN (Efficient Sub-Pixel CNN), proposed by [Shi, 2016](https://arxiv.org/abs/1609.05158) is a model that reconstructs a high-resolution version of an image given a low-resolution version. It leverages efficient "sub-pixel convolution" layers, which learns an array of image upscaling filters.
 
 In this code example, we will implement the model from the paper and train it on a small dataset, [BSDS500](https://www2.eecs.berkeley.edu/Research/Projects/CS/vision/grouping/resources.html). [BSDS500](https://www2.eecs.berkeley.edu/Research/Projects/CS/vision/grouping/resources.html).
 
-## Setup
+## Setup {#setup}
 
 ```python
 import keras
@@ -44,9 +45,9 @@ import numpy as np
 from IPython.display import display
 ```
 
-## Load data: BSDS500 dataset
+## Load data: BSDS500 dataset {#load-data-bsds500-dataset}
 
-### Download dataset
+### Download dataset {#download-dataset}
 
 We use the built-in [`keras.utils.get_file`]({{< relref "/docs/api/utils/python_utils#get_file-function" >}}) utility to retrieve the dataset.
 
@@ -148,7 +149,7 @@ test_img_paths = sorted(
 )
 ```
 
-## Crop and resize images
+## Crop and resize images {#crop-and-resize-images}
 
 Let's process image data. First, we convert our images from the RGB color space to the [YUV colour space](https://en.wikipedia.org/wiki/YUV).
 
@@ -225,7 +226,7 @@ for batch in train_ds.take(1):
 
 ![png](/images/examples/vision/super_resolution_sub_pixel/super_resolution_sub_pixel_17_15.png)
 
-## Build a model
+## Build a model {#build-a-model}
 
 Compared to the paper, we add one more layer and we use the `relu` activation function instead of `tanh`. It achieves better performance even though we train the model for fewer epochs.
 
@@ -265,7 +266,7 @@ def get_model(upscale_factor=3, channels=1):
     return keras.Model(inputs, outputs)
 ```
 
-## Define utility functions
+## Define utility functions {#define-utility-functions}
 
 We need to define several utility functions to monitor our results:
 
@@ -343,7 +344,7 @@ def upscale_image(model, img):
     return out_img
 ```
 
-## Define callbacks to monitor training
+## Define callbacks to monitor training {#define-callbacks-to-monitor-training}
 
 The `ESPCNCallback` object will compute and display the [PSNR](https://en.wikipedia.org/wiki/Peak_signal-to-noise_ratio) metric. This is the main metric we use to evaluate super-resolution performance.
 
@@ -416,7 +417,7 @@ Model: "functional_1"
 
 {{% /details %}}
 
-## Train the model
+## Train the model {#train-the-model}
 
 ```python
 epochs = 100
@@ -775,7 +776,7 @@ Mean PSNR for epoch: 26.50
 
 {{% /details %}}
 
-## Run model prediction and plot the results
+## Run model prediction and plot the results {#run-model-prediction-and-plot-the-results}
 
 Let's compute the reconstructed version of a few images and save the results.
 

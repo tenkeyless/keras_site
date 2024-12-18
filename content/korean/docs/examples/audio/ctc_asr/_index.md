@@ -1,5 +1,6 @@
 ---
-title: Automatic Speech Recognition using CTC
+title: CTC를 사용한 자동 음성 인식
+linkTitle: CTC 자동 음성 인식
 toc: true
 weight: 2
 type: docs
@@ -7,7 +8,7 @@ type: docs
 
 {{< keras/original checkedAt="2024-11-23" >}}
 
-**Authors:** [Mohamed Reda Bouadjenek](https://rbouadjenek.github.io/) and [Ngoc Dung Huynh](https://www.linkedin.com/in/parkerhuynh/)  
+**{{< t f_author >}}** [Mohamed Reda Bouadjenek](https://rbouadjenek.github.io/) and [Ngoc Dung Huynh](https://www.linkedin.com/in/parkerhuynh/)  
 **{{< t f_date_created >}}** 2021/09/26  
 **{{< t f_last_modified >}}** 2021/09/26  
 **{{< t f_description >}}** Training a CTC-based model for automatic speech recognition.
@@ -19,7 +20,7 @@ type: docs
 {{< card link="https://github.com/keras-team/keras-io/blob/master/examples/audio/ctc_asr.py" title="GitHub" tag="GitHub">}}
 {{< /cards >}}
 
-## Introduction
+## Introduction {#introduction}
 
 Speech recognition is an interdisciplinary subfield of computer science and computational linguistics that develops methodologies and technologies that enable the recognition and translation of spoken language into text by computers. It is also known as automatic speech recognition (ASR), computer speech recognition or speech to text (STT). It incorporates knowledge and research in the computer science, linguistics and computer engineering fields.
 
@@ -40,7 +41,7 @@ pip install jiwer
 - [Sequence Modeling With CTC](https://distill.pub/2017/ctc/)
 - [DeepSpeech2](https://nvidia.github.io/OpenSeq2Seq/html/speech-recognition/deepspeech2.html)
 
-## Setup
+## Setup {#setup}
 
 ```python
 import pandas as pd
@@ -53,7 +54,7 @@ from IPython import display
 from jiwer import wer
 ```
 
-## Load the LJSpeech Dataset
+## Load the LJSpeech Dataset {#load-the-ljspeech-dataset}
 
 Let's download the [LJSpeech Dataset](https://keithito.com/LJ-Speech-Dataset/). The dataset contains 13,100 audio files as `wav` files in the `/wavs/` folder. The label (transcript) for each audio file is a string given in the `metadata.csv` file. The fields are:
 
@@ -106,7 +107,7 @@ Size of the training set: 1310
 
 {{% /details %}}
 
-## Preprocessing
+## Preprocessing {#preprocessing}
 
 We first prepare the vocabulary to be used.
 
@@ -181,7 +182,7 @@ def encode_single_sample(wav_file, label):
     return spectrogram, label
 ```
 
-## Creating `Dataset` objects
+## Creating `Dataset` objects {#creating-dataset-objects}
 
 We create a [`tf.data.Dataset`](https://www.tensorflow.org/api_docs/python/tf/data/Dataset) object that yields the transformed elements, in the same order as they appeared in the input.
 
@@ -208,7 +209,7 @@ validation_dataset = (
 )
 ```
 
-## Visualize the data
+## Visualize the data {#visualize-the-data}
 
 Let's visualize an example in our dataset, including the audio clip, the spectrogram and the corresponding label.
 
@@ -240,7 +241,7 @@ plt.show()
 
 ![png](/images/examples/audio/ctc_asr/ctc_asr_15_1.png)
 
-## Model
+## Model {#model}
 
 We first define the CTC Loss function.
 
@@ -391,7 +392,7 @@ ________________________________________________________________________________
 
 {{% /details %}}
 
-## Training and Evaluating
+## Training and Evaluating {#training-and-evaluating}
 
 ```python
 # A utility function to decode the output of the network
@@ -471,7 +472,7 @@ Prediction: sss
 
 {{% /details %}}
 
-## Inference
+## Inference {#inference}
 
 ```python
 # Let's check results on more validation samples
@@ -520,7 +521,7 @@ Prediction: sssrs
 
 {{% /details %}}
 
-## Conclusion
+## Conclusion {#conclusion}
 
 In practice, you should train for around 50 epochs or more. Each epoch takes approximately 5-6mn using a `GeForce RTX 2080 Ti` GPU. The model we trained at 50 epochs has a `Word Error Rate (WER) ≈ 16% to 17%`.
 

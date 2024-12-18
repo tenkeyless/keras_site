@@ -1,5 +1,6 @@
 ---
-title: Timeseries forecasting for weather prediction
+title: 날씨 예측을 위한 타임시리즈 예측
+linkTitle: 날씨 예측 타임시리즈 예측
 toc: true
 weight: 7
 type: docs
@@ -7,7 +8,7 @@ type: docs
 
 {{< keras/original checkedAt="2024-11-22" >}}
 
-**Authors:** [Prabhanshu Attri](https://prabhanshu.com/github), [Yashika Sharma](https://github.com/yashika51), [Kristi Takach](https://github.com/ktakattack), [Falak Shah](https://github.com/falaktheoptimist)  
+**{{< t f_author >}}** [Prabhanshu Attri](https://prabhanshu.com/github), [Yashika Sharma](https://github.com/yashika51), [Kristi Takach](https://github.com/ktakattack), [Falak Shah](https://github.com/falaktheoptimist)  
 **{{< t f_date_created >}}** 2020/06/23  
 **{{< t f_last_modified >}}** 2023/11/22  
 **{{< t f_description >}}** This notebook demonstrates how to do timeseries forecasting using a LSTM model.
@@ -19,7 +20,7 @@ type: docs
 {{< card link="https://github.com/keras-team/keras-io/blob/master/examples/timeseries/timeseries_weather_forecasting.py" title="GitHub" tag="GitHub">}}
 {{< /cards >}}
 
-## Setup
+## Setup {#setup}
 
 ```python
 import pandas as pd
@@ -27,7 +28,7 @@ import matplotlib.pyplot as plt
 import keras
 ```
 
-## Climate Data Time-Series
+## Climate Data Time-Series {#climate-data-time-series}
 
 We will be using Jena Climate dataset recorded by the [Max Planck Institute for Biogeochemistry](https://www.bgc-jena.mpg.de/wetter/). The dataset consists of 14 features such as temperature, pressure, humidity etc, recorded once per 10 minutes.
 
@@ -67,7 +68,7 @@ csv_path = "jena_climate_2009_2016.csv"
 df = pd.read_csv(csv_path)
 ```
 
-## Raw Data Visualization
+## Raw Data Visualization {#raw-data-visualization}
 
 To give us a sense of the data we are working with, each feature has been plotted below. This shows the distinct pattern of each feature over the time period from 2009 to 2016. It also shows where anomalies are present, which will be addressed during normalization.
 
@@ -148,7 +149,7 @@ show_raw_visualization(df)
 
 ![png](/images/examples/timeseries/timeseries_weather_forecasting/timeseries_weather_forecasting_6_0.png)
 
-## Data Preprocessing
+## Data Preprocessing {#data-preprocessing}
 
 Here we are picking ~300,000 data points for training. Observation is recorded every 10 mins, that means 6 times per hour. We will resample one point per hour since no drastic change is expected within 60 minutes. We do this via the `sampling_rate` argument in `timeseries_dataset_from_array` utility.
 
@@ -206,7 +207,7 @@ The selected parameters are: Pressure, Temperature, Saturation vapor pressure, V
 
 {{% /details %}}
 
-## Training dataset
+## Training dataset {#training-dataset}
 
 The training dataset labels starts from the 792nd observation (720 + 72).
 
@@ -232,7 +233,7 @@ dataset_train = keras.preprocessing.timeseries_dataset_from_array(
 )
 ```
 
-## Validation dataset
+## Validation dataset {#validation-dataset}
 
 The validation dataset must not contain the last 792 rows as we won't have label data for those records, hence 792 must be subtracted from the end of the data.
 
@@ -271,7 +272,7 @@ Target shape: (256, 1)
 
 {{% /details %}}
 
-## Training
+## Training {#training}
 
 ```python
 inputs = keras.layers.Input(shape=(inputs.shape[1], inputs.shape[2]))
@@ -398,7 +399,7 @@ visualize_loss(history, "Training and Validation Loss")
 
 ![png](/images/examples/timeseries/timeseries_weather_forecasting/timeseries_weather_forecasting_22_0.png)
 
-## Prediction
+## Prediction {#prediction}
 
 The trained model above is now able to make predictions for 5 sets of values from validation set.
 

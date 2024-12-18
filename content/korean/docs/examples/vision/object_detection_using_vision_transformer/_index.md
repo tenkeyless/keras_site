@@ -1,5 +1,6 @@
 ---
-title: Object detection with Vision Transformers
+title: 비전 트랜스포머를 사용한 객체 감지
+linkTitle: 비전 트랜스포머 객체 감지
 toc: true
 weight: 26
 type: docs
@@ -19,13 +20,13 @@ type: docs
 {{< card link="https://github.com/keras-team/keras-io/blob/master/examples/vision/object_detection_using_vision_transformer.py" title="GitHub" tag="GitHub">}}
 {{< /cards >}}
 
-## Introduction
+## Introduction {#introduction}
 
 The article [Vision Transformer (ViT)](https://arxiv.org/abs/2010.11929) architecture by Alexey Dosovitskiy et al. demonstrates that a pure transformer applied directly to sequences of image patches can perform well on object detection tasks.
 
 In this Keras example, we implement an object detection ViT and we train it on the [Caltech 101 dataset](http://www.vision.caltech.edu/datasets/) to detect an airplane in the given image.
 
-## Imports and setup
+## Imports and setup {#imports-and-setup}
 
 ```python
 import os
@@ -45,7 +46,7 @@ import scipy.io
 import shutil
 ```
 
-## Prepare dataset
+## Prepare dataset {#prepare-dataset}
 
 We use the [Caltech 101 Dataset](https://data.caltech.edu/records/mzrjq-6wc02).
 
@@ -126,7 +127,7 @@ for i in range(0, len(annot_paths)):
 )
 ```
 
-## Implement multilayer-perceptron (MLP)
+## Implement multilayer-perceptron (MLP) {#implement-multilayer-perceptron-mlp}
 
 We use the code from the Keras example [Image classification with Vision Transformer]({{< relref "/docs/examples/vision/image_classification_with_vision_transformer" >}}) as a reference.
 
@@ -138,7 +139,7 @@ def mlp(x, hidden_units, dropout_rate):
     return x
 ```
 
-## Implement the patch creation layer
+## Implement the patch creation layer {#implement-the-patch-creation-layer}
 
 ```python
 class Patches(layers.Layer):
@@ -171,7 +172,7 @@ class Patches(layers.Layer):
         return config
 ```
 
-## Display patches for an input image
+## Display patches for an input image {#display-patches-for-an-input-image}
 
 ```python
 patch_size = 32  # Size of the patches to be extracted from the input images
@@ -210,7 +211,7 @@ Patch size: 32 X 32
 
 ![png](/images/examples/vision/object_detection_using_vision_transformer/object_detection_using_vision_transformer_11_2.png)
 
-## Implement the patch encoding layer
+## Implement the patch encoding layer {#implement-the-patch-encoding-layer}
 
 The `PatchEncoder` layer linearly transforms a patch by projecting it into a vector of size `projection_dim`. It also adds a learnable position embedding to the projected vector.
 
@@ -250,7 +251,7 @@ class PatchEncoder(layers.Layer):
         return encoded
 ```
 
-## Build the ViT model
+## Build the ViT model {#build-the-vit-model}
 
 The ViT model has multiple Transformer blocks. The `MultiHeadAttention` layer is used for self-attention, applied to the sequence of image patches. The encoded patches (skip connection) and self-attention layer outputs are normalized and fed into a multilayer perceptron (MLP). The model outputs four dimensions representing the bounding box coordinates of an object.
 
@@ -303,7 +304,7 @@ def create_vit_object_detector(
     return keras.Model(inputs=inputs, outputs=bounding_box)
 ```
 
-## Run the experiment
+## Run the experiment {#run-the-experiment}
 
 ```python
 def run_experiment(model, learning_rate, weight_decay, batch_size, num_epochs):
@@ -451,7 +452,7 @@ Epoch 27/100
 
 ![png](/images/examples/vision/object_detection_using_vision_transformer/object_detection_using_vision_transformer_17_1.png)
 
-## Evaluate the model
+## Evaluate the model {#evaluate-the-model}
 
 ```python
 import matplotlib.patches as patches

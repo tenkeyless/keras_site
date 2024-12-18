@@ -1,5 +1,6 @@
 ---
-title: Text Extraction with BERT
+title: BERT를 사용한 텍스트 추출
+linkTitle: BERT 텍스트 추출
 toc: true
 weight: 16
 type: docs
@@ -19,7 +20,7 @@ type: docs
 {{< card link="https://github.com/keras-team/keras-io/blob/master/examples/nlp/text_extraction_with_bert.py" title="GitHub" tag="GitHub">}}
 {{< /cards >}}
 
-## Introduction
+## Introduction {#introduction}
 
 This demonstration uses SQuAD (Stanford Question-Answering Dataset). In SQuAD, an input consists of a question, and a paragraph for context. The goal is to find the span of text in the paragraph that answers the question. We evaluate our performance on this data with the "Exact Match" metric, which measures the percentage of predictions that exactly match any one of the ground-truth answers.
 
@@ -35,7 +36,7 @@ We fine-tune a BERT model to perform this task as follows:
 - [BERT](https://arxiv.org/pdf/1810.04805.pdf)
 - [SQuAD](https://arxiv.org/abs/1606.05250)
 
-## Setup
+## Setup {#setup}
 
 ```python
 import os
@@ -53,7 +54,7 @@ max_len = 384
 configuration = BertConfig()  # default parameters and configuration for BERT
 ```
 
-## Set-up BERT tokenizer
+## Set-up BERT tokenizer {#set-up-bert-tokenizer}
 
 ```python
 # Save the slow pretrained tokenizer
@@ -67,7 +68,7 @@ slow_tokenizer.save_pretrained(save_path)
 tokenizer = BertWordPieceTokenizer("bert_base_uncased/vocab.txt", lowercase=True)
 ```
 
-## Load the data
+## Load the data {#load-the-data}
 
 ```python
 train_data_url = "https://rajpurkar.github.io/SQuAD-explorer/dataset/train-v1.1.json"
@@ -76,7 +77,7 @@ eval_data_url = "https://rajpurkar.github.io/SQuAD-explorer/dataset/dev-v1.1.jso
 eval_path = keras.utils.get_file("eval.json", eval_data_url)
 ```
 
-## Preprocess the data
+## Preprocess the data {#preprocess-the-data}
 
 1.  Go through the JSON file and store every record as a `SquadExample` object.
 2.  Go through each `SquadExample` and create `x_train, y_train, x_eval, y_eval`.
@@ -329,7 +330,7 @@ ________________________________________________________________________________
 
 {{% /details %}}
 
-## Create evaluation Callback
+## Create evaluation Callback {#create-evaluation-callback}
 
 This callback will compute the exact match score using the validation data after every epoch.
 
@@ -390,7 +391,7 @@ class ExactMatch(keras.callbacks.Callback):
         print(f"\nepoch={epoch+1}, exact match score={acc:.2f}")
 ```
 
-## Train and Evaluate
+## Train and Evaluate {#train-and-evaluate}
 
 ```python
 exact_match_callback = ExactMatch(x_eval, y_eval)

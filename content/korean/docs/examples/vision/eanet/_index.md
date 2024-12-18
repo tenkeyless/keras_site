@@ -1,5 +1,6 @@
 ---
-title: Image classification with EANet (External Attention Transformer)
+title: EANet(외부 어텐션 트랜스포머)을 사용한 이미지 분류
+linkTitle: EANet 이미지 분류
 toc: true
 weight: 11
 type: docs
@@ -10,7 +11,7 @@ type: docs
 **{{< t f_author >}}** [ZhiYong Chang](https://github.com/czy00000)  
 **{{< t f_date_created >}}** 2021/10/19  
 **{{< t f_last_modified >}}** 2023/07/18  
-**{{< t f_description >}}** Image classification with a Transformer that leverages external attention.
+**{{< t f_description >}}** 외부 어텐션을 활용하는 트랜스포머로 이미지를 분류합니다.
 
 {{< keras/version v=3 >}}
 
@@ -19,11 +20,17 @@ type: docs
 {{< card link="https://github.com/keras-team/keras-io/blob/master/examples/vision/eanet.py" title="GitHub" tag="GitHub">}}
 {{< /cards >}}
 
-## Introduction
+## 소개 {#introduction}
 
-This example implements the [EANet](https://arxiv.org/abs/2105.02358) model for image classification, and demonstrates it on the CIFAR-100 dataset. EANet introduces a novel attention mechanism named **_external attention_**, based on two external, small, learnable, and shared memories, which can be implemented easily by simply using two cascaded linear layers and two normalization layers. It conveniently replaces self-attention as used in existing architectures. External attention has linear complexity, as it only implicitly considers the correlations between all samples.
+이 예는 이미지 분류를 위한 [EANet](https://arxiv.org/abs/2105.02358) 모델을 구현하고,
+CIFAR-100 데이터 세트에 대해 이를 시연합니다.
+EANet은 **_외부 어텐션(External attention)_**이라는 새로운 어텐션 메커니즘을 도입했는데,
+이는 두 개의 계단식 선형 레이어와 두 개의 정규화 레이어를 사용하여 간단하게 구현할 수 있는,
+두 개의 작은 학습 가능한 공유 메모리를 기반으로 합니다.
+기존 아키텍처에서 사용되는 셀프 어텐션을 편리하게 대체합니다.
+외부 어텐션은 모든 샘플 간의 상관관계만 암시적으로 고려하기 때문에, 선형적인 복잡성을 가집니다.
 
-## Setup
+## 셋업 {#setup}
 
 ```python
 import keras
@@ -33,7 +40,7 @@ from keras import ops
 import matplotlib.pyplot as plt
 ```
 
-## Prepare the data
+## 데이터 준비 {#prepare-the-data}
 
 ```python
 num_classes = 100
@@ -57,7 +64,7 @@ x_test shape: (10000, 32, 32, 3) - y_test shape: (10000, 100)
 
 {{% /details %}}
 
-## Configure the hyperparameters
+## 하이퍼파라미터 구성 {#configure-the-hyperparameters}
 
 ```python
 weight_decay = 0.0001
@@ -66,15 +73,15 @@ label_smoothing = 0.1
 validation_split = 0.2
 batch_size = 128
 num_epochs = 50
-patch_size = 2  # Size of the patches to be extracted from the input images.
-num_patches = (input_shape[0] // patch_size) ** 2  # Number of patch
-embedding_dim = 64  # Number of hidden units.
+patch_size = 2  # 입력 이미지에서 추출할 패치의 크기입니다.
+num_patches = (input_shape[0] // patch_size) ** 2  # 패치의 수.
+embedding_dim = 64  # 은닉 유닛 수.
 mlp_dim = 64
 dim_coefficient = 4
 num_heads = 4
 attention_dropout = 0.2
 projection_dropout = 0.2
-num_transformer_blocks = 8  # Number of repetitions of the transformer layer
+num_transformer_blocks = 8  # 트랜스포머 레이어의 반복 횟수.
 
 print(f"Patch size: {patch_size} X {patch_size} = {patch_size ** 2} ")
 print(f"Patches per image: {num_patches}")
@@ -89,7 +96,7 @@ Patches per image: 256
 
 {{% /details %}}
 
-## Use data augmentation
+## 데이터 보강 사용 {#use-data-augmentation}
 
 ```python
 data_augmentation = keras.Sequential(
@@ -102,11 +109,11 @@ data_augmentation = keras.Sequential(
     ],
     name="data_augmentation",
 )
-# Compute the mean and the variance of the training data for normalization.
+# 정규화를 위해 트레이닝 데이터의 평균과 분산을 계산합니다.
 data_augmentation.layers[0].adapt(x_train)
 ```
 
-## Implement the patch extraction and encoding layer
+## 패치 추출 및 인코딩 레이어 구현하기 {#implement-the-patch-extraction-and-encoding-layer}
 
 ```python
 class PatchExtract(layers.Layer):
@@ -133,7 +140,7 @@ class PatchEmbedding(layers.Layer):
         return self.proj(patch) + self.pos_embed(pos)
 ```
 
-## Implement the external attention block
+## 외부 어텐션 블록 구현하기 {#implement-the-external-attention-block}
 
 ```python
 def external_attention(
@@ -149,12 +156,12 @@ def external_attention(
     num_heads = num_heads * dim_coefficient
 
     x = layers.Dense(dim * dim_coefficient)(x)
-    # create tensor [batch_size, num_patches, num_heads, dim*dim_coefficient//num_heads]
+    # [batch_size, num_patches, num_heads, dim*dim_coefficient//num_heads] 텐서 생성
     x = ops.reshape(x, (-1, num_patch, num_heads, dim * dim_coefficient // num_heads))
     x = ops.transpose(x, axes=[0, 2, 1, 3])
-    # a linear layer M_k
+    # 선형 레이어 M_k
     attn = layers.Dense(dim // dim_coefficient)(x)
-    # normalize attention map
+    # 어텐션 맵 정규화
     attn = layers.Softmax(axis=2)(attn)
     # dobule-normalization
     attn = layers.Lambda(
@@ -164,17 +171,17 @@ def external_attention(
         )
     )(attn)
     attn = layers.Dropout(attention_dropout)(attn)
-    # a linear layer M_v
+    # 선형 레이어 M_v
     x = layers.Dense(dim * dim_coefficient // num_heads)(attn)
     x = ops.transpose(x, axes=[0, 2, 1, 3])
     x = ops.reshape(x, [-1, num_patch, dim * dim_coefficient])
-    # a linear layer to project original dim
+    # 원본 차원에 프로젝션하기 위한 선형 레이어
     x = layers.Dense(dim)(x)
     x = layers.Dropout(projection_dropout)(x)
     return x
 ```
 
-## Implement the MLP block
+## MLP 블록 구현 {#implement-the-mlp-block}
 
 ```python
 def mlp(x, embedding_dim, mlp_dim, drop_rate=0.2):
@@ -185,7 +192,7 @@ def mlp(x, embedding_dim, mlp_dim, drop_rate=0.2):
     return x
 ```
 
-## Implement the Transformer block
+## 트랜스포머 블록 구현 {#implement-the-transformer-block}
 
 ```python
 def transformer_encoder(
@@ -223,20 +230,29 @@ def transformer_encoder(
     return x
 ```
 
-## Implement the EANet model
+## EANet 모델 구현 {#implement-the-eanet-model}
 
-The EANet model leverages external attention. The computational complexity of traditional self attention is `O(d * N ** 2)`, where `d` is the embedding size, and `N` is the number of patch. the authors find that most pixels are closely related to just a few other pixels, and an `N`\-to-`N` attention matrix may be redundant. So, they propose as an alternative an external attention module where the computational complexity of external attention is `O(d * S * N)`. As `d` and `S` are hyper-parameters, the proposed algorithm is linear in the number of pixels. In fact, this is equivalent to a drop patch operation, because a lot of information contained in a patch in an image is redundant and unimportant.
+EANet 모델은 외부 어텐션을 활용합니다.
+전통적인 셀프 어텐션의 계산 복잡도는 `O(d * N ** 2)`이며,
+여기서 `d`는 임베딩 크기, `N`은 패치 수입니다.
+저자는 대부분의 픽셀이 소수의 다른 픽셀과만 밀접하게 관련되어 있으며,
+`N`-to-`N` 어텐션 행렬이 중복될 수 있음을 발견했습니다.
+그래서, 그들은 외부 어텐션의 계산 복잡도가 `O(d * S * N)`인
+외부 어텐션 모듈을 대안으로 제안합니다.
+`d`와 `S`는 하이퍼파라미터이므로, 제안된 알고리즘은 픽셀 수에 따라 선형적입니다.
+사실, 이것은 이미지의 패치에 포함된 많은 정보가 중복되고 중요하지 않기 때문에,
+드롭 패치 작업과 동일합니다.
 
 ```python
 def get_model(attention_type="external_attention"):
     inputs = layers.Input(shape=input_shape)
-    # Image augment
+    # 이미지 보강.
     x = data_augmentation(inputs)
-    # Extract patches.
+    # 패치 추출.
     x = PatchExtract(patch_size)(x)
-    # Create patch embedding.
+    # 패치 임베딩 생성.
     x = PatchEmbedding(num_patches, embedding_dim)(x)
-    # Create Transformer block.
+    # 트랜스포머 블록 생성.
     for _ in range(num_transformer_blocks):
         x = transformer_encoder(
             x,
@@ -255,7 +271,7 @@ def get_model(attention_type="external_attention"):
     return model
 ```
 
-## Train on CIFAR-100
+## CIFAR-100에 대해 트레이닝 {#train-on-cifar-100}
 
 ```python
 model = get_model(attention_type="external_attention")
@@ -387,7 +403,7 @@ Epoch 50/50
 
 {{% /details %}}
 
-### Let's visualize the training progress of the model.
+### 모델의 트레이닝 진행 상황을 시각화해 보겠습니다.{#lets-visualize-the-training-progress-of-the-model}
 
 ```python
 plt.plot(history.history["loss"], label="train_loss")
@@ -402,7 +418,7 @@ plt.show()
 
 ![png](/images/examples/vision/eanet/eanet_24_0.png)
 
-### Let's display the final results of the test on CIFAR-100.
+### CIFAR-100에 대해 테스트의 최종 결과를 표시해 보겠습니다.{#lets-display-the-final-results-of-the-test-on-cifar-100}
 
 ```python
 loss, accuracy, top_5_accuracy = model.evaluate(x_test, y_test)
@@ -422,6 +438,13 @@ Test top 5 accuracy: 38.94%
 
 {{% /details %}}
 
-EANet just replaces self attention in Vit with external attention. The traditional Vit achieved a ~73% test top-5 accuracy and ~41 top-1 accuracy after training 50 epochs, but with 0.6M parameters. Under the same experimental environment and the same hyperparameters, The EANet model we just trained has just 0.3M parameters, and it gets us to ~73% test top-5 accuracy and ~43% top-1 accuracy. This fully demonstrates the effectiveness of external attention.
+EANet은 Vit의 셀프 어텐션을 외부 어텐션으로 대체합니다.
+기존 Vit는 50회 트레이닝 후 ~73%의 테스트 top-5 정확도와 ~41%의 top-1 정확도를 달성했지만,
+0.6M 파라미터를 사용했습니다.
+동일한 실험 환경과 동일한 하이퍼파라미터에서,
+방금 트레이닝한 EANet 모델은 파라미터가 0.3M에 불과하지만,
+테스트 top-5 정확도 ~73%, top-1 정확도 ~43%에 도달했습니다.
+이는 외부 어텐션의 효과를 충분히 보여줍니다.
 
-We only show the training process of EANet, you can train Vit under the same experimental conditions and observe the test results.
+여기서는 EANet의 트레이닝 과정만 보여드리며,
+동일한 실험 조건에서 Vit을 트레이닝하고 테스트 결과를 관찰할 수 있습니다.

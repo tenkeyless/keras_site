@@ -1,5 +1,6 @@
 ---
-title: Using pre-trained word embeddings
+title: 사전 트레이닝된 단어 임베딩 사용
+linkTitle: 사전 트레이닝된 단어 임베딩 사용
 toc: true
 weight: 8
 type: docs
@@ -19,7 +20,7 @@ type: docs
 {{< card link="https://github.com/keras-team/keras-io/blob/master/examples/nlp/pretrained_word_embeddings.py" title="GitHub" tag="GitHub">}}
 {{< /cards >}}
 
-## Setup
+## Setup {#setup}
 
 ```python
 import os
@@ -34,7 +35,7 @@ import keras
 from keras import layers
 ```
 
-## Introduction
+## Introduction {#introduction}
 
 In this example, we show how to train a text classification model that uses pre-trained word embeddings.
 
@@ -42,7 +43,7 @@ We'll work with the Newsgroup20 dataset, a set of 20,000 message board messages 
 
 For the pre-trained word embeddings, we'll use [GloVe embeddings](http://nlp.stanford.edu/projects/glove/).
 
-## Download the Newsgroup20 data
+## Download the Newsgroup20 data {#download-the-newsgroup20-data}
 
 ```python
 data_path = keras.utils.get_file(
@@ -52,7 +53,7 @@ data_path = keras.utils.get_file(
 )
 ```
 
-## Let's take a look at the data
+## Let's take a look at the data {#lets-take-a-look-at-the-data}
 
 ```python
 data_dir = pathlib.Path(data_path).parent / "20_newsgroup"
@@ -171,7 +172,7 @@ Number of samples: 19997
 
 There's actually one category that doesn't have the expected number of files, but the difference is small enough that the problem remains a balanced classification problem.
 
-## Shuffle and split the data into training & validation sets
+## Shuffle and split the data into training & validation sets {#shuffle-and-split-the-data-into-training-validation-sets}
 
 ```python
 # Shuffle the data
@@ -190,7 +191,7 @@ train_labels = labels[:-num_validation_samples]
 val_labels = labels[-num_validation_samples:]
 ```
 
-## Create a vocabulary index
+## Create a vocabulary index {#create-a-vocabulary-index}
 
 Let's use the `TextVectorization` to index the vocabulary found in the dataset. Later, we'll use the same layer instance to vectorize the samples.
 
@@ -255,7 +256,7 @@ test = ["the", "cat", "sat", "on", "the", "mat"]
 
 {{% /details %}}
 
-## Load pre-trained word embeddings
+## Load pre-trained word embeddings {#load-pre-trained-word-embeddings}
 
 Let's download pre-trained GloVe embeddings (a 822M zip file).
 
@@ -352,7 +353,7 @@ embedding_layer.build((1,))
 embedding_layer.set_weights([embedding_matrix])
 ```
 
-## Build the model
+## Build the model {#build-the-model}
 
 A simple 1D convnet with global max pooling and a classifier at the end.
 
@@ -409,7 +410,7 @@ Model: "functional_1"
 
 {{% /details %}}
 
-## Train the model
+## Train the model {#train-the-model}
 
 First, convert our list-of-strings data to NumPy arrays of integer indices. The arrays are right-padded.
 
@@ -484,7 +485,7 @@ Epoch 20/20
 
 {{% /details %}}
 
-## Export an end-to-end model
+## Export an end-to-end model {#export-an-end-to-end-model}
 
 Now, we may want to export a `Model` object that takes as input a string of arbitrary length, rather than a sequence of indices. It would make the model much more portable, since you wouldn't have to worry about the input preprocessing pipeline.
 

@@ -1,5 +1,6 @@
 ---
-title: OCR model for reading Captchas
+title: 캡챠 읽기를 위한 OCR 모델
+linkTitle: 캡챠 읽기 OCR 모델
 toc: true
 weight: 32
 type: docs
@@ -19,11 +20,11 @@ type: docs
 {{< card link="https://github.com/keras-team/keras-io/blob/master/examples/vision/captcha_ocr.py" title="GitHub" tag="GitHub">}}
 {{< /cards >}}
 
-## Introduction
+## Introduction {#introduction}
 
 This example demonstrates a simple OCR model built with the Functional API. Apart from combining CNN and RNN, it also illustrates how you can instantiate a new layer and use it as an "Endpoint layer" for implementing CTC loss. For a detailed guide to layer subclassing, please check out [this page]({{< relref "/docs/guides/making_new_layers_and_models_via_subclassing" >}}) in the developer guides.
 
-## Setup
+## Setup {#setup}
 
 ```python
 import os
@@ -41,7 +42,7 @@ from keras import ops
 from keras import layers
 ```
 
-## Load the data: [Captcha Images](https://www.kaggle.com/fournierp/captcha-version-2-images)
+## Load the data: [Captcha Images](https://www.kaggle.com/fournierp/captcha-version-2-images) {#load-the-data-captcha-imageshttpswwwkagglecomfournierpcaptcha-version-2-images}
 
 Let's download the data.
 
@@ -107,7 +108,7 @@ Characters present:  ['2', '3', '4', '5', '6', '7', '8', 'b', 'c', 'd', 'e', 'f'
 
 {{% /details %}}
 
-## Preprocessing
+## Preprocessing {#preprocessing}
 
 ```python
 # Mapping characters to integers
@@ -156,7 +157,7 @@ def encode_single_sample(img_path, label):
     return {"image": img, "label": label}
 ```
 
-## Create `Dataset` objects
+## Create `Dataset` objects {#create-dataset-objects}
 
 ```python
 train_dataset = tf.data.Dataset.from_tensor_slices((x_train, y_train))
@@ -174,7 +175,7 @@ validation_dataset = (
 )
 ```
 
-## Visualize the data
+## Visualize the data {#visualize-the-data}
 
 ```python
 _, ax = plt.subplots(4, 4, figsize=(10, 5))
@@ -192,7 +193,7 @@ plt.show()
 
 ![png](/images/examples/vision/captcha_ocr/captcha_ocr_13_0.png)
 
-## Model
+## Model {#model}
 
 ```python
 def ctc_batch_cost(y_true, y_pred, input_length, label_length):
@@ -389,7 +390,7 @@ Model: "ocr_model_v1"
 
 {{% /details %}}
 
-## Training
+## Training {#training}
 
 ```python
 # TODO restore epoch count.
@@ -616,7 +617,7 @@ Epoch 100/100
 
 {{% /details %}}
 
-## Inference
+## Inference {#inference}
 
 You can use the trained model hosted on [Hugging Face Hub](https://huggingface.co/keras-io/ocr-for-captcha) and try the demo on [Hugging Face Spaces](https://huggingface.co/spaces/keras-io/ocr-for-captcha).
 

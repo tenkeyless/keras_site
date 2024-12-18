@@ -1,5 +1,6 @@
 ---
-title: English-to-Spanish translation with a sequence-to-sequence Transformer
+title: 시퀀스-to-시퀀스 트랜스포머를 사용한 영어-스페인어 번역
+linkTitle: 시퀀스-to-시퀀스 트랜스포머 영어-스페인어 번역
 toc: true
 weight: 12
 type: docs
@@ -19,7 +20,7 @@ type: docs
 {{< card link="https://github.com/keras-team/keras-io/blob/master/examples/nlp/neural_machine_translation_with_transformer.py" title="GitHub" tag="GitHub">}}
 {{< /cards >}}
 
-## Introduction
+## Introduction {#introduction}
 
 In this example, we'll build a sequence-to-sequence Transformer model, which we'll train on an English-to-Spanish machine translation task.
 
@@ -32,7 +33,7 @@ You'll learn how to:
 
 The code featured here is adapted from the book [Deep Learning with Python, Second Edition](https://www.manning.com/books/deep-learning-with-python-second-edition) (chapter 11: Deep learning for text). The present example is fairly barebones, so for detailed explanations of how each building block works, as well as the theory behind Transformers, I recommend reading the book.
 
-## Setup
+## Setup {#setup}
 
 ```python
 # We set the backend to TensorFlow. The code works with
@@ -63,7 +64,7 @@ from keras import ops
 from keras.layers import TextVectorization
 ```
 
-## Downloading the data
+## Downloading the data {#downloading-the-data}
 
 We'll be working with an English-to-Spanish translation dataset provided by [Anki](https://www.manythings.org/anki/). Let's download it:
 
@@ -76,7 +77,7 @@ text_file = keras.utils.get_file(
 text_file = pathlib.Path(text_file).parent / "spa-eng" / "spa.txt"
 ```
 
-## Parsing the data
+## Parsing the data {#parsing-the-data}
 
 Each line contains an English sentence and its corresponding Spanish sentence. The English sentence is the _source sequence_ and Spanish one is the _target sequence_. We prepend the token `"[start]"` and we append the token `"[end]"` to the Spanish sentence.
 
@@ -136,7 +137,7 @@ print(f"{len(test_pairs)} test pairs")
 
 {{% /details %}}
 
-## Vectorizing the text data
+## Vectorizing the text data {#vectorizing-the-text-data}
 
 We'll use two instances of the `TextVectorization` layer to vectorize the text data (one for English and one for Spanish), that is to say, to turn the original strings into integer sequences where each integer represents the index of a word in a vocabulary.
 
@@ -231,7 +232,7 @@ targets.shape: (64, 20)
 
 {{% /details %}}
 
-## Building the model
+## Building the model {#building-the-model}
 
 Our sequence-to-sequence Transformer consists of a `TransformerEncoder` and a `TransformerDecoder` chained together. To make the model aware of word order, we also use a `PositionalEmbedding` layer.
 
@@ -423,7 +424,7 @@ transformer = keras.Model(
 )
 ```
 
-## Training our model
+## Training our model {#training-our-model}
 
 We'll use accuracy as a quick way to monitor training progress on the validation data. Note that machine translation typically uses BLEU scores as well as other metrics, rather than accuracy.
 
@@ -479,7 +480,7 @@ I0000 00:00:1699484373.932513   76082 device_compiler.h:187] Compiled cluster us
 
 {{% /details %}}
 
-## Decoding test sentences
+## Decoding test sentences {#decoding-test-sentences}
 
 Finally, let's demonstrate how to translate brand new English sentences. We simply feed into the model the vectorized English sentence as well as the target token `"[start]"`, then we repeatedly generated the next token, until we hit the token `"[end]"`.
 

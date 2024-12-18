@@ -1,5 +1,6 @@
 ---
-title: Knowledge Distillation
+title: 지식 증류
+linkTitle: 지식 증류
 toc: true
 weight: 62
 type: docs
@@ -19,7 +20,7 @@ type: docs
 {{< card link="https://github.com/keras-team/keras-io/blob/master/examples/vision/knowledge_distillation.py" title="GitHub" tag="GitHub">}}
 {{< /cards >}}
 
-## Introduction to Knowledge Distillation
+## Introduction to Knowledge Distillation {#introduction-to-knowledge-distillation}
 
 Knowledge Distillation is a procedure for model compression, in which a small (student) model is trained to match a large pre-trained (teacher) model. Knowledge is transferred from the teacher model to the student by minimizing a loss function, aimed at matching softened teacher logits as well as ground-truth labels.
 
@@ -29,7 +30,7 @@ The logits are softened by applying a "temperature" scaling function in the soft
 
 - [Hinton et al. (2015)](https://arxiv.org/abs/1503.02531)
 
-## Setup
+## Setup {#setup}
 
 ```python
 import os
@@ -40,7 +41,7 @@ from keras import ops
 import numpy as np
 ```
 
-## Construct `Distiller()` class
+## Construct `Distiller()` class {#construct-distiller-class}
 
 The custom `Distiller()` class, overrides the `Model` methods `compile`, `compute_loss`, and `call`. In order to use the distiller, we need:
 
@@ -106,7 +107,7 @@ class Distiller(keras.Model):
         return self.student(x)
 ```
 
-## Create student and teacher models
+## Create student and teacher models {#create-student-and-teacher-models}
 
 Initialy, we create a teacher model and a smaller student model. Both models are convolutional neural networks and created using `Sequential()`, but could be any Keras model.
 
@@ -143,7 +144,7 @@ student = keras.Sequential(
 student_scratch = keras.models.clone_model(student)
 ```
 
-## Prepare the dataset
+## Prepare the dataset {#prepare-the-dataset}
 
 The dataset used for training the teacher and distilling the teacher is [MNIST]({{< relref "/docs/api/datasets/mnist" >}}), and the procedure would be equivalent for any other dataset, e.g. [CIFAR-10]({{< relref "/docs/api/datasets/cifar10" >}}), with a suitable choice of models. Both the student and teacher are trained on the training set and evaluated on the test set.
 
@@ -160,7 +161,7 @@ x_test = x_test.astype("float32") / 255.0
 x_test = np.reshape(x_test, (-1, 28, 28, 1))
 ```
 
-## Train the teacher
+## Train the teacher {#train-the-teacher}
 
 In knowledge distillation we assume that the teacher is trained and fixed. Thus, we start by training the teacher model on the training set in the usual way.
 
@@ -197,7 +198,7 @@ Epoch 5/5
 
 {{% /details %}}
 
-## Distill teacher to student
+## Distill teacher to student {#distill-teacher-to-student}
 
 We have already trained the teacher model, and we only need to initialize a `Distiller(student, teacher)` instance, `compile()` it with the desired losses, hyperparameters and optimizer, and distill the teacher to the student.
 
@@ -236,7 +237,7 @@ Epoch 3/3
 
 {{% /details %}}
 
-## Train student from scratch for comparison
+## Train student from scratch for comparison {#train-student-from-scratch-for-comparison}
 
 We can also train an equivalent student model from scratch without the teacher, in order to evaluate the performance gain obtained by knowledge distillation.
 

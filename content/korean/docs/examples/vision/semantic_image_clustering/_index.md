@@ -1,5 +1,6 @@
 ---
-title: Semantic Image Clustering
+title: 시맨틱 이미지 클러스터링
+linkTitle: 시맨틱 이미지 클러스터링
 toc: true
 weight: 49
 type: docs
@@ -19,14 +20,14 @@ type: docs
 {{< card link="https://github.com/keras-team/keras-io/blob/master/examples/vision/semantic_image_clustering.py" title="GitHub" tag="GitHub">}}
 {{< /cards >}}
 
-## Introduction
+## Introduction {#introduction}
 
 This example demonstrates how to apply the [Semantic Clustering by Adopting Nearest neighbors (SCAN)](https://arxiv.org/abs/2005.12320) algorithm (Van Gansbeke et al., 2020) on the [CIFAR-10](https://www.cs.toronto.edu/~kriz/cifar.html) dataset. The algorithm consists of two phases:
 
 1.  Self-supervised visual representation learning of images, in which we use the [simCLR](https://arxiv.org/abs/2002.05709) technique.
 2.  Clustering of the learned visual representation vectors to maximize the agreement between the cluster assignments of neighboring vectors.
 
-## Setup
+## Setup {#setup}
 
 ```python
 import os
@@ -42,7 +43,7 @@ import matplotlib.pyplot as plt
 from tqdm import tqdm
 ```
 
-## Prepare the data
+## Prepare the data {#prepare-the-data}
 
 ```python
 num_classes = 10
@@ -76,7 +77,7 @@ x_data shape: (60000, 32, 32, 3) - y_data shape: (60000, 1)
 
 {{% /details %}}
 
-## Define hyperparameters
+## Define hyperparameters {#define-hyperparameters}
 
 ```python
 target_size = 32  # Resize the input images.
@@ -87,7 +88,7 @@ k_neighbours = 5  # Number of neighbours to consider during cluster learning.
 tune_encoder_during_clustering = False  # Freeze the encoder in the cluster learning.
 ```
 
-## Implement data preprocessing
+## Implement data preprocessing {#implement-data-preprocessing}
 
 The data preprocessing step resizes the input images to the desired `target_size` and applies feature-wise normalization. Note that, when using [`keras.applications.ResNet50V2`]({{< relref "/docs/api/applications/resnet#resnet50v2-function" >}}) as the visual encoder, resizing the images into 255 x 255 inputs would lead to more accurate results but require a longer time to train.
 
@@ -102,7 +103,7 @@ data_preprocessing = keras.Sequential(
 data_preprocessing.layers[-1].adapt(x_data)
 ```
 
-## Data augmentation
+## Data augmentation {#data-augmentation}
 
 Unlike simCLR, which randomly picks a single data augmentation function to apply to an input image, we apply a set of data augmentation functions randomly to the input image. (You can experiment with other image augmentation techniques by following the [data augmentation tutorial](https://www.tensorflow.org/tutorials/images/data_augmentation).)
 
@@ -148,9 +149,9 @@ for i in range(9):
 
 ![png](/images/examples/vision/semantic_image_clustering/semantic_image_clustering_15_0.png)
 
-## Self-supervised representation learning
+## Self-supervised representation learning {#self-supervised-representation-learning}
 
-### Implement the vision encoder
+### Implement the vision encoder {#implement-the-vision-encoder}
 
 ```python
 def create_encoder(representation_dim):
@@ -165,7 +166,7 @@ def create_encoder(representation_dim):
     return encoder
 ```
 
-### Implement the unsupervised contrastive loss
+### Implement the unsupervised contrastive loss {#implement-the-unsupervised-contrastive-loss}
 
 ```python
 class RepresentationLearner(keras.Model):
@@ -259,7 +260,7 @@ class RepresentationLearner(keras.Model):
         return {"loss": self.loss_tracker.result()}
 ```
 
-### Train the model
+### Train the model {#train-the-model}
 
 ```python
 # Create vision encoder.
@@ -403,9 +404,9 @@ plt.show()
 
 ![png](/images/examples/vision/semantic_image_clustering/semantic_image_clustering_24_0.png)
 
-## Compute the nearest neighbors
+## Compute the nearest neighbors {#compute-the-nearest-neighbors}
 
-### Generate the embeddings for the images
+### Generate the embeddings for the images {#generate-the-embeddings-for-the-images}
 
 ```python
 batch_size = 500
@@ -428,7 +429,7 @@ I0000 00:00:1699918624.555770   94228 device_compiler.h:187] Compiled cluster us
 
 {{% /details %}}
 
-### Find the _k_ nearest neighbours for each embedding
+### Find the _k_ nearest neighbours for each embedding {#find-the-_k_-nearest-neighbours-for-each-embedding}
 
 ```python
 neighbours = []
@@ -479,9 +480,9 @@ for _ in range(nrows):
 
 You notice that images on each row are visually similar, and belong to similar classes.
 
-## Semantic clustering with nearest neighbours
+## Semantic clustering with nearest neighbours {#semantic-clustering-with-nearest-neighbours}
 
-### Implement clustering consistency loss
+### Implement clustering consistency loss {#implement-clustering-consistency-loss}
 
 This loss tries to make sure that neighbours have the same clustering assignments.
 
@@ -500,7 +501,7 @@ class ClustersConsistencyLoss(keras.losses.Loss):
         return keras.ops.mean(loss)
 ```
 
-### Implement the clusters entropy loss
+### Implement the clusters entropy loss {#implement-the-clusters-entropy-loss}
 
 This loss tries to make sure that cluster distribution is roughly uniformed, to avoid assigning most of the instances to one cluster.
 
@@ -529,7 +530,7 @@ class ClustersEntropyLoss(keras.losses.Loss):
         return loss
 ```
 
-### Implement clustering model
+### Implement clustering model {#implement-clustering-model}
 
 This model takes a raw image as an input, generated its feature vector using the trained encoder, and produces a probability distribution of the clusters given the feature vector as the cluster assignments.
 
@@ -549,7 +550,7 @@ def create_clustering_model(encoder, num_clusters, name=None):
     return model
 ```
 
-### Implement clustering learner
+### Implement clustering learner {#implement-clustering-learner}
 
 This model receives the input `anchor` image and its `neighbours`, produces the clusters assignments for them using the `clustering_model`, and produces two outputs: 1. `similarity`: the similarity between the cluster assignments of the `anchor` image and its `neighbours`. This output is fed to the `ClustersConsistencyLoss`. 2. `anchor_clustering`: cluster assignments of the `anchor` images. This is fed to the `ClustersEntropyLoss`.
 
@@ -589,7 +590,7 @@ def create_clustering_learner(clustering_model):
     return model
 ```
 
-### Train model
+### Train model {#train-model}
 
 ```python
 # If tune_encoder_during_clustering is set to False,
@@ -735,9 +736,9 @@ plt.show()
 
 ![png](/images/examples/vision/semantic_image_clustering/semantic_image_clustering_45_0.png)
 
-## Cluster analysis
+## Cluster analysis {#cluster-analysis}
 
-### Assign images to clusters
+### Assign images to clusters {#assign-images-to-clusters}
 
 ```python
 # Get the cluster probability distribution of the input images.
@@ -801,7 +802,7 @@ cluster 19 : 0
 
 {{% /details %}}
 
-### Visualize cluster images
+### Visualize cluster images {#visualize-cluster-images}
 
 Display the _prototypes_—instances with the highest clustering confidence—of each cluster:
 
@@ -825,7 +826,7 @@ for c in non_empty_clusters.keys():
 
 ![png](/images/examples/vision/semantic_image_clustering/semantic_image_clustering_52_0.png)
 
-### Compute clustering accuracy
+### Compute clustering accuracy {#compute-clustering-accuracy}
 
 First, we assign a label for each cluster based on the majority label of its images. Then, we compute the accuracy of each cluster by dividing the number of image with the majority label by the size of the cluster.
 
@@ -875,6 +876,6 @@ cluster 19 label is: airplane  -  accuracy: 0 %
 
 {{% /details %}}
 
-## Conclusion
+## Conclusion {#conclusion}
 
 To improve the accuracy results, you can: 1) increase the number of epochs in the representation learning and the clustering phases; 2) allow the encoder weights to be tuned during the clustering phase; and 3) perform a final fine-tuning step through self-labeling, as described in the [original SCAN paper](https://arxiv.org/abs/2005.12320). Note that unsupervised image clustering techniques are not expected to outperform the accuracy of supervised image classification techniques, rather showing that they can learn the semantics of the images and group them into clusters that are similar to their original classes.

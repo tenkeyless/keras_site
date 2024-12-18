@@ -1,5 +1,6 @@
 ---
-title: 3D volumetric rendering with NeRF
+title: NeRF를 사용한 3D 체적 렌더링
+linkTitle: NeRF 3D 체적 렌더링
 toc: true
 weight: 29
 type: docs
@@ -8,7 +9,7 @@ math: true
 
 {{< keras/original checkedAt="2024-11-20" >}}
 
-**Authors:** [Aritra Roy Gosthipaty](https://twitter.com/arig23498), [Ritwik Raha](https://twitter.com/ritwik_raha)  
+**{{< t f_author >}}** [Aritra Roy Gosthipaty](https://twitter.com/arig23498), [Ritwik Raha](https://twitter.com/ritwik_raha)  
 **{{< t f_date_created >}}** 2021/08/09  
 **{{< t f_last_modified >}}** 2023/11/13  
 **{{< t f_description >}}** Minimal implementation of volumetric rendering as shown in NeRF.
@@ -20,7 +21,7 @@ math: true
 {{< card link="https://github.com/keras-team/keras-io/blob/master/examples/vision/nerf.py" title="GitHub" tag="GitHub">}}
 {{< /cards >}}
 
-## Introduction
+## Introduction {#introduction}
 
 In this example, we present a minimal implementation of the research paper [**NeRF: Representing Scenes as Neural Radiance Fields for View Synthesis**](https://arxiv.org/abs/2003.08934) by Ben Mildenhall et. al. The authors have proposed an ingenious way to _synthesize novel views of a scene_ by modelling the _volumetric scene function_ through a neural network.
 
@@ -38,7 +39,7 @@ The authors of the paper propose a minimal and elegant way to learn a 3D scene u
 
 There are a few prerequisites one needs to understand to fully appreciate the process. We structure the example in such a way that you will have all the required knowledge before starting the implementation.
 
-## Setup
+## Setup {#setup}
 
 ```python
 import os
@@ -68,7 +69,7 @@ POS_ENCODE_DIMS = 16
 EPOCHS = 20
 ```
 
-## Download and load the data
+## Download and load the data {#download-and-load-the-data}
 
 The `npz` data file contains images, camera poses, and a focal length. The images are taken from multiple camera angles as shown in **Figure 3**.
 
@@ -116,7 +117,7 @@ plt.show()
 
 ![png](/images/examples/vision/nerf/nerf_5_0.png)
 
-## Data pipeline
+## Data pipeline {#data-pipeline}
 
 Now that you've understood the notion of camera matrix and the mapping from a 3D scene to 2D images, let's talk about the inverse mapping, i.e. from 2D image to the 3D scene.
 
@@ -286,7 +287,7 @@ val_ds = (
 )
 ```
 
-## NeRF model
+## NeRF model {#nerf-model}
 
 The model is a multi-layer perceptron (MLP), with ReLU as its non-linearity.
 
@@ -372,7 +373,7 @@ def render_rgb_depth(model, rays_flat, t_vals, rand=True, train=True):
     return (rgb, depth_map)
 ```
 
-## Training
+## Training {#training}
 
 The training step is implemented as part of a custom [`keras.Model`]({{< relref "/docs/api/models/model#model-class" >}}) subclass so that we can make use of the `model.fit` functionality.
 
@@ -685,13 +686,13 @@ Epoch 20/20
 
 {{% /details %}}
 
-## Visualize the training step
+## Visualize the training step {#visualize-the-training-step}
 
 Here we see the training step. With the decreasing loss, the rendered image and the depth maps are getting better. In your local system, you will see the `training.gif` file generated.
 
 ![training-20](/images/examples/vision/nerf/ql5OcYA.gif)
 
-## Inference
+## Inference {#inference}
 
 In this section, we ask the model to build novel views of the scene. The model was given `106` views of the scene in the training step. The collections of training images cannot contain each and every angle of the scene. A trained model can represent the entire 3-D scene with a sparse set of training images.
 
@@ -734,7 +735,7 @@ for ax, ori_img, recons_img, depth_map in zip(
 
 ![png](/images/examples/vision/nerf/nerf_14_1.png)
 
-## Render 3D Scene
+## Render 3D Scene {#render-3d-scene}
 
 Here we will synthesize novel 3D views and stitch all of them together to render a video encompassing the 360-degree view.
 
@@ -922,13 +923,13 @@ imageio.mimwrite(rgb_video, rgb_frames, fps=30, quality=7, macro_block_size=None
 
 {{% /details %}}
 
-### Visualize the video
+### Visualize the video {#visualize-the-video}
 
 Here we can see the rendered 360 degree view of the scene. The model has successfully learned the entire volumetric space through the sparse set of images in **only 20 epochs**. You can view the rendered video saved locally, named `rgb_video.mp4`.
 
 ![rendered-video](/images/examples/vision/nerf/j2sIkzW.gif)
 
-## Conclusion
+## Conclusion {#conclusion}
 
 We have produced a minimal implementation of NeRF to provide an intuition of its core ideas and methodology. This method has been used in various other works in the computer graphics space.
 
@@ -939,7 +940,7 @@ We would like to encourage our readers to use this code as an example and play w
 | **100** | ![100-epoch-training](/images/examples/vision/nerf/2k9p8ez.gif) |
 | **200** | ![200-epoch-training](/images/examples/vision/nerf/l3rG4HQ.gif) |
 
-## Way forward
+## Way forward {#way-forward}
 
 If anyone is interested to go deeper into NeRF, we have built a 3-part blog series at [PyImageSearch](https://pyimagesearch.com/).
 
@@ -947,7 +948,7 @@ If anyone is interested to go deeper into NeRF, we have built a 3-part blog seri
 - [Concepts of NeRF](https://www.pyimagesearch.com/2021/11/17/computer-graphics-and-deep-learning-with-nerf-using-tensorflow-and-keras-part-2/)
 - [Implementing NeRF](https://www.pyimagesearch.com/2021/11/24/computer-graphics-and-deep-learning-with-nerf-using-tensorflow-and-keras-part-3/)
 
-## Reference
+## Reference {#reference}
 
 - [NeRF repository](https://github.com/bmild/nerf): The official repository for NeRF.
 - [NeRF paper](https://arxiv.org/abs/2003.08934): The paper on NeRF.

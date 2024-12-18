@@ -1,5 +1,6 @@
 ---
-title: Classification with Neural Decision Forests
+title: 신경 의사 결정 포레스트를 사용한 분류
+linkTitle: 신경 의사 결정 포레스트 분류
 toc: true
 weight: 8
 type: docs
@@ -19,17 +20,17 @@ type: docs
 {{< card link="https://github.com/keras-team/keras-io/blob/master/examples/structured_data/deep_neural_decision_forests.py" title="GitHub" tag="GitHub">}}
 {{< /cards >}}
 
-## Introduction
+## Introduction {#introduction}
 
 This example provides an implementation of the [Deep Neural Decision Forest](https://ieeexplore.ieee.org/document/7410529) model introduced by P. Kontschieder et al. for structured data classification. It demonstrates how to build a stochastic and differentiable decision tree model, train it end-to-end, and unify decision trees with deep representation learning.
 
-## The dataset
+## The dataset {#the-dataset}
 
 This example uses the [United States Census Income Dataset](https://archive.ics.uci.edu/ml/datasets/census+income) provided by the [UC Irvine Machine Learning Repository](https://archive.ics.uci.edu/ml/index.php). The task is binary classification to predict whether a person is likely to be making over USD 50,000 a year.
 
 The dataset includes 48,842 instances with 14 input features (such as age, work class, education, occupation, and so on): 5 numerical features and 9 categorical features.
 
-## Setup
+## Setup {#setup}
 
 ```python
 import keras
@@ -45,7 +46,7 @@ import pandas as pd
 import math
 ```
 
-## Prepare the data
+## Prepare the data {#prepare-the-data}
 
 ```python
 CSV_HEADER = [
@@ -108,7 +109,7 @@ train_data.to_csv(train_data_file, index=False, header=False)
 test_data.to_csv(test_data_file, index=False, header=False)
 ```
 
-## Define dataset metadata
+## Define dataset metadata {#define-dataset-metadata}
 
 Here, we define the metadata of the dataset that will be useful for reading and parsing and encoding input features.
 
@@ -149,7 +150,7 @@ TARGET_FEATURE_NAME = "income_bracket"
 TARGET_LABELS = [" <=50K", " >50K"]
 ```
 
-## Create `tf_data.Dataset` objects for training and validation
+## Create `tf_data.Dataset` objects for training and validation {#create-tf_datadataset-objects-for-training-and-validation}
 
 We create an input function to read and parse the file, and convert features and labels into a [`tf_data.Dataset`](https://www.tensorflow.org/guide/datasets) for training and validation. We also preprocess the input by mapping the target label to an index.
 
@@ -196,7 +197,7 @@ def get_dataset_from_csv(csv_file_path, shuffle=False, batch_size=128):
     return dataset.cache()
 ```
 
-## Create model inputs
+## Create model inputs {#create-model-inputs}
 
 ```python
 def create_model_inputs():
@@ -213,7 +214,7 @@ def create_model_inputs():
     return inputs
 ```
 
-## Encode input features
+## Encode input features {#encode-input-features}
 
 ```python
 def encode_inputs(inputs):
@@ -244,7 +245,7 @@ def encode_inputs(inputs):
     return encoded_features
 ```
 
-## Deep Neural Decision Tree
+## Deep Neural Decision Tree {#deep-neural-decision-tree}
 
 A neural decision tree model has two sets of weights to learn. The first set is `pi`, which represents the probability distribution of the classes in the tree leaves. The second set is the weights of the routing layer `decision_fn`, which represents the probability of going to each leave. The forward pass of the model works as follows:
 
@@ -321,7 +322,7 @@ class NeuralDecisionTree(keras.Model):
         return outputs
 ```
 
-## Deep Neural Decision Forest
+## Deep Neural Decision Forest {#deep-neural-decision-forest}
 
 The neural decision forest model consists of a set of neural decision trees that are trained simultaneously. The output of the forest model is the average outputs of its trees.
 
@@ -380,7 +381,7 @@ def run_experiment(model):
     print(f"Test accuracy: {round(accuracy * 100, 2)}%")
 ```
 
-## Experiment 1: train a decision tree model
+## Experiment 1: train a decision tree model {#experiment-1-train-a-decision-tree-model}
 
 In this experiment, we train a single neural decision tree model where we use all input features.
 
@@ -440,7 +441,7 @@ Test accuracy: 85.08%
 
 {{% /details %}}
 
-## Experiment 2: train a forest model
+## Experiment 2: train a forest model {#experiment-2-train-a-forest-model}
 
 In this experiment, we train a neural decision forest with `num_trees` trees where each tree uses randomly selected 50% of the input features. You can control the number of features to be used in each tree by setting the `used_features_rate` variable. In addition, we set the depth to 5 instead of 10 compared to the previous experiment.
 

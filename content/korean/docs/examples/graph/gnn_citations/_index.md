@@ -1,5 +1,6 @@
 ---
-title: Node Classification with Graph Neural Networks
+title: 그래프 신경망을 사용한 노드 분류
+linkTitle: 그래프 신경망 노드 분류
 toc: true
 weight: 2
 type: docs
@@ -19,7 +20,7 @@ type: docs
 {{< card link="https://github.com/keras-team/keras-io/blob/master/examples/graph/gnn_citations.py" title="GitHub" tag="GitHub">}}
 {{< /cards >}}
 
-## Introduction
+## Introduction {#introduction}
 
 Many datasets in various machine learning (ML) applications have structural relationships between their entities, which can be represented as graphs. Such application includes social and communication networks analysis, traffic prediction, and fraud detection. [Graph representation Learning](https://www.cs.mcgill.ca/~wlh/grl_book/) aims to build and train models for graph datasets to be used for a variety of ML tasks.
 
@@ -27,7 +28,7 @@ This example demonstrate a simple implementation of a [Graph Neural Network](htt
 
 Note that, **we implement a Graph Convolution Layer from scratch** to provide better understanding of how they work. However, there is a number of specialized TensorFlow-based libraries that provide rich GNN APIs, such as [Spectral](https://graphneural.network/), [StellarGraph](https://stellargraph.readthedocs.io/en/stable/README.html), and [GraphNets](https://github.com/deepmind/graph_nets).
 
-## Setup
+## Setup {#setup}
 
 ```python
 import os
@@ -40,11 +41,11 @@ from tensorflow import keras
 from tensorflow.keras import layers
 ```
 
-## Prepare the Dataset
+## Prepare the Dataset {#prepare-the-dataset}
 
 The Cora dataset consists of 2,708 scientific papers classified into one of seven classes. The citation network consists of 5,429 links. Each paper has a binary word vector of size 1,433, indicating the presence of a corresponding word.
 
-### Download the dataset
+### Download the dataset {#download-the-dataset}
 
 The dataset has two tap-separated files: `cora.cites` and `cora.content`.
 
@@ -62,7 +63,7 @@ zip_file = keras.utils.get_file(
 data_dir = os.path.join(os.path.dirname(zip_file), "cora")
 ```
 
-### Process and visualize the dataset
+### Process and visualize the dataset {#process-and-visualize-the-dataset}
 
 Then we load the citations data into a Pandas DataFrame.
 
@@ -203,7 +204,7 @@ nx.draw_spring(cora_graph, node_size=15, node_color=subjects)
 
 ![png](/images/examples/graph/gnn_citations/gnn_citations_19_0.png)
 
-### Split the dataset into stratified train and test sets
+### Split the dataset into stratified train and test sets {#split-the-dataset-into-stratified-train-and-test-sets}
 
 ```python
 train_data, test_data = [], []
@@ -230,7 +231,7 @@ Test data shape: (1348, 1435)
 
 {{% /details %}}
 
-## Implement Train and Evaluate Experiment
+## Implement Train and Evaluate Experiment {#implement-train-and-evaluate-experiment}
 
 ```python
 hidden_units = [32, 32]
@@ -287,7 +288,7 @@ def display_learning_curves(history):
     plt.show()
 ```
 
-## Implement Feedforward Network (FFN) Module
+## Implement Feedforward Network (FFN) Module {#implement-feedforward-network-ffn-module}
 
 We will use this module in the baseline and the GNN models.
 
@@ -303,9 +304,9 @@ def create_ffn(hidden_units, dropout_rate, name=None):
     return keras.Sequential(fnn_layers, name=name)
 ```
 
-## Build a Baseline Neural Network Model
+## Build a Baseline Neural Network Model {#build-a-baseline-neural-network-model}
 
-### Prepare the data for the baseline model
+### Prepare the data for the baseline model {#prepare-the-data-for-the-baseline-model}
 
 ```python
 feature_names = list(set(papers.columns) - {"paper_id", "subject"})
@@ -320,7 +321,7 @@ y_train = train_data["subject"]
 y_test = test_data["subject"]
 ```
 
-### Implement a baseline classifier
+### Implement a baseline classifier {#implement-a-baseline-classifier}
 
 We add five FFN blocks with skip connections, so that we generatee a baseline model with roughly the same number of parameters as the GNN models to be built later.
 
@@ -384,7 +385,7 @@ ________________________________________________________________________________
 
 {{% /details %}}
 
-### Train the baseline classifier
+### Train the baseline classifier {#train-the-baseline-classifier}
 
 ```python
 history = run_experiment(baseline_model, x_train, y_train)
@@ -660,7 +661,7 @@ Test accuracy: 73.52%
 
 {{% /details %}}
 
-### Examine the baseline model predictions
+### Examine the baseline model predictions {#examine-the-baseline-model-predictions}
 
 Let's create new data instances by randomly generating binary word vectors with respect to the word presence probabilities.
 
@@ -755,9 +756,9 @@ Instance 7:
 
 {{% /details %}}
 
-## Build a Graph Neural Network Model
+## Build a Graph Neural Network Model {#build-a-graph-neural-network-model}
 
-### Prepare the data for the graph model
+### Prepare the data for the graph model {#prepare-the-data-for-the-graph-model}
 
 Preparing and loading the graphs data into the model for training is the most challenging part in GNN models, which is addressed in different ways by the specialised libraries. In this example, we show a simple approach for preparing and using graph data that is suitable if your dataset consists of a single graph that fits entirely in memory.
 
@@ -792,7 +793,7 @@ Nodes shape: (2708, 1433)
 
 {{% /details %}}
 
-### Implement a graph convolution layer
+### Implement a graph convolution layer {#implement-a-graph-convolution-layer}
 
 We implement a graph convolution module as a [Keras Layer](https://www.tensorflow.org/api_docs/python/tf/keras/layers/Layer?version=nightly). Our `GraphConvLayer` performs the following steps:
 
@@ -918,7 +919,7 @@ class GraphConvLayer(layers.Layer):
         return self.update(node_repesentations, aggregated_messages)
 ```
 
-### Implement a graph neural network node classifier
+### Implement a graph neural network node classifier {#implement-a-graph-neural-network-node-classifier}
 
 The GNN classification model follows the [Design Space for Graph Neural Networks](https://arxiv.org/abs/2011.08843) approach, as follows:
 
@@ -1050,7 +1051,7 @@ _________________________________________________________________
 
 {{% /details %}}
 
-### Train the GNN model
+### Train the GNN model {#train-the-gnn-model}
 
 Note that we use the standard _supervised_ cross-entropy loss to train the model. However, we can add another _self-supervised_ loss term for the generated node embeddings that makes sure that neighbouring nodes in graph have similar representations, while faraway nodes have dissimilar representations.
 
@@ -1608,7 +1609,7 @@ Test accuracy: 80.19%
 
 {{% /details %}}
 
-### Examine the GNN model predictions
+### Examine the GNN model predictions {#examine-the-gnn-model-predictions}
 
 Let's add the new instances as nodes to the `node_features`, and generate links (citations) to existing nodes.
 

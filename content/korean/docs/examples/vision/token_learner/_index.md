@@ -1,5 +1,6 @@
 ---
-title: Learning to tokenize in Vision Transformers
+title: 비전 트랜스포머에서 토큰화 학습하기
+linkTitle: 비전 트랜스포머 토큰화 학습
 toc: true
 weight: 61
 type: docs
@@ -7,7 +8,7 @@ type: docs
 
 {{< keras/original checkedAt="2024-11-21" >}}
 
-**Authors:** [Aritra Roy Gosthipaty](https://twitter.com/ariG23498), [Sayak Paul](https://twitter.com/RisingSayak) (equal contribution), converted to Keras 3 by [Muhammad Anas Raza](https://anasrz.com)  
+**{{< t f_author >}}** [Aritra Roy Gosthipaty](https://twitter.com/ariG23498), [Sayak Paul](https://twitter.com/RisingSayak) (equal contribution), converted to Keras 3 by [Muhammad Anas Raza](https://anasrz.com)  
 **{{< t f_date_created >}}** 2021/12/10  
 **{{< t f_last_modified >}}** 2023/08/14  
 **{{< t f_description >}}** Adaptively generating a smaller number of tokens for Vision Transformers.
@@ -19,7 +20,7 @@ type: docs
 {{< card link="https://github.com/keras-team/keras-io/blob/master/examples/vision/token_learner.py" title="GitHub" tag="GitHub">}}
 {{< /cards >}}
 
-## Introduction
+## Introduction {#introduction}
 
 Vision Transformers ([Dosovitskiy et al.](https://arxiv.org/abs/2010.11929)) and many other Transformer-based architectures ([Liu et al.](https://arxiv.org/abs/2103.14030), [Yuan et al.](https://arxiv.org/abs/2101.11986), etc.) have shown strong results in image recognition. The following provides a brief overview of the components involved in the Vision Transformer architecture for image classification:
 
@@ -37,7 +38,7 @@ In this example, we implement the TokenLearner module and demonstrate its perfor
 - [Image Classification with ViTs on keras.io]({{< relref "/docs/examples/vision/image_classification_with_vision_transformer" >}})
 - [TokenLearner slides from NeurIPS 2021](https://nips.cc/media/neurips-2021/Slides/26578.pdf)
 
-## Imports
+## Imports {#imports}
 
 ```python
 import keras
@@ -53,7 +54,7 @@ import numpy as np
 import math
 ```
 
-## Hyperparameters
+## Hyperparameters {#hyperparameters}
 
 Please feel free to change the hyperparameters and check your results. The best way to develop intuition about the architecture is to experiment with it.
 
@@ -90,7 +91,7 @@ MLP_UNITS = [
 NUM_TOKENS = 4
 ```
 
-## Load and prepare the CIFAR-10 dataset
+## Load and prepare the CIFAR-10 dataset {#load-and-prepare-the-cifar-10-dataset}
 
 ```python
 # Load the CIFAR-10 dataset.
@@ -124,7 +125,7 @@ Testing samples: 10000
 
 {{% /details %}}
 
-## Data augmentation
+## Data augmentation {#data-augmentation}
 
 The augmentation pipeline consists of:
 
@@ -147,7 +148,7 @@ data_augmentation = keras.Sequential(
 
 Note that image data augmentation layers do not apply data transformations at inference time. This means that when these layers are called with `training=False` they behave differently. Refer [to the documentation]({{< relref "/docs/api/layers/preprocessing_layers/image_augmentation" >}}) for more details.
 
-## Positional embedding module
+## Positional embedding module {#positional-embedding-module}
 
 A [Transformer](https://arxiv.org/abs/1706.03762) architecture consists of **multi-head self attention** layers and **fully-connected feed forward** networks (MLP) as the main components. Both these components are _permutation invariant_: they're not aware of feature order.
 
@@ -175,7 +176,7 @@ class PatchEncoder(layers.Layer):
         return config
 ```
 
-## MLP block for Transformer
+## MLP block for Transformer {#mlp-block-for-transformer}
 
 This serves as the Fully Connected Feed Forward block for our Transformer.
 
@@ -189,7 +190,7 @@ def mlp(x, dropout_rate, hidden_units):
     return x
 ```
 
-## TokenLearner module
+## TokenLearner module {#tokenlearner-module}
 
 The following figure presents a pictorial overview of the module ([source](https://ai.googleblog.com/2021/12/improving-vision-transformer-efficiency.html)).
 
@@ -262,7 +263,7 @@ def token_learner(inputs, number_of_tokens=NUM_TOKENS):
     return outputs
 ```
 
-## Transformer block
+## Transformer block {#transformer-block}
 
 ```python
 def transformer(encoded_patches):
@@ -288,7 +289,7 @@ def transformer(encoded_patches):
     return encoded_patches
 ```
 
-## ViT model with the TokenLearner module
+## ViT model with the TokenLearner module {#vit-model-with-the-tokenlearner-module}
 
 ```python
 def create_vit_classifier(use_token_learner=True, token_learner_units=NUM_TOKENS):
@@ -350,7 +351,7 @@ def create_vit_classifier(use_token_learner=True, token_learner_units=NUM_TOKENS
 
 As shown in the [TokenLearner paper](https://openreview.net/forum?id=z-l1kpDXs88), it is almost always advantageous to include the TokenLearner module in the middle of the network.
 
-## Training utility
+## Training utility {#training-utility}
 
 ```python
 def run_experiment(model):
@@ -393,7 +394,7 @@ def run_experiment(model):
     print(f"Test top 5 accuracy: {round(top_5_accuracy * 100, 2)}%")
 ```
 
-## Train and evaluate a ViT with TokenLearner
+## Train and evaluate a ViT with TokenLearner {#train-and-evaluate-a-vit-with-tokenlearner}
 
 ```python
 vit_token_learner = create_vit_classifier()
@@ -411,7 +412,7 @@ Test top 5 accuracy: 77.22%
 
 {{% /details %}}
 
-## Results
+## Results {#results}
 
 We experimented with and without the TokenLearner inside the mini ViT we implemented (with the same hyperparameters presented in this example). Here are our results:
 
@@ -443,11 +444,11 @@ Please note that we used the same hyperparameters presented in this example. Our
 
 _Note_: To compute the FLOPs of our models we used [this utility](https://github.com/AdityaKane2001/regnety/blob/main/regnety/utils/model_utils.py#L27) from [this repository](https://github.com/AdityaKane2001/regnety).
 
-## Number of parameters
+## Number of parameters {#number-of-parameters}
 
 You may have noticed that adding the TokenLearner module increases the number of parameters of the base network. But that does not mean it is less efficient as shown by [Dehghani et al.](https://arxiv.org/abs/2110.12894). Similar findings were reported by [Bello et al.](https://arxiv.org/abs/2103.07579) as well. The TokenLearner module helps reducing the FLOPS in the overall network thereby helping to reduce the memory footprint.
 
-## Final notes
+## Final notes {#final-notes}
 
 - TokenFuser: The authors of the paper also propose another module named TokenFuser. This module helps in remapping the representation of the TokenLearner output back to its original spatial resolution. To reuse the TokenLearner in the ViT architecture, the TokenFuser is a must. We first learn the tokens from the TokenLearner, build a representation of the tokens from a Transformer layer and then remap the representation into the original spatial resolution, so that it can again be consumed by a TokenLearner. Note here that you can only use the TokenLearner module once in entire ViT model if not paired with the TokenFuser.
 - Use of these modules for video: The authors also suggest that TokenFuser goes really well with Vision Transformers for Videos ([Arnab et al.](https://arxiv.org/abs/2103.15691)).

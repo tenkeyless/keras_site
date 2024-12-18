@@ -1,5 +1,6 @@
 ---
-title: A Transformer-based recommendation system
+title: 트랜스포머 기반 추천 시스템
+linkTitle: 트랜스포머 추천 시스템
 toc: true
 weight: 11
 type: docs
@@ -19,7 +20,7 @@ type: docs
 {{< card link="https://github.com/keras-team/keras-io/blob/master/examples/structured_data/movielens_recommendations_transformers.py" title="GitHub" tag="GitHub">}}
 {{< /cards >}}
 
-## Introduction
+## Introduction {#introduction}
 
 This example demonstrates the [Behavior Sequence Transformer (BST)](https://arxiv.org/abs/1905.06874) model, by Qiwei Chen et al., using the [Movielens dataset](https://grouplens.org/datasets/movielens/). The BST model leverages the sequential behaviour of the users in watching and rating movies, as well as user profile and movie features, to predict the rating of the user to a target movie.
 
@@ -38,11 +39,11 @@ This example modifies the original BST model in the following ways:
 
 Note that this example should be run with TensorFlow 2.4 or higher.
 
-## The dataset
+## The dataset {#the-dataset}
 
 We use the [1M version of the Movielens dataset](https://grouplens.org/datasets/movielens/1m/). The dataset includes around 1 million ratings from 6000 users on 4000 movies, along with some user features, movie genres. In addition, the timestamp of each user-movie rating is provided, which allows creating sequences of movie ratings for each user, as expected by the BST model.
 
-## Setup
+## Setup {#setup}
 
 ```python
 import os
@@ -61,9 +62,9 @@ from keras import layers
 from keras.layers import StringLookup
 ```
 
-## Prepare the data
+## Prepare the data {#prepare-the-data}
 
-### Download and prepare the DataFrames
+### Download and prepare the DataFrames {#download-and-prepare-the-dataframes}
 
 First, let's download the movielens data.
 
@@ -129,7 +130,7 @@ for genre in genres:
     )
 ```
 
-### Transform the movie ratings data into sequences
+### Transform the movie ratings data into sequences {#transform-the-movie-ratings-data-into-sequences}
 
 First, let's sort the the ratings data using the `unix_timestamp`, and then group the `movie_id` values and the `rating` values by `user_id`.
 
@@ -221,7 +222,7 @@ train_data.to_csv("train_data.csv", index=False, sep="|", header=False)
 test_data.to_csv("test_data.csv", index=False, sep="|", header=False)
 ```
 
-## Define metadata
+## Define metadata {#define-metadata}
 
 ```python
 CSV_HEADER = list(ratings_data_transformed.columns)
@@ -239,7 +240,7 @@ USER_FEATURES = ["sex", "age_group", "occupation"]
 MOVIE_FEATURES = ["genres"]
 ```
 
-## Create [`tf.data.Dataset`](https://www.tensorflow.org/api_docs/python/tf/data/Dataset) for training and evaluation
+## Create [`tf.data.Dataset`](https://www.tensorflow.org/api_docs/python/tf/data/Dataset) for training and evaluation {#create-tfdatadatasethttpswwwtensorfloworgapi_docspythontfdatadataset-for-training-and-evaluation}
 
 ```python
 def get_dataset_from_csv(csv_file_path, shuffle=False, batch_size=128):
@@ -275,7 +276,7 @@ def get_dataset_from_csv(csv_file_path, shuffle=False, batch_size=128):
     return dataset
 ```
 
-## Create model inputs
+## Create model inputs {#create-model-inputs}
 
 ```python
 def create_model_inputs():
@@ -296,7 +297,7 @@ def create_model_inputs():
     }
 ```
 
-## Encode input features
+## Encode input features {#encode-input-features}
 
 The `encode_input_features` method works as follows:
 
@@ -431,7 +432,7 @@ def encode_input_features(
     return encoded_transformer_features, encoded_other_features
 ```
 
-## Create a BST model
+## Create a BST model {#create-a-bst-model}
 
 ```python
 include_user_id = False
@@ -486,7 +487,7 @@ def create_model():
 model = create_model()
 ```
 
-## Run training and evaluation experiment
+## Run training and evaluation experiment {#run-training-and-evaluation-experiment}
 
 ```python
 # Compile the model.
@@ -530,7 +531,7 @@ Test MAE: 0.782
 
 You should achieve a Mean Absolute Error (MAE) at or around 0.7 on the test data.
 
-## Conclusion
+## Conclusion {#conclusion}
 
 The BST model uses the Transformer layer in its architecture to capture the sequential signals underlying users’ behavior sequences for recommendation.
 

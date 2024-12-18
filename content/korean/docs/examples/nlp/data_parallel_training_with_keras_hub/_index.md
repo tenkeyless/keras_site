@@ -1,5 +1,6 @@
 ---
-title: Data Parallel Training with KerasHub and tf.distribute
+title: KerasHub 및 tf.distribute를 사용한 데이터 병렬 트레이닝
+linkTitle: 데이터 병렬 트레이닝 (KerasHub)
 toc: true
 weight: 10
 type: docs
@@ -19,7 +20,7 @@ type: docs
 {{< card link="https://github.com/keras-team/keras-io/blob/master/examples/nlp/data_parallel_training_with_keras_hub.py" title="GitHub" tag="GitHub">}}
 {{< /cards >}}
 
-## Introduction
+## Introduction {#introduction}
 
 Distributed training is a technique used to train deep learning models on multiple devices or machines simultaneously. It helps to reduce training time and allows for training larger models with more data. KerasHub is a library that provides tools and utilities for natural language processing tasks, including distributed training.
 
@@ -37,7 +38,7 @@ Specifically, this guide teaches you how to use the [`tf.distribute`](https://ww
 !pip install -q --upgrade keras  # Upgrade to Keras 3.
 ```
 
-## Imports
+## Imports {#imports}
 
 ```python
 import os
@@ -256,7 +257,7 @@ For distributed training across multiple machines (as opposed to training that o
 - [`tf.distribute.MultiWorkerMirroredStrategy`](https://www.tensorflow.org/api_docs/python/tf/distribute/MultiWorkerMirroredStrategy) implements a synchronous CPU/GPU multi-worker solution to work with Keras-style model building and training loop, using synchronous reduction of gradients across the replicas.
 - [`tf.distribute.experimental.ParameterServerStrategy`](https://www.tensorflow.org/api_docs/python/tf/distribute/experimental/ParameterServerStrategy) implements an asynchronous CPU/GPU multi-worker solution, where the parameters are stored on parameter servers, and workers update the gradients to parameter servers asynchronously.
 
-### Further reading
+### Further reading {#further-reading}
 
 1.  [TensorFlow distributed training guide](https://www.tensorflow.org/guide/distributed_training)
 2.  [Tutorial on multi-worker training with Keras](https://www.tensorflow.org/tutorials/distribute/multi_worker_with_keras)

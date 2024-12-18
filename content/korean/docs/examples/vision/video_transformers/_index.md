@@ -1,5 +1,6 @@
 ---
-title: Video Classification with Transformers
+title: 트랜스포머를 사용한 비디오 분류
+linkTitle: 트랜스포머 비디오 분류
 toc: true
 weight: 57
 type: docs
@@ -25,7 +26,7 @@ This example is a follow-up to the [Video Classification with a CNN-RNN Architec
 !pip install -q git+https://github.com/tensorflow/docs
 ```
 
-## Data collection
+## Data collection {#data-collection}
 
 As done in the [predecessor]({{< relref "/docs/examples/vision/video_classification" >}}) to this example, we will be using a subsampled version of the [UCF101 dataset](https://www.crcv.ucf.edu/data/UCF101.php), a well-known benchmark dataset. In case you want to operate on a larger subsample or even the entire dataset, please refer to [this notebook](https://colab.research.google.com/github/sayakpaul/Action-Recognition-in-TensorFlow/blob/main/Data_Preparation_UCF101.ipynb).
 
@@ -34,7 +35,7 @@ As done in the [predecessor]({{< relref "/docs/examples/vision/video_classificat
 !tar -xf ucf101_top5.tar.gz
 ```
 
-## Setup
+## Setup {#setup}
 
 ```python
 import os
@@ -51,7 +52,7 @@ import imageio
 import cv2
 ```
 
-## Define hyperparameters
+## Define hyperparameters {#define-hyperparameters}
 
 ```python
 MAX_SEQ_LENGTH = 20
@@ -61,7 +62,7 @@ IMG_SIZE = 128
 EPOCHS = 5
 ```
 
-## Data preparation
+## Data preparation {#data-preparation}
 
 We will mostly be following the same data preparation steps in this example, except for the following changes:
 
@@ -220,7 +221,7 @@ Frame features in train set: (594, 20, 1024)
 
 {{% /details %}}
 
-## Building the Transformer-based model
+## Building the Transformer-based model {#building-the-transformer-based-model}
 
 We will be building on top of the code shared in [this book chapter](https://livebook.manning.com/book/deep-learning-with-python-second-edition/chapter-11) of [Deep Learning with Python (Second ed.)](https://www.manning.com/books/deep-learning-with-python) by François Chollet.
 
@@ -276,7 +277,7 @@ class TransformerEncoder(layers.Layer):
         return self.layernorm_2(proj_input + proj_output)
 ```
 
-## Utility functions for training
+## Utility functions for training {#utility-functions-for-training}
 
 ```python
 def get_compiled_model(shape):
@@ -326,7 +327,7 @@ def run_experiment():
     return model
 ```
 
-## Model training and inference
+## Model training and inference {#model-training-and-inference}
 
 ```python
 trained_model = run_experiment()

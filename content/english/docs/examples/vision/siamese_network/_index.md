@@ -7,7 +7,7 @@ type: docs
 
 {{< keras/original checkedAt="2024-11-21" >}}
 
-**Authors:** [Hazem Essam](https://twitter.com/hazemessamm) and [Santiago L. Valdarrama](https://twitter.com/svpino)  
+**{{< t f_author >}}** [Hazem Essam](https://twitter.com/hazemessamm) and [Santiago L. Valdarrama](https://twitter.com/svpino)  
 **{{< t f_date_created >}}** 2021/03/25  
 **{{< t f_last_modified >}}** 2021/03/25  
 **{{< t f_description >}}** Training a Siamese Network to compare the similarity of images using a triplet loss function.

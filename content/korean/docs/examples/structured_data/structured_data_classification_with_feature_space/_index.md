@@ -1,5 +1,6 @@
 ---
-title: Structured data classification with FeatureSpace
+title: FeatureSpace를 사용한 구조화된 데이터 분류
+linkTitle: FeatureSpace 구조화된 데이터 분류
 toc: true
 weight: 1
 type: docs
@@ -19,13 +20,13 @@ type: docs
 {{< card link="https://github.com/keras-team/keras-io/blob/master/examples/structured_data/structured_data_classification_with_feature_space.py" title="GitHub" tag="GitHub">}}
 {{< /cards >}}
 
-## Introduction
+## Introduction {#introduction}
 
 This example demonstrates how to do structured data classification (also known as tabular data classification), starting from a raw CSV file. Our data includes numerical features, and integer categorical features, and string categorical features. We will use the utility [`keras.utils.FeatureSpace`]({{< relref "/docs/api/utils/feature_space#featurespace-class" >}}) to index, preprocess, and encode our features.
 
 The code is adapted from the example [Structured data classification from scratch]({{< relref "/docs/examples/structured_data/structured_data_classification_from_scratch" >}}). While the previous example managed its own low-level feature preprocessing and encoding with Keras preprocessing layers, in this example we delegate everything to `FeatureSpace`, making the workflow extremely quick and easy.
 
-### The dataset
+### The dataset {#the-dataset}
 
 [Our dataset](https://archive.ics.uci.edu/ml/datasets/heart+Disease) is provided by the Cleveland Clinic Foundation for Heart Disease. It's a CSV file with 303 rows. Each row contains information about a patient (a **sample**), and each column describes an attribute of the patient (a **feature**). We use the features to predict whether a patient has a heart disease (**binary classification**).
 
@@ -48,7 +49,7 @@ Here's the description of each feature:
 | Thal     | 3 = normal; 6 = fixed defect; 7 = reversible defect    | Categorical                  |
 | Target   | Diagnosis of heart disease (1 = true; 0 = false)       | Target                       |
 
-## Setup
+## Setup {#setup}
 
 ```python
 import os
@@ -61,7 +62,7 @@ import keras
 from keras.utils import FeatureSpace
 ```
 
-## Preparing the data
+## Preparing the data {#preparing-the-data}
 
 Let's download the data and load it into a Pandas dataframe:
 
@@ -159,7 +160,7 @@ train_ds = train_ds.batch(32)
 val_ds = val_ds.batch(32)
 ```
 
-## Configuring a `FeatureSpace`
+## Configuring a `FeatureSpace` {#configuring-a-featurespace}
 
 To configure how each feature should be preprocessed, we instantiate a [`keras.utils.FeatureSpace`]({{< relref "/docs/api/utils/feature_space#featurespace-class" >}}), and we pass to it a dictionary that maps the name of our features to a string that describes the feature type.
 
@@ -202,7 +203,7 @@ feature_space = FeatureSpace(
 )
 ```
 
-## Further customizing a `FeatureSpace`
+## Further customizing a `FeatureSpace` {#further-customizing-a-featurespace}
 
 Specifying the feature type via a string name is quick and easy, but sometimes you may want to further configure the preprocessing of each feature. For instance, in our case, our categorical features don't have a large set of possible values – it's only a handful of values per feature (e.g. `1` and `0` for the feature `"FBS"`), and all possible values are represented in the training set. As a result, we don't need to reserve an index to represent "out of vocabulary" values for these features – which would have been the default behavior. Below, we just specify `num_oov_indices=0` in each of these features to tell the feature preprocessor to skip "out of vocabulary" indexing.
 
@@ -241,7 +242,7 @@ feature_space = FeatureSpace(
 )
 ```
 
-## Adapt the `FeatureSpace` to the training data
+## Adapt the `FeatureSpace` to the training data {#adapt-the-featurespace-to-the-training-data}
 
 Before we start using the `FeatureSpace` to build a model, we have to adapt it to the training data. During `adapt()`, the `FeatureSpace` will:
 
@@ -274,15 +275,15 @@ preprocessed_x.dtype: <dtype: 'float32'>
 
 {{% /details %}}
 
-## Two ways to manage preprocessing: as part of the [`tf.data`](https://www.tensorflow.org/api_docs/python/tf/data) pipeline, or in the model itself
+## Two ways to manage preprocessing: as part of the [`tf.data`](https://www.tensorflow.org/api_docs/python/tf/data) pipeline, or in the model itself {#two-ways-to-manage-preprocessing-as-part-of-the-tfdatahttpswwwtensorfloworgapi_docspythontfdata-pipeline-or-in-the-model-itself}
 
 There are two ways in which you can leverage your `FeatureSpace`:
 
-### Asynchronous preprocessing in [`tf.data`](https://www.tensorflow.org/api_docs/python/tf/data)
+### Asynchronous preprocessing in [`tf.data`](https://www.tensorflow.org/api_docs/python/tf/data) {#asynchronous-preprocessing-in-tfdatahttpswwwtensorfloworgapi_docspythontfdata}
 
 You can make it part of your data pipeline, before the model. This enables asynchronous parallel preprocessing of the data on CPU before it hits the model. Do this if you're training on GPU or TPU, or if you want to speed up preprocessing. Usually, this is always the right thing to do during training.
 
-### Synchronous preprocessing in the model
+### Synchronous preprocessing in the model {#synchronous-preprocessing-in-the-model}
 
 You can make it part of your model. This means that the model will expect dicts of raw feature values, and the preprocessing batch will be done synchronously (in a blocking manner) before the rest of the forward pass. Do this if you want to have an end-to-end model that can process raw feature values – but keep in mind that your model will only be able to run on CPU, since most types of feature preprocessing (e.g. string preprocessing) are not GPU or TPU compatible.
 
@@ -304,7 +305,7 @@ preprocessed_val_ds = val_ds.map(
 preprocessed_val_ds = preprocessed_val_ds.prefetch(tf.data.AUTOTUNE)
 ```
 
-## Build a model
+## Build a model {#build-a-model}
 
 Time to build a model – or rather two models:
 
@@ -327,7 +328,7 @@ training_model.compile(
 inference_model = keras.Model(inputs=dict_inputs, outputs=predictions)
 ```
 
-## Train the model
+## Train the model {#train-the-model}
 
 Let's train our model for 50 epochs. Note that feature preprocessing is happening as part of the tf.data pipeline, not as part of the model.
 
@@ -391,7 +392,7 @@ Epoch 20/20
 
 We quickly get to 80% validation accuracy.
 
-## Inference on new data with the end-to-end model
+## Inference on new data with the end-to-end model {#inference-on-new-data-with-the-end-to-end-model}
 
 Now, we can use our inference model (which includes the `FeatureSpace`) to make predictions based on dicts of raw features values, as follows:
 

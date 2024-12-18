@@ -1,5 +1,6 @@
 ---
-title: Monocular depth estimation
+title: 단안 깊이 추정
+linkTitle: 단안 깊이 추정
 toc: true
 weight: 28
 type: docs
@@ -19,13 +20,13 @@ type: docs
 {{< card link="https://github.com/keras-team/keras-io/blob/master/examples/vision/depth_estimation.py" title="GitHub" tag="GitHub">}}
 {{< /cards >}}
 
-## Introduction
+## Introduction {#introduction}
 
 _Depth estimation_ is a crucial step towards inferring scene geometry from 2D images. The goal in _monocular depth estimation_ is to predict the depth value of each pixel or inferring depth information, given only a single RGB image as input. This example will show an approach to build a depth estimation model with a convnet and simple loss functions.
 
 ![depth](/images/examples/vision/depth_estimation/task-0000000605-d9849a91.jpg)
 
-## Setup
+## Setup {#setup}
 
 ```python
 import os
@@ -46,7 +47,7 @@ import matplotlib.pyplot as plt
 keras.utils.set_random_seed(123)
 ```
 
-## Downloading the dataset
+## Downloading the dataset {#downloading-the-dataset}
 
 We will be using the dataset **DIODE: A Dense Indoor and Outdoor Depth Dataset** for this tutorial. However, we use the validation set generating training and evaluation subsets for our model. The reason we use the validation set rather than the training set of the original dataset is because the training set consists of 81GB of data, which is challenging to download compared to the validation set which is only 2.6GB. Other datasets that you could use are **[NYU-v2](https://cs.nyu.edu/~silberman/datasets/nyu_depth_v2.html)** and **[KITTI](http://www.cvlibs.net/datasets/kitti/)**.
 
@@ -71,7 +72,7 @@ Downloading data from http://diode-dataset.s3.amazonaws.com/val.tar.gz
 
 {{% /details %}}
 
-## Preparing the dataset
+## Preparing the dataset {#preparing-the-dataset}
 
 We only use the indoor images to train our depth estimation model.
 
@@ -95,7 +96,7 @@ df = pd.DataFrame(data)
 df = df.sample(frac=1, random_state=42)
 ```
 
-## Preparing hyperparameters
+## Preparing hyperparameters {#preparing-hyperparameters}
 
 ```python
 HEIGHT = 256
@@ -105,7 +106,7 @@ EPOCHS = 30
 BATCH_SIZE = 32
 ```
 
-## Building a data pipeline
+## Building a data pipeline {#building-a-data-pipeline}
 
 1.  The pipeline takes a dataframe containing the path for the RGB images, as well as the depth and depth mask files.
 2.  It reads and resize the RGB images.
@@ -191,7 +192,7 @@ class DataGenerator(keras.utils.PyDataset):
         return x, y
 ```
 
-## Visualizing samples
+## Visualizing samples {#visualizing-samples}
 
 ```python
 def visualize_depth_map(samples, test=False, model=None):
@@ -222,7 +223,7 @@ visualize_depth_map(visualize_samples)
 
 ![png](/images/examples/vision/depth_estimation/depth_estimation_13_0.png)
 
-## 3D point cloud visualization
+## 3D point cloud visualization {#3d-point-cloud-visualization}
 
 ```python
 depth_vis = np.flipud(visualize_samples[1][1].squeeze())  # target
@@ -246,7 +247,7 @@ for x in range(0, img_vis.shape[0], STEP):
 
 ![png](/images/examples/vision/depth_estimation/depth_estimation_15_0.png)
 
-## Building the model
+## Building the model {#building-the-model}
 
 1.  The basic model is from U-Net.
 2.  Addditive skip-connections are implemented in the downscaling block.
@@ -326,7 +327,7 @@ class BottleNeckBlock(layers.Layer):
         return x
 ```
 
-## Defining the loss
+## Defining the loss {#defining-the-loss}
 
 We will optimize 3 losses in our mode. 1. Structural similarity index(SSIM). 2. L1-loss, or Point-wise depth in our case. 3. Depth smoothness loss.
 
@@ -459,7 +460,7 @@ class DepthEstimationModel(keras.Model):
         return self.conv_layer(u4)
 ```
 
-## Model training
+## Model training {#model-training}
 
 ```python
 optimizer = keras.optimizers.SGD(
@@ -502,7 +503,7 @@ Epoch 30/30
 
 {{% /details %}}
 
-## Visualizing model output
+## Visualizing model output {#visualizing-model-output}
 
 We visualize the model output over the validation set. The first image is the RGB image, the second image is the ground truth depth map image and the third one is the predicted depth map image.
 
@@ -546,12 +547,12 @@ visualize_depth_map(test_loader, test=True, model=model)
 
 ![png](/images/examples/vision/depth_estimation/depth_estimation_23_5.png)
 
-## Possible improvements
+## Possible improvements {#possible-improvements}
 
 1.  You can improve this model by replacing the encoding part of the U-Net with a pretrained DenseNet or ResNet.
 2.  Loss functions play an important role in solving this problem. Tuning the loss functions may yield significant improvement.
 
-## References
+## References {#references}
 
 The following papers go deeper into possible approaches for depth estimation.
 

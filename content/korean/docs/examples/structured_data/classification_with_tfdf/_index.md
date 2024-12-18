@@ -1,5 +1,6 @@
 ---
-title: Classification with TensorFlow Decision Forests
+title: TensorFlow 의사 결정 포리스트를 사용한 분류
+linkTitle: TensorFlow 의사 결정 포리스트 분류
 toc: true
 weight: 7
 type: docs
@@ -19,7 +20,7 @@ type: docs
 {{< card link="https://github.com/keras-team/keras-io/blob/master/examples/structured_data/classification_with_tfdf.py" title="GitHub" tag="GitHub">}}
 {{< /cards >}}
 
-## Introduction
+## Introduction {#introduction}
 
 [TensorFlow Decision Forests](https://www.tensorflow.org/decision_forests) is a collection of state-of-the-art algorithms of Decision Forest models that are compatible with Keras APIs. The models include [Random Forests](https://www.tensorflow.org/decision_forests/api_docs/python/tfdf/keras/RandomForestModel), [Gradient Boosted Trees](https://www.tensorflow.org/decision_forests/api_docs/python/tfdf/keras/GradientBoostedTreesModel), and [CART](https://www.tensorflow.org/decision_forests/api_docs/python/tfdf/keras/CartModel), and can be used for regression, classification, and ranking task. For a beginner's guide to TensorFlow Decision Forests, please refer to this [tutorial](https://www.tensorflow.org/decision_forests/tutorials/beginner_colab).
 
@@ -35,7 +36,7 @@ This example uses TensorFlow 2.7 or higher, as well as [TensorFlow Decision Fore
 pip install -U tensorflow_decision_forests
 ```
 
-## Setup
+## Setup {#setup}
 
 ```python
 import math
@@ -48,7 +49,7 @@ from tensorflow.keras import layers
 import tensorflow_decision_forests as tfdf
 ```
 
-## Prepare the data
+## Prepare the data {#prepare-the-data}
 
 This example uses the [United States Census Income Dataset](https://archive.ics.uci.edu/ml/datasets/Census-Income+%28KDD%29) provided by the [UC Irvine Machine Learning Repository](https://archive.ics.uci.edu/ml/index.php). The task is binary classification to determine whether a person makes over 50K a year.
 
@@ -69,7 +70,7 @@ train_data = pd.read_csv(f"{BASE_PATH}.data.gz", header=None, names=CSV_HEADER,)
 test_data = pd.read_csv(f"{BASE_PATH}.test.gz", header=None, names=CSV_HEADER,)
 ```
 
-## Define dataset metadata
+## Define dataset metadata {#define-dataset-metadata}
 
 Here, we define the metadata of the dataset that will be useful for encoding the input features with respect to their types.
 
@@ -389,7 +390,7 @@ income_level                                                                    
 
 {{% /details %}}
 
-## Configure hyperparameters
+## Configure hyperparameters {#configure-hyperparameters}
 
 You can find all the parameters of the Gradient Boosted Tree model in the [documentation](https://www.tensorflow.org/decision_forests/api_docs/python/tfdf/keras/GradientBoostedTreesModel)
 
@@ -408,7 +409,7 @@ SAMPLING_METHOD = "RANDOM"
 VALIDATION_RATIO = 0.1
 ```
 
-## Implement a training and evaluation procedure
+## Implement a training and evaluation procedure {#implement-a-training-and-evaluation-procedure}
 
 The `run_experiment()` method is responsible loading the train and test datasets, training a given model, and evaluating the trained model.
 
@@ -429,9 +430,9 @@ def run_experiment(model, train_data, test_data, num_epochs=1, batch_size=None):
     print(f"Test accuracy: {round(accuracy * 100, 2)}%")
 ```
 
-## Experiment 1: Decision Forests with raw features
+## Experiment 1: Decision Forests with raw features {#experiment-1-decision-forests-with-raw-features}
 
-### Specify model input feature usages
+### Specify model input feature usages {#specify-model-input-feature-usages}
 
 You can attach semantics to each feature to control how it is used by the model. If not specified, the semantics are inferred from the representation type. It is recommended to specify the [feature usages](https://www.tensorflow.org/decision_forests/api_docs/python/tfdf/keras/FeatureUsage) explicitly to avoid incorrect inferred semantics is incorrect. For example, a categorical value identifier (integer) will be be inferred as numerical, while it is semantically categorical.
 
@@ -456,7 +457,7 @@ def specify_feature_usages():
     return feature_usages
 ```
 
-### Create a Gradient Boosted Trees model
+### Create a Gradient Boosted Trees model {#create-a-gradient-boosted-trees-model}
 
 When compiling a decision forests model, you may only provide extra evaluation metrics. The loss is specified in the model construction, and the optimizer is irrelevant to decision forests models.
 
@@ -478,7 +479,7 @@ def create_gbt_model():
     return gbt_model
 ```
 
-### Train and evaluate the model
+### Train and evaluate the model {#train-and-evaluate-the-model}
 
 ```python
 gbt_model = create_gbt_model()
@@ -500,7 +501,7 @@ Test accuracy: 95.79%
 
 {{% /details %}}
 
-### Inspect the model
+### Inspect the model {#inspect-the-model}
 
 The `model.summary()` method will display several types of information about your decision trees model, model type, task, input features, and feature importance.
 
@@ -1032,7 +1033,7 @@ None
 
 {{% /details %}}
 
-## Experiment 2: Decision Forests with target encoding
+## Experiment 2: Decision Forests with target encoding {#experiment-2-decision-forests-with-target-encoding}
 
 [Target encoding](https://dl.acm.org/doi/10.1145/507533.507538) is a common preprocessing technique for categorical features that convert them into numerical features. Using categorical features with high cardinality as-is may lead to overfitting. Target encoding aims to replace each categorical feature value with one or more numerical values that represent its co-occurrence with the target labels.
 
@@ -1044,7 +1045,7 @@ More precisely, given a categorical feature, the binary target encoder in this e
 
 Note that target encoding is effective with models that cannot automatically learn dense representations to categorical features, such as decision forests or kernel methods. If neural network models are used, its recommended to encode categorical features as embeddings.
 
-### Implement Binary Target Encoder
+### Implement Binary Target Encoder {#implement-binary-target-encoder}
 
 For simplicity, we assume that the inputs for the `adapt` and `call` methods are in the expected data types and shapes, so no validation logic is added.
 
@@ -1176,7 +1177,7 @@ tf.Tensor(
 
 {{% /details %}}
 
-### Create model inputs
+### Create model inputs {#create-model-inputs}
 
 ```python
 def create_model_inputs():
@@ -1195,7 +1196,7 @@ def create_model_inputs():
     return inputs
 ```
 
-### Implement a feature encoding with target encoding
+### Implement a feature encoding with target encoding {#implement-a-feature-encoding-with-target-encoding}
 
 ```python
 def create_target_encoder():
@@ -1236,7 +1237,7 @@ def create_target_encoder():
     return keras.Model(inputs=inputs, outputs=encoded_features)
 ```
 
-### Create a Gradient Boosted Trees model with a preprocessor
+### Create a Gradient Boosted Trees model with a preprocessor {#create-a-gradient-boosted-trees-model-with-a-preprocessor}
 
 In this scenario, we use the target encoding as a preprocessor for the Gradient Boosted Tree model, and let the model infer semantics of the input features.
 
@@ -1258,7 +1259,7 @@ def create_gbt_with_preprocessor(preprocessor):
     return gbt_model
 ```
 
-### Train and evaluate the model
+### Train and evaluate the model {#train-and-evaluate-the-model}
 
 ```python
 gbt_model = create_gbt_with_preprocessor(create_target_encoder())
@@ -1314,7 +1315,7 @@ Test accuracy: 95.81%
 
 {{% /details %}}
 
-## Experiment 3: Decision Forests with trained embeddings
+## Experiment 3: Decision Forests with trained embeddings {#experiment-3-decision-forests-with-trained-embeddings}
 
 In this scenario, we build an encoder model that codes the categorical features to embeddings, where the size of the embedding for a given categorical feature is the square root to the size of its vocabulary.
 
@@ -1322,7 +1323,7 @@ We train these embeddings in a simple NN model through backpropagation. After th
 
 Note that the embeddings and a decision forest model cannot be trained synergically in one phase, since decision forest models do not train with backpropagation. Rather, embeddings has to be trained in an initial phase, and then used as static inputs to the decision forest model.
 
-### Implement feature encoding with embeddings
+### Implement feature encoding with embeddings {#implement-feature-encoding-with-embeddings}
 
 ```python
 def create_embedding_encoder(size=None):
@@ -1367,7 +1368,7 @@ def create_embedding_encoder(size=None):
     return keras.Model(inputs=inputs, outputs=encoded_features)
 ```
 
-### Build an NN model to train the embeddings
+### Build an NN model to train the embeddings {#build-an-nn-model-to-train-the-embeddings}
 
 ```python
 def create_nn_model(encoder):
@@ -1412,7 +1413,7 @@ Test accuracy: 95.0%
 
 {{% /details %}}
 
-### Train and evaluate a Gradient Boosted Tree model with embeddings
+### Train and evaluate a Gradient Boosted Tree model with embeddings {#train-and-evaluate-a-gradient-boosted-tree-model-with-embeddings}
 
 ```python
 gbt_model = create_gbt_with_preprocessor(embedding_encoder)
@@ -1435,7 +1436,7 @@ Test accuracy: 95.82%
 
 {{% /details %}}
 
-## Concluding remarks
+## Concluding remarks {#concluding-remarks}
 
 TensorFlow Decision Forests provide powerful models, especially with structured data. In our experiments, the Gradient Boosted Tree model achieved 95.79% test accuracy. When using the target encoding with categorical feature, the same model achieved 95.81% test accuracy. When pretraining embeddings to be used as inputs to the Gradient Boosted Tree model, we achieved 95.82% test accuracy.
 

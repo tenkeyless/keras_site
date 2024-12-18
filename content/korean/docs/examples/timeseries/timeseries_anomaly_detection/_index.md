@@ -1,5 +1,6 @@
 ---
-title: Timeseries anomaly detection using an Autoencoder
+title: 오토 인코더를 사용한 타임시리즈 이상 탐지
+linkTitle: 오토 인코더 타임시리즈 이상 탐지
 toc: true
 weight: 5
 type: docs
@@ -19,11 +20,11 @@ type: docs
 {{< card link="https://github.com/keras-team/keras-io/blob/master/examples/timeseries/timeseries_anomaly_detection.py" title="GitHub" tag="GitHub">}}
 {{< /cards >}}
 
-## Introduction
+## Introduction {#introduction}
 
 This script demonstrates how you can use a reconstruction convolutional autoencoder model to detect anomalies in timeseries data.
 
-## Setup
+## Setup {#setup}
 
 ```python
 import numpy as np
@@ -33,7 +34,7 @@ from keras import layers
 from matplotlib import pyplot as plt
 ```
 
-## Load the data
+## Load the data {#load-the-data}
 
 We will use the [Numenta Anomaly Benchmark(NAB)](https://www.kaggle.com/boltzmannbrain/nab) dataset. It provides artificial timeseries data containing labeled anomalous periods of behavior. Data are ordered, timestamped, single-valued metrics.
 
@@ -55,7 +56,7 @@ df_daily_jumpsup = pd.read_csv(
 )
 ```
 
-## Quick look at the data
+## Quick look at the data {#quick-look-at-the-data}
 
 ```python
 print(df_small_noise.head())
@@ -84,9 +85,9 @@ timestamp
 
 {{% /details %}}
 
-## Visualize the data
+## Visualize the data {#visualize-the-data}
 
-### Timeseries data without anomalies
+### Timeseries data without anomalies {#timeseries-data-without-anomalies}
 
 We will use the following data for training.
 
@@ -98,7 +99,7 @@ plt.show()
 
 ![png](/images/examples/timeseries/timeseries_anomaly_detection/timeseries_anomaly_detection_9_0.png)
 
-### Timeseries data with anomalies
+### Timeseries data with anomalies {#timeseries-data-with-anomalies}
 
 We will use the following data for testing and see if the sudden jump up in the data is detected as an anomaly.
 
@@ -110,7 +111,7 @@ plt.show()
 
 ![png](/images/examples/timeseries/timeseries_anomaly_detection/timeseries_anomaly_detection_11_0.png)
 
-## Prepare training data
+## Prepare training data {#prepare-training-data}
 
 Get data values from the training timeseries data file and normalize the `value` data. We have a `value` for every 5 mins for 14 days.
 
@@ -134,7 +135,7 @@ Number of training samples: 4032
 
 {{% /details %}}
 
-### Create sequences
+### Create sequences {#create-sequences}
 
 Create sequences combining `TIME_STEPS` contiguous data values from the training data.
 
@@ -162,7 +163,7 @@ Training input shape:  (3745, 288, 1)
 
 {{% /details %}}
 
-## Build a model
+## Build a model {#build-a-model}
 
 We will build a convolutional reconstruction autoencoder model. The model will take input of shape `(batch_size, sequence_length, num_features)` and return output of the same shape. In this case, `sequence_length` is 288 and `num_features` is 1.
 
@@ -238,7 +239,7 @@ Model: "sequential"
 
 {{% /details %}}
 
-## Train the model
+## Train the model {#train-the-model}
 
 Please note that we are using `x_train` as both the input and the target since this is a reconstruction model.
 
@@ -316,7 +317,7 @@ plt.show()
 
 ![png](/images/examples/timeseries/timeseries_anomaly_detection/timeseries_anomaly_detection_21_0.png)
 
-## Detecting anomalies
+## Detecting anomalies {#detecting-anomalies}
 
 We will detect anomalies by determining how well our model can reconstruct the input data.
 
@@ -357,7 +358,7 @@ Reconstruction error threshold:  0.1232659916089631
 
 {{% /details %}}
 
-### Compare recontruction
+### Compare recontruction {#compare-recontruction}
 
 Just for fun, let's see how our model has recontructed the first sample. This is the 288 timesteps from day 1 of our training dataset.
 
@@ -370,7 +371,7 @@ plt.show()
 
 ![png](/images/examples/timeseries/timeseries_anomaly_detection/timeseries_anomaly_detection_25_0.png)
 
-### Prepare test data
+### Prepare test data {#prepare-test-data}
 
 ```python
 df_test_value = (df_daily_jumpsup - training_mean) / training_std
@@ -451,7 +452,7 @@ Indices of anomaly samples:  (array([1654, 2702, 2703, 2704, 2705, 2706, 2707, 2
 
 {{% /details %}}
 
-## Plot anomalies
+## Plot anomalies {#plot-anomalies}
 
 We now know the samples of the data which are anomalies. With this, we will find the corresponding `timestamps` from the original test data. We will be using the following method to do that:
 

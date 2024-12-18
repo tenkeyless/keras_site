@@ -1,5 +1,6 @@
 ---
-title: Creating TFRecords
+title: TFRecord 만들기
+linkTitle: TFRecord 만들기
 toc: true
 weight: 13
 type: docs
@@ -19,7 +20,7 @@ type: docs
 {{< card link="https://github.com/keras-team/keras-io/blob/master/examples/keras_recipes/creating_tfrecords.py" title="GitHub" tag="GitHub">}}
 {{< /cards >}}
 
-## Introduction
+## Introduction {#introduction}
 
 The TFRecord format is a simple format for storing a sequence of binary records. Converting your data into TFRecord has many advantages, such as:
 
@@ -37,7 +38,7 @@ In this example you will learn how to convert data of different types (image, te
 
 - [TFRecord and tf.train.Example](https://www.tensorflow.org/tutorials/load_data/tfrecord)
 
-## Dependencies
+## Dependencies {#dependencies}
 
 ```python
 import os
@@ -50,7 +51,7 @@ import tensorflow as tf
 import matplotlib.pyplot as plt
 ```
 
-## Download the COCO2017 dataset
+## Download the COCO2017 dataset {#download-the-coco2017-dataset}
 
 We will be using the [COCO2017](https://cocodataset.org/) dataset, because it has many different types of features, including images, floating point data, and lists. It will serve as a good example of how to encode different features into the TFRecord format.
 
@@ -120,7 +121,7 @@ Number of images: 36781
 
 {{% /details %}}
 
-### Contents of the COCO2017 dataset
+### Contents of the COCO2017 dataset {#contents-of-the-coco2017-dataset}
 
 ```python
 pprint.pprint(annotations[60])
@@ -147,7 +148,7 @@ pprint.pprint(annotations[60])
 
 {{% /details %}}
 
-## Parameters
+## Parameters {#parameters}
 
 `num_samples` is the number of data samples on each TFRecord file.
 
@@ -163,7 +164,7 @@ if not os.path.exists(tfrecords_dir):
     os.makedirs(tfrecords_dir)  # creating TFRecords output folder
 ```
 
-## Define TFRecords helper functions
+## Define TFRecords helper functions {#define-tfrecords-helper-functions}
 
 ```python
 def image_feature(value):
@@ -222,7 +223,7 @@ def parse_tfrecord_fn(example):
     return example
 ```
 
-## Generate data in the TFRecord format
+## Generate data in the TFRecord format {#generate-data-in-the-tfrecord-format}
 
 Let's generate the COCO2017 data in the TFRecord format. The format will be `file_{number}.tfrec` (this is optional, but including the number sequences in the file names can make counting easier).
 
@@ -240,7 +241,7 @@ for tfrec_num in range(num_tfrecords):
             writer.write(example.SerializeToString())
 ```
 
-## Explore one sample from the generated TFRecord
+## Explore one sample from the generated TFRecord {#explore-one-sample-from-the-generated-tfrecord}
 
 ```python
 raw_dataset = tf.data.TFRecordDataset(f"{tfrecords_dir}/file_00-{num_samples}.tfrec")
@@ -273,11 +274,11 @@ Image shape: (640, 529, 3)
 
 ![png](/images/examples/keras_recipes/creating_tfrecords/creating_tfrecords_14_1.png)
 
-## Train a simple model using the generated TFRecords
+## Train a simple model using the generated TFRecords {#train-a-simple-model-using-the-generated-tfrecords}
 
 Another advantage of TFRecord is that you are able to add many features to it and later use only a few of them, in this case, we are going to use only `image` and `category_id`.
 
-## Define dataset helper functions
+## Define dataset helper functions {#define-dataset-helper-functions}
 
 ```python
 def prepare_sample(features):
@@ -334,6 +335,6 @@ model.fit(
 
 {{% /details %}}
 
-## Conclusion
+## Conclusion {#conclusion}
 
 This example demonstrates that instead of reading images and annotations from different sources you can have your data coming from a single source thanks to TFRecord. This process can make storing and reading data simpler and more efficient. For more information, you can go to the [TFRecord and tf.train.Example](https://www.tensorflow.org/tutorials/load_data/tfrecord) tutorial.

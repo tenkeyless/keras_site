@@ -1,5 +1,6 @@
 ---
-title: Image Captioning
+title: 이미지 캡션
+linkTitle: 이미지 캡션
 toc: true
 weight: 42
 type: docs
@@ -19,7 +20,7 @@ type: docs
 {{< card link="https://github.com/keras-team/keras-io/blob/master/examples/vision/image_captioning.py" title="GitHub" tag="GitHub">}}
 {{< /cards >}}
 
-## Setup
+## Setup {#setup}
 
 ```python
 import os
@@ -39,7 +40,7 @@ from keras.layers import TextVectorization
 keras.utils.set_random_seed(111)
 ```
 
-## Download the dataset
+## Download the dataset {#download-the-dataset}
 
 We will be using the Flickr8K dataset for this tutorial. This dataset comprises over 8,000 images, that are each paired with five different captions.
 
@@ -76,7 +77,7 @@ EPOCHS = 30
 AUTOTUNE = tf.data.AUTOTUNE
 ```
 
-## Preparing the dataset
+## Preparing the dataset {#preparing-the-dataset}
 
 ```python
 def load_captions_data(filename):
@@ -181,7 +182,7 @@ Number of validation samples:  1529
 
 {{% /details %}}
 
-## Vectorizing the text data
+## Vectorizing the text data {#vectorizing-the-text-data}
 
 We'll use the `TextVectorization` layer to vectorize the text data, that is to say, to turn the original strings into integer sequences where each integer represents the index of a word in a vocabulary. We will use a custom string standardization scheme (strip punctuation characters except `<` and `>`) and the default splitting scheme (split on whitespace).
 
@@ -213,7 +214,7 @@ image_augmentation = keras.Sequential(
 )
 ```
 
-## Building a [`tf.data.Dataset`](https://www.tensorflow.org/api_docs/python/tf/data/Dataset) pipeline for training
+## Building a [`tf.data.Dataset`](https://www.tensorflow.org/api_docs/python/tf/data/Dataset) pipeline for training {#building-a-tfdatadatasethttpswwwtensorfloworgapi_docspythontfdatadataset-pipeline-for-training}
 
 We will generate pairs of images and corresponding captions using a [`tf.data.Dataset`](https://www.tensorflow.org/api_docs/python/tf/data/Dataset) object. The pipeline consists of two steps:
 
@@ -248,7 +249,7 @@ train_dataset = make_dataset(list(train_data.keys()), list(train_data.values()))
 valid_dataset = make_dataset(list(valid_data.keys()), list(valid_data.values()))
 ```
 
-## Building the model
+## Building the model {#building-the-model}
 
 Our image captioning architecture consists of three models:
 
@@ -547,7 +548,7 @@ caption_model = ImageCaptioningModel(
 )
 ```
 
-## Model training
+## Model training {#model-training}
 
 ```python
 # Define the loss function
@@ -647,7 +648,7 @@ Epoch 17/30
 
 {{% /details %}}
 
-## Check sample predictions
+## Check sample predictions {#check-sample-predictions}
 
 ```python
 vocab = vectorization.get_vocabulary()
@@ -720,6 +721,6 @@ Predicted Caption:  a man in a green shirt and green pants is riding a bicycle
 
 {{% /details %}}
 
-## End Notes
+## End Notes {#end-notes}
 
 We saw that the model starts to generate reasonable captions after a few epochs. To keep this example easily runnable, we have trained it with a few constraints, like a minimal number of attention heads. To improve the predictions, you can try changing these training settings and find a good model for your use case.

@@ -1,5 +1,6 @@
 ---
-title: Self-supervised contrastive learning with NNCLR
+title: NNCLR을 사용한 자기 지도 대조 학습
+linkTitle: NNCLR 자기 지도 대조 학습
 toc: true
 weight: 54
 type: docs
@@ -19,17 +20,17 @@ type: docs
 {{< card link="https://github.com/keras-team/keras-io/blob/master/examples/vision/nnclr.py" title="GitHub" tag="GitHub">}}
 {{< /cards >}}
 
-## Introduction
+## Introduction {#introduction}
 
-### Self-supervised learning
+### Self-supervised learning {#self-supervised-learning}
 
 Self-supervised representation learning aims to obtain robust representations of samples from raw data without expensive labels or annotations. Early methods in this field focused on defining pretraining tasks which involved a surrogate task on a domain with ample weak supervision labels. Encoders trained to solve such tasks are expected to learn general features that might be useful for other downstream tasks requiring expensive annotations like image classification.
 
-### Contrastive Learning
+### Contrastive Learning {#contrastive-learning}
 
 A broad category of self-supervised learning techniques are those that use _contrastive losses_, which have been used in a wide range of computer vision applications like [image similarity](https://www.jmlr.org/papers/v11/chechik10a.html), [dimensionality reduction (DrLIM)](http://yann.lecun.com/exdb/publis/pdf/hadsell-chopra-lecun-06.pdf) and [face verification/identification](https://openaccess.thecvf.com/content_cvpr_2015/html/Schroff_FaceNet_A_Unified_2015_CVPR_paper.html). These methods learn a latent space that clusters positive samples together while pushing apart negative samples.
 
-### NNCLR
+### NNCLR {#nnclr}
 
 In this example, we implement NNCLR as proposed in the paper [With a Little Help from My Friends: Nearest-Neighbor Contrastive Learning of Visual Representations](https://arxiv.org/abs/2104.14548), by Google Research and DeepMind.
 
@@ -47,7 +48,7 @@ This example requires `tensorflow_datasets`, which can be installed with this co
 !pip install tensorflow-datasets
 ```
 
-## Setup
+## Setup {#setup}
 
 ```python
 import matplotlib.pyplot as plt
@@ -62,7 +63,7 @@ from keras import ops
 from keras import layers
 ```
 
-## Hyperparameters
+## Hyperparameters {#hyperparameters}
 
 A greater `queue_size` most likely means better performance as shown in the original paper, but introduces significant computational overhead. The authors show that the best results of NNCLR are achieved with a queue size of 98,304 (the largest `queue_size` they experimented on). We here use 10,000 to show a working example.
 
@@ -91,7 +92,7 @@ num_epochs = 5  # Use 25 for better results
 steps_per_epoch = 50  # Use 200 for better results
 ```
 
-## Load the Dataset
+## Load the Dataset {#load-the-dataset}
 
 We load the [STL-10](http://ai.stanford.edu/~acoates/stl10/) dataset from TensorFlow Datasets, an image recognition dataset for developing unsupervised feature learning, deep learning, self-taught learning algorithms. It is inspired by the CIFAR-10 dataset, with some modifications.
 
@@ -131,7 +132,7 @@ def prepare_dataset():
 batch_size, train_dataset, labeled_train_dataset, test_dataset = prepare_dataset()
 ```
 
-## Augmentations
+## Augmentations {#augmentations}
 
 Other self-supervised techniques like [SimCLR](https://arxiv.org/abs/2002.05709), [BYOL](https://arxiv.org/abs/2006.07733), [SwAV](https://arxiv.org/abs/2006.09882) etc. rely heavily on a well-designed data augmentation pipeline to get the best performance. However, NNCLR is _less_ dependent on complex augmentations as nearest-neighbors already provide richness in sample variations. A few common techniques often included augmentation pipelines are:
 
@@ -141,7 +142,7 @@ Other self-supervised techniques like [SimCLR](https://arxiv.org/abs/2002.05709)
 
 Since NNCLR is less dependent on complex augmentations, we will only use random crops and random brightness for augmenting the input images.
 
-### Prepare augmentation module
+### Prepare augmentation module {#prepare-augmentation-module}
 
 ```python
 def augmenter(brightness, name, scale):
@@ -161,7 +162,7 @@ def augmenter(brightness, name, scale):
     )
 ```
 
-### Encoder architecture
+### Encoder architecture {#encoder-architecture}
 
 Using a ResNet-50 as the encoder architecture is standard in the literature. In the original paper, the authors use ResNet-50 as the encoder architecture and spatially average the outputs of ResNet-50. However, keep in mind that more powerful models will not only increase training time but will also require more memory and will limit the maximal batch size you can use. For the purpose of this example, we just use four convolutional layers.
 
@@ -181,7 +182,7 @@ def encoder():
     )
 ```
 
-## The NNCLR model for contrastive pre-training
+## The NNCLR model for contrastive pre-training {#the-nnclr-model-for-contrastive-pre-training}
 
 We train an encoder on unlabeled images with a contrastive loss. A nonlinear projection head is attached to the top of the encoder, as it improves the quality of representations of the encoder.
 
@@ -384,7 +385,7 @@ class NNCLR(keras.Model):
         return {"p_loss": probe_loss, "p_acc": self.probe_accuracy.result()}
 ```
 
-## Pre-train NNCLR
+## Pre-train NNCLR {#pre-train-nnclr}
 
 We train the network using a `temperature` of 0.1 as suggested in the paper and a `queue_size` of 10,000 as explained earlier. We use Adam as our contrastive and probe optimizer. For this example we train the model for only 30 epochs but it should be trained for more epochs for better performance.
 

@@ -1,5 +1,6 @@
 ---
-title: Metric learning for image similarity search using TensorFlow Similarity
+title: TensorFlow Similarity를 사용한 이미지 유사도 검색을 위한 메트릭 학습
+linkTitle: TensorFlow Similarity 메트릭 학습
 toc: true
 weight: 53
 type: docs
@@ -19,7 +20,7 @@ type: docs
 {{< card link="https://github.com/keras-team/keras-io/blob/master/examples/vision/metric_learning_tf_similarity.py" title="GitHub" tag="GitHub">}}
 {{< /cards >}}
 
-## Overview
+## Overview {#overview}
 
 This example is based on the ["Metric learning for image similarity search" example]({{< relref "/docs/examples/vision/metric_learning" >}}). We aim to use the same data set but implement the model using [TensorFlow Similarity](https://github.com/tensorflow/similarity).
 
@@ -30,7 +31,7 @@ For a more detailed overview of metric learning, see:
 - [What is metric learning?](http://contrib.scikit-learn.org/metric-learn/introduction.html)
 - ["Using crossentropy for metric learning" tutorial](https://www.youtube.com/watch?v=Jb4Ewl5RzkI)
 
-## Setup
+## Setup {#setup}
 
 This tutorial will use the [TensorFlow Similarity](https://github.com/tensorflow/similarity) library to learn and evaluate the similarity embedding. TensorFlow Similarity provides components that:
 
@@ -72,7 +73,7 @@ TensorFlow Similarity: 0.15.5
 
 {{% /details %}}
 
-## Dataset samplers
+## Dataset samplers {#dataset-samplers}
 
 We will be using the [CIFAR-10](https://www.tensorflow.org/datasets/catalog/cifar10) dataset for this tutorial.
 
@@ -172,7 +173,7 @@ indexing classes:   0%|          | 0/1000 [00:00<?, ?it/s]
 
 {{% /details %}}
 
-## Visualize the dataset
+## Visualize the dataset {#visualize-the-dataset}
 
 The samplers will shuffle the dataset, so we can get a sense of the dataset by plotting the first 25 images.
 
@@ -195,7 +196,7 @@ for ax, im, label in zip(grid, x_slice, y_slice):
 
 ![png](/images/examples/vision/metric_learning_tf_similarity/metric_learning_tf_similarity_7_0.png)
 
-## Embedding model
+## Embedding model {#embedding-model}
 
 Next we define a `SimilarityModel` using the Keras Functional API. The model is a standard convnet with the addition of a `MetricEmbedding` layer that applies L2 normalization. The metric embedding layer is helpful when using `Cosine` distance as we only care about the angle between the vectors.
 
@@ -275,7 +276,7 @@ _________________________________________________________________
 
 {{% /details %}}
 
-## Similarity loss
+## Similarity loss {#similarity-loss}
 
 The similarity loss expects batches containing at least 2 examples of each class, from which it computes the loss over the pairwise positive and negative distances. Here we are using `MultiSimilarityLoss()` ([paper](ihttps://arxiv.org/abs/1904.06627)), one of several losses in [TensorFlow Similarity](https://github.com/tensorflow/similarity). This loss attempts to use all informative pairs in the batch, taking into account the self-similarity, positive-similarity, and the negative-similarity.
 
@@ -313,7 +314,7 @@ Epoch 3/3
 
 {{% /details %}}
 
-## Indexing
+## Indexing {#indexing}
 
 Now that we have trained our model, we can create an index of examples. Here we batch index the first 200 validation examples by passing the x and y to the index along with storing the image in the data parameter. The `x_index` values are embedded and then added to the index to make them searchable. The `y_index` and data parameters are optional but allow the user to associate metadata with the embedded example.
 
@@ -341,7 +342,7 @@ model.index(x_index, y_index, data=x_index)
 
 {{% /details %}}
 
-## Calibration
+## Calibration {#calibration}
 
 Once the index is built, we can calibrate a distance threshold using a matching strategy and a calibration metric.
 
@@ -388,7 +389,7 @@ optimal     0.93    0.048435        0.869         1              0.869  0.929909
 
 {{% /details %}}
 
-## Visualization
+## Visualization {#visualization}
 
 It may be difficult to get a sense of the model quality from the metrics alone. A complementary approach is to manually inspect a set of query results to get a feel for the match quality.
 
@@ -460,7 +461,7 @@ Building NN list:   0%|          | 0/10 [00:00<?, ?it/s]
 
 ![png](/images/examples/vision/metric_learning_tf_similarity/metric_learning_tf_similarity_17_11.png)
 
-## Metrics
+## Metrics {#metrics}
 
 We can also plot the extra metrics contained in the `CalibrationResults` to get a sense of the matching performance as the distance threshold increases.
 
@@ -511,7 +512,7 @@ cm = tfsim.visualization.confusion_matrix(
 
 ![png](/images/examples/vision/metric_learning_tf_similarity/metric_learning_tf_similarity_21_0.png)
 
-## No Match
+## No Match {#no-match}
 
 We can plot the examples outside of the calibrated threshold to see which images are not matching any indexed examples.
 
@@ -528,7 +529,7 @@ else:
 
 ![png](/images/examples/vision/metric_learning_tf_similarity/metric_learning_tf_similarity_23_0.png)
 
-## Visualize clusters
+## Visualize clusters {#visualize-clusters}
 
 One of the best ways to quickly get a sense of the quality of how the model is doing and understand it's short comings is to project the embedding into a 2D space.
 

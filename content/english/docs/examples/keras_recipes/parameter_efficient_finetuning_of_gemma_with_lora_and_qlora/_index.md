@@ -7,7 +7,7 @@ type: docs
 
 {{< keras/original checkedAt="2024-11-24" >}}
 
-**Authors:** [Hongyu Chiu](https://github.com/james77777778), [Abheesht Sharma](https://github.com/abheesht17/), [Matthew Watson](https://github.com/mattdangerw/)  
+**{{< t f_author >}}** [Hongyu Chiu](https://github.com/james77777778), [Abheesht Sharma](https://github.com/abheesht17/), [Matthew Watson](https://github.com/mattdangerw/)  
 **{{< t f_date_created >}}** 2024/08/06  
 **{{< t f_last_modified >}}** 2024/08/06  
 **{{< t f_description >}}** Use KerasHub to fine-tune a Gemma LLM with LoRA and QLoRA.

@@ -1,5 +1,6 @@
 ---
-title: Training a language model from scratch with 🤗 Transformers and TPUs
+title: 🤗 트랜스포머 및 TPU를 사용하여 처음부터 언어 모델 트레이닝하기
+linkTitle: 🤗 트랜스포머 및 TPU 처음부터 언어 모델 트레이닝
 toc: true
 weight: 25
 type: docs
@@ -7,7 +8,7 @@ type: docs
 
 {{< keras/original checkedAt="2024-11-21" >}}
 
-**Authors:** [Matthew Carrigan](https://twitter.com/carrigmat), [Sayak Paul](https://twitter.com/RisingSayak)  
+**{{< t f_author >}}** [Matthew Carrigan](https://twitter.com/carrigmat), [Sayak Paul](https://twitter.com/RisingSayak)  
 **{{< t f_date_created >}}** 2023/05/21  
 **{{< t f_last_modified >}}** 2023/05/21  
 **{{< t f_description >}}** Train a masked language model on TPUs using 🤗 Transformers.
@@ -19,7 +20,7 @@ type: docs
 {{< card link="https://github.com/keras-team/keras-io/blob/master/examples/nlp/mlm_training_tpus.py" title="GitHub" tag="GitHub">}}
 {{< /cards >}}
 
-## Introduction
+## Introduction {#introduction}
 
 In this example, we cover how to train a masked language model using TensorFlow, [🤗 Transformers](https://huggingface.co/transformers/index), and TPUs.
 
@@ -37,7 +38,7 @@ The following diagram gives you a pictorial overview of the steps involved in tr
 
 _(Contents of this example overlap with [this blog post](https://huggingface.co/blog/tf_tpu))._
 
-## Data
+## Data {#data}
 
 We use the [WikiText dataset (v1)](https://huggingface.co/datasets/wikitext). You can head over to the [dataset page on the Hugging Face Hub](https://huggingface.co/datasets/wikitext) to explore the dataset.
 
@@ -51,7 +52,7 @@ Since the dataset is already available on the Hub in a compatible format, we can
 
 You can find the tokenizer training code [**here**](https://github.com/huggingface/transformers/tree/main/examples/tensorflow/language-modeling-tpu#training-a-tokenizer) and the tokenizer [**here**](https://huggingface.co/tf-tpu/unigram-tokenizer-wikitext). This script also allows you to run it with [**any compatible dataset**](https://huggingface.co/datasets?task_ids=task_ids:language-modeling) from the Hub.
 
-## Tokenizing the data and creating TFRecords
+## Tokenizing the data and creating TFRecords {#tokenizing-the-data-and-creating-tfrecords}
 
 Once the tokenizer is trained, we can use it on all the dataset splits (`train`, `validation`, and `test` in this case) and create TFRecord shards out of them. Having the data splits spread across multiple TFRecord shards helps with massively parallel processing as opposed to having each split in single TFRecord files.
 
@@ -65,9 +66,9 @@ You can see all of this in code in [this script](https://github.com/huggingface/
 
 Once the data is tokenized and serialized into TFRecord shards, we can proceed toward training.
 
-## Training
+## Training {#training}
 
-### Setup and imports
+### Setup and imports {#setup-and-imports}
 
 Let's start by installing 🤗 Transformers.
 
@@ -86,7 +87,7 @@ import tensorflow as tf
 import transformers
 ```
 
-### Initialize TPUs
+### Initialize TPUs {#initialize-tpus}
 
 Then let's connect to our TPU and determine the distribution strategy:
 
@@ -111,7 +112,7 @@ Available number of replicas: 8
 
 We then load the tokenizer. For more details on the tokenizer, check out [its repository](https://huggingface.co/tf-tpu/unigram-tokenizer-wikitext). For the model, we use RoBERTa (the base variant), introduced in [this paper](https://arxiv.org/abs/1907.11692).
 
-### Initialize the tokenizer
+### Initialize the tokenizer {#initialize-the-tokenizer}
 
 ```python
 tokenizer = "tf-tpu/unigram-tokenizer-wikitext"
@@ -136,7 +137,7 @@ Downloading (…)lve/main/config.json:   0%|          | 0.00/481 [00:00<?, ?B/s]
 
 {{% /details %}}
 
-### Prepare the datasets
+### Prepare the datasets {#prepare-the-datasets}
 
 We now load the TFRecord shards of the WikiText dataset (which the Hugging Face team prepared beforehand for this example):
 
@@ -354,7 +355,7 @@ print(labels[0].numpy()[:30])
 
 Here, `-100` means that the corresponding tokens in the `input_ids` are NOT masked and non `-100` values denote the actual values of the masked tokens.
 
-## Initialize the mode and and the optimizer
+## Initialize the mode and and the optimizer {#initialize-the-mode-and-and-the-optimizer}
 
 With the datasets prepared, we now initialize and compile our model and optimizer within the `strategy.scope()`:
 
@@ -392,7 +393,7 @@ No loss specified in compile() - the model's internal loss computation will be u
 
 A couple of things to note here: \* The [`create_optimizer()`](https://huggingface.co/docs/transformers/main_classes/optimizer_schedules#transformers.create_optimizer) function creates an Adam optimizer with a learning rate schedule using a warmup phase followed by a linear decay. Since we're using weight decay here, under the hood, `create_optimizer()` instantiates [the right variant of Adam](https://github.com/huggingface/transformers/blob/118e9810687dd713b6be07af79e80eeb1d916908/src/transformers/optimization_tf.py#L172) to enable weight decay. \* While compiling the model, we're NOT using any `loss` argument. This is because the TensorFlow models internally compute the loss when expected labels are provided. Based on the model type and the labels being used, `transformers` will automatically infer the loss to use.
 
-### Start training!
+### Start training! {#start-training}
 
 Next, we set up a handy callback to push the intermediate training checkpoints to the Hugging Face Hub. To be able to operationalize this callback, we need to log in to our Hugging Face account (if you don't have one, you create one [here](https://huggingface.co/join) for free). Execute the code below for logging in:
 

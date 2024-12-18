@@ -1,5 +1,6 @@
 ---
-title: Image segmentation with a U-Net-like architecture
+title: U-Net과 유사한 아키텍처를 사용한 이미지 세그멘테이션
+linkTitle: U-Net 유사 이미지 세그멘테이션
 toc: true
 weight: 20
 type: docs
@@ -10,7 +11,7 @@ type: docs
 **{{< t f_author >}}** [fchollet](https://twitter.com/fchollet)  
 **{{< t f_date_created >}}** 2019/03/20  
 **{{< t f_last_modified >}}** 2020/04/20  
-**{{< t f_description >}}** Image segmentation model trained from scratch on the Oxford Pets dataset.
+**{{< t f_description >}}** Oxford Pets 데이터세트를 사용하여 처음부터 트레이닝된 이미지 세그멘테이션 모델입니다.
 
 {{< keras/version v=3 >}}
 
@@ -19,7 +20,7 @@ type: docs
 {{< card link="https://github.com/keras-team/keras-io/blob/master/examples/vision/oxford_pets_image_segmentation.py" title="GitHub" tag="GitHub">}}
 {{< /cards >}}
 
-## Download the data
+## 데이터 다운로드 {#download-the-data}
 
 ```python
 !!wget https://www.robots.ox.ac.uk/~vgg/data/pets/data/images.tar.gz
@@ -45,7 +46,7 @@ type: docs
 
 {{% /details %}}
 
-## Prepare paths of input images and target segmentation masks
+## 입력 이미지와 타겟 세그멘테이션 마스크 경로 준비 {#prepare-paths-of-input-images-and-target-segmentation-masks}
 
 ```python
 import os
@@ -95,17 +96,17 @@ images/Abyssinian_107.jpg | annotations/trimaps/Abyssinian_107.png
 
 {{% /details %}}
 
-## What does one input image and corresponding segmentation mask look like?
+## 하나의 입력 이미지와 해당 세그멘테이션 마스크는 어떻게 생겼나요?{#what-does-one-input-image-and-corresponding-segmentation-mask-look-like}
 
 ```python
 from IPython.display import Image, display
 from keras.utils import load_img
 from PIL import ImageOps
 
-# Display input image #7
+# 입력 이미지 #7 표시
 display(Image(filename=input_img_paths[9]))
 
-# Display auto-contrast version of corresponding target (per-pixel categories)
+# 해당 대상의 자동 대비 버전 표시 (픽셀별 카테고리)
 img = ImageOps.autocontrast(load_img(target_img_paths[9]))
 display(img)
 ```
@@ -114,7 +115,7 @@ display(img)
 
 ![png](/images/examples/vision/oxford_pets_image_segmentation/oxford_pets_image_segmentation_6_1.png)
 
-## Prepare dataset to load & vectorize batches of data
+## 데이터 배치를 로드하고 벡터화하기 위한 데이터 세트 준비 {#prepare-dataset-to-load-vectorize-batches-of-data}
 
 ```python
 import keras
@@ -131,7 +132,7 @@ def get_dataset(
     target_img_paths,
     max_dataset_len=None,
 ):
-    """Returns a TF Dataset."""
+    """TF 데이터셋을 반환합니다."""
 
     def load_img_masks(input_img_path, target_img_path):
         input_img = tf_io.read_file(input_img_path)
@@ -144,11 +145,11 @@ def get_dataset(
         target_img = tf_image.resize(target_img, img_size, method="nearest")
         target_img = tf_image.convert_image_dtype(target_img, "uint8")
 
-        # Ground truth labels are 1, 2, 3. Subtract one to make them 0, 1, 2:
+        # 실제 라벨은 1, 2, 3입니다. 1을 빼면 0, 1, 2가 됩니다.
         target_img -= 1
         return input_img, target_img
 
-    # For faster debugging, limit the size of data
+    # 더 빠른 디버깅을 위해, 데이터 크기를 제한합니다.
     if max_dataset_len:
         input_img_paths = input_img_paths[:max_dataset_len]
         target_img_paths = target_img_paths[:max_dataset_len]
@@ -157,7 +158,7 @@ def get_dataset(
     return dataset.batch(batch_size)
 ```
 
-## Prepare U-Net Xception-style model
+## U-Net Xception 스타일 모델 준비 {#prepare-u-net-xception-style-model}
 
 ```python
 from keras import layers
@@ -166,16 +167,16 @@ from keras import layers
 def get_model(img_size, num_classes):
     inputs = keras.Input(shape=img_size + (3,))
 
-    ### [First half of the network: downsampling inputs] ###
+    ### [네트워크 전반: 입력 다운샘플링] ###
 
-    # Entry block
+    # 진입 블록
     x = layers.Conv2D(32, 3, strides=2, padding="same")(inputs)
     x = layers.BatchNormalization()(x)
     x = layers.Activation("relu")(x)
 
-    previous_block_activation = x  # Set aside residual
+    previous_block_activation = x  # 옆으로가는 residual 설정
 
-    # Blocks 1, 2, 3 are identical apart from the feature depth.
+    # 블록 1, 2, 3은 피처 깊이를 제외하면 동일합니다.
     for filters in [64, 128, 256]:
         x = layers.Activation("relu")(x)
         x = layers.SeparableConv2D(filters, 3, padding="same")(x)
@@ -187,14 +188,14 @@ def get_model(img_size, num_classes):
 
         x = layers.MaxPooling2D(3, strides=2, padding="same")(x)
 
-        # Project residual
+        # residual 프로젝션
         residual = layers.Conv2D(filters, 1, strides=2, padding="same")(
             previous_block_activation
         )
-        x = layers.add([x, residual])  # Add back residual
-        previous_block_activation = x  # Set aside next residual
+        x = layers.add([x, residual])  # 다시 residual 합산
+        previous_block_activation = x  # 다음 옆으로가는 residual 설정
 
-    ### [Second half of the network: upsampling inputs] ###
+    ### [네트워크의 후반부: 입력 업샘플링] ###
 
     for filters in [256, 128, 64, 32]:
         x = layers.Activation("relu")(x)
@@ -207,21 +208,20 @@ def get_model(img_size, num_classes):
 
         x = layers.UpSampling2D(2)(x)
 
-        # Project residual
+        # residual 프로젝션
         residual = layers.UpSampling2D(2)(previous_block_activation)
         residual = layers.Conv2D(filters, 1, padding="same")(residual)
-        x = layers.add([x, residual])  # Add back residual
-        previous_block_activation = x  # Set aside next residual
+        x = layers.add([x, residual])  # 다시 residual 합산
+        previous_block_activation = x  # 다음 옆으로가는 residual 설정
 
-    # Add a per-pixel classification layer
+    # 픽셀별 분류 레이어 추가
     outputs = layers.Conv2D(num_classes, 3, activation="softmax", padding="same")(x)
 
-    # Define the model
+    # 모델 정의
     model = keras.Model(inputs, outputs)
     return model
 
-
-# Build model
+# 모델 빌드
 model = get_model(img_size, num_classes)
 model.summary()
 ```
@@ -456,12 +456,12 @@ Model: "functional_1"
 
 {{% /details %}}
 
-## Set aside a validation split
+## 검증 분할을 별도로 설정 {#set-aside-a-validation-split}
 
 ```python
 import random
 
-# Split our img paths into a training and a validation set
+# img 경로를 트레이닝 및 검증 세트로 분할합니다.
 val_samples = 1000
 random.Random(1337).shuffle(input_img_paths)
 random.Random(1337).shuffle(target_img_paths)
@@ -470,9 +470,9 @@ train_target_img_paths = target_img_paths[:-val_samples]
 val_input_img_paths = input_img_paths[-val_samples:]
 val_target_img_paths = target_img_paths[-val_samples:]
 
-# Instantiate dataset for each split
-# Limit input files in `max_dataset_len` for faster epoch training time.
-# Remove the `max_dataset_len` arg when running with full dataset.
+# 각 분할에 대한 데이터세트 인스턴스화
+# 더 빠른 에포크 트레이닝 시간을 위해, `max_dataset_len`의 입력 파일 제한
+# 전체 데이터세트로 실행할 때, `max_dataset_len` 인수 제거.
 train_dataset = get_dataset(
     batch_size,
     img_size,
@@ -485,12 +485,12 @@ valid_dataset = get_dataset(
 )
 ```
 
-## Train the model
+## 모델 트레이닝 {#train-the-model}
 
 ```python
-# Configure the model for training.
-# We use the "sparse" version of categorical_crossentropy
-# because our target data is integers.
+# 트레이닝을 위해 모델을 구성합니다.
+# 우리는 대상 데이터가 정수이기 때문에,
+# categorical_crossentropy의 "sparse" 버전을 사용합니다.
 model.compile(
     optimizer=keras.optimizers.Adam(1e-4), loss="sparse_categorical_crossentropy"
 )
@@ -499,7 +499,7 @@ callbacks = [
     keras.callbacks.ModelCheckpoint("oxford_segmentation.keras", save_best_only=True)
 ]
 
-# Train the model, doing validation at the end of each epoch.
+# 각 에포크가 끝날 때마다 검증을 수행하여, 모델을 트레이닝합니다.
 epochs = 50
 model.fit(
     train_dataset,
@@ -771,10 +771,10 @@ Corrupt JPEG data: 240 extraneous bytes before marker 0xd9
 
 {{% /details %}}
 
-## Visualize predictions
+## 예측 시각화 {#visualize-predictions}
 
 ```python
-# Generate predictions for all images in the validation set
+# 검증 세트의 모든 이미지에 대한 예측 생성
 
 val_dataset = get_dataset(
     batch_size, img_size, val_input_img_paths, val_target_img_paths
@@ -783,25 +783,25 @@ val_preds = model.predict(val_dataset)
 
 
 def display_mask(i):
-    """Quick utility to display a model's prediction."""
+    """모델의 예측을 표시하는 빠른 유틸리티입니다."""
     mask = np.argmax(val_preds[i], axis=-1)
     mask = np.expand_dims(mask, axis=-1)
     img = ImageOps.autocontrast(keras.utils.array_to_img(mask))
     display(img)
 
 
-# Display results for validation image #10
+# 검증 이미지 #10에 대한 결과 표시
 i = 10
 
-# Display input image
+# 입력 이미지 표시
 display(Image(filename=val_input_img_paths[i]))
 
-# Display ground-truth target mask
+# ground-truth 타겟 마스크 표시
 img = ImageOps.autocontrast(load_img(val_target_img_paths[i]))
 display(img)
 
-# Display mask predicted by our model
-display_mask(i)  # Note that the model only sees inputs at 150x150.
+# 우리 모델이 예측한 디스플레이 마스크
+display_mask(i)  # 이 모델은 150x150에서만 입력을 받는다는 점에 유의하세요.
 ```
 
 {{% details title="{{< t f_result >}}" closed="true" %}}

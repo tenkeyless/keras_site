@@ -74,7 +74,7 @@ Test data samples: 10000
 
 {{% /details %}}
 
-## Prepare [`tf.data.Dataset`](https://www.tensorflow.org/api_docs/python/tf/data/Dataset) objects
+## Prepare [`tf.data.Dataset`](https://www.tensorflow.org/api_docs/python/tf/data/Dataset) objects {#tfdatadataset}
 
 Our data augmentation pipeline is different from what the authors used for the CIFAR-10 dataset, which is fine for the purpose of the example. Note that, it's ok to use **TF APIs for data I/O and preprocessing** with other backends (jax, torch) as it is feature-complete framework when it comes to data preprocessing.
 

@@ -1,5 +1,6 @@
 ---
-title: Speaker Recognition
+title: 화자 인식
+linkTitle: 화자 인식
 toc: true
 weight: 4
 type: docs
@@ -19,7 +20,7 @@ type: docs
 {{< card link="https://github.com/keras-team/keras-io/blob/master/examples/audio/speaker_recognition_using_cnn.py" title="GitHub" tag="GitHub">}}
 {{< /cards >}}
 
-## Introduction
+## Introduction {#introduction}
 
 This example demonstrates how to create a model to classify speakers from the frequency domain representation of speech recordings, obtained via Fast Fourier Transform (FFT).
 
@@ -40,7 +41,7 @@ Note:
 - This example should be run with TensorFlow 2.3 or higher, or `tf-nightly`.
 - The noise samples in the dataset need to be resampled to a sampling rate of 16000 Hz before using the code in this example. In order to do this, you will need to have installed `ffmpg`.
 
-## Setup
+## Setup {#setup}
 
 ```python
 import os
@@ -109,7 +110,7 @@ Downloading speaker-recognition-dataset.zip to /home/fchollet/keras-io/scripts/t
 
 {{% /details %}}
 
-## Data preparation
+## Data preparation {#data-preparation}
 
 The dataset is composed of 7 folders, divided into 2 groups:
 
@@ -189,7 +190,7 @@ for folder in os.listdir(DATASET_ROOT):
             )
 ```
 
-## Noise preparation
+## Noise preparation {#noise-preparation}
 
 In this section:
 
@@ -278,7 +279,7 @@ print(
 
 {{% /details %}}
 
-## Dataset generation
+## Dataset generation {#dataset-generation}
 
 ```python
 def paths_and_labels_to_dataset(audio_paths, labels):
@@ -422,7 +423,7 @@ Using 750 files for validation.
 
 {{% /details %}}
 
-## Model Definition
+## Model Definition {#model-definition}
 
 ```python
 def residual_block(x, filters, conv_num=3, activation="relu"):
@@ -610,7 +611,7 @@ Model: "functional_1"
 
 {{% /details %}}
 
-## Training
+## Training {#training}
 
 ```python
 history = model.fit(
@@ -642,7 +643,7 @@ W0000 00:00:1699469627.405341  302129 graph_launch.cc:671] Fallback to op-by-op 
 
 {{% /details %}}
 
-## Evaluation
+## Evaluation {#evaluation}
 
 ```python
 print(model.evaluate(valid_ds))
@@ -659,7 +660,7 @@ print(model.evaluate(valid_ds))
 
 We get ~ 98% validation accuracy.
 
-## Demonstration
+## Demonstration {#demonstration}
 
 Let's take some samples and:
 

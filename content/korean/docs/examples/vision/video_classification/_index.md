@@ -1,5 +1,6 @@
 ---
-title: Video Classification with a CNN-RNN Architecture
+title: CNN-RNN 아키텍처를 사용한 비디오 분류
+linkTitle: CNN-RNN 비디오 분류
 toc: true
 weight: 55
 type: docs
@@ -29,7 +30,7 @@ This example requires TensorFlow 2.5 or higher, as well as TensorFlow Docs, whic
 !pip install -q git+https://github.com/tensorflow/docs
 ```
 
-## Data collection
+## Data collection {#data-collection}
 
 In order to keep the runtime of this example relatively short, we will be using a subsampled version of the original UCF101 dataset. You can refer to [this notebook](https://colab.research.google.com/github/sayakpaul/Action-Recognition-in-TensorFlow/blob/main/Data_Preparation_UCF101.ipynb) to know how the subsampling was done.
 
@@ -38,7 +39,7 @@ In order to keep the runtime of this example relatively short, we will be using 
 !tar xf ucf101_top5.tar.gz
 ```
 
-## Setup
+## Setup {#setup}
 
 ```python
 import os
@@ -54,7 +55,7 @@ import cv2
 from IPython.display import Image
 ```
 
-## Define hyperparameters
+## Define hyperparameters {#define-hyperparameters}
 
 ```python
 IMG_SIZE = 224
@@ -65,7 +66,7 @@ MAX_SEQ_LENGTH = 20
 NUM_FEATURES = 2048
 ```
 
-## Data preparation
+## Data preparation {#data-preparation}
 
 ```python
 train_df = pd.read_csv("train.csv")
@@ -248,7 +249,7 @@ Frame masks in train set: (594, 20)
 
 The above code block will take ~20 minutes to execute depending on the machine it's being executed.
 
-## The sequence model
+## The sequence model {#the-sequence-model}
 
 Now, we can feed this data to a sequence model consisting of recurrent layers like `GRU`.
 
@@ -355,7 +356,7 @@ Test accuracy: 56.7%
 
 **Note**: To keep the runtime of this example relatively short, we just used a few training examples. This number of training examples is low with respect to the sequence model being used that has 99,909 trainable parameters. You are encouraged to sample more data from the UCF101 dataset using [the notebook](https://colab.research.google.com/github/sayakpaul/Action-Recognition-in-TensorFlow/blob/main/Data_Preparation_UCF101.ipynb) mentioned above and train the same model.
 
-## Inference
+## Inference {#inference}
 
 ```python
 def prepare_single_video(frames):
@@ -442,7 +443,7 @@ Test video path: v_TennisSwing_g03_c01.avi
 
 {{% /details %}}
 
-## Next steps
+## Next steps {#next-steps}
 
 - In this example, we made use of transfer learning for extracting meaningful features from video frames. You could also fine-tune the pre-trained network to notice how that affects the end results.
 - For speed-accuracy trade-offs, you can try out other models present inside `keras.applications`.

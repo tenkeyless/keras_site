@@ -1,5 +1,6 @@
 ---
-title: Review Classification using Active Learning
+title: Active 학습을 사용한 리뷰 분류
+linkTitle: Active 학습 리뷰 분류
 toc: true
 weight: 2
 type: docs
@@ -20,7 +21,7 @@ math: true
 {{< card link="https://github.com/keras-team/keras-io/blob/master/examples/nlp/active_learning_review_classification.py" title="GitHub" tag="GitHub">}}
 {{< /cards >}}
 
-## Introduction
+## Introduction {#introduction}
 
 With the growth of data-centric Machine Learning, Active Learning has grown in popularity amongst businesses and researchers. Active Learning seeks to progressively train ML models so that the resultant model requires lesser amount of training data to achieve competitive scores.
 
@@ -36,7 +37,7 @@ Some other sampling techniques include:
 2.  [Entropy reduction](https://www.researchgate.net/publication/51909346_Committee-Based_Sample_Selection_for_Probabilistic_Classifiers): Sampling according to an entropy threshold, selecting more of the samples that produce the highest entropy score.
 3.  [Minimum margin based sampling](https://arxiv.org/abs/1906.00025v1): Selects data points closest to the decision boundary
 
-## Importing required libraries
+## Importing required libraries {#importing-required-libraries}
 
 ```python
 import os
@@ -54,7 +55,7 @@ import string
 tfds.disable_progress_bar()
 ```
 
-## Loading and preprocessing the data
+## Loading and preprocessing the data {#loading-and-preprocessing-the-data}
 
 We will be using the IMDB reviews dataset for our experiments. This dataset has 50,000 reviews in total, including training and testing splits. We will merge these splits and sample our own, balanced training, validation and testing sets.
 
@@ -169,7 +170,7 @@ Unlabeled positive pool: 12500
 
 {{% /details %}}
 
-### Fitting the `TextVectorization` layer
+### Fitting the `TextVectorization` layer {#fitting-the-textvectorization-layer}
 
 Since we are working with text data, we will need to encode the text strings as vectors which would then be passed through an `Embedding` layer. To make this tokenization process faster, we use the `map()` function with its parallelization functionality.
 
@@ -202,7 +203,7 @@ test_dataset = test_dataset.batch(256).map(
 )
 ```
 
-## Creating Helper Functions
+## Creating Helper Functions {#creating-helper-functions}
 
 ```python
 # Helper function for merging new history objects with older ones
@@ -231,7 +232,7 @@ def plot_history(losses, val_losses, accuracies, val_accuracies):
     plt.show()
 ```
 
-## Creating the Model
+## Creating the Model {#creating-the-model}
 
 We create a small bidirectional LSTM model. When using Active Learning, you should make sure that the model architecture is capable of overfitting to the initial data. Overfitting gives a strong hint that the model will have enough capacity for future, unseen data.
 
@@ -252,7 +253,7 @@ def create_model():
     return model
 ```
 
-## Training on the entire dataset
+## Training on the entire dataset {#training-on-the-entire-dataset}
 
 To show the effectiveness of Active Learning, we will first train the model on the entire dataset containing 40,000 labeled samples. This model will be used for comparison later.
 
@@ -444,7 +445,7 @@ Test set evaluation:  {'binary_accuracy': 0.8507999777793884, 'false_negatives':
 
 {{% /details %}}
 
-## Training via Active Learning
+## Training via Active Learning {#training-via-active-learning}
 
 The general process we follow when performing Active Learning is demonstrated below:
 
@@ -954,7 +955,7 @@ Test set evaluation:  {'binary_accuracy': 0.8424000144004822, 'false_negatives_4
 
 {{% /details %}}
 
-## Conclusion
+## Conclusion {#conclusion}
 
 Active Learning is a growing area of research. This example demonstrates the cost-efficiency benefits of using Active Learning, as it eliminates the need to annotate large amounts of data, saving resources.
 

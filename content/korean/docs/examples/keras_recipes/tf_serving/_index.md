@@ -1,5 +1,6 @@
 ---
-title: Serving TensorFlow models with TFServing
+title: TFServing으로 TensorFlow 모델 서비스하기
+linkTitle: TFServing TensorFlow 모델 서비스
 toc: true
 weight: 3
 type: docs
@@ -19,7 +20,7 @@ type: docs
 {{< card link="https://github.com/keras-team/keras-io/blob/master/examples/keras_recipes/tf_serving.py" title="GitHub" tag="GitHub">}}
 {{< /cards >}}
 
-## Introduction
+## Introduction {#introduction}
 
 Once you build a machine learning model, the next step is to serve it. You may want to do that by exposing your model as an endpoint service. There are many frameworks that you can use to do that, but the TensorFlow ecosystem has its own solution called [TensorFlow Serving](https://www.tensorflow.org/tfx/guide/serving).
 
@@ -41,7 +42,7 @@ This guide creates a simple [MobileNet](https://arxiv.org/abs/1704.04861) model 
 
 > Note: you can find a Colab notebook with the full working code at [this link](https://colab.research.google.com/drive/1nwuIJa4so1XzYU0ngq8tX_-SGTO295Mu?usp=sharing).
 
-## Dependencies
+## Dependencies {#dependencies}
 
 ```python
 import os
@@ -57,7 +58,7 @@ import keras
 import matplotlib.pyplot as plt
 ```
 
-## Model
+## Model {#model}
 
 Here we load a pre-trained [MobileNet](https://arxiv.org/abs/1704.04861) from the [Keras applications]({{< relref "/docs/api/applications" >}}), this is the model that we are going to serve.
 
@@ -74,7 +75,7 @@ Downloading data from https://storage.googleapis.com/tensorflow/keras-applicatio
 
 {{% /details %}}
 
-## Preprocessing
+## Preprocessing {#preprocessing}
 
 Most models don't work out of the box on raw data, they usually require some kind of preprocessing step to adjust the data to the model requirements, in the case of this MobileNet we can see from its [API page]({{< relref "/docs/api/applications/mobilenet" >}}) that it requires three basic steps for its input images:
 
@@ -97,7 +98,7 @@ def preprocess(image, mean=0.5, std=0.5, shape=(224, 224)):
 
 All models that are available at the [Keras applications]({{< relref "/docs/api/applications" >}}) API also provide `preprocess_input` and `decode_predictions` functions, those functions are respectively responsible for the preprocessing and postprocessing of each model, and already contains all the logic necessary for those steps. That is the recommended way to process inputs and outputs when using Keras applications models. For this guide, we are not using them to present the advantages of custom signatures in a clearer way.
 
-## Postprocessing
+## Postprocessing {#postprocessing}
 
 In the same context most models output values that need extra processing to meet the user requirements, for instance, the user does not want to know the logits values for each class given an image, what the user wants is to know from which class it belongs. For our model, this translates to the following transformations on top of the model outputs:
 
@@ -172,7 +173,7 @@ Predicted class: [b'banana']
 
 {{% /details %}}
 
-## Save the model
+## Save the model {#save-the-model}
 
 To load our trained model into TensorFlow Serving, we first need to save it in [SavedModel](https://www.tensorflow.org/versions/r1.15/api_docs/python/tf/saved_model) format. This will create a protobuf file in a well-defined directory hierarchy, and will include a version number. [TensorFlow Serving](https://www.tensorflow.org/tfx/guide/serving) allows us to select which version of a model, or "servable" we want to use when we make inference requests. Each version will be exported to a different sub-directory under the given path.
 
@@ -201,7 +202,7 @@ SavedModel files: ['variables', 'saved_model.pb', 'assets', 'fingerprint.pb']
 
 {{% /details %}}
 
-## Examine your saved model
+## Examine your saved model {#examine-your-saved-model}
 
 We'll use the command line utility `saved_model_cli` to look at the [MetaGraphDefs](https://www.tensorflow.org/versions/r1.15/api_docs/python/tf/MetaGraphDef) (the models) and [SignatureDefs](https://www.tensorflow.org/tfx/serving/signature_defs) (the methods you can call) in our SavedModel. See [this discussion of the SavedModel CLI](https://github.com/tensorflow/docs/blob/master/site/en/r1/guide/saved_model.md#cli-to-inspect-and-execute-savedmodel) in the TensorFlow Guide.
 
@@ -231,9 +232,9 @@ That tells us a lot about our model! For instance, we can see that its inputs ha
 
 This information doesn't tell us everything, like the fact that the pixel values needs to be in the `[-1, 1]` range, but it's a great start.
 
-## Serve your model with TensorFlow Serving
+## Serve your model with TensorFlow Serving {#serve-your-model-with-tensorflow-serving}
 
-### Install TFServing
+### Install TFServing {#install-tfserving}
 
 We're preparing to install TensorFlow Serving using [Aptitude](https://wiki.debian.org/Aptitude) since this Colab runs in a Debian environment. We'll add the `tensorflow-model-server` package to the list of packages that Aptitude knows about. Note that we're running as root.
 
@@ -244,7 +245,7 @@ wget 'http://storage.googleapis.com/tensorflow-serving-apt/pool/tensorflow-model
 dpkg -i tensorflow-model-server-universal_2.8.0_all.deb
 ```
 
-### Start running TensorFlow Serving
+### Start running TensorFlow Serving {#start-running-tensorflow-serving}
 
 This is where we start running TensorFlow Serving and load our model. After it loads, we can start making inference requests using REST. There are some important parameters:
 
@@ -302,13 +303,13 @@ tensorflo 1101 root    5u  IPv4  35543      0t0  TCP *:8500 (LISTEN)
 tensorflo 1101 root   12u  IPv4  35548      0t0  TCP *:8501 (LISTEN)
 ```
 
-## Make a request to your model in TensorFlow Serving
+## Make a request to your model in TensorFlow Serving {#make-a-request-to-your-model-in-tensorflow-serving}
 
 Now let's create the JSON object for an inference request, and see how well our model classifies it:
 
-### REST API
+### REST API {#rest-api}
 
-#### Newest version of the servable
+#### Newest version of the servable {#newest-version-of-the-servable}
 
 We'll send a predict request as a POST to our server's REST endpoint, and pass it as an example. We'll ask our server to give us the latest version of our servable by not specifying a particular version.
 
@@ -343,7 +344,7 @@ REST output shape: (1, 1000)
 Predicted class: [b'banana']
 ```
 
-### gRPC API
+### gRPC API {#grpc-api}
 
 [gRPC](https://grpc.io/) is based on the Remote Procedure Call (RPC) model and is a technology for implementing RPC APIs that uses HTTP 2.0 as its underlying transport protocol. gRPC is usually preferred for low-latency, highly scalable, and distributed systems. If you wanna know more about the REST vs gRPC tradeoffs, checkout [this article](https://cloud.google.com/blog/products/api-management/understanding-grpc-openapi-and-rest-and-when-to-use-them).
 
@@ -409,7 +410,7 @@ gRPC output shape: (1, 1000)
 Predicted class: [b'banana']
 ```
 
-## Custom signature
+## Custom signature {#custom-signature}
 
 Note that for this model we always need to preprocess and postprocess all samples to get the desired output, this can get quite tricky if are maintaining and serving several models developed by a large team, and each one of them might require different processing logic.
 
@@ -485,11 +486,11 @@ loaded_model.signatures["serving_default"](**{"image": batched_raw_img})
 
 {{% /details %}}
 
-## Prediction using a particular version of the servable
+## Prediction using a particular version of the servable {#prediction-using-a-particular-version-of-the-servable}
 
 Now let's specify a particular version of our servable. Note that when we saved the model with a custom signature we used a different folder, the first model was saved in folder `/1` (version 1), and the one with a custom signature in folder `/2` (version 2). By default, TFServing will serve all models that share the same base parent folder.
 
-### REST API
+### REST API {#rest-api}
 
 ```python
 data = json.dumps(
@@ -513,7 +514,7 @@ REST output shape: (1,)
 Predicted class: ['banana']
 ```
 
-### gRPC API
+### gRPC API {#grpc-api}
 
 ```python
 channel = grpc.insecure_channel("localhost:8500")
@@ -541,7 +542,7 @@ gRPC output shape: (1, 1)
 Predicted class: [[b'banana']]
 ```
 
-## Additional resources
+## Additional resources {#additional-resources}
 
 - [Colab notebook with the full working code](https://colab.research.google.com/drive/1nwuIJa4so1XzYU0ngq8tX_-SGTO295Mu?usp=sharing)
 - [Train and serve a TensorFlow model with TensorFlow Serving - TensorFlow blog](https://www.tensorflow.org/tfx/tutorials/serving/rest_simple#make_a_request_to_your_model_in_tensorflow_serving)

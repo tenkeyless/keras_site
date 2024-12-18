@@ -1,5 +1,6 @@
 ---
-title: Convolutional autoencoder for image denoising
+title: 이미지 노이즈 제거를 위한 컨볼루셔널 오토인코더
+linkTitle: 이미지 노이즈 제거 오토인코더
 toc: true
 weight: 34
 type: docs
@@ -19,11 +20,11 @@ type: docs
 {{< card link="https://github.com/keras-team/keras-io/blob/master/examples/vision/autoencoder.py" title="GitHub" tag="GitHub">}}
 {{< /cards >}}
 
-## Introduction
+## Introduction {#introduction}
 
 This example demonstrates how to implement a deep convolutional autoencoder for image denoising, mapping noisy digits images from the MNIST dataset to clean digits images. This implementation is based on an original blog post titled [Building Autoencoders in Keras](https://blog.keras.io/building-autoencoders-in-keras.html) by [François Chollet](https://twitter.com/fchollet).
 
-## Setup
+## Setup {#setup}
 
 ```python
 import numpy as np
@@ -75,7 +76,7 @@ def display(array1, array2):
     plt.show()
 ```
 
-## Prepare the data
+## Prepare the data {#prepare-the-data}
 
 ```python
 # Since we only need images from the dataset to encode and decode, we
@@ -105,7 +106,7 @@ Downloading data from https://storage.googleapis.com/tensorflow/tf-keras-dataset
 
 ![png](/images/examples/vision/autoencoder/autoencoder_5_1.png)
 
-## Build the autoencoder
+## Build the autoencoder {#build-the-autoencoder}
 
 We are going to use the Functional API to build our convolutional autoencoder.
 

@@ -1,5 +1,6 @@
 ---
-title: Image classification with ConvMixer
+title: ConvMixer로 이미지 분류
+linkTitle: ConvMixer 이미지 분류
 toc: true
 weight: 10
 type: docs
@@ -10,7 +11,7 @@ type: docs
 **{{< t f_author >}}** [Sayak Paul](https://twitter.com/RisingSayak)  
 **{{< t f_date_created >}}** 2021/10/12  
 **{{< t f_last_modified >}}** 2021/10/12  
-**{{< t f_description >}}** An all-convolutional network applied to patches of images.
+**{{< t f_description >}}** 이미지 패치에 적용되는 모든 컨볼루션 네트워크입니다.
 
 {{< keras/version v=3 >}}
 
@@ -19,15 +20,26 @@ type: docs
 {{< card link="https://github.com/keras-team/keras-io/blob/master/examples/vision/convmixer.py" title="GitHub" tag="GitHub">}}
 {{< /cards >}}
 
-## Introduction
+## 소개 {#introduction}
 
-Vision Transformers (ViT; [Dosovitskiy et al.](https://arxiv.org/abs/1612.00593)) extract small patches from the input images, linearly project them, and then apply the Transformer ([Vaswani et al.](https://arxiv.org/abs/1706.03762)) blocks. The application of ViTs to image recognition tasks is quickly becoming a promising area of research, because ViTs eliminate the need to have strong inductive biases (such as convolutions) for modeling locality. This presents them as a general computation primititive capable of learning just from the training data with as minimal inductive priors as possible. ViTs yield great downstream performance when trained with proper regularization, data augmentation, and relatively large datasets.
+비전 트랜스포머(ViT; [Dosovitskiy et al.](https://arxiv.org/abs/1612.00593))는
+입력 이미지에서 작은 패치를 추출하여, 선형적으로 프로젝션 한 다음,
+트랜스포머([Vaswani et al.](https://arxiv.org/abs/1706.03762)) 블록을 적용합니다.
+ViT는 지역성을 모델링하기 위해 강력한 귀납적 편향(컨볼루션과 같이)을 가질 필요가 없기 때문에,
+이미지 인식 작업에 ViT를 적용하는 것은 유망한 연구 분야로 빠르게 자리 잡고 있습니다.
+따라서 가능한 한 최소한의 귀납적 전제 조건으로 트레이닝 데이터만으로 학습할 수 있는 일반적인 계산 프리미티브입니다.
+적절한 정규화, 데이터 보강, 비교적 큰 데이터 세트로 트레이닝하면 ViT는 뛰어난 다운스트림 성능을 발휘합니다.
 
-In the [Patches Are All You Need](https://openreview.net/pdf?id=TVHS5Y4dNvM) paper (note: at the time of writing, it is a submission to the ICLR 2022 conference), the authors extend the idea of using patches to train an all-convolutional network and demonstrate competitive results. Their architecture namely **ConvMixer** uses recipes from the recent isotrophic architectures like ViT, MLP-Mixer ([Tolstikhin et al.](https://arxiv.org/abs/2105.01601)), such as using the same depth and resolution across different layers in the network, residual connections, and so on.
+[패치만 있으면 충분하다(Patches Are All You Need)](https://openreview.net/pdf?id=TVHS5Y4dNvM)
+논문(참고: 작성 시점에서는, ICLR 2022 컨퍼런스에 제출된 논문)에서 저자들은
+패치를 사용하여 모든 컨볼루션 네트워크를 트레이닝하고 경쟁력 있는 결과를 입증하는 아이디어를 확장합니다.
+이들의 아키텍처, 즉 **ConvMixer**는 네트워크의 여러 레이어에서 동일한 깊이와 해상도, residual 연결 등을 사용하는 등,
+ViT, MLP-Mixer([Tolstikhin et al.](https://arxiv.org/abs/2105.01601))와 같은
+최신 등방성(isotrophic) 아키텍처의 레시피를 사용합니다.
 
-In this example, we will implement the ConvMixer model and demonstrate its performance on the CIFAR-10 dataset.
+이 예제에서는, ConvMixer 모델을 구현하고 CIFAR-10 데이터 세트에 대해 그 성능을 시연해 보겠습니다.
 
-## Imports
+## Imports {#imports}
 
 ```python
 import keras
@@ -38,9 +50,12 @@ import tensorflow as tf
 import numpy as np
 ```
 
-## Hyperparameters
+## 하이퍼파라미터 {#hyperparameters}
 
-To keep run time short, we will train the model for only 10 epochs. To focus on the core ideas of ConvMixer, we will not use other training-specific elements like RandAugment ([Cubuk et al.](https://arxiv.org/abs/1909.13719)). If you are interested in learning more about those details, please refer to the [original paper](https://openreview.net/pdf?id=TVHS5Y4dNvM).
+실행 시간을 짧게 유지하기 위해, 우리는 모델을 10 에포크만 트레이닝합니다.
+ConvMixer의 핵심 아이디어에 집중하기 위해,
+RandAugment([Cubuk et al.](https://arxiv.org/abs/1909.13719))와 같은 다른 트레이닝 관련 요소는 사용하지 않습니다.
+자세한 내용은 [원본 논문](https://openreview.net/pdf?id=TVHS5Y4dNvM)을 참조하시기 바랍니다.
 
 ```python
 learning_rate = 0.001
@@ -49,7 +64,7 @@ batch_size = 128
 num_epochs = 10
 ```
 
-## Load the CIFAR-10 dataset
+## CIFAR-10 데이터 세트 로드 {#load-the-cifar-10-dataset}
 
 ```python
 (x_train, y_train), (x_test, y_test) = keras.datasets.cifar10.load_data()
@@ -74,9 +89,12 @@ Test data samples: 10000
 
 {{% /details %}}
 
-## Prepare [`tf.data.Dataset`](https://www.tensorflow.org/api_docs/python/tf/data/Dataset) objects
+## [`tf.data.Dataset`](https://www.tensorflow.org/api_docs/python/tf/data/Dataset) 객체 준비 {#tfdatadataset}
 
-Our data augmentation pipeline is different from what the authors used for the CIFAR-10 dataset, which is fine for the purpose of the example. Note that, it's ok to use **TF APIs for data I/O and preprocessing** with other backends (jax, torch) as it is feature-complete framework when it comes to data preprocessing.
+저희의 데이터 보강 파이프라인은 저자가 CIFAR-10 데이터 세트에 사용한 것과는 다르지만,
+이 예제의 목적에는 문제가 없습니다.
+데이터 전처리와 관련해서는 모든 기능을 갖춘 프레임워크이므로 다른 백엔드(jax, torch)와 함께
+데이터 **I/O 및 전처리를 위한 TF API**를 사용해도 괜찮습니다.
 
 ```python
 image_size = 32
@@ -111,18 +129,18 @@ val_dataset = make_datasets(x_val, y_val)
 test_dataset = make_datasets(x_test, y_test)
 ```
 
-## ConvMixer utilities
+## ConvMixer 유틸리티 {#convmixer-utilities}
 
-The following figure (taken from the original paper) depicts the ConvMixer model:
+다음 그림(원본 문서에서 발췌)은 ConvMixer 모델을 설명합니다:
 
 ![png](/images/examples/vision/convmixer/yF8actg.png)
 
-ConvMixer is very similar to the MLP-Mixer, model with the following key differences:
+ConvMixer는 다음과 같은 주요 차이점이 있는 MLP-Mixer 모델과 매우 유사합니다:
 
-- Instead of using fully-connected layers, it uses standard convolution layers.
-- Instead of LayerNorm (which is typical for ViTs and MLP-Mixers), it uses BatchNorm.
+- 완전 연결된(fully-connected) 레이어를 사용하는 대신, 표준 컨볼루션 레이어를 사용합니다.
+- (ViT 및 MLP-Mixer에 일반적으로 사용되는) LayerNorm 대신, BatchNorm을 사용합니다.
 
-Two types of convolution layers are used in ConvMixer. **(1)**: Depthwise convolutions, for mixing spatial locations of the images, **(2)**: Pointwise convolutions (which follow the depthwise convolutions), for mixing channel-wise information across the patches. Another keypoint is the use of _larger kernel sizes_ to allow a larger receptive field.
+ConvMixer에는 두 가지 유형의 컨볼루션 레이어가 사용됩니다. **(1)**: 이미지의 공간적 위치를 혼합하기 위한 깊이별(Depthwise) 컨볼루션, **(2)**: 포인트별(Pointwise) 컨볼루션(깊이별 컨볼루션을 따르는): 패치 전체에 걸쳐 채널별 정보를 혼합하기 위한 컨볼루션입니다. 또 다른 키포인트는 더 큰 수용 필드를 허용하기 위해 _더 큰 커널 크기_ 를 사용하는 것입니다.
 
 ```python
 def activation_block(x):
@@ -136,12 +154,12 @@ def conv_stem(x, filters: int, patch_size: int):
 
 
 def conv_mixer_block(x, filters: int, kernel_size: int):
-    # Depthwise convolution.
+    # 깊이별 컨볼루션.
     x0 = x
     x = layers.DepthwiseConv2D(kernel_size=kernel_size, padding="same")(x)
     x = layers.Add()([activation_block(x), x0])  # Residual.
 
-    # Pointwise convolution.
+    # 포인트별 컨볼루션.
     x = layers.Conv2D(filters, kernel_size=1)(x)
     x = activation_block(x)
 
@@ -152,28 +170,29 @@ def get_conv_mixer_256_8(
     image_size=32, filters=256, depth=8, kernel_size=5, patch_size=2, num_classes=10
 ):
     """ConvMixer-256/8: https://openreview.net/pdf?id=TVHS5Y4dNvM.
-    The hyperparameter values are taken from the paper.
+    하이퍼파라미터 값은 논문에서 가져온 것입니다.
     """
     inputs = keras.Input((image_size, image_size, 3))
     x = layers.Rescaling(scale=1.0 / 255)(inputs)
 
-    # Extract patch embeddings.
+    # 패치 임베딩 추출.
     x = conv_stem(x, filters, patch_size)
 
-    # ConvMixer blocks.
+    # ConvMixer 블록.
     for _ in range(depth):
         x = conv_mixer_block(x, filters, kernel_size)
 
-    # Classification block.
+    # 분류 블록.
     x = layers.GlobalAvgPool2D()(x)
     outputs = layers.Dense(num_classes, activation="softmax")(x)
 
     return keras.Model(inputs, outputs)
 ```
 
-The model used in this experiment is termed as **ConvMixer-256/8** where 256 denotes the number of channels and 8 denotes the depth. The resulting model only has 0.8 million parameters.
+이 실험에 사용된 모델은 **ConvMixer-256/8**로, 여기서 256은 채널 수를 나타내고 8은 깊이를 나타냅니다.
+결과 모델의 파라미터 수는 80만 개에 불과합니다.
 
-## Model training and evaluation utility
+## 모델 트레이닝 및 평가 유틸리티 {#model-training-and-evaluation-utility}
 
 ```python
 # Code reference:
@@ -213,7 +232,7 @@ def run_experiment(model):
     return history, model
 ```
 
-## Train and evaluate model
+## 모델 트레이닝 및 평가 {#train-and-evaluate-model}
 
 ```python
 conv_mixer_model = get_conv_mixer_256_8()
@@ -249,23 +268,25 @@ Test accuracy: 83.69%
 
 {{% /details %}}
 
-The gap in training and validation performance can be mitigated by using additional regularization techniques. Nevertheless, being able to get to ~83% accuracy within 10 epochs with 0.8 million parameters is a strong result.
+트레이닝과 검증 성능의 격차는 추가적인 정규화 기법을 사용하여 완화할 수 있습니다.
+그럼에도 불구하고, 80만 개의 파라미터로 10 에포크 내에 최대 83%의 정확도를 달성할 수 있다는 것은 매우 강력한 결과입니다.
 
-## Visualizing the internals of ConvMixer
+## ConvMixer 내부 시각화하기 {#visualizing-the-internals-of-convmixer}
 
-We can visualize the patch embeddings and the learned convolution filters. Recall that each patch embedding and intermediate feature map have the same number of channels (256 in this case). This will make our visualization utility easier to implement.
+패치 임베딩과 학습된 컨볼루션 필터를 시각화할 수 있습니다.
+각 패치 임베딩과 중간 특성 맵의 채널 수는 동일합니다.
+(이 경우 256개) 이렇게 하면 시각화 유틸리티를 더 쉽게 구현할 수 있습니다.
 
 ```python
 # Code reference: https://bit.ly/3awIRbP.
 
 
 def visualization_plot(weights, idx=1):
-    # First, apply min-max normalization to the
-    # given weights to avoid isotrophic scaling.
+    # 먼저, 등방성(isotrophic) 스케일링을 피하기 위해 주어진 가중치에 min-max 정규화를 적용합니다.
     p_min, p_max = weights.min(), weights.max()
     weights = (weights - p_min) / (p_max - p_min)
 
-    # Visualize all the filters.
+    # 모든 필터를 시각화합니다.
     num_filters = 256
     plt.figure(figsize=(8, 8))
 
@@ -280,26 +301,28 @@ def visualization_plot(weights, idx=1):
         idx += 1
 
 
-# We first visualize the learned patch embeddings.
+# 먼저 학습된 패치 임베딩을 시각화합니다.
 patch_embeddings = conv_mixer_model.layers[2].get_weights()[0]
 visualization_plot(patch_embeddings)
 ```
 
 ![png](/images/examples/vision/convmixer/convmixer_19_0.png)
 
-Even though we did not train the network to convergence, we can notice that different patches show different patterns. Some share similarity with others while some are very different. These visualizations are more salient with larger image sizes.
+네트워크가 수렴하도록 트레이닝하지 않았음에도 불구하고, 패치마다 다른 패턴을 보이는 것을 알 수 있습니다.
+일부는 다른 패치와 유사성을 공유하는 반면, 일부는 매우 다릅니다.
+이러한 시각화는 이미지 크기가 클수록 더욱 두드러집니다.
 
-Similarly, we can visualize the raw convolution kernels. This can help us understand the patterns to which a given kernel is receptive.
+마찬가지로, raw 컨볼루션 커널을 시각화할 수도 있습니다.
+이를 통해 특정 커널이 수용하는 패턴을 이해하는 데 도움이 될 수 있습니다.
 
 ```python
-# First, print the indices of the convolution layers that are not
-# pointwise convolutions.
+# 먼저, 포인트별 컨볼루션이 아닌 컨볼루션 레이어의 인덱스를 출력합니다.
 for i, layer in enumerate(conv_mixer_model.layers):
     if isinstance(layer, layers.DepthwiseConv2D):
         if layer.get_config()["kernel_size"] == (5, 5):
             print(i, layer)
 
-idx = 26  # Taking a kernel from the middle of the network.
+idx = 26  # 네트워크 중간에서 커널을 가져옵니다.
 
 kernel = conv_mixer_model.layers[idx].get_weights()[0]
 kernel = np.expand_dims(kernel.squeeze(), axis=2)
@@ -323,11 +346,13 @@ visualization_plot(kernel)
 
 ![png](/images/examples/vision/convmixer/convmixer_21_1.png)
 
-We see that different filters in the kernel have different locality spans, and this pattern is likely to evolve with more training.
+커널의 필터마다 로컬리티 범위가 다르다는 것을 알 수 있으며,
+이러한 패턴은 더 많은 트레이닝을 통해 진화할 가능성이 높습니다.
 
-## Final notes
+## 최종 메모 {#final-notes}
 
-There's been a recent trend on fusing convolutions with other data-agnostic operations like self-attention. Following works are along this line of research:
+최근 컨볼루션을 셀프 어텐션과 같은 데이터에 구애받지 않는 다른 연산과 융합하는 경향이 있습니다.
+다음 연구도 이러한 흐름의 연장선상에 있습니다:
 
 - ConViT ([d'Ascoli et al.](https://arxiv.org/abs/2103.10697))
 - CCT ([Hassani et al.](https://arxiv.org/abs/2104.05704))

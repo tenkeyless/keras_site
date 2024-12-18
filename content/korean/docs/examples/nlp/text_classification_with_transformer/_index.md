@@ -1,5 +1,6 @@
 ---
-title: Text classification with Transformer
+title: 트랜스포머로 텍스트 분류
+linkTitle: 트랜스포머 텍스트 분류
 toc: true
 weight: 5
 type: docs
@@ -19,7 +20,7 @@ type: docs
 {{< card link="https://github.com/keras-team/keras-io/blob/master/examples/nlp/text_classification_with_transformer.py" title="GitHub" tag="GitHub">}}
 {{< /cards >}}
 
-## Setup
+## Setup {#setup}
 
 ```python
 import keras
@@ -27,7 +28,7 @@ from keras import ops
 from keras import layers
 ```
 
-## Implement a Transformer block as a layer
+## Implement a Transformer block as a layer {#implement-a-transformer-block-as-a-layer}
 
 ```python
 class TransformerBlock(layers.Layer):
@@ -51,7 +52,7 @@ class TransformerBlock(layers.Layer):
         return self.layernorm2(out1 + ffn_output)
 ```
 
-## Implement embedding layer
+## Implement embedding layer {#implement-embedding-layer}
 
 Two separate embedding layers, one for tokens, one for token index (positions).
 
@@ -70,7 +71,7 @@ class TokenAndPositionEmbedding(layers.Layer):
         return x + positions
 ```
 
-## Download and prepare dataset
+## Download and prepare dataset {#download-and-prepare-dataset}
 
 ```python
 vocab_size = 20000  # Only consider the top 20k words
@@ -100,7 +101,7 @@ Downloading data from https://storage.googleapis.com/tensorflow/tf-keras-dataset
 
 {{% /details %}}
 
-## Create classifier model using transformer layer
+## Create classifier model using transformer layer {#create-classifier-model-using-transformer-layer}
 
 Transformer layer outputs one vector for each time step of our input sequence. Here, we take the mean across all time steps and use a feed forward network on top of it to classify text.
 
@@ -123,7 +124,7 @@ outputs = layers.Dense(2, activation="softmax")(x)
 model = keras.Model(inputs=inputs, outputs=outputs)
 ```
 
-## Train and Evaluate
+## Train and Evaluate {#train-and-evaluate}
 
 ```python
 model.compile(optimizer="adam", loss="sparse_categorical_crossentropy", metrics=["accuracy"])

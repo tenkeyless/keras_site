@@ -1,5 +1,6 @@
 ---
-title: Timeseries classification with a Transformer model
+title: 트랜스포머 모델을 사용한 시계열 분류
+linkTitle: 트랜스포머 모델 타임시리즈 분류
 toc: true
 weight: 2
 type: docs
@@ -19,13 +20,13 @@ type: docs
 {{< card link="https://github.com/keras-team/keras-io/blob/master/examples/timeseries/timeseries_classification_transformer.py" title="GitHub" tag="GitHub">}}
 {{< /cards >}}
 
-## Introduction
+## Introduction {#introduction}
 
 This is the Transformer architecture from [Attention Is All You Need](https://arxiv.org/abs/1706.03762), applied to timeseries instead of natural language.
 
 This example requires TensorFlow 2.4 or higher.
 
-## Load the dataset
+## Load the dataset {#load-the-dataset}
 
 We are going to use the same dataset and preprocessing as the [TimeSeries Classification from Scratch]({{< relref "/docs/examples/timeseries/timeseries_classification_from_scratch" >}}) example.
 
@@ -60,7 +61,7 @@ y_train[y_train == -1] = 0
 y_test[y_test == -1] = 0
 ```
 
-## Build the model
+## Build the model {#build-the-model}
 
 Our model processes a tensor of shape `(batch size, sequence length, features)`, where `sequence length` is the number of time steps and `features` is each input timeseries.
 
@@ -114,7 +115,7 @@ def build_model(
     return keras.Model(inputs, outputs)
 ```
 
-## Train and evaluate
+## Train and evaluate {#train-and-evaluate}
 
 ```python
 input_shape = x_train.shape[1:]
@@ -578,6 +579,6 @@ Epoch 150/150
 
 {{% /details %}}
 
-## Conclusions
+## Conclusions {#conclusions}
 
 In about 110-120 epochs (25s each on Colab), the model reaches a training accuracy of ~0.95, validation accuracy of ~84 and a testing accuracy of ~85, without hyperparameter tuning. And that is for a model with less than 100k parameters. Of course, parameter count and accuracy could be improved by a hyperparameter search and a more sophisticated learning rate schedule, or a different optimizer.

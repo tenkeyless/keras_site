@@ -1,5 +1,6 @@
 ---
-title: Enhanced Deep Residual Networks for single-image super-resolution
+title: 단일 이미지 슈퍼 레졸루션을 위한 향상된 깊은 Residual 네트워크
+linkTitle: EDSR 이미지 슈퍼 레졸루션
 toc: true
 weight: 37
 type: docs
@@ -19,7 +20,7 @@ type: docs
 {{< card link="https://github.com/keras-team/keras-io/blob/master/examples/vision/edsr.py" title="GitHub" tag="GitHub">}}
 {{< /cards >}}
 
-## Introduction
+## Introduction {#introduction}
 
 In this example, we implement [Enhanced Deep Residual Networks for Single Image Super-Resolution (EDSR)](https://arxiv.org/abs/1707.02921) by Bee Lim, Sanghyun Son, Heewon Kim, Seungjun Nah, and Kyoung Mu Lee.
 
@@ -35,7 +36,7 @@ Comparison Graph:
 
 ![jpg](/images/examples/vision/edsr/fig-11-2x.jpg)
 
-## Imports
+## Imports {#imports}
 
 ```python
 import os
@@ -54,7 +55,7 @@ from keras import ops
 AUTOTUNE = tf.data.AUTOTUNE
 ```
 
-## Download the training dataset
+## Download the training dataset {#download-the-training-dataset}
 
 We use the DIV2K Dataset, a prominent single-image super-resolution dataset with 1,000 images of scenes with various sorts of degradations, divided into 800 images for training, 100 images for validation, and 100 images for testing. We use 4x bicubic downsampled images as our "low quality" reference.
 
@@ -72,7 +73,7 @@ val = div2k_data.as_dataset(split="validation", as_supervised=True)
 val_cache = val.cache()
 ```
 
-## Flip, crop and resize images
+## Flip, crop and resize images {#flip-crop-and-resize-images}
 
 ```python
 def flip_left_right(lowres_img, highres_img):
@@ -140,7 +141,7 @@ def random_crop(lowres_img, highres_img, hr_crop_size=96, scale=4):
     return lowres_img_cropped, highres_img_cropped
 ```
 
-## Prepare a [`tf.data.Dataset`](https://www.tensorflow.org/api_docs/python/tf/data/Dataset) object
+## Prepare a [`tf.data.Dataset`](https://www.tensorflow.org/api_docs/python/tf/data/Dataset) object {#prepare-a-tfdatadatasethttpswwwtensorfloworgapi_docspythontfdatadataset-object}
 
 We augment the training data with random horizontal flips and 90 rotations.
 
@@ -172,7 +173,7 @@ train_ds = dataset_object(train_cache, training=True)
 val_ds = dataset_object(val_cache, training=False)
 ```
 
-## Visualize the data
+## Visualize the data {#visualize-the-data}
 
 Let's visualize a few sample images:
 
@@ -207,11 +208,11 @@ def PSNR(super_resolution, high_resolution):
 
 ![png](/images/examples/vision/edsr/edsr_11_1.png)
 
-## Build the model
+## Build the model {#build-the-model}
 
 In the paper, the authors train three models: EDSR, MDSR, and a baseline model. In this code example, we only train the baseline model.
 
-### Comparison with model with three residual blocks
+### Comparison with model with three residual blocks {#comparison-with-model-with-three-residual-blocks}
 
 The residual block design of EDSR differs from that of ResNet. Batch normalization layers have been removed (together with the final ReLU activation): since batch normalization layers normalize the features, they hurt output value range flexibility. It is thus better to remove them. Further, it also helps reduce the amount of GPU RAM required by the model, since the batch normalization layers consume the same amount of memory as the preceding convolutional layers.
 
@@ -297,7 +298,7 @@ def make_model(num_filters, num_of_residual_blocks):
 model = make_model(num_filters=64, num_of_residual_blocks=16)
 ```
 
-## Train the model
+## Train the model {#train-the-model}
 
 ```python
 # Using adam optimizer with initial learning rate as 1e-4, changing learning rate after 5000 steps to 5e-5
@@ -349,7 +350,7 @@ Epoch 100/100
 
 {{% /details %}}
 
-## Run inference on new images and plot the results
+## Run inference on new images and plot the results {#run-inference-on-new-images-and-plot-the-results}
 
 ```python
 def plot_results(lowres, preds):
@@ -376,7 +377,7 @@ for lowres, highres in val.take(10):
 
 ![png](/images/examples/vision/edsr/edsr_17_3.png)
 
-## Final remarks
+## Final remarks {#final-remarks}
 
 In this example, we implemented the EDSR model (Enhanced Deep Residual Networks for Single Image Super-Resolution). You could improve the model accuracy by training the model for more epochs, as well as training the model with a wider variety of inputs with mixed downgrading factors, so as to be able to handle a greater range of real-world images.
 

@@ -1,5 +1,6 @@
 ---
-title: Image Classification using BigTransfer (BiT)
+title: BigTransfer(BiT)를 사용한 이미지 분류
+linkTitle: BiT 이미지 분류
 toc: true
 weight: 59
 type: docs
@@ -19,7 +20,7 @@ type: docs
 {{< card link="https://github.com/keras-team/keras-io/blob/master/examples/vision/bit.py" title="GitHub" tag="GitHub">}}
 {{< /cards >}}
 
-## Introduction
+## Introduction {#introduction}
 
 BigTransfer (also known as BiT) is a state-of-the-art transfer learning method for image classification. Transfer of pre-trained representations improves sample efficiency and simplifies hyperparameter tuning when training deep neural networks for vision. BiT revisit the paradigm of pre-training on large supervised datasets and fine-tuning the model on a target task. The importance of appropriately choosing normalization layers and scaling the architecture capacity as the amount of pre-training data increases.
 
@@ -29,7 +30,7 @@ You can find BiT models pre-trained on [ImageNet](https://image-net.org/challeng
 
 ![jpeg](/images/examples/vision/bit/XeWVfe7.jpeg "Figure: The x-axis shows the number of images used per class, ranging from 1 to the full dataset. On the plots on the left, the curve in blue above is our BiT-L model, whereas the curve below is a ResNet-50 pre-trained on ImageNet (ILSVRC-2012).")
 
-## Setup
+## Setup {#setup}
 
 ```python
 import os
@@ -51,7 +52,7 @@ SEEDS = 42
 keras.utils.set_random_seed(SEEDS)
 ```
 
-## Gather Flower Dataset
+## Gather Flower Dataset {#gather-flower-dataset}
 
 ```python
 train_ds, validation_ds = tfds.load(
@@ -70,7 +71,7 @@ train_ds, validation_ds = tfds.load(
 
 {{% /details %}}
 
-## Visualise the dataset
+## Visualise the dataset {#visualise-the-dataset}
 
 ```python
 plt.figure(figsize=(10, 10))
@@ -83,7 +84,7 @@ for i, (image, label) in enumerate(train_ds.take(9)):
 
 ![png](/images/examples/vision/bit/bit_7_0.png)
 
-## Define hyperparameters
+## Define hyperparameters {#define-hyperparameters}
 
 ```python
 RESIZE_TO = 384
@@ -108,7 +109,7 @@ The `SCHEDULE_LENGTH` is aslo determined whether to use [MixUp Augmentation](htt
 
 ![jpeg](/images/examples/vision/bit/oSaIBYZ.jpeg)
 
-## Define preprocessing helper functions
+## Define preprocessing helper functions {#define-preprocessing-helper-functions}
 
 ```python
 SCHEDULE_LENGTH = SCHEDULE_LENGTH * 512 / BATCH_SIZE
@@ -139,7 +140,7 @@ repeat_count = int(
 repeat_count += 50 + 1  # To ensure at least there are 50 epochs of training
 ```
 
-## Define the data pipeline
+## Define the data pipeline {#define-the-data-pipeline}
 
 ```python
 # Training pipeline
@@ -159,7 +160,7 @@ pipeline_validation = (
 )
 ```
 
-## Visualise the training samples
+## Visualise the training samples {#visualise-the-training-samples}
 
 ```python
 image_batch, label_batch = next(iter(pipeline_train))
@@ -174,14 +175,14 @@ for n in range(25):
 
 ![png](/images/examples/vision/bit/bit_16_0.png)
 
-## Load pretrained TF-Hub model into a `KerasLayer`
+## Load pretrained TF-Hub model into a `KerasLayer` {#load-pretrained-tf-hub-model-into-a-keraslayer}
 
 ```python
 bit_model_url = "https://tfhub.dev/google/bit/m-r50x1/1"
 bit_module = hub.load(bit_model_url)
 ```
 
-## Create BigTransfer (BiT) model
+## Create BigTransfer (BiT) model {#create-bigtransfer-bit-model}
 
 To create the new model, we:
 
@@ -205,7 +206,7 @@ class MyBiTModel(keras.Model):
 model = MyBiTModel(num_classes=NUM_CLASSES, module=bit_module)
 ```
 
-## Define optimizer and loss
+## Define optimizer and loss {#define-optimizer-and-loss}
 
 ```python
 learning_rate = 0.003 * BATCH_SIZE / 512
@@ -225,13 +226,13 @@ optimizer = keras.optimizers.SGD(learning_rate=lr_schedule, momentum=0.9)
 loss_fn = keras.losses.SparseCategoricalCrossentropy(from_logits=True)
 ```
 
-## Compile the model
+## Compile the model {#compile-the-model}
 
 ```python
 model.compile(optimizer=optimizer, loss=loss_fn, metrics=["accuracy"])
 ```
 
-## Set up callbacks
+## Set up callbacks {#set-up-callbacks}
 
 ```python
 train_callbacks = [
@@ -241,7 +242,7 @@ train_callbacks = [
 ]
 ```
 
-## Train the model
+## Train the model {#train-the-model}
 
 ```python
 history = model.fit(
@@ -269,7 +270,7 @@ Epoch 4/400
 
 {{% /details %}}
 
-## Plot the training and validation metrics
+## Plot the training and validation metrics {#plot-the-training-and-validation-metrics}
 
 ```python
 def plot_hist(hist):
@@ -289,7 +290,7 @@ plot_hist(history)
 
 ![png](/images/examples/vision/bit/bit_30_0.png)
 
-## Evaluate the model
+## Evaluate the model {#evaluate-the-model}
 
 ```python
 accuracy = model.evaluate(pipeline_validation)[1] * 100
@@ -305,7 +306,7 @@ Accuracy: 97.27%
 
 {{% /details %}}
 
-## Conclusion
+## Conclusion {#conclusion}
 
 BiT performs well across a surprisingly wide range of data regimes – from 1 example per class to 1M total examples. BiT achieves 87.5% top-1 accuracy on ILSVRC-2012, 99.4% on CIFAR-10, and 76.3% on the 19 task Visual Task Adaptation Benchmark (VTAB). On small datasets, BiT attains 76.8% on ILSVRC-2012 with 10 examples per class, and 97.0% on CIFAR-10 with 10 examples per class.
 

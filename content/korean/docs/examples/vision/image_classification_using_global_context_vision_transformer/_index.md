@@ -1,5 +1,6 @@
 ---
-title: Image Classification using Global Context Vision Transformer
+title: 글로벌 컨텍스트 비전 트랜스포머를 이용한 이미지 분류
+linkTitle: 글로벌 컨텍스트 비전 트랜스포머 이미지 분류
 toc: true
 weight: 19
 type: docs
@@ -10,7 +11,7 @@ type: docs
 **{{< t f_author >}}** Md Awsafur Rahman  
 **{{< t f_date_created >}}** 2023/10/30  
 **{{< t f_last_modified >}}** 2023/10/30  
-**{{< t f_description >}}** Implementation and fine-tuning of Global Context Vision Transformer for image classification.
+**{{< t f_description >}}** 이미지 분류를 위한 글로벌 컨텍스트 비전 트랜스포머의 구현 및 미세 조정.
 
 {{< keras/version v=3 >}}
 
@@ -19,7 +20,7 @@ type: docs
 {{< card link="https://github.com/keras-team/keras-io/blob/master/examples/vision/image_classification_using_global_context_vision_transformer.py" title="GitHub" tag="GitHub">}}
 {{< /cards >}}
 
-# Setup
+# 셋업 {#setup}
 
 ```python
 !pip install --upgrade keras_cv tensorflow
@@ -32,19 +33,19 @@ from keras_cv.layers import DropPath
 from keras import ops
 from keras import layers
 
-import tensorflow as tf  # only for dataloader
-import tensorflow_datasets as tfds  # for flower dataset
+import tensorflow as tf  # dataloader를 위해서만 사용
+import tensorflow_datasets as tfds  # flower 데이터 세트를 위해 사용
 
 from skimage.data import chelsea
 import matplotlib.pyplot as plt
 import numpy as np
 ```
 
-## Introduction
+## 소개 {#introduction}
 
 In this notebook, we will utilize multi-backend Keras 3.0 to implement the [**GCViT: Global Context Vision Transformer**](https://arxiv.org/abs/2206.09959) paper, presented at ICML 2023 by A Hatamizadeh et al. The, we will fine-tune the model on the Flower dataset for image classification task, leveraging the official ImageNet pre-trained weights. A highlight of this notebook is its compatibility with multiple backends: TensorFlow, PyTorch, and JAX, showcasing the true potential of multi-backend Keras.
 
-## Motivation
+## Motivation {#motivation}
 
 > **Note:** In this section we'll learn about the backstory of GCViT and try to understand why it is proposed.
 
@@ -63,7 +64,7 @@ In this notebook, we will utilize multi-backend Keras 3.0 to implement the [**GC
 
 - To address above limitations, **Global Context (GC) ViT** network is proposed.
 
-## Architecture
+## Architecture {#architecture}
 
 Let's have a quick **overview** of our key components,
 
@@ -83,7 +84,7 @@ I've annotated the architecture figure to make it easier to digest,
 
 ![png](/images/examples/vision/image_classification_using_global_context_vision_transformer/arch_annot.png)
 
-### Unit Blocks
+### Unit Blocks {#unit-blocks}
 
 > **Note:** This blocks are used to build other modules throughout the paper. Most of the blocks are either borrowed from other work or modified version old work.
 
@@ -233,7 +234,7 @@ class MLP(layers.Layer):
         return x
 ```
 
-### Stem
+### Stem {#stem}
 
 > **Notes**: In the code, this module is referred to as **PatchEmbed** but on paper, it is referred to as **Stem**.
 
@@ -271,7 +272,7 @@ class PatchEmbed(layers.Layer):
         return x
 ```
 
-### Global Token Gen.
+### Global Token Gen. {#global-token-gen}
 
 > **Notes:** It is one of the two **CNN** modules that is used to imppose inductive bias.
 
@@ -351,7 +352,7 @@ class GlobalQueryGenerator(layers.Layer):
         return x
 ```
 
-### Attention
+### Attention {#attention}
 
 > **Notes:** This is the core contribution of the paper.
 
@@ -503,7 +504,7 @@ class WindowAttention(layers.Layer):
         return x
 ```
 
-### Block
+### Block {#block}
 
 > **Notes:** This module doesn't have any Convolutional module.
 
@@ -517,7 +518,7 @@ In the `level` second module that we have used is `block`. Let's try to understa
 
 ![jpeg](/images/examples/vision/image_classification_using_global_context_vision_transformer/block2.jpeg)
 
-### Window
+### Window {#window}
 
 In the `block` module, we have created **windows** before and after applying attention. Let's try to understand how we're creating windows, \* Following module converts feature maps `(B, H, W, C)` to stacked windows `(B x H/h x W/w, h, w, C)` → `(num_windows_batch, window_size, window_size, channel)` \* This module uses `reshape` & `transpose` to create these windows out of image instead of iterating over them.
 
@@ -684,7 +685,7 @@ class Block(layers.Layer):
         return x
 ```
 
-### Level
+### Level {#level}
 
 > **Note:** This module has both Transformer and CNN modules.
 
@@ -782,7 +783,7 @@ class Level(layers.Layer):
         return x
 ```
 
-### Model
+### Model {#model}
 
 Let's directly jump to the model. As we can see from the `call` method, 1. It creates patch embeddings from an image. This layer doesn't flattens these embeddings which means output of this module will be `(batch, height/window_size, width/window_size, embed_dim)` instead of `(batch, height x width/window_size^2, embed_dim)`. 2. Then it applies `Dropout` module which randomly sets input units to 0. 3. It passes these embeddings to series of `Level` modules which we are calling `level` where, 1. Global token is generated 1. Both local & global attention is applied 1. Finally downsample is applied. 4. So, output after `n` number of **levels**, shape: `(batch, width/window_size x 2^{n-1}, width/window_size x 2^{n-1}, embed_dim x 2^{n-1})`. In the last layer, paper doesn't use **downsample** and increase **channels**. 5. Output of above layer is normalized using `LayerNormalization` module. 6. In the head, 2D features are converted to 1D features with `Pooling` module. Output shape after this module is `(batch, embed_dim x 2^{n-1})` 7. Finally, pooled features are sent to `Dense/Linear` module for classification.
 
@@ -892,7 +893,7 @@ class GCViT(keras.Model):
         return self.build_graph(input_shape).summary()
 ```
 
-## Build Model
+## Build Model {#build-model}
 
 - Let's build a complete model with all the modules that we've explained above. We'll build **GCViT-XXTiny** model with the configuration mentioned in the paper.
 - Also we'll load the ported official **pre-trained** weights and try for some predictions.
@@ -963,7 +964,7 @@ Model: "gc_vi_t"
 
 {{% /details %}}
 
-## Sanity check for Pre-Trained Weights
+## Sanity check for Pre-Trained Weights {#sanity-check-for-pre-trained-weights}
 
 ```python
 img = keras.applications.imagenet_utils.preprocess_input(
@@ -1008,11 +1009,11 @@ panpipe      : 0.00
 
 {{% /details %}}
 
-# Fine-tune **GCViT** Model
+# Fine-tune **GCViT** Model {#fine-tune-gcvit-model}
 
 In the following cells, we will fine-tune **GCViT** model on Flower Dataset which consists `104` classes.
 
-### Configs
+### Configs {#configs}
 
 ```python
 # Model
@@ -1037,7 +1038,7 @@ STD = 255 * np.array([0.229, 0.224, 0.225], dtype="float32")  # imagenet std
 AUTO = tf.data.AUTOTUNE
 ```
 
-## Data Loader
+## Data Loader {#data-loader}
 
 ```python
 def make_dataset(dataset: tf.data.Dataset, train: bool, image_size: int = IMAGE_SIZE):
@@ -1056,7 +1057,7 @@ def make_dataset(dataset: tf.data.Dataset, train: bool, image_size: int = IMAGE_
     return dataset.map(preprocess, AUTO).batch(BATCH_SIZE).prefetch(AUTO)
 ```
 
-### Flower Dataset
+### Flower Dataset {#flower-dataset}
 
 ```python
 train_dataset, val_dataset = tfds.load(
@@ -1082,7 +1083,7 @@ Dataset tf_flowers downloaded and prepared to /root/tensorflow_datasets/tf_flowe
 
 {{% /details %}}
 
-### Re-Build Model for Flower Dataset
+### Re-Build Model for Flower Dataset {#re-build-model-for-flower-dataset}
 
 ```python
 # Re-Build Model
@@ -1117,7 +1118,7 @@ List of objects that could not be loaded:
 
 {{% /details %}}
 
-### Training
+### Training {#training}
 
 ```python
 history = model.fit(
@@ -1142,7 +1143,7 @@ Epoch 5/5
 
 {{% /details %}}
 
-## Reference
+## Reference {#reference}
 
 - [gcvit-tf - A Python library for GCViT with TF2.0](https://github.com/awsaf49/gcvit-tf)
 - [gcvit - Official codebase for GCViT](https://github.com/NVlabs/GCVit)

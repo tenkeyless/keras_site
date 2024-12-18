@@ -1,5 +1,6 @@
 ---
-title: Estimating required sample size for model training
+title: 모델 트레이닝에 필요한 샘플 크기 추정
+linkTitle: 모델 트레이닝 샘플 크기 추정
 toc: true
 weight: 11
 type: docs
@@ -19,7 +20,7 @@ type: docs
 {{< card link="https://github.com/keras-team/keras-io/blob/master/examples/keras_recipes/sample_size_estimate.py" title="GitHub" tag="GitHub">}}
 {{< /cards >}}
 
-## Introduction
+## Introduction {#introduction}
 
 In many real-world scenarios, the amount image data available to train a deep learning model is limited. This is especially true in the medical imaging domain, where dataset creation is costly. One of the first questions that usually comes up when approaching a new problem is: **"how many images will we need to train a good enough machine learning model?"**
 
@@ -27,7 +28,7 @@ In most cases, a small set of samples is available, and we can use it to model t
 
 A systematic review of [Sample-Size Determination Methodologies](https://www.researchgate.net/publication/335779941_Sample-Size_Determination_Methodologies_for_Machine_Learning_in_Medical_Imaging_Research_A_Systematic_Review) by Balki et al. provides examples of several sample-size determination methods. In this example, a balanced subsampling scheme is used to determine the optimal sample size for our model. This is done by selecting a random subsample consisting of Y number of images and training the model using the subsample. The model is then evaluated on an independent test set. This process is repeated N times for each subsample with replacement to allow for the construction of a mean and confidence interval for the observed performance.
 
-## Setup
+## Setup {#setup}
 
 ```python
 import os
@@ -47,7 +48,7 @@ keras.utils.set_random_seed(seed)
 AUTO = tf.data.AUTOTUNE
 ```
 
-## Load TensorFlow dataset and convert to NumPy arrays
+## Load TensorFlow dataset and convert to NumPy arrays {#load-tensorflow-dataset-and-convert-to-numpy-arrays}
 
 We'll be using the [TF Flowers dataset](https://www.tensorflow.org/datasets/catalog/tf_flowers).
 
@@ -100,7 +101,7 @@ Number of training samples: 3303
 
 {{% /details %}}
 
-## Plot a few examples from the test set
+## Plot a few examples from the test set {#plot-a-few-examples-from-the-test-set}
 
 ```python
 plt.figure(figsize=(16, 12))
@@ -113,7 +114,7 @@ for n in range(30):
 
 ![png](/images/examples/keras_recipes/sample_size_estimate/sample_size_estimate_7_0.png)
 
-## Augmentation
+## Augmentation {#augmentation}
 
 Define image augmentation using keras preprocessing layers and apply them to the training set.
 
@@ -141,7 +142,7 @@ for n in range(30):
 
 ![png](/images/examples/keras_recipes/sample_size_estimate/sample_size_estimate_9_0.png)
 
-## Define model building & training functions
+## Define model building & training functions {#define-model-building-training-functions}
 
 We create a few convenience functions to build a transfer-learning model, compile and train it and unfreeze layers for fine-tuning.
 
@@ -258,7 +259,7 @@ def unfreeze(model, block_name, verbose=0):
     return model
 ```
 
-## Define iterative training function
+## Define iterative training function {#define-iterative-training-function}
 
 To train a model over several subsample sets we need to create an iterative training function.
 
@@ -313,7 +314,7 @@ def train_model(training_data, training_labels):
     return np.round(acc, 4)
 ```
 
-## Train models iteratively
+## Train models iteratively {#train-models-iteratively}
 
 Now that we have model building functions and supporting iterative functions we can train the model over several subsample splits.
 
@@ -372,7 +373,7 @@ train_acc = [
 sample_sizes = [165, 330, 825, 1651]
 ```
 
-## Learning curve
+## Learning curve {#learning-curve}
 
 We now plot the learning curve by fitting an exponential curve through the mean accuracy points. We use TF to fit an exponential function through the data.
 
@@ -532,7 +533,7 @@ A model accuracy of 0.9964 is reached on 3303 images!
 
 {{% /details %}}
 
-## Conclusion
+## Conclusion {#conclusion}
 
 We see that a model accuracy of about 94-96%\* is reached using 3303 images. This is quite close to our estimate!
 

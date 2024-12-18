@@ -1,5 +1,6 @@
 ---
-title: Abstractive Summarization with Hugging Face Transformers
+title: Hugging Face 트랜스포머를 사용한 추상적 요약
+linkTitle: Hugging Face 트랜스포머 추상 요약
 toc: true
 weight: 28
 type: docs
@@ -19,7 +20,7 @@ type: docs
 {{< card link="https://github.com/keras-team/keras-io/blob/master/examples/nlp/t5_hf_summarization.py" title="GitHub" tag="GitHub">}}
 {{< /cards >}}
 
-## Introduction
+## Introduction {#introduction}
 
 Automatic summarization is one of the central problems in Natural Language Processing (NLP). It poses several challenges relating to language understanding (e.g. identifying important content) and generation (e.g. aggregating and rewording the identified content into a summary).
 
@@ -29,9 +30,9 @@ Following prior work, we aim to tackle this problem using a sequence-to-sequence
 
 In this notebook, we will fine-tune the pretrained T5 on the Abstractive Summarization task using Hugging Face Transformers on the `XSum` dataset loaded from Hugging Face Datasets.
 
-## Setup
+## Setup {#setup}
 
-### Installing the requirements
+### Installing the requirements {#installing-the-requirements}
 
 ```python
 !pip install transformers==4.20.0
@@ -42,7 +43,7 @@ In this notebook, we will fine-tune the pretrained T5 on the Abstractive Summari
 !pip install rouge-score
 ```
 
-### Importing the necessary libraries
+### Importing the necessary libraries {#importing-the-necessary-libraries}
 
 ```python
 import os
@@ -59,7 +60,7 @@ tf.get_logger().setLevel(logging.ERROR)
 os.environ["TOKENIZERS_PARALLELISM"] = "false"
 ```
 
-### Define certain variables
+### Define certain variables {#define-certain-variables}
 
 ```python
 # The percentage of the dataset you want to split as train and test
@@ -76,7 +77,7 @@ MAX_EPOCHS = 1  # Maximum number of epochs we will train the model for
 MODEL_CHECKPOINT = "t5-small"
 ```
 
-## Load the dataset
+## Load the dataset {#load-the-dataset}
 
 We will now download the [Extreme Summarization (XSum)](https://arxiv.org/abs/1808.08745). The dataset consists of BBC articles and accompanying single sentence summaries. Specifically, each article is prefaced with an introductory sentence (aka summary) which is professionally written, typically by the author of the article. That dataset has 226,711 articles divided into training (90%, 204,045), validation (5%, 11,332), and test (5%, 11,334) sets.
 
@@ -133,7 +134,7 @@ raw_datasets = raw_datasets.train_test_split(
 )
 ```
 
-## Data Pre-processing
+## Data Pre-processing {#data-pre-processing}
 
 Before we can feed those texts to our model, we need to pre-process them and get them ready for the task. This is done by a Hugging Face Transformers `Tokenizer` which will tokenize the inputs (including converting the tokens to their corresponding IDs in the pretrained vocabulary) and put it in a format the model expects, as well as generate the other inputs that model requires.
 
@@ -182,7 +183,7 @@ To apply this function on all the pairs of sentences in our dataset, we just use
 tokenized_datasets = raw_datasets.map(preprocess_function, batched=True)
 ```
 
-## Defining the model
+## Defining the model {#defining-the-model}
 
 Now we can download the pretrained model and fine-tune it. Since our task is sequence-to-sequence (both the input and output are text sequences), we use the `TFAutoModelForSeq2SeqLM` class from the Hugging Face Transformers library. Like with the tokenizer, the `from_pretrained` method will download and cache the model for us.
 
@@ -252,7 +253,7 @@ generation_dataset = (
 )
 ```
 
-## Building and Compiling the the model
+## Building and Compiling the the model {#building-and-compiling-the-the-model}
 
 Now we will define our optimizer and compile the model. The loss calculation is handled internally and so we need not worry about that!
 
@@ -269,7 +270,7 @@ No loss specified in compile() - the model's internal loss computation will be u
 
 {{% /details %}}
 
-## Training and Evaluating the model
+## Training and Evaluating the model {#training-and-evaluating-the-model}
 
 To evaluate our model on-the-fly while training, we will define `metric_fn` which will calculate the `ROUGE` score between the groud-truth and predictions.
 
@@ -323,7 +324,7 @@ WARNING:root:No label_cols specified for KerasMetricCallback, assuming you want 
 
 For best results, we recommend training the model for atleast 5 epochs on the entire training dataset!
 
-## Inference
+## Inference {#inference}
 
 Now we will try to infer the model we trained on an arbitrary article. To do so, we will use the `pipeline` method from Hugging Face Transformers. Hugging Face Transformers provides us with a variety of pipelines to choose from. For our task, we use the `summarization` pipeline.
 

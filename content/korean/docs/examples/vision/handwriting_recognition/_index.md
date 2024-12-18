@@ -1,5 +1,6 @@
 ---
-title: Handwriting recognition
+title: 손글씨 인식
+linkTitle: 손글씨 인식
 toc: true
 weight: 33
 type: docs
@@ -7,7 +8,7 @@ type: docs
 
 {{< keras/original checkedAt="2024-11-20" >}}
 
-**Authors:** [A_K_Nain](https://twitter.com/A_K_Nain), [Sayak Paul](https://twitter.com/RisingSayak)  
+**{{< t f_author >}}** [A_K_Nain](https://twitter.com/A_K_Nain), [Sayak Paul](https://twitter.com/RisingSayak)  
 **{{< t f_date_created >}}** 2021/08/16  
 **{{< t f_last_modified >}}** 2024/09/01  
 **{{< t f_description >}}** Training a handwriting recognition model with variable-length sequences.
@@ -19,11 +20,11 @@ type: docs
 {{< card link="https://github.com/favicon.ico) [**GitHub source**](https://github.com/keras-team/keras-io/blob/master/examples/vision/handwriting_recognition.py" title="GitHub" tag="GitHub">}}
 {{< /cards >}}
 
-## Introduction
+## Introduction {#introduction}
 
 This example shows how the [Captcha OCR]({{< relref "/docs/examples/vision/captcha_ocr" >}}) example can be extended to the [IAM Dataset](https://fki.tic.heia-fr.ch/databases/iam-handwriting-database), which has variable length ground-truth targets. Each sample in the dataset is an image of some handwritten text, and its corresponding target is the string present in the image. The IAM Dataset is widely used across many OCR benchmarks, so we hope this example can serve as a good starting point for building OCR systems.
 
-## Data collection
+## Data collection {#data-collection}
 
 ```python
 !wget -q https://github.com/sayakpaul/Handwriting-Recognizer-in-Keras/releases/download/v1.0.0/IAM_Words.zip
@@ -68,7 +69,7 @@ a01-000u-00-01 ok 154 507 766 213 48 NN MOVE
 
 {{% /details %}}
 
-## Imports
+## Imports {#imports}
 
 ```python
 import keras
@@ -83,7 +84,7 @@ np.random.seed(42)
 keras.utils.set_random_seed(42)
 ```
 
-## Dataset splitting
+## Dataset splitting {#dataset-splitting}
 
 ```python
 base_path = "data"
@@ -131,7 +132,7 @@ Total test samples: 4823
 
 {{% /details %}}
 
-## Data input pipeline
+## Data input pipeline {#data-input-pipeline}
 
 We start building our data input pipeline by first preparing the image paths.
 
@@ -226,7 +227,7 @@ validation_labels_cleaned = clean_labels(validation_labels)
 test_labels_cleaned = clean_labels(test_labels)
 ```
 
-### Building the character vocabulary
+### Building the character vocabulary {#building-the-character-vocabulary}
 
 Keras provides different preprocessing layers to deal with different modalities of data. [This guide]({{< relref "/docs/api/layers/preprocessing_layers" >}}) provides a comprehensive introduction. Our example involves preprocessing labels at the character level. This means that if there are two labels, e.g. "cat" and "dog", then our character vocabulary should be {a, c, d, g, o, t} (without any special tokens). We use the [`StringLookup`]({{< relref "/docs/api/layers/preprocessing_layers/categorical/string_lookup" >}}) layer for this purpose.
 
@@ -242,7 +243,7 @@ num_to_char = StringLookup(
 )
 ```
 
-### Resizing images without distortion
+### Resizing images without distortion {#resizing-images-without-distortion}
 
 Instead of square images, many OCR models work with rectangular images. This will become clearer in a moment when we will visualize a few samples from the dataset. While aspect-unaware resizing square images does not introduce a significant amount of distortion this is not the case for rectangular images. But resizing images to a uniform size is a requirement for mini-batching. So we need to perform our resizing such that the following criteria are met:
 
@@ -293,7 +294,7 @@ If we just go with the plain resizing then the images would look like so:
 
 Notice how this resizing would have introduced unnecessary stretching.
 
-### Putting the utilities together
+### Putting the utilities together {#putting-the-utilities-together}
 
 ```python
 batch_size = 64
@@ -331,7 +332,7 @@ def prepare_dataset(image_paths, labels):
     return dataset.batch(batch_size).cache().prefetch(AUTOTUNE)
 ```
 
-## Prepare [`tf.data.Dataset`](https://www.tensorflow.org/api_docs/python/tf/data/Dataset) objects
+## Prepare [`tf.data.Dataset`](https://www.tensorflow.org/api_docs/python/tf/data/Dataset) objects {#prepare-tfdatadatasethttpswwwtensorfloworgapi_docspythontfdatadataset-objects}
 
 ```python
 train_ds = prepare_dataset(train_img_paths, train_labels_cleaned)
@@ -339,7 +340,7 @@ validation_ds = prepare_dataset(validation_img_paths, validation_labels_cleaned)
 test_ds = prepare_dataset(test_img_paths, test_labels_cleaned)
 ```
 
-## Visualize a few samples
+## Visualize a few samples {#visualize-a-few-samples}
 
 ```python
 for data in train_ds.take(1):
@@ -373,7 +374,7 @@ plt.show()
 
 You will notice that the content of original image is kept as faithful as possible and has been padded accordingly.
 
-## Model
+## Model {#model}
 
 Our model will use the CTC loss as an endpoint layer. For a detailed understanding of the CTC loss, refer to [this post](https://distill.pub/2017/ctc/).
 
@@ -514,7 +515,7 @@ Model: "handwriting_recognizer"
 
 {{% /details %}}
 
-## Evaluation metric
+## Evaluation metric {#evaluation-metric}
 
 [Edit Distance](https://en.wikipedia.org/wiki/Edit_distance) is the most widely used metric for evaluating OCR models. In this section, we will implement it and use it as a callback to monitor our model.
 
@@ -570,7 +571,7 @@ class EditDistanceCallback(keras.callbacks.Callback):
         )
 ```
 
-## Training
+## Training {#training}
 
 Now we are ready to kick off model training.
 
@@ -629,7 +630,7 @@ Epoch 10/10
 
 {{% /details %}}
 
-## Inference
+## Inference {#inference}
 
 ```python
 # A utility function to decode the output of the network.
@@ -680,7 +681,7 @@ plt.show()
 
 To get better results the model should be trained for at least 50 epochs.
 
-## Final remarks
+## Final remarks {#final-remarks}
 
 - The `prediction_model` is fully compatible with TensorFlow Lite. If you are interested, you can use it inside a mobile application. You may find [this notebook](https://github.com/tulasiram58827/ocr_tflite/blob/main/colabs/captcha_ocr_tflite.ipynb) to be useful in this regard.
 - Not all the training examples are perfectly aligned as observed in this example. This can hurt model performance for complex sequences. To this end, we can leverage Spatial Transformer Networks ([Jaderberg et al.](https://arxiv.org/abs/1506.02025)) that can help the model learn affine transformations that maximize its performance.

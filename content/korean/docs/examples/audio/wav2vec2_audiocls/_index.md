@@ -1,5 +1,6 @@
 ---
-title: Audio Classification with Hugging Face Transformers
+title: Hugging Face 트랜스포머를 사용한 오디오 분류
+linkTitle: Hugging Face 트랜스포머 오디오 분류
 toc: true
 weight: 7
 type: docs
@@ -19,7 +20,7 @@ type: docs
 {{< card link="https://github.com/keras-team/keras-io/blob/master/examples/audio/wav2vec2_audiocls.py" title="GitHub" tag="GitHub">}}
 {{< /cards >}}
 
-## Introduction
+## Introduction {#introduction}
 
 Identification of speech commands, also known as _keyword spotting_ (KWS), is important from an engineering perspective for a wide range of applications, from indexing audio databases and indexing keywords, to running speech models locally on microcontrollers. Currently, many human-computer interfaces (HCI) like Google Assistant, Microsoft Cortana, Amazon Alexa, Apple Siri and others rely on keyword spotting. There is a significant amount of research in the field by all major companies, notably Google and Baidu.
 
@@ -27,9 +28,9 @@ In the past decade, deep learning has led to significant performance gains on th
 
 In this notebook, we train the Wav2Vec 2.0 (base) model, built on the Hugging Face Transformers library, in an end-to-end fashion on the keyword spotting task and achieve state-of-the-art results on the Google Speech Commands Dataset.
 
-## Setup
+## Setup {#setup}
 
-### Installing the requirements
+### Installing the requirements {#installing-the-requirements}
 
 ```shell
 pip install git+https://github.com/huggingface/transformers.git
@@ -39,7 +40,7 @@ pip install joblib
 pip install librosa
 ```
 
-### Importing the necessary libraries
+### Importing the necessary libraries {#importing-the-necessary-libraries}
 
 ```python
 import random
@@ -56,7 +57,7 @@ tf.get_logger().setLevel(logging.ERROR)
 tf.keras.utils.set_random_seed(42)
 ```
 
-### Define certain variables
+### Define certain variables {#define-certain-variables}
 
 ```python
 # Maximum duration of the input audio file we feed to our Wav2Vec 2.0 model.
@@ -74,7 +75,7 @@ MAX_EPOCHS = 2  # Maximum number of training epochs.
 MODEL_CHECKPOINT = "facebook/wav2vec2-base"  # Name of pretrained model from Hugging Face Model Hub
 ```
 
-## Load the Google Speech Commands Dataset
+## Load the Google Speech Commands Dataset {#load-the-google-speech-commands-dataset}
 
 We now download the [Google Speech Commands V1 Dataset](https://arxiv.org/abs/1804.03209), a popular benchmark for training and evaluating deep learning models built for solving the KWS task. The dataset consists of a total of 60,973 audio files, each of 1 second duration, divided into ten classes of keywords ("Yes", "No", "Up", "Down", "Left", "Right", "On", "Off", "Stop", and "Go"), a class for silence, and an unknown class to include the false positive. We load the dataset from [Hugging Face Datasets](https://github.com/huggingface/datasets). This can be easily done with the `load_dataset` function.
 
@@ -115,7 +116,7 @@ DatasetDict({
 
 {{% /details %}}
 
-## Data Pre-processing
+## Data Pre-processing {#data-pre-processing}
 
 For the sake of demonstrating the workflow, in this notebook we only take small stratified balanced splits (50%) of the train as our training and test sets. We can easily split the dataset using the `train_test_split` method which expects the split size and the name of the column relative to which you want to stratify.
 
@@ -228,7 +229,7 @@ train = processed_speech_commands_v1["train"].shuffle(seed=42).with_format("nump
 test = processed_speech_commands_v1["test"].shuffle(seed=42).with_format("numpy")[:]
 ```
 
-## Defining the Wav2Vec 2.0 with Classification-Head
+## Defining the Wav2Vec 2.0 with Classification-Head {#defining-the-wav2vec-20-with-classification-head}
 
 We now define our model. To be precise, we define a Wav2Vec 2.0 model and add a Classification-Head on top to output a probability distribution of all classes for each input audio sample. Since the model might get complex we first define the Wav2Vec 2.0 model with Classification-Head as a Keras layer and then build the model using that.
 
@@ -301,7 +302,7 @@ class TFWav2Vec2ForAudioClassification(layers.Layer):
         return final_state
 ```
 
-## Building and Compiling the model
+## Building and Compiling the model {#building-and-compiling-the-model}
 
 We now build and compile our model. We use the `SparseCategoricalCrossentropy` to train our model since it is a classification task. Following much of literature we evaluate our model on the `accuracy` metric.
 
@@ -331,7 +332,7 @@ def build_model():
 model = build_model()
 ```
 
-## Training the model
+## Training the model {#training-the-model}
 
 Before we start training our model, we divide the inputs into its dependent and independent variables.
 

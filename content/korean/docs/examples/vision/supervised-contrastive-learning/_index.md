@@ -1,5 +1,6 @@
 ---
-title: Supervised Contrastive Learning
+title: 지도 대조 학습
+linkTitle: 지도 대조 학습
 toc: true
 weight: 77
 type: docs
@@ -19,7 +20,7 @@ type: docs
 {{< card link="https://github.com/keras-team/keras-io/blob/master/examples/vision/supervised-contrastive-learning.py" title="GitHub" tag="GitHub">}}
 {{< /cards >}}
 
-## Introduction
+## Introduction {#introduction}
 
 [Supervised Contrastive Learning](https://arxiv.org/abs/2004.11362) (Prannay Khosla et al.) is a training methodology that outperforms supervised training with crossentropy on classification tasks.
 
@@ -34,7 +35,7 @@ Note that this example requires [TensorFlow Addons](https://www.tensorflow.org/a
 pip install tensorflow-addons
 ```
 
-## Setup
+## Setup {#setup}
 
 ```python
 import tensorflow as tf
@@ -44,7 +45,7 @@ from tensorflow import keras
 from tensorflow.keras import layers
 ```
 
-## Prepare the data
+## Prepare the data {#prepare-the-data}
 
 ```python
 num_classes = 10
@@ -67,7 +68,7 @@ x_test shape: (10000, 32, 32, 3) - y_test shape: (10000, 1)
 
 {{% /details %}}
 
-## Using image data augmentation
+## Using image data augmentation {#using-image-data-augmentation}
 
 ```python
 data_augmentation = keras.Sequential(
@@ -82,7 +83,7 @@ data_augmentation = keras.Sequential(
 data_augmentation.layers[0].adapt(x_train)
 ```
 
-## Build the encoder model
+## Build the encoder model {#build-the-encoder-model}
 
 The encoder model takes the image as input and turns it into a 2048-dimensional feature vector.
 
@@ -132,7 +133,7 @@ _________________________________________________________________
 
 {{% /details %}}
 
-## Build the classification model
+## Build the classification model {#build-the-classification-model}
 
 The classification model adds a fully-connected layer on top of the encoder, plus a softmax layer with the target classes.
 
@@ -158,7 +159,7 @@ def create_classifier(encoder, trainable=True):
     return model
 ```
 
-## Experiment 1: Train the baseline classification model
+## Experiment 1: Train the baseline classification model {#experiment-1-train-the-baseline-classification-model}
 
 In this experiment, a baseline classifier is trained as usual, i.e., the encoder and the classifier parts are trained together as a single model to minimize the crossentropy loss.
 
@@ -258,13 +259,13 @@ Epoch 29/50
 
 {{% /details %}}
 
-## Experiment 2: Use supervised contrastive learning
+## Experiment 2: Use supervised contrastive learning {#experiment-2-use-supervised-contrastive-learning}
 
 In this experiment, the model is trained in two phases. In the first phase, the encoder is pretrained to optimize the supervised contrastive loss, described in [Prannay Khosla et al.](https://arxiv.org/abs/2004.11362).
 
 In the second phase, the classifier is trained using the trained encoder with its weights freezed; only the weights of fully-connected layers with the softmax are optimized.
 
-### 1\. Supervised contrastive learning loss function
+### 1\. Supervised contrastive learning loss function {#1-supervised-contrastive-learning-loss-function}
 
 ```python
 class SupervisedContrastiveLoss(keras.losses.Loss):
@@ -295,7 +296,7 @@ def add_projection_head(encoder):
     return model
 ```
 
-### 2\. Pretrain the encoder
+### 2\. Pretrain the encoder {#2-pretrain-the-encoder}
 
 ```python
 encoder = create_encoder()
@@ -434,7 +435,7 @@ Epoch 50/50
 
 {{% /details %}}
 
-### 3\. Train the classifier with the frozen encoder
+### 3\. Train the classifier with the frozen encoder {#3-train-the-classifier-with-the-frozen-encoder}
 
 ```python
 classifier = create_classifier(encoder, trainable=False)
@@ -556,7 +557,7 @@ Test accuracy: 81.62%
 
 We get to an improved test accuracy.
 
-## Conclusion
+## Conclusion {#conclusion}
 
 As shown in the experiments, using the supervised contrastive learning technique outperformed the conventional technique in terms of the test accuracy. Note that the same training budget (i.e., number of epochs) was given to each technique. Supervised contrastive learning pays off when the encoder involves a complex architecture, like ResNet, and multi-class problems with many labels. In addition, large batch sizes and multi-layer projection heads improve its effectiveness. See the [Supervised Contrastive Learning](https://arxiv.org/abs/2004.11362) paper for more details.
 

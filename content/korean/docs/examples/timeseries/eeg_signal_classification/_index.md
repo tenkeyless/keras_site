@@ -1,5 +1,6 @@
 ---
-title: Electroencephalogram Signal Classification for action identification
+title: 행동 식별을 위한 뇌파 신호 분류
+linkTitle: 행동 식별 뇌파 신호 분류
 toc: true
 weight: 3
 type: docs
@@ -19,7 +20,7 @@ type: docs
 {{< card link="https://github.com/keras-team/keras-io/blob/master/examples/timeseries/eeg_signal_classification.py" title="GitHub" tag="GitHub">}}
 {{< /cards >}}
 
-## Introduction
+## Introduction {#introduction}
 
 The following example explores how we can make a Convolution-based Neural Network to perform classification on Electroencephalogram signals captured when subjects were exposed to different stimuli. We train a model from scratch since such signal-classification models are fairly scarce in pre-trained format. The data we use is sourced from the UC Berkeley-Biosense Lab where the data was collected from 15 subjects at the same time. Our process is as follows:
 
@@ -36,7 +37,7 @@ This example needs the following external dependencies (Gdown, Scikit-learn, Pan
 
 Gdown is an external package used to download large files from Google Drive. To know more, you can refer to its [PyPi page here](https://pypi.org/project/gdown)
 
-## Setup and Data Downloads
+## Setup and Data Downloads {#setup-and-data-downloads}
 
 First, lets install our dependencies:
 
@@ -84,7 +85,7 @@ To: /home/fchollet/keras-io/scripts/tmp_3333846/eeg-data.csv
 
 {{% /details %}}
 
-## Read data from `eeg-data.csv`
+## Read data from `eeg-data.csv` {#read-data-from-eeg-datacsv}
 
 We use the Pandas library to read the `eeg-data.csv` file and display the first 5 rows using the `.head()` command
 
@@ -148,7 +149,7 @@ eeg.head()
 | 3   | 13  | \[311822.0, 44739.0, 19000.0, 19100.0, 2650.0, ... | \[208.0, 198.0, 122.0, 84.0, 161.0, 249.0, 216.... | 0              | blinkInstruction |
 | 4   | 4   | \[687393.0, 10289.0, 2942.0, 9874.0, 1059.0, 29... | \[129.0, 133.0, 114.0, 105.0, 101.0, 109.0, 99.... | 0              | blinkInstruction |
 
-## Visualize one random sample from the data
+## Visualize one random sample from the data {#visualize-one-random-sample-from-the-data}
 
 We visualize one sample from the data to understand how the stimulus-induced signal looks like
 
@@ -165,7 +166,7 @@ view_eeg_plot(7)
 
 ![png](/images/examples/timeseries/eeg_signal_classification/eeg_signal_classification_15_0.png)
 
-## Pre-process and collate data
+## Pre-process and collate data {#pre-process-and-collate-data}
 
 There are a total of 67 different labels present in the data, where there are numbered sub-labels. We collate them under a single label as per their numbering and replace them in the data itself. Following this process, we perform simple Label encoding to get them in an integer format.
 
@@ -318,7 +319,7 @@ plt.show()
 
 ![png](/images/examples/timeseries/eeg_signal_classification/eeg_signal_classification_22_0.png)
 
-## Scale and split data
+## Scale and split data {#scale-and-split-data}
 
 We perform a simple Min-Max scaling to bring the value-range between 0 and 1. We do not use Standard Scaling as the data does not follow a Gaussian distribution.
 
@@ -362,7 +363,7 @@ Length of y_test : 1494
 
 {{% /details %}}
 
-## Prepare [`tf.data.Dataset`](https://www.tensorflow.org/api_docs/python/tf/data/Dataset)
+## Prepare [`tf.data.Dataset`](https://www.tensorflow.org/api_docs/python/tf/data/Dataset) {#prepare-tfdatadatasethttpswwwtensorfloworgapi_docspythontfdatadataset}
 
 We now create a [`tf.data.Dataset`](https://www.tensorflow.org/api_docs/python/tf/data/Dataset) from this data to prepare it for training. We also shuffle and batch the data for use later.
 
@@ -374,7 +375,7 @@ train_dataset = train_dataset.shuffle(SHUFFLE_BUFFER_SIZE).batch(BATCH_SIZE)
 test_dataset = test_dataset.batch(BATCH_SIZE)
 ```
 
-## Make Class Weights using Naive method
+## Make Class Weights using Naive method {#make-class-weights-using-naive-method}
 
 As we can see from the plot of number of samples per class, the dataset is imbalanced. Hence, we **calculate weights for each class** to make sure that the model is trained in a fair manner without preference to any specific class due to greater number of samples.
 
@@ -405,7 +406,7 @@ print(weight_dict)
 
 {{% /details %}}
 
-## Define simple function to plot all the metrics present in a `keras.callbacks.History`
+## Define simple function to plot all the metrics present in a `keras.callbacks.History` {#define-simple-function-to-plot-all-the-metrics-present-in-a-kerascallbackshistory}
 
 object
 
@@ -428,7 +429,7 @@ def plot_history_metrics(history: keras.callbacks.History):
     plt.show()
 ```
 
-## Define function to generate Convolutional model
+## Define function to generate Convolutional model {#define-function-to-generate-convolutional-model}
 
 ```python
 def create_model():
@@ -492,7 +493,7 @@ def create_model():
     return keras.Model(inputs=input_layer, outputs=output_layer)
 ```
 
-## Get Model summary
+## Get Model summary {#get-model-summary}
 
 ```python
 conv_model = create_model()
@@ -565,7 +566,7 @@ Model: "functional_1"
 
 {{% /details %}}
 
-## Define callbacks, optimizer, loss and metrics
+## Define callbacks, optimizer, loss and metrics {#define-callbacks-optimizer-loss-and-metrics}
 
 We set the number of epochs at 30 after performing extensive experimentation. It was seen that this was the optimal number, after performing Early-Stopping analysis as well. We define a Model Checkpoint callback to make sure that we only get the best model weights. We also define a ReduceLROnPlateau as there were several cases found during experimentation where the loss stagnated after a certain point. On the other hand, a direct LRScheduler was found to be too aggressive in its decay.
 
@@ -588,7 +589,7 @@ optimizer = keras.optimizers.Adam(amsgrad=True, learning_rate=0.001)
 loss = keras.losses.CategoricalCrossentropy()
 ```
 
-## Compile model and call `model.fit()`
+## Compile model and call `model.fit()` {#compile-model-and-call-modelfit}
 
 We use the `Adam` optimizer since it is commonly considered the best choice for preliminary training, and was found to be the best optimizer. We use `CategoricalCrossentropy` as the loss as our labels are in a one-hot-encoded form.
 
@@ -694,7 +695,7 @@ Epoch 30/30
 
 {{% /details %}}
 
-## Visualize model metrics during training
+## Visualize model metrics during training {#visualize-model-metrics-during-training}
 
 We use the function defined above to see model metrics during training.
 
@@ -704,7 +705,7 @@ plot_history_metrics(conv_model_history)
 
 ![png](/images/examples/timeseries/eeg_signal_classification/eeg_signal_classification_48_0.png)
 
-## Evaluate model on test data
+## Evaluate model on test data {#evaluate-model-on-test-data}
 
 ```python
 loss, accuracy, auc, precision, recall = conv_model.evaluate(test_dataset)

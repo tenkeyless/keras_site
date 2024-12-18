@@ -1,5 +1,6 @@
 ---
-title: Automatic Speech Recognition with Transformer
+title: 트랜스포머를 사용한 자동 음성 인식
+linkTitle: 트랜스포머 자동 음성 인식
 toc: true
 weight: 1
 type: docs
@@ -19,7 +20,7 @@ type: docs
 {{< card link="https://github.com/keras-team/keras-io/blob/master/examples/audio/transformer_asr.py" title="GitHub" tag="GitHub">}}
 {{< /cards >}}
 
-## Introduction
+## Introduction {#introduction}
 
 Automatic speech recognition (ASR) consists of transcribing audio speech segments into text. ASR can be treated as a sequence-to-sequence problem, where the audio can be represented as a sequence of feature vectors and the text as a sequence of characters, words, or subword tokens.
 
@@ -46,7 +47,7 @@ from keras import layers
 pattern_wav_name = re.compile(r'([^/\\\.]+)')
 ```
 
-## Define the Transformer Input Layer
+## Define the Transformer Input Layer {#define-the-transformer-input-layer}
 
 When processing past target tokens for the decoder, we compute the sum of position embeddings and token embeddings.
 
@@ -86,7 +87,7 @@ class SpeechFeatureEmbedding(layers.Layer):
         return self.conv3(x)
 ```
 
-## Transformer Encoder Layer
+## Transformer Encoder Layer {#transformer-encoder-layer}
 
 ```python
 class TransformerEncoder(layers.Layer):
@@ -113,7 +114,7 @@ class TransformerEncoder(layers.Layer):
         return self.layernorm2(out1 + ffn_output)
 ```
 
-## Transformer Decoder Layer
+## Transformer Decoder Layer {#transformer-decoder-layer}
 
 ```python
 class TransformerDecoder(layers.Layer):
@@ -166,7 +167,7 @@ class TransformerDecoder(layers.Layer):
         return ffn_out_norm
 ```
 
-## Complete the Transformer model
+## Complete the Transformer model {#complete-the-transformer-model}
 
 Our model takes audio spectrograms as inputs and predicts a sequence of characters. During training, we give the decoder the target character sequence shifted to the left as input. During inference, the decoder uses its own past predictions to predict the next token.
 
@@ -274,7 +275,7 @@ class Transformer(keras.Model):
         return dec_input
 ```
 
-## Download the dataset
+## Download the dataset {#download-the-dataset}
 
 Note: This requires ~3.6 GB of disk space and takes ~5 minutes for the extraction of files.
 
@@ -318,7 +319,7 @@ Downloading data from https://data.keithito.com/data/speech/LJSpeech-1.1.tar.bz2
 
 {{% /details %}}
 
-## Preprocess the dataset
+## Preprocess the dataset {#preprocess-the-dataset}
 
 ```python
 class VectorizeChar:
@@ -408,7 +409,7 @@ vocab size 34
 
 {{% /details %}}
 
-## Callbacks to display predictions
+## Callbacks to display predictions {#callbacks-to-display-predictions}
 
 ```python
 class DisplayOutputs(keras.callbacks.Callback):
@@ -447,7 +448,7 @@ class DisplayOutputs(keras.callbacks.Callback):
             print(f"prediction: {prediction}\n")
 ```
 
-## Learning rate schedule
+## Learning rate schedule {#learning-rate-schedule}
 
 ```python
 class CustomSchedule(keras.optimizers.schedules.LearningRateSchedule):
@@ -489,7 +490,7 @@ class CustomSchedule(keras.optimizers.schedules.LearningRateSchedule):
         return self.calculate_lr(epoch)
 ```
 
-## Create & train the end-to-end model
+## Create & train the end-to-end model {#create-train-the-end-to-end-model}
 
 ```python
 batch = next(iter(val_ds))

@@ -8,7 +8,7 @@ type: docs
 
 {{< keras/original checkedAt="2024-11-19" >}}
 
-**Authors:** [Sachin Prasad](https://github.com/sachinprasadhs), [Divyashree Sreepathihalli](https://github.com/divyashreepathihalli), [Ian Stenbit](https://github.com/ianstenbit)  
+**{{< t f_author >}}** [Sachin Prasad](https://github.com/sachinprasadhs), [Divyashree Sreepathihalli](https://github.com/divyashreepathihalli), [Ian Stenbit](https://github.com/ianstenbit)  
 **{{< t f_date_created >}}** 2024/10/11  
 **{{< t f_last_modified >}}** 2024/10/22  
 **{{< t f_description >}}** DeepLabV3 training and inference with KerasHub.
