@@ -1,5 +1,5 @@
 ---
-title: Generative Deep Learning
+title: 생성형 딥러닝
 toc: true
 weight: 5
 ---
