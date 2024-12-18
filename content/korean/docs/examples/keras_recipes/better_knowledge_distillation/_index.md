@@ -1,5 +1,6 @@
 ---
-title: Knowledge distillation recipes
+title: 지식 증류 레시피
+linkTitle: 지식 증류 레시피
 toc: true
 weight: 17
 type: docs
@@ -19,7 +20,7 @@ type: docs
 {{< card link="https://github.com/keras-team/keras-io/blob/master/examples/keras_recipes/better_knowledge_distillation.py" title="GitHub" tag="GitHub">}}
 {{< /cards >}}
 
-## Introduction
+## Introduction {#introduction}
 
 Knowledge distillation ([Hinton et al.](https://arxiv.org/abs/1503.02531)) is a technique that enables us to compress larger models into smaller ones. This allows us to reap the benefits of high performing larger models, while reducing storage and memory costs and achieving higher inference speed:
 
@@ -38,7 +39,7 @@ To follow this example, you will need TensorFlow 2.5 or higher as well as Tensor
 !pip install -q tensorflow-addons
 ```
 
-## Imports
+## Imports {#imports}
 
 ```python
 from tensorflow import keras
@@ -53,7 +54,7 @@ import tensorflow_datasets as tfds
 tfds.disable_progress_bar()
 ```
 
-## Hyperparameters and constants
+## Hyperparameters and constants {#hyperparameters-and-constants}
 
 ```python
 AUTO = tf.data.AUTOTUNE  # Used to dynamically adjust parallelism.
@@ -71,7 +72,7 @@ BIGGER = 160
 RESIZE = 128
 ```
 
-## Load the Flowers102 dataset
+## Load the Flowers102 dataset {#load-the-flowers102-dataset}
 
 ```python
 train_ds, validation_ds, test_ds = tfds.load(
@@ -94,7 +95,7 @@ Number of test examples: 6149.
 
 {{% /details %}}
 
-## Teacher model
+## Teacher model {#teacher-model}
 
 As is common with any distillation technique, it's important to first train a well-performing teacher model which is usually larger than the subsequent student model. The authors distill a BiT ResNet152x2 model (teacher) into a BiT ResNet50 model (student).
 
@@ -169,7 +170,7 @@ _________________________________________________________________
 
 {{% /details %}}
 
-## The "function matching" recipe
+## The "function matching" recipe {#the-function-matching-recipe}
 
 To train a high-quality student model, the authors propose the following changes to the student training workflow:
 
@@ -179,7 +180,7 @@ To train a high-quality student model, the authors propose the following changes
 
 In summary, one needs to be consistent and patient while training the student model.
 
-## Data input pipeline
+## Data input pipeline {#data-input-pipeline}
 
 ```python
 def mixup(images, labels):
@@ -231,7 +232,7 @@ validation_ds = prepare_dataset(validation_ds, False)
 test_ds = prepare_dataset(test_ds, False)
 ```
 
-## Visualization
+## Visualization {#visualization}
 
 ```python
 sample_images, _ = next(iter(train_ds))
@@ -245,7 +246,7 @@ plt.show()
 
 ![png](/images/examples/keras_recipes/better_knowledge_distillation/better_knowledge_distillation_20_0.png)
 
-## Student model
+## Student model {#student-model}
 
 For the purpose of this example, we will use the standard ResNet50V2 ([He et al.](https://arxiv.org/abs/1603.05027)).
 
@@ -273,7 +274,7 @@ get_resnetv2().count_params()
 
 Compared to the teacher model, this model has 358 Million fewer parameters.
 
-## Distillation utility
+## Distillation utility {#distillation-utility}
 
 We will reuse some code from [this example]({{< relref "/docs/examples/vision/knowledge_distillation" >}}) on knowledge distillation.
 
@@ -347,7 +348,7 @@ class Distiller(tf.keras.Model):
         return results
 ```
 
-## Learning rate schedule
+## Learning rate schedule {#learning-rate-schedule}
 
 A warmup cosine learning rate schedule is used in the paper. This schedule is also typical for many pre-training methods especially for computer vision.
 
@@ -424,7 +425,7 @@ plt.show()
 
 The original paper uses at least 1000 epochs and a batch size of 512 to perform "function matching". The objective of this example is to present a workflow to implement the recipe and not to demonstrate the results when they are applied at full scale. However, these recipes will transfer to the original settings from the paper. Please refer to [this repository](https://github.com/sayakpaul/FunMatch-Distillation) if you are interested in finding out more.
 
-## Training
+## Training {#training}
 
 ```python
 optimizer = tfa.optimizers.AdamW(
@@ -523,7 +524,7 @@ Top-1 accuracy on the test set: 1.07%
 
 {{% /details %}}
 
-## Results
+## Results {#results}
 
 With just 30 epochs of training, the results are nowhere near expected. This is where the benefits of patience aka a longer training schedule will come into play. Let's investigate what the model trained for 1000 epochs can do.
 
@@ -591,6 +592,6 @@ With 100000 epochs of training, this same model leads to a top-1 accuracy of 95.
 
 There are a number of important ablations studies presented in the paper that show the effectiveness of these recipes compared to the prior art. So if you are skeptical about these recipes, definitely consult the paper.
 
-## Note on training for longer
+## Note on training for longer {#note-on-training-for-longer}
 
 With TPU-based hardware infrastructure, we can train the model for 1000 epochs faster. This does not even require adding a lot of changes to this codebase. You are encouraged to check [this repository](https://github.com/sayakpaul/FunMatch-Distillation) as it presents TPU-compatible training workflows for these recipes and can be run on [Kaggle Kernel](https://www.kaggle.com/kernels) leveraging their free TPU v3-8 hardware.

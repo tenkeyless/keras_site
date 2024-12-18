@@ -1,5 +1,6 @@
 ---
-title: Approximating non-Function Mappings with Mixture Density Networks
+title: Mixture Density 네트워크로 비함수 매핑 근사화
+linkTitle: Mixture Density 네트워크 비함수 매핑 근사화
 toc: true
 weight: 15
 type: docs
@@ -19,7 +20,7 @@ type: docs
 {{< card link="https://github.com/keras-team/keras-io/blob/master/examples/keras_recipes/approximating_non_function_mappings.py" title="GitHub" tag="GitHub">}}
 {{< /cards >}}
 
-## Approximating NonFunctions
+## Approximating NonFunctions {#approximating-nonfunctions}
 
 Neural networks are universal function approximators. Key word: function! While powerful function approximators, neural networks are not able to approximate non-functions. One important restriction to remember about functions - they have one input, one output! Neural networks suffer greatly when the training set has multiple values of Y for a single X.
 
@@ -239,7 +240,7 @@ plt.show()
 
 ![png](/images/examples/keras_recipes/approximating_non_function_mappings/approximating_non_function_mappings_17_0.png)
 
-## Mixture Density Networks
+## Mixture Density Networks {#mixture-density-networks}
 
 Mixture Density networks can alleviate this problem. A Mixture density is a class of complicated densities expressible in terms of simpler densities. They are effectively the sum of a ton of probability distributions. Mixture Density networks learn to parameterize a mixture density distribution based on a given training set.
 
@@ -761,7 +762,7 @@ plt.show()
 
 Beautiful. Love to see it
 
-# Conclusions
+# Conclusions {#conclusions}
 
 Neural Networks are universal function approximators - but they can only approximate functions. Mixture Density networks can approximate arbitrary x->y mappings using some neat probability tricks.
 

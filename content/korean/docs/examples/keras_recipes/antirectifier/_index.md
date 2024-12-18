@@ -1,5 +1,6 @@
 ---
-title: "Simple custom layer example: Antirectifier"
+title: "간단한 커스텀 레이어 예시: Antirectifier"
+linkTitle: "간단한 커스텀 레이어 예시: Antirectifier"
 toc: true
 weight: 10
 type: docs
@@ -19,11 +20,11 @@ type: docs
 {{< card link="https://github.com/keras-team/keras-io/blob/master/examples/keras_recipes/antirectifier.py" title="GitHub" tag="GitHub">}}
 {{< /cards >}}
 
-## Introduction
+## Introduction {#introduction}
 
 This example shows how to create custom layers, using the Antirectifier layer (originally proposed as a Keras example script in January 2016), an alternative to ReLU. Instead of zeroing-out the negative part of the input, it splits the negative and positive parts and returns the concatenation of the absolute value of both. This avoids loss of information, at the cost of an increase in dimensionality. To fix the dimensionality increase, we linearly combine the features back to a space of the original size.
 
-## Setup
+## Setup {#setup}
 
 ```python
 import keras
@@ -31,7 +32,7 @@ from keras import layers
 from keras import ops
 ```
 
-## The Antirectifier layer
+## The Antirectifier layer {#the-antirectifier-layer}
 
 To implement a custom layer:
 
@@ -71,7 +72,7 @@ class Antirectifier(layers.Layer):
         return dict(list(base_config.items()) + list(config.items()))
 ```
 
-## Let's test-drive it on MNIST
+## Let's test-drive it on MNIST {#lets-test-drive-it-on-mnist}
 
 ```python
 # Training parameters

@@ -1,5 +1,5 @@
 ---
-title: Quick Keras Recipes
+title: 빠른 Keras 레시피
 toc: true
 weight: 9
 ---

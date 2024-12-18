@@ -1,5 +1,6 @@
 ---
-title: Reproducibility in Keras Models
+title: Keras 모델의 재현성
+linkTitle: Keras 모델의 재현성
 toc: true
 weight: 8
 type: docs
@@ -19,11 +20,11 @@ type: docs
 {{< card link="https://github.com/keras-team/keras-io/blob/master/examples/keras_recipes/reproducibility_recipes.py" title="GitHub" tag="GitHub">}}
 {{< /cards >}}
 
-## Introduction
+## Introduction {#introduction}
 
 This example demonstrates how to control randomness in Keras models. Sometimes you may want to reproduce the exact same results across runs, for experimentation purposes or to debug a problem.
 
-## Setup
+## Setup {#setup}
 
 ```python
 import json
@@ -44,7 +45,7 @@ keras.utils.set_random_seed(812)
 tf.config.experimental.enable_op_determinism()
 ```
 
-## Weight initialization in Keras
+## Weight initialization in Keras {#weight-initialization-in-keras}
 
 Most of the layers in Keras have `kernel_initializer` and `bias_initializer` parameters. These parameters allow you to specify the strategy used for initializing the weights of layer variables. The following built-in initializers are available as part of `keras.initializers`:
 
@@ -202,7 +203,7 @@ Are the results equal? False
 
 `result_3` and `result_4` will be different, but when you run the notebook again, `result_3` will have identical values to the ones in the previous run. Same goes for `result_4`.
 
-## Reproducibility in model training process
+## Reproducibility in model training process {#reproducibility-in-model-training-process}
 
 If you want to reproduce the results of a model training process, you need to control the randomness sources during the training process. In order to show a realistic example, this section utilizes [`tf.data`](https://www.tensorflow.org/api_docs/python/tf/data) using parallel map and shuffle operations.
 
@@ -351,7 +352,7 @@ for key in history.keys():
             print(f"{key} not equal")
 ```
 
-## Conclusion
+## Conclusion {#conclusion}
 
 In this tutorial, you learned how to control the randomness sources in Keras and TensorFlow. You also learned how to reproduce the results of a model training process.
 

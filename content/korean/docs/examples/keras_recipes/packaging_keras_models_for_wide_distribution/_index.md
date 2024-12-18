@@ -1,5 +1,6 @@
 ---
-title: Packaging Keras models for wide distribution using Functional Subclassing
+title: 함수형 서브클래싱을 사용하여 광범위한 배포를 위한 Keras 모델 패키징
+linkTitle: 함수형 서브클래싱 Keras 모델 패키징
 toc: true
 weight: 14
 type: docs
@@ -19,7 +20,7 @@ type: docs
 {{< card link="https://github.com/keras-team/keras-io/blob/master/examples/keras_recipes/packaging_keras_models_for_wide_distribution.py" title="GitHub" tag="GitHub">}}
 {{< /cards >}}
 
-## Introduction
+## Introduction {#introduction}
 
 Keras is the ideal framework for sharing your cutting-edge deep learning models, in a library of pre-trained (or not) models. Millions of ML engineers are fluent in the familiar Keras API, making your models accessible to a global community, whatever their preferred backend (Jax, PyTorch or TensorFlow).
 
@@ -34,7 +35,7 @@ When distributing models, the Keras team recommends packaging them using the **F
 
 This guide explains [how to use](#functional-subclassing-model) the Functional Subclassing pattern, and showcases its benefits for [programmatic model introspection](#model-introspection) and [model surgery](#model-surgery). It also shows two other best practices for sharable Keras models: [configuring models](#unconstrained-inputs) for the widest range of supported inputs, for example images of various sizes, and [using dictionary inputs](#model-with-dictionary-inputs) for clarity in more complex models.
 
-## Setup
+## Setup {#setup}
 
 ```python
 import keras
@@ -53,7 +54,7 @@ Keras is running on tensorflow
 
 {{% /details %}}
 
-## Dataset
+## Dataset {#dataset}
 
 Let's load an MNIST dataset so that we have something to train with.
 
@@ -86,7 +87,7 @@ STEPS_PER_EPOCH = len(train_labels) // BATCH_SIZE
 EPOCHS = 5
 ```
 
-## Functional Subclassing Model
+## Functional Subclassing Model {#functional-subclassing-model}
 
 The model is wrapped in a class so that end users can instantiate it normally by calling the constructor `MnistModel()` rather than calling a factory function.
 
@@ -160,7 +161,7 @@ Epoch 5/5
 
 {{% /details %}}
 
-## Unconstrained inputs
+## Unconstrained inputs {#unconstrained-inputs}
 
 Notice, in the model definition above, that the input is specified with undefined dimensions: `Input(shape=(None, None, 1)`
 
@@ -172,7 +173,7 @@ This allows the model to accept any image size as an input. However, this only w
 - If on the other hand, the model must provision different weights for different input sizes, you will have to ask your users to specify the size in the constructor:  
   `model = ModelXYZ(input_size=...)`
 
-## Model introspection
+## Model introspection {#model-introspection}
 
 Keras maintains a programmatically accessible graph of layers for every model. It can be used for introspection and is accessed through the `model.layers` or `layer.layers` attribute. The utility function `model.summary()` also uses this mechanism internally.
 
@@ -245,7 +246,7 @@ classification_head
 
 {{% /details %}}
 
-## Model surgery
+## Model surgery {#model-surgery}
 
 End users might want to instantiate the model from your library but modify it before use. Functional models have a programmatically accessible graph of layers. Edits are possible by slicing and splicing the graph and creating a new functional model.
 
@@ -348,7 +349,7 @@ Epoch 5/5
 
 {{% /details %}}
 
-## Model with dictionary inputs
+## Model with dictionary inputs {#model-with-dictionary-inputs}
 
 In more complex models, with multiple inputs, structuring the inputs as a dictionary can improve readability and usability. This is straightforward to do with a functional model:
 
