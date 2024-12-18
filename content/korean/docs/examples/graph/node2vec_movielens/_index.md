@@ -1,5 +1,6 @@
 ---
-title: Graph representation learning with node2vec
+title: node2vec을 사용한 그래프 표현 학습
+linkTitle: node2vec 그래프 표현 학습
 toc: true
 weight: 4
 type: docs
@@ -19,7 +20,7 @@ type: docs
 {{< card link="https://github.com/keras-team/keras-io/blob/master/examples/graph/node2vec_movielens.py" title="GitHub" tag="GitHub">}}
 {{< /cards >}}
 
-## Introduction
+## Introduction {#introduction}
 
 Learning useful representations from objects structured as graphs is useful for a variety of machine learning (ML) applications—such as social and communication networks analysis, biomedicine studies, and recommendation systems. [Graph representation Learning](https://www.cs.mcgill.ca/~wlh/grl_book/) aims to learn embeddings for the graph nodes, which can be used for a variety of ML tasks such as node label prediction (e.g. categorizing an article based on its citations) and link prediction (e.g. recommending an interest group to a user in a social network).
 
@@ -39,7 +40,7 @@ This example requires `networkx` package, which can be installed using the follo
 pip install networkx
 ```
 
-## Setup
+## Setup {#setup}
 
 ```python
 import os
@@ -58,7 +59,7 @@ from tensorflow.keras import layers
 import matplotlib.pyplot as plt
 ```
 
-## Download the MovieLens dataset and prepare the data
+## Download the MovieLens dataset and prepare the data {#download-the-movielens-dataset-and-prepare-the-data}
 
 The small version of the MovieLens dataset includes around 100k ratings from 610 users on 9,742 movies.
 
@@ -138,7 +139,7 @@ def get_movie_id_by_title(title):
     return list(movies[movies.title == title].movieId)[0]
 ```
 
-## Construct the Movies graph
+## Construct the Movies graph {#construct-the-movies-graph}
 
 We create an edge between two movie nodes in the graph if both movies are rated by the same user >= `min_rating`. The weight of the edge will be based on the [pointwise mutual information](https://en.wikipedia.org/wiki/Pointwise_mutual_information) between the two movies, which is computed as: `log(xy) - log(x) - log(y) + log(D)`, where:
 
@@ -147,7 +148,7 @@ We create an edge between two movie nodes in the graph if both movies are rated 
 - `y` is how many users rated movie `y` >= `min_rating`.
 - `D` total number of movie ratings >= `min_rating`.
 
-### Step 1: create the weighted edges between movies.
+### Step 1: create the weighted edges between movies. {#step-1-create-the-weighted-edges-between-movies}
 
 ```python
 min_rating = 5
@@ -183,7 +184,7 @@ Compute movie rating frequencies: 100%|█████████████�
 
 {{% /details %}}
 
-### Step 2: create the graph with the nodes and the edges
+### Step 2: create the graph with the nodes and the edges {#step-2-create-the-graph-with-the-nodes-and-the-edges}
 
 To reduce the number of edges between nodes, we only add an edge between movies if the weight of the edge is greater than `min_weight`.
 
@@ -251,7 +252,7 @@ Average node degree: 57.0
 
 {{% /details %}}
 
-### Step 3: Create vocabulary and a mapping from tokens to integer indices
+### Step 3: Create vocabulary and a mapping from tokens to integer indices {#step-3-create-vocabulary-and-a-mapping-from-tokens-to-integer-indices}
 
 The vocabulary is the nodes (movie IDs) in the graph.
 
@@ -260,7 +261,7 @@ vocabulary = ["NA"] + list(movies_graph.nodes)
 vocabulary_lookup = {token: idx for idx, token in enumerate(vocabulary)}
 ```
 
-## Implement the biased random walk
+## Implement the biased random walk {#implement-the-biased-random-walk}
 
 A random walk starts from a given node, and randomly picks a neighbour node to move to. If the edges are weighted, the neighbour is selected _probabilistically_ with respect to weights of the edges between the current node and its neighbours. This procedure is repeated for `num_steps` to generate a sequence of _related_ nodes.
 
@@ -324,7 +325,7 @@ def random_walk(graph, num_walks, num_steps, p, q):
     return walks
 ```
 
-## Generate training data using the biased random walk
+## Generate training data using the biased random walk {#generate-training-data-using-the-biased-random-walk}
 
 You can explore different configurations of `p` and `q` to different results of related movies.
 
@@ -356,7 +357,7 @@ Number of walks generated: 7025
 
 {{% /details %}}
 
-## Generate positive and negative examples
+## Generate positive and negative examples {#generate-positive-and-negative-examples}
 
 To train a skip-gram model, we use the generated walks to create positive and negative training examples. Each example includes the following features:
 
@@ -365,7 +366,7 @@ To train a skip-gram model, we use the generated walks to create positive and ne
 3.  `weight`: How many times these two movies occurred in walk sequences.
 4.  `label`: The label is 1 if these two movies are samples from the walk sequences, otherwise (i.e., if randomly sampled) the label is 0.
 
-### Generate examples
+### Generate examples {#generate-examples}
 
 ```python
 def generate_examples(sequences, window_size, num_negative_samples, vocabulary_size):
@@ -442,7 +443,7 @@ Weights shape: (881412,)
 
 {{% /details %}}
 
-### Convert the data into [`tf.data.Dataset`](https://www.tensorflow.org/api_docs/python/tf/data/Dataset) objects
+### Convert the data into [`tf.data.Dataset`](https://www.tensorflow.org/api_docs/python/tf/data/Dataset) objects {#convert-the-data-into-tfdatadatasethttpswwwtensorfloworgapi_docspythontfdatadataset-objects}
 
 ```python
 batch_size = 1024
@@ -469,7 +470,7 @@ dataset = create_dataset(
 )
 ```
 
-## Train the skip-gram model
+## Train the skip-gram model {#train-the-skip-gram-model}
 
 Our skip-gram is a simple binary classification model that works as follows:
 
@@ -485,7 +486,7 @@ embedding_dim = 50
 num_epochs = 10
 ```
 
-### Implement the model
+### Implement the model {#implement-the-model}
 
 ```python
 def create_model(vocabulary_size, embedding_dim):
@@ -515,7 +516,7 @@ def create_model(vocabulary_size, embedding_dim):
     return model
 ```
 
-### Train the model
+### Train the model {#train-the-model}
 
 We instantiate the model and compile it.
 
@@ -584,7 +585,7 @@ plt.show()
 
 ![png](/images/examples/graph/node2vec_movielens/node2vec_movielens_48_0.png)
 
-## Analyze the learnt embeddings.
+## Analyze the learnt embeddings. {#analyze-the-learnt-embeddings}
 
 ```python
 movie_embeddings = model.get_layer("item_embeddings").get_weights()[0]
@@ -599,7 +600,7 @@ Embeddings shape: (1406, 50)
 
 {{% /details %}}
 
-### Find related movies
+### Find related movies {#find-related-movies}
 
 Define a list with some movies called `query_movies`.
 
@@ -708,7 +709,7 @@ Godfather, The (1972)
 
 {{% /details %}}
 
-### Visualize the embeddings using the Embedding Projector
+### Visualize the embeddings using the Embedding Projector {#visualize-the-embeddings-using-the-embedding-projector}
 
 ```python
 import io

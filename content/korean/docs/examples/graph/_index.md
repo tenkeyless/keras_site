@@ -1,5 +1,5 @@
 ---
-title: Graph Data
+title: 그래프 데이터
 toc: true
 weight: 8
 ---
