@@ -1,5 +1,5 @@
 ---
-title: Timeseries
+title: 타임시리즈
 toc: true
 weight: 4
 ---
