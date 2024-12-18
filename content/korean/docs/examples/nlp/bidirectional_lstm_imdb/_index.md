@@ -1,5 +1,6 @@
 ---
-title: Bidirectional LSTM on IMDB
+title: IMDB에 대한 양방향 LSTM
+linkTitle: 양방향 LSTM
 toc: true
 weight: 9
 type: docs
@@ -19,7 +20,7 @@ type: docs
 {{< card link="https://github.com/keras-team/keras-io/blob/master/examples/nlp/bidirectional_lstm_imdb.py" title="GitHub" tag="GitHub">}}
 {{< /cards >}}
 
-## Setup
+## Setup {#setup}
 
 ```python
 import numpy as np
@@ -30,7 +31,7 @@ max_features = 20000  # Only consider the top 20k words
 maxlen = 200  # Only consider the first 200 words of each movie review
 ```
 
-## Build the model
+## Build the model {#build-the-model}
 
 ```python
 # Input for variable-length sequences of integers
@@ -70,7 +71,7 @@ Model: "functional_1"
 
 {{% /details %}}
 
-## Load the IMDB movie review sentiment data
+## Load the IMDB movie review sentiment data {#load-the-imdb-movie-review-sentiment-data}
 
 ```python
 (x_train, y_train), (x_val, y_val) = keras.datasets.imdb.load_data(
@@ -95,7 +96,7 @@ Downloading data from https://storage.googleapis.com/tensorflow/tf-keras-dataset
 
 {{% /details %}}
 
-## Train and evaluate the model
+## Train and evaluate the model {#train-and-evaluate-the-model}
 
 You can use the trained model hosted on [Hugging Face Hub](https://huggingface.co/keras-io/bidirectional-lstm-imdb) and try the demo on [Hugging Face Spaces](https://huggingface.co/spaces/keras-io/bidirectional_lstm_imdb).
 

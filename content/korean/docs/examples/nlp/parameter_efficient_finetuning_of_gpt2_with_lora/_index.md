@@ -1,5 +1,6 @@
 ---
-title: Parameter-efficient fine-tuning of GPT-2 with LoRA
+title: LoRA GPT-2의 파라미터 효율적 미세 조정
+linkTitle: LoRA GPT-2 파라미터 미세 조정
 toc: true
 weight: 24
 type: docs
@@ -19,7 +20,7 @@ type: docs
 {{< card link="https://github.com/keras-team/keras-io/blob/master/examples/nlp/parameter_efficient_finetuning_of_gpt2_with_lora.py" title="GitHub" tag="GitHub">}}
 {{< /cards >}}
 
-## Introduction
+## Introduction {#introduction}
 
 Large Language Models (LLMs) have been shown to be effective at a variety of NLP tasks. An LLM is first pre-trained on a large corpus of text in a self-supervised fashion. Pre-training helps LLMs learn general-purpose knowledge, such as statistical relationships between words. An LLM can then be fine-tuned on a downstream task of interest (such as sentiment analysis).
 
@@ -29,7 +30,7 @@ In this example, we will explain LoRA in technical terms, show how the technical
 
 Note: This example runs on the TensorFlow backend purely for the [`tf.config.experimental.get_memory_info`](https://www.tensorflow.org/api_docs/python/tf/config/experimental/get_memory_info) API to easily plot memory usage. Outside of the memory usage callback, this example will run on `jax` and `torch` backends.
 
-## Setup
+## Setup {#setup}
 
 Before we start implementing the pipeline, let's install and import all the libraries we need. We'll be using the KerasHub library.
 
@@ -72,7 +73,7 @@ RANK = 4
 ALPHA = 32.0
 ```
 
-## Dataset
+## Dataset {#dataset}
 
 Let's load a Reddit dataset. We will fine-tune both the GPT-2 model and the LoRA GPT-2 model on a subset of this dataset. The aim is to produce text similar in style to Reddit posts.
 
@@ -110,11 +111,11 @@ train_ds = (
 train_ds = train_ds.take(NUM_BATCHES)
 ```
 
-## Helper functions
+## Helper functions {#helper-functions}
 
 Before we begin fine-tuning the models, let's define a few helper functions and classes.
 
-### Callback for tracking GPU memory usage
+### Callback for tracking GPU memory usage {#callback-for-tracking-gpu-memory-usage}
 
 We'll define a custom callback function which tracks GPU memory usage. The callback function uses TensorFlow's [`tf.config.experimental.get_memory_info`](https://www.tensorflow.org/api_docs/python/tf/config/experimental/get_memory_info) API.
 
@@ -155,7 +156,7 @@ class GPUMemoryCallback(keras.callbacks.Callback):
         self.labels.append(f"epoch {epoch} end")
 ```
 
-### Function for text generation
+### Function for text generation {#function-for-text-generation}
 
 Here is a helper function to generate text.
 
@@ -171,7 +172,7 @@ def generate_text(model, input_text, max_length=200):
     print(f"Total Time Elapsed: {end - start:.2f}s")
 ```
 
-### Define optimizer and loss
+### Define optimizer and loss {#define-optimizer-and-loss}
 
 We will use AdamW optimizer and cross-entropy loss for training both models.
 
@@ -192,7 +193,7 @@ def get_optimizer_and_loss():
     return optimizer, loss
 ```
 
-## Fine-tune GPT-2
+## Fine-tune GPT-2 {#fine-tune-gpt-2}
 
 Let's load the model and preprocessor first. We use a sequence length of 128 instead of 1024 (which is the default sequence length). This will limit our ability to predict long sequences, but will allow us to run this example quickly on Colab.
 
@@ -303,17 +304,17 @@ Total Time Elapsed: 0.22s
 
 {{% /details %}}
 
-## LoRA GPT-2
+## LoRA GPT-2 {#lora-gpt-2}
 
 In this section, we discuss the technical details of LoRA, build a LoRA GPT-2 model, fine-tune it and generate text.
 
-### What exactly is LoRA?
+### What exactly is LoRA? {#what-exactly-is-lora}
 
 LoRA is a parameter-efficient fine-tuning technique for LLMs. It freezes the weights of the LLM, and injects trainable rank-decomposition matrices. Let's understand this more clearly.
 
 Assume we have an `n x n` pre-trained dense layer (or weight matrix), `W0`. We initialize two dense layers, `A` and `B`, of shapes `n x rank`, and `rank x n`, respectively. `rank` is much smaller than `n`. In the paper, values between 1 and 4 are shown to work well.
 
-#### LoRA equation
+#### LoRA equation {#lora-equation}
 
 The original equation is `output = W0x + b0`, where `x` is the input, `W0` and `b0` are the weight matrix and bias terms of the original dense layer (frozen). The LoRA equation is: `output = W0x + b0 + BAx`, where `A` and `B` are the rank-decomposition matrices.
 
@@ -321,11 +322,11 @@ LoRA is based on the idea that updates to the weights of the pre-trained languag
 
 ![lora_diagram](/images/examples/nlp/parameter_efficient_finetuning_of_gpt2_with_lora/f4TFqMi.png)
 
-#### Number of trainable parameters
+#### Number of trainable parameters {#number-of-trainable-parameters}
 
 Let's do some quick math. Suppose `n` is 768, and `rank` is 4. `W0` has `768 x 768 = 589,824` parameters, whereas the LoRA layers, `A` and `B` together have `768 x 4 + 4 x 768 = 6,144` parameters. So, for the dense layer, we go from `589,824` trainable parameters to `6,144` trainable parameters!
 
-#### Why does LoRA reduce memory footprint?
+#### Why does LoRA reduce memory footprint? {#why-does-lora-reduce-memory-footprint}
 
 Even though the total number of parameters increase (since we are adding LoRA layers), the memory footprint reduces, because the number of trainable parameters reduces. Let's dive deeper into this.
 
@@ -338,13 +339,13 @@ The memory usage of a model can be split into four parts:
 
 Since, with LoRA, there is a huge reduction in the number of trainable parameters, the optimizer memory and the memory required to store the gradients for LoRA is much less than GPT-2. This is where most of the memory savings happen.
 
-#### Why is LoRA so popular?
+#### Why is LoRA so popular? {#why-is-lora-so-popular}
 
 - Reduces GPU memory usage;
 - Faster training; and
 - No additional inference latency.
 
-### Create LoRA layer
+### Create LoRA layer {#create-lora-layer}
 
 According to the technical description above, let's create a LoRA layer. In a transformer model, the LoRA layer is created and injected for the query and value projection matrices. In [`keras.layers.MultiHeadAttention`]({{< relref "/docs/api/layers/attention_layers/multi_head_attention#multiheadattention-class" >}}), the query/value projection layers are [`keras.layers.EinsumDense`]({{< relref "/docs/api/layers/core_layers/einsum_dense#einsumdense-class" >}}) layers.
 
@@ -426,7 +427,7 @@ class LoraLayer(keras.layers.Layer):
         return original_output
 ```
 
-### Inject LoRA layer into the model
+### Inject LoRA layer into the model {#inject-lora-layer-into-the-model}
 
 We will now hack the original GPT-2 model and inject LoRA layers into it. Let's do a couple of things before doing that:
 
@@ -538,7 +539,7 @@ Model: "gpt2_causal_lm_1"
 
 {{% /details %}}
 
-### Fine-tune LoRA GPT-2
+### Fine-tune LoRA GPT-2 {#fine-tune-lora-gpt-2}
 
 Now that we have hacked and verified the LoRA GPT-2 model, let's train it!
 
@@ -603,7 +604,7 @@ WARNING:matplotlib.legend:No artists with labels found to put in legend.  Note t
 
 ![png](/images/examples/nlp/parameter_efficient_finetuning_of_gpt2_with_lora/parameter_efficient_finetuning_of_gpt2_with_lora_43_1.png)
 
-### Merge weights and generate text!
+### Merge weights and generate text! {#merge-weights-and-generate-text}
 
 One of the biggest advantages of LoRA over other adapter methods is that it does not incur any additional inference latency. Let's understand why.
 

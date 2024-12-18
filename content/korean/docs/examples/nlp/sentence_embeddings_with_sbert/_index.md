@@ -1,5 +1,6 @@
 ---
-title: Sentence embeddings using Siamese RoBERTa-networks
+title: Siamese RoBERTa 네트워크를 사용한 문장 임베딩
+linkTitle: Siamese RoBERTa 문장 임베딩
 toc: true
 weight: 20
 type: docs
@@ -19,7 +20,7 @@ type: docs
 {{< card link="https://github.com/keras-team/keras-io/blob/master/examples/nlp/sentence_embeddings_with_sbert.py" title="GitHub" tag="GitHub">}}
 {{< /cards >}}
 
-## Introduction
+## Introduction {#introduction}
 
 BERT and RoBERTa can be used for semantic textual similarity tasks, where two sentences are passed to the model and the network predicts whether they are similar or not. But what if we have a large collection of sentences and want to find the most similar pairs in that collection? That will take n\*(n-1)/2 inference computations, where n is the number of sentences in the collection. For example, if n = 10000, the required time will be 65 hours on a V100 GPU.
 
@@ -33,7 +34,7 @@ If we use RoBERTa directly, that will yield rather bad sentence embeddings. But 
 
 In this example, we will show how to fine-tune a RoBERTa model using a Siamese network such that it will be able to produce semantically meaningful sentence embeddings and use them in a semantic search and clustering example. This method of fine-tuning was introduced in [Sentence-BERT](https://arxiv.org/abs/1908.10084)
 
-## Setup
+## Setup {#setup}
 
 Let's install and import the libraries we need. We'll be using the KerasHub library in this example.
 
@@ -58,7 +59,7 @@ import sklearn.cluster as cluster
 keras.mixed_precision.set_global_policy("mixed_float16")
 ```
 
-## Fine-tune the model using siamese networks
+## Fine-tune the model using siamese networks {#fine-tune-the-model-using-siamese-networks}
 
 [Siamese network](https://en.wikipedia.org/wiki/Siamese_neural_network) is a neural network architecture that contains two or more subnetworks. The subnetworks share the same weights. It is used to generate feature vectors for each input and then compare them for similarity.
 
@@ -66,13 +67,13 @@ For our example, the subnetwork will be a RoBERTa model that has a pooling layer
 
 The pooling strategies used are mean, max, and CLS pooling. Mean pooling produces the best results. We will use it in our examples.
 
-### Fine-tune using the regression objective function
+### Fine-tune using the regression objective function {#fine-tune-using-the-regression-objective-function}
 
 For building the siamese network with the regression objective function, the siamese network is asked to predict the cosine similarity between the embeddings of the two input sentences.
 
 Cosine similarity indicates the angle between the sentence embeddings. If the cosine similarity is high, that means there is a small angle between the embeddings; hence, they are semantically similar.
 
-#### Load the dataset
+#### Load the dataset {#load-the-dataset}
 
 We will use the STSB dataset to fine-tune the model for the regression objective. STSB consists of a collection of sentence pairs that are labelled in the range \[0, 5\]. 0 indicates the least semantic similarity between the two sentences, and 5 indicates the most semantic similarity between the two sentences.
 
@@ -166,7 +167,7 @@ similarity : [0.29999995]
 
 {{% /details %}}
 
-#### Build the encoder model.
+#### Build the encoder model. {#build-the-encoder-model}
 
 Now, we'll build the encoder model that will produce the sentence embeddings. It consists of:
 
@@ -219,7 +220,7 @@ Model: "functional_1"
 
 {{% /details %}}
 
-#### Build the Siamese network with the regression objective function.
+#### Build the Siamese network with the regression objective function. {#build-the-siamese-network-with-the-regression-objective-function}
 
 It's described above that the Siamese network has two or more subnetworks, and for this Siamese model, we need two encoders. But we don't have two encoders; we have only one encoder, but we will pass the two sentences through it. That way, we can have two paths to get the embeddings and also shared weights between the two paths.
 
@@ -246,7 +247,7 @@ class RegressionSiamese(keras.Model):
         return self.encoder
 ```
 
-#### Fit the model
+#### Fit the model {#fit-the-model}
 
 Let's try this example before training and compare it to the output after training.
 
@@ -332,11 +333,11 @@ cosine similarity between sentence 3 and the query = 0.83544921875
 
 {{% /details %}}
 
-### Fine-tune Using the triplet Objective Function
+### Fine-tune Using the triplet Objective Function {#fine-tune-using-the-triplet-objective-function}
 
 For the Siamese network with the triplet objective function, three sentences are passed to the Siamese network _anchor_, _positive_, and _negative_ sentences. _anchor_ and _positive_ sentences are semantically similar, and _anchor_ and _negative_ sentences are semantically dissimilar. The objective is to minimize the distance between the _anchor_ sentence and the _positive_ sentence, and to maximize the distance between the _anchor_ sentence and the _negative_ sentence.
 
-#### Load the dataset
+#### Load the dataset {#load-the-dataset}
 
 We will use the Wikipedia-sections-triplets dataset for fine-tuning. This data set consists of sentences derived from the Wikipedia website. It has a collection of 3 sentences _anchor_, _positive_, _negative_. _anchor_ and _positive_ are derived from the same section. _anchor_ and _negative_ are derived from different sections.
 
@@ -390,7 +391,7 @@ Archive:  wikipedia-sections-triplets.zip
 
 {{% /details %}}
 
-#### Build the encoder model
+#### Build the encoder model {#build-the-encoder-model}
 
 For this encoder model, we will use RoBERTa with mean pooling and we will not normalize the output embeddings. The encoder model consists of:
 
@@ -441,7 +442,7 @@ Model: "functional_3"
 
 {{% /details %}}
 
-#### Build the Siamese network with the triplet objective function
+#### Build the Siamese network with the triplet objective function {#build-the-siamese-network-with-the-triplet-objective-function}
 
 For the Siamese network with the triplet objective function, we will build the model with an encoder, and we will pass the three sentences through that encoder. We will get an embedding for each sentence, and we will calculate the `positive_dist` and `negative_dist` that will be passed to the loss function described below.
 
@@ -491,7 +492,7 @@ class TripletLoss(keras.losses.Loss):
         return keras.ops.mean(losses, axis=0)
 ```
 
-#### Fit the model
+#### Fit the model {#fit-the-model}
 
 For the training, we will use the custom `TripletLoss()` loss function, and `Adam()` optimizer with a learning rate = 2e-5.
 

@@ -1,5 +1,6 @@
 ---
-title: Character-level recurrent sequence-to-sequence model
+title: 문자 레벨 recurrent 시퀀스-to-시퀀스 모델
+linkTitle: 문자 레벨 recurrent 시퀀스-to-시퀀스 모델
 toc: true
 weight: 13
 type: docs
@@ -19,7 +20,7 @@ type: docs
 {{< card link="https://github.com/keras-team/keras-io/blob/master/examples/nlp/lstm_seq2seq.py" title="GitHub" tag="GitHub">}}
 {{< /cards >}}
 
-## Introduction
+## Introduction {#introduction}
 
 This example demonstrates how to implement a basic character-level recurrent sequence-to-sequence model. We apply it to translating short English sentences into short French sentences, character-by-character. Note that it is fairly unusual to do character-level machine translation, as word-level models are more common in this domain.
 
@@ -30,7 +31,7 @@ This example demonstrates how to implement a basic character-level recurrent seq
 - A decoder LSTM is trained to turn the target sequences into the same sequence but offset by one timestep in the future, a training process called "teacher forcing" in this context. It uses as initial state the state vectors from the encoder. Effectively, the decoder learns to generate `targets[t+1...]` given `targets[...t]`, conditioned on the input sequence.
 - In inference mode, when we want to decode unknown input sequences, we: - Encode the input sequence into state vectors - Start with a target sequence of size 1 (just the start-of-sequence character) - Feed the state vectors and 1-char target sequence to the decoder to produce predictions for the next character - Sample the next character using these predictions (we simply use argmax). - Append the sampled character to the target sequence - Repeat until we generate the end-of-sequence character or we hit the character limit.
 
-## Setup
+## Setup {#setup}
 
 ```python
 import numpy as np
@@ -39,7 +40,7 @@ import os
 from pathlib import Path
 ```
 
-## Download the data
+## Download the data {#download-the-data}
 
 ```python
 fpath = keras.utils.get_file(origin="http://www.manythings.org/anki/fra-eng.zip")
@@ -55,7 +56,7 @@ os.system(f"unzip -q {fpath} -d {dirpath}")
 
 {{% /details %}}
 
-## Configuration
+## Configuration {#configuration}
 
 ```python
 batch_size = 64  # Batch size for training.
@@ -66,7 +67,7 @@ num_samples = 10000  # Number of samples to train on.
 data_path = os.path.join(dirpath, "fra.txt")
 ```
 
-## Prepare the data
+## Prepare the data {#prepare-the-data}
 
 ```python
 # Vectorize the data.
@@ -146,7 +147,7 @@ Max sequence length for outputs: 59
 
 {{% /details %}}
 
-## Build the model
+## Build the model {#build-the-model}
 
 ```python
 # Define an input sequence and process it.
@@ -173,7 +174,7 @@ decoder_outputs = decoder_dense(decoder_outputs)
 model = keras.Model([encoder_inputs, decoder_inputs], decoder_outputs)
 ```
 
-## Train the model
+## Train the model {#train-the-model}
 
 ```python
 model.compile(
@@ -397,7 +398,7 @@ Epoch 100/100
 
 {{% /details %}}
 
-## Run inference (sampling)
+## Run inference (sampling) {#run-inference-sampling}
 
 1.  encode input and retrieve initial decoder state
 2.  run one step of decoder with this initial state and a "start of sequence" token as target. Output will be the next target token.

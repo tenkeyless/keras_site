@@ -1,5 +1,6 @@
 ---
-title: Text classification using Decision Forests and pretrained embeddings
+title: 의사 결정 포레스트와 사전 트레이닝된 임베딩을 사용한 텍스트 분류
+linkTitle: 의사 결정 포레스트, 임베딩 텍스트 분류
 toc: true
 weight: 7
 type: docs
@@ -19,20 +20,20 @@ type: docs
 {{< card link="https://github.com/keras-team/keras-io/blob/master/examples/nlp/tweet-classification-using-tfdf.py" title="GitHub" tag="GitHub">}}
 {{< /cards >}}
 
-## Introduction
+## Introduction {#introduction}
 
 [TensorFlow Decision Forests](https://www.tensorflow.org/decision_forests) (TF-DF) is a collection of state-of-the-art algorithms for Decision Forest models that are compatible with Keras APIs. The module includes Random Forests, Gradient Boosted Trees, and CART, and can be used for regression, classification, and ranking tasks.
 
 In this example we will use Gradient Boosted Trees with pretrained embeddings to classify disaster-related tweets.
 
-### See also:
+### See also: {#see-also}
 
 - [TF-DF beginner tutorial](https://www.tensorflow.org/decision_forests/tutorials/beginner_colab)
 - [TF-DF intermediate tutorial](https://www.tensorflow.org/decision_forests/tutorials/intermediate_colab).
 
 Install Tensorflow Decision Forest using following command : `pip install tensorflow_decision_forests`
 
-## Imports
+## Imports {#imports}
 
 ```python
 import pandas as pd
@@ -45,7 +46,7 @@ import tensorflow_decision_forests as tfdf
 import matplotlib.pyplot as plt
 ```
 
-## Get the data
+## Get the data {#get-the-data}
 
 The Dataset is available on [Kaggle](https://www.kaggle.com/c/nlp-getting-started)
 
@@ -252,7 +253,7 @@ Name: target, dtype: int64
 
 {{% /details %}}
 
-## Convert data to a [`tf.data.Dataset`](https://www.tensorflow.org/api_docs/python/tf/data/Dataset)
+## Convert data to a [`tf.data.Dataset`](https://www.tensorflow.org/api_docs/python/tf/data/Dataset) {#convert-data-to-a-tfdatadatasethttpswwwtensorfloworgapi_docspythontfdatadataset}
 
 ```python
 def create_dataset(dataframe):
@@ -268,7 +269,7 @@ train_ds = create_dataset(train_df)
 test_ds = create_dataset(test_df)
 ```
 
-## Downloading pretrained embeddings
+## Downloading pretrained embeddings {#downloading-pretrained-embeddings}
 
 The Universal Sentence Encoder embeddings encode text into high-dimensional vectors that can be used for text classification, semantic similarity, clustering and other natural language tasks. They're trained on a variety of data sources and a variety of tasks. Their input is variable-length English text and their output is a 512 dimensional vector.
 
@@ -280,7 +281,7 @@ sentence_encoder_layer = hub.KerasLayer(
 )
 ```
 
-## Creating our models
+## Creating our models {#creating-our-models}
 
 We create two models. In the first model (model_1) raw text will be first encoded via pretrained embeddings and then passed to a Gradient Boosted Tree model for classification. In the second model (model_2) raw text will be directly passed to the Gradient Boosted Trees model.
 
@@ -315,7 +316,7 @@ Use /tmp/tmpl0zj3vw0 as temporary training directory
 
 {{% /details %}}
 
-## Train the models
+## Train the models {#train-the-models}
 
 We compile our model by passing the metrics `Accuracy`, `Recall`, `Precision` and `AUC`. When it comes to the loss, TF-DF automatically detects the best loss for the task (Classification or regression). It is printed in the model summary.
 
@@ -690,7 +691,7 @@ None
 
 {{% /details %}}
 
-## Plotting training metrics
+## Plotting training metrics {#plotting-training-metrics}
 
 ```python
 def plot_curve(logs):
@@ -717,7 +718,7 @@ plot_curve(logs_2)
 
 ![png](/images/examples/nlp/tweet-classification-using-tfdf/tweet-classification-using-tfdf_41_1.png)
 
-## Evaluating on test data
+## Evaluating on test data {#evaluating-on-test-data}
 
 ```python
 results = model_1.evaluate(test_ds, return_dict=True, verbose=0)
@@ -756,7 +757,7 @@ auc: 0.5026
 
 {{% /details %}}
 
-## Predicting on validation data
+## Predicting on validation data {#predicting-on-validation-data}
 
 ```python
 test_df.reset_index(inplace=True, drop=True)
@@ -811,6 +812,6 @@ Ground Truth : 0
 
 {{% /details %}}
 
-## Concluding remarks
+## Concluding remarks {#concluding-remarks}
 
 The TensorFlow Decision Forests package provides powerful models that work especially well with structured data. In our experiments, the Gradient Boosted Tree model with pretrained embeddings achieved 81.6% test accuracy while the plain Gradient Boosted Tree model had 54.4% accuracy.

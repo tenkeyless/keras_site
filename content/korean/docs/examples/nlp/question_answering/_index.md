@@ -1,5 +1,6 @@
 ---
-title: Question Answering with Hugging Face Transformers
+title: Hugging Face 트랜스포머로 질문 답변하기
+linkTitle: Hugging Face 트랜스포머 질문 답변
 toc: true
 weight: 27
 type: docs
@@ -19,7 +20,7 @@ type: docs
 {{< card link="https://github.com/keras-team/keras-io/blob/master/examples/nlp/question_answering.py" title="GitHub" tag="GitHub">}}
 {{< /cards >}}
 
-## Introduction to Question Answering
+## Introduction to Question Answering {#introduction-to-question-answering}
 
 Question answering is a common NLP task with several variants. In some variants, the task is multiple-choice: A list of possible answers are supplied with each question, and the model simply needs to return a probability distribution over the options. A more challenging variant of question answering, which is more applicable to real-life tasks, is when the options are not provided. Instead, the model is given an input document – called context – and a question about the document, and it must extract the span of text in the document that contains the answer. In this case, the model is not computing a probability distribution over answers, but two probability distributions over the tokens in the document text, representing the start and end of the span containing the answer. This variant is called "extractive question answering".
 
@@ -29,7 +30,7 @@ Starting with a pretrained model adds difficulties, though - where do you get th
 
 In this example, we'll show you how to load a model from the Hugging Face [🤗Transformers](https://github.com/huggingface/transformers) library to tackle this challenge. We'll also load a benchmark question answering dataset from the [🤗Datasets](https://github.com/huggingface/datasets) library - this is another open-source repository containing a wide range of datasets across many modalities, from NLP to vision and beyond. Note, though, that there is no requirement that these libraries must be used with each other. If you want to train a model from [🤗Transformers](https://github.com/huggingface/transformers) on your own data, or you want to load data from [🤗 Datasets](https://github.com/huggingface/datasets) and train your own entirely unrelated models with it, that is of course possible (and highly encouraged!)
 
-## Installing the requirements
+## Installing the requirements {#installing-the-requirements}
 
 ```python
 !pip install git+https://github.com/huggingface/transformers.git
@@ -37,7 +38,7 @@ In this example, we'll show you how to load a model from the Hugging Face [🤗T
 !pip install huggingface-hub
 ```
 
-## Loading the dataset
+## Loading the dataset {#loading-the-dataset}
 
 We will use the [🤗 Datasets](https://github.com/huggingface/datasets) library to download the SQUAD question answering dataset using `load_dataset()`.
 
@@ -61,7 +62,7 @@ print(datasets["train"][0])
 
 {{% /details %}}
 
-## Preprocessing the training data
+## Preprocessing the training data {#preprocessing-the-training-data}
 
 Before we can feed those texts to our model, we need to preprocess them. This is done by a 🤗 Transformers `Tokenizer` which will (as the name indicates) tokenize the inputs (including converting the tokens to their corresponding IDs in the pretrained vocabulary) and put it in a format the model expects, as well as generate the other inputs that model requires.
 
@@ -226,7 +227,7 @@ train_set = tokenized_datasets["train"].with_format("numpy")[
 validation_set = tokenized_datasets["validation"].with_format("numpy")[:]
 ```
 
-## Fine-tuning the model
+## Fine-tuning the model {#fine-tuning-the-model}
 
 That was a lot of work! But now that our data is ready, everything is going to run very smoothly. First, we download the pretrained model and fine-tune it. Since our task is question answering, we use the `TFAutoModelForQuestionAnswering` class. Like with the tokenizer, the `from_pretrained()` method will download and cache the model for us:
 

@@ -1,5 +1,6 @@
 ---
-title: Text Classification using FNet (KerasHub)
+title: FNet을 사용한 텍스트 분류 (KerasHub)
+linkTitle: FNet 텍스트 분류 (KerasHub)
 toc: true
 weight: 3
 type: docs
@@ -19,13 +20,13 @@ type: docs
 {{< card link="https://github.com/keras-team/keras-io/blob/master/examples/nlp/fnet_classification_with_keras_hub.py" title="GitHub" tag="GitHub">}}
 {{< /cards >}}
 
-## Introduction
+## Introduction {#introduction}
 
 In this example, we will demonstrate the ability of FNet to achieve comparable results with a vanilla Transformer model on the text classification task. We will be using the IMDb dataset, which is a collection of movie reviews labelled either positive or negative (sentiment analysis).
 
 To build the tokenizer, model, etc., we will use components from [KerasHub](https://github.com/keras-team/keras-hub). KerasHub makes life easier for people who want to build NLP pipelines! :)
 
-### Model
+### Model {#model}
 
 Transformer-based language models (LMs) such as BERT, RoBERTa, XLNet, etc. have demonstrated the effectiveness of the self-attention mechanism for computing rich embeddings for input text. However, the self-attention mechanism is an expensive operation, with a time complexity of `O(n^2)`, where `n` is the number of tokens in the input. Hence, there has been an effort to reduce the time complexity of the self-attention mechanism and improve performance without sacrificing the quality of results.
 
@@ -34,7 +35,7 @@ In 2020, a paper titled [FNet: Mixing Tokens with Fourier Transforms](https://ar
 - The authors claim that FNet is 80% faster than BERT on GPUs and 70% faster on TPUs. The reason for this speed-up is two-fold: a) the Fourier Transform layer is unparametrized, it does not have any parameters, and b) the authors use Fast Fourier Transform (FFT); this reduces the time complexity from `O(n^2)` (in the case of self-attention) to `O(n log n)`.
 - FNet manages to achieve 92-97% of the accuracy of BERT on the GLUE benchmark.
 
-## Setup
+## Setup {#setup}
 
 Before we start with the implementation, let's import all the necessary packages.
 
@@ -64,7 +65,7 @@ EMBED_DIM = 128
 INTERMEDIATE_DIM = 512
 ```
 
-## Loading the dataset
+## Loading the dataset {#loading-the-dataset}
 
 First, let's download the IMDB dataset and extract it.
 
@@ -180,7 +181,7 @@ b'"hollywood hotel" has relationships to many films like "ella cinders" and "mer
 
 {{% /details %}}
 
-### Tokenizing the data
+### Tokenizing the data {#tokenizing-the-data}
 
 We'll be using the [`keras_hub.tokenizers.WordPieceTokenizer`]({{< relref "/docs/api/keras_hub/tokenizers/word_piece_tokenizer#wordpiecetokenizer-class" >}}) layer to tokenize the text. [`keras_hub.tokenizers.WordPieceTokenizer`]({{< relref "/docs/api/keras_hub/tokenizers/word_piece_tokenizer#wordpiecetokenizer-class" >}}) takes a WordPiece vocabulary and has functions for tokenizing the text, and detokenizing sequences of tokens.
 
@@ -297,7 +298,7 @@ Recovered text after detokenizing:  tf.Tensor(b'this picture seemed way to slant
 
 {{% /details %}}
 
-## Formatting the dataset
+## Formatting the dataset {#formatting-the-dataset}
 
 Next, we'll format our datasets in the form that will be fed to the models. We need to tokenize the text.
 
@@ -317,7 +318,7 @@ val_ds = make_dataset(val_ds)
 test_ds = make_dataset(test_ds)
 ```
 
-## Building the model
+## Building the model {#building-the-model}
 
 Now, let's move on to the exciting part - defining our model! We first need an embedding layer, i.e., a layer that maps every token in the input sequence to a vector. This embedding layer can be initialised randomly. We also need a positional embedding layer which encodes the word order in the sequence. The convention is to add, i.e., sum, these two embeddings. KerasHub has a `keras_hub.layers.TokenAndPositionEmbedding` layer which does all of the above steps for us.
 
@@ -356,7 +357,7 @@ fnet_classifier = keras.Model(input_ids, outputs, name="fnet_classifier")
 
 {{% /details %}}
 
-## Training our model
+## Training our model {#training-our-model}
 
 We'll use accuracy to monitor training progress on the validation data. Let's train our model for 3 epochs.
 
@@ -435,7 +436,7 @@ fnet_classifier.evaluate(test_ds, batch_size=BATCH_SIZE)
 
 {{% /details %}}
 
-## Comparison with Transformer model
+## Comparison with Transformer model {#comparison-with-transformer-model}
 
 Let's compare our FNet Classifier model with a Transformer Classifier model. We keep all the parameters/hyperparameters the same. For example, we use three `TransformerEncoder` layers.
 

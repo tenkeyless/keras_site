@@ -1,5 +1,6 @@
 ---
-title: Named Entity Recognition using Transformers
+title: 트랜스포머를 사용한 명명된 엔티티 인식
+linkTitle: 트랜스포머 명명된 엔티티 인식
 toc: true
 weight: 15
 type: docs
@@ -19,13 +20,13 @@ type: docs
 {{< card link="https://github.com/keras-team/keras-io/blob/master/examples/nlp/ner_transformers.py" title="GitHub" tag="GitHub">}}
 {{< /cards >}}
 
-## Introduction
+## Introduction {#introduction}
 
 Named Entity Recognition (NER) is the process of identifying named entities in text. Example of named entities are: "Person", "Location", "Organization", "Dates" etc. NER is essentially a token classification task where every token is classified into one or more predetermined categories.
 
 In this exercise, we will train a simple Transformer based model to perform NER. We will be using the data from CoNLL 2003 shared task. For more information about the dataset, please visit [the dataset website](https://www.clips.uantwerpen.be/conll2003/ner/). However, since obtaining this data requires an additional step of getting a free license, we will be using HuggingFace's datasets library which contains a processed version of this dataset.
 
-## Install the open source datasets library from HuggingFace
+## Install the open source datasets library from HuggingFace {#install-the-open-source-datasets-library-from-huggingface}
 
 We also download the script used to evaluate NER models.
 
@@ -113,7 +114,7 @@ class TokenAndPositionEmbedding(layers.Layer):
         return token_embeddings + position_embeddings
 ```
 
-## Build the NER model class as a [`keras.Model`]({{< relref "/docs/api/models/model#model-class" >}}) subclass
+## Build the NER model class as a [`keras.Model`]({{< relref "/docs/api/models/model#model-class" >}}) subclass {#build-the-ner-model-class-as-a-kerasmodelless-relref-docsapimodelsmodelmodel-class-greater-subclass}
 
 ```python
 class NERModel(keras.Model):
@@ -138,7 +139,7 @@ class NERModel(keras.Model):
         return x
 ```
 
-## Load the CoNLL 2003 dataset from the datasets library and process it
+## Load the CoNLL 2003 dataset from the datasets library and process it {#load-the-conll-2003-dataset-from-the-datasets-library-and-process-it}
 
 ```python
 conll_data = load_dataset("conll2003")
@@ -168,7 +169,7 @@ export_to_file("./data/conll_train.txt", conll_data["train"])
 export_to_file("./data/conll_val.txt", conll_data["validation"])
 ```
 
-## Make the NER label lookup table
+## Make the NER label lookup table {#make-the-ner-label-lookup-table}
 
 NER labels are usually provided in IOB, IOB2 or IOBES formats. Checkout this link for more information: [Wikipedia](<https://en.wikipedia.org/wiki/Inside%E2%80%93outside%E2%80%93beginning_(tagging)>)
 
@@ -301,7 +302,7 @@ class CustomNonPaddingTokenLoss(keras.losses.Loss):
 loss = CustomNonPaddingTokenLoss()
 ```
 
-## Compile and fit the model
+## Compile and fit the model {#compile-and-fit-the-model}
 
 ```python
 tf.config.run_functions_eagerly(True)
@@ -359,7 +360,7 @@ tf.Tensor([[  988 10950   204   628     6  3938   215  5773]], shape=(1, 8), dty
 
 {{% /details %}}
 
-## Metrics calculation
+## Metrics calculation {#metrics-calculation}
 
 Here is a function to calculate the metrics. The function calculates F1 score for the overall NER dataset as well as individual scores for each NER tag.
 
@@ -407,7 +408,7 @@ accuracy:  93.23%; precision:  69.64%; recall:  66.32%; FB1:  67.94
 
 {{% /details %}}
 
-## Conclusions
+## Conclusions {#conclusions}
 
 In this exercise, we created a simple transformer based named entity recognition model. We trained it on the CoNLL 2003 shared task data and got an overall F1 score of around 70%. State of the art NER models fine-tuned on pretrained models such as BERT or ELECTRA can easily get much higher F1 score -between 90-95% on this dataset owing to the inherent knowledge of words as part of the pretraining process and the usage of subword tokenization.
 

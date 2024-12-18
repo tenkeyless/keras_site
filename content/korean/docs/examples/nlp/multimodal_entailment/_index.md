@@ -1,5 +1,6 @@
 ---
-title: Multimodal entailment
+title: 멀티모달 Entailment
+linkTitle: 멀티모달 entailment
 toc: true
 weight: 14
 type: docs
@@ -19,11 +20,11 @@ type: docs
 {{< card link="https://github.com/keras-team/keras-io/blob/master/examples/nlp/multimodal_entailment.py" title="GitHub" tag="GitHub">}}
 {{< /cards >}}
 
-## Introduction
+## Introduction {#introduction}
 
 In this example, we will build and train a model for predicting multimodal entailment. We will be using the [multimodal entailment dataset](https://github.com/google-research-datasets/recognizing-multimodal-entailment) recently introduced by Google Research.
 
-### What is multimodal entailment?
+### What is multimodal entailment? {#what-is-multimodal-entailment}
 
 On social media platforms, to audit and moderate content we may want to find answers to the following questions in near real-time:
 
@@ -32,7 +33,7 @@ On social media platforms, to audit and moderate content we may want to find ans
 
 In NLP, this task is called analyzing _textual entailment_. However, that's only when the information comes from text content. In practice, it's often the case the information available comes not just from text content, but from a multimodal combination of text, images, audio, video, etc. _Multimodal entailment_ is simply the extension of textual entailment to a variety of new input modalities.
 
-### Requirements
+### Requirements {#requirements}
 
 This example requires TensorFlow 2.5 or higher. In addition, TensorFlow Hub and TensorFlow Text are required for the BERT model ([Devlin et al.](https://arxiv.org/abs/1810.04805)). These libraries can be installed using the following command:
 
@@ -40,7 +41,7 @@ This example requires TensorFlow 2.5 or higher. In addition, TensorFlow Hub and 
 !pip install -q tensorflow_text
 ```
 
-## Imports
+## Imports {#imports}
 
 ```python
 from sklearn.model_selection import train_test_split
@@ -55,13 +56,13 @@ import tensorflow_text as text
 from tensorflow import keras
 ```
 
-## Define a label map
+## Define a label map {#define-a-label-map}
 
 ```python
 label_map = {"Contradictory": 0, "Implies": 1, "NoEntailment": 2}
 ```
 
-## Collect the dataset
+## Collect the dataset {#collect-the-dataset}
 
 The original dataset is available [here](https://github.com/google-research-datasets/recognizing-multimodal-entailment). It comes with URLs of images which are hosted on Twitter's photo storage system called the [Photo Blob Storage (PBS for short)](https://blog.twitter.com/engineering/en_us/a/2012/blobstore-twitter-s-in-house-photo-storage-system). We will be working with the downloaded images along with additional data that comes with the original dataset. Thanks to [Nilabhra Roy Chowdhury](https://de.linkedin.com/in/nilabhraroychowdhury) who worked on preparing the image data.
 
@@ -73,7 +74,7 @@ image_base_path = keras.utils.get_file(
 )
 ```
 
-## Read the dataset and apply basic preprocessing
+## Read the dataset and apply basic preprocessing {#read-the-dataset-and-apply-basic-preprocessing}
 
 ```python
 df = pd.read_csv(
@@ -134,7 +135,7 @@ df["image_2_path"] = images_two_paths
 df["label_idx"] = df["label"].apply(lambda x: label_map[x])
 ```
 
-## Dataset visualization
+## Dataset visualization {#dataset-visualization}
 
 ```python
 def visualize(idx):
@@ -215,7 +216,7 @@ Label: NoEntailment
 
 {{% /details %}}
 
-## Train/test split
+## Train/test split {#traintest-split}
 
 The dataset suffers from [class imbalance problem](https://developers.google.com/machine-learning/glossary#class-imbalanced-dataset). We can confirm that in the following cell.
 
@@ -261,7 +262,7 @@ Total test examples: 140
 
 {{% /details %}}
 
-## Data input pipeline
+## Data input pipeline {#data-input-pipeline}
 
 TensorFlow Hub provides [variety of BERT family of models](https://www.tensorflow.org/text/tutorials/bert_glue#loading_models_from_tensorflow_hub). Each of those models comes with a corresponding preprocessing layer. You can learn more about these models and their preprocessing layers from [this resource](https://www.tensorflow.org/text/tutorials/bert_glue#loading_models_from_tensorflow_hub).
 
@@ -323,7 +324,7 @@ keras.utils.plot_model(bert_preprocess_model, show_shapes=True, show_dtype=True)
 
 ![png](/images/examples/nlp/multimodal_entailment/multimodal_entailment_22_0.png)
 
-### Run the preprocessor on a sample input
+### Run the preprocessor on a sample input {#run-the-preprocessor-on-a-sample-input}
 
 ```python
 idx = np.random.choice(len(train_df))
@@ -377,7 +378,7 @@ def dataframe_to_dataset(dataframe):
     return ds
 ```
 
-### Preprocessing utilities
+### Preprocessing utilities {#preprocessing-utilities}
 
 ```python
 resize = (128, 128)
@@ -411,7 +412,7 @@ def preprocess_text_and_image(sample):
     return {"image_1": image_1, "image_2": image_2, "text": text}
 ```
 
-### Create the final datasets
+### Create the final datasets {#create-the-final-datasets}
 
 ```python
 batch_size = 32
@@ -432,7 +433,7 @@ validation_ds = prepare_dataset(val_df, False)
 test_ds = prepare_dataset(test_df, False)
 ```
 
-## Model building utilities
+## Model building utilities {#model-building-utilities}
 
 Our final model will accept two images along with their text counterparts. While the images will be directly fed to the model the text inputs will first be preprocessed and then will make it into the model. Below is a visual illustration of this approach:
 
@@ -581,7 +582,7 @@ keras.utils.plot_model(multimodal_model, show_shapes=True)
 
 You can inspect the structure of the individual encoders as well by setting the `expand_nested` argument of `plot_model()` to `True`. You are encouraged to play with the different hyperparameters involved in building this model and observe how the final performance is affected.
 
-## Compile and train the model
+## Compile and train the model {#compile-and-train-the-model}
 
 ```python
 multimodal_model.compile(
@@ -618,7 +619,7 @@ Epoch 10/10
 
 {{% /details %}}
 
-## Evaluate the model
+## Evaluate the model {#evaluate-the-model}
 
 ```python
 _, acc = multimodal_model.evaluate(test_ds)
@@ -634,7 +635,7 @@ Accuracy on the test set: 84.29%.
 
 {{% /details %}}
 
-## Additional notes regarding training
+## Additional notes regarding training {#additional-notes-regarding-training}
 
 **Incorporating regularization**:
 
@@ -685,7 +686,7 @@ Finally, here is a table comparing different approaches taken for the entailment
 
 You can check out [this repository](https://git.io/JR0HU) to learn more about how the experiments were conducted to obtain these numbers.
 
-## Final remarks
+## Final remarks {#final-remarks}
 
 - The architecture we used in this example is too large for the number of data points available for training. It's going to benefit from more data.
 - We used a smaller variant of the original BERT model. Chances are high that with a larger variant, this performance will be improved. TensorFlow Hub [provides](https://www.tensorflow.org/text/tutorials/bert_glue#loading_models_from_tensorflow_hub) a number of different BERT models that you can experiment with.
