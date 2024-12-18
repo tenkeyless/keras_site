@@ -1,5 +1,6 @@
 ---
-title: A walk through latent space with Stable Diffusion
+title: Stable Diffusion으로 잠재 공간 걷기
+linkTitle: Stable Diffusion 잠재 공간 걷기
 toc: true
 weight: 2
 type: docs
@@ -10,7 +11,7 @@ type: docs
 **{{< t f_author >}}** Ian Stenbit, [fchollet](https://twitter.com/fchollet), [lukewood](https://twitter.com/luke_wood_ml)  
 **{{< t f_date_created >}}** 2022/09/28  
 **{{< t f_last_modified >}}** 2022/09/28  
-**{{< t f_description >}}** Explore the latent manifold of Stable Diffusion.
+**{{< t f_description >}}** Stable Diffusion의 잠재 매니폴드를 탐색해 보십시오.
 
 {{< keras/version v=3 >}}
 
@@ -19,28 +20,48 @@ type: docs
 {{< card link="https://github.com/keras-team/keras-io/blob/master/examples/generative/random_walks_with_stable_diffusion.py" title="GitHub" tag="GitHub">}}
 {{< /cards >}}
 
-## Overview
+## 개요 {#overview}
 
-Generative image models learn a "latent manifold" of the visual world: a low-dimensional vector space where each point maps to an image. Going from such a point on the manifold back to a displayable image is called "decoding" – in the Stable Diffusion model, this is handled by the "decoder" model.
+생성 이미지 모델은 시각 세계의 "잠재적 매니폴드(latent manifold)"를 학습합니다.
+이는 각 지점이 이미지에 매핑되는 저차원 벡터 공간입니다.
+매니폴드의 이러한 지점에서 표시 가능한 이미지로 돌아가는 것을 "디코딩(decoding)"이라고 합니다.
+Stable Diffusion 모델에서는 "디코더(decoder)" 모델이 이를 처리합니다.
 
 ![The Stable Diffusion architecture](/images/examples/generative/random_walks_with_stable_diffusion/2uC8rYJ.png)
 
-This latent manifold of images is continuous and interpolative, meaning that:
+이 이미지의 잠재 매니폴드는 연속적이고 보간적입니다. 즉, 다음을 의미합니다.
 
-1.  Moving a little on the manifold only changes the corresponding image a little (continuity).
-2.  For any two points A and B on the manifold (i.e. any two images), it is possible to move from A to B via a path where each intermediate point is also on the manifold (i.e. is also a valid image). Intermediate points would be called "interpolations" between the two starting images.
+1. 매니폴드에서 약간만 움직여도, 해당 이미지가 약간만 변경됩니다. (연속성)
+2. 매니폴드의 두 점 A와 B(즉, 두 이미지)에 대해,
+   각 중간 지점이 매니폴드에 있는(즉, 유효한 이미지이기도 한) 경로를 통해,
+   A에서 B로 이동할 수 있습니다.
+   중간 지점은 두 시작 이미지 사이의 "보간"이라고 합니다.
 
-Stable Diffusion isn't just an image model, though, it's also a natural language model. It has two latent spaces: the image representation space learned by the encoder used during training, and the prompt latent space which is learned using a combination of pretraining and training-time fine-tuning.
+그러나 Stable Diffusion은 이미지 모델일 뿐만 아니라, 자연어 모델이기도 합니다.
+여기에는 두 개의 잠재 공간이 있습니다.
+(1) 즉, 트레이닝 중에 사용된 인코더가 학습한 **이미지 표현 공간**과,
+(2) 사전 트레이닝과 트레이닝 시간 미세 조정을 결합하여 학습한 **프롬프트 잠재 공간**입니다.
 
-_Latent space walking_, or _latent space exploration_, is the process of sampling a point in latent space and incrementally changing the latent representation. Its most common application is generating animations where each sampled point is fed to the decoder and is stored as a frame in the final animation. For high-quality latent representations, this produces coherent-looking animations. These animations can provide insight into the feature map of the latent space, and can ultimately lead to improvements in the training process. One such GIF is displayed below:
+_잠재 공간 워킹(Latent space walking)_ 또는 _잠재 공간 탐사(latent space exploration)_ 는 잠재 공간에서 한 지점을 샘플링하고, 잠재 표현을 점진적으로 변경하는 프로세스입니다.
+가장 일반적인 응용 프로그램은 각 샘플링된 지점이 디코더에 공급되고,
+최종 애니메이션에 프레임으로 저장되는 애니메이션을 생성하는 것입니다.
+고품질 잠재 표현의 경우, 이는 일관되게 보이는 애니메이션을 생성합니다.
+이러한 애니메이션은 잠재 공간의 특성 맵에 대한 통찰력을 제공할 수 있으며,
+궁극적으로 학습 프로세스의 개선으로 이어질 수 있습니다.
+그러한 GIF 중 하나가 아래에 표시됩니다.
 
 ![Panda to Plane](/images/examples/generative/random_walks_with_stable_diffusion/panda2plane.gif)
 
-In this guide, we will show how to take advantage of the Stable Diffusion API in KerasCV to perform prompt interpolation and circular walks through Stable Diffusion's visual latent manifold, as well as through the text encoder's latent manifold.
+이 가이드에서는, KerasCV의 Stable Diffusion API를 활용하여,
+Stable Diffusion의 시각적 잠재 매니폴드와 텍스트 인코더의 잠재 매니폴드를 통한,
+신속한 보간 및 원형 워크(circular walks)를 수행하는 방법을 보여드리겠습니다.
 
-This guide assumes the reader has a high-level understanding of Stable Diffusion. If you haven't already, you should start by reading the [Stable Diffusion Tutorial]({{< relref "/docs/guides/keras_cv/generate_images_with_stable_diffusion" >}}).
+이 가이드에서는, 독자가 Stable Diffusion에 대한 높은 수준의 이해가 있다고 가정합니다.
+아직 읽지 않았다면, [Stable Diffusion 튜토리얼]({{< relref "/docs/guides/keras_cv/generate_images_with_stable_diffusion" >}})을 읽어보세요.
 
-To start, we import KerasCV and load up a Stable Diffusion model using the optimizations discussed in the tutorial [Generate images with Stable Diffusion]({{< relref "/docs/guides/keras_cv/generate_images_with_stable_diffusion" >}}). Note that if you are running with a M1 Mac GPU you should not enable mixed precision.
+시작하려면, KerasCV를 가져와서 튜토리얼 [Stable Diffusion으로 이미지 생성]({{< relref "/docs/guides/keras_cv/generate_images_with_stable_diffusion" >}})에서 설명한 최적화를 사용하여,
+Stable Diffusion 모델을 로드합니다.
+M1 Mac GPU로 실행하는 경우 혼합 정밀도(mixed precision)를 활성화해서는 안 됩니다.
 
 ```python
 !pip install keras-cv --upgrade --quiet
@@ -55,11 +76,10 @@ import numpy as np
 import math
 from PIL import Image
 
-# Enable mixed precision
-# (only do this if you have a recent NVIDIA GPU)
+# 혼합 정밀도 활성화 (최신 NVIDIA GPU가 있는 경우에만 수행)
 keras.mixed_precision.set_global_policy("mixed_float16")
 
-# Instantiate the Stable Diffusion model
+# Stable 디퓨전 모델을 인스턴스화
 model = keras_cv.models.StableDiffusion(jit_compile=True)
 ```
 
@@ -71,11 +91,16 @@ By using this model checkpoint, you acknowledge that its usage is subject to the
 
 {{% /details %}}
 
-## Interpolating between text prompts
+## 텍스트 프롬프트 간 보간 {#interpolating-between-text-prompts}
 
-In Stable Diffusion, a text prompt is first encoded into a vector, and that encoding is used to guide the diffusion process. The latent encoding vector has shape 77x768 (that's huge!), and when we give Stable Diffusion a text prompt, we're generating images from just one such point on the latent manifold.
+Stable Diffusion에서, 텍스트 프롬프트는 먼저 벡터로 인코딩되고,
+이 인코딩은 디퓨전 프로세스를 안내하는 데 사용됩니다.
+잠재 인코딩 벡터는 77x768(정말 큽니다!)의 모양을 가지고 있으며,
+Stable Diffusion에 텍스트 프롬프트를 제공하면,
+잠재 매니폴드의 한 지점에서만 이미지를 생성합니다.
 
-To explore more of this manifold, we can interpolate between two text encodings and generate images at those interpolated points:
+이 매니폴드를 더 자세히 살펴보려면,
+두 텍스트 인코딩 사이를 보간하고, 보간된 지점에서 이미지를 생성할 수 있습니다.
 
 ```python
 prompt_1 = "A watercolor painting of a Golden Retriever at the beach"
@@ -87,7 +112,7 @@ encoding_2 = ops.squeeze(model.encode_text(prompt_2))
 
 interpolated_encodings = ops.linspace(encoding_1, encoding_2, interpolation_steps)
 
-# Show the size of the latent manifold
+# 잠재 매니폴드의 크기를 보여줍니다.
 print(f"Encoding shape: {encoding_1.shape}")
 ```
 
@@ -103,7 +128,9 @@ Encoding shape: (77, 768)
 
 {{% /details %}}
 
-Once we've interpolated the encodings, we can generate images from each point. Note that in order to maintain some stability between the resulting images we keep the diffusion noise constant between images.
+인코딩을 보간한 후에는, 각 지점에서 이미지를 생성할 수 있습니다.
+결과 이미지 간에 어느 정도 안정성을 유지하기 위해,
+이미지 간에 디퓨전 노이즈를 일정하게 유지합니다.
 
 ```python
 seed = 12345
@@ -128,11 +155,12 @@ Downloading data from https://huggingface.co/fchollet/stable-diffusion/resolve/m
 
 {{% /details %}}
 
-Now that we've generated some interpolated images, let's take a look at them!
+이제 보간된 이미지를 생성했으니, 살펴보겠습니다!
 
-Throughout this tutorial, we're going to export sequences of images as gifs so that they can be easily viewed with some temporal context. For sequences of images where the first and last images don't match conceptually, we rubber-band the gif.
+이 튜토리얼 전체에서, 이미지 시퀀스를 gif로 내보내 시간적 맥락을 통해 쉽게 볼 수 있도록 합니다.
+첫 번째 이미지와 마지막 이미지가 개념적으로 일치하지 않는 이미지 시퀀스의 경우, gif를 고무줄로 묶습니다.
 
-If you're running in Colab, you can view your own GIFs by running:
+Colab에서 실행 중인 경우, 다음을 실행하여 자신의 GIF를 볼 수 있습니다.
 
 ```python
 from IPython.display import Image as IImage
@@ -162,9 +190,15 @@ export_as_gif(
 
 ![Dog to Fruit 5](/images/examples/generative/random_walks_with_stable_diffusion/4ZCxZY4.gif)
 
-The results may seem surprising. Generally, interpolating between prompts produces coherent looking images, and often demonstrates a progressive concept shift between the contents of the two prompts. This is indicative of a high quality representation space, that closely mirrors the natural structure of the visual world.
+결과는 놀랍게 보일 수 있습니다.
+일반적으로, 프롬프트 간 보간은 일관성 있는 이미지를 생성하고,
+종종 두 프롬프트의 내용 간에 점진적인 개념 변화를 보여줍니다.
+이는 시각적 세계의 자연스러운 구조를 면밀히 반영하는, 고품질 표현 공간을 나타냅니다.
 
-To best visualize this, we should do a much more fine-grained interpolation, using hundreds of steps. In order to keep batch size small (so that we don't OOM our GPU), this requires manually batching our interpolated encodings.
+이를 가장 잘 시각화하려면, 수백 개의 단계를 사용하여,
+훨씬 더 세분화된 보간을 수행해야 합니다.
+배치 크기를 작게 유지하려면(GPU에 OOM이 발생하지 않도록),
+보간된 인코딩을 수동으로 배치해야 합니다.
 
 ```python
 interpolation_steps = 150
@@ -248,9 +282,11 @@ export_as_gif("doggo-and-fruit-150.gif", images, rubber_band=True)
 
 ![Dog to Fruit 150](/images/examples/generative/random_walks_with_stable_diffusion/dog2fruit150.gif)
 
-The resulting gif shows a much clearer and more coherent shift between the two prompts. Try out some prompts of your own and experiment!
+결과 gif는 두 프롬프트 사이의 훨씬 더 명확하고 일관된 변화를 보여줍니다.
+여러분만의 프롬프트를 시도하고 실험해보세요!
 
-We can even extend this concept for more than one image. For example, we can interpolate between four prompts:
+이 개념을 두 개 이상의 이미지로 확장할 수도 있습니다.
+예를 들어, 네 개의 프롬프트 사이를 보간할 수 있습니다.
 
 ```python
 prompt_1 = "A watercolor painting of a Golden Retriever at the beach"
@@ -342,7 +378,8 @@ plot_grid(images, "4-way-interpolation.jpg", interpolation_steps)
 
 ![png](/images/examples/generative/random_walks_with_stable_diffusion/random_walks_with_stable_diffusion_13_2.png)
 
-We can also interpolate while allowing diffusion noise to vary by dropping the `diffusion_noise` parameter:
+`diffusion_noise` 매개변수를 드롭하여,
+디퓨전 노이즈가 변하도록 허용하면서 보간할 수도 있습니다.
 
 ```python
 images = []
@@ -374,11 +411,12 @@ plot_grid(images, "4-way-interpolation-varying-noise.jpg", interpolation_steps)
 
 ![png](/images/examples/generative/random_walks_with_stable_diffusion/random_walks_with_stable_diffusion_15_2.png)
 
-Next up – let's go for some walks!
+이어서 산책을 떠나볼까요!
 
-## A walk around a text prompt
+## 텍스트 프롬프트를 둘러보기 {#a-walk-around-a-text-prompt}
 
-Our next experiment will be to go for a walk around the latent manifold starting from a point produced by a particular prompt.
+다음 실험은 특정 프롬프트에 의해 생성된 지점에서 시작하여,
+잠재 매니폴드 주위를 돌아다니는 것입니다.
 
 ```python
 walk_steps = 150
@@ -389,7 +427,7 @@ step_size = 0.005
 encoding = ops.squeeze(
     model.encode_text("The Eiffel Tower in the style of starry night")
 )
-# Note that (77, 768) is the shape of the text encoding.
+# (77, 768)이 텍스트 인코딩의 모양임을 주목하세요.
 delta = ops.ones_like(encoding) * step_size
 
 walked_encodings = []
@@ -473,13 +511,23 @@ export_as_gif("eiffel-tower-starry-night.gif", images, rubber_band=True)
 
 ![Eiffel tower walk gif](/images/examples/generative/random_walks_with_stable_diffusion/9MMYtal.gif)
 
-Perhaps unsurprisingly, walking too far from the encoder's latent manifold produces images that look incoherent. Try it for yourself by setting your own prompt, and adjusting `step_size` to increase or decrease the magnitude of the walk. Note that when the magnitude of the walk gets large, the walk often leads into areas which produce extremely noisy images.
+놀랍지 않게도, 인코더의 잠재 매니폴드에서 너무 멀리 걸어가면,
+일관성이 없어 보이는 이미지가 생성됩니다.
+직접 프롬프트를 설정하고 `step_size`를 조정하여 워크의 크기를 늘리거나 줄여서 시도해 보세요.
+워크의 크기가 커지면, 워크가 종종 매우 노이즈가 많은 이미지를 생성하는 영역으로 이어진다는 점에 유의하세요.
 
-## A circular walk through the diffusion noise space for a single prompt
+## 단일 프롬프트에 대한 디퓨전 노이즈 공간을 통한 원형 워크(circular walk) {#a-circular-walk-through-the-diffusion-noise-space-for-a-single-prompt}
 
-Our final experiment is to stick to one prompt and explore the variety of images that the diffusion model can produce from that prompt. We do this by controlling the noise that is used to seed the diffusion process.
+마지막 실험은 하나의 프롬프트에 집중하고,
+디퓨전 모델이 그 프롬프트에서 생성할 수 있는 다양한 이미지를 탐색하는 것입니다.
+디퓨전 프로세스를 시딩하는 데 사용되는 노이즈를 제어하여 이를 수행합니다.
 
-We create two noise components, `x` and `y`, and do a walk from 0 to 2π, summing the cosine of our `x` component and the sin of our `y` component to produce noise. Using this approach, the end of our walk arrives at the same noise inputs where we began our walk, so we get a "loopable" result!
+`x`와 `y`라는 두 개의 노이즈 구성 요소를 만들고,
+0에서 2π까지 워크를 수행하여,
+`x` 구성 요소의 코사인과 `y` 구성 요소의 사인을 합산하여 노이즈를 생성합니다.
+이 접근 방식을 사용하면,
+워크의 끝은 워크를 시작한 동일한 노이즈 입력에 도착하므로,
+"루프 가능한" 결과를 얻습니다!
 
 ```python
 prompt = "An oil paintings of cows in a field next to a windmill in Holland"
@@ -572,8 +620,10 @@ export_as_gif("cows.gif", images)
 
 ![Happy Cows](/images/examples/generative/random_walks_with_stable_diffusion/happycows.gif)
 
-Experiment with your own prompts and with different values of `unconditional_guidance_scale`!
+자신만의 프롬프트와 `unconditional_guidance_scale`의 다양한 값을 사용해 실험해 보세요!
 
-## Conclusion
+## 결론 {#conclusion}
 
-Stable Diffusion offers a lot more than just single text-to-image generation. Exploring the latent manifold of the text encoder and the noise space of the diffusion model are two fun ways to experience the power of this model, and KerasCV makes it easy!
+Stable Diffusion은 단일 텍스트-이미지 생성보다 훨씬 더 많은 것을 제공합니다.
+텍스트 인코더의 잠재 매니폴드와 디퓨전 모델의 노이즈 공간을 탐색하는 것은,
+이 모델의 힘을 경험하는 두 가지 재미있는 방법이며, KerasCV는 이를 쉽게 만듭니다!
