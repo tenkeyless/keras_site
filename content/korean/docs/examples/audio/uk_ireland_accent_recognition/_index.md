@@ -1,5 +1,6 @@
 ---
-title: English speaker accent recognition using Transfer Learning
+title: 전이 학습을 사용한 영어 화자 억양 인식
+linkTitle: 전이 학습 영어 화자 억양 인식
 toc: true
 weight: 6
 type: docs
@@ -19,7 +20,7 @@ type: docs
 {{< card link="https://github.com/keras-team/keras-io/blob/master/examples/audio/uk_ireland_accent_recognition.py" title="GitHub" tag="GitHub">}}
 {{< /cards >}}
 
-## Introduction
+## Introduction {#introduction}
 
 The following example shows how to use feature extraction in order to train a model to classify the English accent spoken in an audio wave.
 
@@ -42,7 +43,7 @@ You can install TensorFlow IO with the following command:
 !pip install -U -q tensorflow_io
 ```
 
-## Configuration
+## Configuration {#configuration}
 
 ```python
 SEED = 1337
@@ -99,7 +100,7 @@ class_names = [
 ]
 ```
 
-## Imports
+## Imports {#imports}
 
 ```python
 import os
@@ -124,7 +125,7 @@ keras.utils.set_random_seed(SEED)
 DATASET_DESTINATION = os.path.join(CACHE_DIR if CACHE_DIR else "~/.keras/", "datasets")
 ```
 
-## Yamnet Model
+## Yamnet Model {#yamnet-model}
 
 Yamnet is an audio event classifier trained on the AudioSet dataset to predict audio events from the AudioSet ontology. It is available on TensorFlow Hub.
 
@@ -142,7 +143,7 @@ For more detailed information about Yamnet, please refer to its [TensorFlow Hub]
 yamnet_model = hub.load("https://tfhub.dev/google/yamnet/1")
 ```
 
-## Dataset
+## Dataset {#dataset}
 
 The dataset used is the [Crowdsourced high-quality UK and Ireland English Dialect speech data set](https://openslr.org/83/) which consists of a total of 17,877 high-quality audio wav files.
 
@@ -150,7 +151,7 @@ This dataset includes over 31 hours of recording from 120 volunteers who self-id
 
 For more info, please refer to the above link or to the following paper: [Open-source Multi-speaker Corpora of the English Accents in the British Isles](https://aclanthology.org/2020.lrec-1.804.pdf)
 
-## Download the data
+## Download the data {#download-the-data}
 
 ```python
 # CSV file that contains information about the dataset. For each entry, we have:
@@ -213,7 +214,7 @@ Downloading data from https://www.openslr.org/resources/83/welsh_english_male.zi
 
 {{% /details %}}
 
-## Load the data in a Dataframe
+## Load the data in a Dataframe {#load-the-data-in-a-dataframe}
 
 Of the 3 columns (ID, filename and transcript), we are only interested in the filename column in order to read the audio file. We will ignore the other two.
 
@@ -278,7 +279,7 @@ dataframe.head()
 | 3   | /root/.keras/datasets/som_02484_00261230384.wav | 4     |
 | 4   | /root/.keras/datasets/nom_06136_00616878975.wav | 2     |
 
-## Prepare training & validation sets
+## Prepare training & validation sets {#prepare-training-validation-sets}
 
 Let's split the samples creating training and validation sets.
 
@@ -300,7 +301,7 @@ We have 16089 training samples & 1788 validation ones
 
 {{% /details %}}
 
-## Prepare a TensorFlow Dataset
+## Prepare a TensorFlow Dataset {#prepare-a-tensorflow-dataset}
 
 Next, we need to create a [`tf.data.Dataset`](https://www.tensorflow.org/api_docs/python/tf/data/Dataset). This is done by creating a `dataframe_to_dataset` function that does the following:
 
@@ -372,7 +373,7 @@ train_ds = dataframe_to_dataset(train_df)
 valid_ds = dataframe_to_dataset(valid_df)
 ```
 
-## Build the model
+## Build the model {#build-the-model}
 
 The model that we use consists of:
 
@@ -456,7 +457,7 @@ _________________________________________________________________
 
 {{% /details %}}
 
-## Class weights calculation
+## Class weights calculation {#class-weights-calculation}
 
 Since the dataset is quite unbalanced, we will use `class_weight` argument during training.
 
@@ -488,7 +489,7 @@ print(class_weight)
 
 {{% /details %}}
 
-## Callbacks
+## Callbacks {#callbacks}
 
 We use Keras callbacks in order to:
 
@@ -512,7 +513,7 @@ tensorboard_cb = keras.callbacks.TensorBoard(
 callbacks = [early_stopping_cb, model_checkpoint_cb, tensorboard_cb]
 ```
 
-## Training
+## Training {#training}
 
 ```python
 history = model.fit(
@@ -732,7 +733,7 @@ Epoch 100/100
 
 {{% /details %}}
 
-## Results
+## Results {#results}
 
 Let's plot the training and validation AUC and accuracy.
 
@@ -758,7 +759,7 @@ plt.show()
 
 ![png](/images/examples/audio/uk_ireland_accent_recognition/uk_ireland_accent_recognition_29_0.png)
 
-## Evaluation
+## Evaluation {#evaluation}
 
 ```python
 train_loss, train_acc, train_auc = model.evaluate(train_ds)
@@ -807,7 +808,7 @@ We can see that the model achieves the following results:
 | AUC      | 0.91     | 0.89       |
 | d-prime  | 1.882    | 1.740      |
 
-## Confusion Matrix
+## Confusion Matrix {#confusion-matrix}
 
 Let's now plot the confusion matrix for the validation dataset.
 
@@ -849,7 +850,7 @@ plt.show()
 
 ![png](/images/examples/audio/uk_ireland_accent_recognition/uk_ireland_accent_recognition_36_0.png)
 
-## Precision & recall
+## Precision & recall {#precision-recall}
 
 For every class:
 
@@ -881,7 +882,7 @@ Not a speech    Precision:98.83%; Recall:99.93%
 
 {{% /details %}}
 
-## Run inference on test data
+## Run inference on test data {#run-inference-on-test-data}
 
 Let's now run a test on a single audio file. Let's check this example from [The Scottish Voice](https://www.thescottishvoice.org.uk/home/)
 

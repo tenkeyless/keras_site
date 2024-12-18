@@ -1,5 +1,5 @@
 ---
-title: Audio Data
+title: 오디오 데이터
 toc: true
 weight: 6
 ---

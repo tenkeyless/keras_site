@@ -1,5 +1,6 @@
 ---
-title: MelGAN-based spectrogram inversion using feature matching
+title: 특징 매칭을 사용한 MelGAN 기반 스펙트로그램 반전
+linkTitle: MelGAN 스펙트로그램 반전
 toc: true
 weight: 3
 type: docs
@@ -20,13 +21,13 @@ math: true
 {{< card link="https://github.com/keras-team/keras-io/blob/master/examples/audio/melgan_spectrogram_inversion.py" title="GitHub" tag="GitHub">}}
 {{< /cards >}}
 
-## Introduction
+## Introduction {#introduction}
 
 Autoregressive vocoders have been ubiquitous for a majority of the history of speech processing, but for most of their existence they have lacked parallelism. [MelGAN](https://arxiv.org/pdf/1910.06711v3.pdf) is a non-autoregressive, fully convolutional vocoder architecture used for purposes ranging from spectral inversion and speech enhancement to present-day state-of-the-art speech synthesis when used as a decoder with models like Tacotron2 or FastSpeech that convert text to mel spectrograms.
 
 In this tutorial, we will have a look at the MelGAN architecture and how it can achieve fast spectral inversion, i.e. conversion of spectrograms to audio waves. The MelGAN implemented in this tutorial is similar to the original implementation with only the difference of method of padding for convolutions where we will use 'same' instead of reflect padding.
 
-## Importing and Defining Hyperparameters
+## Importing and Defining Hyperparameters {#importing-and-defining-hyperparameters}
 
 ```python
 !pip install -qqq tensorflow_addons
@@ -64,7 +65,7 @@ mae = keras.losses.MeanAbsoluteError()
 
 {{% /details %}}
 
-## Loading the Dataset
+## Loading the Dataset {#loading-the-dataset}
 
 This example uses the [LJSpeech dataset](https://keithito.com/LJ-Speech-Dataset/).
 
@@ -116,7 +117,7 @@ Number of audio files: 13100
 
 {{% /details %}}
 
-## Defining custom layers for MelGAN
+## Defining custom layers for MelGAN {#defining-custom-layers-for-melgan}
 
 The MelGAN architecture consists of 3 main modules:
 
@@ -311,7 +312,7 @@ def discriminator_block(input):
     return [lrelu1, lrelu2, lrelu3, lrelu4, lrelu5, lrelu6, conv7]
 ```
 
-### Create the generator
+### Create the generator {#create-the-generator}
 
 ```python
 def create_generator(input_shape):
@@ -507,7 +508,7 @@ ________________________________________________________________________________
 
 {{% /details %}}
 
-### Create the discriminator
+### Create the discriminator {#create-the-discriminator}
 
 ```python
 def create_discriminator(input_shape):
@@ -626,7 +627,7 @@ ________________________________________________________________________________
 
 {{% /details %}}
 
-## Defining the loss functions
+## Defining the loss functions {#defining-the-loss-functions}
 
 **Generator Loss**
 
@@ -798,7 +799,7 @@ class MelGAN(keras.Model):
         }
 ```
 
-## Training
+## Training {#training}
 
 The paper suggests that the training with dynamic shapes takes around 400,000 steps (~500 epochs). For this example, we will run it only for a single epoch (819 steps). Longer training time (greater than 300 epochs) will almost certainly provide better results.
 
@@ -837,7 +838,7 @@ mel_gan.fit(
 
 {{% /details %}}
 
-## Testing the model
+## Testing the model {#testing-the-model}
 
 The trained model can now be used for real time text-to-speech translation tasks. To test how fast the MelGAN inference can be, let us take a sample audio mel-spectrogram and convert it. Note that the actual model pipeline will not include the `MelSpec` layer and hence this layer will be disabled during inference. The inference input will be a mel-spectrogram processed similar to the `MelSpec` layer configuration.
 
@@ -862,7 +863,7 @@ pred = generator.predict(audio_sample, batch_size=32, verbose=1)
 
 {{% /details %}}
 
-## Conclusion
+## Conclusion {#conclusion}
 
 The MelGAN is a highly effective architecture for spectral inversion that has a Mean Opinion Score (MOS) of 3.61 that considerably outperforms the Griffin Lim algorithm having a MOS of just 1.57. In contrast with this, the MelGAN compares with the state-of-the-art WaveGlow and WaveNet architectures on text-to-speech and speech enhancement tasks on the LJSpeech and VCTK datasets \[1\].
 
