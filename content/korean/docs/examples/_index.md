@@ -6,10 +6,11 @@ weight: 6
 
 {{< keras/original checkedAt="2024-11-26" >}}
 
-Our code examples are short (less than 300 lines of code), focused demonstrations of vertical deep learning workflows.
+우리의 코드 예제는 300줄 미만의 짧은 코드이며, 수직적 딥러닝 워크플로우에 대한 집중적인 데모입니다.
 
-All of our examples are written as Jupyter notebooks and can be run in one click in [Google Colab](https://colab.research.google.com/notebooks/welcome.ipynb),
-a hosted notebook environment that requires no setup and runs in the cloud. Google Colab includes GPU and TPU runtimes.
+모든 예제는 Jupyter 노트북으로 작성되었으며, 별도의 설정이 필요 없고
+클라우드에서 실행되는 호스팅 노트북 환경인 [Google Colab](https://colab.research.google.com/notebooks/welcome.ipynb)에서 클릭 한 번으로 실행할 수 있습니다.
+Google Colab에는 GPU 및 TPU 런타임이 포함되어 있습니다.
 
 ## [컴퓨터 비전]({{< relref "/docs/examples/vision/" >}}) {#computer-vision}
 
@@ -719,21 +720,23 @@ a hosted notebook environment that requires no setup and runs in the cloud. Goog
 |                             | {{< hextra/hero-button text="V2" style="background: rgb(255 237 183); color: black; pointer-events: none; padding: 0.1em 1em;" >}} | {{< titledRelref "/docs/examples/keras_recipes/bayesian_neural_networks" >}}            | 2021/01/15                       | 2021/01/15                          |
 |                             | {{< hextra/hero-button text="V2" style="background: rgb(255 237 183); color: black; pointer-events: none; padding: 0.1em 1em;" >}} | {{< titledRelref "/docs/examples/keras_recipes/tfrecord" >}}                            | 2020/07/29                       | 2020/08/07                          |
 
-## Adding a new code example {#adding-a-new-code-example}
-
-We welcome new code examples! Here are our rules:
-
-- They should be shorter than 300 lines of code (comments may be as long as you want).
-- They should demonstrate modern Keras best practices.
-- They should be substantially different in topic from all examples listed above.
-- They should be extensively documented & commented.
-
-New examples are added via Pull Requests to the [keras.io repository](https://github.com/keras-team/keras-io).
-They must be submitted as a `.py` file that follows a specific format. They are usually generated from Jupyter notebooks.
-See the [`tutobooks` documentation](https://github.com/keras-team/keras-io/blob/master/README.md) for more details.
-
-If you would like to convert a Keras 2 example to Keras 3, please open a Pull Request to the [keras.io repository](https://github.com/keras-team/keras-io).
-
 ## 모든 컨텐츠
 
 {{< default-section-cards-list-recursive >}}
+
+## 새 코드 예제 추가하기 {#adding-a-new-code-example}
+
+우리는 새로운 코드 예제를 환영합니다! 규칙은 다음과 같습니다:
+
+- 코드 길이가 300줄 미만이어야 합니다. (주석은 원하는 만큼 길어도 됩니다)
+- 최신 Keras 모범 사례를 보여줄 수 있어야 합니다.
+- 위에 나열된 모든 예제와는 주제가 상당히 달라야 합니다.
+- 광범위하게 문서화되고 주석을 달아야 합니다.
+
+새로운 예제는 Pull 리퀘스트를 통해 [keras.io 리포지토리](https://github.com/keras-team/keras-io)에 추가됩니다.
+예제는 특정 형식을 따르는 `.py` 파일로 제출해야 합니다.
+예제는 보통 Jupyter 노트북에서 생성됩니다.
+자세한 내용은 [`tutobooks` 문서](https://github.com/keras-team/keras-io/blob/master/README.md)를 참조하세요.
+
+Keras 2 예제를 Keras 3으로 변환하려면,
+[keras.io 리포지토리](https://github.com/keras-team/keras-io)에 Pull 리퀘스트를 열어주세요.Ø
