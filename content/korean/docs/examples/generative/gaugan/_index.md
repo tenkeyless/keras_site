@@ -1,5 +1,6 @@
 ---
-title: GauGAN for conditional image generation
+title: 조건부 이미지 생성을 위한 GauGAN
+linkTitle: GauGAN 조건부 이미지 생성
 toc: true
 weight: 14
 type: docs
@@ -10,7 +11,7 @@ type: docs
 **{{< t f_author >}}** [Soumik Rakshit](https://github.com/soumik12345), [Sayak Paul](https://twitter.com/RisingSayak)  
 **{{< t f_date_created >}}** 2021/12/26  
 **{{< t f_last_modified >}}** 2022/01/03  
-**{{< t f_description >}}** Implementing a GauGAN for conditional image generation.
+**{{< t f_description >}}** 조건부 이미지 생성을 위한 GauGAN 구현.
 
 {{< keras/version v=3 >}}
 
@@ -19,31 +20,53 @@ type: docs
 {{< card link="https://github.com/keras-team/keras-io/blob/master/examples/generative/gaugan.py" title="GitHub" tag="GitHub">}}
 {{< /cards >}}
 
-## Introduction
+## 소개 {#introduction}
 
-In this example, we present an implementation of the GauGAN architecture proposed in [Semantic Image Synthesis with Spatially-Adaptive Normalization](https://arxiv.org/abs/1903.07291). Briefly, GauGAN uses a Generative Adversarial Network (GAN) to generate realistic images that are conditioned on cue images and segmentation maps, as shown below ([image source](https://nvlabs.github.io/SPADE/)):
+이 예시에서는, [Spatially-Adaptive Normalization을 사용한 Semantic Image Synthesis](https://arxiv.org/abs/1903.07291)에서 제안된 GauGAN 아키텍처의 구현을 소개합니다.
+간략하게 말하자면, GauGAN은 생성적 적대 신경망(GAN)을 사용하여,
+큐 이미지와 세그멘테이션 맵에 조건을 두고 현실적인 이미지를 생성합니다.
+아래는 해당 아키텍처를 시각적으로 설명한 예시입니다. ([이미지 출처](https://nvlabs.github.io/SPADE/)):
 
 ![png](/images/examples/generative/gaugan/image.png)
 
-The main components of a GauGAN are:
+GauGAN의 주요 구성 요소는 다음과 같습니다:
 
-- **SPADE (aka spatially-adaptive normalization)** : The authors of GauGAN argue that the more conventional normalization layers (such as [Batch Normalization](https://arxiv.org/abs/1502.03167)) destroy the semantic information obtained from segmentation maps that are provided as inputs. To address this problem, the authors introduce SPADE, a normalization layer particularly suitable for learning affine parameters (scale and bias) that are spatially adaptive. This is done by learning different sets of scaling and bias parameters for each semantic label.
-- **Variational encoder**: Inspired by [Variational Autoencoders](https://arxiv.org/abs/1312.6114), GauGAN uses a variational formulation wherein an encoder learns the mean and variance of a normal (Gaussian) distribution from the cue images. This is where GauGAN gets its name from. The generator of GauGAN takes as inputs the latents sampled from the Gaussian distribution as well as the one-hot encoded semantic segmentation label maps. The cue images act as style images that guide the generator to stylistic generation. This variational formulation helps GauGAN achieve image diversity as well as fidelity.
-- **Multi-scale patch discriminator** : Inspired by the [PatchGAN](https://paperswithcode.com/method/patchgan) model, GauGAN uses a discriminator that assesses a given image on a patch basis and produces an averaged score.
+- **SPADE (Spatially-Adaptive Normalization)** :
+  GauGAN의 저자들은 [배치 정규화(Batch Normalization)](https://arxiv.org/abs/1502.03167)와 같은 기존의 정규화 층이,
+  입력으로 제공된 세그멘테이션 맵에서 얻은 시맨틱 정보를 손실시킨다고 주장합니다.
+  이 문제를 해결하기 위해, 저자들은 SPADE라는,
+  공간 적응적인 affine 파라미터(스케일과 바이어스)를 학습하는데 적합한 정규화 레이어를 도입했습니다.
+  이는 각 시맨틱 레이블에 대해, 다른 스케일과 바이어스 파라미터 세트를 학습함으로써 이루어집니다.
+- **변분 인코더(Variational encoder)**:
+  [변분 오토인코더(Variational Autoencoders)](https://arxiv.org/abs/1312.6114)에 영감을 받아,
+  GauGAN은 변분 공식화를 사용하여 인코더가 큐(cue) 이미지에서 정규(가우시안) 분포의 평균과 분산을 학습합니다.
+  이 부분에서 GauGAN의 이름이 유래되었습니다.
+  GauGAN의 생성자는 가우시안 분포에서 샘플링된 잠재변수(latent)와 원-핫 인코딩된 시맨틱 세그멘테이션 레이블 맵을 입력으로 받습니다.
+  큐 이미지는 스타일 이미지로 작용하여 생성자에 스타일리시한 생성을 유도합니다.
+  이 변분 공식화는 GauGAN이 이미지의 다양성과 충실도를 동시에 달성하는 데 도움이 됩니다.
+- **멀티 스케일 패치 판별자(Multi-scale patch discriminator)**:
+  [PatchGAN](https://paperswithcode.com/method/patchgan) 모델에 영감을 받아,
+  GauGAN은 주어진 이미지를 패치 단위로 평가하고 평균 점수를 출력하는 판별자를 사용합니다.
 
-As we proceed with the example, we will discuss each of the different components in further detail.
+이 예시를 진행하면서, 각 구성 요소에 대해 자세히 논의하겠습니다.
 
-For a thorough review of GauGAN, please refer to [this article](https://blog.paperspace.com/nvidia-gaugan-introduction/). We also encourage you to check out [the official GauGAN website](https://nvlabs.github.io/SPADE/), which has many creative applications of GauGAN. This example assumes that the reader is already familiar with the fundamental concepts of GANs. If you need a refresher, the following resources might be useful:
+GauGAN에 대한 심층 리뷰는, [이 글](https://blog.paperspace.com/nvidia-gaugan-introduction/)을 참고하세요.
+또한 [공식 GauGAN 웹사이트](https://nvlabs.github.io/SPADE/)에서,
+GauGAN의 창의적인 다양한 응용 프로그램을 확인해보는 것을 권장합니다.
+이 예시는 독자가 GAN의 기본 개념에 이미 익숙하다고 가정합니다.
+복습이 필요하다면, 다음 자료들이 유용할 수 있습니다:
 
-- [Chapter on GANs](https://livebook.manning.com/book/deep-learning-with-python/chapter-8) from the Deep Learning with Python book by François Chollet.
-- GAN implementations on keras.io:
-  - [Data efficient GANs]({{< relref "/docs/examples/generative/gan_ada" >}})
+- François Chollet의 "Deep Learning with Python" 책의 [GAN에 관한 챕터](https://livebook.manning.com/book/deep-learning-with-python/chapter-8).
+- keras.io의 GAN 구현 예시들:
+  - [데이터 효율적 GAN]({{< relref "/docs/examples/generative/gan_ada" >}})
   - [CycleGAN]({{< relref "/docs/examples/generative/cyclegan" >}})
   - [Conditional GAN]({{< relref "/docs/examples/generative/conditional_gan" >}})
 
-## Data collection
+## 데이터 수집 {#data-collection}
 
-We will be using the [Facades dataset](https://cmp.felk.cvut.cz/~tylecr1/facade/) for training our GauGAN model. Let's first download it.
+GauGAN 모델을 학습하기 위해
+[Facades 데이터셋](https://cmp.felk.cvut.cz/~tylecr1/facade/)을 사용할 것입니다.
+먼저 이를 다운로드해 보겠습니다.
 
 ```python
 !wget https://drive.google.com/uc?id=1q4FEjQg1YSb4mPx2VdxL7LXKYu3voTMj -O facades_data.zip
@@ -70,7 +93,7 @@ facades_data.zip    100%[===================>]  24.83M  94.3MB/s    in 0.3s
 
 {{% /details %}}
 
-## Imports
+## Imports {#imports}
 
 ```python
 import os
@@ -89,7 +112,7 @@ from keras import layers
 from glob import glob
 ```
 
-## Data splitting
+## 데이터 분할 {#data-splitting}
 
 ```python
 PATH = "./facades_data/"
@@ -117,7 +140,7 @@ Total validation samples: 76.
 
 {{% /details %}}
 
-## Data loader
+## 데이터 로더 {#data-loader}
 
 ```python
 BATCH_SIZE = 4
@@ -188,7 +211,7 @@ train_dataset = load(train_files, batch_size=BATCH_SIZE, is_train=True)
 val_dataset = load(val_files, batch_size=BATCH_SIZE, is_train=False)
 ```
 
-Now, let's visualize a few samples from the training set.
+이제 트레이닝 세트에서 몇 가지 샘플을 시각화해 보겠습니다.
 
 ```python
 sample_train_batch = next(iter(train_dataset))
@@ -196,7 +219,7 @@ print(f"Segmentation map batch shape: {sample_train_batch[0].shape}.")
 print(f"Image batch shape: {sample_train_batch[1].shape}.")
 print(f"One-hot encoded label map shape: {sample_train_batch[2].shape}.")
 
-# Plot a view samples from the training set.
+# 트레이닝 세트에서 몇 가지 샘플을 플롯합니다.
 for segmentation_map, real_image in zip(sample_train_batch[0], sample_train_batch[1]):
     fig = plt.figure(figsize=(10, 10))
     fig.add_subplot(1, 2, 1).set_title("Segmentation Map")
@@ -222,23 +245,35 @@ One-hot encoded label map shape: (4, 256, 256, 12).
 
 ![png](/images/examples/generative/gaugan/gaugan_11_3.png)
 
-Note that in the rest of this example, we use a couple of figures from the [original GauGAN paper](https://arxiv.org/abs/1903.07291) for convenience.
+참고로, 이 예제의 나머지 부분에서는,
+편의상 [원본 GauGAN 논문](https://arxiv.org/abs/1903.07291)의 몇 가지 그림을 사용합니다.
 
-## Custom layers
+## 커스텀 레이어 {#custom-layers}
 
-In the following section, we implement the following layers:
+다음 섹션에서는, 다음 레이어들을 구현합니다:
 
 - SPADE
-- Residual block including SPADE
-- Gaussian sampler
+- SPADE를 포함한 Residual 블록
+- Gaussian 샘플러
 
-### Some more notes on SPADE
+### SPADE에 대한 추가 설명 {#some-more-notes-on-spade}
 
 ![png](/images/examples/generative/gaugan/DgMWrrs.png)
 
-**SPatially-Adaptive (DE) normalization** or **SPADE** is a simple but effective layer for synthesizing photorealistic images given an input semantic layout. Previous methods for conditional image generation from semantic input such as Pix2Pix ([Isola et al.](https://arxiv.org/abs/1611.07004)) or Pix2PixHD ([Wang et al.](https://arxiv.org/abs/1711.11585)) directly feed the semantic layout as input to the deep network, which is then processed through stacks of convolution, normalization, and nonlinearity layers. This is often suboptimal as the normalization layers have a tendency to wash away semantic information.
+**SPatially-Adaptive (DE) normalization** 또는 **SPADE**는 입력된 시맨틱 레이아웃을 기반으로,
+사진과 같은 이미지를 합성하는 데 효과적인 레이어입니다.
+이전의 시맨틱 입력을 이용한 조건부 이미지 생성 방법
+(예: Pix2Pix([Isola et al.](https://arxiv.org/abs/1611.07004)) 또는
+Pix2PixHD([Wang et al.](https://arxiv.org/abs/1711.11585)))은
+시맨틱 레이아웃을 딥 네트워크에 직접 입력으로 제공하고,
+이를 여러 컨볼루션, 정규화, 비선형 레이어를 통해 처리합니다.
+그러나, 이러한 방식은 정규화 레이어가 시맨틱 정보를 제거하는 경향이 있어 비효율적일 수 있습니다.
 
-In SPADE, the segmentation mask is first projected onto an embedding space, and then convolved to produce the modulation parameters `γ` and `β`. Unlike prior conditional normalization methods, `γ` and `β` are not vectors, but tensors with spatial dimensions. The produced `γ` and `β` are multiplied and added to the normalized activation element-wise. As the modulation parameters are adaptive to the input segmentation mask, SPADE is better suited for semantic image synthesis.
+SPADE에서는 세그멘테이션 마스크가 먼저 임베딩 공간으로 프로젝션된 후,
+컨볼루션을 통해 모듈레이션 매개변수 `γ`와 `β`를 생성합니다.
+기존의 조건부 정규화 방법과 달리, `γ`와 `β`는 벡터가 아닌 공간 차원이 있는 텐서입니다.
+생성된 `γ`와 `β`는 정규화된 활성화 값에 요소별로 곱해지고 더해집니다.
+모듈레이션 매개변수가 입력 세그멘테이션 마스크에 적응하기 때문에, SPADE는 시맨틱 이미지 합성에 더 적합합니다.
 
 ```python
 class SPADE(layers.Layer):
@@ -317,7 +352,7 @@ class GaussianSampler(layers.Layer):
         return samples
 ```
 
-Next, we implement the downsampling block for the encoder.
+다음으로, 인코더의 다운샘플링 블록을 구현합니다.
 
 ```python
 def downsample(
@@ -348,7 +383,7 @@ def downsample(
     return block
 ```
 
-The GauGAN encoder consists of a few downsampling blocks. It outputs the mean and variance of a distribution.
+GauGAN 인코더는 몇 가지 다운샘플링 블록으로 구성되며, 분포의 평균과 분산을 출력합니다.
 
 ![png](/images/examples/generative/gaugan/JgAv1EW.png)
 
@@ -366,11 +401,16 @@ def build_encoder(image_shape, encoder_downsample_factor=64, latent_dim=256):
     return keras.Model(input_image, [mean, variance], name="encoder")
 ```
 
-Next, we implement the generator, which consists of the modified residual blocks and upsampling blocks. It takes latent vectors and one-hot encoded segmentation labels, and produces new images.
+다음으로, 수정된 residual 블록과 업샘플링 블록으로 구성된 생성자를 구현합니다.
+이 생성자는 잠재 벡터와 원-핫 인코딩된 세그멘테이션 레이블을 받아 새로운 이미지를 생성합니다.
 
 ![png](/images/examples/generative/gaugan/9iP1TsB.png)
 
-With SPADE, there is no need to feed the segmentation map to the first layer of the generator, since the latent inputs have enough structural information about the style we want the generator to emulate. We also discard the encoder part of the generator, which is commonly used in prior architectures. This results in a more lightweight generator network, which can also take a random vector as input, enabling a simple and natural path to multi-modal synthesis.
+SPADE를 사용하면, 세그멘테이션 맵을 생성자의 첫 번째 레이어에 전달할 필요가 없습니다.
+이는 잠재 입력이 생성자가 모방하고자 하는 스타일에 대한 충분한 구조적 정보를 가지고 있기 때문입니다.
+또한 이전 아키텍처에서 흔히 사용되던 생성자의 인코더 부분을 제거합니다.
+이로 인해 더 가벼운 생성자 네트워크가 완성되며,
+랜덤 벡터를 입력으로 받아 여러 스타일의 이미지를 간단하게 생성할 수 있는 경로를 제공합니다.
 
 ```python
 def build_generator(mask_shape, latent_dim=256):
@@ -395,7 +435,8 @@ def build_generator(mask_shape, latent_dim=256):
     return keras.Model([latent, mask], output_image, name="generator")
 ```
 
-The discriminator takes a segmentation map and an image and concatenates them. It then predicts if patches of the concatenated image are real or fake.
+판별자는 세그멘테이션 맵과 이미지를 결합한 후,
+이 결합된 이미지가 진짜인지 가짜인지를 패치 단위로 예측합니다.
 
 ![png](/images/examples/generative/gaugan/rn71PlM.png)
 
@@ -413,21 +454,20 @@ def build_discriminator(image_shape, downsample_factor=64):
     return keras.Model([input_image_A, input_image_B], outputs)
 ```
 
-## Loss functions
+## 손실 함수 {#loss-functions}
 
-GauGAN uses the following loss functions:
+GauGAN은 다음과 같은 손실 함수를 사용합니다:
 
-- Generator:
+- 생성자:
 
-  - Expectation over the discriminator predictions.
+  - 판별자의 예측값에 대한 기대값.
   - [KL divergence](https://en.wikipedia.org/wiki/Kullback%E2%80%93Leibler_divergence)
-    for learning the mean and variance predicted by the encoder.
-  - Minimization between the discriminator predictions on original and generated
-    images to align the feature space of the generator.
-  - [Perceptual loss](https://arxiv.org/abs/1603.08155) for encouraging the generated
-    images to have perceptual quality.
+    - 인코더가 예측한 평균과 분산을 학습하기 위한 것.
+    - 판별자의 예측값을 생성된 이미지와 원본 이미지에서 최소화하여, 생성자의 피처 공간을 정렬하는 것.
+  - [Perceptual 손실](https://arxiv.org/abs/1603.08155)
+    - 생성된 이미지가 시각적으로 질 높은 이미지를 생성하도록 유도하는 것.
 
-- Discriminator:
+- 판별자:
 
   ```python
   def generator_loss(y):
@@ -486,11 +526,11 @@ GauGAN uses the following loss functions:
           return self.hinge_loss(is_real, y)
   ```
 
-  - [Hinge loss](https://en.wikipedia.org/wiki/Hinge_loss).
+  - [Hinge 손실](https://en.wikipedia.org/wiki/Hinge_loss).
 
-## GAN monitor callback
+## GAN 모니터 콜백 {#gan-monitor-callback}
 
-Next, we implement a callback to monitor the GauGAN results while it is training.
+다음으로, GauGAN이 트레이닝 중일 때 결과를 모니터링할 콜백을 구현합니다.
 
 ```python
 class GanMonitor(keras.callbacks.Callback):
@@ -529,9 +569,10 @@ class GanMonitor(keras.callbacks.Callback):
                 plt.show()
 ```
 
-## Subclassed GauGAN model
+## 서브클래싱된 GauGAN 모델 {#subclassed-gaugan-model}
 
-Finally, we put everything together inside a subclassed model (from [`tf.keras.Model`]({{< relref "/docs/api/models/model#model-class" >}}) overriding its `train_step()` method.
+마지막으로, 모든 것을 서브클래싱된 모델([`tf.keras.Model`]({{< relref "/docs/api/models/model#model-class" >}})로부터) 안에 넣고,
+`train_step()` 메서드를 재정의합니다.
 
 ```python
 class GauGAN(keras.Model):
@@ -581,13 +622,12 @@ class GauGAN(keras.Model):
         ]
 
     def build_combined_generator(self):
-        # This method builds a model that takes as inputs the following:
-        # latent vector, one-hot encoded segmentation label map, and
-        # a segmentation map. It then (i) generates an image with the generator,
-        # (ii) passes the generated images and segmentation map to the discriminator.
-        # Finally, the model produces the following outputs: (a) discriminator outputs,
-        # (b) generated image.
-        # We will be using this model to simplify the implementation.
+        # 이 메서드는 다음을 입력으로 받는 모델을 빌드합니다:
+        # latent 벡터, 원-핫 인코딩된 세그멘테이션 레이블 맵, 그리고 세그멘테이션 맵.
+        # 이 모델은 (i) 생성자를 사용해 이미지를 생성하고,
+        # (ii) 생성된 이미지와 세그멘테이션 맵을 판별자에 전달합니다.
+        # 마지막으로, 모델은 (a) 판별자 출력과 (b) 생성된 이미지를 출력합니다.
+        # 우리는 이 모델을 사용하여 구현을 단순화할 것입니다.
         self.discriminator.trainable = False
         mask_input = keras.Input(shape=self.mask_shape, name="mask")
         image_input = keras.Input(shape=self.image_shape, name="image")
@@ -634,8 +674,8 @@ class GauGAN(keras.Model):
     def train_generator(
         self, latent_vector, segmentation_map, labels, image, mean, variance
     ):
-        # Generator learns through the signal provided by the discriminator. During
-        # backpropagation, we only update the generator parameters.
+        # 생성자는 판별자가 제공하는 신호를 통해 학습합니다.
+        # 역전파 중에는, 생성자의 매개변수만 업데이트합니다.
         self.discriminator.trainable = False
         with tf.GradientTape() as tape:
             real_d_output = self.discriminator([segmentation_map, image])
@@ -645,7 +685,7 @@ class GauGAN(keras.Model):
             fake_d_output, fake_image = combined_outputs[:-1], combined_outputs[-1]
             pred = fake_d_output[-1]
 
-            # Compute generator losses.
+            # 생성자 손실 계산
             g_loss = generator_loss(pred)
             kl_loss = self.kl_divergence_loss_coeff * kl_divergence_loss(mean, variance)
             vgg_loss = self.vgg_feature_loss_coeff * self.vgg_loss(image, fake_image)
@@ -675,7 +715,7 @@ class GauGAN(keras.Model):
             latent_vector, segmentation_map, labels, image, mean, variance
         )
 
-        # Report progress.
+        # 진행 상황 보고
         self.disc_loss_tracker.update_state(discriminator_loss)
         self.gen_loss_tracker.update_state(generator_loss)
         self.feat_loss_tracker.update_state(feature_loss)
@@ -686,16 +726,16 @@ class GauGAN(keras.Model):
 
     def test_step(self, data):
         segmentation_map, image, labels = data
-        # Obtain the learned moments of the real image distribution.
+        # 실제 이미지 분포에서 학습된 모멘트를 얻습니다.
         mean, variance = self.encoder(image)
 
-        # Sample a latent from the distribution defined by the learned moments.
+        # 학습된 모멘트에서 latent 벡터를 샘플링합니다.
         latent_vector = self.sampler([mean, variance])
 
-        # Generate the fake images.
+        # 가짜 이미지를 생성합니다.
         fake_images = self.generator([latent_vector, labels])
 
-        # Calculate the losses.
+        # 손실을 계산합니다.
         pred_fake = self.discriminator([segmentation_map, fake_images])[-1]
         pred_real = self.discriminator([segmentation_map, image])[-1]
         loss_fake = self.discriminator_loss(pred_fake, -1.0)
@@ -715,7 +755,7 @@ class GauGAN(keras.Model):
         )
         total_generator_loss = g_loss + kl_loss + vgg_loss + feature_loss
 
-        # Report progress.
+        # 진행 상황을 보고합니다.
         self.disc_loss_tracker.update_state(total_discriminator_loss)
         self.gen_loss_tracker.update_state(total_generator_loss)
         self.feat_loss_tracker.update_state(feature_loss)
@@ -729,7 +769,7 @@ class GauGAN(keras.Model):
         return self.generator([latent_vectors, labels])
 ```
 
-## GauGAN training
+## GauGAN 트레이닝 {#gaugan-training}
 
 ```python
 gaugan = GauGAN(IMG_HEIGHT, NUM_CLASSES, BATCH_SIZE, latent_dim=256)
@@ -854,18 +894,18 @@ Epoch 15/15
 
 {{% /details %}}
 
-## Inference
+## 추론 {#inference}
 
 ```python
 val_iterator = iter(val_dataset)
 
 for _ in range(5):
     val_images = next(val_iterator)
-    # Sample latent from a normal distribution.
+    # 정규 분포에서 latent 벡터를 샘플링합니다.
     latent_vector = keras.random.normal(
         shape=(gaugan.batch_size, gaugan.latent_dim), mean=0.0, stddev=2.0
     )
-    # Generate fake images.
+    # 가짜 이미지를 생성합니다.
     fake_images = gaugan.predict([latent_vector, val_images[2]])
 
     real_images = val_images
@@ -908,15 +948,26 @@ for _ in range(5):
 
 {{% /details %}}
 
-## Final words
+## 마지막 한마디 {#final-words}
 
-- The dataset we used in this example is a small one. For obtaining even better results we recommend to use a bigger dataset. GauGAN results were demonstrated with the [COCO-Stuff](https://github.com/nightrome/cocostuff) and [CityScapes](https://www.cityscapes-dataset.com/) datasets.
-- This example was inspired the Chapter 6 of [Hands-On Image Generation with TensorFlow](https://www.packtpub.com/product/hands-on-image-generation-with-tensorflow/9781838826789) by [Soon-Yau Cheong](https://www.linkedin.com/in/soonyau/) and [Implementing SPADE using fastai](https://towardsdatascience.com/implementing-spade-using-fastai-6ad86b94030a) by [Divyansh Jha](https://medium.com/@divyanshj.16).
-- If you found this example interesting and exciting, you might want to check out [our repository](https://github.com/soumik12345/tf2_gans) which we are currently building. It will include reimplementations of popular GANs and pretrained models. Our focus will be on readability and making the code as accessible as possible. Our plain is to first train our implementation of GauGAN (following the code of this example) on a bigger dataset and then make the repository public. We welcome contributions!
-- Recently GauGAN2 was also released. You can check it out [here](https://blogs.nvidia.com/blog/2021/11/22/gaugan2-ai-art-demo/).
+- 이 예제에서 사용된 데이터셋은 작은 규모입니다.
+  더 나은 결과를 얻으려면, 더 큰 데이터셋을 사용하는 것이 좋습니다.
+  GauGAN 결과는 [COCO-Stuff](https://github.com/nightrome/cocostuff)와
+  [CityScapes](https://www.cityscapes-dataset.com/) 데이터셋을 사용해 입증되었습니다.
+- 이 예제는 [Soon-Yau Cheong](https://www.linkedin.com/in/soonyau/)의
+  [Hands-On Image Generation with TensorFlow](https://www.packtpub.com/product/hands-on-image-generation-with-tensorflow/9781838826789) 책의 6장에서 영감을 받았으며,
+  [Divyansh Jha](https://medium.com/@divyanshj.16)의
+  [Implementing SPADE using fastai](https://towardsdatascience.com/implementing-spade-using-fastai-6ad86b94030a)에서도 영감을 받았습니다.
+- 이 예제가 흥미롭고 재미있다면, [우리의 레포지토리](https://github.com/soumik12345/tf2_gans)를 확인해 보세요.
+  우리는 현재 인기 있는 GAN과 사전 트레이닝된 모델을 다시 구현하고 있습니다.
+  우리의 목표는 코드의 가독성을 높이고 접근성을 개선하는 데 중점을 두는 것입니다.
+  우리는 먼저 이 예제 코드를 기반으로 한 GauGAN 구현을 더 큰 데이터셋으로 트레이닝한 후,
+  레포지토리를 공개할 계획입니다. 기여를 환영합니다!
+- 최근 GauGAN2도 출시되었습니다.
+  [여기](https://blogs.nvidia.com/blog/2021/11/22/gaugan2-ai-art-demo/)에서 확인할 수 있습니다.
 
-Example available on HuggingFace.
+예제는 HuggingFace에서 확인 가능합니다.
 
-| Trained Model                                                                                                                                                        | Demo                                                                                                                                                                                     |
+| 트레이닝된 모델                                                                                                                                                      | 데모                                                                                                                                                                                     |
 | -------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | [![Generic badge](https://img.shields.io/badge/%F0%9F%A4%97%20Model-GauGAN%20Image%20Generation-black.svg)](https://huggingface.co/keras-io/GauGAN-Image-generation) | [![Generic badge](https://img.shields.io/badge/%F0%9F%A4%97%20Spaces-GauGAN%20Image%20Generation-black.svg)](https://huggingface.co/spaces/keras-io/GauGAN_Conditional_Image_Generation) |
