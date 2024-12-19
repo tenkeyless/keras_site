@@ -1,5 +1,6 @@
 ---
-title: Denoising Diffusion Probabilistic Model
+title: 노이즈 제거 디퓨전 확률론적 모델
+linkTitle: 노이즈 제거 디퓨전 확률론적 모델
 toc: true
 weight: 4
 type: docs
@@ -10,7 +11,7 @@ type: docs
 **{{< t f_author >}}** [A_K_Nain](https://twitter.com/A_K_Nain)  
 **{{< t f_date_created >}}** 2022/11/30  
 **{{< t f_last_modified >}}** 2022/12/07  
-**{{< t f_description >}}** Generating images of flowers with denoising diffusion probabilistic models.
+**{{< t f_description >}}** 노이즈 제거 디퓨전 확률론적 모델을 사용하여, 꽃 이미지를 생성합니다.
 
 {{< keras/version v=2 >}}
 
@@ -19,58 +20,96 @@ type: docs
 {{< card link="https://github.com/keras-team/keras-io/blob/master/examples/generative/ddpm.py" title="GitHub" tag="GitHub">}}
 {{< /cards >}}
 
-## Introduction
+## 소개 {#introduction}
 
-Generative modeling experienced tremendous growth in the last five years. Models like VAEs, GANs, and flow-based models proved to be a great success in generating high-quality content, especially images. Diffusion models are a new type of generative model that has proven to be better than previous approaches.
+생성 모델링은 지난 5년 동안 엄청난 성장을 경험했습니다.
+VAE, GAN, 흐름 기반 모델과 같은 모델은, 특히 이미지에서,
+고품질 콘텐츠를 생성하는 데 큰 성공을 거두었습니다.
+디퓨전 모델은 이전 접근 방식보다 더 나은 것으로 입증된 새로운 타입의 생성 모델입니다.
 
-Diffusion models are inspired by non-equilibrium thermodynamics, and they learn to generate by denoising. Learning by denoising consists of two processes, each of which is a Markov Chain. These are:
+디퓨전 모델은 비평형 열역학(non-equilibrium thermodynamics)에서 영감을 받았으며,
+노이즈 제거를 통해 생성하는 방법을 학습합니다.
+노이즈 제거를 통한 학습은 두 가지 프로세스로 구성되며, 각각은 마르코프 체인(Markov Chain)입니다.
+이는 다음과 같습니다.
 
-1.  The forward process: In the forward process, we slowly add random noise to the data in a series of time steps `(t1, t2, ..., tn )`. Samples at the current time step are drawn from a Gaussian distribution where the mean of the distribution is conditioned on the sample at the previous time step, and the variance of the distribution follows a fixed schedule. At the end of the forward process, the samples end up with a pure noise distribution.
-2.  The reverse process: During the reverse process, we try to undo the added noise at every time step. We start with the pure noise distribution (the last step of the forward process) and try to denoise the samples in the backward direction `(tn, tn-1, ..., t1)`.
+1. 순방향 프로세스:
+   - 순방향 프로세스에서,
+     일련의 시간 단계 `(t1, t2, ..., tn)`에서 데이터에 랜덤 노이즈를 천천히 추가합니다.
+   - 현재 시간 단계의 샘플은 가우시안 분포에서 추출되며,
+     분포의 평균은 이전 시간 단계의 샘플에 따라 조건이 지정되고,
+     분포의 분산은 고정된 스케쥴을 따릅니다.
+   - 순방향 프로세스가 끝나면, 샘플은 순수한 노이즈 분포로 끝납니다.
+2. 역방향 프로세스:
+   - 역방향 프로세스 동안, 우리는 모든 시간 단계에서 추가된 노이즈를 취소하려고 시도합니다.
+   - 우리는 순수 노이즈 분포(순방향 프로세스의 마지막 단계)에서 시작하여,
+   - 역방향 `(tn, tn-1, ..., t1)`에서 샘플의 노이즈를 제거하려고 시도합니다.
 
-We implement the [Denoising Diffusion Probabilistic Models](https://arxiv.org/abs/2006.11239) paper or DDPMs for short in this code example. It was the first paper demonstrating the use of diffusion models for generating high-quality images. The authors proved that a certain parameterization of diffusion models reveals an equivalence with denoising score matching over multiple noise levels during training and with annealed Langevin dynamics during sampling that generates the best quality results.
+이 코드 예제에서는 [Denoising Diffusion Probabilistic Models](https://arxiv.org/abs/2006.11239) 논문 또는 약칭 DDPMs를 구현합니다.
+이는 고품질 이미지를 생성하기 위해 디퓨전 모델을 사용하는 방법을 보여주는 최초의 논문이었습니다.
+저자는 디퓨전 모델의 특정 매개변수화가,
+트레이닝 중 여러 노이즈 레벨에 대한 denoising 점수 일치와,
+샘플링 중 최상의 품질 결과를 생성하는 어닐링된 Langevin 역학(annealed Langevin dynamics)과,
+동등함을 보여준다는 것을 증명했습니다.
 
-This paper replicates both the Markov chains (forward process and reverse process) involved in the diffusion process but for images. The forward process is fixed and gradually adds Gaussian noise to the images according to a fixed variance schedule denoted by beta in the paper. This is what the diffusion process looks like in case of images: (image -> noise::noise -> image)
+이 논문은 디퓨전 프로세스에 관련된 두 가지 마르코프 체인(순방향 프로세스 및 역방향 프로세스)을 이미지에 대해 복제합니다.
+순방향 프로세스는 고정되어 있으며, 논문에서 베타로 표시된 고정 분산 스케쥴에 따라,
+이미지에 가우시안 노이즈를 점진적으로 추가합니다.
+이는 이미지의 경우, 디퓨전 프로세스가 어떻게 보이는지 보여줍니다.
+(image -> noise::noise -> image)
 
 ![diffusion process gif](/images/examples/generative/ddpm/Yn7tho9.gif)
 
-The paper describes two algorithms, one for training the model, and the other for sampling from the trained model. Training is performed by optimizing the usual variational bound on negative log-likelihood. The objective function is further simplified, and the network is treated as a noise prediction network. Once optimized, we can sample from the network to generate new images from noise samples. Here is an overview of both algorithms as presented in the paper:
+이 논문에서는 두 가지 알고리즘을 설명합니다.
+(1) 하나는 모델을 트레이닝하기 위한 알고리즘이고, (2) 다른 하나는 트레이닝된 모델에서 샘플링하기 위한 알고리즘입니다.
+트레이닝은 음의 로그 가능도(negative log-likelihood)에 대한 일반적인 변분 경계(usual variational bound)를 최적화하여 수행됩니다.
+목적 함수는 더욱 단순화되고, 네트워크는 노이즈 예측 네트워크로 처리됩니다.
+최적화되면, 네트워크에서 샘플링하여 노이즈 샘플에서 새 이미지를 생성할 수 있습니다.
+논문에 제시된 두 알고리즘에 대한 개요는 다음과 같습니다.
 
 ![ddpms](/images/examples/generative/ddpm/S7KH5hZ.png)
 
-**Note:** DDPM is just one way of implementing a diffusion model. Also, the sampling algorithm in the DDPM replicates the complete Markov chain. Hence, it's slow in generating new samples compared to other generative models like GANs. Lots of research efforts have been made to address this issue. One such example is Denoising Diffusion Implicit Models, or DDIM for short, where the authors replaced the Markov chain with a non-Markovian process to sample faster. You can find the code example for DDIM [here]({{< relref "/docs/examples/generative/ddim" >}})
+**참고:** DDPM은 디퓨전 모델을 구현하는 한 가지 방법일 뿐입니다.
+또한 DDPM의 샘플링 알고리즘은 완전한 Markov chain을 복제합니다.
+따라서, GAN과 같은 다른 생성 모델에 비해, 새로운 샘플을 생성하는 데 느립니다.
+이 문제를 해결하기 위해, 많은 연구 노력이 이루어졌습니다.
+그러한 예 중 하나는 Denoising Diffusion Implicit Models(약칭 DDIM)로,
+저자는 마르코프 체인을 비마르코프(non-Markovian) 프로세스로 대체하여 더 빠르게 샘플링했습니다.
+DDIM의 코드 예제는 [여기]({{< relref "/docs/examples/generative/ddim" >}})에서 찾을 수 있습니다.
 
-Implementing a DDPM model is simple. We define a model that takes two inputs: Images and the randomly sampled time steps. At each training step, we perform the following operations to train our model:
+DDPM 모델을 구현하는 것은 간단합니다.
+(1) 이미지와 (2) 무작위로 샘플링된 시간 단계라는, 두 가지 입력을 사용하는 모델을 정의합니다.
+각 트레이닝 단계에서, 다음 작업을 수행하여 모델을 트레이닝합니다.
 
-1.  Sample random noise to be added to the inputs.
-2.  Apply the forward process to diffuse the inputs with the sampled noise.
-3.  Your model takes these noisy samples as inputs and outputs the noise prediction for each time step.
-4.  Given true noise and predicted noise, we calculate the loss values
-5.  We then calculate the gradients and update the model weights.
+1. 입력에 추가할 랜덤 노이즈를 샘플링합니다.
+2. 포워드 프로세스를 적용하여, 샘플링된 노이즈로 입력을 디퓨전합니다.
+3. 모델은 이러한 노이즈 샘플을 입력으로 사용하여, 각 시간 단계에 대한 노이즈 예측을 출력합니다.
+4. 실제 노이즈와 예측된 노이즈가 주어지면, 손실 값을 계산합니다.
+5. 그런 다음 그래디언트를 계산하고 모델 가중치를 업데이트합니다.
 
-Given that our model knows how to denoise a noisy sample at a given time step, we can leverage this idea to generate new samples, starting from a pure noise distribution.
+모델이 주어진 시간 단계에서 노이즈 샘플의 노이즈를 제거하는 방법을 알고 있으므로,
+이 아이디어를 활용하여 순수 노이즈 분포에서 시작하여 새로운 샘플을 생성할 수 있습니다.
 
-## Setup
+## 셋업 {#setup}
 
 ```python
 import math
 import numpy as np
 import matplotlib.pyplot as plt
 
-# Requires TensorFlow >=2.11 for the GroupNormalization layer.
+# GroupNormalization 레이어의 경우, TensorFlow 2.11 이상이 필요합니다.
 import tensorflow as tf
 from tensorflow import keras
 from tensorflow.keras import layers
 import tensorflow_datasets as tfds
 ```
 
-## Hyperparameters
+## 하이퍼파라미터 {#hyperparameters}
 
 ```python
 batch_size = 32
-num_epochs = 1  # Just for the sake of demonstration
+num_epochs = 1  # 단지 시연을 위해서
 total_timesteps = 1000
-norm_groups = 8  # Number of groups used in GroupNormalization layer
+norm_groups = 8  # GroupNormalization 레이어에서 사용되는 그룹 수
 learning_rate = 2e-4
 
 img_size = 64
@@ -82,35 +121,39 @@ first_conv_channels = 64
 channel_multiplier = [1, 2, 4, 8]
 widths = [first_conv_channels * mult for mult in channel_multiplier]
 has_attention = [False, False, True, True]
-num_res_blocks = 2  # Number of residual blocks
+num_res_blocks = 2  # residual 블록 수
 
 dataset_name = "oxford_flowers102"
 splits = ["train"]
 ```
 
-## Dataset
+## 데이터 세트 {#dataset}
 
-We use the [Oxford Flowers 102](https://www.tensorflow.org/datasets/catalog/oxford_flowers102) dataset for generating images of flowers. In terms of preprocessing, we use center cropping for resizing the images to the desired image size, and we rescale the pixel values in the range `[-1.0, 1.0]`. This is in line with the range of the pixel values that was applied by the authors of the [DDPMs paper](https://arxiv.org/abs/2006.11239). For augmenting training data, we randomly flip the images left/right.
+우리는 꽃 이미지를 생성하기 위해 [Oxford Flowers 102](https://www.tensorflow.org/datasets/catalog/oxford_flowers102) 데이터 세트를 사용합니다.
+전처리 측면에서, 우리는 이미지를 원하는 이미지 크기로 조정하기 위해 중앙 자르기(center cropping)를 사용하고,
+픽셀 값을 범위 `[-1.0, 1.0]`으로 재조정합니다.
+이것은 [DDPMs 논문](https://arxiv.org/abs/2006.11239)의 저자가 적용한 픽셀 값의 범위와 일치합니다.
+트레이닝 데이터를 보강하기 위해, 우리는 이미지를 무작위로 좌우로 뒤집습니다.
 
 ```python
-# Load the dataset
+# 데이터세트를 로드합니다
 (ds,) = tfds.load(dataset_name, split=splits, with_info=False, shuffle_files=True)
 
 
 def augment(img):
-    """Flips an image left/right randomly."""
+    """이미지를 무작위로 좌우로 뒤집습니다."""
     return tf.image.random_flip_left_right(img)
 
 
 def resize_and_rescale(img, size):
-    """Resize the image to the desired size first and then
-    rescale the pixel values in the range [-1.0, 1.0].
+    """먼저 이미지 크기를 원하는 크기로 조절한 다음,
+    [-1.0, 1.0] 범위의 픽셀 값으로 재조정합니다.
 
     Args:
-        img: Image tensor
-        size: Desired image size for resizing
+        img: Image 텐서
+        size: 크기 조절을 위한 원하는 이미지 크기
     Returns:
-        Resized and rescaled image tensor
+        크기 조절(Resized) 및 재조정된(rescaled) 이미지 텐서
     """
 
     height = tf.shape(img)[0]
@@ -125,11 +168,11 @@ def resize_and_rescale(img, size):
         crop_size,
     )
 
-    # Resize
+    # 크기 조절
     img = tf.cast(img, dtype=tf.float32)
     img = tf.image.resize(img, size=size, antialias=True)
 
-    # Rescale the pixel values
+    # 픽셀 값 재조정
     img = img / 127.5 - 1.0
     img = tf.clip_by_value(img, clip_min, clip_max)
     return img
@@ -150,18 +193,19 @@ train_ds = (
 )
 ```
 
-## Gaussian diffusion utilities
+## Gaussian 디퓨전 유틸리티 {#gaussian-diffusion-utilities}
 
-We define the forward process and the reverse process as a separate utility. Most of the code in this utility has been borrowed from the original implementation with some slight modifications.
+우리는 포워드 프로세스와 리버스 프로세스를 별도의 유틸리티로 정의합니다.
+이 유틸리티의 대부분 코드는 약간의 수정을 거쳐 원래 구현에서 빌려왔습니다.
 
 ```python
 class GaussianDiffusion:
-    """Gaussian diffusion utility.
+    """Gaussian 디퓨전 유틸리티
 
     Args:
-        beta_start: Start value of the scheduled variance
-        beta_end: End value of the scheduled variance
-        timesteps: Number of time steps in the forward process
+        beta_start: 스케쥴된 분산의 시작 값
+        beta_end: 스케쥴된 분산의 최종 값
+        timesteps: 포워드 프로세스의 시간 단계 수
     """
 
     def __init__(
@@ -178,12 +222,12 @@ class GaussianDiffusion:
         self.clip_min = clip_min
         self.clip_max = clip_max
 
-        # Define the linear variance schedule
+        # 선형 분산 스케쥴을 정의합니다
         self.betas = betas = np.linspace(
             beta_start,
             beta_end,
             timesteps,
-            dtype=np.float64,  # Using float64 for better precision
+            dtype=np.float64,  # 더 나은 정밀도를 위해 float64 사용
         )
         self.num_timesteps = int(timesteps)
 
@@ -195,7 +239,7 @@ class GaussianDiffusion:
         self.alphas_cumprod = tf.constant(alphas_cumprod, dtype=tf.float32)
         self.alphas_cumprod_prev = tf.constant(alphas_cumprod_prev, dtype=tf.float32)
 
-        # Calculations for diffusion q(x_t | x_{t-1}) and others
+        # 디퓨전 q(x_t | x_{t-1}) 및 기타에 대한 계산
         self.sqrt_alphas_cumprod = tf.constant(
             np.sqrt(alphas_cumprod), dtype=tf.float32
         )
@@ -215,14 +259,14 @@ class GaussianDiffusion:
             np.sqrt(1.0 / alphas_cumprod - 1), dtype=tf.float32
         )
 
-        # Calculations for posterior q(x_{t-1} | x_t, x_0)
+        # 사후(posterior) q(x_{t-1} | x_t, x_0)에 대한 계산
         posterior_variance = (
             betas * (1.0 - alphas_cumprod_prev) / (1.0 - alphas_cumprod)
         )
         self.posterior_variance = tf.constant(posterior_variance, dtype=tf.float32)
 
-        # Log calculation clipped because the posterior variance is 0 at the beginning
-        # of the diffusion chain
+        # 디퓨전 체인의 시작 부분에서, 사후 분산(posterior variance)이 0이기 때문에,
+        # 로그 계산이 잘렸습니다. (Log calculation clipped)
         self.posterior_log_variance_clipped = tf.constant(
             np.log(np.maximum(posterior_variance, 1e-20)), dtype=tf.float32
         )
@@ -238,24 +282,24 @@ class GaussianDiffusion:
         )
 
     def _extract(self, a, t, x_shape):
-        """Extract some coefficients at specified timesteps,
-        then reshape to [batch_size, 1, 1, 1, 1, ...] for broadcasting purposes.
+        """지정된 타임스텝에서 일부 계수를 추출한 다음,
+        브로드캐스팅 목적으로 [batch_size, 1, 1, 1, 1, ...]로 모양을 변경(reshape)합니다.
 
         Args:
-            a: Tensor to extract from
-            t: Timestep for which the coefficients are to be extracted
-            x_shape: Shape of the current batched samples
+            a: 추출할 텐서
+            t: 계수를 추출할 타임스텝
+            x_shape: 현재 배치된 샘플의 모양
         """
         batch_size = x_shape[0]
         out = tf.gather(a, t)
         return tf.reshape(out, [batch_size, 1, 1, 1])
 
     def q_mean_variance(self, x_start, t):
-        """Extracts the mean, and the variance at current timestep.
+        """현재 타임스텝의 평균과 분산을 추출합니다.
 
         Args:
-            x_start: Initial sample (before the first diffusion step)
-            t: Current timestep
+            x_start: 초기 샘플(첫 번째 디퓨전 단계 이전)
+            t: 현재 타임스텝
         """
         x_start_shape = tf.shape(x_start)
         mean = self._extract(self.sqrt_alphas_cumprod, t, x_start_shape) * x_start
@@ -266,14 +310,14 @@ class GaussianDiffusion:
         return mean, variance, log_variance
 
     def q_sample(self, x_start, t, noise):
-        """Diffuse the data.
+        """데이터를 디퓨전시킵니다.
 
         Args:
-            x_start: Initial sample (before the first diffusion step)
-            t: Current timestep
-            noise: Gaussian noise to be added at the current timestep
+            x_start: 초기 샘플(첫 번째 디퓨전 단계 이전)
+            t: 현재 타임스텝
+            noise: 현재 타임스텝에 추가될 가우시안 노이즈
         Returns:
-            Diffused samples at timestep `t`
+            시간 단계 `t`에서 디퓨전된 샘플
         """
         x_start_shape = tf.shape(x_start)
         return (
@@ -290,15 +334,14 @@ class GaussianDiffusion:
         )
 
     def q_posterior(self, x_start, x_t, t):
-        """Compute the mean and variance of the diffusion
-        posterior q(x_{t-1} | x_t, x_0).
+        """디퓨전 사후(posterior) q(x_{t-1} | x_t, x_0)의 평균과 분산을 계산합니다.
 
         Args:
-            x_start: Stating point(sample) for the posterior computation
-            x_t: Sample at timestep `t`
-            t: Current timestep
+            x_start: 사후(posterior) 계산을 위한 시작점(샘플)
+            x_t: `t` 타임스텝에서의 샘플
+            t: 현재 타임스텝
         Returns:
-            Posterior mean and variance at current timestep
+            현재 타임스텝에서의 사후(Posterior) 평균 및 분산
         """
 
         x_t_shape = tf.shape(x_t)
@@ -323,40 +366,45 @@ class GaussianDiffusion:
         return model_mean, posterior_variance, posterior_log_variance
 
     def p_sample(self, pred_noise, x, t, clip_denoised=True):
-        """Sample from the diffusion model.
+        """디퓨전 모델의 샘플입니다.
 
         Args:
-            pred_noise: Noise predicted by the diffusion model
-            x: Samples at a given timestep for which the noise was predicted
-            t: Current timestep
-            clip_denoised (bool): Whether to clip the predicted noise
-                within the specified range or not.
+            pred_noise: 디퓨전 모델에 의해 예측된 노이즈
+            x: 노이즈가 예측된 주어진 타임스텝의 샘플
+            t: 현재 타임스텝
+            clip_denoised (bool): 예측된 노이즈를 지정된 범위 내에서 클리핑할지 여부
         """
         model_mean, _, model_log_variance = self.p_mean_variance(
             pred_noise, x=x, t=t, clip_denoised=clip_denoised
         )
         noise = tf.random.normal(shape=x.shape, dtype=x.dtype)
-        # No noise when t == 0
+        # t == 0일 때는 노이즈가 없습니다.
         nonzero_mask = tf.reshape(
             1 - tf.cast(tf.equal(t, 0), tf.float32), [tf.shape(x)[0], 1, 1, 1]
         )
         return model_mean + nonzero_mask * tf.exp(0.5 * model_log_variance) * noise
 ```
 
-## Network architecture
+## 네트워크 아키텍처 {#network-architecture}
 
-U-Net, originally developed for semantic segmentation, is an architecture that is widely used for implementing diffusion models but with some slight modifications:
+원래 시맨틱 세그멘테이션을 위해 개발된 U-Net은,
+디퓨전 모델을 구현하는 데 널리 사용되는 아키텍처이지만, 약간의 수정이 가해졌습니다.
 
-1.  The network accepts two inputs: Image and time step
-2.  Self-attention between the convolution blocks once we reach a specific resolution (16x16 in the paper)
-3.  Group Normalization instead of weight normalization
+1. 네트워크는 두 가지 입력을 허용합니다. 이미지와 시간 단계
+2. 특정 해상도(논문에서는 16x16)에 도달하면, 컨볼루션 블록 간의 셀프 어텐션
+3. 가중치 정규화 대신 그룹 정규화
 
-We implement most of the things as used in the original paper. We use the `swish` activation function throughout the network. We use the variance scaling kernel initializer.
+우리는 원래 논문에서 사용된 대부분의 것을 구현합니다.
+우리는 네트워크 전체에서 `swish` 활성화 함수를 사용합니다.
+우리는 분산 스케일링 커널 초기화자(variance scaling kernel initializer)를 사용합니다.
 
-The only difference here is the number of groups used for the `GroupNormalization` layer. For the flowers dataset, we found that a value of `groups=8` produces better results compared to the default value of `groups=32`. Dropout is optional and should be used where chances of over fitting is high. In the paper, the authors used dropout only when training on CIFAR10.
+여기서 유일한 차이점은 `GroupNormalization` 레이어에 사용된 그룹 수입니다.
+꽃 데이터 세트의 경우, 우리는 `groups=8` 값이 기본값인 `groups=32`보다 더 나은 결과를 생성한다는 것을 발견했습니다.
+드롭아웃은 선택 사항이며, 과적합 가능성이 높은 곳에서 사용해야 합니다.
+이 논문에서, 저자는 CIFAR10에 대해 트레이닝 할 때만 드롭아웃을 사용했습니다.
 
 ```python
-# Kernel initializer to use
+# 사용할 커널 이니셜라이저
 def kernel_init(scale):
     scale = max(scale, 1e-10)
     return keras.initializers.VarianceScaling(
@@ -365,11 +413,11 @@ def kernel_init(scale):
 
 
 class AttentionBlock(layers.Layer):
-    """Applies self-attention.
+    """셀프 어텐션을 적용합니다.
 
     Args:
-        units: Number of units in the dense layers
-        groups: Number of groups to be used for GroupNormalization layer
+        units: dense 레이어의 유닛 수
+        groups: GroupNormalization 레이어에 사용할 그룹 수
     """
 
     def __init__(self, units, groups=8, **kwargs):
@@ -555,20 +603,29 @@ def build_model(
         if i != 0:
             x = UpSample(widths[i], interpolation=interpolation)(x)
 
-    # End block
+    # End 블록
     x = layers.GroupNormalization(groups=norm_groups)(x)
     x = activation_fn(x)
     x = layers.Conv2D(3, (3, 3), padding="same", kernel_initializer=kernel_init(0.0))(x)
     return keras.Model([image_input, time_input], x, name="unet")
 ```
 
-## Training
+## 트레이닝 {#training}
 
-We follow the same setup for training the diffusion model as described in the paper. We use `Adam` optimizer with a learning rate of `2e-4`. We use EMA on model parameters with a decay factor of 0.999. We treat our model as noise prediction network i.e. at every training step, we input a batch of images and corresponding time steps to our UNet, and the network outputs the noise as predictions.
+우리는 논문에서 설명한 것과 동일한 설정을 따라 디퓨전 모델을 트레이닝합니다.
+우리는 `2e-4`의 학습률을 가진 `Adam` 옵티마이저를 사용합니다.
+우리는 0.999의 감쇠 계수를 가진 모델 매개변수에 EMA를 사용합니다.
+우리는 모델을 노이즈 예측 네트워크로 취급합니다.
+즉, 모든 트레이닝 단계에서,
+우리는 이미지 배치와 해당 시간 단계를 UNet에 입력하고,
+네트워크는 노이즈를 예측으로 출력합니다.
 
-The only difference is that we aren't using the Kernel Inception Distance (KID) or Frechet Inception Distance (FID) for evaluating the quality of generated samples during training. This is because both these metrics are compute heavy and are skipped for the brevity of implementation.
+유일한 차이점은 트레이닝 중에 생성된 샘플의 품질을 평가하기 위해,
+커널 인셉션 거리(KID, Kernel Inception Distance) 또는 프레셰 인셉션 거리(FID, Frechet Inception Distance)를 사용하지 않는다는 것입니다.
+이는 이 두 가지 지표가 모두 계산이 많기 때문인데, 구현의 간결성을 위해 스킵합니다.
 
-\*\*Note: \*\* We are using mean squared error as the loss function which is aligned with the paper, and theoretically makes sense. In practice, though, it is also common to use mean absolute error or Huber loss as the loss function.
+**참고:** 논문과 일치하고 이론적으로 타당한 평균 제곱 오차를 손실 함수로 사용하고 있습니다.
+그러나, 실제로는, 평균 절대 오차 또는 Huber 손실을 손실 함수로 사용하는 것도 일반적입니다.
 
 ```python
 class DiffusionModel(keras.Model):
@@ -581,46 +638,46 @@ class DiffusionModel(keras.Model):
         self.ema = ema
 
     def train_step(self, images):
-        # 1. Get the batch size
+        # 1. 배치 크기를 가져옵니다.
         batch_size = tf.shape(images)[0]
 
-        # 2. Sample timesteps uniformly
+        # 2. 시간 단계를 uniform 샘플링
         t = tf.random.uniform(
             minval=0, maxval=self.timesteps, shape=(batch_size,), dtype=tf.int64
         )
 
         with tf.GradientTape() as tape:
-            # 3. Sample random noise to be added to the images in the batch
+            # 3. 배치의 이미지에 추가할 샘플 랜덤 노이즈
             noise = tf.random.normal(shape=tf.shape(images), dtype=images.dtype)
 
-            # 4. Diffuse the images with noise
+            # 4. 노이즈로 이미지를 디퓨전시킵니다.
             images_t = self.gdf_util.q_sample(images, t, noise)
 
-            # 5. Pass the diffused images and time steps to the network
+            # 5. 디퓨전된 이미지와 시간 단계를 네트워크에 전달합니다.
             pred_noise = self.network([images_t, t], training=True)
 
-            # 6. Calculate the loss
+            # 6. 손실을 계산합니다.
             loss = self.loss(noise, pred_noise)
 
-        # 7. Get the gradients
+        # 7. 그래디언트를 얻습니다.
         gradients = tape.gradient(loss, self.network.trainable_weights)
 
-        # 8. Update the weights of the network
+        # 8. 네트워크의 가중치를 업데이트합니다
         self.optimizer.apply_gradients(zip(gradients, self.network.trainable_weights))
 
-        # 9. Updates the weight values for the network with EMA weights
+        # 9. EMA 가중치를 사용하여 네트워크의 가중치 값을 업데이트합니다.
         for weight, ema_weight in zip(self.network.weights, self.ema_network.weights):
             ema_weight.assign(self.ema * ema_weight + (1 - self.ema) * weight)
 
-        # 10. Return loss values
+        # 10. 손실 값을 반환합니다.
         return {"loss": loss}
 
     def generate_images(self, num_images=16):
-        # 1. Randomly sample noise (starting point for reverse process)
+        # 1. 무작위로 노이즈를 샘플링합니다. (역방향 프로세스의 시작점)
         samples = tf.random.normal(
             shape=(num_images, img_size, img_size, img_channels), dtype=tf.float32
         )
-        # 2. Sample from the model iteratively
+        # 2. 모델에서 반복적으로 샘플링합니다.
         for t in reversed(range(0, self.timesteps)):
             tt = tf.cast(tf.fill(num_images, t), dtype=tf.int64)
             pred_noise = self.ema_network.predict(
@@ -629,7 +686,7 @@ class DiffusionModel(keras.Model):
             samples = self.gdf_util.p_sample(
                 pred_noise, samples, tt, clip_denoised=True
             )
-        # 3. Return generated samples
+        # 3. 생성된 샘플을 반환합니다.
         return samples
 
     def plot_images(
@@ -656,7 +713,7 @@ class DiffusionModel(keras.Model):
         plt.show()
 
 
-# Build the unet model
+# unet 모델 빌드
 network = build_model(
     img_size=img_size,
     img_channels=img_channels,
@@ -675,12 +732,12 @@ ema_network = build_model(
     norm_groups=norm_groups,
     activation_fn=keras.activations.swish,
 )
-ema_network.set_weights(network.get_weights())  # Initially the weights are the same
+ema_network.set_weights(network.get_weights())  # 처음에는 가중치가 동일합니다.
 
-# Get an instance of the Gaussian Diffusion utilities
+# Gaussian 디퓨전 유틸리티의 인스턴스를 가져옵니다.
 gdf_util = GaussianDiffusion(timesteps=total_timesteps)
 
-# Get the model
+# 모델을 얻습니다.
 model = DiffusionModel(
     network=network,
     ema_network=ema_network,
@@ -688,13 +745,13 @@ model = DiffusionModel(
     timesteps=total_timesteps,
 )
 
-# Compile the model
+# 모델을 컴파일합니다.
 model.compile(
     loss=keras.losses.MeanSquaredError(),
     optimizer=keras.optimizers.Adam(learning_rate=learning_rate),
 )
 
-# Train the model
+# 모델을 트레이닝합니다.
 model.fit(
     train_ds,
     epochs=num_epochs,
@@ -719,9 +776,12 @@ model.fit(
 
 {{% /details %}}
 
-## Results
+## 결과 {#results}
 
-We trained this model for 800 epochs on a V100 GPU, and each epoch took almost 8 seconds to finish. We load those weights here, and we generate a few samples starting from pure noise.
+우리는 이 모델을 V100 GPU에서 800 에포크 동안 트레이닝시켰고,
+각 에포크는 완료하는 데 거의 8초가 걸렸습니다.
+우리는 여기에 그 가중치를 로드하고,
+순수한 노이즈에서 시작하여 몇 개의 샘플을 생성합니다.
 
 ```python
 !curl -LO https://github.com/AakashKumarNain/ddpms/releases/download/v3.0.0/checkpoints.zip
@@ -729,10 +789,10 @@ We trained this model for 800 epochs on a V100 GPU, and each epoch took almost 8
 ```
 
 ```python
-# Load the model weights
+# 모델 가중치 로드
 model.ema_network.load_weights("checkpoints/diffusion_model_checkpoint")
 
-# Generate and plot some samples
+# 샘플을 생성하고 플롯합니다.
 model.plot_images(num_rows=4, num_cols=8)
 ```
 
@@ -749,16 +809,22 @@ model.plot_images(num_rows=4, num_cols=8)
 
 ![png](/images/examples/generative/ddpm/ddpm_16_0.png)
 
-## Conclusion
+## 결론 {#conclusion}
 
-We successfully implemented and trained a diffusion model exactly in the same fashion as implemented by the authors of the DDPMs paper. You can find the original implementation [here](https://github.com/hojonathanho/diffusion).
+우리는 DDPM 논문의 저자가 구현한 것과 정확히 같은 방식으로 디퓨전 모델을 성공적으로 구현하고 트레이닝했습니다.
+원본 구현은 [여기](https://github.com/hojonathanho/diffusion)에서 찾을 수 있습니다.
 
-There are a few things that you can try to improve the model:
+모델을 개선하기 위해 시도할 수 있는 몇 가지 사항이 있습니다.
 
-1.  Increasing the width of each block. A bigger model can learn to denoise in fewer epochs, though you may have to take care of overfitting.
-2.  We implemented the linear schedule for variance scheduling. You can implement other schemes like cosine scheduling and compare the performance.
+1. 각 블록의 너비를 늘립니다.
 
-## References
+   - 더 큰 모델은 더 적은 에포크로 노이즈를 제거하는 법을 배울 수 있지만,
+   - 과적합을 처리해야 할 수도 있습니다.
+
+2. 분산 스케줄링을 위해 선형 스케줄을 구현했습니다.
+   - 코사인 스케줄링과 같은 다른 방식을 구현하고 성능을 비교할 수 있습니다.
+
+## 참조 {#references}
 
 1.  [Denoising Diffusion Probabilistic Models](https://arxiv.org/abs/2006.11239)
 2.  [Author's implementation](https://github.com/hojonathanho/diffusion)

@@ -1,5 +1,6 @@
 ---
-title: Text generation with a miniature GPT
+title: 미니어처 GPT로 텍스트 생성
+linkTitle: 미니어처 GPT 텍스트 생성
 toc: true
 weight: 22
 type: docs
@@ -10,7 +11,7 @@ type: docs
 **{{< t f_author >}}** [Apoorv Nandan](https://twitter.com/NandanApoorv)  
 **{{< t f_date_created >}}** 2020/05/29  
 **{{< t f_last_modified >}}** 2020/05/29  
-**{{< t f_description >}}** Implement a miniature version of GPT and train it to generate text.
+**{{< t f_description >}}** 미니어처 GPT를 구현하고 텍스트 생성 모델을 트레이닝하기
 
 {{< keras/version v=3 >}}
 
@@ -19,29 +20,30 @@ type: docs
 {{< card link="https://github.com/keras-team/keras-io/blob/master/examples/generative/text_generation_with_miniature_gpt.py" title="GitHub" tag="GitHub">}}
 {{< /cards >}}
 
-## Introduction
+## 소개 {#introduction}
 
-This example demonstrates how to implement an autoregressive language model using a miniature version of the GPT model. The model consists of a single Transformer block with causal masking in its attention layer. We use the text from the IMDB sentiment classification dataset for training and generate new movie reviews for a given prompt. When using this script with your own dataset, make sure it has at least 1 million words.
+이 예시는 미니어처 버전의 GPT 모델을 사용하여 오토리그레시브(autoregressive) 언어 모델을 구현하는 방법을 보여줍니다.
+이 모델은 어텐션 레이어에 인과 마스킹(causal masking)이 적용된 하나의 Transformer 블록으로 구성됩니다.
+IMDB 감정 분류 데이터셋의 텍스트를 사용해 트레이닝하며, 주어진 프롬프트에 대한 새로운 영화 리뷰를 생성합니다.
+이 스크립트를 당신만의 데이터셋에 사용할 때는, 최소 100만 개의 단어가 포함된 데이터셋을 사용해야 합니다.
 
-This example should be run with `tf-nightly>=2.3.0-dev20200531` or with TensorFlow 2.3 or higher.
+이 예시는 `tf-nightly>=2.3.0-dev20200531` 또는 TensorFlow 2.3 이상 버전과 함께 실행해야 합니다.
 
-**References:**
+**참조:**
 
 - [GPT](https://www.semanticscholar.org/paper/Improving-Language-Understanding-by-Generative-Radford/cd18800a0fe0b668a1cc19f2ec95b5003d0a5035)
 - [GPT-2](https://www.semanticscholar.org/paper/Language-Models-are-Unsupervised-Multitask-Learners-Radford-Wu/9405cc0d6169988371b2755e573cc28650d14dfe)
 - [GPT-3](https://arxiv.org/abs/2005.14165)
 
-## Setup
+## 셋업 {#setup}
 
 ```python
-# We set the backend to TensorFlow. The code works with
-# both `tensorflow` and `torch`. It does not work with JAX
-# due to the behavior of `jax.numpy.tile` in a jit scope
-# (used in `causal_attention_mask()`: `tile` in JAX does
-# not support a dynamic `reps` argument.
-# You can make the code work in JAX by wrapping the
-# inside of the `causal_attention_mask` function in
-# a decorator to prevent jit compilation:
+# 백엔드를 TensorFlow로 설정합니다.
+# 이 코드는 `tensorflow`와 `torch`에서 작동하며, JAX에서는 작동하지 않습니다.
+# 이는 `causal_attention_mask()`에서 사용된
+# JAX의 `jax.numpy.tile` 함수가 jit 스코프 내에서 동적 `reps` 인자를 지원하지 않기 때문입니다.
+# JAX에서 이 코드를 작동시키려면,
+# `causal_attention_mask` 함수 내부를 jit 컴파일을 방지하는 데코레이터로 감싸서 처리할 수 있습니다:
 # `with jax.ensure_compile_time_eval():`.
 import os
 
@@ -60,14 +62,14 @@ import tensorflow.data as tf_data
 import tensorflow.strings as tf_strings
 ```
 
-## Implement a Transformer block as a layer
+## Transformer 블록을 레이어로 구현하기 {#implement-a-transformer-block-as-a-layer}
 
 ```python
 def causal_attention_mask(batch_size, n_dest, n_src, dtype):
     """
-    Mask the upper half of the dot product matrix in self attention.
-    This prevents flow of information from future tokens to current token.
-    1's in the lower triangle, counting from the lower right corner.
+    셀프 어텐션에서 점곱 행렬(dot product matrix)의 상단 절반을 마스킹합니다.
+    이는 미래의 토큰에서 현재 토큰으로 정보가 흐르는 것을 방지합니다.
+    오른쪽 아래 모서리에서 시작하여, 하단 삼각형에 1을 채웁니다.
     """
     i = ops.arange(n_dest)[:, None]
     j = ops.arange(n_src)
@@ -108,9 +110,9 @@ class TransformerBlock(layers.Layer):
         return self.layernorm2(out1 + ffn_output)
 ```
 
-## Implement an embedding layer
+## 임베딩 레이어 구현 {#implement-an-embedding-layer}
 
-Create two separate embedding layers: one for tokens and one for token index (positions).
+토큰을 위한 임베딩 레이어와 토큰 인덱스(포지션)를 위한 임베딩 레이어를 각각 생성합니다.
 
 ```python
 class TokenAndPositionEmbedding(layers.Layer):
@@ -127,14 +129,14 @@ class TokenAndPositionEmbedding(layers.Layer):
         return x + positions
 ```
 
-## Implement the miniature GPT model
+## Miniature GPT 모델 구현 {#implement-the-miniature-gpt-model}
 
 ```python
-vocab_size = 20000  # Only consider the top 20k words
-maxlen = 80  # Max sequence size
-embed_dim = 256  # Embedding size for each token
-num_heads = 2  # Number of attention heads
-feed_forward_dim = 256  # Hidden layer size in feed forward network inside transformer
+vocab_size = 20000  # 상위 20,000개의 단어만 고려
+maxlen = 80  # 최대 시퀀스 크기
+embed_dim = 256  # 각 토큰에 대한 임베딩 크기
+num_heads = 2  # 어텐션 헤드 수
+feed_forward_dim = 256  # Transformer 내부 피드 포워드 네트워크의 히든 레이어 크기
 
 
 def create_model():
@@ -149,13 +151,13 @@ def create_model():
     model.compile(
         "adam",
         loss=[loss_fn, None],
-    )  # No loss and optimization based on word embeddings from transformer block
+    )  # Transformer 블록에서의 워드 임베딩 기반으로 한 최적화 및 손실 없음
     return model
 ```
 
-## Prepare the data for word-level language modelling
+## 단어 레벨 언어 모델링을 위한 데이터 준비 {#prepare-the-data-for-word-level-language-modelling}
 
-Download the IMDB dataset and combine training and validation sets for a text generation task.
+IMDB 데이터를 다운로드하고 텍스트 생성 작업을 위해 트레이닝 및 검증 세트를 결합합니다.
 
 ```python
 !curl -O https://ai.stanford.edu/~amaas/data/sentiment/aclImdb_v1.tar.gz
@@ -165,9 +167,9 @@ Download the IMDB dataset and combine training and validation sets for a text ge
 ```python
 batch_size = 128
 
-# The dataset contains each review in a separate text file
-# The text files are present in four different folders
-# Create a list all files
+# 데이터셋은 각 리뷰가 개별 텍스트 파일에 포함되어 있습니다.
+# 텍스트 파일은 네 개의 다른 폴더에 존재합니다.
+# 모든 파일의 목록을 생성합니다.
 filenames = []
 directories = [
     "aclImdb/train/pos",
@@ -181,7 +183,7 @@ for dir in directories:
 
 print(f"{len(filenames)} files")
 
-# Create a dataset from text files
+# 텍스트 파일에서 데이터셋을 생성합니다.
 random.shuffle(filenames)
 text_ds = tf_data.TextLineDataset(filenames)
 text_ds = text_ds.shuffle(buffer_size=256)
@@ -189,13 +191,13 @@ text_ds = text_ds.batch(batch_size)
 
 
 def custom_standardization(input_string):
-    """Remove html line-break tags and handle punctuation"""
+    """HTML 줄 바꿈 태그를 제거하고 구두점을 처리합니다."""
     lowercased = tf_strings.lower(input_string)
     stripped_html = tf_strings.regex_replace(lowercased, "<br />", " ")
     return tf_strings.regex_replace(stripped_html, f"([{string.punctuation}])", r" \1")
 
 
-# Create a vectorization layer and adapt it to the text
+# 벡터화 레이어를 생성하고 텍스트에 맞춥니다.
 vectorize_layer = TextVectorization(
     standardize=custom_standardization,
     max_tokens=vocab_size - 1,
@@ -203,14 +205,13 @@ vectorize_layer = TextVectorization(
     output_sequence_length=maxlen + 1,
 )
 vectorize_layer.adapt(text_ds)
-vocab = vectorize_layer.get_vocabulary()  # To get words back from token indices
+vocab = vectorize_layer.get_vocabulary()  # 토큰 인덱스로부터 단어를 다시 얻기 위함
 
 
 def prepare_lm_inputs_labels(text):
     """
-    Shift word sequences by 1 position so that the target for position (i) is
-    word at position (i+1). The model will use all words up till position (i)
-    to predict the next word.
+    단어 시퀀스를 1 위치씩 이동시켜 위치 (i)의 대상이 위치 (i+1)에 있는 단어가 되도록 합니다.
+    모델은 위치 (i)까지의 모든 단어를 사용하여 다음 단어를 예측할 것입니다.
     """
     text = tensorflow.expand_dims(text, -1)
     tokenized_sentences = vectorize_layer(text)
@@ -235,21 +236,21 @@ text_ds = text_ds.prefetch(tf_data.AUTOTUNE)
 
 {{% /details %}}
 
-## Implement a Keras callback for generating text
+## 텍스트 생성을 위한 Keras 콜백 구현 {#implement-a-keras-callback-for-generating-text}
 
 ```python
 class TextGenerator(keras.callbacks.Callback):
-    """A callback to generate text from a trained model.
-    1. Feed some starting prompt to the model
-    2. Predict probabilities for the next token
-    3. Sample the next token and add it to the next input
+    """트레이닝된 모델에서 텍스트를 생성하는 콜백.
+    1. 모델에 시작 프롬프트를 제공
+    2. 다음 토큰에 대한 확률 예측
+    3. 다음 토큰을 샘플링하여 다음 입력에 추가
 
     Arguments:
-        max_tokens: Integer, the number of tokens to be generated after prompt.
-        start_tokens: List of integers, the token indices for the starting prompt.
-        index_to_word: List of strings, obtained from the TextVectorization layer.
-        top_k: Integer, sample from the `top_k` token predictions.
-        print_every: Integer, print after this many epochs.
+        max_tokens: 정수, 프롬프트 이후에 생성할 토큰의 수.
+        start_tokens: 정수 리스트, 시작 프롬프트의 토큰 인덱스.
+        index_to_word: 문자열 리스트, TextVectorization 레이어에서 얻음.
+        top_k: 정수, `top_k` 토큰 예측에서 샘플링.
+        print_every: 정수, 이 만큼의 에포크 이후에 출력.
     """
 
     def __init__(
@@ -299,7 +300,7 @@ class TextGenerator(keras.callbacks.Callback):
         print(f"generated text:\n{txt}\n")
 
 
-# Tokenize starting prompt
+# 시작 프롬프트 토큰화
 word_to_index = {}
 for index, word in enumerate(vocab):
     word_to_index[word] = index
@@ -310,9 +311,9 @@ num_tokens_generated = 40
 text_gen_callback = TextGenerator(num_tokens_generated, start_tokens, vocab)
 ```
 
-## Train the model
+## 모델 트레이닝 {#train-the-model}
 
-Note: This code should preferably be run on GPU.
+**Note:** 이 코드는 가능하면 GPU에서 실행하는 것이 좋습니다.
 
 ```python
 model = create_model()

@@ -1,5 +1,6 @@
 ---
 title: Variational AutoEncoder
+linkTitle: Variational 오토인코더
 toc: true
 weight: 7
 type: docs
@@ -10,7 +11,7 @@ type: docs
 **{{< t f_author >}}** [fchollet](https://twitter.com/fchollet)  
 **{{< t f_date_created >}}** 2020/05/03  
 **{{< t f_last_modified >}}** 2024/04/24  
-**{{< t f_description >}}** Convolutional Variational AutoEncoder (VAE) trained on MNIST digits.
+**{{< t f_description >}}** MNIST 숫자로 트레이닝된 컨볼루션 Variational AutoEncoder(VAE)
 
 {{< keras/version v=3 >}}
 
@@ -19,7 +20,7 @@ type: docs
 {{< card link="https://github.com/keras-team/keras-io/blob/master/examples/generative/vae.py" title="GitHub" tag="GitHub">}}
 {{< /cards >}}
 
-## Setup
+## 셋업 {#setup}
 
 ```python
 import os
@@ -33,11 +34,11 @@ from keras import ops
 from keras import layers
 ```
 
-## Create a sampling layer
+## 샘플링 레이어 생성 {#create-a-sampling-layer}
 
 ```python
 class Sampling(layers.Layer):
-    """Uses (z_mean, z_log_var) to sample z, the vector encoding a digit."""
+    """(z_mean, z_log_var)를 사용하여, 숫자를 인코딩하는 벡터 z를 샘플링합니다."""
 
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
@@ -51,7 +52,7 @@ class Sampling(layers.Layer):
         return z_mean + ops.exp(0.5 * z_log_var) * epsilon
 ```
 
-## Build the encoder
+## 인코더 빌드 {#build-the-encoder}
 
 ```python
 latent_dim = 2
@@ -101,7 +102,7 @@ Model: "encoder"
 
 {{% /details %}}
 
-## Build the decoder
+## 디코더 빌드 {#build-the-decoder}
 
 ```python
 latent_inputs = keras.Input(shape=(latent_dim,))
@@ -143,7 +144,7 @@ Model: "decoder"
 
 {{% /details %}}
 
-## Define the VAE as a `Model` with a custom `train_step`
+## VAE를 커스텀 `train_step`을 사용하여 `Model`로 정의 {#define-the-vae-as-a-model-with-a-custom-train_step}
 
 ```python
 class VAE(keras.Model):
@@ -190,7 +191,7 @@ class VAE(keras.Model):
         }
 ```
 
-## Train the VAE
+## VAE 트레이닝 {#train-the-vae}
 
 ```python
 (x_train, _), (x_test, _) = keras.datasets.mnist.load_data()
@@ -283,19 +284,18 @@ Epoch 30/30
 
 {{% /details %}}
 
-## Display a grid of sampled digits
+## 샘플링된 숫자의 그리드 표시 {#display-a-grid-of-sampled-digits}
 
 ```python
 import matplotlib.pyplot as plt
 
 
 def plot_latent_space(vae, n=30, figsize=15):
-    # display a n*n 2D manifold of digits
+    # n*n 2차원 숫자 매니폴드를 표시합니다.
     digit_size = 28
     scale = 1.0
     figure = np.zeros((digit_size * n, digit_size * n))
-    # linearly spaced coordinates corresponding to the 2D plot
-    # of digit classes in the latent space
+    # 잠재 공간의 숫자 클래스 2D 플롯에 해당하는 선형 간격 좌표
     grid_x = np.linspace(-scale, scale, n)
     grid_y = np.linspace(-scale, scale, n)[::-1]
 
@@ -328,11 +328,11 @@ plot_latent_space(vae)
 
 ![png](/images/examples/generative/vae/vae_14_0.png)
 
-## Display how the latent space clusters different digit classes
+## 잠재 공간이 어떻게 다양한 숫자 클래스를 클러스터링하는지 표시 {#display-how-the-latent-space-clusters-different-digit-classes}
 
 ```python
 def plot_label_clusters(vae, data, labels):
-    # display a 2D plot of the digit classes in the latent space
+    # 잠재 공간에 있는 숫자 클래스의 2D 플롯을 표시합니다.
     z_mean, _, _ = vae.encoder.predict(data, verbose=0)
     plt.figure(figsize=(12, 10))
     plt.scatter(z_mean[:, 0], z_mean[:, 1], c=labels)

@@ -140,7 +140,7 @@ for i, caption in enumerate(all_captions):
     tokenized_texts[i] = process_text(caption)
 ```
 
-## Prepare a [`tf.data.Dataset`](https://www.tensorflow.org/api_docs/python/tf/data/Dataset)
+## Prepare a [`tf.data.Dataset`](https://www.tensorflow.org/api_docs/python/tf/data/Dataset) {#tfdatadataset}
 
 In this section, we'll prepare a [`tf.data.Dataset`](https://www.tensorflow.org/api_docs/python/tf/data/Dataset) object from the input image file paths and their corresponding caption tokens. The section will include the following:
 

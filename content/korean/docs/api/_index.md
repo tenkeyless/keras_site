@@ -1,6 +1,6 @@
 ---
-title: Keras 3 API documentation
-linkTitle: Keras 3 API documentation
+title: Keras 3 API 문서
+linkTitle: Keras 3 API 문서
 toc: true
 weight: 5
 ---

@@ -1,5 +1,6 @@
 ---
 title: Conditional GAN
+linkTitle: Conditional GAN
 toc: true
 weight: 10
 type: docs
@@ -10,7 +11,7 @@ type: docs
 **{{< t f_author >}}** [Sayak Paul](https://twitter.com/RisingSayak)  
 **{{< t f_date_created >}}** 2021/07/13  
 **{{< t f_last_modified >}}** 2024/01/02  
-**{{< t f_description >}}** Training a GAN conditioned on class labels to generate handwritten digits.
+**{{< t f_description >}}** 클래스 레이블을 조건으로 GAN을 트레이닝하여 손으로 쓴 숫자를 생성합니다.
 
 {{< keras/version v=3 >}}
 
@@ -19,29 +20,45 @@ type: docs
 {{< card link="https://github.com/keras-team/keras-io/blob/master/examples/generative/conditional_gan.py" title="GitHub" tag="GitHub">}}
 {{< /cards >}}
 
-Generative Adversarial Networks (GANs) let us generate novel image data, video data, or audio data from a random input. Typically, the random input is sampled from a normal distribution, before going through a series of transformations that turn it into something plausible (image, video, audio, etc.).
+생성적 적대 신경망(GAN)을 사용하면 랜덤 입력에서 새로운 이미지 데이터,
+비디오 데이터 또는 오디오 데이터를 생성할 수 있습니다.
+일반적으로, 랜덤 입력은 정규 분포에서 샘플링한 다음,
+그럴듯한 것(이미지, 비디오, 오디오 등)으로 변환하는 일련의 변환을 거칩니다.
 
-However, a simple [DCGAN](https://arxiv.org/abs/1511.06434) doesn't let us control the appearance (e.g. class) of the samples we're generating. For instance, with a GAN that generates MNIST handwritten digits, a simple DCGAN wouldn't let us choose the class of digits we're generating. To be able to control what we generate, we need to _condition_ the GAN output on a semantic input, such as the class of an image.
+그러나, 간단한 [DCGAN](https://arxiv.org/abs/1511.06434)에서는 생성하는 샘플의 모양(예: 클래스)을 제어할 수 없습니다.
+예를 들어, MNIST 손으로 쓴 숫자를 생성하는 GAN의 경우,
+간단한 DCGAN에서는 생성하는 숫자의 클래스를 선택할 수 없습니다.
+생성하는 내용을 제어하려면,
+(이미지 클래스와 같은) 시맨틱 입력에 따라 GAN 출력을 _조건해야_ 합니다.
 
-In this example, we'll build a **Conditional GAN** that can generate MNIST handwritten digits conditioned on a given class. Such a model can have various useful applications:
+이 예에서는, 주어진 클래스에 따라 MNIST 손으로 쓴 숫자를 생성할 수 있는
+**조건부 GAN(Conditional GAN)** 을 빌드합니다.
+이러한 모델은 다양한 유용한 응용 프로그램을 가질 수 있습니다.
 
-- let's say you are dealing with an [imbalanced image dataset](https://developers.google.com/machine-learning/data-prep/construct/sampling-splitting/imbalanced-data), and you'd like to gather more examples for the skewed class to balance the dataset. Data collection can be a costly process on its own. You could instead train a Conditional GAN and use it to generate novel images for the class that needs balancing.
-- Since the generator learns to associate the generated samples with the class labels, its representations can also be used for [other downstream tasks](https://arxiv.org/abs/1809.11096).
+- [불균형 이미지 데이터 세트](https://developers.google.com/machine-learning/data-prep/construct/sampling-splitting/imbalanced-data)를 다루고 있으며,
+  데이터 세트를 균형 잡기 위해 왜곡된 클래스에 대한 더 많은 예를 수집하고 싶다고 가정해 보겠습니다.
+  데이터 수집은 그 자체로 비용이 많이 드는 프로세스가 될 수 있습니다.
+  대신, 조건부 GAN을 트레이닝하여,
+  균형이 필요한 클래스에 대한 새로운 이미지를 생성하는 데 사용할 수 있습니다.
+- 생성자는 생성된 샘플을 클래스 레이블과 연관시키는 법을 배우므로,
+  해당 표현은 [다른 다운스트림 작업](https://arxiv.org/abs/1809.11096)에도 사용할 수 있습니다.
 
-Following are the references used for developing this example:
+다음은 이 예제를 개발하는 데 사용된 참고 자료입니다.
 
-- [Conditional Generative Adversarial Nets](https://arxiv.org/abs/1411.1784)
-- [Lecture on Conditional Generation from Coursera](https://www.coursera.org/lecture/build-basic-generative-adversarial-networks-gans/conditional-generation-inputs-2OPrG)
+- [조건부 생성적 적대 신경망](https://arxiv.org/abs/1411.1784)
+- [Coursera의 조건부 생성에 대한 강의](https://www.coursera.org/lecture/build-basic-generative-adversarial-networks-gans/conditional-generation-inputs-2OPrG)
 
-If you need a refresher on GANs, you can refer to the "Generative adversarial networks" section of [this resource](https://livebook.manning.com/book/deep-learning-with-python-second-edition/chapter-12/r-3/232).
+GAN에 대한 복습이 필요한 경우,
+[이 리소스](https://livebook.manning.com/book/deep-learning-with-python-second-edition/chapter-12/r-3/232)의 "생성적 적대 신경망(Generative adversarial networks)" 섹션을 참조할 수 있습니다.
 
-This example requires TensorFlow 2.5 or higher, as well as TensorFlow Docs, which can be installed using the following command:
+이 예제에는 TensorFlow 2.5 이상과
+다음 명령을 사용하여 설치할 수 있는 TensorFlow Docs가 필요합니다.
 
 ```python
 !pip install -q git+https://github.com/tensorflow/docs
 ```
 
-## Imports
+## Imports {#imports}
 
 ```python
 import keras
@@ -54,7 +71,7 @@ import numpy as np
 import imageio
 ```
 
-## Constants and hyperparameters
+## 상수와 하이퍼파라미터 {#constants-and-hyperparameters}
 
 ```python
 batch_size = 64
@@ -64,22 +81,22 @@ image_size = 28
 latent_dim = 128
 ```
 
-## Loading the MNIST dataset and preprocessing it
+## MNIST 데이터 세트 로딩 및 전처리 {#loading-the-mnist-dataset-and-preprocessing-it}
 
 ```python
-# We'll use all the available examples from both the training and test
-# sets.
+# 우리는 트레이닝 세트와 테스트 세트에서, 사용 가능한 모든 예를 사용할 것입니다.
 (x_train, y_train), (x_test, y_test) = keras.datasets.mnist.load_data()
 all_digits = np.concatenate([x_train, x_test])
 all_labels = np.concatenate([y_train, y_test])
 
-# Scale the pixel values to [0, 1] range, add a channel dimension to
-# the images, and one-hot encode the labels.
+# 픽셀 값을 [0, 1] 범위로 조정하고,
+# 이미지에 채널 차원을 추가하고,
+# 레이블을 원핫 인코딩합니다.
 all_digits = all_digits.astype("float32") / 255.0
 all_digits = np.reshape(all_digits, (-1, 28, 28, 1))
 all_labels = keras.utils.to_categorical(all_labels, 10)
 
-# Create tf.data.Dataset.
+# tf.data.Dataset을 생성합니다.
 dataset = tf.data.Dataset.from_tensor_slices((all_digits, all_labels))
 dataset = dataset.shuffle(buffer_size=1024).batch(batch_size)
 
@@ -98,9 +115,11 @@ Shape of training labels: (70000, 10)
 
 {{% /details %}}
 
-## Calculating the number of input channel for the generator and discriminator
+## 생성자와 판별자의 입력 채널 수 계산 {#calculating-the-number-of-input-channel-for-the-generator-and-discriminator}
 
-In a regular (unconditional) GAN, we start by sampling noise (of some fixed dimension) from a normal distribution. In our case, we also need to account for the class labels. We will have to add the number of classes to the input channels of the generator (noise input) as well as the discriminator (generated image input).
+일반 (조건없는) GAN에서, 우리는 정규 분포에서 (일부 고정된 차원의) 노이즈를 샘플링하는 것으로 시작합니다.
+우리의 경우, 우리는 또한 클래스 레이블을 고려해야 합니다.
+우리는 생성자(노이즈 입력)의 입력 채널과 판별자(생성된 이미지 입력)에 클래스 수를 추가해야 할 것입니다.
 
 ```python
 generator_in_channels = latent_dim + num_classes
@@ -116,12 +135,13 @@ print(generator_in_channels, discriminator_in_channels)
 
 {{% /details %}}
 
-## Creating the discriminator and generator
+## 판별자와 생성자 생성하기 {#creating-the-discriminator-and-generator}
 
-The model definitions (`discriminator`, `generator`, and `ConditionalGAN`) have been adapted from [this example]({{< relref "/docs/guides/custom_train_step_in_tensorflow" >}}).
+모델 정의(`discriminator`, `generator`, `ConditionalGAN`)는
+[이 예제]({{< relref "/docs/guides/custom_train_step_in_tensorflow" >}})에서 가져왔습니다.
 
 ```python
-# Create the discriminator.
+# 판별자를 만듭니다.
 discriminator = keras.Sequential(
     [
         keras.layers.InputLayer((28, 28, discriminator_in_channels)),
@@ -135,12 +155,12 @@ discriminator = keras.Sequential(
     name="discriminator",
 )
 
-# Create the generator.
+# 생성자를 만듭니다.
 generator = keras.Sequential(
     [
         keras.layers.InputLayer((generator_in_channels,)),
-        # We want to generate 128 + num_classes coefficients to reshape into a
-        # 7x7x(128 + num_classes) map.
+        # 128 + num_classes 개의 계수를 생성하여,
+        # 7x7x(128 + num_classes) 맵으로 reshape하려고 합니다.
         layers.Dense(7 * 7 * generator_in_channels),
         layers.LeakyReLU(negative_slope=0.2),
         layers.Reshape((7, 7, generator_in_channels)),
@@ -154,7 +174,7 @@ generator = keras.Sequential(
 )
 ```
 
-## Creating a `ConditionalGAN` model
+## `ConditionalGAN` 모델 생성 {#creating-a-conditionalgan-model}
 
 ```python
 class ConditionalGAN(keras.Model):
@@ -178,11 +198,11 @@ class ConditionalGAN(keras.Model):
         self.loss_fn = loss_fn
 
     def train_step(self, data):
-        # Unpack the data.
+        # 데이터를 언팩합니다.
         real_images, one_hot_labels = data
 
-        # Add dummy dimensions to the labels so that they can be concatenated with
-        # the images. This is for the discriminator.
+        # 레이블에 더미 차원을 ​​추가하여, 이미지와 연결(concatenated)할 수 있도록 합니다.
+        # 이는 판별자를 위한 것입니다.
         image_one_hot_labels = one_hot_labels[:, :, None, None]
         image_one_hot_labels = ops.repeat(
             image_one_hot_labels, repeats=[image_size * image_size]
@@ -191,8 +211,8 @@ class ConditionalGAN(keras.Model):
             image_one_hot_labels, (-1, image_size, image_size, num_classes)
         )
 
-        # Sample random points in the latent space and concatenate the labels.
-        # This is for the generator.
+        # 잠재 공간에서 랜덤 지점을 샘플링하고 레이블을 연결(concatenate)합니다.
+        # 이는 생성자를 위한 것입니다.
         batch_size = ops.shape(real_images)[0]
         random_latent_vectors = keras.random.normal(
             shape=(batch_size, self.latent_dim), seed=self.seed_generator
@@ -201,11 +221,11 @@ class ConditionalGAN(keras.Model):
             [random_latent_vectors, one_hot_labels], axis=1
         )
 
-        # Decode the noise (guided by labels) to fake images.
+        # 노이즈(레이블에 따라)를 디코딩하여, 가짜 이미지를 만듭니다.
         generated_images = self.generator(random_vector_labels)
 
-        # Combine them with real images. Note that we are concatenating the labels
-        # with these images here.
+        # 실제 이미지와 결합합니다.
+        # 여기서는 이러한 이미지와 레이블을 연결(concatenating)하고 있다는 점에 유의하세요.
         fake_image_and_labels = ops.concatenate(
             [generated_images, image_one_hot_labels], -1
         )
@@ -214,12 +234,12 @@ class ConditionalGAN(keras.Model):
             [fake_image_and_labels, real_image_and_labels], axis=0
         )
 
-        # Assemble labels discriminating real from fake images.
+        # 진짜 이미지와 가짜 이미지를 구별하는 라벨을 조립합니다.
         labels = ops.concatenate(
             [ops.ones((batch_size, 1)), ops.zeros((batch_size, 1))], axis=0
         )
 
-        # Train the discriminator.
+        # 판별기를 트레이닝시킵니다.
         with tf.GradientTape() as tape:
             predictions = self.discriminator(combined_images)
             d_loss = self.loss_fn(labels, predictions)
@@ -228,7 +248,7 @@ class ConditionalGAN(keras.Model):
             zip(grads, self.discriminator.trainable_weights)
         )
 
-        # Sample random points in the latent space.
+        # 잠재 공간에서 랜덤 지점을 샘플링합니다.
         random_latent_vectors = keras.random.normal(
             shape=(batch_size, self.latent_dim), seed=self.seed_generator
         )
@@ -236,11 +256,10 @@ class ConditionalGAN(keras.Model):
             [random_latent_vectors, one_hot_labels], axis=1
         )
 
-        # Assemble labels that say "all real images".
+        # "모든 실제 이미지(all real images)"라고 적힌 라벨을 조립합니다.
         misleading_labels = ops.zeros((batch_size, 1))
 
-        # Train the generator (note that we should *not* update the weights
-        # of the discriminator)!
+        # 생성기를 트레이닝시킵니다. (판별기의 가중치는 업데이트해서는 *안 됩니다*!)
         with tf.GradientTape() as tape:
             fake_images = self.generator(random_vector_labels)
             fake_image_and_labels = ops.concatenate(
@@ -251,7 +270,7 @@ class ConditionalGAN(keras.Model):
         grads = tape.gradient(g_loss, self.generator.trainable_weights)
         self.g_optimizer.apply_gradients(zip(grads, self.generator.trainable_weights))
 
-        # Monitor loss.
+        # 손실을 모니터링합니다.
         self.gen_loss_tracker.update_state(g_loss)
         self.disc_loss_tracker.update_state(d_loss)
         return {
@@ -260,7 +279,7 @@ class ConditionalGAN(keras.Model):
         }
 ```
 
-## Training the Conditional GAN
+## Conditional GAN 트레이닝 {#training-the-conditional-gan}
 
 ```python
 cond_gan = ConditionalGAN(
@@ -329,37 +348,36 @@ Epoch 20/20
 
 {{% /details %}}
 
-## Interpolating between classes with the trained generator
+## 트레이닝된 생성자를 사용하여 클래스 간 보간 {#interpolating-between-classes-with-the-trained-generator}
 
 ```python
-# We first extract the trained generator from our Conditional GAN.
+# 먼저 조건부 GAN에서 트레이닝된 생성자를 추출합니다.
 trained_gen = cond_gan.generator
 
-# Choose the number of intermediate images that would be generated in
-# between the interpolation + 2 (start and last images).
+# interpolation + 2(시작 이미지와 마지막 이미지) 사이에 생성될 중간 이미지의 수를 선택합니다.
 num_interpolation = 9  # @param {type:"integer"}
 
-# Sample noise for the interpolation.
+# 보간을 위한 샘플 노이즈입니다.
 interpolation_noise = keras.random.normal(shape=(1, latent_dim))
 interpolation_noise = ops.repeat(interpolation_noise, repeats=num_interpolation)
 interpolation_noise = ops.reshape(interpolation_noise, (num_interpolation, latent_dim))
 
 
 def interpolate_class(first_number, second_number):
-    # Convert the start and end labels to one-hot encoded vectors.
+    # 시작 및 종료 라벨을 원핫 인코딩된 벡터로 변환합니다.
     first_label = keras.utils.to_categorical([first_number], num_classes)
     second_label = keras.utils.to_categorical([second_number], num_classes)
     first_label = ops.cast(first_label, "float32")
     second_label = ops.cast(second_label, "float32")
 
-    # Calculate the interpolation vector between the two labels.
+    # 두 라벨 사이의 보간 벡터를 계산합니다.
     percent_second_label = ops.linspace(0, 1, num_interpolation)[:, None]
     percent_second_label = ops.cast(percent_second_label, "float32")
     interpolation_labels = (
         first_label * (1 - percent_second_label) + second_label * percent_second_label
     )
 
-    # Combine the noise and the labels and run inference with the generator.
+    # 노이즈와 라벨을 결합하고 생성자를 통해 추론을 실행합니다.
     noise_and_labels = ops.concatenate([interpolation_noise, interpolation_labels], 1)
     fake = trained_gen.predict(noise_and_labels)
     return fake
@@ -379,7 +397,10 @@ fake_images = interpolate_class(start_class, end_class)
 
 {{% /details %}}
 
-Here, we first sample noise from a normal distribution and then we repeat that for `num_interpolation` times and reshape the result accordingly. We then distribute it uniformly for `num_interpolation` with the label identities being present in some proportion.
+여기서, 우리는 먼저 정규 분포에서 노이즈를 샘플링한 다음,
+`num_interpolation` 번 반복하고 그에 따라 결과를 재구성합니다.
+그런 다음 레이블 항등성이 어느 정도 비율로 존재하도록,
+`num_interpolation` 동안 균일하게 분포합니다.
 
 ```python
 fake_images *= 255.0
@@ -391,6 +412,11 @@ embed.embed_file("animation.gif")
 
 ![gif](/images/examples/generative/conditional_gan/animation.gif)
 
-We can further improve the performance of this model with recipes like [WGAN-GP]({{< relref "/docs/examples/generative/wgan_gp" >}}). Conditional generation is also widely used in many modern image generation architectures like [VQ-GANs](https://arxiv.org/abs/2012.09841), [DALL-E](https://openai.com/blog/dall-e/), etc.
+[WGAN-GP]({{< relref "/docs/examples/generative/wgan_gp" >}})와 같은 레시피를 사용하면,
+이 모델의 성능을 더욱 개선할 수 있습니다.
+조건 생성은 [VQ-GAN](https://arxiv.org/abs/2012.09841),
+[DALL-E](https://openai.com/blog/dall-e/) 등과 같은,
+많은 최신 이미지 생성 아키텍처에서도 널리 사용됩니다.
 
-You can use the trained model hosted on [Hugging Face Hub](https://huggingface.co/keras-io/conditional-gan) and try the demo on [Hugging Face Spaces](https://huggingface.co/spaces/keras-io/conditional-GAN).
+[Hugging Face Hub](https://huggingface.co/keras-io/conditional-gan)에서 호스팅되는 트레이닝된 모델을 사용하고,
+[Hugging Face Spaces](https://huggingface.co/spaces/keras-io/conditional-GAN)에서 데모를 시도할 수 있습니다.

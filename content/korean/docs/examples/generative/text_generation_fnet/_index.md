@@ -1,5 +1,6 @@
 ---
-title: Text Generation using FNet
+title: FNet을 사용한 텍스트 생성
+linkTitle: FNet 텍스트 생성
 toc: true
 weight: 24
 type: docs
@@ -10,7 +11,7 @@ type: docs
 **{{< t f_author >}}** [Darshan Deshpande](https://twitter.com/getdarshan)  
 **{{< t f_date_created >}}** 2021/10/05  
 **{{< t f_last_modified >}}** 2021/10/05  
-**{{< t f_description >}}** FNet transformer for text generation in Keras.
+**{{< t f_description >}}** FNet Transformer를 사용한 Keras의 텍스트 생성
 
 {{< keras/version v=2 >}}
 
@@ -19,15 +20,22 @@ type: docs
 {{< card link="https://github.com/keras-team/keras-io/blob/master/examples/generative/text_generation_fnet.py" title="GitHub" tag="GitHub">}}
 {{< /cards >}}
 
-## Introduction
+## 소개 {#introduction}
 
-The original transformer implementation (Vaswani et al., 2017) was one of the major breakthroughs in Natural Language Processing, giving rise to important architectures such BERT and GPT. However, the drawback of these architectures is that the self-attention mechanism they use is computationally expensive. The FNet architecture proposes to replace this self-attention attention with a leaner mechanism: a Fourier transformation-based linear mixer for input tokens.
+원본 트랜스포머 구현(Vaswani et al., 2017)은 자연어 처리에서 주요한 돌파구 중 하나로,
+BERT와 GPT 같은 중요한 아키텍처의 기반이 되었습니다.
+그러나, 이러한 아키텍처가 사용하는 셀프 어텐션 메커니즘은 계산 비용이 많이 듭니다.
+FNet 아키텍처는 이 셀프 어텐션을 더 간소화된 메커니즘으로 대체하는 것을 제안합니다.
+그 메커니즘은 입력 토큰을 위한 푸리에 변환 기반의 선형 믹서입니다.
 
-The FNet model was able to achieve 92-97% of BERT's accuracy while training 80% faster on GPUs and almost 70% faster on TPUs. This type of design provides an efficient and small model size, leading to faster inference times.
+FNet 모델은 BERT의 정확도의 92-97%를 달성하면서도,
+GPU에서 80% 더 빠르게, TPU에서 거의 70% 더 빠르게 학습할 수 있었습니다.
+이러한 설계는 효율적이고 작은 모델 크기를 제공하여, 더 빠른 추론 시간을 제공합니다.
 
-In this example, we will implement and train this architecture on the Cornell Movie Dialog corpus to show the applicability of this model to text generation.
+이 예제에서는 이 아키텍처를 구현하고,
+Cornell Movie Dialog 코퍼스에서 텍스트 생성을 위해 이 모델을 트레이닝하는 방법을 보여드리겠습니다.
 
-## Imports
+## Imports {#imports}
 
 ```python
 import tensorflow as tf
@@ -35,7 +43,7 @@ from tensorflow import keras
 from tensorflow.keras import layers
 import os
 
-# Defining hyperparameters
+# 하이퍼파라미터 정의
 
 VOCAB_SIZE = 8192
 MAX_SAMPLES = 50000
@@ -47,9 +55,9 @@ NUM_HEADS = 8
 BATCH_SIZE = 64
 ```
 
-## Loading data
+## 데이터 로드 {#loading-data}
 
-We will be using the Cornell Dialog Corpus. We will parse the movie conversations into questions and answers sets.
+우리는 Cornell Dialog Corpus를 사용하여, 영화 대화를 질문과 답변 세트로 파싱할 것입니다.
 
 ```python
 path_to_zip = keras.utils.get_file(
@@ -66,7 +74,7 @@ path_to_movie_conversations = os.path.join(path_to_dataset, "movie_conversations
 
 
 def load_conversations():
-    # Helper function for loading the conversation splits
+    # 대화 데이터(conversation splits)를 불러오는 보조 함수
     id2line = {}
     with open(path_to_movie_lines, errors="ignore") as file:
         lines = file.readlines()
@@ -79,7 +87,7 @@ def load_conversations():
         lines = file.readlines()
     for line in lines:
         parts = line.replace("\n", "").split(" +++$+++ ")
-        # get conversation in a list of line ID
+        # 대화를 라인 ID 목록으로 변환
         conversation = [line[1:-1] for line in parts[3][1:-1].split(", ")]
         for i in range(len(conversation) - 1):
             inputs.append(id2line[conversation[i]])
@@ -91,7 +99,7 @@ def load_conversations():
 
 questions, answers = load_conversations()
 
-# Splitting training and validation sets
+# 트레이닝 및 검증 세트로 분리
 
 train_dataset = tf.data.Dataset.from_tensor_slices((questions[:40000], answers[:40000]))
 val_dataset = tf.data.Dataset.from_tensor_slices((questions[40000:], answers[40000:]))
@@ -107,16 +115,16 @@ Downloading data from http://www.cs.cornell.edu/~cristian/data/cornell_movie_dia
 
 {{% /details %}}
 
-### Preprocessing and Tokenization
+### 전처리 및 토크나이제이션 {#preprocessing-and-tokenization}
 
 ```python
 def preprocess_text(sentence):
     sentence = tf.strings.lower(sentence)
-    # Adding a space between the punctuation and the last word to allow better tokenization
+    # 구두점과 마지막 단어 사이에 공백을 추가하여 더 나은 토크나이제이션을 허용
     sentence = tf.strings.regex_replace(sentence, r"([?.!,])", r" \1 ")
-    # Replacing multiple continuous spaces with a single space
+    # 연속적인 여러 공백을 하나의 공백으로 대체
     sentence = tf.strings.regex_replace(sentence, r"\s\s+", " ")
-    # Replacing non english words with spaces
+    # 영어가 아닌 단어를 공백으로 대체
     sentence = tf.strings.regex_replace(sentence, r"[^a-z?.!,]+", " ")
     sentence = tf.strings.strip(sentence)
     sentence = tf.strings.join(["[start]", sentence, "[end]"], separator=" ")
@@ -130,17 +138,17 @@ vectorizer = layers.TextVectorization(
     output_sequence_length=MAX_LENGTH,
 )
 
-# We will adapt the vectorizer to both the questions and answers
-# This dataset is batched to parallelize and speed up the process
+# 질문과 답변 모두에 대해 벡터라이저를 적응시킵니다.
+# 이 데이터셋은 병렬 처리와 속도 향상을 위해 배치로 됩니다.
 vectorizer.adapt(tf.data.Dataset.from_tensor_slices((questions + answers)).batch(128))
 ```
 
-### Tokenizing and padding sentences using `TextVectorization`
+### `TextVectorization`을 사용하여 문장 토크나이즈 및 패딩 {#tokenizing-and-padding-sentences-using-textvectorization}
 
 ```python
 def vectorize_text(inputs, outputs):
     inputs, outputs = vectorizer(inputs), vectorizer(outputs)
-    # One extra padding token to the right to match the output shape
+    # 출력 모양과 일치하도록 하나의 추가 패딩 토큰을 오른쪽에 추가
     outputs = tf.pad(outputs, [[0, 1]])
     return (
         {"encoder_inputs": inputs, "decoder_inputs": outputs[:-1]},
@@ -160,15 +168,15 @@ train_dataset = (
 val_dataset = val_dataset.cache().batch(BATCH_SIZE).prefetch(tf.data.AUTOTUNE)
 ```
 
-## Creating the FNet Encoder
+## FNet 인코더 만들기 {#creating-the-fnet-encoder}
 
-The FNet paper proposes a replacement for the standard attention mechanism used by the Transformer architecture (Vaswani et al., 2017).
+FNet 논문은 Transformer 아키텍처(Vaswani et al., 2017)에서 사용되는 표준 어텐션 메커니즘을 대체하는 방법을 제안합니다.
 
 ![Architecture](/images/examples/generative/text_generation_fnet/rLg47qU.png)
 
-The outputs of the FFT layer are complex numbers. To avoid dealing with complex layers, only the real part (the magnitude) is extracted.
+FFT 레이어의 출력은 복소수입니다. 복잡한 레이어를 처리하는 것을 피하기 위해, 오직 실수 부분(크기)만 추출됩니다.
 
-The dense layers that follow the Fourier transformation act as convolutions applied on the frequency domain.
+푸리에 변환 후의 dense 레이어는 주파수 도메인에서 적용되는 합성곱(컨볼루션)과 같은 역할을 합니다.
 
 ```python
 class FNetEncoder(layers.Layer):
@@ -186,19 +194,20 @@ class FNetEncoder(layers.Layer):
         self.layernorm_2 = layers.LayerNormalization()
 
     def call(self, inputs):
-        # Casting the inputs to complex64
+        # 입력을 complex64로 캐스팅
         inp_complex = tf.cast(inputs, tf.complex64)
-        # Projecting the inputs to the frequency domain using FFT2D and
-        # extracting the real part of the output
+        # 입력을 FFT2D를 사용하여 주파수 도메인으로 프로젝션하고, 출력의 실수 부분을 추출
         fft = tf.math.real(tf.signal.fft2d(inp_complex))
         proj_input = self.layernorm_1(inputs + fft)
         proj_output = self.dense_proj(proj_input)
         return self.layernorm_2(proj_input + proj_output)
 ```
 
-## Creating the Decoder
+## 디코더 만들기 {#creating-the-decoder}
 
-The decoder architecture remains the same as the one proposed by (Vaswani et al., 2017) in the original transformer architecture, consisting of an embedding, positional encoding, two masked multi-head attention layers and finally the dense output layers. The architecture that follows is taken from [Deep Learning with Python, second edition, chapter 11](https://www.manning.com/books/deep-learning-with-python-second-edition?a_aid=keras).
+디코더 아키텍처는 원본 Transformer 아키텍처(Vaswani et al., 2017)에서 제안된 것과 동일하게 유지됩니다.
+이 아키텍처는 임베딩, 위치 인코딩, 두 개의 마스킹된 멀티헤드 어텐션 레이어와 마지막으로 dense 출력 레이어로 구성됩니다.
+아래의 아키텍처는 [Deep Learning with Python, second edition, chapter 11](https://www.manning.com/books/deep-learning-with-python-second-edition?a_aid=keras)에서 가져왔습니다.
 
 ```python
 class PositionalEmbedding(layers.Layer):
@@ -305,14 +314,16 @@ def create_model():
     return fnet
 ```
 
-## Creating and Training the model
+## 모델 생성 및 트레이닝 {#creating-and-training-the-model}
 
 ```python
 fnet = create_model()
 fnet.compile("adam", loss="sparse_categorical_crossentropy", metrics=["accuracy"])
 ```
 
-Here, the `epochs` parameter is set to a single epoch, but in practice the model will take around **20-30 epochs** of training to start outputting comprehensible sentences. Although accuracy is not a good measure for this task, we will use it just to get a hint of the improvement of the network.
+여기에서 `epochs` 매개변수는 한 번의 에포크로 설정되어 있지만,
+실제로는 모델이 이해할 수 있는 문장을 출력하기까지 **20-30 에포크** 정도의 트레이닝이 필요합니다.
+정확성은 이 작업에 적합한 척도는 아니지만, 네트워크의 개선 정도를 확인하기 위해 사용합니다.
 
 ```python
 fnet.fit(train_dataset, epochs=1, validation_data=val_dataset)
@@ -328,23 +339,23 @@ fnet.fit(train_dataset, epochs=1, validation_data=val_dataset)
 
 {{% /details %}}
 
-## Performing inference
+## 추론 수행 {#performing-inference}
 
 ```python
 VOCAB = vectorizer.get_vocabulary()
 
 
 def decode_sentence(input_sentence):
-    # Mapping the input sentence to tokens and adding start and end tokens
+    # 입력 문장을 토큰으로 매핑하고 시작과 끝 토큰을 추가
     tokenized_input_sentence = vectorizer(
         tf.constant("[start] " + preprocess_text(input_sentence) + " [end]")
     )
-    # Initializing the initial sentence consisting of only the start token.
+    # 시작 토큰만 포함하는 초기 문장 초기화
     tokenized_target_sentence = tf.expand_dims(VOCAB.index("[start]"), 0)
     decoded_sentence = ""
 
     for i in range(MAX_LENGTH):
-        # Get the predictions
+        # 예측값 가져오기
         predictions = fnet.predict(
             {
                 "encoder_inputs": tf.expand_dims(tokenized_input_sentence, 0),
@@ -357,10 +368,10 @@ def decode_sentence(input_sentence):
                 ),
             }
         )
-        # Calculating the token with maximum probability and getting the corresponding word
+        # 최대 확률을 가진 토큰 계산 후, 해당 단어 가져오기
         sampled_token_index = tf.argmax(predictions[0, i, :])
         sampled_token = VOCAB[sampled_token_index.numpy()]
-        # If sampled token is the end token then stop generating and return the sentence
+        # 샘플링된 토큰이 끝 토큰이면, 문장 생성을 멈추고 반환
         if tf.equal(sampled_token_index, VOCAB.index("[end]")):
             break
         decoded_sentence += sampled_token + " "
@@ -382,11 +393,13 @@ decode_sentence("Where have you been all this time?")
 
 {{% /details %}}
 
-## Conclusion
+## 결론 {#conclusion}
 
-This example shows how to train and perform inference using the FNet model. For getting insight into the architecture or for further reading, you can refer to:
+이 예시는 FNet 모델을 사용하여 트레이닝 및 추론을 수행하는 방법을 보여줍니다.
+아키텍처에 대한 통찰을 얻거나 더 깊이 읽어보고 싶다면, 다음 자료들을 참고하세요:
 
 1.  [FNet: Mixing Tokens with Fourier Transforms](https://arxiv.org/abs/2105.03824v3) (Lee-Thorp et al., 2021)
 2.  [Attention Is All You Need](https://arxiv.org/abs/1706.03762v5) (Vaswani et al., 2017)
 
-Thanks to François Chollet for his Keras example on [English-to-Spanish translation with a sequence-to-sequence Transformer]({{< relref "/docs/examples/nlp/neural_machine_translation_with_transformer" >}}) from which the decoder implementation was extracted.
+Keras의 [영어에서 스페인어로의 시퀀스-투-시퀀스 번역 Transformer]({{< relref "/docs/examples/nlp/neural_machine_translation_with_transformer" >}}) 예제를 제공한 François Chollet에게 감사드립니다.
+디코더 구현은 해당 예제에서 추출되었습니다.

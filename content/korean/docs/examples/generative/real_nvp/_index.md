@@ -1,5 +1,6 @@
 ---
-title: Density estimation using Real NVP
+title: Real NVP를 사용한 밀도 추정
+linkTitle: Real NVP로 밀도 추정
 toc: true
 weight: 28
 type: docs
@@ -10,7 +11,7 @@ type: docs
 **{{< t f_author >}}** [Mandolini Giorgio Maria](https://www.linkedin.com/in/giorgio-maria-mandolini-a2a1b71b4/), [Sanna Daniele](https://www.linkedin.com/in/daniele-sanna-338629bb/), [Zannini Quirini Giorgio](https://www.linkedin.com/in/giorgio-zannini-quirini-16ab181a0/)  
 **{{< t f_date_created >}}** 2020/08/10  
 **{{< t f_last_modified >}}** 2020/08/10  
-**{{< t f_description >}}** Estimating the density distribution of the "double moon" dataset.
+**{{< t f_description >}}** "double moon" 데이터셋의 밀도 분포 추정
 
 {{< keras/version v=2 >}}
 
@@ -19,24 +20,27 @@ type: docs
 {{< card link="https://github.com/keras-team/keras-io/blob/master/examples/generative/real_nvp.py" title="GitHub" tag="GitHub">}}
 {{< /cards >}}
 
-## Introduction
+## 소개 {#introduction}
 
-The aim of this work is to map a simple distribution - which is easy to sample and whose density is simple to estimate - to a more complex one learned from the data. This kind of generative model is also known as "normalizing flow".
+이 작업의 목표는 샘플링하기 쉬운 간단한 분포를, 데이터에서 학습한 더 복잡한 분포로 매핑하는 것입니다.
+이와 같은 종류의 생성 모델은 "정규화 흐름(normalizing flow)"으로도 알려져 있습니다.
 
-In order to do this, the model is trained via the maximum likelihood principle, using the "change of variable" formula.
+이를 달성하기 위해, 모델은 최대 우도 원칙(maximum likelihood principle)을 사용하여, "변수 변경" 공식을 통해 트레이닝됩니다.
 
-We will use an affine coupling function. We create it such that its inverse, as well as the determinant of the Jacobian, are easy to obtain (more details in the referenced paper).
+우리는 아핀 결합 함수(affine coupling function)를 사용할 것이며,
+이 함수는 역함수와 야코비안의 행렬식(determinant)을 쉽게 구할 수 있도록 설계되었습니다.
+(참조 논문에 더 자세한 내용이 나와 있습니다.)
 
-**Requirements:**
+**필요 사항:**
 
 - Tensorflow 2.9.1
 - Tensorflow probability 0.17.0
 
-**Reference:**
+**참조:**
 
-[Density estimation using Real NVP](https://arxiv.org/abs/1605.08803)
+[Real NVP를 사용한 밀도 추정](https://arxiv.org/abs/1605.08803)
 
-## Setup
+## 셋업 {#setup}
 
 ```python
 import tensorflow as tf
@@ -49,7 +53,7 @@ import matplotlib.pyplot as plt
 import tensorflow_probability as tfp
 ```
 
-## Load the data
+## 데이터 로드 {#load-the-data}
 
 ```python
 data = make_moons(3000, noise=0.05)[0].astype("float32")
@@ -58,10 +62,10 @@ norm.adapt(data)
 normalized_data = norm(data)
 ```
 
-## Affine coupling layer
+## Affine 결합 레이어 {#affine-coupling-layer}
 
 ```python
-# Creating a custom layer with keras API.
+# Keras API로 커스텀 레이어 생성.
 output_dim = 256
 reg = 0.01
 
@@ -104,7 +108,7 @@ def Coupling(input_shape):
     return keras.Model(inputs=input, outputs=[s_layer_5, t_layer_5])
 ```
 
-## Real NVP
+## Real NVP {#real-nvp}
 
 ```python
 class RealNVP(keras.Model):
@@ -113,7 +117,7 @@ class RealNVP(keras.Model):
 
         self.num_coupling_layers = num_coupling_layers
 
-        # Distribution of the latent space.
+        # 잠재 공간의 분포 정의.
         self.distribution = tfp.distributions.MultivariateNormalDiag(
             loc=[0.0, 0.0], scale_diag=[1.0, 1.0]
         )
@@ -125,11 +129,11 @@ class RealNVP(keras.Model):
 
     @property
     def metrics(self):
-        """List of the model's metrics.
+        """모델의 메트릭 리스트 반환.
 
-        We make sure the loss tracker is listed as part of `model.metrics`
-        so that `fit()` and `evaluate()` are able to `reset()` the loss tracker
-        at the start of each epoch and at the start of an `evaluate()` call.
+        우리는 손실 추적기가 `model.metrics`의 일부로 포함되도록 하여,
+        `fit()` 및 `evaluate()`에서 에포크 시작 시 또는 `evaluate()` 호출 시 손실 추적기를
+        `reset()`할 수 있도록 합니다.
         """
         return [self.loss_tracker]
 
@@ -154,7 +158,7 @@ class RealNVP(keras.Model):
 
         return x, log_det_inv
 
-    # Log likelihood of the normal distribution plus the log determinant of the jacobian.
+    # 정규 분포의 로그 우도에 야코비안의 행렬식을 더한 로그 손실 계산. (Log likelihood of the normal distribution plus the log determinant of the jacobian.)
 
     def log_loss(self, x):
         y, logdet = self(x)
@@ -179,7 +183,7 @@ class RealNVP(keras.Model):
         return {"loss": self.loss_tracker.result()}
 ```
 
-## Model training
+## 모델 트레이닝 {#model-training}
 
 ```python
 model = RealNVP(num_coupling_layers=6)
@@ -798,7 +802,7 @@ Epoch 300/300
 
 {{% /details %}}
 
-## Performance evaluation
+## 성능 평가 {#performance-evaluation}
 
 ```python
 plt.figure(figsize=(15, 10))
@@ -809,10 +813,10 @@ plt.legend(["train", "validation"], loc="upper right")
 plt.ylabel("loss")
 plt.xlabel("epoch")
 
-# From data to latent space.
+# 데이터에서 잠재 공간으로 변환.
 z, _ = model(normalized_data)
 
-# From latent space to data.
+# 잠재 공간에서 데이터로 변환.
 samples = model.distribution.sample(3000)
 x, _ = model.predict(samples)
 

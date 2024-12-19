@@ -1,5 +1,6 @@
 ---
 title: Deep Dream
+linkTitle: Deep Dream
 toc: true
 weight: 13
 type: docs
@@ -10,7 +11,7 @@ type: docs
 **{{< t f_author >}}** [fchollet](https://twitter.com/fchollet)  
 **{{< t f_date_created >}}** 2016/01/13  
 **{{< t f_last_modified >}}** 2020/05/02  
-**{{< t f_description >}}** Generating Deep Dreams with Keras.
+**{{< t f_description >}}** Keras로 Deep Dream 만들기
 
 {{< keras/version v=3 >}}
 
@@ -18,23 +19,30 @@ type: docs
 {{< card link="https://colab.research.google.com/github/keras-team/keras-io/blob/master/examples/generative/ipynb/deep_dream.ipynb" title="Colab" tag="Colab" tagType="warning">}}
 {{< card link="https://github.com/keras-team/keras-io/blob/master/examples/generative/deep_dream.py" title="GitHub" tag="GitHub">}}
 {{< /cards >}}
-ⓘ This example uses Keras 3
 
-## Introduction
+## 소개 {#introduction}
 
-"Deep dream" is an image-filtering technique which consists of taking an image classification model, and running gradient ascent over an input image to try to maximize the activations of specific layers (and sometimes, specific units in specific layers) for this input. It produces hallucination-like visuals.
+"Deep dream"은 이미지 분류 모델을 사용하여,
+입력 이미지에서 특정 레이어(때로는 특정 레이어의 특정 유닛)의 활성화를 최대화하기 위해,
+그래디언트 상승(gradient ascent)을 실행하는 이미지 필터링 기법입니다.
+이 과정은 환각 같은 시각적 효과를 만들어냅니다.
 
-It was first introduced by Alexander Mordvintsev from Google in July 2015.
+이 기술은 2015년 7월, Google의 Alexander Mordvintsev에 의해 처음 도입되었습니다.
 
-Process:
+과정:
 
-- Load the original image.
-- Define a number of processing scales ("octaves"), from smallest to largest.
-- Resize the original image to the smallest scale.
-- For every scale, starting with the smallest (i.e. current one): - Run gradient ascent - Upscale image to the next scale - Reinject the detail that was lost at upscaling time
-- Stop when we are back to the original size. To obtain the detail lost during upscaling, we simply take the original image, shrink it down, upscale it, and compare the result to the (resized) original image.
+- 원본 이미지를 로드합니다.
+- 가장 작은 스케일에서부터 가장 큰 스케일까지의, 여러 처리 스케일("옥타브, octaves")을 정의합니다.
+- 원본 이미지를 가장 작은 스케일로 크기를 조정합니다.
+- 각 스케일에 대해, 가장 작은 스케일(즉, 현재 스케일)에서 시작하여 다음을 수행합니다:
+  - 그래디언트 상승(gradient ascent) 실행
+  - 이미지를 다음 스케일로 업스케일
+  - 업스케일 시 손실된, 디테일 재주입
+- 원래 크기로 돌아오면 중지합니다.
+  업스케일 과정에서 손실된 디테일을 얻기 위해, 원본 이미지를 축소하고,
+  다시 업스케일한 다음, 결과를 (리사이즈된) 원본 이미지와 비교합니다.
 
-## Setup
+## 셋업 {#setup}
 
 ```python
 import os
@@ -49,11 +57,8 @@ from keras.applications import inception_v3
 base_image_path = keras.utils.get_file("sky.jpg", "https://i.imgur.com/aGBdQyK.jpg")
 result_prefix = "sky_dream"
 
-# These are the names of the layers
-# for which we try to maximize activation,
-# as well as their weight in the final loss
-# we try to maximize.
-# You can tweak these setting to obtain new visual effects.
+# 우리가 활성화를 최대화하려는 레이어의 이름과 최종 손실에서의 가중치입니다.
+# 새로운 시각적 효과를 얻기 위해 이러한 설정을 조정할 수 있습니다.
 layer_settings = {
     "mixed4": 1.0,
     "mixed5": 1.5,
@@ -61,15 +66,15 @@ layer_settings = {
     "mixed7": 2.5,
 }
 
-# Playing with these hyperparameters will also allow you to achieve new effects
-step = 0.01  # Gradient ascent step size
-num_octave = 3  # Number of scales at which to run gradient ascent
-octave_scale = 1.4  # Size ratio between scales
-iterations = 20  # Number of ascent steps per scale
+# 이러한 하이퍼파라미터를 조정하여, 새로운 효과를 얻을 수도 있습니다.
+step = 0.01  # 그래디언트 상승 스텝 크기
+num_octave = 3  # 그래디언트 상승을 실행할 스케일 수
+octave_scale = 1.4  # 스케일 간의 크기 비율
+iterations = 20  # 스케일당 상승 스텝 수
 max_loss = 15.0
 ```
 
-This is our base image:
+이것이 우리의 베이스 이미지입니다:
 
 ```python
 from IPython.display import Image, display
@@ -79,12 +84,11 @@ display(Image(base_image_path))
 
 ![jpeg](/images/examples/generative/deep_dream/deep_dream_5_0.jpg)
 
-Let's set up some image preprocessing/deprocessing utilities:
+이미지 전처리 및 후처리 유틸리티를 설정해봅시다:
 
 ```python
 def preprocess_image(image_path):
-    # Util function to open, resize and format pictures
-    # into appropriate arrays.
+    # 이미지를 열고, 크기를 조정하고, 적절한 배열로 포맷팅하는 유틸리티 함수
     img = keras.utils.load_img(image_path)
     img = keras.utils.img_to_array(img)
     img = np.expand_dims(img, axis=0)
@@ -93,26 +97,26 @@ def preprocess_image(image_path):
 
 
 def deprocess_image(x):
-    # Util function to convert a NumPy array into a valid image.
+    # NumPy 배열을 유효한 이미지로 변환하는 유틸리티 함수
     x = x.reshape((x.shape[1], x.shape[2], 3))
-    # Undo inception v3 preprocessing
+    # Inception v3 전처리 되돌리기(undo)
     x /= 2.0
     x += 0.5
     x *= 255.0
-    # Convert to uint8 and clip to the valid range [0, 255]
+    # uint8로 변환하고 유효 범위 [0, 255]로 클립
     x = np.clip(x, 0, 255).astype("uint8")
     return x
 ```
 
-## Compute the Deep Dream loss
+## Deep Dream 손실 계산 {#compute-the-deep-dream-loss}
 
-First, build a feature extraction model to retrieve the activations of our target layers given an input image.
+먼저, 입력 이미지가 주어졌을 때 목표 레이어의 활성화를 가져오기 위해, 특성 추출 모델을 빌드합니다.
 
 ```python
-# Build an InceptionV3 model loaded with pre-trained ImageNet weights
+# 사전 트레이닝된 ImageNet 가중치로 로드된 InceptionV3 모델을 빌드합니다.
 model = inception_v3.InceptionV3(weights="imagenet", include_top=False)
 
-# Get the symbolic outputs of each "key" layer (we gave them unique names).
+# 각 "주요" 레이어의 상징적(symbolic) 출력을 가져옵니다. (고유한 이름을 부여했습니다)
 outputs_dict = dict(
     [
         (layer.name, layer.output)
@@ -120,28 +124,27 @@ outputs_dict = dict(
     ]
 )
 
-# Set up a model that returns the activation values for every target layer
-# (as a dict)
+# 각 목표 레이어에 대한 활성화 값을 (딕셔너리 형태로) 반환하는 모델을 설정합니다.
 feature_extractor = keras.Model(inputs=model.inputs, outputs=outputs_dict)
 ```
 
-The actual loss computation is very simple:
+실제 손실 계산은 매우 간단합니다:
 
 ```python
 def compute_loss(input_image):
     features = feature_extractor(input_image)
-    # Initialize the loss
+    # 손실 초기화
     loss = tf.zeros(shape=())
     for name in features.keys():
         coeff = layer_settings[name]
         activation = features[name]
-        # We avoid border artifacts by only involving non-border pixels in the loss.
+        # 손실 계산 시 경계 아티팩트를 피하기 위해 경계 픽셀은 제외합니다.
         scaling = tf.reduce_prod(tf.cast(tf.shape(activation), "float32"))
         loss += coeff * tf.reduce_sum(tf.square(activation[:, 2:-2, 2:-2, :])) / scaling
     return loss
 ```
 
-## Set up the gradient ascent loop for one octave
+## 하나의 옥타브에 대한 그래디언트 상승 루프 설정 {#set-up-the-gradient-ascent-loop-for-one-octave}
 
 ```python
 @tf.function
@@ -149,9 +152,9 @@ def gradient_ascent_step(img, learning_rate):
     with tf.GradientTape() as tape:
         tape.watch(img)
         loss = compute_loss(img)
-    # Compute gradients.
+    # 그래디언트 계산
     grads = tape.gradient(loss, img)
-    # Normalize gradients.
+    # 그래디언트 정규화
     grads /= tf.maximum(tf.reduce_mean(tf.abs(grads)), 1e-6)
     img += learning_rate * grads
     return loss, img
@@ -166,7 +169,7 @@ def gradient_ascent_loop(img, iterations, learning_rate, max_loss=None):
     return img
 ```
 
-## Run the training loop, iterating over different octaves
+## 다양한 옥타브를 반복하면서 트레이닝 루프 실행 {#run-the-training-loop-iterating-over-different-octaves}
 
 ```python
 original_img = preprocess_image(base_image_path)
@@ -179,7 +182,7 @@ for i in range(1, num_octave):
 successive_shapes = successive_shapes[::-1]
 shrunk_original_img = tf.image.resize(original_img, successive_shapes[0])
 
-img = tf.identity(original_img)  # Make a copy
+img = tf.identity(original_img)  # 복사본을 만듭니다.
 for i, shape in enumerate(successive_shapes):
     print("Processing octave %d with shape %s" % (i, shape))
     img = tf.image.resize(img, shape)
@@ -266,9 +269,10 @@ Processing octave 2 with shape (640, 960)
 
 {{% /details %}}
 
-Display the result.
+결과를 표시합니다.
 
-You can use the trained model hosted on [Hugging Face Hub](https://huggingface.co/keras-io/deep-dream) and try the demo on [Hugging Face Spaces](https://huggingface.co/spaces/keras-io/deep-dream).
+[Hugging Face Hub](https://huggingface.co/keras-io/deep-dream)에 호스팅된 트레이닝된 모델을 사용해 볼 수 있으며,
+[Hugging Face Spaces](https://huggingface.co/spaces/keras-io/deep-dream)에서 데모를 시도해 볼 수 있습니다.
 
 ```python
 display(Image(result_prefix + ".png"))

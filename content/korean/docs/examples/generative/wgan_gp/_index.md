@@ -1,5 +1,6 @@
 ---
-title: WGAN-GP overriding `Model.train_step`
+title: "`Model.train_step`을 오버라이딩 하는 WGAN-GP"
+linkTitle: WGAN-GP
 toc: true
 weight: 9
 type: docs
@@ -8,9 +9,9 @@ type: docs
 {{< keras/original checkedAt="2024-11-23" >}}
 
 **{{< t f_author >}}** [A_K_Nain](https://twitter.com/A_K_Nain)  
-**{{< t f_date_created >}}** 2020/05/9  
-**{{< t f_last_modified >}}** 2023/08/3  
-**{{< t f_description >}}** Implementation of Wasserstein GAN with Gradient Penalty.
+**{{< t f_date_created >}}** 2020/05/09  
+**{{< t f_last_modified >}}** 2023/08/03  
+**{{< t f_description >}}** Gradient Penalty를 사용한 Wasserstein GAN 구현.
 
 {{< keras/version v=3 >}}
 
@@ -19,13 +20,23 @@ type: docs
 {{< card link="https://github.com/keras-team/keras-io/blob/master/examples/generative/wgan_gp.py" title="GitHub" tag="GitHub">}}
 {{< /cards >}}
 
-## Wasserstein GAN (WGAN) with Gradient Penalty (GP)
+## Gradient Penalty(GP)를 갖춘 Wasserstein GAN(WGAN) {#wasserstein-gan-wgan-with-gradient-penalty-gp}
 
-The original [Wasserstein GAN](https://arxiv.org/abs/1701.07875) leverages the Wasserstein distance to produce a value function that has better theoretical properties than the value function used in the original GAN paper. WGAN requires that the discriminator (aka the critic) lie within the space of 1-Lipschitz functions. The authors proposed the idea of weight clipping to achieve this constraint. Though weight clipping works, it can be a problematic way to enforce 1-Lipschitz constraint and can cause undesirable behavior, e.g. a very deep WGAN discriminator (critic) often fails to converge.
+원본 [Wasserstein GAN](https://arxiv.org/abs/1701.07875)은 Wasserstein 거리를 활용하여,
+원본 GAN 논문에서 사용된 값 함수(value function)보다 더 나은 이론적 속성을 가진 값 함수를 생성합니다.
+WGAN은 판별자(discriminator, 일명 비평가(critic))가 1-Lipschitz 함수 공간 내에 있어야 합니다.
+저자는 이 제약 조건을 달성하기 위해, 가중치 클리핑(weight clipping)이라는 아이디어를 제안했습니다.
+가중치 클리핑은 작동하지만, 1-Lipschitz 제약 조건을 적용하는 데 문제가 될 수 있으며,
+바람직하지 않은 동작을 일으킬 수 있습니다.
+예를 들어, 매우 깊은 WGAN 판별자(비평가)는 종종 수렴하지 못합니다.
 
-The [WGAN-GP](https://arxiv.org/abs/1704.00028) method proposes an alternative to weight clipping to ensure smooth training. Instead of clipping the weights, the authors proposed a "gradient penalty" by adding a loss term that keeps the L2 norm of the discriminator gradients close to 1.
+[WGAN-GP](https://arxiv.org/abs/1704.00028) 방법은 원활한 트레이닝을 ​​보장하기 위해,
+가중치 클리핑에 대한 대안을 제안합니다.
+저자는 가중치를 클리핑하는 대신,
+판별자 그래디언트의 L2 norm을 1에 가깝게 유지하는 손실 항을 추가하는,
+"그래디언트 페널티(Gradient Penalty, GP)"를 제안했습니다.
 
-## Setup
+## 셋업 {#setup}
 
 ```python
 import os
@@ -37,15 +48,17 @@ import tensorflow as tf
 from keras import layers
 ```
 
-## Prepare the Fashion-MNIST data
+## Fashion-MNIST 데이터 준비 {#prepare-the-fashion-mnist-data}
 
-To demonstrate how to train WGAN-GP, we will be using the [Fashion-MNIST](https://github.com/zalandoresearch/fashion-mnist) dataset. Each sample in this dataset is a 28x28 grayscale image associated with a label from 10 classes (e.g. trouser, pullover, sneaker, etc.)
+WGAN-GP를 트레이닝하는 방법을 보여주기 위해,
+[Fashion-MNIST](https://github.com/zalandoresearch/fashion-mnist) 데이터 세트를 사용합니다.
+이 데이터 세트의 각 샘플은 10개 클래스(예: 바지, 풀오버, 스니커즈 등)의 레이블과 연결된 28x28 회색조 이미지입니다.
 
 ```python
 IMG_SHAPE = (28, 28, 1)
 BATCH_SIZE = 512
 
-# Size of the noise vector
+# 노이즈 벡터의 크기
 noise_dim = 128
 
 fashion_mnist = keras.datasets.fashion_mnist
@@ -53,7 +66,8 @@ fashion_mnist = keras.datasets.fashion_mnist
 print(f"Number of examples: {len(train_images)}")
 print(f"Shape of the images in the dataset: {train_images.shape[1:]}")
 
-# Reshape each sample to (28, 28, 1) and normalize the pixel values in the [-1, 1] range
+# 각 샘플을 (28, 28, 1)로 reshape하고,
+# [-1, 1] 범위로 픽셀 값을 정규화합니다.
 train_images = train_images.reshape(train_images.shape[0], *IMG_SHAPE).astype("float32")
 train_images = (train_images - 127.5) / 127.5
 ```
@@ -75,11 +89,18 @@ Shape of the images in the dataset: (28, 28)
 
 {{% /details %}}
 
-## Create the discriminator (the critic in the original WGAN)
+## 판별자(원본 WGAN의 비평가) 만들기 {#create-the-discriminator-the-critic-in-the-original-wgan}
 
-The samples in the dataset have a (28, 28, 1) shape. Because we will be using strided convolutions, this can result in a shape with odd dimensions. For example, `(28, 28) -> Conv_s2 -> (14, 14) -> Conv_s2 -> (7, 7) -> Conv_s2 ->(3, 3)`.
+데이터 세트의 샘플은 (28, 28, 1) 모양을 갖습니다.
+스트라이드된 컨볼루션을 사용할 것이므로, 홀수 차원의 모양이 생길 수 있습니다.
+예를 들어, `(28, 28) -> Conv_s2 -> (14, 14) -> Conv_s2 -> (7, 7) -> Conv_s2 ->(3, 3)`.
 
-While performing upsampling in the generator part of the network, we won't get the same input shape as the original images if we aren't careful. To avoid this, we will do something much simpler: - In the discriminator: "zero pad" the input to change the shape to `(32, 32, 1)` for each sample; and - Ihe generator: crop the final output to match the shape with input shape.
+네트워크의 생성자 부분에서 업샘플링을 수행하는 동안,
+주의하지 않으면 원본 이미지와 동일한 입력 모양을 얻지 못합니다.
+이를 방지하기 위해 훨씬 간단한 작업을 수행합니다.
+
+- 판별자에서: 입력을 "제로 패딩"하여 각 샘플의 모양을 `(32, 32, 1)`로 변경합니다.
+- 생성자에서: 입력 모양과 모양이 일치하도록 최종 출력을 자릅니다.
 
 ```python
 def conv_block(
@@ -107,7 +128,7 @@ def conv_block(
 
 def get_discriminator_model():
     img_input = layers.Input(shape=IMG_SHAPE)
-    # Zero pad the input to make the input images size to (32, 32, 1).
+    # 입력 이미지 크기를 (32, 32, 1)로 만들기 위해, 입력을 0으로 채웁니다. (제로 패딩)
     x = layers.ZeroPadding2D((2, 2))(img_input)
     x = conv_block(
         x,
@@ -210,7 +231,7 @@ Model: "discriminator"
 
 {{% /details %}}
 
-## Create the generator
+## 생성자 만들기 {#create-the-generator}
 
 ```python
 def upsample_block(
@@ -271,8 +292,8 @@ def get_generator_model():
     x = upsample_block(
         x, 1, layers.Activation("tanh"), strides=(1, 1), use_bias=False, use_bn=True
     )
-    # At this point, we have an output which has the same shape as the input, (32, 32, 1).
-    # We will use a Cropping2D layer to make it (28, 28, 1).
+    # 이 시점에서 우리는 입력과 같은 모양(32, 32, 1)을 가진 출력을 얻습니다.
+    # 우리는 그것을 (28, 28, 1)로 만들기 위해, Cropping2D 레이어를 사용할 것입니다.
     x = layers.Cropping2D((2, 2))(x)
 
     g_model = keras.models.Model(noise, x, name="generator")
@@ -337,9 +358,10 @@ Model: "generator"
 
 {{% /details %}}
 
-## Create the WGAN-GP model
+## WGAN-GP 모델 생성 {#create-the-wgan-gp-model}
 
-Now that we have defined our generator and discriminator, it's time to implement the WGAN-GP model. We will also override the `train_step` for training.
+이제 생성자와 판별자를 정의했으니, WGAN-GP 모델을 구현할 차례입니다.
+또한 트레이닝을 ​​위해 `train_step`을 재정의합니다.
 
 ```python
 class WGAN(keras.Model):
@@ -366,24 +388,23 @@ class WGAN(keras.Model):
         self.g_loss_fn = g_loss_fn
 
     def gradient_penalty(self, batch_size, real_images, fake_images):
-        """Calculates the gradient penalty.
+        """그래디언트 페널티(gradient penalty, GP)를 계산합니다.
 
-        This loss is calculated on an interpolated image
-        and added to the discriminator loss.
+        이 손실은 보간된 이미지에서 계산되어, 판별자 손실에 추가됩니다.
         """
-        # Get the interpolated image
+        # 보간된 이미지를 얻습니다.
         alpha = tf.random.uniform([batch_size, 1, 1, 1], 0.0, 1.0)
         diff = fake_images - real_images
         interpolated = real_images + alpha * diff
 
         with tf.GradientTape() as gp_tape:
             gp_tape.watch(interpolated)
-            # 1. Get the discriminator output for this interpolated image.
+            # 1. 이 보간된 이미지에 대한 판별자 출력을 가져옵니다.
             pred = self.discriminator(interpolated, training=True)
 
-        # 2. Calculate the gradients w.r.t to this interpolated image.
+        # 2. 이 보간된 이미지에 대한 그래디언트를 계산합니다.
         grads = gp_tape.gradient(pred, [interpolated])[0]
-        # 3. Calculate the norm of the gradients.
+        # 3. 그래디언트의 norm을 계산합니다.
         norm = tf.sqrt(tf.reduce_sum(tf.square(grads), axis=[1, 2, 3]))
         gp = tf.reduce_mean((norm - 1.0) ** 2)
         return gp
@@ -392,70 +413,68 @@ class WGAN(keras.Model):
         if isinstance(real_images, tuple):
             real_images = real_images[0]
 
-        # Get the batch size
+        # 배치 크기를 가져옵니다.
         batch_size = tf.shape(real_images)[0]
 
-        # For each batch, we are going to perform the
-        # following steps as laid out in the original paper:
-        # 1. Train the generator and get the generator loss
-        # 2. Train the discriminator and get the discriminator loss
-        # 3. Calculate the gradient penalty
-        # 4. Multiply this gradient penalty with a constant weight factor
-        # 5. Add the gradient penalty to the discriminator loss
-        # 6. Return the generator and discriminator losses as a loss dictionary
+        # 각 배치에 대해 원본 논문에 나와 있는 대로 다음 단계를 수행합니다.
+        # 1. 생성자를 트레이닝하고, 생성자 손실을 구합니다.
+        # 2. 판별자를 트레이닝하고, 판별자 손실을 구합니다.
+        # 3. 그래디언트 페널티(GP)를 계산합니다.
+        # 4. 이 그래디언트 페널티를 상수 가중치 인자(factor)와 곱합니다.
+        # 5. 판별자 손실에 그래디언트 페널티를 추가합니다.
+        # 6. 생성자 및 판별자 손실을 손실 딕셔너리로 반환합니다.
 
-        # Train the discriminator first. The original paper recommends training
-        # the discriminator for `x` more steps (typically 5) as compared to
-        # one step of the generator. Here we will train it for 3 extra steps
-        # as compared to 5 to reduce the training time.
+        # 먼저 판별자를 트레이닝합니다.
+        # 원본 논문에서는 생성자의 한 단계보다 판별자를 `x` 단계 더(일반적으로 5) 트레이닝하는 것을 권장합니다.
+        # 여기서는 트레이닝 시간을 줄이기 위해, 5단계가 아닌 3단계를 더 트레이닝합니다.
         for i in range(self.d_steps):
-            # Get the latent vector
+            # 잠재 벡터를 얻습니다.
             random_latent_vectors = tf.random.normal(
                 shape=(batch_size, self.latent_dim)
             )
             with tf.GradientTape() as tape:
-                # Generate fake images from the latent vector
+                # 잠재 벡터에서 가짜 이미지 생성
                 fake_images = self.generator(random_latent_vectors, training=True)
-                # Get the logits for the fake images
+                # 가짜 이미지에 대한 로짓을 얻습니다
                 fake_logits = self.discriminator(fake_images, training=True)
-                # Get the logits for the real images
+                # 실제 이미지에 대한 로짓을 얻습니다
                 real_logits = self.discriminator(real_images, training=True)
 
-                # Calculate the discriminator loss using the fake and real image logits
+                # 가짜 및 실제 이미지 로짓을 사용하여, 판별자 손실을 계산합니다.
                 d_cost = self.d_loss_fn(real_img=real_logits, fake_img=fake_logits)
-                # Calculate the gradient penalty
+                # 그래디언트 페널티를 계산합니다
                 gp = self.gradient_penalty(batch_size, real_images, fake_images)
-                # Add the gradient penalty to the original discriminator loss
+                # 원래 판별자 손실에 그래디언트 페널티를 추가합니다.
                 d_loss = d_cost + gp * self.gp_weight
 
-            # Get the gradients w.r.t the discriminator loss
+            # 판별자 손실에 대한 그래디언트를 얻습니다.
             d_gradient = tape.gradient(d_loss, self.discriminator.trainable_variables)
-            # Update the weights of the discriminator using the discriminator optimizer
+            # 판별자 옵티마이저를 사용하여, 판별자의 가중치를 업데이트합니다.
             self.d_optimizer.apply_gradients(
                 zip(d_gradient, self.discriminator.trainable_variables)
             )
 
-        # Train the generator
-        # Get the latent vector
+        # 생성자를 트레이닝합니다.
+        # 잠재 벡터를 얻습니다.
         random_latent_vectors = tf.random.normal(shape=(batch_size, self.latent_dim))
         with tf.GradientTape() as tape:
-            # Generate fake images using the generator
+            # 생성기를 사용하여 가짜 이미지 생성
             generated_images = self.generator(random_latent_vectors, training=True)
-            # Get the discriminator logits for fake images
+            # 가짜 이미지에 대한 판별자 로짓을 얻습니다.
             gen_img_logits = self.discriminator(generated_images, training=True)
-            # Calculate the generator loss
+            # 생성자 손실을 계산합니다.
             g_loss = self.g_loss_fn(gen_img_logits)
 
-        # Get the gradients w.r.t the generator loss
+        # 생성자 손실에 대한 그래디언트를 얻습니다.
         gen_gradient = tape.gradient(g_loss, self.generator.trainable_variables)
-        # Update the weights of the generator using the generator optimizer
+        # 생성자 옵티마이저를 사용하여 생성자의 가중치를 업데이트합니다.
         self.g_optimizer.apply_gradients(
             zip(gen_gradient, self.generator.trainable_variables)
         )
         return {"d_loss": d_loss, "g_loss": g_loss}
 ```
 
-## Create a Keras callback that periodically saves generated images
+## 생성된 이미지를 주기적으로 저장하는 Keras 콜백 만들기 {#create-a-keras-callback-that-periodically-saves-generated-images}
 
 ```python
 class GANMonitor(keras.callbacks.Callback):
@@ -474,11 +493,11 @@ class GANMonitor(keras.callbacks.Callback):
             img.save("generated_img_{i}_{epoch}.png".format(i=i, epoch=epoch))
 ```
 
-## Train the end-to-end model
+## 엔드투엔드 모델 트레이닝 {#train-the-end-to-end-model}
 
 ```python
-# Instantiate the optimizer for both networks
-# (learning_rate=0.0002, beta_1=0.5 are recommended)
+# 두 네트워크 모두에 대한 옵티마이저를 인스턴스화합니다.
+# (learning_rate=0.0002, beta_1=0.5가 권장됩니다)
 generator_optimizer = keras.optimizers.Adam(
     learning_rate=0.0002, beta_1=0.5, beta_2=0.9
 )
@@ -487,27 +506,27 @@ discriminator_optimizer = keras.optimizers.Adam(
 )
 
 
-# Define the loss functions for the discriminator,
-# which should be (fake_loss - real_loss).
-# We will add the gradient penalty later to this loss function.
+# 판별자에 대한 손실 함수를 정의합니다.
+# 이는 (fake_loss - real_loss)여야 합니다.
+# 나중에 이 손실 함수에 그래디언트 페널티를 추가합니다.
 def discriminator_loss(real_img, fake_img):
     real_loss = tf.reduce_mean(real_img)
     fake_loss = tf.reduce_mean(fake_img)
     return fake_loss - real_loss
 
 
-# Define the loss functions for the generator.
+# 생성자의 손실 함수를 정의합니다.
 def generator_loss(fake_img):
     return -tf.reduce_mean(fake_img)
 
 
-# Set the number of epochs for training.
+# 트레이닝을 위한 에포크 수를 설정합니다.
 epochs = 20
 
-# Instantiate the customer `GANMonitor` Keras callback.
+# customer `GANMonitor` Keras 콜백을 인스턴스화합니다.
 cbk = GANMonitor(num_img=3, latent_dim=noise_dim)
 
-# Get the wgan model
+# Wgan 모델을 얻습니다.
 wgan = WGAN(
     discriminator=d_model,
     generator=g_model,
@@ -515,7 +534,7 @@ wgan = WGAN(
     discriminator_extra_steps=3,
 )
 
-# Compile the wgan model
+# wgan 모델을 컴파일합니다.
 wgan.compile(
     d_optimizer=discriminator_optimizer,
     g_optimizer=generator_optimizer,
@@ -523,7 +542,7 @@ wgan.compile(
     d_loss_fn=discriminator_loss,
 )
 
-# Start training
+# 트레이닝 시작
 wgan.fit(train_images, batch_size=BATCH_SIZE, epochs=epochs, callbacks=[cbk])
 ```
 
@@ -576,7 +595,7 @@ Epoch 20/20
 
 {{% /details %}}
 
-Display the last generated images:
+마지막으로 생성된 이미지 표시:
 
 ```python
 from IPython.display import Image, display

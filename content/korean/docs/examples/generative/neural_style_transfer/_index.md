@@ -1,5 +1,6 @@
 ---
-title: Neural style transfer
+title: 신경 스타일 전송
+linkTitle: 신경 스타일 전송
 toc: true
 weight: 18
 type: docs
@@ -10,7 +11,7 @@ type: docs
 **{{< t f_author >}}** [fchollet](https://twitter.com/fchollet)  
 **{{< t f_date_created >}}** 2016/01/11  
 **{{< t f_last_modified >}}** 2020/05/02  
-**{{< t f_description >}}** Transferring the style of a reference image to target image using gradient descent.
+**{{< t f_description >}}** 그래디언트 하강법을 사용하여, 참조 이미지의 스타일을 타겟 이미지로 전송하기
 
 {{< keras/version v=3 >}}
 
@@ -19,17 +20,27 @@ type: docs
 {{< card link="https://github.com/keras-team/keras-io/blob/master/examples/generative/neural_style_transfer.py" title="GitHub" tag="GitHub">}}
 {{< /cards >}}
 
-## Introduction
+## 소개 {#introduction}
 
-Style transfer consists in generating an image with the same "content" as a base image, but with the "style" of a different picture (typically artistic). This is achieved through the optimization of a loss function that has 3 components: "style loss", "content loss", and "total variation loss":
+스타일 전송은 베이스 이미지와 동일한 "콘텐츠"를 가진 이미지를 생성하되,
+"스타일"은 다른 이미지(일반적으로 예술적 이미지)의 스타일을 따르는 방식입니다.
+이는 3가지 구성 요소를 가진 손실 함수의 최적화를 통해 이루어집니다:
+"스타일 손실", "콘텐츠 손실", 그리고 "총 변동 손실(total variation loss)"
 
-- The total variation loss imposes local spatial continuity between the pixels of the combination image, giving it visual coherence.
-- The style loss is where the deep learning keeps in –that one is defined using a deep convolutional neural network. Precisely, it consists in a sum of L2 distances between the Gram matrices of the representations of the base image and the style reference image, extracted from different layers of a convnet (trained on ImageNet). The general idea is to capture color/texture information at different spatial scales (fairly large scales –defined by the depth of the layer considered).
-- The content loss is a L2 distance between the features of the base image (extracted from a deep layer) and the features of the combination image, keeping the generated image close enough to the original one.
+- 총 변동 손실은
+  - 조합 이미지의 픽셀 간 지역적 공간 연속성을 부여하여, 시각적 일관성을 제공합니다.
+- 스타일 손실은
+  - 딥러닝이 관여하는 부분으로, 이는 심층 컨볼루션 신경망을 사용하여 정의됩니다.
+    - 정확히 말하면, 스타일 손실은 ImageNet에 대해 트레이닝된 convnet의 서로 다른 레이어에서 추출된,
+    - 베이스 이미지와 스타일 참조 이미지의 표현들에 대한 Gram matrices 간의 L2 거리의 합으로 구성됩니다.
+  - 일반적인 아이디어는 서로 다른 공간적 규모에서 색상 및 텍스처 정보를 캡처하는 것입니다.
+    - 이때 공간적 규모는 레이어의 깊이에 따라 정의되며, 상당히 큰 규모에서 처리됩니다.
+- 콘텐츠 손실은
+  - 기본 이미지(딥 레이어에서 추출된)의 특징과 조합 이미지의 특징 간의 L2 거리로 정의되며, 생성된 이미지가 원본과 충분히 유사하도록 유지합니다.
 
-**Reference:** [A Neural Algorithm of Artistic Style](http://arxiv.org/abs/1508.06576)
+**참조:** [A Neural Algorithm of Artistic Style](http://arxiv.org/abs/1508.06576)
 
-## Setup
+## 셋업 {#setup}
 
 ```python
 import os
@@ -47,12 +58,12 @@ style_reference_image_path = keras.utils.get_file(
 )
 result_prefix = "paris_generated"
 
-# Weights of the different loss components
+# 각 손실 요소들의 가중치
 total_variation_weight = 1e-6
 style_weight = 1e-6
 content_weight = 2.5e-8
 
-# Dimensions of the generated picture.
+# 생성된 이미지의 크기.
 width, height = keras.utils.load_img(base_image_path).size
 img_nrows = 400
 img_ncols = int(width * img_nrows / height)
@@ -69,7 +80,7 @@ Downloading data from https://i.imgur.com/9ooB60I.jpg
 
 {{% /details %}}
 
-## Let's take a look at our base (content) image and our style reference image
+## 베이스(콘텐츠) 이미지와 스타일 참조 이미지를 살펴봅시다 {#lets-take-a-look-at-our-base-content-image-and-our-style-reference-image}
 
 ```python
 from IPython.display import Image, display
@@ -82,11 +93,11 @@ display(Image(style_reference_image_path))
 
 ![jpeg](/images/examples/generative/neural_style_transfer/neural_style_transfer_5_1.jpg)
 
-## Image preprocessing / deprocessing utilities
+## 이미지 전처리 / 후처리 유틸리티 {#image-preprocessing-deprocessing-utilities}
 
 ```python
 def preprocess_image(image_path):
-    # Util function to open, resize and format pictures into appropriate tensors
+    # 이미지를 열고, 크기를 조정하고, 적절한 텐서로 포맷(형식 변환)하는 유틸리티 함수
     img = keras.utils.load_img(image_path, target_size=(img_nrows, img_ncols))
     img = keras.utils.img_to_array(img)
     img = np.expand_dims(img, axis=0)
@@ -95,9 +106,9 @@ def preprocess_image(image_path):
 
 
 def deprocess_image(x):
-    # Util function to convert a tensor into a valid image
+    # 텐서를 유효한 이미지로 변환하는 유틸리티 함수
     x = x.reshape((img_nrows, img_ncols, 3))
-    # Remove zero-center by mean pixel
+    # 평균 픽셀값으로부터 영점 중심(zero-center) 제거
     x[:, :, 0] += 103.939
     x[:, :, 1] += 116.779
     x[:, :, 2] += 123.68
@@ -107,17 +118,21 @@ def deprocess_image(x):
     return x
 ```
 
-## Compute the style transfer loss
+## 스타일 변환 손실 계산 {#compute-the-style-transfer-loss}
 
-First, we need to define 4 utility functions:
+먼저, 4개의 유틸리티 함수들을 정의해야 합니다:
 
-- `gram_matrix` (used to compute the style loss)
-- The `style_loss` function, which keeps the generated image close to the local textures of the style reference image
-- The `content_loss` function, which keeps the high-level representation of the generated image close to that of the base image
-- The `total_variation_loss` function, a regularization loss which keeps the generated image locally-coherent
+- `gram_matrix`
+  - 스타일 손실을 계산하는 데 사용
+- `style_loss` 함수
+  - 스타일 참조 이미지의 로컬 텍스처에 생성된 이미지가 가깝도록 유지
+- `content_loss` 함수
+  - 생성된 이미지의 높은 레벨 표현이 베이스 이미지와 가깝도록 유지
+- `total_variation_loss` 함수
+  - 생성된 이미지를 로컬에서 일관성(locally-coherent) 있게 유지하는 정규화 손실
 
 ```python
-# The gram matrix of an image tensor (feature-wise outer product)
+# 이미지 텐서의 gram matrix (특성 간 외적(outer product))
 
 
 def gram_matrix(x):
@@ -127,11 +142,9 @@ def gram_matrix(x):
     return gram
 
 
-# The "style loss" is designed to maintain
-# the style of the reference image in the generated image.
-# It is based on the gram matrices (which capture style) of
-# feature maps from the style reference image
-# and from the generated image
+# "style loss"는 참조 이미지의 스타일을 생성된 이미지에서 유지하기 위해 설계되었습니다.
+# 이는 스타일 참조 이미지와 생성된 이미지의
+# 특성 맵에서 gram matrices(스타일을 포착하는)을 기반으로 합니다.
 
 
 def style_loss(style, combination):
@@ -142,17 +155,15 @@ def style_loss(style, combination):
     return tf.reduce_sum(tf.square(S - C)) / (4.0 * (channels**2) * (size**2))
 
 
-# An auxiliary loss function
-# designed to maintain the "content" of the
-# base image in the generated image
+# 생성된 이미지에 베이스 이미지의 "콘텐츠"를 유지하도록 설계된 보조 손실 함수
 
 
 def content_loss(base, combination):
     return tf.reduce_sum(tf.square(combination - base))
 
 
-# The 3rd loss function, total variation loss,
-# designed to keep the generated image locally coherent
+# 세 번째 손실 함수, 총 변동 손실(total variation loss),
+# 생성된 이미지가 로컬에서 일관성을 유지하도록 설계되었습니다.
 
 
 def total_variation_loss(x):
@@ -165,17 +176,16 @@ def total_variation_loss(x):
     return tf.reduce_sum(tf.pow(a + b, 1.25))
 ```
 
-Next, let's create a feature extraction model that retrieves the intermediate activations of VGG19 (as a dict, by name).
+다음으로, VGG19의 중간 활성값을 사전(dict) 형식으로 가져오는 특성 추출 모델을 생성해보겠습니다.
 
 ```python
-# Build a VGG19 model loaded with pre-trained ImageNet weights
+# 사전 트레이닝된 ImageNet 가중치로 로드된 VGG19 모델을 빌드합니다.
 model = vgg19.VGG19(weights="imagenet", include_top=False)
 
-# Get the symbolic outputs of each "key" layer (we gave them unique names).
+# 각 "key" 레이어의 상징적인 출력값을 가져옵니다. (고유한 이름을 부여했습니다)
 outputs_dict = dict([(layer.name, layer.output) for layer in model.layers])
 
-# Set up a model that returns the activation values for every layer in
-# VGG19 (as a dict).
+# VGG19의 모든 레이어에 대해 활성화 값을 반환하는 모델을 설정합니다. (dict로)
 feature_extractor = keras.Model(inputs=model.inputs, outputs=outputs_dict)
 ```
 
@@ -188,10 +198,10 @@ Downloading data from https://storage.googleapis.com/tensorflow/keras-applicatio
 
 {{% /details %}}
 
-Finally, here's the code that computes the style transfer loss.
+마지막으로, 스타일 전이 손실을 계산하는 코드입니다.
 
 ```python
-# List of layers to use for the style loss.
+# 스타일 손실에 사용할 레이어 목록
 style_layer_names = [
     "block1_conv1",
     "block2_conv1",
@@ -199,7 +209,7 @@ style_layer_names = [
     "block4_conv1",
     "block5_conv1",
 ]
-# The layer to use for the content loss.
+# 콘텐츠 손실에 사용할 레이어
 content_layer_name = "block5_conv2"
 
 
@@ -209,17 +219,18 @@ def compute_loss(combination_image, base_image, style_reference_image):
     )
     features = feature_extractor(input_tensor)
 
-    # Initialize the loss
+    # 손실 초기화
     loss = tf.zeros(shape=())
 
-    # Add content loss
+    # 콘텐츠 손실 추가
     layer_features = features[content_layer_name]
     base_image_features = layer_features[0, :, :, :]
     combination_features = layer_features[2, :, :, :]
     loss = loss + content_weight * content_loss(
         base_image_features, combination_features
     )
-    # Add style loss
+
+    # 스타일 손실 추가
     for layer_name in style_layer_names:
         layer_features = features[layer_name]
         style_reference_features = layer_features[1, :, :, :]
@@ -227,14 +238,14 @@ def compute_loss(combination_image, base_image, style_reference_image):
         sl = style_loss(style_reference_features, combination_features)
         loss += (style_weight / len(style_layer_names)) * sl
 
-    # Add total variation loss
+    # 전체 변화 손실 추가
     loss += total_variation_weight * total_variation_loss(combination_image)
     return loss
 ```
 
-## Add a tf.function decorator to loss & gradient computation
+## `tf.function` 데코레이터 추가하여 손실 및 그라디언트 계산 {#add-a-tffunction-decorator-to-loss-gradient-computation}
 
-To compile it, and thus make it fast.
+컴파일하여, 빠르게 만들기 위해, `tf.function` 데코레이터를 추가합니다.
 
 ```python
 @tf.function
@@ -245,11 +256,11 @@ def compute_loss_and_grads(combination_image, base_image, style_reference_image)
     return loss, grads
 ```
 
-## The training loop
+## 트레이닝 루프 {#the-training-loop}
 
-Repeatedly run vanilla gradient descent steps to minimize the loss, and save the resulting image every 100 iterations.
+손실을 최소화하기 위해 기본적인 그라디언트 하강법 스텝을 반복하여 실행하며, 100번 반복할 때마다 결과 이미지를 저장합니다.
 
-We decay the learning rate by 0.96 every 100 steps.
+학습률은 100 스텝마다 0.96으로 감소시킵니다.
 
 ```python
 optimizer = keras.optimizers.SGD(
@@ -322,7 +333,7 @@ Iteration 4000: loss=5193.27
 
 {{% /details %}}
 
-After 4000 iterations, you get the following result:
+4000번의 반복 후, 다음과 같은 결과를 얻게 됩니다:
 
 ```python
 display(Image(result_prefix + "_at_iteration_4000.png"))

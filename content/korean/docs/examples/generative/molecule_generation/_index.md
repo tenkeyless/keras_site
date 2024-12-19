@@ -1,5 +1,6 @@
 ---
-title: Drug Molecule Generation with VAE
+title: VAE를 사용한 약물 분자 생성
+linkTitle: VAE로 약물 분자 생성
 toc: true
 weight: 25
 type: docs
@@ -11,7 +12,7 @@ math: true
 **{{< t f_author >}}** [Victor Basu](https://www.linkedin.com/in/victor-basu-520958147)  
 **{{< t f_date_created >}}** 2022/03/10  
 **{{< t f_last_modified >}}** 2022/03/24  
-**{{< t f_description >}}** Implementing a Convolutional Variational AutoEncoder (VAE) for Drug Discovery.
+**{{< t f_description >}}** 약물 발견을 위한 컨볼루션 변분 오토인코더 (VAE, Variational AutoEncoder) 구현
 
 {{< keras/version v=2 >}}
 
@@ -20,27 +21,48 @@ math: true
 {{< card link="https://github.com/keras-team/keras-io/blob/master/examples/generative/molecule_generation.py" title="GitHub" tag="GitHub">}}
 {{< /cards >}}
 
-## Introduction
+## 소개 {#introduction}
 
-In this example, we use a Variational Autoencoder to generate molecules for drug discovery. We use the research papers [Automatic chemical design using a data-driven continuous representation of molecules](https://arxiv.org/abs/1610.02415) and [MolGAN: An implicit generative model for small molecular graphs](https://arxiv.org/abs/1805.11973) as a reference.
+이 예시에서는, Variational Autoencoder (VAE)를 사용하여 약물 발견을 위한 분자를 생성합니다.
+이 예시는 논문 [Automatic chemical design using a data-driven continuous representation of molecules](https://arxiv.org/abs/1610.02415)와 [MolGAN: An implicit generative model for small molecular graphs](https://arxiv.org/abs/1805.11973)를 참조하였습니다.
 
-The model described in the paper **Automatic chemical design using a data-driven continuous representation of molecules** generates new molecules via efficient exploration of open-ended spaces of chemical compounds. The model consists of three components: Encoder, Decoder and Predictor. The Encoder converts the discrete representation of a molecule into a real-valued continuous vector, and the Decoder converts these continuous vectors back to discrete molecule representations. The Predictor estimates chemical properties from the latent continuous vector representation of the molecule. Continuous representations allow the use of gradient-based optimization to efficiently guide the search for optimized functional compounds.
+논문 **Automatic chemical design using a data-driven continuous representation of molecules**에 설명된 모델은,
+화합물의 열린 공간(open-ended spaces)을 효율적으로 탐색하여 새로운 분자를 생성합니다.
+이 모델은 인코더(Encoder), 디코더(Decoder) 및 예측기(Predictor)의 세 가지 구성 요소로 이루어져 있습니다.
+인코더는 분자의 이산 표현을 실수로 된 연속 벡터로 변환하고,
+디코더는 이러한 연속 벡터를 다시 이산적인 분자 표현으로 변환합니다.
+예측기는 분자의 연속적인 벡터 표현에서 화학적 특성을 추정합니다.
+연속적인 표현은 기울기 기반 최적화를 사용하여 최적화된 기능성 화합물을 효율적으로 탐색할 수 있게 합니다.
 
 ![intro](/images/examples/generative/molecule_generation/3CtPMzM.png)
 
-**Figure (a)** - A diagram of the autoencoder used for molecule design, including the joint property prediction model. Starting from a discrete molecule representation, such as a SMILES string, the encoder network converts each molecule into a vector in the latent space, which is effectively a continuous molecule representation. Given a point in the latent space, the decoder network produces a corresponding SMILES string. A multilayer perceptron network estimates the value of target properties associated with each molecule.
+- **그림 (a)**
 
-**Figure (b)** - Gradient-based optimization in continuous latent space. After training a surrogate model `f(z)` to predict the properties of molecules based on their latent representation `z`, we can optimize `f(z)` with respect to `z` to find new latent representations expected to match specific desired properties. These new latent representations can then be decoded into SMILES strings, at which point their properties can be tested empirically.
+  - 분자 설계를 위한 오토인코더 다이어그램으로, 공동 특성(joint property) 예측 모델을 포함합니다.
+  - SMILES 문자열과 같은 이산적인 분자 표현을 시작으로, 인코더 네트워크는 각 분자를 잠재 공간의 벡터로 변환합니다.
+    - 이 벡터는 실질적으로 연속적인 분자 표현입니다.
+    - 잠재 공간의 한 지점을 주면, 디코더 네트워크는 이에 해당하는 SMILES 문자열을 생성합니다.
+  - 다중 레이어 퍼셉트론 네트워크는 각 분자와 연관된 목표 특성의 값을 추정합니다.
 
-For an explanation and implementation of MolGAN, please refer to the Keras Example [**WGAN-GP with R-GCN for the generation of small molecular graphs**]({{< relref "/docs/examples/generative/wgan-graphs" >}}) by Alexander Kensert. Many of the functions used in the present example are from the above Keras example.
+- **그림 (b)**
+  - 연속적인 잠재 공간에서 기울기 기반 최적화입니다.
+  - 잠재 표현 `z`에 기반한 분자의 특성을 예측하기 위해 서브게이트 모델 `f(z)`을 트레이닝한 후,
+  - 우리는 `f(z)`를 `z`에 대해 최적화하여 특정한 목표 특성에 부합할 것으로 예상되는 새로운 잠재 표현을 찾을 수 있습니다.
+  - 이러한 새로운 잠재 표현은 SMILES 문자열로 디코딩된 후, 이들의 특성이 실험적으로 테스트될 수 있습니다.
 
-## Setup
+MolGAN의 설명과 구현에 대해서는 Keras 예시 [**WGAN-GP with R-GCN for the generation of small molecular graphs**]({{< relref "/docs/examples/generative/wgan-graphs" >}})을 참조하십시오.
+현재 예시에서 사용된 많은 함수는 위의 Keras 예시에서 가져왔습니다.
 
-RDKit is an open source toolkit for cheminformatics and machine learning. This toolkit come in handy if one is into drug discovery domain. In this example, RDKit is used to conveniently and efficiently transform SMILES to molecule objects, and then from those obtain sets of atoms and bonds.
+## 셋업 {#setup}
 
-Quoting from [WGAN-GP with R-GCN for the generation of small molecular graphs]({{< relref "/docs/examples/generative/wgan-graphs" >}}):
+RDKit는 화학정보학 및 기계 학습을 위한 오픈 소스 툴킷입니다.
+이 툴킷은 약물 발견 분야에서 특히 유용합니다.
+이 예시에서는, RDKit를 사용하여 SMILES를 분자 객체로 편리하고 효율적으로 변환한 후,
+이 분자 객체에서 원자와 결합의 집합을 얻습니다.
 
-**"SMILES expresses the structure of a given molecule in the form of an ASCII string. The SMILES string is a compact encoding which, for smaller molecules, is relatively human-readable. Encoding molecules as a string both alleviates and facilitates database and/or web searching of a given molecule. RDKit uses algorithms to accurately transform a given SMILES to a molecule object, which can then be used to compute a great number of molecular properties/features."**
+[WGAN-GP with R-GCN for the generation of small molecular graphs]({{< relref "/docs/examples/generative/wgan-graphs" >}})에서 인용하자면:
+
+> **"SMILES는 주어진 분자의 구조를 ASCII 문자열의 형태로 표현합니다. SMILES 문자열은 작은 분자의 경우, 비교적 사람이 읽기 쉬운 압축된 인코딩입니다. 분자를 문자열로 인코딩함으로써, 주어진 분자의 데이터베이스 및/또는 웹 검색을 용이하게 합니다. RDKit는 주어진 SMILES를 정확하게 분자 객체로 변환하는 알고리즘을 사용하며, 이를 통해 수많은 분자 특성/특징을 계산할 수 있습니다."**
 
 ```python
 !pip -q install rdkit-pypi==2021.9.4
@@ -74,9 +96,12 @@ RDLogger.DisableLog("rdApp.*")
 
 {{% /details %}}
 
-## Dataset
+## 데이터세트 {#dataset}
 
-We use the [**ZINC – A Free Database of Commercially Available Compounds for Virtual Screening**](https://bit.ly/3IVBI4x) dataset. The dataset comes with molecule formula in SMILE representation along with their respective molecular properties such as **logP** (water–octanal partition coefficient), **SAS** (synthetic accessibility score) and **QED** (Qualitative Estimate of Drug-likeness).
+우리는 [**ZINC – A Free Database of Commercially Available Compounds for Virtual Screening**](https://bit.ly/3IVBI4x) 데이터세트를 사용합니다.
+이 데이터셋에는 SMILES 표기로 표현된 분자 공식과 함께,
+**logP** (물-옥탄올 분배 계수), **SAS** (합성 용이성 점수),
+**QED** (약물 유사성의 정성적 추정)과 같은 해당 분자의 분자 특성이 포함되어 있습니다.
 
 ```python
 csv_path = keras.utils.get_file(
@@ -106,7 +131,7 @@ Downloading data from https://raw.githubusercontent.com/aspuru-guzik-group/chemi
 | 3   | CCOC(=O)\[C@@H\]1CCCN(C(=O)c2nc(-c3ccc(C)cc3)n3c...   | 4.00022 | 0.690944 | 2.822753 |
 | 4   | N#CC1=C(SCC(=O)Nc2cccc(Cl)c2)N=C(\[O-\])\[C@H\](C#... | 3.60956 | 0.789027 | 4.035182 |
 
-## Hyperparameters
+## 하이퍼파라미터 {#hyperparameters}
 
 ```python
 SMILE_CHARSET = '["C", "B", "F", "I", "H", "O", "N", "S", "P", "Cl", "Br"]'
@@ -127,51 +152,51 @@ BATCH_SIZE = 100
 EPOCHS = 10
 
 VAE_LR = 5e-4
-NUM_ATOMS = 120  # Maximum number of atoms
+NUM_ATOMS = 120  # 최대 원자 수
 
-ATOM_DIM = len(SMILE_CHARSET)  # Number of atom types
-BOND_DIM = 4 + 1  # Number of bond types
-LATENT_DIM = 435  # Size of the latent space
+ATOM_DIM = len(SMILE_CHARSET)  # 원자 타입 수
+BOND_DIM = 4 + 1  # 결합 타입 수
+LATENT_DIM = 435  # 잠재 공간 크기
 
 
 def smiles_to_graph(smiles):
-    # Converts SMILES to molecule object
+    # SMILES를 분자 객체로 변환
     molecule = Chem.MolFromSmiles(smiles)
 
-    # Initialize adjacency and feature tensor
+    # 인접 행렬과 특성 텐서 초기화
     adjacency = np.zeros((BOND_DIM, NUM_ATOMS, NUM_ATOMS), "float32")
     features = np.zeros((NUM_ATOMS, ATOM_DIM), "float32")
 
-    # loop over each atom in molecule
+    # 분자의 각 원자에 대해 루프 실행
     for atom in molecule.GetAtoms():
         i = atom.GetIdx()
         atom_type = atom_mapping[atom.GetSymbol()]
         features[i] = np.eye(ATOM_DIM)[atom_type]
-        # loop over one-hop neighbors
+        # 원-홉 이웃에 대해 루프 실행
         for neighbor in atom.GetNeighbors():
             j = neighbor.GetIdx()
             bond = molecule.GetBondBetweenAtoms(i, j)
             bond_type_idx = bond_mapping[bond.GetBondType().name]
             adjacency[bond_type_idx, [i, j], [j, i]] = 1
 
-    # Where no bond, add 1 to last channel (indicating "non-bond")
+    # 결합이 없는 경우, 마지막 채널에 1을 추가하여 "비결합"을 나타냅니다.
     # Notice: channels-first
     adjacency[-1, np.sum(adjacency, axis=0) == 0] = 1
 
-    # Where no atom, add 1 to last column (indicating "non-atom")
+    # 원자가 없는 경우, 마지막 열에 1을 추가하여 "비원자"를 나타냅니다
     features[np.where(np.sum(features, axis=1) == 0)[0], -1] = 1
 
     return adjacency, features
 
 
 def graph_to_molecule(graph):
-    # Unpack graph
+    # 그래프 언팩
     adjacency, features = graph
 
-    # RWMol is a molecule object intended to be edited
+    # RWMol은 수정 가능한 분자 객체입니다
     molecule = Chem.RWMol()
 
-    # Remove "no atoms" & atoms with no bonds
+    # "비원자" 및 결합이 없는 원자를 제거
     keep_idx = np.where(
         (np.argmax(features, axis=1) != ATOM_DIM - 1)
         & (np.sum(adjacency[:-1], axis=(0, 1)) != 0)
@@ -179,13 +204,12 @@ def graph_to_molecule(graph):
     features = features[keep_idx]
     adjacency = adjacency[:, keep_idx, :][:, :, keep_idx]
 
-    # Add atoms to molecule
+    # 분자에 원자 추가
     for atom_type_idx in np.argmax(features, axis=1):
         atom = Chem.Atom(atom_mapping[atom_type_idx])
         _ = molecule.AddAtom(atom)
 
-    # Add bonds between atoms in molecule; based on the upper triangles
-    # of the [symmetric] adjacency tensor
+    # 분자 내 원자 간 결합 추가; [symmetric] 인 인접 텐서의 상삼각형을 기반으로 함
     (bonds_ij, atoms_i, atoms_j) = np.where(np.triu(adjacency) == 1)
     for (bond_ij, atom_i, atom_j) in zip(bonds_ij, atoms_i, atoms_j):
         if atom_i == atom_j or bond_ij == BOND_DIM - 1:
@@ -193,20 +217,20 @@ def graph_to_molecule(graph):
         bond_type = bond_mapping[bond_ij]
         molecule.AddBond(int(atom_i), int(atom_j), bond_type)
 
-    # Sanitize the molecule; for more information on sanitization, see
-    # https://www.rdkit.org/docs/RDKit_Book.html#molecular-sanitization
+    # 분자 정화; 정화에 대한 자세한 내용은
+    # https://www.rdkit.org/docs/RDKit_Book.html#molecular-sanitization 을 참조하세요
     flag = Chem.SanitizeMol(molecule, catchErrors=True)
-    # Let's be strict. If sanitization fails, return None
+    # 엄격하게 처리. 정화가 실패하면 None을 반환
     if flag != Chem.SanitizeFlags.SANITIZE_NONE:
         return None
 
     return molecule
 ```
 
-## Generate training set
+## 트레이닝 세트 생성 {#generate-training-set}
 
 ```python
-train_df = df.sample(frac=0.75, random_state=42)  # random state is a seed value
+train_df = df.sample(frac=0.75, random_state=42)  # random state는 시드 값입니다
 train_df.reset_index(drop=True, inplace=True)
 
 adjacency_tensor, feature_tensor, qed_tensor = [], [], []
@@ -271,33 +295,41 @@ class RelationalGraphConvLayer(keras.layers.Layer):
 
     def call(self, inputs, training=False):
         adjacency, features = inputs
-        # Aggregate information from neighbors
+        # 이웃으로부터 정보를 집계합니다
         x = tf.matmul(adjacency, features[:, None, :, :])
-        # Apply linear transformation
+        # 선형 변환을 적용합니다
         x = tf.matmul(x, self.kernel)
         if self.use_bias:
             x += self.bias
-        # Reduce bond types dim
+        # 결합 타입 차원을 줄입니다
         x_reduced = tf.reduce_sum(x, axis=1)
-        # Apply non-linear transformation
+        # 비선형 변환을 적용합니다
         return self.activation(x_reduced)
 ```
 
-## Build the Encoder and Decoder
+## 인코더 및 디코더 빌드 {#build-the-encoder-and-decoder}
 
-The Encoder takes as input a molecule's graph adjacency matrix and feature matrix. These features are processed via a Graph Convolution layer, then are flattened and processed by several Dense layers to derive `z_mean` and `log_var`, the latent-space representation of the molecule.
+인코더는 분자의 그래프 인접 행렬(adjacency matrix)과 특성 행렬을 입력으로 받습니다.
+이 특성들은 그래프 컨볼루션 레이어를 통해 처리된 후,
+플래튼(flatten)되고 여러 Dense 레이어를 통해,
+`z_mean`과 `log_var`, 즉 분자의 잠재 공간 표현으로 변환됩니다.
 
-**Graph Convolution layer**: The relational graph convolution layer implements non-linearly transformed neighbourhood aggregations. We can define these layers as follows:
+**그래프 컨볼루션 레이어**: 관계적 그래프 컨볼루션 레이어는 비선형 변환된 이웃 집계를 구현합니다.
+이를 다음과 같이 정의할 수 있습니다:
 
 $$
 H^{l+1} = σ(D^{-1} @ A @ H^{l+1} @ W^{l})
 $$
 
-Where $\sigma$ denotes the non-linear transformation (commonly a ReLU activation), $A$ the adjacency tensor, $H^{l}$ the feature tensor at the `l-th` layer, $D^{-1}$ the inverse diagonal degree tensor of $A^$, and $W^{l}$ the trainable weight tensor at the `l-th` layer. Specifically, for each bond type (relation), the degree tensor expresses, in the diagonal, the number of bonds attached to each atom.
+여기서 $\sigma$는 비선형 변환(주로 ReLU 활성화 함수)을 나타내고,
+$A$는 인접 텐서, $H^{l}$는 `l`번째 레이어의 특성 텐서,
+$D^{-1}$는 $A^$의 역 대각(inverse diagonal) 행렬,
+$W^{l}$는 `l`번째 레이어에서 트레이닝 가능한 가중치 텐서를 나타냅니다.
+특히, 각 결합 유형(관계)마다 대각(diagonal) 행렬은 각 원자에 연결된 결합 수를 표현합니다.
 
-Source: [WGAN-GP with R-GCN for the generation of small molecular graphs]({{< relref "/docs/examples/generative/wgan-graphs" >}})
+출처: [WGAN-GP with R-GCN을 이용한 소분자 그래프 생성]({{< relref "/docs/examples/generative/wgan-graphs" >}})
 
-The Decoder takes as input the latent-space representation and predicts the graph adjacency matrix and feature matrix of the corresponding molecules.
+디코더는 잠재 공간 표현을 입력으로 받아, 해당 분자의 그래프 인접 행렬과 특성 행렬을 예측합니다.
 
 ```python
 def get_encoder(
@@ -306,16 +338,16 @@ def get_encoder(
     adjacency = keras.layers.Input(shape=adjacency_shape)
     features = keras.layers.Input(shape=feature_shape)
 
-    # Propagate through one or more graph convolutional layers
+    # 하나 이상의 그래프 컨볼루션 레이어를 통해 전파
     features_transformed = features
     for units in gconv_units:
         features_transformed = RelationalGraphConvLayer(units)(
             [adjacency, features_transformed]
         )
-    # Reduce 2-D representation of molecule to 1-D
+    # 2D 분자 표현을 1D로 축소
     x = keras.layers.GlobalAveragePooling1D()(features_transformed)
 
-    # Propagate through one or more densely connected layers
+    # 하나 이상의 밀집 레이어를 통해 전파
     for units in dense_units:
         x = layers.Dense(units, activation="relu")(x)
         x = layers.Dropout(dropout_rate)(x)
@@ -336,14 +368,14 @@ def get_decoder(dense_units, dropout_rate, latent_dim, adjacency_shape, feature_
         x = keras.layers.Dense(units, activation="tanh")(x)
         x = keras.layers.Dropout(dropout_rate)(x)
 
-    # Map outputs of previous layer (x) to [continuous] adjacency tensors (x_adjacency)
+    # 이전 레이어 출력(x)을 [연속적인] 인접 텐서(x_adjacency)로 매핑
     x_adjacency = keras.layers.Dense(tf.math.reduce_prod(adjacency_shape))(x)
     x_adjacency = keras.layers.Reshape(adjacency_shape)(x_adjacency)
-    # Symmetrify tensors in the last two dimensions
+    # 마지막 두 차원을 대칭화
     x_adjacency = (x_adjacency + tf.transpose(x_adjacency, (0, 1, 3, 2))) / 2
     x_adjacency = keras.layers.Softmax(axis=1)(x_adjacency)
 
-    # Map outputs of previous layer (x) to [continuous] feature tensors (x_features)
+    # 이전 레이어 출력(x)을 [연속적인] 특성 텐서(x_features)로 매핑
     x_features = keras.layers.Dense(tf.math.reduce_prod(feature_shape))(x)
     x_features = keras.layers.Reshape(feature_shape)(x_features)
     x_features = keras.layers.Softmax(axis=2)(x_features)
@@ -355,7 +387,7 @@ def get_decoder(dense_units, dropout_rate, latent_dim, adjacency_shape, feature_
     return decoder
 ```
 
-## Build the Sampling layer
+## 샘플링 레이어 빌드 {#build-the-sampling-layer}
 
 ```python
 class Sampling(layers.Layer):
@@ -367,18 +399,25 @@ class Sampling(layers.Layer):
         return z_mean + tf.exp(0.5 * z_log_var) * epsilon
 ```
 
-## Build the VAE
+## VAE 빌드 {#build-the-vae}
 
-This model is trained to optimize four losses:
+이 모델은 다음 네 가지 손실을 최적화하도록 트레이닝됩니다:
 
-- Categorical crossentropy
-- KL divergence loss
-- Property prediction loss
-- Graph loss (gradient penalty)
+- 범주형 교차 엔트로피
+- KL 발산 손실
+- 속성 예측 손실
+- 그래프 손실(기울기 패널티)
 
-The categorical crossentropy loss function measures the model's reconstruction accuracy. The Property prediction loss estimates the mean squared error between predicted and actual properties after running the latent representation through a property prediction model. The property prediction of the model is optimized via binary crossentropy. The gradient penalty is further guided by the model's property (QED) prediction.
+범주형 교차 엔트로피 손실 함수는 모델의 재구성 정확도를 측정합니다.
+속성 예측 손실은 잠재 표현을 속성 예측 모델에 통과시킨 후,
+예측된 속성과 실제 속성 간의 평균 제곱 오차를 추정합니다.
+모델의 속성 예측은 이진 교차 엔트로피를 통해 최적화됩니다.
+그래프 손실은 모델의 속성(QED) 예측에 의해 추가적으로 안내됩니다.
 
-A gradient penalty is an alternative soft constraint on the 1-Lipschitz continuity as an improvement upon the gradient clipping scheme from the original neural network ("1-Lipschitz continuity" means that the norm of the gradient is at most 1 at every single point of the function). It adds a regularization term to the loss function.
+기울기 패널티는 원본신경망에서 사용된 기울기 클리핑 방식에 대한 개선으로,
+1-Lipschitz 연속성에 대한 대안적인 부드러운 제약 조건입니다.
+("1-Lipschitz 연속성"은 함수의 모든 점에서 기울기의 노름(길이)이 최대 1임을 의미합니다.)
+이는 손실 함수에 정규화 항을 추가합니다.
 
 ```python
 class MoleculeGenerator(keras.Model):
@@ -444,18 +483,18 @@ class MoleculeGenerator(keras.Model):
         return kl_loss + property_loss + graph_loss + adjacency_loss + features_loss
 
     def _gradient_penalty(self, graph_real, graph_generated):
-        # Unpack graphs
+        # 그래프 언팩
         adjacency_real, features_real = graph_real
         adjacency_generated, features_generated = graph_generated
 
-        # Generate interpolated graphs (adjacency_interp and features_interp)
+        # 보간된 그래프(adjacency_interp 및 features_interp) 생성
         alpha = tf.random.uniform([self.batch_size])
         alpha = tf.reshape(alpha, (self.batch_size, 1, 1, 1))
         adjacency_interp = (adjacency_real * alpha) + (1 - alpha) * adjacency_generated
         alpha = tf.reshape(alpha, (self.batch_size, 1, 1))
         features_interp = (features_real * alpha) + (1 - alpha) * features_generated
 
-        # Compute the logits of interpolated graphs
+        # 보간된 그래프의 로짓 계산
         with tf.GradientTape() as tape:
             tape.watch(adjacency_interp)
             tape.watch(features_interp)
@@ -463,9 +502,9 @@ class MoleculeGenerator(keras.Model):
                 [adjacency_interp, features_interp], training=True
             )
 
-        # Compute the gradients with respect to the interpolated graphs
+        # 보간된 그래프에 대한 기울기 계산
         grads = tape.gradient(logits, [adjacency_interp, features_interp])
-        # Compute the gradient penalty
+        # 기울기 패널티 계산
         grads_adjacency_penalty = (1 - tf.norm(grads[0], axis=1)) ** 2
         grads_features_penalty = (1 - tf.norm(grads[1], axis=2)) ** 2
         return tf.reduce_mean(
@@ -476,12 +515,12 @@ class MoleculeGenerator(keras.Model):
     def inference(self, batch_size):
         z = tf.random.normal((batch_size, LATENT_DIM))
         reconstruction_adjacency, reconstruction_features = model.decoder.predict(z)
-        # obtain one-hot encoded adjacency tensor
+        # 인접 텐서에 대해 원-핫 인코딩 수행
         adjacency = tf.argmax(reconstruction_adjacency, axis=1)
         adjacency = tf.one_hot(adjacency, depth=BOND_DIM, axis=1)
-        # Remove potential self-loops from adjacency
+        # 인접 텐서에서 자가 결합 제거
         adjacency = tf.linalg.set_diag(adjacency, tf.zeros(tf.shape(adjacency)[:-1]))
-        # obtain one-hot encoded feature tensor
+        # 특성 텐서에 대해 원-핫 인코딩 수행
         features = tf.argmax(reconstruction_features, axis=2)
         features = tf.one_hot(features, depth=ATOM_DIM, axis=2)
         return [
@@ -500,7 +539,7 @@ class MoleculeGenerator(keras.Model):
         return z_mean, log_var, property_pred, gen_adjacency, gen_features
 ```
 
-## Train the model
+## 모델 트레이닝 {#train-the-model}
 
 ```python
 vae_optimizer = tf.keras.optimizers.Adam(learning_rate=VAE_LR)
@@ -554,11 +593,11 @@ Epoch 10/10
 
 {{% /details %}}
 
-## Inference
+## 추론 {#inference}
 
-We use our model to generate new valid molecules from different points of the latent space.
+모델을 사용하여 잠재 공간의 다양한 지점에서 새로운 유효 분자를 생성합니다.
 
-### Generate unique Molecules with the model
+### 모델을 사용하여 unique 분자 생성 {#generate-unique-molecules-with-the-model}
 
 ```python
 molecules = model.inference(1000)
@@ -570,11 +609,11 @@ MolsToGridImage(
 
 ![png](/images/examples/generative/molecule_generation/molecule_generation_21_0.png)
 
-### Display latent space clusters with respect to molecular properties (QAE)
+### 분자 특성(QAE)에 따른 잠재 공간 클러스터 표시 {#display-latent-space-clusters-with-respect-to-molecular-properties-qae}
 
 ```python
 def plot_latent(vae, data, labels):
-    # display a 2D plot of the property in the latent space
+    # 잠재 공간에서 특성에 따른 2D 플롯을 표시합니다.
     z_mean, _ = vae.encoder.predict(data)
     plt.figure(figsize=(12, 10))
     plt.scatter(z_mean[:, 0], z_mean[:, 1], c=labels)
@@ -589,14 +628,17 @@ plot_latent(model, [adjacency_tensor[:8000], feature_tensor[:8000]], qed_tensor[
 
 ![png](/images/examples/generative/molecule_generation/molecule_generation_23_0.png)
 
-## Conclusion
+## 결론 {#conclusion}
 
-In this example, we combined model architectures from two papers, "Automatic chemical design using a data-driven continuous representation of molecules" from 2016 and the "MolGAN" paper from 2018. The former paper treats SMILES inputs as strings and seeks to generate molecule strings in SMILES format, while the later paper considers SMILES inputs as graphs (a combination of adjacency matrices and feature matrices) and seeks to generate molecules as graphs.
+이 예제에서는, 2016년의 "데이터 기반 연속 표현을 사용하는 자동 화학 설계" 논문과
+2018년의 "MolGAN" 논문의 모델 아키텍처를 결합했습니다.
+전자는 SMILES 입력을 문자열로 처리하여 SMILES 형식의 분자 문자열을 생성하려 하고,
+후자는 SMILES 입력을 그래프(인접 행렬과 특성 행렬의 조합)로 고려하여 분자를 그래프로 생성하려 합니다.
 
-This hybrid approach enables a new type of directed gradient-based search through chemical space.
+이 하이브리드 접근 방식은 화학 공간을 탐색하는 새로운 유형의 유도된 경사 기반 검색을 가능하게 합니다.
 
-Example available on HuggingFace
+예제는 HuggingFace에서 제공됩니다.
 
-| Trained Model                                                                                                                                                                         | Demo                                                                                                                                                                                          |
+| 트레이닝된 모델                                                                                                                                                                       | 데모                                                                                                                                                                                          |
 | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | [![Generic badge](https://img.shields.io/badge/%F0%9F%A4%97%20Model-molecule%20generation%20with%20VAE-black.svg)](https://huggingface.co/keras-io/drug-molecule-generation-with-VAE) | [![Generic badge](https://img.shields.io/badge/%F0%9F%A4%97%20Spaces-molecule%20generation%20with%20VAE-black.svg)](https://huggingface.co/spaces/keras-io/generating-drug-molecule-with-VAE) |

@@ -8,8 +8,8 @@ type: docs
 {{< keras/original checkedAt="2024-11-23" >}}
 
 **{{< t f_author >}}** [A_K_Nain](https://twitter.com/A_K_Nain)  
-**{{< t f_date_created >}}** 2020/05/9  
-**{{< t f_last_modified >}}** 2023/08/3  
+**{{< t f_date_created >}}** 2020/05/09  
+**{{< t f_last_modified >}}** 2023/08/03  
 **{{< t f_description >}}** Implementation of Wasserstein GAN with Gradient Penalty.
 
 {{< keras/version v=3 >}}
