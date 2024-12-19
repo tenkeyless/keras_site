@@ -1,5 +1,6 @@
 ---
-title: Face image generation with StyleGAN
+title: StyleGAN으로 얼굴 이미지 생성
+linkTitle: StyleGAN 얼굴 이미지 생성
 toc: true
 weight: 16
 type: docs
@@ -10,7 +11,7 @@ type: docs
 **{{< t f_author >}}** [Soon-Yau Cheong](https://www.linkedin.com/in/soonyau/)  
 **{{< t f_date_created >}}** 2021/07/01  
 **{{< t f_last_modified >}}** 2021/12/20  
-**{{< t f_description >}}** Implementation of StyleGAN for image generation.
+**{{< t f_description >}}** StyleGAN을 이용한 이미지 생성 구현
 
 {{< keras/version v=2 >}}
 
@@ -19,13 +20,19 @@ type: docs
 {{< card link="https://github.com/keras-team/keras-io/blob/master/examples/generative/stylegan.py" title="GitHub" tag="GitHub">}}
 {{< /cards >}}
 
-## Introduction
+## 소개 {#introduction}
 
-The key idea of StyleGAN is to progressively increase the resolution of the generated images and to incorporate style features in the generative process.This [StyleGAN](https://arxiv.org/abs/1812.04948) implementation is based on the book [Hands-on Image Generation with TensorFlow](https://www.amazon.com/dp/1838826785). The code from the book's [GitHub repository](https://github.com/PacktPublishing/Hands-On-Image-Generation-with-TensorFlow-2.0/tree/master/Chapter07) was refactored to leverage a custom `train_step()` to enable faster training time via compilation and distribution.
+StyleGAN의 핵심 아이디어는 생성된 이미지의 해상도를 점진적으로 높이면서,
+스타일 특성을 생성 과정에 통합하는 것입니다.
+이 [StyleGAN](https://arxiv.org/abs/1812.04948) 구현은,
+[Hands-on Image Generation with TensorFlow](https://www.amazon.com/dp/1838826785) 책을 기반으로 합니다.
+책의 [GitHub 저장소](https://github.com/PacktPublishing/Hands-On-Image-Generation-with-TensorFlow-2.0/tree/master/Chapter07)에서 제공되는 코드를 리팩터링하여,
+`train_step()`을 커스텀으로 구현하여,
+컴파일과 분산을 통해 더 빠른 트레이닝 속도를 가능하게 했습니다.
 
-## Setup
+## 셋업 {#setup}
 
-### Install latest TFA
+### latest TFA 설치 {#install-latest-tfa}
 
 ```shell
 pip install tensorflow_addons
@@ -48,19 +55,19 @@ import gdown
 from zipfile import ZipFile
 ```
 
-## Prepare the dataset
+## 데이터세트 준비 {#prepare-the-dataset}
 
-In this example, we will train using the CelebA from TensorFlow Datasets.
+이 예제에서는, TensorFlow 데이터셋에서 제공하는 CelebA를 사용하여 트레이닝할 것입니다.
 
 ```python
 def log2(x):
     return int(np.log2(x))
 
 
-# we use different batch size for different resolution, so larger image size
-# could fit into GPU memory. The keys is image resolution in log2
+# 해상도에 따라 다른 배치 크기를 사용하여, GPU 메모리에 맞게 이미지 크기를 조정합니다.
+# 키는 log2로 표현된 이미지 해상도입니다.
 batch_sizes = {2: 16, 3: 16, 4: 16, 5: 16, 6: 16, 7: 8, 8: 4, 9: 2, 10: 1}
-# We adjust the train step accordingly
+# 트레이닝 스텝을 적절히 조정합니다.
 train_step_ratio = {k: batch_sizes[2] / v for k, v in batch_sizes.items()}
 
 
@@ -73,7 +80,7 @@ gdown.download(url, output, quiet=True)
 with ZipFile("celeba_gan/data.zip", "r") as zipobj:
     zipobj.extractall("celeba_gan")
 
-# Create a dataset from our folder, and rescale the images to the [0-1] range:
+# 폴더에서 데이터셋을 생성하고, 이미지를 [0-1] 범위로 리스케일합니다:
 
 ds_train = keras.utils.image_dataset_from_directory(
     "celeba_gan", label_mode=None, image_size=(64, 64), batch_size=32
@@ -81,7 +88,7 @@ ds_train = keras.utils.image_dataset_from_directory(
 
 
 def resize_image(res, image):
-    # only downsampling, so use nearest neighbor that is faster to run
+    # 다운샘플링만 하므로, 실행 속도가 더 빠른 nearest neighbor 방식을 사용합니다.
     image = tf.image.resize(
         image, (res, res), method=tf.image.ResizeMethod.NEAREST_NEIGHBOR
     )
@@ -91,14 +98,14 @@ def resize_image(res, image):
 
 def create_dataloader(res):
     batch_size = batch_sizes[log2(res)]
-    # NOTE: we unbatch the dataset so we can `batch()` it again with the `drop_remainder=True` option
-    # since the model only supports a single batch size
+    # NOTE: 데이터셋을 unbatch한 다음, `drop_remainder=True` 옵션으로 다시 batch 합니다.
+    # 모델은 단일 배치 크기만 지원하기 때문입니다.
     dl = ds_train.map(partial(resize_image, res), num_parallel_calls=tf.data.AUTOTUNE).unbatch()
     dl = dl.shuffle(200).batch(batch_size, drop_remainder=True).prefetch(1).repeat()
     return dl
 ```
 
-## Utility function to display images after each epoch
+## 각 에포크 후 이미지를 표시하기 위한 유틸리티 함수 {#utility-function-to-display-images-after-each-epoch}
 
 ```python
 def plot_images(images, log2_res, fname=""):
@@ -122,9 +129,9 @@ def plot_images(images, log2_res, fname=""):
         f.savefig(fname)
 ```
 
-## Custom Layers
+## 커스텀 레이어 {#custom-layers}
 
-The following are building blocks that will be used to construct the generators and discriminators of the StyleGAN model.
+다음은 StyleGAN 모델의 생성자와 판별자를 구성하는 데 사용되는 빌딩 블록입니다.
 
 ```python
 def fade_in(alpha, a, b):
@@ -249,13 +256,16 @@ class AdaIN(layers.Layer):
         return ys * x + yb
 ```
 
-Next we build the following:
+다음으로 아래의 것들을 구성할 것입니다:
 
-- A model mapping to map the random noise into style code
-- The generator
-- The discriminator
+- 랜덤 노이즈를 스타일 코드로 맵하는 매핑 모델
+- 생성자
+- 판별자
 
-For the generator, we build generator blocks at multiple resolutions, e.g. 4x4, 8x8, ...up to 1024x1024. We only use 4x4 in the beginning and we use progressively larger-resolution blocks as the training proceeds. Same for the discriminator.
+생성자의 경우, 여러 해상도에서 생성자 블록을 빌드하며,
+예를 들어 4x4, 8x8, ... 1024x1024까지 확장됩니다.
+초기에는 4x4만 사용하고, 트레이닝이 진행됨에 따라 점진적으로 더 큰 해상도의 블록을 사용합니다.
+판별자도 동일한 방식으로 진행됩니다.
 
 ```python
 def Mapping(num_stages, input_shape=512):
@@ -273,13 +283,13 @@ class Generator:
         self.start_res_log2 = start_res_log2
         self.target_res_log2 = target_res_log2
         self.num_stages = target_res_log2 - start_res_log2 + 1
-        # list of generator blocks at increasing resolution
+        # 증가하는 해상도에서 생성자 블록 목록
         self.g_blocks = []
-        # list of layers to convert g_block activation to RGB
+        # g_block 활성화를 RGB로 변환하는 레이어 목록
         self.to_rgb = []
-        # list of noise input of different resolutions into g_blocks
+        # g_blocks에 대한 다양한 해상도의 노이즈 입력 목록
         self.noise_inputs = []
-        # filter size to use at each stage, keys are log2(resolution)
+        # 각 단계에서 사용할 필터 크기, 키는 log2(resolution)
         self.filter_nums = {
             0: 512,
             1: 512,
@@ -382,7 +392,7 @@ class Discriminator:
         self.start_res_log2 = start_res_log2
         self.target_res_log2 = target_res_log2
         self.num_stages = target_res_log2 - start_res_log2 + 1
-        # filter size to use at each stage, keys are log2(resolution)
+        # 단계별 필터 크기, 키는 log2(resolution)
         self.filter_nums = {
             0: 512,
             1: 512,
@@ -396,9 +406,9 @@ class Discriminator:
             9: 32,  # 512x512
             10: 16,
         }  # 1024x1024
-        # list of discriminator blocks at increasing resolution
+        # 증가하는 해상도의 판별자 블록 리스트
         self.d_blocks = []
-        # list of layers to convert RGB into activation for d_blocks inputs
+        # d_blocks 입력을 위한 RGB를 활성화로 변환하는 레이어 리스트
         self.from_rgb = []
 
         for res_log2 in range(self.start_res_log2, self.target_res_log2 + 1):
@@ -465,7 +475,7 @@ class Discriminator:
         return keras.Model([input_image, alpha], x, name=f"discriminator_{res}_x_{res}")
 ```
 
-## Build StyleGAN with custom train step
+## 커스텀 트레이닝 스텝으로 StyleGAN 빌드 {#build-stylegan-with-custom-train-step}
 
 ```python
 class StyleGAN(tf.keras.Model):
@@ -553,7 +563,7 @@ class StyleGAN(tf.keras.Model):
         const_input = tf.ones(tuple([batch_size] + list(self.g_input_shape)))
         noise = self.generate_noise(batch_size)
 
-        # generator
+        # 생성자
         with tf.GradientTape() as g_tape:
             w = self.mapping(z)
             fake_images = self.generator([const_input, w, noise, alpha])
@@ -566,9 +576,9 @@ class StyleGAN(tf.keras.Model):
             gradients = g_tape.gradient(g_loss, trainable_weights)
             self.g_optimizer.apply_gradients(zip(gradients, trainable_weights))
 
-        # discriminator
+        # 판별자
         with tf.GradientTape() as gradient_tape, tf.GradientTape() as total_tape:
-            # forward pass
+            # 순전파
             pred_fake = self.discriminator([fake_images, alpha])
             pred_real = self.discriminator([real_images, alpha])
 
@@ -577,18 +587,18 @@ class StyleGAN(tf.keras.Model):
             gradient_tape.watch(interpolates)
             pred_fake_grad = self.discriminator([interpolates, alpha])
 
-            # calculate losses
+            # 손실 계산
             loss_fake = wasserstein_loss(fake_labels, pred_fake)
             loss_real = wasserstein_loss(real_labels, pred_real)
             loss_fake_grad = wasserstein_loss(fake_labels, pred_fake_grad)
 
-            # gradient penalty
+            # 그래디언트 페널티
             gradients_fake = gradient_tape.gradient(loss_fake_grad, [interpolates])
             gradient_penalty = self.loss_weights[
                 "gradient_penalty"
             ] * self.gradient_loss(gradients_fake)
 
-            # drift loss
+            # 드리프트 손실
             all_pred = tf.concat([pred_fake, pred_real], axis=0)
             drift_loss = self.loss_weights["drift"] * tf.reduce_mean(all_pred ** 2)
 
@@ -601,7 +611,7 @@ class StyleGAN(tf.keras.Model):
                 zip(gradients, self.discriminator.trainable_weights)
             )
 
-        # Update metrics
+        # 메트릭 업데이트
         self.d_loss_metric.update_state(d_loss)
         self.g_loss_metric.update_state(g_loss)
         return {
@@ -633,9 +643,10 @@ class StyleGAN(tf.keras.Model):
         return images
 ```
 
-## Training
+## 트레이닝 {#training}
 
-We first build the StyleGAN at smallest resolution, such as 4x4 or 8x8. Then we progressively grow the model to higher resolution by appending new generator and discriminator blocks.
+우리는 먼저 StyleGAN을 가장 작은 해상도, 예를 들어 4x4 또는 8x8에서 빌드합니다.
+그런 다음 새로운 생성자 및 판별자 블록을 추가하여 점진적으로 더 높은 해상도로 모델을 성장시킵니다.
 
 ```python
 START_RES = 4
@@ -644,7 +655,11 @@ TARGET_RES = 128
 style_gan = StyleGAN(start_res=START_RES, target_res=TARGET_RES)
 ```
 
-The training for each new resolution happens in two phases - "transition" and "stable". In the transition phase, the features from the previous resolution are mixed with the current resolution. This allows for a smoother transition when scaling up. We use each epoch in `model.fit()` as a phase.
+각 새로운 해상도에 대한 트레이닝은 두 단계로 이루어집니다:
+"전환(transition)" 단계와 "안정화(stable)" 단계입니다.
+전환 단계에서는, 이전 해상도의 특성과 현재 해상도의 특성이 혼합됩니다.
+이를 통해 해상도를 높일 때 더 부드러운 전환이 가능해집니다.
+`model.fit()`의 각 에포크를 단계로 사용합니다.
 
 ```python
 def train(
@@ -699,7 +714,11 @@ def train(
                 plot_images(images, res_log2)
 ```
 
-StyleGAN can take a long time to train, in the code below, a small `steps_per_epoch` value of 1 is used to sanity-check the code is working alright. In practice, a larger `steps_per_epoch` value (over 10000) is required to get decent results.
+StyleGAN은 트레이닝하는 데 시간이 오래 걸릴 수 있습니다.
+아래 코드에서는 코드가 제대로 작동하는지 sanity-check를 하기 위해,
+`steps_per_epoch` 값을 1로 설정하였습니다.
+실제로는 `steps_per_epoch` 값을 더 크게 (10000 이상) 설정하여야,
+괜찮은 결과를 얻을 수 있습니다.
 
 ```python
 train(start_res=4, target_res=16, steps_per_epoch=1, display_images=False)
@@ -730,9 +749,11 @@ WARNING:tensorflow:5 out of the last 5 calls to <function Model.make_train_funct
 
 {{% /details %}}
 
-## Results
+## 결과 {#results}
 
-We can now run some inference using pre-trained 64x64 checkpoints. In general, the image fidelity increases with the resolution. You can try to train this StyleGAN to resolutions above 128x128 with the CelebA HQ dataset.
+이제 사전 트레이닝된 64x64 체크포인트를 사용하여 추론을 실행할 수 있습니다.
+일반적으로, 해상도가 높을수록 이미지 품질이 향상됩니다.
+CelebA HQ 데이터셋을 사용하여 StyleGAN을 128x128 이상의 해상도로 트레이닝해 볼 수 있습니다.
 
 ```python
 url = "https://github.com/soon-yau/stylegan_keras/releases/download/keras_example_v1.0/stylegan_128x128.ckpt.zip"
@@ -768,9 +789,9 @@ Downloading data from https://github.com/soon-yau/stylegan_keras/releases/downlo
 
 {{% /details %}}
 
-## Style Mixing
+## 스타일 믹싱 {#style-mixing}
 
-We can also mix styles from two images to create a new image.
+두 이미지의 스타일을 혼합하여 새로운 이미지를 생성할 수도 있습니다.
 
 ```python
 alpha = 0.4
