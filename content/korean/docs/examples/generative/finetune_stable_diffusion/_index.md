@@ -1,5 +1,6 @@
 ---
-title: Fine-tuning Stable Diffusion
+title: Stable Diffusion 미세 조정
+linkTitle: Stable Diffusion 미세 조정
 toc: true
 weight: 6
 type: docs
@@ -10,7 +11,7 @@ type: docs
 **{{< t f_author >}}** [Sayak Paul](https://twitter.com/RisingSayak), [Chansung Park](https://twitter.com/algo_diver)  
 **{{< t f_date_created >}}** 2022/12/28  
 **{{< t f_last_modified >}}** 2023/01/13  
-**{{< t f_description >}}** Fine-tuning Stable Diffusion using a custom image-caption dataset.
+**{{< t f_description >}}** 커스텀 이미지 캡션 데이터 세트를 사용하여 Stable Diffusion을 미세 조정합니다.
 
 {{< keras/version v=2 >}}
 
@@ -19,22 +20,25 @@ type: docs
 {{< card link="https://github.com/keras-team/keras-io/blob/master/examples/generative/finetune_stable_diffusion.py" title="GitHub" tag="GitHub">}}
 {{< /cards >}}
 
-## Introduction
+## 소개 {#introduction}
 
-This tutorial shows how to fine-tune a [Stable Diffusion model]({{< relref "/docs/guides/keras_cv/generate_images_with_stable_diffusion" >}}) on a custom dataset of `{image, caption}` pairs. We build on top of the fine-tuning script provided by Hugging Face [here](https://github.com/huggingface/diffusers/blob/main/examples/text_to_image/train_text_to_image.py).
+이 튜토리얼은 `{image, caption}` 쌍의 커스텀 데이터 세트에서 [Stable Diffusion 모델]({{< relref "/docs/guides/keras_cv/generate_images_with_stable_diffusion" >}})을 미세 조정하는 방법을 보여줍니다.
+우리는 Hugging Face [여기](https://github.com/huggingface/diffusers/blob/main/examples/text_to_image/train_text_to_image.py)에서 제공하는 미세 조정 스크립트를 기반으로 구축합니다.
 
-We assume that you have a high-level understanding of the Stable Diffusion model. The following resources can be helpful if you're looking for more information in that regard:
+우리는 당신이 Stable Diffusion 모델에 대한 높은 수준의 이해를 가지고 있다고 가정합니다.
+다음 리소스는 이와 관련하여 더 많은 정보를 찾는 데 도움이 될 수 있습니다.
 
-- [High-performance image generation using Stable Diffusion in KerasCV]({{< relref "/docs/guides/keras_cv/generate_images_with_stable_diffusion" >}})
-- [Stable Diffusion with Diffusers](https://huggingface.co/blog/stable_diffusion)
+- [KerasCV에서 Stable Diffusion을 사용한 고성능 이미지 생성]({{< relref "/docs/guides/keras_cv/generate_images_with_stable_diffusion" >}})
+- [디퓨저를 사용한 Stable Diffusion](https://huggingface.co/blog/stable_diffusion)
 
-It's highly recommended that you use a GPU with at least 30GB of memory to execute the code.
+코드를 실행하려면 최소 30GB의 메모리가 있는 GPU를 사용하는 것이 좋습니다.
 
-By the end of the guide, you'll be able to generate images of interesting Pokémon:
+가이드를 마치면, 흥미로운 포켓몬 이미지를 생성할 수 있을 것입니다.
 
 ![custom-pokemons](/images/examples/generative/finetune_stable_diffusion/X4m614M.png)
 
-The tutorial relies on KerasCV 0.4.0. Additionally, we need at least TensorFlow 2.11 in order to use AdamW with mixed precision.
+이 튜토리얼은 KerasCV 0.4.0에 의존합니다.
+또한 혼합 정밀도로 AdamW를 사용하려면, 최소 TensorFlow 2.11이 필요합니다.
 
 ```python
 !pip install keras-cv==0.6.0 -q
@@ -42,31 +46,33 @@ The tutorial relies on KerasCV 0.4.0. Additionally, we need at least TensorFlow 
 !pip install keras-core -q
 ```
 
-## What are we fine-tuning?
+## 우리는 무엇을 미세 조정하고 있나요? {#what-are-we-fine-tuning}
 
-A Stable Diffusion model can be decomposed into several key models:
+Stable Diffusion 모델은 몇 가지 핵심 모델로 분해될 수 있습니다.
 
-- A text encoder that projects the input prompt to a latent space. (The caption associated with an image is referred to as the "prompt".)
-- A variational autoencoder (VAE) that projects an input image to a latent space acting as an image vector space.
-- A diffusion model that refines a latent vector and produces another latent vector, conditioned on the encoded text prompt
-- A decoder that generates images given a latent vector from the diffusion model.
+- 입력 프롬프트를 잠재 공간에 프로젝션하는 텍스트 인코더. (이미지와 관련된 캡션을 "프롬프트"라고 합니다.)
+- 입력 이미지를 이미지 벡터 공간으로 작용하는 잠재 공간에 투사하는 변형 자동 인코더(VAE, variational autoencoder).
+- 잠재 벡터를 정제하고 인코딩된 텍스트 프롬프트에 따라 다른 잠재 벡터를 생성하는 디퓨전 모델
+- 디퓨전 모델에서 잠재 벡터가 주어지면 이미지를 생성하는 디코더.
 
-It's worth noting that during the process of generating an image from a text prompt, the image encoder is not typically employed.
+텍스트 프롬프트에서 이미지를 생성하는 과정에서는,
+일반적으로 이미지 인코더가 사용되지 않는다는 점에 유의해야 합니다.
 
-However, during the process of fine-tuning, the workflow goes like the following:
+그러나, 미세 조정 과정에서 워크플로는 다음과 같습니다.
 
-1.  An input text prompt is projected to a latent space by the text encoder.
-2.  An input image is projected to a latent space by the image encoder portion of the VAE.
-3.  A small amount of noise is added to the image latent vector for a given timestep.
-4.  The diffusion model uses latent vectors from these two spaces along with a timestep embedding to predict the noise that was added to the image latent.
-5.  A reconstruction loss is calculated between the predicted noise and the original noise added in step 3.
-6.  Finally, the diffusion model parameters are optimized w.r.t this loss using gradient descent.
+1. 입력 텍스트 프롬프트는 텍스트 인코더에 의해 잠재 공간에 프로젝션됩니다.
+2. 입력 이미지는 VAE의 이미지 인코더 부분에 의해 잠재 공간에 프로젝션됩니다.
+3. 주어진 시간 단계에 대한 이미지 잠재 벡터에 소량의 노이즈가 추가됩니다.
+4. 디퓨전 모델은 이 두 공간의 잠재 벡터와 시간 단계 임베딩을 사용하여, 이미지 잠재에 추가된 노이즈를 예측합니다.
+5. 예측된 노이즈와 3단계에서 추가된 원래 노이즈 사이에서 재구성 손실을 계산합니다.
+6. 마지막으로, 디퓨전 모델 매개변수는 경사 하강법을 사용하여 이 손실과 관련하여 최적화됩니다.
 
-Note that only the diffusion model parameters are updated during fine-tuning, while the (pre-trained) text and the image encoders are kept frozen.
+미세 조정 중에 디퓨전 모델 매개변수만 업데이트되고,
+(사전 트레이닝된) 텍스트와 이미지 인코더는 고정된 상태로 유지됩니다.
 
-Don't worry if this sounds complicated. The code is much simpler than this!
+이것이 복잡하게 들리더라도 걱정하지 마십시오. 코드는 이것보다 훨씬 간단합니다!
 
-## Imports
+## Imports {#imports}
 
 ```python
 from textwrap import wrap
@@ -86,9 +92,12 @@ from keras_cv.models.stable_diffusion.text_encoder import TextEncoder
 from tensorflow import keras
 ```
 
-## Data loading
+## 데이터 로딩 {#data-loading}
 
-We use the dataset [Pokémon BLIP captions](https://huggingface.co/datasets/lambdalabs/pokemon-blip-captions). However, we'll use a slightly different version which was derived from the original dataset to fit better with [`tf.data`](https://www.tensorflow.org/api_docs/python/tf/data). Refer to [the documentation](https://huggingface.co/datasets/sayakpaul/pokemon-blip-original-version) for more details.
+우리는 [포켓몬 BLIP 캡션](https://huggingface.co/datasets/lambdalabs/pokemon-blip-captions) 데이터 세트를 사용합니다.
+하지만, 우리는 [`tf.data`](https://www.tensorflow.org/api_docs/python/tf/data)에 더 잘 맞도록,
+원본 데이터 세트에서 파생된 약간 다른 버전을 사용할 것입니다.
+자세한 내용은 [문서](https://huggingface.co/datasets/sayakpaul/pokemon-blip-original-version)를 참조하세요.
 
 ```python
 data_path = tf.keras.utils.get_file(
@@ -112,27 +121,30 @@ data_frame.head()
 | 3   | /home/jupyter/.keras/datasets/pokemon_dataset/... | a cartoon ball with a smile on it's face          |
 | 4   | /home/jupyter/.keras/datasets/pokemon_dataset/... | a bunch of balls with faces drawn on them         |
 
-Since we have only 833 `{image, caption}` pairs, we can precompute the text embeddings from the captions. Moreover, the text encoder will be kept frozen during the course of fine-tuning, so we can save some compute by doing this.
+`{image, caption}` 쌍이 833개뿐이므로,
+캡션에서 텍스트 임베딩을 미리 계산할 수 있습니다.
+게다가, 텍스트 인코더는 미세 조정 과정에서 동결되므로,
+이렇게 하면 계산을 약간 절약할 수 있습니다.
 
-Before we use the text encoder, we need to tokenize the captions.
+텍스트 인코더를 사용하기 전에, 캡션을 토큰화해야 합니다.
 
 ```python
-# The padding token and maximum prompt length are specific to the text encoder.
-# If you're using a different text encoder be sure to change them accordingly.
+# 패딩 토큰과 최대 프롬프트 길이는 텍스트 인코더에 따라 다릅니다.
+# 다른 텍스트 인코더를 사용하는 경우, 이에 따라 변경해야 합니다.
 PADDING_TOKEN = 49407
 MAX_PROMPT_LENGTH = 77
 
-# Load the tokenizer.
+# 토크나이저를 로드합니다.
 tokenizer = SimpleTokenizer()
 
-#  Method to tokenize and pad the tokens.
+# 토큰을 토큰화하고 패딩하는 메서드.
 def process_text(caption):
     tokens = tokenizer.encode(caption)
     tokens = tokens + [PADDING_TOKEN] * (MAX_PROMPT_LENGTH - len(tokens))
     return np.array(tokens)
 
 
-# Collate the tokenized captions into an array.
+# 토큰화된 캡션을 배열로 정리합니다.
 tokenized_texts = np.empty((len(data_frame), MAX_PROMPT_LENGTH))
 
 all_captions = list(data_frame["caption"].values)
@@ -140,13 +152,15 @@ for i, caption in enumerate(all_captions):
     tokenized_texts[i] = process_text(caption)
 ```
 
-## Prepare a [`tf.data.Dataset`](https://www.tensorflow.org/api_docs/python/tf/data/Dataset)
+## [`tf.data.Dataset`](https://www.tensorflow.org/api_docs/python/tf/data/Dataset) 준비 {#tfdatadataset}
 
-In this section, we'll prepare a [`tf.data.Dataset`](https://www.tensorflow.org/api_docs/python/tf/data/Dataset) object from the input image file paths and their corresponding caption tokens. The section will include the following:
+이 섹션에서는, 입력 이미지 파일 경로와 해당 캡션 토큰에서
+[`tf.data.Dataset`](https://www.tensorflow.org/api_docs/python/tf/data/Dataset) 객체를 준비합니다.
+이 섹션에는 다음이 포함됩니다.
 
-- Pre-computation of the text embeddings from the tokenized captions.
-- Loading and augmentation of the input images.
-- Shuffling and batching of the dataset.
+- 토큰화된 캡션에서 텍스트 임베딩을 사전 계산합니다.
+- 입력 이미지의 로딩 및 보강.
+- 데이터 세트의 셔플 및 배치(batching).
 
 ```python
 RESOLUTION = 256
@@ -200,15 +214,18 @@ def prepare_dataset(image_paths, tokenized_texts, batch_size=1):
     return dataset.prefetch(AUTO)
 ```
 
-The baseline Stable Diffusion model was trained using images with 512x512 resolution. It's unlikely for a model that's trained using higher-resolution images to transfer well to lower-resolution images. However, the current model will lead to OOM if we keep the resolution to 512x512 (without enabling mixed-precision). Therefore, in the interest of interactive demonstrations, we kept the input resolution to 256x256.
+베이스라인 Stable Diffusion 모델은 512x512 해상도의 이미지를 사용하여 트레이닝되었습니다.
+고해상도 이미지를 사용하여 트레이닝된 모델이 저해상도 이미지로 잘 전환될 가능성은 낮습니다.
+그러나, 현재 모델은 해상도를 512x512로 유지하면(혼합 정밀도를 활성화하지 않고) OOM으로 이어질 것입니다.
+따라서, 대화형 데모의 이익을 위해, 입력 해상도를 256x256으로 유지했습니다.
 
 ```python
-# Prepare the dataset.
+# 데이터 세트를 준비합니다.
 training_dataset = prepare_dataset(
     np.array(data_frame["image_path"]), tokenized_texts, batch_size=4
 )
 
-# Take a sample batch and investigate.
+# 샘플 배치를 가져와 조사해 보세요.
 sample_batch = next(iter(training_dataset))
 
 for k in sample_batch:
@@ -225,7 +242,7 @@ encoded_text (4, 77, 768)
 
 {{% /details %}}
 
-We can also take a look at the training images and their corresponding captions.
+또한 트레이닝 이미지와 해당 캡션을 살펴볼 수도 있습니다.
 
 ```python
 plt.figure(figsize=(20, 10))
@@ -245,11 +262,11 @@ for i in range(3):
 
 ![png](/images/examples/generative/finetune_stable_diffusion/finetune_stable_diffusion_15_0.png)
 
-## A trainer class for the fine-tuning loop
+## 파인튜닝 루프를 위한 트레이너 클래스 {#a-trainer-class-for-the-fine-tuning-loop}
 
 ```python
 class Trainer(tf.keras.Model):
-    # Reference:
+    # 참조:
     # https://github.com/huggingface/diffusers/blob/main/examples/text_to_image/train_text_to_image.py
 
     def __init__(
@@ -277,31 +294,29 @@ class Trainer(tf.keras.Model):
         batch_size = tf.shape(images)[0]
 
         with tf.GradientTape() as tape:
-            # Project image into the latent space and sample from it.
+            # 잠재 공간에 이미지를 프로젝션하고 샘플을 추출합니다.
             latents = self.sample_from_encoder_outputs(self.vae(images, training=False))
-            # Know more about the magic number here:
+            # 여기서 마법의 숫자에 대해 자세히 알아보세요:
             # https://keras.io/examples/generative/fine_tune_via_textual_inversion/
             latents = latents * 0.18215
 
-            # Sample noise that we'll add to the latents.
+            # 잠재 데이터에 추가할 샘플 노이즈입니다.
             noise = tf.random.normal(tf.shape(latents))
 
-            # Sample a random timestep for each image.
+            # 각 이미지에 대해 랜덤 타임스텝을 샘플링합니다.
             timesteps = tnp.random.randint(
                 0, self.noise_scheduler.train_timesteps, (batch_size,)
             )
 
-            # Add noise to the latents according to the noise magnitude at each timestep
-            # (this is the forward diffusion process).
+            # 각 타임스텝의 노이즈 크기에 따라 잠재 노이즈를 추가합니다. (이것은 전방 확산 과정입니다)
             noisy_latents = self.noise_scheduler.add_noise(
                 tf.cast(latents, noise.dtype), noise, timesteps
             )
 
-            # Get the target for loss depending on the prediction type
-            # just the sampled noise for now.
+            # 지금은 샘플링된 노이즈에 따라 예측 타입에 따른 손실 대상을 구합니다.
             target = noise  # noise_schedule.predict_epsilon == True
 
-            # Predict the noise residual and compute loss.
+            # residual 노이즈를 예측하고, 손실을 계산합니다.
             timestep_embedding = tf.map_fn(
                 lambda t: self.get_timestep_embedding(t), timesteps, dtype=tf.float32
             )
@@ -313,7 +328,7 @@ class Trainer(tf.keras.Model):
             if self.use_mixed_precision:
                 loss = self.optimizer.get_scaled_loss(loss)
 
-        # Update parameters of the diffusion model.
+        # 확산 모델의 매개변수를 업데이트합니다.
         trainable_vars = self.diffusion_model.trainable_variables
         gradients = tape.gradient(loss, trainable_vars)
         if self.use_mixed_precision:
@@ -342,10 +357,10 @@ class Trainer(tf.keras.Model):
         return mean + std * sample
 
     def save_weights(self, filepath, overwrite=True, save_format=None, options=None):
-        # Overriding this method will allow us to use the `ModelCheckpoint`
-        # callback directly with this trainer class. In this case, it will
-        # only checkpoint the `diffusion_model` since that's what we're training
-        # during fine-tuning.
+        # 이 메서드를 재정의하면, 이 트레이너 클래스에서
+        # `ModelCheckpoint` 콜백을 직접 사용할 수 있습니다.
+        # 이 경우, 미세 조정 중에 트레이닝하는 것이 `diffusion_model`이므로,
+        # `diffusion_model`만 체크포인트합니다.
         self.diffusion_model.save_weights(
             filepath=filepath,
             overwrite=overwrite,
@@ -354,14 +369,20 @@ class Trainer(tf.keras.Model):
         )
 ```
 
-One important implementation detail to note here: Instead of directly taking the latent vector produced by the image encoder (which is a VAE), we sample from the mean and log-variance predicted by it. This way, we can achieve better sample quality and diversity.
+여기서 주목해야 할 중요한 구현 세부 사항 하나:
+이미지 인코더(VAE)에서 생성된 잠재 벡터를 직접 취하는 대신,
+이미지 인코더에서 예측한 평균과 로그 분산에서 샘플링합니다.
+이런 방식으로, 더 나은 샘플 품질과 다양성을 얻을 수 있습니다.
 
-It's common to add support for mixed-precision training along with exponential moving averaging of model weights for fine-tuning these models. However, in the interest of brevity, we discard those elements. More on this later in the tutorial.
+이러한 모델을 미세 조정하기 위해,
+모델 가중치의 지수 이동 평균과 함께 혼합 정밀도 학습에 대한 지원을 추가하는 것이 일반적입니다.
+그러나 간결함을 위해 이러한 요소를 버립니다.
+이에 대한 자세한 내용은 튜토리얼 후반부에서 설명합니다.
 
-## Initialize the trainer and compile it
+## 트레이너를 초기화하고 컴파일 {#initialize-the-trainer-and-compile-it}
 
 ```python
-# Enable mixed-precision training if the underlying GPU has tensor cores.
+# 기본 GPU에 텐서 코어가 있는 경우, 혼합 정밀도 트레이닝을 활성화합니다.
 USE_MP = True
 if USE_MP:
     keras.mixed_precision.set_global_policy("mixed_float16")
@@ -369,8 +390,7 @@ if USE_MP:
 image_encoder = ImageEncoder()
 diffusion_ft_trainer = Trainer(
     diffusion_model=DiffusionModel(RESOLUTION, RESOLUTION, MAX_PROMPT_LENGTH),
-    # Remove the top layer from the encoder, which cuts off the variance and only
-    # returns the mean.
+    # 인코더에서 최상위 레이어를 제거하면, 분산이 제거(cuts off)되고 평균만 반환됩니다.
     vae=tf.keras.Model(
         image_encoder.input,
         image_encoder.layers[-2].output,
@@ -379,7 +399,7 @@ diffusion_ft_trainer = Trainer(
     use_mixed_precision=USE_MP,
 )
 
-# These hyperparameters come from this tutorial by Hugging Face:
+# 이러한 하이퍼파라미터는 Hugging Face의 이 튜토리얼에서 나왔습니다.
 # https://huggingface.co/docs/diffusers/training/text2image
 lr = 1e-5
 beta_1, beta_2 = 0.9, 0.999
@@ -396,9 +416,9 @@ optimizer = tf.keras.optimizers.experimental.AdamW(
 diffusion_ft_trainer.compile(optimizer=optimizer, loss="mse")
 ```
 
-## Fine-tuning
+## 미세 조정 {#fine-tuning}
 
-To keep the runtime of this tutorial short, we just fine-tune for an epoch.
+이 튜토리얼의 실행 시간을 짧게 유지하기 위해, 에포크에 맞춰 미세 조정만 했습니다.
 
 ```python
 epochs = 1
@@ -412,11 +432,14 @@ ckpt_callback = tf.keras.callbacks.ModelCheckpoint(
 diffusion_ft_trainer.fit(training_dataset, epochs=epochs, callbacks=[ckpt_callback])
 ```
 
-## Inference
+## 추론 {#inference}
 
-We fine-tuned the model for 60 epochs on an image resolution of 512x512. To allow training with this resolution, we incorporated mixed-precision support. You can check out [this repository](https://github.com/sayakpaul/stabe-diffusion-keras-ft) for more details. It additionally provides support for exponential moving averaging of the fine-tuned model parameters and model checkpointing.
+우리는 512x512의 이미지 해상도에서 60에포크 동안 모델을 미세 조정했습니다.
+이 해상도로 트레이닝할 수 있도록 혼합 정밀도 지원을 통합했습니다.
+자세한 내용은 [이 저장소](https://github.com/sayakpaul/stabe-diffusion-keras-ft)를 확인하세요.
+또한 미세 조정된 모델 매개변수의 지수 이동 평균화와 모델 체크포인팅에 대한 지원도 제공합니다.
 
-For this section, we'll use the checkpoint derived after 60 epochs of fine-tuning.
+이 섹션에서는, 미세 조정 60 에포크 후 파생된 체크포인트를 사용합니다.
 
 ```python
 weights_path = tf.keras.utils.get_file(
@@ -427,7 +450,7 @@ img_height = img_width = 512
 pokemon_model = keras_cv.models.StableDiffusion(
     img_width=img_width, img_height=img_height
 )
-# We just reload the weights of the fine-tuned diffusion model.
+# 우리는 미세 조정된 확산 모델의 가중치를 다시 로드합니다.
 pokemon_model.diffusion_model.load_weights(weights_path)
 ```
 
@@ -439,7 +462,7 @@ By using this model checkpoint, you acknowledge that its usage is subject to the
 
 {{% /details %}}
 
-Now, we can take this model for a test-drive.
+이제, 이 모델을 시운전해 볼 수 있습니다.
 
 ```python
 prompts = ["Yoda", "Hello Kitty", "A pokemon with red eyes"]
@@ -463,9 +486,11 @@ for prompt in prompts:
 
 {{% /details %}}
 
-With 60 epochs of fine-tuning (a good number is about 70), the generated images were not up to the mark. So, we experimented with the number of steps Stable Diffusion takes during the inference time and the `unconditional_guidance_scale` parameter.
+60에포크의 미세 조정(적절한 수는 약 70)으로 생성된 이미지는 기준에 미치지 못했습니다.
+그래서, 우리는 추론 시간 동안 Stable Diffusion이 취하는 단계 수와
+`unconditional_guidance_scale` 매개변수를 실험했습니다.
 
-We found the best results with this checkpoint with `unconditional_guidance_scale` set to 40.
+우리는 `unconditional_guidance_scale`을 40으로 설정한 이 체크포인트에서 가장 좋은 결과를 발견했습니다.
 
 ```python
 def plot_images(images, title):
@@ -487,12 +512,22 @@ for prompt in outputs:
 
 ![png](/images/examples/generative/finetune_stable_diffusion/finetune_stable_diffusion_28_2.png)
 
-We can notice that the model has started adapting to the style of our dataset. You can check the [accompanying repository](https://github.com/sayakpaul/stable-diffusion-keras-ft#results) for more comparisons and commentary. If you're feeling adventurous to try out a demo, you can check out [this resource](https://huggingface.co/spaces/sayakpaul/pokemon-sd-kerascv).
+모델이 데이터 세트의 스타일에 적응하기 시작한 것을 알 수 있습니다.
+더 많은 비교와 해설을 보려면,
+[수반되는 저장소](https://github.com/sayakpaul/stable-diffusion-keras-ft#results)를 확인할 수 있습니다.
+데모를 시도해 볼 모험심이 있다면,
+[이 리소스](https://huggingface.co/spaces/sayakpaul/pokemon-sd-kerascv)를 확인할 수 있습니다.
 
-## Conclusion and acknowledgements
+## 결론 및 acknowledgements {#conclusion-and-acknowledgements}
 
-We demonstrated how to fine-tune the Stable Diffusion model on a custom dataset. While the results are far from aesthetically pleasing, we believe with more epochs of fine-tuning, they will likely improve. To enable that, having support for gradient accumulation and distributed training is crucial. This can be thought of as the next step in this tutorial.
+커스텀 데이터 세트에서 Stable Diffusion 모델을 미세 조정하는 방법을 보여주었습니다.
+결과가 미적으로 만족스럽지 않지만, 미세 조정의 에포크가 더 많아지면, 개선될 가능성이 있다고 생각합니다.
+이를 가능하게 하려면, 그래디언트 축적 및 분산 트레이닝을 지원하는 것이 중요합니다.
+이는 이 튜토리얼의 다음 단계로 생각할 수 있습니다.
 
-There is another interesting way in which Stable Diffusion models can be fine-tuned, called textual inversion. You can refer to [this tutorial]({{< relref "/docs/examples/generative/fine_tune_via_textual_inversion" >}}) to know more about it.
+Stable Diffusion 모델을 미세 조정할 수 있는 또 다른 흥미로운 방법이 있는데, textual inversion이라고 합니다.
+자세한 내용은 [이 튜토리얼]({{< relref "/docs/examples/generative/fine_tune_via_textual_inversion" >}})을 참조하세요.
 
-We'd like to acknowledge the GCP Credit support from ML Developer Programs' team at Google. We'd like to thank the Hugging Face team for providing the [fine-tuning script](https://github.com/huggingface/diffusers/blob/main/examples/text_to_image/train_text_to_image.py) . It's very readable and easy to understand.
+Google의 ML 개발자 프로그램 팀의 GCP 크레딧 지원에 감사드립니다.
+[미세 조정 스크립트](https://github.com/huggingface/diffusers/blob/main/examples/text_to_image/train_text_to_image.py)를 제공해 주신 Hugging Face 팀에 감사드리고 싶습니다.
+매우 읽기 쉽고 이해하기 쉽습니다.

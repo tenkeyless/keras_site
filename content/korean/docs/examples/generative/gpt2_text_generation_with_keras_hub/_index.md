@@ -1,5 +1,6 @@
 ---
-title: GPT2 Text Generation with KerasHub
+title: KerasHub를 사용한 GPT2 텍스트 생성
+linkTitle: GPT2 텍스트 생성 (KerasHub)
 toc: true
 weight: 20
 type: docs
@@ -10,7 +11,7 @@ type: docs
 **{{< t f_author >}}** Chen Qian  
 **{{< t f_date_created >}}** 2023/04/17  
 **{{< t f_last_modified >}}** 2024/04/12  
-**{{< t f_description >}}** Use KerasHub GPT2 model and `samplers` to do text generation.
+**{{< t f_description >}}** KerasHub의 GPT2 모델과 `samplers`를 사용하여 텍스트 생성.
 
 {{< keras/version v=3 >}}
 
@@ -19,15 +20,27 @@ type: docs
 {{< card link="https://github.com/keras-team/keras-io/blob/master/examples/generative/gpt2_text_generation_with_kerashub.py" title="GitHub" tag="GitHub">}}
 {{< /cards >}}
 
-In this tutorial, you will learn to use [KerasHub]({{< relref "/docs/keras_hub" >}}) to load a pre-trained Large Language Model (LLM) - [GPT-2 model](https://openai.com/research/better-language-models) (originally invented by OpenAI), finetune it to a specific text style, and generate text based on users' input (also known as prompt). You will also learn how GPT2 adapts quickly to non-English languages, such as Chinese.
+이 튜토리얼에서는 [KerasHub]({{< relref "/docs/keras_hub" >}})를 사용하여,
+사전 트레이닝된 대형 언어 모델(LLM)인
+[GPT-2 모델](https://openai.com/research/better-language-models)(원래 OpenAI에서 개발)을 불러오고,
+특정 텍스트 스타일에 맞게 미세 트레이닝(finetuning)을 진행한 후,
+사용자 입력(프롬프트)에 기반한 텍스트를 생성하는 방법을 배웁니다.
+또한, GPT2가 중국어와 같은 비영어권 언어에 빠르게 적응하는 방식을 배우게 됩니다.
 
-## Before we begin
+## 시작하기 전에 {#before-we-begin}
 
-Colab offers different kinds of runtimes. Make sure to go to **Runtime -> Change runtime type** and choose the GPU Hardware Accelerator runtime (which should have >12G host RAM and ~15G GPU RAM) since you will finetune the GPT-2 model. Running this tutorial on CPU runtime will take hours.
+Colab은 여러 가지 런타임을 제공합니다.
+**Runtime -> Change runtime type**으로 이동하여,
+GPU 하드웨어 가속기 런타임(12GB 이상의 호스트 RAM 및 약 15GB의 GPU RAM이 있어야 함)을 선택하세요.
+GPT-2 모델을 미세 트레이닝할 예정이므로, CPU 런타임에서는 시간이 오래 걸립니다.
 
-## Install KerasHub, Choose Backend and Import Dependencies
+## KerasHub 설치, 백엔드 선택 및 종속성 import {#install-kerashub-choose-backend-and-import-dependencies}
 
-This examples uses [Keras 3]({{< relref "/docs/keras_3" >}}) to work in any of `"tensorflow"`, `"jax"` or `"torch"`. Support for Keras 3 is baked into KerasHub, simply change the `"KERAS_BACKEND"` environment variable to select the backend of your choice. We select the JAX backend below.
+이 예제에서는 [Keras 3]({{< relref "/docs/keras_3" >}})를 사용하여,
+`"tensorflow"`, `"jax"`, 또는 `"torch"` 중 어느 것이든 사용할 수 있습니다.
+KerasHub에는 Keras 3에 대한 지원이 내장되어 있으며,
+사용하려는 백엔드를 선택하려면 `"KERAS_BACKEND"` 환경 변수를 변경하기만 하면 됩니다.
+아래에서는 JAX 백엔드를 선택합니다.
 
 ```python
 !pip install git+https://github.com/keras-team/keras-hub.git -q
@@ -36,7 +49,7 @@ This examples uses [Keras 3]({{< relref "/docs/keras_3" >}}) to work in any of `
 ```python
 import os
 
-os.environ["KERAS_BACKEND"] = "jax"  # or "tensorflow" or "torch"
+os.environ["KERAS_BACKEND"] = "jax"  # 또는 "tensorflow" 또는 "torch"
 
 import keras_hub
 import keras
@@ -46,32 +59,50 @@ import time
 keras.mixed_precision.set_global_policy("mixed_float16")
 ```
 
-## Introduction to Generative Large Language Models (LLMs)
+## 생성형 Large Language Models (LLMs) 소개 {#introduction-to-generative-large-language-models-llms}
 
-Large language models (LLMs) are a type of machine learning models that are trained on a large corpus of text data to generate outputs for various natural language processing (NLP) tasks, such as text generation, question answering, and machine translation.
+대형 언어 모델(LLM)은 방대한 텍스트 데이터 코퍼스에 대해 트레이닝된 머신러닝 모델로,
+텍스트 생성, 질문 응답, 기계 번역 등 다양한 자연어 처리(NLP) 작업에서 출력을 생성하는 데 사용됩니다.
 
-Generative LLMs are typically based on deep learning neural networks, such as the [Transformer architecture](https://arxiv.org/abs/1706.03762) invented by Google researchers in 2017, and are trained on massive amounts of text data, often involving billions of words. These models, such as Google [LaMDA](https://blog.google/technology/ai/lamda/) and [PaLM](https://ai.googleblog.com/2022/04/pathways-language-model-palm-scaling-to.html), are trained with a large dataset from various data sources which allows them to generate output for many tasks. The core of Generative LLMs is predicting the next word in a sentence, often referred as **Causal LM Pretraining**. In this way LLMs can generate coherent text based on user prompts. For a more pedagogical discussion on language models, you can refer to the [Stanford CS324 LLM class](https://stanford-cs324.github.io/winter2022/lectures/introduction/).
+생성형 LLM은 일반적으로 (Google이 2017년 개발한)
+[Transformer 아키텍처](https://arxiv.org/abs/1706.03762)와 같은 딥러닝 신경망을 기반으로 하며,
+수십억 개의 단어가 포함된 방대한 양의 텍스트 데이터를 사용하여 트레이닝됩니다.
+Google [LaMDA](https://blog.google/technology/ai/lamda/)와
+[PaLM](https://ai.googleblog.com/2022/04/pathways-language-model-palm-scaling-to.html) 같은 모델은
+다양한 데이터 소스에서 수집한 대규모 데이터셋으로 트레이닝되며,
+이를 통해 여러 작업에서 출력을 생성할 수 있습니다.
+생성형 LLM의 핵심은 문장에서 다음 단어를 예측하는 방식으로,
+이는 **Causal LM Pretraining**이라고 불립니다.
+이러한 방식으로 LLM은 사용자 프롬프트에 따라 일관된 텍스트를 생성할 수 있습니다.
+언어 모델에 대한 더 깊이 있는 논의는 [Stanford CS324 LLM 수업](https://stanford-cs324.github.io/winter2022/lectures/introduction/)을 참조하십시오.
 
-## Introduction to KerasHub
+## KerasHub 소개 {#introduction-to-kerashub}
 
-Large Language Models are complex to build and expensive to train from scratch. Luckily there are pretrained LLMs available for use right away. [KerasHub]({{< relref "/docs/keras_hub" >}}) provides a large number of pre-trained checkpoints that allow you to experiment with SOTA models without needing to train them yourself.
+대형 언어 모델을 처음부터 구축하고 트레이닝하는 것은 매우 복잡하고 비용이 많이 듭니다.
+다행히도, 바로 사용할 수 있는 사전 트레이닝된 LLM들이 있습니다.
+[KerasHub]({{< relref "/docs/keras_hub" >}})는 사전 트레이닝된 최신 모델을 제공하여,
+별도의 트레이닝 없이도 실험할 수 있습니다.
 
-KerasHub is a natural language processing library that supports users through their entire development cycle. KerasHub offers both pretrained models and modularized building blocks, so developers could easily reuse pretrained models or stack their own LLM.
+KerasHub는 자연어 처리 작업의 전체 개발 주기를 지원하는 라이브러리로,
+사전 트레이닝된 모델과 모듈화된 빌딩 블록을 모두 제공하여,
+개발자가 사전 트레이닝된 모델을 재사용하거나 자신만의 LLM을 쉽게 구축할 수 있습니다.
 
-In a nutshell, for generative LLM, KerasHub offers:
+요약하자면, KerasHub는 생성형 LLM을 위해 다음과 같은 기능을 제공합니다:
 
-- Pretrained models with `generate()` method, e.g., [`keras_hub.models.GPT2CausalLM`]({{< relref "/docs/api/keras_hub/models/gpt2/gpt2_causal_lm#gpt2causallm-class" >}}) and [`keras_hub.models.OPTCausalLM`]({{< relref "/docs/api/keras_hub/models/opt/opt_causal_lm#optcausallm-class" >}}).
-- Sampler class that implements generation algorithms such as Top-K, Beam and contrastive search. These samplers can be used to generate text with custom models.
+- `generate()` 메서드를 제공하는 사전 트레이닝된 모델,
+  예: [`keras_hub.models.GPT2CausalLM`]({{< relref "/docs/api/keras_hub/models/gpt2/gpt2_causal_lm#gpt2causallm-class" >}}) 및 [`keras_hub.models.OPTCausalLM`]({{< relref "/docs/api/keras_hub/models/opt/opt_causal_lm#optcausallm-class" >}}).
+- 텍스트 생성을 위한 Top-K, 빔 서치, 대조적 서치와 같은 샘플링 알고리즘을 구현하는 `Sampler` 클래스.
+  이 샘플러들은 커스텀 모델과 함께 텍스트를 생성하는 데 사용할 수 있습니다.
 
-## Load a pre-trained GPT-2 model and generate some text
+## 사전 트레이닝된 GPT-2 모델 로드 및 텍스트 생성 {#load-a-pre-trained-gpt-2-model-and-generate-some-text}
 
-KerasHub provides a number of pre-trained models, such as [Google Bert](https://ai.googleblog.com/2018/11/open-sourcing-bert-state-of-art-pre.html) and [GPT-2](https://openai.com/research/better-language-models). You can see the list of models available in the [KerasHub repository](https://github.com/keras-team/keras-hub/tree/master/keras_hub/models).
+KerasHub는 [Google Bert](https://ai.googleblog.com/2018/11/open-sourcing-bert-state-of-art-pre.html) 및 [GPT-2](https://openai.com/research/better-language-models)와 같은 여러 사전 트레이닝된 모델을 제공합니다.
+사용 가능한 모델 목록은 [KerasHub 저장소](https://github.com/keras-team/keras-hub/tree/master/keras_hub/models)에서 확인할 수 있습니다.
 
-It's very easy to load the GPT-2 model as you can see below:
+아래와 같이 GPT-2 모델을 로드하는 것은 매우 간단합니다:
 
 ```python
-# To speed up training and generation, we use preprocessor of length 128
-# instead of full length 1024.
+# 트레이닝과 생성을 더 빠르게 하기 위해 전체 길이 1024 대신 길이 128의 전처리기를 사용합니다.
 preprocessor = keras_hub.models.GPT2CausalLMPreprocessor.from_preset(
     "gpt2_base_en",
     sequence_length=128,
@@ -81,7 +112,9 @@ gpt2_lm = keras_hub.models.GPT2CausalLM.from_preset(
 )
 ```
 
-Once the model is loaded, you can use it to generate some text right away. Run the cells below to give it a try. It's as simple as calling a single function _generate()_:
+모델이 로드되면 바로 텍스트 생성을 시작할 수 있습니다.
+아래 셀을 실행하여 직접 시도해보세요.
+단순히 _generate()_ 함수를 호출하기만 하면 됩니다.
 
 ```python
 start = time.time()
@@ -112,7 +145,7 @@ TOTAL TIME ELAPSED: 25.36s
 
 {{% /details %}}
 
-Try another one:
+또다른 예제를 시도해보세요:
 
 ```python
 start = time.time()
@@ -182,24 +215,32 @@ TOTAL TIME ELAPSED: 1.55s
 
 {{% /details %}}
 
-Notice how much faster the second call is. This is because the computational graph is [XLA compiled](https://www.tensorflow.org/xla) in the 1st run and re-used in the 2nd behind the scenes.
+두 번째 호출이 훨씬 빠른 것을 확인할 수 있습니다.
+이는 첫 번째 실행에서 계산 그래프가 [XLA 컴파일](https://www.tensorflow.org/xla)되었고,
+그 이후로는 백그라운드(behind the scenes)에서 재사용되기 때문입니다.
 
-The quality of the generated text looks OK, but we can improve it via fine-tuning.
+생성된 텍스트의 품질이 괜찮아 보이지만, 이를 개선하기 위해 파인 튜닝을 할 수 있습니다.
 
-## More on the GPT-2 model from KerasHub
+## KerasHub의 GPT-2 모델에 대해 더 알아보기 {#more-on-the-gpt-2-model-from-kerashub}
 
-Next up, we will actually fine-tune the model to update its parameters, but before we do, let's take a look at the full set of tools we have to for working with for GPT2.
+이제 모델의 파라미터를 업데이트하기 위해 실제로 파인 튜닝을 진행할 예정이지만,
+그 전에 GPT-2와 함께 작업할 수 있는 도구들을 살펴보겠습니다.
 
-The code of GPT2 can be found [here](https://github.com/keras-team/keras-hub/blob/master/keras_hub/models/gpt2/). Conceptually the `GPT2CausalLM` can be hierarchically broken down into several modules in KerasHub, all of which have a _from_preset()_ function that loads a pretrained model:
+GPT-2 코드 전체는 [여기](https://github.com/keras-team/keras-hub/blob/master/keras_hub/models/gpt2/)에서 확인할 수 있습니다.
+개념적으로 `GPT2CausalLM`은 KerasHub의 여러 모듈로 계층적으로 나누어질 수 있으며,
+모두 _from_preset()_ 함수를 통해 사전 트레이닝된 모델을 로드할 수 있습니다:
 
-- `keras_hub.models.GPT2Tokenizer`: The tokenizer used by GPT2 model, which is a [byte-pair encoder](https://huggingface.co/course/chapter6/5?fw=pt).
-- [`keras_hub.models.GPT2CausalLMPreprocessor`]({{< relref "/docs/api/keras_hub/models/gpt2/gpt2_causal_lm_preprocessor#gpt2causallmpreprocessor-class" >}}): the preprocessor used by GPT2 causal LM training. It does the tokenization along with other preprocessing works such as creating the label and appending the end token.
-- [`keras_hub.models.GPT2Backbone`]({{< relref "/docs/api/keras_hub/models/gpt2/gpt2_backbone#gpt2backbone-class" >}}): the GPT2 model, which is a stack of [`keras_hub.layers.TransformerDecoder`]({{< relref "/docs/api/keras_hub/modeling_layers/transformer_decoder#transformerdecoder-class" >}}). This is usually just referred as `GPT2`.
-- [`keras_hub.models.GPT2CausalLM`]({{< relref "/docs/api/keras_hub/models/gpt2/gpt2_causal_lm#gpt2causallm-class" >}}): wraps `GPT2Backbone`, it multiplies the output of `GPT2Backbone` by embedding matrix to generate logits over vocab tokens.
+- `keras_hub.models.GPT2Tokenizer`: GPT-2 모델에서 사용되는 토크나이저로, [byte-pair encoder](https://huggingface.co/course/chapter6/5?fw=pt)를 사용합니다.
+- [`keras_hub.models.GPT2CausalLMPreprocessor`]({{< relref "/docs/api/keras_hub/models/gpt2/gpt2_causal_lm_preprocessor#gpt2causallmpreprocessor-class" >}}): GPT-2 Causal LM 트레이닝에 사용되는 전처리기입니다. 토크나이징을 비롯해 레이블 생성 및 종료 토큰 추가와 같은 작업을 수행합니다.
+- [`keras_hub.models.GPT2Backbone`]({{< relref "/docs/api/keras_hub/models/gpt2/gpt2_backbone#gpt2backbone-class" >}}): GPT-2 모델로, [`keras_hub.layers.TransformerDecoder`]({{< relref "/docs/api/keras_hub/modeling_layers/transformer_decoder#transformerdecoder-class" >}})의 스택입니다. 이는 보통 `GPT-2`로 불립니다.
+- [`keras_hub.models.GPT2CausalLM`]({{< relref "/docs/api/keras_hub/models/gpt2/gpt2_causal_lm#gpt2causallm-class" >}}): `GPT2Backbone`을 감싸며, `GPT2Backbone`의 출력을 임베딩 행렬과 곱하여 어휘 토큰에 대한 로그 확률을 생성합니다.
 
-## Finetune on Reddit dataset
+## Reddit 데이터셋으로 파인 튜닝하기 {#finetune-on-reddit-dataset}
 
-Now you have the knowledge of the GPT-2 model from KerasHub, you can take one step further to finetune the model so that it generates text in a specific style, short or long, strict or casual. In this tutorial, we will use reddit dataset for example.
+이제 KerasHub의 GPT-2 모델에 대한 지식을 바탕으로,
+모델을 파인 튜닝하여 특정 스타일로 텍스트를 생성하도록 만들 수 있습니다.
+예를 들어, 짧거나 긴, 엄격하거나 캐주얼한 스타일로 텍스트를 생성하게 할 수 있습니다.
+이 튜토리얼에서는 Reddit 데이터셋을 예시로 사용합니다.
 
 ```python
 import tensorflow_datasets as tfds
@@ -207,10 +248,10 @@ import tensorflow_datasets as tfds
 reddit_ds = tfds.load("reddit_tifu", split="train", as_supervised=True)
 ```
 
-Let's take a look inside sample data from the reddit TensorFlow Dataset. There are two features:
+Reddit TensorFlow Dataset의 샘플 데이터를 살펴보겠습니다. 두 가지 특징이 있습니다:
 
-- **document**: text of the post.
-- **title**: the title.
+- **document**: 게시물의 텍스트.
+- **title**: 제목.
 
 ```python
 for document, title in reddit_ds:
@@ -228,7 +269,7 @@ b'liking seafood'
 
 {{% /details %}}
 
-In our case, we are performing next word prediction in a language model, so we only need the 'document' feature.
+이 경우, 언어 모델에서 다음 단어 예측 작업을 수행하고 있으므로, 'document' 피처만 필요합니다.
 
 ```python
 train_ds = (
@@ -239,15 +280,18 @@ train_ds = (
 )
 ```
 
-Now you can finetune the model using the familiar _fit()_ function. Note that `preprocessor` will be automatically called inside `fit` method since `GPT2CausalLM` is a [`keras_hub.models.Task`]({{< relref "/docs/api/keras_hub/base_classes/task#task-class" >}}) instance.
+이제 익숙한 _fit()_ 함수를 사용하여 모델을 파인 튜닝할 수 있습니다.
+`GPT2CausalLM`이 [`keras_hub.models.Task`]({{< relref "/docs/api/keras_hub/base_classes/task#task-class" >}}) 인스턴스이기 때문에,
+`fit` 메서드 내에서 `preprocessor`가 자동으로 호출됩니다.
 
-This step takes quite a bit of GPU memory and a long time if we were to train it all the way to a fully trained state. Here we just use part of the dataset for demo purposes.
+이 단계는 GPU 메모리를 많이 사용하며, 전체 트레이닝을 완료하려면 시간이 꽤 걸립니다.
+여기서는 데모 목적으로 데이터셋의 일부만 사용합니다.
 
 ```python
 train_ds = train_ds.take(500)
 num_epochs = 1
 
-# Linearly decaying learning rate.
+# 선형적으로 감소하는 학습률.
 learning_rate = keras.optimizers.schedules.PolynomialDecay(
     5e-5,
     decay_steps=train_ds.cardinality() * num_epochs,
@@ -273,7 +317,8 @@ gpt2_lm.fit(train_ds, epochs=num_epochs)
 
 {{% /details %}}
 
-After fine-tuning is finished, you can again generate text using the same _generate()_ function. This time, the text will be closer to Reddit writing style, and the generated length will be close to our preset length in the training set.
+파인 튜닝이 완료된 후에는, 동일한 _generate()_ 함수를 사용하여 텍스트를 다시 생성할 수 있습니다.
+이번에는 텍스트가 Reddit 작성 스타일에 더 가까워지고, 생성되는 길이도 트레이닝 세트에서 설정한 길이에 가깝게 됩니다.
 
 ```python
 start = time.time()
@@ -308,23 +353,26 @@ TOTAL TIME ELAPSED: 21.13s
 
 {{% /details %}}
 
-## Into the Sampling Method
+## 샘플링 방법으로 들어가기 {#into-the-sampling-method}
 
-In KerasHub, we offer a few sampling methods, e.g., contrastive search, Top-K and beam sampling. By default, our `GPT2CausalLM` uses Top-k search, but you can choose your own sampling method.
+KerasHub에서는 contrastive search, Top-K, beam sampling 등의 몇 가지 샘플링 방법을 제공합니다.
+기본적으로 `GPT2CausalLM`은 Top-K 검색을 사용하지만, 사용자가 원하는 샘플링 방법을 선택할 수도 있습니다.
 
-Much like optimizer and activations, there are two ways to specify your custom sampler:
+Optimizer와 activation 함수처럼, 커스텀 샘플러를 지정하는 방법에는 두 가지가 있습니다:
 
-- Use a string identifier, such as "greedy", you are using the default configuration via this way.
-- Pass a [`keras_hub.samplers.Sampler`]({{< relref "/docs/api/keras_hub/samplers/samplers#sampler-class" >}}) instance, you can use custom configuration via this way.
+- 문자열 식별자를 사용합니다. 예를 들어 "greedy"와 같이 하면 기본 구성을 사용하게 됩니다.
+- [`keras_hub.samplers.Sampler`]({{< relref "/docs/api/keras_hub/samplers/samplers#sampler-class" >}}) 인스턴스 전달을 통해,
+  커스텀 구성을 사용할 수 있습니다.
 
 ```python
-# Use a string identifier.
+# 문자열 식별자를 사용합니다.
 gpt2_lm.compile(sampler="top_k")
 output = gpt2_lm.generate("I like basketball", max_length=200)
 print("\nGPT-2 output:")
 print(output)
 
-# Use a `Sampler` instance. `GreedySampler` tends to repeat itself,
+# `Sampler` 인스턴스를 사용합니다.
+# `GreedySampler`는 스스로 반복되는 경향이 있습니다.
 greedy_sampler = keras_hub.samplers.GreedySampler()
 gpt2_lm.compile(sampler=greedy_sampler)
 
@@ -395,16 +443,20 @@ so i was playing with my brother, and he was playing with his brother
 
 {{% /details %}}
 
-For more details on KerasHub `Sampler` class, you can check the code [here](https://github.com/keras-team/keras-hub/tree/master/keras_hub/samplers).
+KerasHub `Sampler` 클래스에 대한 자세한 내용은,
+[여기](https://github.com/keras-team/keras-hub/tree/master/keras_hub/samplers)에서 코드를 확인할 수 있습니다.
 
-## Finetune on Chinese Poem Dataset
+## 중국 시 데이터셋으로 파인 튜닝하기 {#finetune-on-chinese-poem-dataset}
 
-We can also finetune GPT2 on non-English datasets. For readers knowing Chinese, this part illustrates how to fine-tune GPT2 on Chinese poem dataset to teach our model to become a poet!
+GPT-2를 비영어권 데이터셋에서도 파인 튜닝할 수 있습니다.
+중국어를 아는 독자들을 위해, 이 섹션에서는 GPT-2를 중국 시 데이터셋으로 파인 튜닝하여 모델을 시인으로 만드는 방법을 설명합니다!
 
-Because GPT2 uses byte-pair encoder, and the original pretraining dataset contains some Chinese characters, we can use the original vocab to finetune on Chinese dataset.
+GPT-2는 byte-pair encoder를 사용하며,
+원래의 사전 트레이닝 데이터셋에는 일부 중국어 문자가 포함되어 있기 때문에,
+원래의 vocab을 사용하여 중국어 데이터셋에서 파인 튜닝을 할 수 있습니다.
 
 ```python
-!# Load chinese poetry dataset.
+!# 중국 시 데이터셋 로드
 !git clone https://github.com/chinese-poetry/chinese-poetry.git
 ```
 
@@ -416,7 +468,7 @@ Cloning into 'chinese-poetry'...
 
 {{% /details %}}
 
-Load text from the json file. We only use《全唐诗》for demo purposes.
+JSON 파일에서 텍스트를 불러옵니다. 데모 목적을 위해 《全唐诗》만 사용합니다.
 
 ```python
 import os
@@ -434,7 +486,7 @@ for file in os.listdir("chinese-poetry/全唐诗"):
 paragraphs = ["".join(data["paragraphs"]) for data in poem_collection]
 ```
 
-Let's take a look at sample data.
+샘플 데이터를 확인해 보겠습니다.
 
 ```python
 print(paragraphs[0])
@@ -448,7 +500,7 @@ print(paragraphs[0])
 
 {{% /details %}}
 
-Similar as Reddit example, we convert to TF dataset, and only use partial data to train.
+Reddit 예제와 유사하게, TF 데이터셋으로 변환한 후, 일부 데이터만 사용하여 트레이닝합니다.
 
 ```python
 train_ds = (
@@ -458,8 +510,8 @@ train_ds = (
     .prefetch(tf.data.AUTOTUNE)
 )
 
-# Running through the whole dataset takes long, only take `500` and run 1
-# epochs for demo purposes.
+# 전체 데이터셋을 처리하는 데 시간이 오래 걸리므로,
+# 데모 목적을 위해 `500`개의 데이터를 사용하고, 1번의 에포크를 실행합니다.
 train_ds = train_ds.take(500)
 num_epochs = 1
 
@@ -488,7 +540,7 @@ gpt2_lm.fit(train_ds, epochs=num_epochs)
 
 {{% /details %}}
 
-Let's check the result!
+결과를 확인해 봅시다!
 
 ```python
 output = gpt2_lm.generate("昨夜雨疏风骤", max_length=200)
@@ -503,4 +555,4 @@ print(output)
 
 {{% /details %}}
 
-Not bad 😀
+나쁘지 않네요 😀

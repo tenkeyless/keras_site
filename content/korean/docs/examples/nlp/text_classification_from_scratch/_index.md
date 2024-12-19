@@ -20,8 +20,6 @@ type: docs
 {{< card link="https://github.com/keras-team/keras-io/blob/master/examples/nlp/text_classification_from_scratch.py" title="GitHub" tag="GitHub">}}
 {{< /cards >}}
 
-ⓘ This example uses Keras 3
-
 ## Introduction {#introduction}
 
 This example shows how to do text classification starting from raw text (as a set of text files on disk). We demonstrate the workflow on the IMDB sentiment classification dataset (unprocessed version). We use the `TextVectorization` layer for word splitting & indexing.

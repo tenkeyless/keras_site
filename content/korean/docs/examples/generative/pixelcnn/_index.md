@@ -1,5 +1,6 @@
 ---
 title: PixelCNN
+linkTitle: PixelCNN
 toc: true
 weight: 15
 type: docs
@@ -10,7 +11,7 @@ type: docs
 **{{< t f_author >}}** [ADMoreau](https://github.com/ADMoreau)  
 **{{< t f_date_created >}}** 2020/05/17  
 **{{< t f_last_modified >}}** 2020/05/23  
-**{{< t f_description >}}** PixelCNN implemented in Keras.
+**{{< t f_description >}}** Keras로 구현한 PixelCNN
 
 {{< keras/version v=3 >}}
 
@@ -19,9 +20,17 @@ type: docs
 {{< card link="https://github.com/keras-team/keras-io/blob/master/examples/generative/pixelcnn.py" title="GitHub" tag="GitHub">}}
 {{< /cards >}}
 
-## Introduction
+## 소개 {#introduction}
 
-PixelCNN is a generative model proposed in 2016 by van den Oord et al. (reference: [Conditional Image Generation with PixelCNN Decoders](https://arxiv.org/abs/1606.05328)). It is designed to generate images (or other data types) iteratively from an input vector where the probability distribution of prior elements dictates the probability distribution of later elements. In the following example, images are generated in this fashion, pixel-by-pixel, via a masked convolution kernel that only looks at data from previously generated pixels (origin at the top left) to generate later pixels. During inference, the output of the network is used as a probability distribution from which new pixel values are sampled to generate a new image (here, with MNIST, the pixels values are either black or white).
+PixelCNN은 2016년 van den Oord et al.에 의해 제안된 생성 모델입니다.
+(참조: [Conditional Image Generation with PixelCNN Decoders](https://arxiv.org/abs/1606.05328))
+이 모델은 이미지나 다른 데이터 타입을 입력 벡터로부터 반복적으로 생성하는 데 사용됩니다.
+이전 요소들의 확률 분포가 이후 요소들의 확률 분포를 결정하는 방식으로 동작합니다.
+아래 예시에서는, 이미지를 픽셀별로 이러한 방식으로 생성합니다.
+마스크된 컨볼루션 커널을 통해 이전에 생성된 픽셀(좌상단 기점)의 데이터만을 보고 이후 픽셀을 생성합니다.
+추론 과정에서는, 네트워크의 출력이 확률 분포로 사용되며,
+여기서 새로운 픽셀 값이 샘플링되어 새로운 이미지가 생성됩니다.
+(이 예시에서는 MNIST 데이터셋을 사용하며, 픽셀 값은 흑백입니다)
 
 ```python
 import numpy as np
@@ -31,29 +40,28 @@ from keras import ops
 from tqdm import tqdm
 ```
 
-## Getting the Data
+## 데이터 얻기 {#getting-the-data}
 
 ```python
-# Model / data parameters
+# 모델 및 데이터 파라미터
 num_classes = 10
 input_shape = (28, 28, 1)
 n_residual_blocks = 5
-# The data, split between train and test sets
+# 트레이닝 및 테스트 데이터 분할
 (x, _), (y, _) = keras.datasets.mnist.load_data()
-# Concatenate all the images together
+# 모든 이미지를 하나로 연결(concatenate)
 data = np.concatenate((x, y), axis=0)
-# Round all pixel values less than 33% of the max 256 value to 0
-# anything above this value gets rounded up to 1 so that all values are either
-# 0 or 1
+# 최대 256 값의 33% 이하인 모든 픽셀 값을 0으로 반올림.
+# 이 값보다 높은 모든 값은 1로 반올림하여, 모든 값을 0 또는 1로 만듭니다.
 data = np.where(data < (0.33 * 256), 0, 1)
 data = data.astype(np.float32)
 ```
 
-## Create two classes for the requisite Layers for the model
+## 모델을 위한 필수 레이어 두 가지 클래스를 생성 {#create-two-classes-for-the-requisite-layers-for-the-model}
 
 ```python
-# The first layer is the PixelCNN layer. This layer simply
-# builds on the 2D convolutional layer, but includes masking.
+# 첫 번째 레이어는 PixelCNN 레이어입니다.
+# 이 레이어는 2D 컨볼루션 레이어를 기반으로 하지만, 마스킹을 포함합니다.
 class PixelConvLayer(layers.Layer):
     def __init__(self, mask_type, **kwargs):
         super().__init__()
@@ -61,9 +69,9 @@ class PixelConvLayer(layers.Layer):
         self.conv = layers.Conv2D(**kwargs)
 
     def build(self, input_shape):
-        # Build the conv2d layer to initialize kernel variables
+        # Conv2D 레이어를 빌드하여 커널 변수를 초기화합니다.
         self.conv.build(input_shape)
-        # Use the initialized kernel to create the mask
+        # 초기화된 커널을 사용하여 마스크를 생성합니다.
         kernel_shape = ops.shape(self.conv.kernel)
         self.mask = np.zeros(shape=kernel_shape)
         self.mask[: kernel_shape[0] // 2, ...] = 1.0
@@ -76,8 +84,8 @@ class PixelConvLayer(layers.Layer):
         return self.conv(inputs)
 
 
-# Next, we build our residual block layer.
-# This is just a normal residual block, but based on the PixelConvLayer.
+# 다음으로, Residual 블록 레이어를 빌드합니다.
+# 이것은 PixelConvLayer를 기반으로 하는 일반적인 Residual 블록입니다.
 class ResidualBlock(keras.layers.Layer):
     def __init__(self, filters, **kwargs):
         super().__init__(**kwargs)
@@ -102,7 +110,7 @@ class ResidualBlock(keras.layers.Layer):
         return keras.layers.add([inputs, x])
 ```
 
-## Build the model based on the original paper
+## 원본 논문 기반 모델 빌드 {#build-the-model-based-on-the-original-paper}
 
 ```python
 inputs = keras.Input(shape=input_shape, batch_size=128)
@@ -283,43 +291,43 @@ Epoch 50/50
 
 {{% /details %}}
 
-## Demonstration
+## 데모 {#demonstration}
 
-The PixelCNN cannot generate the full image at once. Instead, it must generate each pixel in order, append the last generated pixel to the current image, and feed the image back into the model to repeat the process.
+PixelCNN은 전체 이미지를 한 번에 생성할 수 없습니다.
+대신 각 픽셀을 순차적으로 생성하며,
+마지막으로 생성된 픽셀을 현재 이미지에 추가한 후 다시 모델에 피드하여 이 과정을 반복해야 합니다.
 
 ```python
 from IPython.display import Image, display
 
-# Create an empty array of pixels.
+# 빈 픽셀 배열을 생성합니다.
 batch = 4
 pixels = np.zeros(shape=(batch,) + (pixel_cnn.input_shape)[1:])
 batch, rows, cols, channels = pixels.shape
 
-# Iterate over the pixels because generation has to be done sequentially pixel by pixel.
+# 픽셀을 순차적으로 생성해야 하므로, 픽셀을 반복합니다.
 for row in tqdm(range(rows)):
     for col in range(cols):
         for channel in range(channels):
-            # Feed the whole array and retrieving the pixel value probabilities for the next
-            # pixel.
+            # 전체 배열을 모델에 피드하고, 다음 픽셀의 값 확률을 가져옵니다.
             probs = pixel_cnn.predict(pixels)[:, row, col, channel]
-            # Use the probabilities to pick pixel values and append the values to the image
-            # frame.
+            # 확률을 사용하여 픽셀 값을 선택하고 이미지 프레임에 값을 추가합니다.
             pixels[:, row, col, channel] = ops.ceil(
                 probs - keras.random.uniform(probs.shape)
             )
 
 
 def deprocess_image(x):
-    # Stack the single channeled black and white image to rgb values.
+    # 단일 채널 흑백 이미지를 RGB 값으로 쌓습니다.
     x = np.stack((x, x, x), 2)
-    # Undo preprocessing
+    # 전처리 해제
     x *= 255.0
-    # Convert to uint8 and clip to the valid range [0, 255]
+    # uint8로 변환하고 [0, 255]의 유효 범위로 클리핑합니다.
     x = np.clip(x, 0, 255).astype("uint8")
     return x
 
 
-# Iterate over the generated images and plot them with matplotlib.
+# 생성된 이미지를 반복하면서 matplotlib을 사용해 이미지를 플롯합니다.
 for i, pic in enumerate(pixels):
     keras.utils.save_img(
         "generated_image_{}.png".format(i), deprocess_image(np.squeeze(pic, -1))

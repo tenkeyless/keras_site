@@ -1,5 +1,6 @@
 ---
-title: DCGAN to generate face images
+title: 얼굴 이미지 생성을 위한 DCGAN
+linkTitle: DCGAN 얼굴 이미지 생성
 toc: true
 weight: 8
 type: docs
@@ -10,7 +11,7 @@ type: docs
 **{{< t f_author >}}** [fchollet](https://twitter.com/fchollet)  
 **{{< t f_date_created >}}** 2019/04/29  
 **{{< t f_last_modified >}}** 2023/12/21  
-**{{< t f_description >}}** A simple DCGAN trained using `fit()` by overriding `train_step` on CelebA images.
+**{{< t f_description >}}** `fit()`를 사용하여 CelebA 이미지에 대해 `train_step`을 재정의하여 트레이닝한 간단한 DCGAN입니다.
 
 {{< keras/version v=3 >}}
 
@@ -19,7 +20,7 @@ type: docs
 {{< card link="https://github.com/keras-team/keras-io/blob/master/examples/generative/dcgan_overriding_train_step.py" title="GitHub" tag="GitHub">}}
 {{< /cards >}}
 
-## Setup
+## 셋업 {#setup}
 
 ```python
 import keras
@@ -33,9 +34,9 @@ import gdown
 from zipfile import ZipFile
 ```
 
-## Prepare CelebA data
+## CelebA 데이터 준비 {#prepare-celeba-data}
 
-We'll use face images from the CelebA dataset, resized to 64x64.
+CelebA 데이터세트의 얼굴 이미지를 64x64로 조정하여 사용하겠습니다.
 
 ```python
 os.makedirs("celeba_gan")
@@ -48,7 +49,7 @@ with ZipFile("celeba_gan/data.zip", "r") as zipobj:
     zipobj.extractall("celeba_gan")
 ```
 
-Create a dataset from our folder, and rescale the images to the \[0-1\] range:
+폴더에서 데이터 세트를 만들고, 이미지 크기를 \[0-1\] 범위로 조정합니다.
 
 ```python
 dataset = keras.utils.image_dataset_from_directory(
@@ -65,7 +66,7 @@ Found 202599 files.
 
 {{% /details %}}
 
-Let's display a sample image:
+샘플 이미지를 표시해 보겠습니다.
 
 ```python
 for x in dataset:
@@ -76,9 +77,9 @@ for x in dataset:
 
 ![png](/images/examples/generative/dcgan_overriding_train_step/dcgan_overriding_train_step_8_0.png)
 
-## Create the discriminator
+## 판별자(discriminator) 만들기 {#create-the-discriminator}
 
-It maps a 64x64 image to a binary classification score.
+64x64 이미지를 이진 분류 점수에 매핑합니다.
 
 ```python
 discriminator = keras.Sequential(
@@ -131,9 +132,9 @@ Model: "discriminator"
 
 {{% /details %}}
 
-## Create the generator
+## 생성자(generator) 만들기 {#create-the-generator}
 
-It mirrors the discriminator, replacing `Conv2D` layers with `Conv2DTranspose` layers.
+이는 판별자를 반영하여, `Conv2D` 레이어를 `Conv2DTranspose` 레이어로 대체했습니다.
 
 ```python
 latent_dim = 128
@@ -191,7 +192,7 @@ Model: "generator"
 
 {{% /details %}}
 
-## Override `train_step`
+## `train_step` 오버라이드 {#override-train_step}
 
 ```python
 class GAN(keras.Model):
@@ -215,26 +216,26 @@ class GAN(keras.Model):
         return [self.d_loss_metric, self.g_loss_metric]
 
     def train_step(self, real_images):
-        # Sample random points in the latent space
+        # 잠재 공간에서 무작위 지점을 샘플링합니다.
         batch_size = ops.shape(real_images)[0]
         random_latent_vectors = keras.random.normal(
             shape=(batch_size, self.latent_dim), seed=self.seed_generator
         )
 
-        # Decode them to fake images
+        # 가짜 이미지로 디코딩
         generated_images = self.generator(random_latent_vectors)
 
-        # Combine them with real images
+        # 실제 이미지와 결합
         combined_images = ops.concatenate([generated_images, real_images], axis=0)
 
-        # Assemble labels discriminating real from fake images
+        # 진짜 이미지와 가짜 이미지를 구별하는 라벨을 조립합니다.
         labels = ops.concatenate(
             [ops.ones((batch_size, 1)), ops.zeros((batch_size, 1))], axis=0
         )
-        # Add random noise to the labels - important trick!
+        # 라벨에 무작위 노이즈를 추가합니다. 중요한 기술입니다!
         labels += 0.05 * tf.random.uniform(tf.shape(labels))
 
-        # Train the discriminator
+        # 판별자를 트레이닝합니다.
         with tf.GradientTape() as tape:
             predictions = self.discriminator(combined_images)
             d_loss = self.loss_fn(labels, predictions)
@@ -243,23 +244,22 @@ class GAN(keras.Model):
             zip(grads, self.discriminator.trainable_weights)
         )
 
-        # Sample random points in the latent space
+        # 잠재 공간에서 무작위 지점을 샘플링합니다.
         random_latent_vectors = keras.random.normal(
             shape=(batch_size, self.latent_dim), seed=self.seed_generator
         )
 
-        # Assemble labels that say "all real images"
+        # "all real images"라고 적힌 라벨을 조립하세요.
         misleading_labels = ops.zeros((batch_size, 1))
 
-        # Train the generator (note that we should *not* update the weights
-        # of the discriminator)!
+        # 생성자를 트레이닝합니다. (판별자의 가중치는 업데이트해서는 *안 됩니다*!)
         with tf.GradientTape() as tape:
             predictions = self.discriminator(self.generator(random_latent_vectors))
             g_loss = self.loss_fn(misleading_labels, predictions)
         grads = tape.gradient(g_loss, self.generator.trainable_weights)
         self.g_optimizer.apply_gradients(zip(grads, self.generator.trainable_weights))
 
-        # Update metrics
+        # 메트릭 업데이트
         self.d_loss_metric.update_state(d_loss)
         self.g_loss_metric.update_state(g_loss)
         return {
@@ -268,7 +268,7 @@ class GAN(keras.Model):
         }
 ```
 
-## Create a callback that periodically saves generated images
+## 생성된 이미지를 주기적으로 저장하는 콜백을 만들기 {#create-a-callback-that-periodically-saves-generated-images}
 
 ```python
 class GANMonitor(keras.callbacks.Callback):
@@ -289,10 +289,10 @@ class GANMonitor(keras.callbacks.Callback):
             img.save("generated_img_%03d_%d.png" % (epoch, i))
 ```
 
-## Train the end-to-end model
+## 엔드투엔드 모델 트레이닝 {#train-the-end-to-end-model}
 
 ```python
-epochs = 1  # In practice, use ~100 epochs
+epochs = 1  # 실제로는 ~100 에포크를 사용합니다.
 
 gan = GAN(discriminator=discriminator, generator=generator, latent_dim=latent_dim)
 gan.compile(
@@ -322,6 +322,6 @@ I0000 00:00:1704214667.959762    1319 device_compiler.h:186] Compiled cluster us
 
 {{% /details %}}
 
-Some of the last generated images around epoch 30 (results keep improving after that):
+에포크 30 정도에 생성된 마지막 이미지 중 일부(그 이후로 결과가 계속 향상됩니다.):
 
 ![results](/images/examples/generative/dcgan_overriding_train_step/h5MtQZ7l.jpeg)

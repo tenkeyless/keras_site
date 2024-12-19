@@ -1,5 +1,6 @@
 ---
 title: Vector-Quantized Variational Autoencoders
+linkTitle: VQ-VAE
 toc: true
 weight: 17
 type: docs
@@ -10,7 +11,7 @@ type: docs
 **{{< t f_author >}}** [Sayak Paul](https://twitter.com/RisingSayak)  
 **{{< t f_date_created >}}** 2021/07/21  
 **{{< t f_last_modified >}}** 2021/06/27  
-**{{< t f_description >}}** Training a VQ-VAE for image reconstruction and codebook sampling for generation.
+**{{< t f_description >}}** 이미지 재구성과 생성에 대한 코드북 샘플링을 위한 VQ-VAE 트레이닝
 
 {{< keras/version v=2 >}}
 
@@ -19,21 +20,32 @@ type: docs
 {{< card link="https://github.com/keras-team/keras-io/blob/master/examples/generative/vq_vae.py" title="GitHub" tag="GitHub">}}
 {{< /cards >}}
 
-In this example, we develop a Vector Quantized Variational Autoencoder (VQ-VAE). VQ-VAE was proposed in [Neural Discrete Representation Learning](https://arxiv.org/abs/1711.00937) by van der Oord et al. In standard VAEs, the latent space is continuous and is sampled from a Gaussian distribution. It is generally harder to learn such a continuous distribution via gradient descent. VQ-VAEs, on the other hand, operate on a discrete latent space, making the optimization problem simpler. It does so by maintaining a discrete _codebook_. The codebook is developed by discretizing the distance between continuous embeddings and the encoded outputs. These discrete code words are then fed to the decoder, which is trained to generate reconstructed samples.
+이 예제에서는, 벡터 양자화 변이형 오토인코더(VQ-VAE, Vector Quantized Variational Autoencoder)를 개발합니다.
+VQ-VAE는 van der Oord 등이 [Neural Discrete Representation Learning](https://arxiv.org/abs/1711.00937)에서 제안하였습니다.
+표준 VAE에서는 잠재 공간이 연속적이며, 가우시안 분포에서 샘플링됩니다.
+이러한 연속적인 분포를 그래디언트 디센트를 통해 학습하는 것은 일반적으로 어렵습니다.
+반면, VQ-VAE는 이산적인 잠재 공간에서 동작하여, 최적화 문제를 더 단순하게 만듭니다.
+이는 _코드북_ 을 유지하여 이뤄집니다.
+코드북은 연속적인 임베딩과 인코딩된 출력 간의 거리를 이산화함으로써 개발됩니다.
+이 이산적인 코드 단어들은 디코더로 전달되어, 재구성된 샘플을 생성하도록 트레이닝됩니다.
 
-For an overview of VQ-VAEs, please refer to the original paper and [this video explanation](https://www.youtube.com/watch?v=VZFVUrYcig0). If you need a refresher on VAEs, you can refer to [this book chapter](https://livebook.manning.com/book/deep-learning-with-python-second-edition/chapter-12/). VQ-VAEs are one of the main recipes behind [DALL-E](https://openai.com/blog/dall-e/) and the idea of a codebook is used in [VQ-GANs](https://arxiv.org/abs/2012.09841).
+VQ-VAE에 대한 개요는, 원 논문 및 [이 비디오 설명](https://www.youtube.com/watch?v=VZFVUrYcig0)을 참고하십시오.
+VAE에 대한 복습이 필요하다면, [이 책의 챕터](https://livebook.manning.com/book/deep-learning-with-python-second-edition/chapter-12/)를 참조할 수 있습니다.
+VQ-VAE는 [DALL-E](https://openai.com/blog/dall-e/)의 주요 구성 요소 중 하나이며,
+코드북 아이디어는 [VQ-GANs](https://arxiv.org/abs/2012.09841)에서도 사용됩니다.
 
-This example uses implementation details from the [official VQ-VAE tutorial](https://github.com/deepmind/sonnet/blob/master/sonnet/examples/vqvae_example.ipynb) from DeepMind.
+이 예제는 DeepMind의 [공식 VQ-VAE 튜토리얼](https://github.com/deepmind/sonnet/blob/master/sonnet/examples/vqvae_example.ipynb)에서 구현 세부 사항을 가져옵니다.
 
-## Requirements
+## 요구사항 {#requirements}
 
-To run this example, you will need TensorFlow 2.5 or higher, as well as TensorFlow Probability, which can be installed using the command below.
+이 예제를 실행하려면, TensorFlow 2.5 이상과 TensorFlow Probability가 필요합니다.
+아래 명령어로 설치할 수 있습니다.
 
 ```python
 !pip install -q tensorflow-probability
 ```
 
-## Imports
+## Imports {#imports}
 
 ```python
 import numpy as np
@@ -45,13 +57,24 @@ import tensorflow_probability as tfp
 import tensorflow as tf
 ```
 
-## `VectorQuantizer` layer
+## `VectorQuantizer` 레이어 {#vectorquantizer-layer}
 
-First, we implement a custom layer for the vector quantizer, which is the layer in between the encoder and decoder. Consider an output from the encoder, with shape `(batch_size, height, width, num_filters)`. The vector quantizer will first flatten this output, only keeping the `num_filters` dimension intact. So, the shape would become `(batch_size * height * width, num_filters)`. The rationale behind this is to treat the total number of filters as the size for the latent embeddings.
+먼저, 인코더와 디코더 사이에 위치한, 벡터 양자화를 위한, 커스텀 레이어를 구현합니다.
+인코더 출력의 모양이 `(batch_size, height, width, num_filters)`일 때,
+벡터 양자화는 먼저 이 출력을 평탄화(flatten)하여, `num_filters` 차원만 유지합니다.
+따라서 모양은 `(batch_size * height * width, num_filters)`로 변환됩니다.
+이 과정을 통해 전체 필터 수를 잠재 임베딩의 크기로 취급하게 됩니다.
 
-An embedding table is then initialized to learn a codebook. We measure the L2-normalized distance between the flattened encoder outputs and code words of this codebook. We take the code that yields the minimum distance, and we apply one-hot encoding to achieve quantization. This way, the code yielding the minimum distance to the corresponding encoder output is mapped as one and the remaining codes are mapped as zeros.
+그 후 코드북을 학습할 수 있도록 임베딩 테이블을 초기화합니다.
+평탄화된 인코더 출력과 코드북의 코드 단어 간의 L2-정규화 거리를 측정한 후,
+최소 거리를 제공하는 코드를 선택하여, 원-핫 인코딩을 적용해 양자화를 수행합니다.
+이 방법을 통해 해당 인코더 출력과 최소 거리를 가진 코드는 1로, 나머지 코드는 0으로 매핑됩니다.
 
-Since the quantization process is not differentiable, we apply a [straight-through estimator](https://www.hassanaskary.com/python/pytorch/deep%20learning/2020/09/19/intuitive-explanation-of-straight-through-estimators.html) in between the decoder and the encoder, so that the decoder gradients are directly propagated to the encoder. As the encoder and decoder share the same channel space, the decoder gradients are still meaningful to the encoder.
+양자화 과정은 미분 불가능하므로,
+[스트레이트-스루 추정기(straight-through estimator)](https://www.hassanaskary.com/python/pytorch/deep%20learning/2020/09/19/intuitive-explanation-of-straight-through-estimators.html)를 디코더와 인코더 사이에 적용하여,
+디코더의 그래디언트가 직접 인코더로 전파되도록 합니다.
+인코더와 디코더가 동일한 채널 공간을 공유하므로,
+디코더의 그래디언트는 여전히 인코더에 의미가 있습니다.
 
 ```python
 class VectorQuantizer(layers.Layer):
@@ -60,10 +83,10 @@ class VectorQuantizer(layers.Layer):
         self.embedding_dim = embedding_dim
         self.num_embeddings = num_embeddings
 
-        # The `beta` parameter is best kept between [0.25, 2] as per the paper.
+        # 논문에 따르면, `beta` 값은 [0.25, 2] 사이로 유지하는 것이 좋습니다.
         self.beta = beta
 
-        # Initialize the embeddings which we will quantize.
+        # 양자화할 임베딩을 초기화합니다.
         w_init = tf.random_uniform_initializer()
         self.embeddings = tf.Variable(
             initial_value=w_init(
@@ -74,33 +97,33 @@ class VectorQuantizer(layers.Layer):
         )
 
     def call(self, x):
-        # Calculate the input shape of the inputs and
-        # then flatten the inputs keeping `embedding_dim` intact.
+        # 입력의 모양을 계산하고,
+        # `embedding_dim`을 유지하면서 입력을 평탄화합니다.
         input_shape = tf.shape(x)
         flattened = tf.reshape(x, [-1, self.embedding_dim])
 
-        # Quantization.
+        # 양자화하기.
         encoding_indices = self.get_code_indices(flattened)
         encodings = tf.one_hot(encoding_indices, self.num_embeddings)
         quantized = tf.matmul(encodings, self.embeddings, transpose_b=True)
 
-        # Reshape the quantized values back to the original input shape
+        # 양자화된 값을 원래의 입력 모양으로 다시 reshape 합니다.
         quantized = tf.reshape(quantized, input_shape)
 
-        # Calculate vector quantization loss and add that to the layer. You can learn more
-        # about adding losses to different layers here:
-        # https://keras.io/guides/making_new_layers_and_models_via_subclassing/. Check
-        # the original paper to get a handle on the formulation of the loss function.
+        # 벡터 양자화 손실을 계산하여 레이어에 추가합니다.
+        # 손실을 레이어에 추가하는 방법은 여기서 확인할 수 있습니다:
+        # https://keras.io/guides/making_new_layers_and_models_via_subclassing/
+        # 원 논문에서 손실 함수의 수식을 참고하십시오.
         commitment_loss = tf.reduce_mean((tf.stop_gradient(quantized) - x) ** 2)
         codebook_loss = tf.reduce_mean((quantized - tf.stop_gradient(x)) ** 2)
         self.add_loss(self.beta * commitment_loss + codebook_loss)
 
-        # Straight-through estimator.
+        # 스트레이트-스루 추정기.
         quantized = x + tf.stop_gradient(quantized - x)
         return quantized
 
     def get_code_indices(self, flattened_inputs):
-        # Calculate L2-normalized distance between the inputs and the codes.
+        # 입력과 코드 간의 L2-정규화 거리를 계산합니다.
         similarity = tf.matmul(flattened_inputs, self.embeddings)
         distances = (
             tf.reduce_sum(flattened_inputs ** 2, axis=1, keepdims=True)
@@ -108,20 +131,27 @@ class VectorQuantizer(layers.Layer):
             - 2 * similarity
         )
 
-        # Derive the indices for minimum distances.
+        # 최소 거리에 해당하는 인덱스를 도출합니다.
         encoding_indices = tf.argmin(distances, axis=1)
         return encoding_indices
 ```
 
-**A note on straight-through estimation**:
+**스트레이트-스루 추정에 대한 설명**:
 
-This line of code does the straight-through estimation part: `quantized = x + tf.stop_gradient(quantized - x)`. During backpropagation, `(quantized - x)` won't be included in the computation graph and the gradients obtained for `quantized` will be copied for `inputs`. Thanks to [this video](https://youtu.be/VZFVUrYcig0?t=1393) for helping me understand this technique.
+이 코드 라인은 스트레이트-스루 추정 부분을 수행합니다: `quantized = x + tf.stop_gradient(quantized - x)`.
+역전파 시, `(quantized - x)`는 계산 그래프에 포함되지 않으며,
+`quantized`에 대해 계산된 그래디언트가 `inputs`에 복사됩니다.
+이 기술에 대한 이해를 도와준 [이 비디오](https://youtu.be/VZFVUrYcig0?t=1393)에 감사드립니다.
 
-## Encoder and decoder
+## 인코더 및 디코더 {#encoder-and-decoder}
 
-Now for the encoder and the decoder for the VQ-VAE. We will keep them small so that their capacity is a good fit for the MNIST dataset. The implementation of the encoder and decoder come from [this example]({{< relref "/docs/examples/generative/vae" >}}).
+이제 VQ-VAE의 인코더와 디코더를 구현하겠습니다.
+우리는 MNIST 데이터셋에 적합한 용량을 갖도록 인코더와 디코더를 작게 유지할 것입니다.
+인코더와 디코더의 구현은 [이 예제]({{< relref "/docs/examples/generative/vae" >}})에서 가져왔습니다.
 
-Note that activations _other than ReLU_ may not work for the encoder and decoder layers in the quantization architecture: Leaky ReLU activated layers, for example, have proven difficult to train, resulting in intermittent loss spikes that the model has trouble recovering from.
+참고로, 양자화 아키텍처의 인코더 및 디코더 레이어에서는 _ReLU 이외의 활성화 함수_ 는 잘 작동하지 않을 수 있습니다.
+예를 들어, Leaky ReLU 활성화 레이어는, 트레이닝이 어려워져 간헐적인 손실 급증이 발생할 수 있으며,
+모델이 이를 회복하는 데 어려움을 겪는 경우가 있습니다.
 
 ```python
 def get_encoder(latent_dim=16):
@@ -144,7 +174,7 @@ def get_decoder(latent_dim=16):
     return keras.Model(latent_inputs, decoder_outputs, name="decoder")
 ```
 
-## Standalone VQ-VAE model
+## 독립형 VQ-VAE 모델 {#standalone-vq-vae-model}
 
 ```python
 def get_vqvae(latent_dim=16, num_embeddings=64):
@@ -184,9 +214,9 @@ _________________________________________________________________
 
 {{% /details %}}
 
-Note that the output channels of the encoder should match the `latent_dim` for the vector quantizer.
+참고: 인코더의 출력 채널 수는 벡터 양자화기(quantizer)를 위한 `latent_dim`과 일치해야 합니다.
 
-## Wrapping up the training loop inside `VQVAETrainer`
+## `VQVAETrainer` 내에서 트레이닝 루프 래핑 {#wrapping-up-the-training-loop-inside-vqvaetrainer}
 
 ```python
 class VQVAETrainer(keras.models.Model):
@@ -196,8 +226,10 @@ class VQVAETrainer(keras.models.Model):
         self.latent_dim = latent_dim
         self.num_embeddings = num_embeddings
 
+        # VQ-VAE 모델 생성
         self.vqvae = get_vqvae(self.latent_dim, self.num_embeddings)
 
+        # 손실 추적을 위한 메트릭 정의
         self.total_loss_tracker = keras.metrics.Mean(name="total_loss")
         self.reconstruction_loss_tracker = keras.metrics.Mean(
             name="reconstruction_loss"
@@ -206,6 +238,7 @@ class VQVAETrainer(keras.models.Model):
 
     @property
     def metrics(self):
+        # 메트릭 반환
         return [
             self.total_loss_tracker,
             self.reconstruction_loss_tracker,
@@ -213,26 +246,27 @@ class VQVAETrainer(keras.models.Model):
         ]
 
     def train_step(self, x):
+        # GradientTape를 사용한 자동 미분
         with tf.GradientTape() as tape:
-            # Outputs from the VQ-VAE.
+            # VQ-VAE로부터의 출력
             reconstructions = self.vqvae(x)
 
-            # Calculate the losses.
+            # 손실 계산 (복원 손실 + VQ-VAE의 손실)
             reconstruction_loss = (
                 tf.reduce_mean((x - reconstructions) ** 2) / self.train_variance
             )
             total_loss = reconstruction_loss + sum(self.vqvae.losses)
 
-        # Backpropagation.
+        # 역전파를 통한 가중치 업데이트
         grads = tape.gradient(total_loss, self.vqvae.trainable_variables)
         self.optimizer.apply_gradients(zip(grads, self.vqvae.trainable_variables))
 
-        # Loss tracking.
+        # 손실 추적
         self.total_loss_tracker.update_state(total_loss)
         self.reconstruction_loss_tracker.update_state(reconstruction_loss)
         self.vq_loss_tracker.update_state(sum(self.vqvae.losses))
 
-        # Log results.
+        # 결과 로그 반환
         return {
             "loss": self.total_loss_tracker.result(),
             "reconstruction_loss": self.reconstruction_loss_tracker.result(),
@@ -240,7 +274,7 @@ class VQVAETrainer(keras.models.Model):
         }
 ```
 
-## Load and preprocess the MNIST dataset
+## MNIST 데이터셋 로드 및 전처리 {#load-and-preprocess-the-mnist-dataset}
 
 ```python
 (x_train, _), (x_test, _) = keras.datasets.mnist.load_data()
@@ -262,7 +296,7 @@ Downloading data from https://storage.googleapis.com/tensorflow/tf-keras-dataset
 
 {{% /details %}}
 
-## Train the VQ-VAE model
+## VQ-VAE 모델 트레이닝 {#train-the-vq-vae-model}
 
 ```python
 vqvae_trainer = VQVAETrainer(data_variance, latent_dim=16, num_embeddings=128)
@@ -339,7 +373,7 @@ Epoch 30/30
 
 {{% /details %}}
 
-## Reconstruction results on the test set
+## 테스트 세트에 대한 복원 결과 {#reconstruction-results-on-the-test-set}
 
 ```python
 def show_subplot(original, reconstructed):
@@ -385,9 +419,11 @@ for test_image, reconstructed_image in zip(test_images, reconstructions_test):
 
 ![png](/images/examples/generative/vq_vae/vq_vae_20_9.png)
 
-These results look decent. You are encouraged to play with different hyperparameters (especially the number of embeddings and the dimensions of the embeddings) and observe how they affect the results.
+이 결과는 꽤 괜찮습니다.
+다양한 하이퍼파라미터(특히 임베딩의 개수와 임베딩의 차원)를 변경하면서,
+결과에 어떤 영향을 미치는지 확인해보세요.
 
-## Visualizing the discrete codes
+## 이산 코드 시각화 {#visualizing-the-discrete-codes}
 
 ```python
 encoder = vqvae_trainer.vqvae.get_layer("encoder")
@@ -431,9 +467,24 @@ for i in range(len(test_images)):
 
 ![png](/images/examples/generative/vq_vae/vq_vae_23_9.png)
 
-The figure above shows that the discrete codes have been able to capture some regularities from the dataset. Now, how do we sample from this codebook to create novel images? Since these codes are discrete and we imposed a categorical distribution on them, we cannot use them yet to generate anything meaningful until we can generate likely sequences of codes that we can give to the decoder. The authors use a PixelCNN to train these codes so that they can be used as powerful priors to generate novel examples. PixelCNN was proposed in [Conditional Image Generation with PixelCNN Decoders](https://arxiv.org/abs/1606.05328) by van der Oord et al. We will borrow code from [this example]({{< relref "/docs/examples/generative/pixelcnn" >}}) by van der Oord et al. We borrow the implementation from [this PixelCNN example]({{< relref "/docs/examples/generative/pixelcnn" >}}). It's an autoregressive generative model where the outputs are conditional on the prior ones. In other words, a PixelCNN generates an image on a pixel-by-pixel basis. For the purpose in this example, however, its task is to generate code book indices instead of pixels directly. The trained VQ-VAE decoder is used to map the indices generated by the PixelCNN back into the pixel space.
+위의 그림은 이산 코드가 데이터셋에서 일부 규칙성을 포착할 수 있음을 보여줍니다.
+이제, 이 코드북을 사용하여 새로운 이미지를 생성하려면 어떻게 해야 할까요?
+이 코드는 이산적이며 카테고리 분포를 따르므로,
+우리가 해석 가능한 코드 시퀀스를 생성할 수 있을 때까지
+의미 있는 것을 생성하는 데 사용할 수 없습니다.
+저자는 이러한 코드를 트레이닝하여,
+새로운 예제를 생성할 수 있는 강력한 사전 확률(priors)로 사용할 수 있도록 PixelCNN을 사용합니다.
+PixelCNN은 van der Oord 등이 제안한
+[Conditional Image Generation with PixelCNN Decoders](https://arxiv.org/abs/1606.05328) 논문에 처음 등장했습니다.
+우리는 [이 예제]({{< relref "/docs/examples/generative/pixelcnn" >}})에서 PixelCNN 구현을 차용할 것입니다.
+PixelCNN은 자기 회귀(autoregressive) 생성 모델로,
+출력은 이전에 생성된(prior ones) 것에 대해 conditional 입니다.
+다시 말해, PixelCNN은 이미지를 픽셀 단위로 생성합니다.
+하지만, 이 예제에서는 PixelCNN이 픽셀을 직접 생성하는 대신,
+코드북 인덱스를 생성하는 작업을 수행합니다.
+트레이닝된 VQ-VAE 디코더는 PixelCNN이 생성한 인덱스를 다시 픽셀 공간으로 매핑하는 데 사용됩니다.
 
-## PixelCNN hyperparameters
+## PixelCNN 하이퍼파라미터 {#pixelcnn-hyperparameters}
 
 ```python
 num_residual_blocks = 2
@@ -450,21 +501,40 @@ Input shape of the PixelCNN: (7, 7)
 
 {{% /details %}}
 
-This input shape represents the reduction in the resolution performed by the encoder. With "same" padding, this exactly halves the "resolution" of the output shape for each stride-2 convolution layer. So, with these two layers, we end up with an encoder output tensor of 7x7 on axes 2 and 3, with the first axis as the batch size and the last axis being the code book embedding size. Since the quantization layer in the autoencoder maps these 7x7 tensors to indices of the code book, these output layer axis sizes must be matched by the PixelCNN as the input shape. The task of the PixelCNN for this architecture is to generate _likely_ 7x7 arrangements of codebook indices.
+이 입력 형태는 인코더에 의해 수행된 해상도 감소를 나타냅니다.
+"same" 패딩을 사용하면, 각 stride-2 컨볼루션 레이어에 대해 출력 모양의 해상도가 정확히 절반으로 줄어듭니다.
+따라서, 이 두 레이어를 사용하면, 인코더 출력 텐서가 축 2와 3에 대해 7x7로 끝나며,
+첫 번째 축은 배치 크기이고, 마지막 축은 코드북 임베딩 크기입니다.
+오토인코더의 양자화(quantization) 레이어는 이 7x7 텐서를 코드북의 인덱스로 매핑하므로,
+PixelCNN은 입력 모양으로 이 출력 레이어 축 크기를 일치시켜야 합니다.
+이 아키텍처에서 PixelCNN의 작업은 코드북 인덱스의 _가능한(likely)_ 7x7 배열을 생성하는 것입니다.
 
-Note that this shape is something to optimize for in larger-sized image domains, along with the code book sizes. Since the PixelCNN is autoregressive, it needs to pass over each codebook index sequentially in order to generate novel images from the codebook. Each stride-2 (or rather more correctly a stride (2, 2)) convolution layer will divide the image generation time by four. Note, however, that there is probably a lower bound on this part: when the number of codes for the image to reconstruct is too small, it has insufficient information for the decoder to represent the level of detail in the image, so the output quality will suffer. This can be amended at least to some extent by using a larger code book. Since the autoregressive part of the image generation procedure uses codebook indices, there is far less of a performance penalty on using a larger code book as the lookup time for a larger-sized code from a larger code book is much smaller in comparison to iterating over a larger sequence of code book indices, although the size of the code book does impact on the batch size that can pass through the image generation procedure. Finding the sweet spot for this trade-off can require some architecture tweaking and could very well differ per dataset.
+이 모양는 더 큰 크기의 이미지 도메인에서 최적화해야 할 요소입니다.
+PixelCNN은 자기 회귀적(autoregressive)이므로,
+코드북 인덱스를 순차적으로 처리해야 새로운 이미지를 생성할 수 있습니다.
+각 stride-2 (정확히는 스트라이드 (2, 2)) 컨볼루션 레이어는 이미지 생성 시간을 4배로 나누어줍니다.
+그러나, 이미지 복원에 필요한 코드 수가 너무 적으면,
+디코더가 이미지의 세부 정보를 표현하기에 충분한 정보가 없어 출력 품질이 저하될 수 있습니다.
+이를 어느 정도 개선할 수 있는 방법은 더 큰 코드북을 사용하는 것입니다.
+이미지 생성 절차의 자기 회귀 부분은 코드북 인덱스를 사용하므로,
+더 큰 코드북을 사용하는 성능 저하는 거의 없습니다.
+코드북 크기가 크더라도 코드북에서 코드를 조회하는 시간은
+코드북 인덱스 시퀀스를 반복하는 시간에 비해 훨씬 짧기 때문에,
+코드북 크기는 배치 크기에만 영향을 미칩니다.
+이러한 절충점을 최적화하려면 아키텍처를 조정해야 할 수 있으며, 데이터셋에 따라 다를 수 있습니다.
 
-## PixelCNN model
+## PixelCNN 모델 {#pixelcnn-model}
 
-Majority of this comes from [this example]({{< relref "/docs/examples/generative/pixelcnn" >}}).
+대부분은 [이 예제]({{< relref "/docs/examples/generative/pixelcnn" >}})에서 가져온 것입니다.
 
-## Notes
+## 참고 사항 {#notes}
 
-Thanks to [Rein van 't Veer](https://github.com/reinvantveer) for improving this example with copy-edits and minor code clean-ups.
+이 예제의 수정 및 코드 정리에 도움을 주신,
+[Rein van 't Veer](https://github.com/reinvantveer)님께 감사드립니다.
 
 ```python
-# The first layer is the PixelCNN layer. This layer simply
-# builds on the 2D convolutional layer, but includes masking.
+# 첫 번째 레이어는 PixelCNN 레이어입니다.
+# 이 레이어는 2D 컨볼루션 레이어에 마스킹을 추가하여 작동합니다.
 class PixelConvLayer(layers.Layer):
     def __init__(self, mask_type, **kwargs):
         super().__init__()
@@ -472,9 +542,9 @@ class PixelConvLayer(layers.Layer):
         self.conv = layers.Conv2D(**kwargs)
 
     def build(self, input_shape):
-        # Build the conv2d layer to initialize kernel variables
+        # Conv2D 레이어를 빌드하여 커널 변수를 초기화합니다.
         self.conv.build(input_shape)
-        # Use the initialized kernel to create the mask
+        # 초기화된 커널을 사용하여 마스크를 생성합니다.
         kernel_shape = self.conv.kernel.get_shape()
         self.mask = np.zeros(shape=kernel_shape)
         self.mask[: kernel_shape[0] // 2, ...] = 1.0
@@ -487,8 +557,8 @@ class PixelConvLayer(layers.Layer):
         return self.conv(inputs)
 
 
-# Next, we build our residual block layer.
-# This is just a normal residual block, but based on the PixelConvLayer.
+# 다음으로, Residual Block 레이어를 빌드합니다.
+# 이 레이어는 PixelConvLayer를 기반으로 한, 일반적인 Residual Block입니다.
 class ResidualBlock(keras.layers.Layer):
     def __init__(self, filters, **kwargs):
         super().__init__(**kwargs)
@@ -513,6 +583,7 @@ class ResidualBlock(keras.layers.Layer):
         return keras.layers.add([inputs, x])
 
 
+# PixelCNN 모델 빌드
 pixelcnn_inputs = keras.Input(shape=pixelcnn_input_shape, dtype=tf.int32)
 ohe = tf.one_hot(pixelcnn_inputs, vqvae_trainer.num_embeddings)
 x = PixelConvLayer(
@@ -571,12 +642,17 @@ _________________________________________________________________
 
 {{% /details %}}
 
-## Prepare data to train the PixelCNN
+## PixelCNN을 트레이닝하기 위한 데이터 준비 {#prepare-data-to-train-the-pixelcnn}
 
-We will train the PixelCNN to learn a categorical distribution of the discrete codes. First, we will generate code indices using the encoder and vector quantizer we just trained. Our training objective will be to minimize the crossentropy loss between these indices and the PixelCNN outputs. Here, the number of categories is equal to the number of embeddings present in our codebook (128 in our case). The PixelCNN model is trained to learn a distribution (as opposed to minimizing the L1/L2 loss), which is where it gets its generative capabilities from.
+PixelCNN을 트레이닝하여 이산 코드의 카테고리 분포를 학습할 것입니다.
+먼저, 우리가 트레이닝한 인코더와 벡터 양자화기(quantizer)를 사용하여 코드 인덱스를 생성합니다.
+우리의 트레이닝 목표는 이러한 인덱스와 PixelCNN 출력 간의 교차 엔트로피 손실을 최소화하는 것입니다.
+여기서, 카테고리의 수는 코드북에 존재하는 임베딩의 수(우리의 경우 128)와 같습니다.
+PixelCNN 모델은 분포를 학습하도록 트레이닝되며(L1/L2 손실을 최소화하는 것이 아닌),
+이는 PixelCNN이 생성 능력을 얻는 이유입니다.
 
 ```python
-# Generate the codebook indices.
+# 코드북 인덱스를 생성합니다.
 encoded_outputs = encoder.predict(x_train_scaled)
 flat_enc_outputs = encoded_outputs.reshape(-1, encoded_outputs.shape[-1])
 codebook_indices = quantizer.get_code_indices(flat_enc_outputs)
@@ -593,7 +669,7 @@ Shape of the training data for PixelCNN: (60000, 7, 7)
 
 {{% /details %}}
 
-## PixelCNN training
+## PixelCNN 트레이닝 {#pixelcnn-training}
 
 ```python
 pixel_cnn.compile(
@@ -679,14 +755,15 @@ Epoch 30/30
 
 {{% /details %}}
 
-We can improve these scores with more training and hyperparameter tuning.
+우리는 더 많은 트레이닝과 하이퍼파라미터 튜닝을 통해 이러한 성능을 개선할 수 있습니다.
 
-## Codebook sampling
+## 코드북 샘플링 {#codebook-sampling}
 
-Now that our PixelCNN is trained, we can sample distinct codes from its outputs and pass them to our decoder to generate novel images.
+이제 PixelCNN이 트레이닝되었으므로,
+그 출력에서 고유한 코드를 샘플링하고 이를 디코더에 전달하여 새로운 이미지를 생성할 수 있습니다.
 
 ```python
-# Create a mini sampler model.
+# 미니 샘플러 모델 생성
 inputs = layers.Input(shape=pixel_cnn.input_shape[1:])
 outputs = pixel_cnn(inputs, training=False)
 categorical_layer = tfp.layers.DistributionLambda(tfp.distributions.Categorical)
@@ -694,21 +771,20 @@ outputs = categorical_layer(outputs)
 sampler = keras.Model(inputs, outputs)
 ```
 
-We now construct a prior to generate images. Here, we will generate 10 images.
+이제 이미지를 생성하기 위한 사전 모델(prior)을 구성합니다. 여기서는 10개의 이미지를 생성할 것입니다.
 
 ```python
-# Create an empty array of priors.
+# 비어있는 사전(priors)의 배열을 생성합니다.
 batch = 10
 priors = np.zeros(shape=(batch,) + (pixel_cnn.input_shape)[1:])
 batch, rows, cols = priors.shape
 
-# Iterate over the priors because generation has to be done sequentially pixel by pixel.
+# priors에 걸쳐 반복합니다. 생성은 픽셀별로 순차적으로 이루어져야 하기 때문입니다.
 for row in range(rows):
     for col in range(cols):
-        # Feed the whole array and retrieving the pixel value probabilities for the next
-        # pixel.
+        # 전체 배열을 입력하고, 다음 픽셀에 대한 픽셀 값 확률을 반환합니다.
         probs = sampler.predict(priors)
-        # Use the probabilities to pick pixel values and append the values to the priors.
+        # 확률을 사용하여 픽셀 값을 선택하고 사전(priors)에 값을 추가합니다.
         priors[:, row, col] = probs[:, row, col]
 
 print(f"Prior shape: {priors.shape}")
@@ -722,10 +798,10 @@ Prior shape: (10, 7, 7)
 
 {{% /details %}}
 
-We can now use our decoder to generate the images.
+이제 디코더를 사용하여 이미지를 생성할 수 있습니다.
 
 ```python
-# Perform an embedding lookup.
+# 임베딩 룩업 수행
 pretrained_embeddings = quantizer.embeddings
 priors_ohe = tf.one_hot(priors.astype("int32"), vqvae_trainer.num_embeddings).numpy()
 quantized = tf.matmul(
@@ -733,7 +809,7 @@ quantized = tf.matmul(
 )
 quantized = tf.reshape(quantized, (-1, *(encoded_outputs.shape[1:])))
 
-# Generate novel images.
+# 새로운(novel) 이미지 생성
 decoder = vqvae_trainer.vqvae.get_layer("decoder")
 generated_samples = decoder.predict(quantized)
 
@@ -770,9 +846,14 @@ for i in range(batch):
 
 ![png](/images/examples/generative/vq_vae/vq_vae_40_9.png)
 
-We can enhance the quality of these generated samples by tweaking the PixelCNN.
+우리는 PixelCNN을 조정하여 생성된 샘플의 품질을 향상시킬 수 있습니다.
 
-## Additional notes
+## 추가 참고 사항 {#additional-notes}
 
-- After the VQ-VAE paper was initially released, the authors developed an exponential moving averaging scheme to update the embeddings inside the quantizer. If you're interested you can check out [this snippet](https://github.com/deepmind/sonnet/blob/master/sonnet/python/modules/nets/vqvae.py#L124).
-- To further enhance the quality of the generated samples, [VQ-VAE-2](https://arxiv.org/abs/1906.00446) was proposed that follows a cascaded approach to learn the codebook and to generate the images.
+- VQ-VAE 논문이 처음 발표된 후,
+  저자들은 양자화기(quantizer) 내 임베딩을 업데이트하기 위해,
+  지수 이동 평균 방식(exponential moving averaging scheme)을 개발했습니다.
+  관심이 있다면 [이 코드](https://github.com/deepmind/sonnet/blob/master/sonnet/python/modules/nets/vqvae.py#L124)를 확인해보세요.
+- 생성된 샘플의 품질을 더욱 향상시키기 위해,
+  [VQ-VAE-2](https://arxiv.org/abs/1906.00446)가 제안되었습니다.
+  이 방법은 코드북을 학습하고 이미지를 생성하는 데, 계층적(cascaded) 접근 방식을 따릅니다.
