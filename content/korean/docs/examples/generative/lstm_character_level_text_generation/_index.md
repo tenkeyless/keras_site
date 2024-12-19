@@ -1,5 +1,6 @@
 ---
-title: Character-level text generation with LSTM
+title: LSTM을 사용한 문자 레벨 텍스트 생성
+linkTitle: LSTM 문자 레벨 텍스트 생성
 toc: true
 weight: 23
 type: docs
@@ -10,7 +11,7 @@ type: docs
 **{{< t f_author >}}** [fchollet](https://twitter.com/fchollet)  
 **{{< t f_date_created >}}** 2015/06/15  
 **{{< t f_last_modified >}}** 2020/04/30  
-**{{< t f_description >}}** Generate text from Nietzsche's writings with a character-level LSTM.
+**{{< t f_description >}}** 니체 글에서 문자 레벨로 텍스트 생성하기
 
 {{< keras/version v=3 >}}
 
@@ -19,17 +20,17 @@ type: docs
 {{< card link="https://github.com/keras-team/keras-io/blob/master/examples/generative/lstm_character_level_text_generation.py" title="GitHub" tag="GitHub">}}
 {{< /cards >}}
 
-## Introduction
+## 소개 {#introduction}
 
-This example demonstrates how to use a LSTM model to generate text character-by-character.
+이 예제는 LSTM 모델을 사용하여 문자를 하나씩 생성하는 방법을 보여줍니다.
 
-At least 20 epochs are required before the generated text starts sounding locally coherent.
+생성된 텍스트가 지역적으로 일관성 있게 들리기 시작하려면 최소 20번의 에포크가 필요합니다.
 
-It is recommended to run this script on GPU, as recurrent networks are quite computationally intensive.
+recurrent 신경망은 계산 집약적이므로, 이 스크립트를 GPU에서 실행하는 것이 좋습니다.
 
-If you try this script on new data, make sure your corpus has at least ~100k characters. ~1M is better.
+새 데이터로 이 스크립트를 시도하는 경우, 말뭉치에 적어도 ~100,000자의 텍스트가 있어야 합니다. 약 1M 정도가 이상적입니다.
 
-## Setup
+## 셋업 {#setup}
 
 ```python
 import keras
@@ -40,7 +41,7 @@ import random
 import io
 ```
 
-## Prepare the data
+## 데이터 준비 {#prepare-the-data}
 
 ```python
 path = keras.utils.get_file(
@@ -49,7 +50,7 @@ path = keras.utils.get_file(
 )
 with io.open(path, encoding="utf-8") as f:
     text = f.read().lower()
-text = text.replace("\n", " ")  # We remove newlines chars for nicer display
+text = text.replace("\n", " ")  # 보기 좋게 줄바꿈 문자를 제거합니다
 print("Corpus length:", len(text))
 
 chars = sorted(list(set(text)))
@@ -57,7 +58,7 @@ print("Total chars:", len(chars))
 char_indices = dict((c, i) for i, c in enumerate(chars))
 indices_char = dict((i, c) for i, c in enumerate(chars))
 
-# cut the text in semi-redundant sequences of maxlen characters
+# 텍스트를 maxlen 문자 길이의 중복되는 시퀀스로 자릅니다
 maxlen = 40
 step = 3
 sentences = []
@@ -85,7 +86,7 @@ Number of sequences: 200285
 
 {{% /details %}}
 
-## Build the model: a single LSTM layer
+## 모델 구성: 단일 LSTM 레이어 {#build-the-model-a-single-lstm-layer}
 
 ```python
 model = keras.Sequential(
@@ -99,11 +100,11 @@ optimizer = keras.optimizers.RMSprop(learning_rate=0.01)
 model.compile(loss="categorical_crossentropy", optimizer=optimizer)
 ```
 
-## Prepare the text sampling function
+## 텍스트 샘플링 함수 준비 {#prepare-the-text-sampling-function}
 
 ```python
 def sample(preds, temperature=1.0):
-    # helper function to sample an index from a probability array
+    # 확률 배열에서 인덱스를 샘플링하는 도우미 함수
     preds = np.asarray(preds).astype("float64")
     preds = np.log(preds) / temperature
     exp_preds = np.exp(preds)
@@ -112,7 +113,7 @@ def sample(preds, temperature=1.0):
     return np.argmax(probas)
 ```
 
-## Train the model
+## 모델 트레이닝 {#train-the-model}
 
 ```python
 epochs = 40
