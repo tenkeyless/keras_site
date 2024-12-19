@@ -1,5 +1,6 @@
 ---
-title: Data-efficient GANs with Adaptive Discriminator Augmentation
+title: 적응형 판별자 보강을 통한 데이터 효율적 GAN
+linkTitle: 데이터 효율적 GAN
 toc: true
 weight: 12
 type: docs
@@ -10,7 +11,7 @@ type: docs
 **{{< t f_author >}}** [András Béres](https://www.linkedin.com/in/andras-beres-789190210)  
 **{{< t f_date_created >}}** 2021/10/28  
 **{{< t f_last_modified >}}** 2021/10/28  
-**{{< t f_description >}}** Generating images from limited data using the Caltech Birds dataset.
+**{{< t f_description >}}** Caltech Birds 데이터셋을 사용하여 제한된 데이터로 이미지 생성하기
 
 {{< keras/version v=2 >}}
 
@@ -19,27 +20,55 @@ type: docs
 {{< card link="https://github.com/keras-team/keras-io/blob/master/examples/generative/gan_ada.py" title="GitHub" tag="GitHub">}}
 {{< /cards >}}
 
-## Introduction
+## 소개 {#introduction}
 
-### GANs
+### GANs {#gans}
 
-[Generative Adversarial Networks (GANs)](https://arxiv.org/abs/1406.2661) are a popular class of generative deep learning models, commonly used for image generation. They consist of a pair of dueling neural networks, called the discriminator and the generator. The discriminator's task is to distinguish real images from generated (fake) ones, while the generator network tries to fool the discriminator by generating more and more realistic images. If the generator is however too easy or too hard to fool, it might fail to provide useful learning signal for the generator, therefore training GANs is usually considered a difficult task.
+[생성적 적대 신경망(GANs)](https://arxiv.org/abs/1406.2661)은 이미지 생성을 위해 자주 사용되는,
+생성적 딥러닝 모델의 인기 있는 클래스입니다.
+GAN은 판별자와 생성자라고 불리는 두 개의 대립하는 신경망으로 구성됩니다.
+판별자의 작업은 실제 이미지와 생성된(가짜) 이미지를 구분하는 것이며,
+생성자 네트워크는 점점 더 현실적인 이미지를 생성하여 판별자를 속이려고 합니다.
+그러나 생성자를 속이는 것이 너무 쉽거나 너무 어려운 경우,
+생성자에게 유용한 학습 신호를 제공하지 못할 수 있기 때문에,
+GAN의 트레이닝은 일반적으로 어려운 작업으로 간주됩니다.
 
-### Data augmentation for GANS
+### GAN을 위한 데이터 보강 {#data-augmentation-for-gans}
 
-Data augmentation, a popular technique in deep learning, is the process of randomly applying semantics-preserving transformations to the input data to generate multiple realistic versions of it, thereby effectively multiplying the amount of training data available. The simplest example is left-right flipping an image, which preserves its contents while generating a second unique training sample. Data augmentation is commonly used in supervised learning to prevent overfitting and enhance generalization.
+데이터 보강은 딥러닝에서 널리 사용되는 기법으로,
+입력 데이터에 의미를 보존하는 변환을 무작위로 적용하여 여러 개의 현실적인 버전을 생성함으로써,
+사용 가능한 트레이닝 데이터의 양을 효과적으로 늘리는 과정입니다.
+가장 간단한 예로는 이미지를 좌우 반전시키는 것으로,
+이는 그 내용물을 유지하면서 두 번째 고유한 트레이닝 샘플을 생성합니다.
+데이터 보강은 일반적으로 지도 학습에서 과적합을 방지하고 일반화 성능을 향상시키기 위해 사용됩니다.
 
-The authors of [StyleGAN2-ADA](https://arxiv.org/abs/2006.06676) show that discriminator overfitting can be an issue in GANs, especially when only low amounts of training data is available. They propose Adaptive Discriminator Augmentation to mitigate this issue.
+[StyleGAN2-ADA](https://arxiv.org/abs/2006.06676)의 저자들은,
+특히 트레이닝 데이터의 양이 적을 때,
+판별자의 과적합이 GAN에서 문제가 될 수 있음을 보여주었습니다.
+그들은 이러한 문제를 완화하기 위해 Adaptive Discriminator 보강을 제안했습니다.
 
-Applying data augmentation to GANs however is not straightforward. Since the generator is updated using the discriminator's gradients, if the generated images are augmented, the augmentation pipeline has to be differentiable and also has to be GPU-compatible for computational efficiency. Luckily, the [Keras image augmentation layers]({{< relref "/docs/api/layers/preprocessing_layers/image_augmentation" >}}) fulfill both these requirements, and are therefore very well suited for this task.
+그러나 GAN에 데이터 보강을 적용하는 것은 간단하지 않습니다.
+생성자는 판별자의 그래디언트를 사용하여 업데이트되기 때문에,
+생성된 이미지에 보강이 적용될 경우,
+보강 파이프라인은 미분 가능해야 하고 계산 효율성을 위해 GPU와도 호환되어야 합니다.
+다행히 [Keras 이미지 보강 레이어]({{< relref "/docs/api/layers/preprocessing_layers/image_augmentation" >}})는
+이러한 두 가지 요구 사항을 모두 충족하므로, 이 작업에 매우 적합합니다.
 
-### Invertible data augmentation
+### 가역적(Invertible) 데이터 보강 {#invertible-data-augmentation}
 
-A possible difficulty when using data augmentation in generative models is the issue of ["leaky augmentations" (section 2.2)](https://arxiv.org/abs/2006.06676), namely when the model generates images that are already augmented. This would mean that it was not able to separate the augmentation from the underlying data distribution, which can be caused by using non-invertible data transformations. For example, if either 0, 90, 180 or 270 degree rotations are performed with equal probability, the original orientation of the images is impossible to infer, and this information is destroyed.
+생성 모델에서 데이터 보강을 사용할 때 발생할 수 있는 어려움 중 하나는
+["누출되는(leaky) 보강"(섹션 2.2)](https://arxiv.org/abs/2006.06676) 문제입니다.
+이는 모델이 이미 보강된 이미지를 생성하는 경우를 말합니다.
+이는 모델이 보강과 기본 데이터 분포를 분리할 수 없었다는 것을 의미하며,
+가역적이지 않은(non-invertible) 데이터 변환을 사용할 때 발생할 수 있습니다.
+예를 들어, 0도, 90도, 180도, 270도의 회전이 동일한 확률로 수행될 경우,
+이미지의 원래 방향을 추론하는 것이 불가능해지며, 이 정보는 손실됩니다.
 
-A simple trick to make data augmentations invertible is to only apply them with some probability. That way the original version of the images will be more common, and the data distribution can be inferred. By properly choosing this probability, one can effectively regularize the discriminator without making the augmentations leaky.
+데이터 보강을 가역적으로 만드는 간단한 방법은 보강을 일정한 확률로만 적용하는 것입니다.
+이렇게 하면 원본 버전의 이미지가 더 많이 나타나고, 데이터 분포를 추론할 수 있습니다.
+이 확률을 적절히 선택함으로써 보강이 누출되지 않도록 하면서, 판별자를 효과적으로 정규화할 수 있습니다.
 
-## Setup
+## 셋업 {#setup}
 
 ```python
 import matplotlib.pyplot as plt
@@ -50,41 +79,44 @@ from tensorflow import keras
 from tensorflow.keras import layers
 ```
 
-## Hyperparameterers
+## 하이퍼파라미터 {#hyperparameterers}
 
 ```python
-# data
-num_epochs = 10  # train for 400 epochs for good results
+# 데이터
+num_epochs = 10  # 좋은 결과를 위해 400 에포크 동안 트레이닝
 image_size = 64
-# resolution of Kernel Inception Distance measurement, see related section
+# Kernel Inception Distance 측정 해상도, 관련 섹션 참조
 kid_image_size = 75
 padding = 0.25
 dataset_name = "caltech_birds2011"
 
-# adaptive discriminator augmentation
+# 적응형 판별자 보강
 max_translation = 0.125
 max_rotation = 0.125
 max_zoom = 0.25
 target_accuracy = 0.85
 integration_steps = 1000
 
-# architecture
+# 아키텍처
 noise_size = 64
 depth = 4
 width = 128
 leaky_relu_slope = 0.2
 dropout_rate = 0.4
 
-# optimization
+# 최적화
 batch_size = 128
 learning_rate = 2e-4
-beta_1 = 0.5  # not using the default value of 0.9 is important
+beta_1 = 0.5  # 기본값 0.9를 사용하지 않는 것이 중요합니다
 ema = 0.99
 ```
 
-## Data pipeline
+## 데이터 파이프라인 {#data-pipeline}
 
-In this example, we will use the [Caltech Birds (2011)](https://www.tensorflow.org/datasets/catalog/caltech_birds2011) dataset for generating images of birds, which is a diverse natural dataset containing less then 6000 images for training. When working with such low amounts of data, one has to take extra care to retain as high data quality as possible. In this example, we use the provided bounding boxes of the birds to cut them out with square crops while preserving their aspect ratios when possible.
+이 예제에서는 [Caltech Birds (2011)](https://www.tensorflow.org/datasets/catalog/caltech_birds2011) 데이터셋을 사용하여 새의 이미지를 생성할 것입니다.
+이 데이터셋은 트레이닝을 위해 6000개 미만의 이미지를 포함하고 있는 다양한 자연 데이터셋입니다.
+이처럼 데이터 양이 적을 때는, 가능한 한 높은 데이터 품질을 유지하기 위해 특별한 주의를 기울여야 합니다.
+이 예제에서는, 제공된 새의 바운딩 박스를 사용하여 가능한 경우, 종횡비를 유지하면서 정사각형으로 자릅니다.
 
 ```python
 def round_to_int(float_value):
@@ -92,12 +124,12 @@ def round_to_int(float_value):
 
 
 def preprocess_image(data):
-    # unnormalize bounding box coordinates
+    # 바운딩 박스 좌표 비정규화
     height = tf.cast(tf.shape(data["image"])[0], dtype=tf.float32)
     width = tf.cast(tf.shape(data["image"])[1], dtype=tf.float32)
     bounding_box = data["bbox"] * tf.stack([height, width, height, width])
 
-    # calculate center and length of longer side, add padding
+    # 중심과 긴 변의 길이를 계산하고 패딩을 추가
     target_center_y = 0.5 * (bounding_box[0] + bounding_box[2])
     target_center_x = 0.5 * (bounding_box[1] + bounding_box[3])
     target_size = tf.maximum(
@@ -105,7 +137,7 @@ def preprocess_image(data):
         (1.0 + padding) * (bounding_box[3] - bounding_box[1]),
     )
 
-    # modify crop size to fit into image
+    # 크롭 크기를 이미지에 맞게 조정
     target_height = tf.reduce_min(
         [target_size, 2.0 * target_center_y, 2.0 * (height - target_center_y)]
     )
@@ -113,7 +145,7 @@ def preprocess_image(data):
         [target_size, 2.0 * target_center_x, 2.0 * (width - target_center_x)]
     )
 
-    # crop image
+    # 이미지 크롭
     image = tf.image.crop_to_bounding_box(
         data["image"],
         offset_height=round_to_int(target_center_y - 0.5 * target_height),
@@ -122,8 +154,8 @@ def preprocess_image(data):
         target_width=round_to_int(target_width),
     )
 
-    # resize and clip
-    # for image downsampling, area interpolation is the preferred method
+    # 크기 조정 및 클리핑
+    # 이미지 다운샘플링의 경우, 영역 보간법이 선호됩니다.
     image = tf.image.resize(
         image, size=[image_size, image_size], method=tf.image.ResizeMethod.AREA
     )
@@ -131,8 +163,7 @@ def preprocess_image(data):
 
 
 def prepare_dataset(split):
-    # the validation dataset is shuffled as well, because data order matters
-    # for the KID calculation
+    # 검증 데이터셋도 셔플합니다. 데이터 순서가 KID 계산에 중요하기 때문입니다.
     return (
         tfds.load(dataset_name, split=split, shuffle_files=True)
         .map(preprocess_image, num_parallel_calls=tf.data.AUTOTUNE)
@@ -147,29 +178,37 @@ train_dataset = prepare_dataset("train")
 val_dataset = prepare_dataset("test")
 ```
 
-After preprocessing the training images look like the following:
+전처리 후의 트레이닝 이미지는 다음과 같습니다:
 
 ![birds dataset](/images/examples/generative/gan_ada/Ru5HgBM.png)
 
-## Kernel inception distance
+## Kernel inception distance {#kernel-inception-distance}
 
-[Kernel Inception Distance (KID)](https://arxiv.org/abs/1801.01401) was proposed as a replacement for the popular [Frechet Inception Distance (FID)](https://arxiv.org/abs/1706.08500) metric for measuring image generation quality. Both metrics measure the difference in the generated and training distributions in the representation space of an [InceptionV3]({{< relref "/docs/api/applications/inceptionv3" >}}) network pretrained on [ImageNet](https://www.tensorflow.org/datasets/catalog/imagenet2012).
+[Kernel Inception Distance (KID)](https://arxiv.org/abs/1801.01401)는
+이미지 생성 품질을 측정하기 위해 널리 사용되는
+[Frechet Inception Distance (FID)](https://arxiv.org/abs/1706.08500) 메트릭의 대체로 제안되었습니다.
+두 메트릭 모두 [ImageNet](https://www.tensorflow.org/datasets/catalog/imagenet2012)에 대해
+사전 트레이닝된 [InceptionV3]({{< relref "/docs/api/applications/inceptionv3" >}}) 네트워크의 표현 공간에서,
+생성된 데이터와 트레이닝 데이터 분포 간의 차이를 측정합니다.
 
-According to the paper, KID was proposed because FID has no unbiased estimator, its expected value is higher when it is measured on fewer images. KID is more suitable for small datasets because its expected value does not depend on the number of samples it is measured on. In my experience it is also computationally lighter, numerically more stable, and simpler to implement because it can be estimated in a per-batch manner.
+논문에 따르면, FID는 편향되지 않은 추정치가 없기 때문에, 적은 수의 이미지로 측정할 때 기대값이 더 높아집니다.
+KID는 측정된 샘플 수에 관계없이 기대값이 변하지 않기 때문에 작은 데이터셋에 더 적합합니다.
+제 경험으로는 KID가 계산적으로 더 가볍고, 수치적으로 더 안정적이며, 배치 단위로 추정할 수 있기 때문에 구현이 더 간단합니다.
 
-In this example, the images are evaluated at the minimal possible resolution of the Inception network (75x75 instead of 299x299), and the metric is only measured on the validation set for computational efficiency.
+이 예제에서는, Inception 네트워크의 최소 가능한 해상도(75x75 대신 299x299)로 이미지를 평가하고,
+계산 효율성을 위해 검증 세트에서만 메트릭을 측정합니다.
 
 ```python
 class KID(keras.metrics.Metric):
     def __init__(self, name="kid", **kwargs):
         super().__init__(name=name, **kwargs)
 
-        # KID is estimated per batch and is averaged across batches
+        # KID는 배치별로 추정되며 배치 간 평균이 산출됩니다.
         self.kid_tracker = keras.metrics.Mean()
 
-        # a pretrained InceptionV3 is used without its classification layer
-        # transform the pixel values to the 0-255 range, then use the same
-        # preprocessing as during pretraining
+        # 사전 트레이닝된 InceptionV3가 분류 레이어 없이 사용됩니다.
+        # 픽셀 값을 0-255 범위로 변환한 다음,
+        # 사전 트레이닝 시와 동일한 전처리를 사용합니다.
         self.encoder = keras.Sequential(
             [
                 layers.InputLayer(input_shape=(image_size, image_size, 3)),
@@ -194,14 +233,13 @@ class KID(keras.metrics.Metric):
         real_features = self.encoder(real_images, training=False)
         generated_features = self.encoder(generated_images, training=False)
 
-        # compute polynomial kernels using the two sets of features
+        # 두 특징 집합을 사용하여 다항식 커널을 계산합니다.
         kernel_real = self.polynomial_kernel(real_features, real_features)
         kernel_generated = self.polynomial_kernel(
             generated_features, generated_features
         )
         kernel_cross = self.polynomial_kernel(real_features, generated_features)
-
-        # estimate the squared maximum mean discrepancy using the average kernel values
+        # 평균 커널 값을 사용하여 최대 평균 차이의 제곱(squared maximum mean discrepancy)을 추정합니다.
         batch_size = tf.shape(real_features)[0]
         batch_size_f = tf.cast(batch_size, dtype=tf.float32)
         mean_kernel_real = tf.reduce_sum(kernel_real * (1.0 - tf.eye(batch_size))) / (
@@ -213,7 +251,7 @@ class KID(keras.metrics.Metric):
         mean_kernel_cross = tf.reduce_mean(kernel_cross)
         kid = mean_kernel_real + mean_kernel_generated - 2.0 * mean_kernel_cross
 
-        # update the average KID estimate
+        # 평균 KID 추정치를 업데이트합니다.
         self.kid_tracker.update_state(kid)
 
     def result(self):
@@ -223,41 +261,52 @@ class KID(keras.metrics.Metric):
         self.kid_tracker.reset_state()
 ```
 
-## Adaptive discriminator augmentation
+## 적응형 판별자 보강 {#adaptive-discriminator-augmentation}
 
-The authors of [StyleGAN2-ADA](https://arxiv.org/abs/2006.06676) propose to change the augmentation probability adaptively during training. Though it is explained differently in the paper, they use [integral control](https://en.wikipedia.org/wiki/PID_controller#Integral) on the augmentation probability to keep the discriminator's accuracy on real images close to a target value. Note, that their controlled variable is actually the average sign of the discriminator logits (r_t in the paper), which corresponds to 2 \* accuracy - 1.
+[StyleGAN2-ADA](https://arxiv.org/abs/2006.06676)의 저자들은
+트레이닝 중에 보강 확률을 적응적으로 변경할 것을 제안합니다.
+논문에서는 다르게 설명되어 있지만,
+그들은 보강 확률에 대해 [적분 제어](https://en.wikipedia.org/wiki/PID_controller#Integral)를 사용하여,
+판별자의 실제 이미지에 대한 정확도가 목표 값에 가깝도록 유지합니다.
+주의할 점은 그들이 제어하는 변수는,
+실제로 판별자 로짓의 평균 부호(r_t로 논문에서 표시됨)이며, 이는 2 \* accuracy - 1에 해당합니다.
 
-This method requires two hyperparameters:
+이 메서드는 두 개의 하이퍼파라미터를 필요로 합니다:
 
-1.  `target_accuracy`: the target value for the discriminator's accuracy on real images. I recommend selecting its value from the 80-90% range.
-2.  [`integration_steps`](https://en.wikipedia.org/wiki/PID_controller#Mathematical_form): the number of update steps required for an accuracy error of 100% to transform into an augmentation probability increase of 100%. To give an intuition, this defines how slowly the augmentation probability is changed. I recommend setting this to a relatively high value (1000 in this case) so that the augmentation strength is only adjusted slowly.
+1. `target_accuracy`: 판별자의 실제 이미지에 대한 정확도의 목표 값입니다.
+   이 값을 80-90% 범위에서 선택할 것을 추천합니다.
+2. [`integration_steps`](https://en.wikipedia.org/wiki/PID_controller#Mathematical_form):
+   정확도 에러가 100%일 때 보강 확률 증가가 100%가 되도록 하는 업데이트 스텝의 수입니다.
+   직관적으로, 이는 보강 확률이 얼마나 천천히 변경되는지를 정의합니다.
+   보강 강도가 천천히 조정되도록, 이 값을 비교적 큰 값(이 경우 1000)으로 설정할 것을 추천합니다.
 
-The main motivation for this procedure is that the optimal value of the target accuracy is similar across different dataset sizes (see [figure 4 and 5 in the paper](https://arxiv.org/abs/2006.06676)), so it does not have to be re-tuned, because the process automatically applies stronger data augmentation when it is needed.
+이 절차의 주요 동기는 목표 정확도의 최적 값이 다양한 데이터셋 크기에서 유사하다는 것입니다.
+(논문의 [그림 4와 5](https://arxiv.org/abs/2006.06676)를 참조하십시오)
+따라서 재튜닝이 필요하지 않으며, 이 프로세스는 필요할 때 자동으로 더 강한 데이터 보강을 적용합니다.
 
 ```python
-# "hard sigmoid", useful for binary accuracy calculation from logits
+# "hard sigmoid", 로짓에서 이진 정확도 계산에 유용합니다.
 def step(values):
-    # negative values -> 0.0, positive values -> 1.0
+    # 음수 값 -> 0.0, 양수 값 -> 1.0
     return 0.5 * (1.0 + tf.sign(values))
 
 
-# augments images with a probability that is dynamically updated during training
+# 트레이닝 중에 동적으로 업데이트되는 확률로 이미지를 보강합니다.
 class AdaptiveAugmenter(keras.Model):
     def __init__(self):
         super().__init__()
 
-        # stores the current probability of an image being augmented
+        # 이미지가 보강될 현재 확률을 저장합니다.
         self.probability = tf.Variable(0.0)
-
-        # the corresponding augmentation names from the paper are shown above each layer
-        # the authors show (see figure 4), that the blitting and geometric augmentations
-        # are the most helpful in the low-data regime
+        # 논문에서 언급된 해당 보강 이름이 각 레이어 위에 표시되어 있습니다.
+        # 저자들은 (그림 4 참조) 블리팅(blitting)과 기하학적 보강이
+        # 적은 데이터 상황에서 가장 도움이 된다고 보여줍니다.
         self.augmenter = keras.Sequential(
             [
                 layers.InputLayer(input_shape=(image_size, image_size, 3)),
                 # blitting/x-flip:
                 layers.RandomFlip("horizontal"),
-                # blitting/integer translation:
+                # blitting/integer 변환:
                 layers.RandomTranslation(
                     height_factor=max_translation,
                     width_factor=max_translation,
@@ -265,7 +314,7 @@ class AdaptiveAugmenter(keras.Model):
                 ),
                 # geometric/rotation:
                 layers.RandomRotation(factor=max_rotation),
-                # geometric/isotropic and anisotropic scaling:
+                # geometric/isotropic 및 anisotropic 스케일링:
                 layers.RandomZoom(
                     height_factor=(-max_zoom, 0.0), width_factor=(-max_zoom, 0.0)
                 ),
@@ -277,8 +326,7 @@ class AdaptiveAugmenter(keras.Model):
         if training:
             augmented_images = self.augmenter(images, training)
 
-            # during training either the original or the augmented images are selected
-            # based on self.probability
+            # 트레이닝 중에는 원본 이미지 또는 보강된 이미지가 self.probability에 따라 선택됩니다.
             augmentation_values = tf.random.uniform(
                 shape=(batch_size, 1, 1, 1), minval=0.0, maxval=1.0
             )
@@ -290,8 +338,7 @@ class AdaptiveAugmenter(keras.Model):
     def update(self, real_logits):
         current_accuracy = tf.reduce_mean(step(real_logits))
 
-        # the augmentation probability is updated based on the discriminator's
-        # accuracy on real images
+        # 판별자의 실제 이미지에 대한 정확도를 기반으로 보강 확률이 업데이트됩니다.
         accuracy_error = current_accuracy - target_accuracy
         self.probability.assign(
             tf.clip_by_value(
@@ -300,19 +347,29 @@ class AdaptiveAugmenter(keras.Model):
         )
 ```
 
-## Network architecture
+## 네트워크 아키텍쳐 {#network-architecture}
 
-Here we specify the architecture of the two networks:
+여기서는 두 네트워크의 아키텍처를 정의합니다:
 
-- generator: maps a random vector to an image, which should be as realistic as possible
-- discriminator: maps an image to a scalar score, which should be high for real and low for generated images
+- 생성자: 랜덤 벡터를 가능한 한 현실적인 이미지로 매핑합니다.
+- 판별자: 이미지를 스칼라 점수로 매핑하며, 실제 이미지에는 높은 점수를, 생성된 이미지에는 낮은 점수를 부여합니다.
 
-GANs tend to be sensitive to the network architecture, I implemented a DCGAN architecture in this example, because it is relatively stable during training while being simple to implement. We use a constant number of filters throughout the network, use a sigmoid instead of tanh in the last layer of the generator, and use default initialization instead of random normal as further simplifications.
+GAN은 네트워크 아키텍처에 민감한 경향이 있는데, 이 예제에서는 DCGAN 아키텍처를 구현했습니다.
+DCGAN은 트레이닝 중에 비교적 안정적이며 구현이 간단하기 때문입니다.
+네트워크 전체에서 필터 수를 일정하게 유지하고,
+생성자의 마지막 레이어에서 `tanh` 대신 `sigmoid`를 사용하며,
+랜덤 노말 초기화 대신 기본 초기화를 사용하는 등의 단순화를 적용했습니다.
 
-As a good practice, we disable the learnable scale parameter in the batch normalization layers, because on one hand the following relu + convolutional layers make it redundant (as noted in the [documentation]({{< relref "/docs/api/layers/normalization_layers/batch_normalization" >}}). But also because it should be disabled based on theory when using [spectral normalization (section 4.1)](https://arxiv.org/abs/1802.05957), which is not used here, but is common in GANs. We also disable the bias in the fully connected and convolutional layers, because the following batch normalization makes it redundant.
+좋은 관행으로서, 배치 정규화 레이어에서 학습 가능한 스케일 매개변수를 비활성화했습니다.
+이는 한편으로는 뒤따르는 relu + 컨볼루션 레이어가 이를 중복되게 만들기 때문이고
+([문서]({{< relref "/docs/api/layers/normalization_layers/batch_normalization" >}})에 언급된 것처럼),
+다른 한편으로는 [스펙트럼 정규화(섹션 4.1)](https://arxiv.org/abs/1802.05957)를 사용할 때
+이 매개변수를 비활성화해야 하기 때문입니다.
+스펙트럼 정규화는 여기서는 사용하지 않지만, GAN에서는 일반적입니다.
+또한, 배치 정규화가 뒤따라오기 때문에 완전 연결(fully connected) 레이어와 컨볼루션 레이어의 bias도 비활성화했습니다.
 
 ```python
-# DCGAN generator
+# DCGAN 생성자
 def get_generator():
     noise_input = keras.Input(shape=(noise_size,))
     x = layers.Dense(4 * 4 * width, use_bias=False)(noise_input)
@@ -332,7 +389,7 @@ def get_generator():
     return keras.Model(noise_input, image_output, name="generator")
 
 
-# DCGAN discriminator
+# DCGAN 판별자
 def get_discriminator():
     image_input = keras.Input(shape=(image_size, image_size, 3))
     x = image_input
@@ -349,7 +406,7 @@ def get_discriminator():
     return keras.Model(image_input, output_score, name="discriminator")
 ```
 
-## GAN model
+## GAN 모델 {#gan-model}
 
 ```python
 class GAN_ADA(keras.Model):
@@ -367,7 +424,7 @@ class GAN_ADA(keras.Model):
     def compile(self, generator_optimizer, discriminator_optimizer, **kwargs):
         super().compile(**kwargs)
 
-        # separate optimizers for the two networks
+        # 두 네트워크에 대한 개별 옵티마이저
         self.generator_optimizer = generator_optimizer
         self.discriminator_optimizer = discriminator_optimizer
 
@@ -391,7 +448,7 @@ class GAN_ADA(keras.Model):
 
     def generate(self, batch_size, training):
         latent_samples = tf.random.normal(shape=(batch_size, noise_size))
-        # use ema_generator during inference
+        # 추론 중에는 ema_generator 사용
         if training:
             generated_images = self.generator(latent_samples, training)
         else:
@@ -399,16 +456,16 @@ class GAN_ADA(keras.Model):
         return generated_images
 
     def adversarial_loss(self, real_logits, generated_logits):
-        # this is usually called the non-saturating GAN loss
-
+        # 일반적으로 비포화 GAN 손실(non-saturating GAN loss)이라고 불립니다.
         real_labels = tf.ones(shape=(batch_size, 1))
         generated_labels = tf.zeros(shape=(batch_size, 1))
 
-        # the generator tries to produce images that the discriminator considers as real
+        # 생성자는 판별자가 실제라고 간주하는 이미지를 생성하려고 시도합니다.
         generator_loss = keras.losses.binary_crossentropy(
             real_labels, generated_logits, from_logits=True
         )
-        # the discriminator tries to determine if images are real or generated
+
+        # 판별자는 이미지가 실제인지 생성된 것인지를 결정하려고 합니다.
         discriminator_loss = keras.losses.binary_crossentropy(
             tf.concat([real_labels, generated_labels], axis=0),
             tf.concat([real_logits, generated_logits], axis=0),
@@ -420,14 +477,14 @@ class GAN_ADA(keras.Model):
     def train_step(self, real_images):
         real_images = self.augmenter(real_images, training=True)
 
-        # use persistent gradient tape because gradients will be calculated twice
+        # 그래디언트를 두 번 계산할 것이므로 지속적인 그래디언트 테이프 사용
         with tf.GradientTape(persistent=True) as tape:
             generated_images = self.generate(batch_size, training=True)
-            # gradient is calculated through the image augmentation
+            # 이미지 보강을 통해 그래디언트가 계산됩니다.
             generated_images = self.augmenter(generated_images, training=True)
 
-            # separate forward passes for the real and generated images, meaning
-            # that batch normalization is applied separately
+            # 실제 이미지와 생성된 이미지에 대해 별도의 순전파가 수행되며,
+            # 이는 배치 정규화가 별도로 적용됨을 의미합니다.
             real_logits = self.discriminator(real_images, training=True)
             generated_logits = self.discriminator(generated_images, training=True)
 
@@ -435,7 +492,7 @@ class GAN_ADA(keras.Model):
                 real_logits, generated_logits
             )
 
-        # calculate gradients and update weights
+        # 그래디언트를 계산하고 가중치를 업데이트
         generator_gradients = tape.gradient(
             generator_loss, self.generator.trainable_weights
         )
@@ -449,7 +506,7 @@ class GAN_ADA(keras.Model):
             zip(discriminator_gradients, self.discriminator.trainable_weights)
         )
 
-        # update the augmentation probability based on the discriminator's performance
+        # 판별자의 성능에 따라 보강 확률을 업데이트
         self.augmenter.update(real_logits)
 
         self.generator_loss_tracker.update_state(generator_loss)
@@ -458,14 +515,14 @@ class GAN_ADA(keras.Model):
         self.generated_accuracy.update_state(0.0, step(generated_logits))
         self.augmentation_probability_tracker.update_state(self.augmenter.probability)
 
-        # track the exponential moving average of the generator's weights to decrease
-        # variance in the generation quality
+        # 생성자의 가중치의 지수 이동 평균을 추적하여
+        # 생성 품질의 분산을 줄입니다.
         for weight, ema_weight in zip(
             self.generator.weights, self.ema_generator.weights
         ):
             ema_weight.assign(ema * ema_weight + (1 - ema) * weight)
 
-        # KID is not measured during the training phase for computational efficiency
+        # KID는 계산 효율성을 위해 트레이닝 단계에서는 측정되지 않습니다.
         return {m.name: m.result() for m in self.metrics[:-1]}
 
     def test_step(self, real_images):
@@ -473,11 +530,11 @@ class GAN_ADA(keras.Model):
 
         self.kid.update_state(real_images, generated_images)
 
-        # only KID is measured during the evaluation phase for computational efficiency
+        # 계산 효율성을 위해 평가 단계에서는 KID만 측정됩니다.
         return {self.kid.name: self.kid.result()}
 
     def plot_images(self, epoch=None, logs=None, num_rows=3, num_cols=6, interval=5):
-        # plot random generated images for visual evaluation of generation quality
+        # 생성 품질의 시각적 평가를 위해 랜덤하게 생성된 이미지를 플로팅합니다.
         if epoch is None or (epoch + 1) % interval == 0:
             num_images = num_rows * num_cols
             generated_images = self.generate(num_images, training=False)
@@ -494,21 +551,26 @@ class GAN_ADA(keras.Model):
             plt.close()
 ```
 
-## Training
+## 트레이닝 {#training}
 
-One can should see from the metrics during training, that if the real accuracy (discriminator's accuracy on real images) is below the target accuracy, the augmentation probability is increased, and vice versa. In my experience, during a healthy GAN training, the discriminator accuracy should stay in the 80-95% range. Below that, the discriminator is too weak, above that it is too strong.
+트레이닝 중 메트릭을 보면, 실제 정확도(판별자가 실제 이미지에 대해 예측한 정확도)가
+목표 정확도보다 낮으면 보강 확률이 증가하고,
+그 반대의 경우에는 감소하는 것을 확인할 수 있습니다.
+제 경험에 따르면, 건강한 GAN 트레이닝 동안 판별자의 정확도는 80-95% 범위에 있어야 합니다.
+이 범위보다 낮으면 판별자가 너무 약하고, 높으면 너무 강한 것입니다.
 
-Note that we track the exponential moving average of the generator's weights, and use that for image generation and KID evaluation.
+생성자의 가중치의 지수 이동 평균을 추적하고,
+이를 이미지 생성과 KID 평가에 사용한다는 점에 유의하세요.
 
 ```python
-# create and compile the model
+# 모델 생성 및 컴파일
 model = GAN_ADA()
 model.compile(
     generator_optimizer=keras.optimizers.Adam(learning_rate, beta_1),
     discriminator_optimizer=keras.optimizers.Adam(learning_rate, beta_1),
 )
 
-# save the best model based on the validation KID metric
+# 검증 KID 메트릭을 기준으로 최상의 모델을 저장
 checkpoint_path = "gan_model"
 checkpoint_callback = tf.keras.callbacks.ModelCheckpoint(
     filepath=checkpoint_path,
@@ -518,7 +580,7 @@ checkpoint_callback = tf.keras.callbacks.ModelCheckpoint(
     save_best_only=True,
 )
 
-# run training and plot generated images periodically
+# 트레이닝 실행 및 생성된 이미지를 주기적으로 플로팅
 model.fit(
     train_dataset,
     epochs=num_epochs,
@@ -646,62 +708,104 @@ Epoch 10/10
 
 {{% /details %}}
 
-## Inference
+## 추론 {#inference}
 
 ```python
-# load the best model and generate images
+# 최상의 모델을 로드하고 이미지를 생성합니다.
 model.load_weights(checkpoint_path)
 model.plot_images()
 ```
 
 ![png](/images/examples/generative/gan_ada/gan_ada_20_0.png)
 
-## Results
+## 결과 {#results}
 
-By running the training for 400 epochs (which takes 2-3 hours in a Colab notebook), one can get high quality image generations using this code example.
+이 코드 예제를 사용하여 400 에포크 동안 트레이닝을 실행하면 (Colab 노트북에서 2-3시간 소요),
+높은 품질의 이미지 생성을 얻을 수 있습니다.
 
-The evolution of a random batch of images over a 400 epoch training (ema=0.999 for animation smoothness):
+400 에포크 트레이닝 동안 랜덤 배치의 이미지 진화 과정 (애니메이션 부드러움을 위해 ema=0.999):
 
 ![birds evolution gif](/images/examples/generative/gan_ada/ecGuCcz.gif)
 
-Latent-space interpolation between a batch of selected images:
+선택된 이미지 배치 사이의 잠재 공간 보간:
 
 ![birds evolution gif](/images/examples/generative/gan_ada/nGvzlsC.gif)
 
-I also recommend trying out training on other datasets, such as [CelebA](https://www.tensorflow.org/datasets/catalog/celeb_a) for example. In my experience good results can be achieved without changing any hyperparameters (though discriminator augmentation might not be necessary).
+다른 데이터셋, 예를 들어 [CelebA](https://www.tensorflow.org/datasets/catalog/celeb_a)로
+트레이닝을 시도해보는 것도 추천합니다.
+제 경험으로는 어떤 하이퍼파라미터도 변경하지 않고도 좋은 결과를 얻을 수 있습니다.
+(다만, 판별자 보강이 필요하지 않을 수 있습니다)
 
-## GAN tips and tricks
+## GAN 팁 및 트릭 {#gan-tips-and-tricks}
 
-My goal with this example was to find a good tradeoff between ease of implementation and generation quality for GANs. During preparation, I have run numerous ablations using [this repository](https://github.com/beresandras/gan-flavours-keras).
+이 예제의 목표는 GAN에 대한 구현의 용이성과 생성 품질 사이에서 좋은 균형을 찾는 것이었습니다.
+준비 과정에서, 저는 [이 저장소](https://github.com/beresandras/gan-flavours-keras)를 사용하여,
+수많은 절제 실험(ablations)을 수행했습니다.
 
-In this section I list the lessons learned and my recommendations in my subjective order of importance.
+이 섹션에서는 제가 배운 교훈과 주관적으로 중요하다고 생각하는 순서대로 제 추천 사항을 나열합니다.
 
-I recommend checking out the [DCGAN paper](https://arxiv.org/abs/1511.06434), this [NeurIPS talk](https://www.youtube.com/watch?v=myGAju4L7O8), and this [large scale GAN study](https://arxiv.org/abs/1711.10337) for others' takes on this subject.
+또한, [DCGAN 논문](https://arxiv.org/abs/1511.06434),
+이 [NeurIPS 강연](https://www.youtube.com/watch?v=myGAju4L7O8),
+그리고 이 [대규모 GAN 연구](https://arxiv.org/abs/1711.10337)를 참고하여,
+다른 연구자들의 의견도 확인해 보시기 바랍니다.
 
-### Architectural tips
+### 아키텍쳐 팁 {#architectural-tips}
 
-- **resolution**: Training GANs at higher resolutions tends to get more difficult, I recommend experimenting at 32x32 or 64x64 resolutions initially.
-- **initialization**: If you see strong colorful patterns early on in the training, the initialization might be the issue. Set the kernel_initializer parameters of layers to [random normal]({{< relref "/docs/api/layers/initializers/#randomnormal-class" >}}), and decrease the standard deviation (recommended value: 0.02, following DCGAN) until the issue disappears.
-- **upsampling**: There are two main methods for upsampling in the generator. [Transposed convolution]({{< relref "/docs/api/layers/convolution_layers/convolution2d_transpose" >}}) is faster, but can lead to [checkerboard artifacts](https://distill.pub/2016/deconv-checkerboard/), which can be reduced by using a kernel size that is divisible with the stride (recommended kernel size is 4 for a stride of 2). [Upsampling]({{< relref "/docs/api/layers/reshaping_layers/up_sampling2d" >}}) + [standard convolution]({{< relref "/docs/api/layers/convolution_layers/convolution2d" >}}) can have slightly lower quality, but checkerboard artifacts are not an issue. I recommend using nearest-neighbor interpolation over bilinear for it.
-- **batch normalization in discriminator**: Sometimes has a high impact, I recommend trying out both ways.
-- **[spectral normalization](https://www.tensorflow.org/addons/api_docs/python/tfa/layers/SpectralNormalization)**: A popular technique for training GANs, can help with stability. I recommend disabling batch normalization's learnable scale parameters along with it.
-- **[residual connections]({{< relref "/docs/guides/functional_api/#a-toy-resnet-model" >}})**: While residual discriminators behave similarly, residual generators are more difficult to train in my experience. They are however necessary for training large and deep architectures. I recommend starting with non-residual architectures.
-- **dropout**: Using dropout before the last layer of the discriminator improves generation quality in my experience. Recommended dropout rate is below 0.5.
-- **[leaky ReLU]({{< relref "/docs/api/layers/activation_layers/leaky_relu" >}})**: Use leaky ReLU activations in the discriminator to make its gradients less sparse. Recommended slope/alpha is 0.2 following DCGAN.
+- **해상도**: 더 높은 해상도에서 GAN을 트레이닝하는 것은 점점 더 어려워지기 때문에,
+  처음에는 32x32 또는 64x64 해상도에서 실험해 볼 것을 권장합니다.
+- **초기화**: 트레이닝 초기에 강한 컬러 패턴이 나타나면, 초기화가 문제일 수 있습니다.
+  레이어의 `kernel_initializer` 파라미터를 [랜덤 노말]({{< relref "/docs/api/layers/initializers/#randomnormal-class" >}})로 설정하고, 표준 편차를 감소시키세요. (DCGAN을 따르며 추천 값: 0.02)
+  이 값이 문제를 해결할 때까지 조정하세요.
+- **업샘플링**: 생성자에서 업샘플링을 위한 두 가지 메인 메서드가 있습니다.
+  [전치 컨볼루션]({{< relref "/docs/api/layers/convolution_layers/convolution2d_transpose" >}})은 더 빠르지만,
+  [체커보드 아티팩트](https://distill.pub/2016/deconv-checkerboard/)를 유발할 수 있습니다.
+  이를 줄이기 위해서는 stride와 나누어 떨어지는 커널 크기를 사용하는 것이 좋습니다. (stride가 2일 때 추천 커널 크기는 4)
+  [업샘플링]({{< relref "/docs/api/layers/reshaping_layers/up_sampling2d" >}}) + [표준 컨볼루션]({{< relref "/docs/api/layers/convolution_layers/convolution2d" >}})은 품질이 약간 낮을 수 있지만, 체커보드 아티팩트 문제는 없습니다.
+  이를 위해서는 최근접 이웃 보간을 선형 보간 대신 사용하는 것이 좋습니다.
+- **판별자에서의 배치 정규화**: 때로는 큰 영향을 미칠 수 있으므로, 두 가지 방법을 모두 시도해 볼 것을 권장합니다.
+- **[스펙트럼 정규화](https://www.tensorflow.org/addons/api_docs/python/tfa/layers/SpectralNormalization)**:
+  GAN 트레이닝을 위한 인기 있는 기법으로, 안정성에 도움이 될 수 있습니다.
+  이를 사용할 때 배치 정규화의 학습 가능한 스케일 파라미터를 비활성화할 것을 권장합니다.
+- **[residual 연결]({{< relref "/docs/guides/functional_api/#a-toy-resnet-model" >}})**:
+  residual 판별자는 유사하게 작동하지만, 제 경험상 residual 생성자는 트레이닝이 더 어렵습니다.
+  그러나 대규모 깊은 아키텍처를 트레이닝할 때는 필수적입니다.
+  residual 연결이 없는 아키텍처로 시작하는 것을 권장합니다.
+- **드롭아웃**: 판별자의 마지막 레이어 전에 드롭아웃을 사용하면 생성 품질이 향상된다는 것이 제 경험입니다.
+  추천 드롭아웃 비율은 0.5 이하입니다.
+- **[Leaky ReLU]({{< relref "/docs/api/layers/activation_layers/leaky_relu" >}})**:
+  판별자에서 Leaky ReLU 활성화를 사용하여 그래디언트를 덜 희소하게(less sparse) 만드세요.
+  DCGAN을 따라 추천 기울기/알파는 0.2입니다.
 
-### Algorithmic tips
+### 알고리즘 팁 {#algorithmic-tips}
 
-- **loss functions**: Numerous losses have been proposed over the years for training GANs, promising improved performance and stability. I have implemented 5 of them in [this repository](https://github.com/beresandras/gan-flavours-keras), and my experience is in line with [this GAN study](https://arxiv.org/abs/1711.10337): no loss seems to consistently outperform the default non-saturating GAN loss. I recommend using that as a default.
-- **Adam's beta_1 parameter**: The beta_1 parameter in Adam can be interpreted as the momentum of mean gradient estimation. Using 0.5 or even 0.0 instead of the default 0.9 value was proposed in DCGAN and is important. This example would not work using its default value.
-- **separate batch normalization for generated and real images**: The forward pass of the discriminator should be separate for the generated and real images. Doing otherwise can lead to artifacts (45 degree stripes in my case) and decreased performance.
-- **exponential moving average of generator's weights**: This helps to reduce the variance of the KID measurement, and helps in averaging out the rapid color palette changes during training.
-- **[different learning rate for generator and discriminator](https://arxiv.org/abs/1706.08500)**: If one has the resources, it can help to tune the learning rates of the two networks separately. A similar idea is to update either network's (usually the discriminator's) weights multiple times for each of the other network's updates. I recommend using the same learning rate of 2e-4 (Adam), following DCGAN for both networks, and only updating both of them once as a default.
-- **label noise**: [One-sided label smoothing](https://arxiv.org/abs/1606.03498) (using less than 1.0 for real labels), or adding noise to the labels can regularize the discriminator not to get overconfident, however in my case they did not improve performance.
-- **adaptive data augmentation**: Since it adds another dynamic component to the training process, disable it as a default, and only enable it when the other components already work well.
+- **손실 함수**: GAN 트레이닝을 위해 여러 해에 걸쳐 많은 손실 함수가 제안되었으며, 더 나은 성능과 안정성을 약속합니다.
+  [이 저장소](https://github.com/beresandras/gan-flavours-keras)에서 5가지 손실 함수를 구현했으며,
+  제 경험은 [이 GAN 연구](https://arxiv.org/abs/1711.10337)와 일치합니다.
+  기본 비포화 GAN 손실을 일관되게 능가하는 손실 함수는 없어 보입니다.
+  기본값으로 이를 사용하는 것을 권장합니다.
+- **Adam의 beta_1 파라미터**: Adam의 beta_1 파라미터는 평균 그래디언트 추정의 모멘텀으로 해석될 수 있습니다.
+  기본값인 0.9 대신 0.5 또는 심지어 0.0을 사용하는 것이 DCGAN에서 제안되었으며, 이는 중요합니다.
+  이 예제는 기본값을 사용할 경우, 작동하지 않을 것입니다.
+- **생성된 이미지와 실제 이미지에 대한 별도의 배치 정규화**:
+  판별자의 순전파는 생성된 이미지와 실제 이미지에 대해 별도로 수행해야 합니다.
+  그렇지 않으면, 아티팩트(제 경우에는 45도 줄무늬)가 나타나고 성능이 저하될 수 있습니다.
+- **생성자의 가중치의 지수 이동 평균**:
+  이는 KID 측정의 분산을 줄이는 데 도움을 주고,
+  트레이닝 중 급격한 색상 팔레트 변화를 평균화하는 데 도움이 됩니다.
+- **[생성자와 판별자에 대한 다른 학습률](https://arxiv.org/abs/1706.08500)**:
+  리소스가 충분하다면, 두 네트워크의 학습률을 따로 조정하는 것이 도움이 될 수 있습니다.
+  비슷한 아이디어로는, 한 네트워크(보통 판별자)의 가중치를 다른 네트워크의 업데이트마다 여러 번 업데이트하는 것입니다.
+  두 네트워크 모두 DCGAN을 따라 2e-4 (Adam) 학습률을 사용하고,
+  기본값으로 두 네트워크를 한 번만 업데이트하는 것을 권장합니다.
+- **레이블 노이즈**: [일방향 레이블 스무딩](https://arxiv.org/abs/1606.03498) (실제 레이블에 대해 1.0 미만을 사용) 또는
+  레이블에 노이즈를 추가하는 것은 판별자가 과도하게 확신하지 않도록 정규화할 수 있습니다.
+  그러나 제 경우에는 성능을 개선하지 않았습니다.
+- **적응형 데이터 보강**: 트레이닝 프로세스에 또 다른 동적 요소를 추가하기 때문에,
+  기본적으로 비활성화하고 다른 요소들이 이미 잘 작동할 때만 활성화하는 것이 좋습니다.
 
-## Related works
+## 관련 연구 {#related-works}
 
-Other GAN-related Keras code examples:
+다른 GAN 관련 Keras 코드 예제:
 
 - [DCGAN + CelebA]({{< relref "/docs/examples/generative/dcgan_overriding_train_step" >}})
 - [WGAN + FashionMNIST]({{< relref "/docs/examples/generative/wgan_gp" >}})
@@ -710,11 +814,11 @@ Other GAN-related Keras code examples:
 - [CycleGAN + Horse2Zebra]({{< relref "/docs/examples/generative/cyclegan" >}})
 - [StyleGAN]({{< relref "/docs/examples/generative/stylegan" >}})
 
-Modern GAN architecture-lines:
+최신 GAN 아키텍처 라인:
 
 - [SAGAN](https://arxiv.org/abs/1805.08318), [BigGAN](https://arxiv.org/abs/1809.11096)
 - [ProgressiveGAN](https://arxiv.org/abs/1710.10196), [StyleGAN](https://arxiv.org/abs/1812.04948), [StyleGAN2](https://arxiv.org/abs/1912.04958), [StyleGAN2-ADA](https://arxiv.org/abs/2006.06676), [AliasFreeGAN](https://arxiv.org/abs/2106.12423)
 
-Concurrent papers on discriminator data augmentation: [1](https://arxiv.org/abs/2006.02595), [2](https://arxiv.org/abs/2006.05338), [3](https://arxiv.org/abs/2006.10738)
+판별자 데이터 보강에 관한 동시 논문: [1](https://arxiv.org/abs/2006.02595), [2](https://arxiv.org/abs/2006.05338), [3](https://arxiv.org/abs/2006.10738)
 
-Recent literature overview on GANs: [talk](https://www.youtube.com/watch?v=3ktD752xq5k)
+최근 GAN에 대한 문헌 개요: [강연](https://www.youtube.com/watch?v=3ktD752xq5k)
