@@ -1,5 +1,6 @@
 ---
-title: A walk through latent space with Stable Diffusion 3
+title: Stable Diffusion 3으로 잠재 공간 걷기
+linkTitle: Stable Diffusion 3 잠재 공간 걷기
 toc: true
 weight: 27
 type: docs
@@ -19,7 +20,7 @@ type: docs
 {{< card link="https://github.com/keras-team/keras-io/blob/master/examples/generative/random_walks_with_stable_diffusion_3.py" title="GitHub" tag="GitHub">}}
 {{< /cards >}}
 
-## Overview
+## Overview {#overview}
 
 Generative image models learn a "latent manifold" of the visual world: a low-dimensional vector space where each point maps to an image. Going from such a point on the manifold back to a displayable image is called "decoding" – in the Stable Diffusion model, this is handled by the "decoder" model.
 
@@ -172,7 +173,7 @@ elif keras.config.backend() == "jax":
     generate_function = wrapped_function
 ```
 
-## Interpolating between text prompts
+## Interpolating between text prompts {#interpolating-between-text-prompts}
 
 In Stable Diffusion 3, a text prompt is encoded into multiple vectors, which are then used to guide the diffusion process. These latent encoding vectors have shapes of 154x4096 and 2048 for both the positive and negative prompts - quite large! When we input a text prompt into Stable Diffusion 3, we generate images from a single point on this latent manifold.
 
@@ -513,7 +514,7 @@ plot_grid(images, "4-way-interpolation-varying-latent.jpg", interpolation_steps)
 
 Next up – let's go for some walks!
 
-## A walk around a text prompt
+## A walk around a text prompt {#a-walk-around-a-text-prompt}
 
 Our next experiment will be to go for a walk around the latent manifold starting from a point produced by a particular prompt.
 
@@ -595,7 +596,7 @@ export_as_gif(
 
 Perhaps unsurprisingly, walking too far from the encoder's latent manifold produces images that look incoherent. Try it for yourself by setting your own prompt, and adjusting `step_size` to increase or decrease the magnitude of the walk. Note that when the magnitude of the walk gets large, the walk often leads into areas which produce extremely noisy images.
 
-## A circular walk through the diffusion latent space for a single prompt
+## A circular walk through the diffusion latent space for a single prompt {#a-circular-walk-through-the-diffusion-latent-space-for-a-single-prompt}
 
 Our final experiment is to stick to one prompt and explore the variety of images that the diffusion model can produce from that prompt. We do this by controlling the noise that is used to seed the diffusion process.
 
@@ -648,6 +649,6 @@ export_as_gif(
 
 Experiment with your own prompts and with different values of the parameters!
 
-## Conclusion
+## Conclusion {#conclusion}
 
 Stable Diffusion 3 offers a lot more than just single text-to-image generation. Exploring the latent manifold of the text encoder and the latent space of the diffusion model are two fun ways to experience the power of this model, and KerasHub makes it easy!
